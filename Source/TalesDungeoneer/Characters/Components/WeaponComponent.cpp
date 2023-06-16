@@ -1,0 +1,678 @@
+﻿
+
+#include "WeaponComponent.h"
+#include "TalesDungeoneer/Weapons/WeaponSystem.h"
+#include "TalesDungeoneer/Characters/CharacterBase.h"
+#include "Kismet/GameplayStatics.h"
+#include "Net/UnrealNetwork.h"
+#include "TalesDungeoneer/Weapons/WeaponBase.h"
+
+float LocalPlayAnimMontage(ACharacter* characterReference, UAnimMontage* animMontage)
+{
+	if (IsValid(characterReference))
+	{
+		USkeletalMeshComponent* skMesh = characterReference->GetMesh();
+		if (IsValid(skMesh))
+		{
+			UAnimInstance* animInstance = skMesh->GetAnimInstance();
+			if (IsValid(animInstance))
+			{
+				return animInstance->Montage_Play(animMontage, 1.0f);
+			}
+		}
+	}
+	return 0.f;
+}
+
+// Sets default values for this component's properties
+UWeaponComponent::UWeaponComponent()
+{
+	PrimaryComponentTick.bCanEverTick = true;
+	SetIsReplicatedByDefault(true);
+	
+}
+
+void UWeaponComponent::SetToggleWeapon(EWeaponSlots WeaponSlot, bool MakeReady)
+{
+	if (!GetOwner()->HasAuthority()) return;
+	if (bShowDebug)
+	{
+		UE_LOG(LogTemp, Display, TEXT("%s(%s): SetToggleWeapon()"),
+			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+	}
+
+	// Determine which weapon we're affecting
+	const bool isPrimaryWeapon = WeaponSlot == EWeaponSlots::PRIMARY;
+	AWeaponBase* selectedWeapon = isPrimaryWeapon ? _PrimaryWeapon : _SecondaryWeapon;
+	if (isPrimaryWeapon ? bPrimaryOperating : bSecondaryOperating)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("%s(%s): Weapon is Operating. SetToggleWeapon() Ignored."),
+			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+		return;
+	}
+	
+	if (isPrimaryWeapon)
+	{
+		bPrimaryOperating = true;
+		//bPrimaryReady     = MakeReady;
+	}
+	else
+	{
+		bSecondaryOperating = true;
+		//bSecondaryReady     = MakeReady;
+	}
+	
+	if (IsValid(selectedWeapon))
+	{
+		selectedWeapon->setWeaponIsArmed(MakeReady);
+	}
+	const float changeTime = WeaponReadyChanged(WeaponSlot);
+
+	// Use timer
+	if (changeTime > 0.f)
+	{
+		FTimerHandle TempTimer; // Will self destruct after firing if loop is false
+		FTimerDelegate TempArgs;
+
+		// Sets operating to false after the delay time has been reached
+		// This prevents the weapons from being drawn/sheathed prematurely
+		TempArgs.BindUFunction(this, FName("WeaponSlotReady"), WeaponSlot);
+		GetWorld()->GetTimerManager().SetTimer(TempTimer, TempArgs, changeTime, false);
+	}
+	// Otherwise just make the weapon ready
+	else
+		WeaponSlotReady(WeaponSlot);
+	
+}
+
+void UWeaponComponent::AdjustWeaponAttachment(EWeaponSlots weaponSlot)
+{
+	//if (!GetOwner()->HasAuthority()) return;
+	if (bShowDebug)
+	{
+		UE_LOG(LogTemp, Display, TEXT("%s(%s): AdjustWeaponAttachment()"),
+			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+	}
+	const ACharacter* ownerActor = Cast<ACharacter>(GetOwner());
+	if (!IsValid(ownerActor)) return;
+
+	AWeaponBase* tempWeapon = _PrimaryWeapon;
+	switch (weaponSlot)
+	{
+	case EWeaponSlots::SECONDARY:
+		tempWeapon = _SecondaryWeapon;
+		break;
+	default:
+		break;
+	}
+	if (!IsValid(tempWeapon)) return; // prevent invalid memory access
+	
+	const bool isWeaponReady = tempWeapon->getIsWeaponArmed();
+	
+	const FStWeaponData weaponData = tempWeapon->getWeaponData();
+	const FVector locationOffset = isWeaponReady ? weaponData.ActorHeldOffset	: weaponData.ActorHolsterOffset;
+	const FRotator rotateOffset	 = isWeaponReady ? weaponData.ActorHeldRotation	: weaponData.ActorHolsterRotation;
+	const FName socketName		 = isWeaponReady ? weaponData.ActorHeldBone		: weaponData.ActorHolsterBone;
+	
+	tempWeapon->AttachToComponent(ownerActor->GetMesh(),
+		FAttachmentTransformRules::SnapToTargetNotIncludingScale, socketName);
+	tempWeapon->AddActorLocalOffset(locationOffset, false);
+	tempWeapon->AddActorLocalRotation(rotateOffset, false);
+}
+
+void UWeaponComponent::Server_ToggleWeapon_Implementation(EWeaponSlots weaponType, bool makeReady)
+{
+	if (!GetOwner()->HasAuthority()) return;
+	if (bShowDebug)
+	{
+		UE_LOG(LogTemp, Display, TEXT("%s(%s): Server_ToggleWeapon_Implementation()"),
+			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+	}
+	AWeaponBase* tempWeapon = _PrimaryWeapon;
+	switch (weaponType)
+	{
+	case EWeaponSlots::SECONDARY:
+		tempWeapon = _SecondaryWeapon;
+		break;
+	default:
+		break;
+	}
+	
+	if (IsValid(tempWeapon))
+	{
+		// Do nothing if the status of the weapon isn't changing
+		if (tempWeapon->getIsWeaponArmed() != makeReady)
+			SetToggleWeapon(weaponType, makeReady);
+	}
+}
+
+bool UWeaponComponent::PerformAttack(EWeaponSlots weaponType)
+{
+	const FDateTime nowTime = FDateTime::UtcNow();
+	if (_NextAttackTime > nowTime)
+	{
+		// At least 1/4 second per attack, to prevent DDOSing the server
+		// Still needs to be verified server-side
+		return false;
+	}
+
+	if (bShowDebug)
+	{
+		UE_LOG(LogTemp, Display, TEXT("%s(%s): PerformAttack()"),
+			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+	}
+	
+	const ACharacterBase* ownerActor = Cast<ACharacterBase>(GetOwner());
+	if (IsValid(ownerActor))
+	{
+
+		AWeaponBase* hitWeapon = _PrimaryWeapon;
+		switch (weaponType)
+		{
+		case EWeaponSlots::SECONDARY:
+			hitWeapon = _SecondaryWeapon;
+			break;
+		default:
+			break;
+		}
+			
+		if (!IsValid(hitWeapon))
+		{
+			UE_LOG(LogTemp, Display, TEXT("%s(%s): Selected PerformAttack(weapon) was invalid - nullptr"),
+			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+			return false;
+		}
+			
+		if (bVerboseOutput)
+		{
+			UE_LOG(LogTemp, Display, TEXT("%s(%s): PerformAttack weapon (%s) valid. Continuing!"),
+					*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"),
+					*hitWeapon->GetName());
+		}
+		const FStWeaponData weaponData = hitWeapon->getWeaponData();
+		const float addTime = weaponData.AttackDelay * 1000; 
+		_NextAttackTime = nowTime + FTimespan::FromMilliseconds(addTime);
+		
+		Server_RequestAttack(weaponType);
+		
+		// If the attacker is a game mode character, we need to do some more stuff
+		ACharacterBase* ownerCharacter = Cast<ACharacterBase>(GetOwner());
+		if (IsValid(ownerCharacter))
+		{
+			const EWeaponTypes animWeaponType = hitWeapon->getWeaponData().WeaponType;
+			if (hitWeapon->getIsWeaponArmed())
+			{
+				if (AttackAnimations.Contains(animWeaponType))
+				{
+					UAnimMontage* animMontage = AttackAnimations[animWeaponType];
+					if (IsValid(animMontage))
+					{
+						LocalPlayAnimMontage(ownerCharacter, animMontage);
+					}
+				}
+			}
+			else
+			{
+				if (DrawAnimations.Contains(animWeaponType))
+				{
+					UAnimMontage* animMontage = DrawAnimations[animWeaponType];
+					if (IsValid(animMontage))
+					{
+						LocalPlayAnimMontage(ownerCharacter, animMontage);
+					}
+				}
+				
+			}
+		}
+		
+		return true;
+	}
+	
+	return false;
+}
+
+void UWeaponComponent::SetIsBlocking(bool IsBlocking)
+{
+	if (IsBlocking)
+	{
+		// Make shield ready
+		SetToggleWeapon(EWeaponSlots::SECONDARY, true);
+	}
+	// If the shield item was already equipped, block immediately.
+	else
+	{
+		bBlocking = true;
+	}
+}
+
+bool UWeaponComponent::GetIsBlocking()
+{
+	return bBlocking;
+}
+
+void UWeaponComponent::SetTargetedActor(AActor* targetActor)
+{
+	if (!GetOwner()->HasAuthority()) return;
+	if (bShowDebug)
+	{
+		UE_LOG(LogTemp, Display, TEXT("%s(%s): SetTargetedActor()"),
+			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+	}
+	if (IsValid(targetActor))
+		_TargetActor = targetActor;
+	else
+		_TargetActor = nullptr;
+}
+
+void UWeaponComponent::ClearTargetedActor()
+{
+	if (!GetOwner()->HasAuthority()) return;
+	if (bShowDebug)
+	{
+		UE_LOG(LogTemp, Display, TEXT("%s(%s): ClearTargetedActor()"),
+			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+	}
+	_TargetActor = nullptr;
+}
+
+void UWeaponComponent::UnsetWeapon(EWeaponSlots weaponSlot)
+{
+	if (!GetOwner()->HasAuthority()) return;
+	if (bShowDebug)
+	{
+		UE_LOG(LogTemp, Display, TEXT("%s(%s): UnsetWeapon()"),
+			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+	}
+	if (bShowDebug)
+	{
+		UE_LOG(LogTemp, Display, TEXT("%s(%s): UnsetWeapon()"),
+			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+	}
+	// Block clients
+	if (!GetOwner()->HasAuthority()) return;
+
+	AWeaponBase* tempWeapon = nullptr;
+	switch (weaponSlot)
+	{
+	case EWeaponSlots::PRIMARY:
+		tempWeapon = _PrimaryWeapon;
+		break;
+	case EWeaponSlots::SECONDARY:
+		tempWeapon = _SecondaryWeapon;
+		break;
+	default:
+		break;
+	}
+	
+	// If a valid weapon is in this slot, we need to handle it.
+	if (IsValid(tempWeapon))
+	{
+		tempWeapon->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+		tempWeapon->SetOwner(nullptr);
+		tempWeapon->Destroy();
+	}
+}
+
+bool UWeaponComponent::GetIsWeaponReady(EWeaponSlots WeaponSlot) const
+{
+	switch(WeaponSlot)
+	{
+	case EWeaponSlots::PRIMARY:
+		if (IsValid(_PrimaryWeapon))
+			return _PrimaryWeapon->getIsWeaponArmed();
+		break;
+	case EWeaponSlots::SECONDARY:
+		if (IsValid(_SecondaryWeapon))
+			return _SecondaryWeapon->getIsWeaponArmed();
+		break;
+	default:
+		break;
+	}
+	return false;
+}
+
+void UWeaponComponent::SetWeapon(FName weaponName, EWeaponSlots weaponSlot)
+{
+	if (!GetOwner()->HasAuthority()) return;
+	if (bShowDebug)
+	{
+		UE_LOG(LogTemp, Display, TEXT("%s(%s): SetWeapon(%s)"),
+			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"),
+			*weaponName.ToString());
+	}
+
+	ACharacter* ownerActor = Cast<ACharacter>(GetOwner());
+	if (!IsValid(ownerActor)) return;
+
+	UnsetWeapon(weaponSlot);
+	
+	// Add the next weapon
+	const FStWeaponData weaponData = UWeaponSystem::GetWeaponDataFromName(weaponName);
+	if (UWeaponSystem::GetWeaponIsValid(weaponData))
+	{
+		if (UItemSystem::getItemNameIsValid(weaponName))
+		{
+			const TSubclassOf<AWeaponBase> weaponClass = weaponData.SpawnClass;
+			
+			FActorSpawnParameters spawnParams;
+			spawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+			// Spawn the actor and wait for us to set up it's data
+			AWeaponBase* tempWeapon = GetWorld()->SpawnActorDeferred<AWeaponBase>(
+						weaponClass, ownerActor->GetActorTransform(), ownerActor,
+						nullptr, ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
+			
+			if (IsValid(tempWeapon))
+			{
+				tempWeapon->setWeaponName(weaponName);
+				
+				FTransform newTransform;
+				tempWeapon->FinishSpawning(newTransform);
+				tempWeapon->SetOwner(ownerActor);
+
+				switch(weaponSlot)
+				{
+				case EWeaponSlots::PRIMARY:
+					_PrimaryWeapon = tempWeapon;
+					break;
+				case EWeaponSlots::SECONDARY:
+					_SecondaryWeapon = tempWeapon;
+					break;
+				default:
+					tempWeapon->Destroy();
+					break;
+				}
+				
+				AdjustWeaponAttachment(weaponSlot);
+				
+			}
+			
+		}
+	}
+	
+}
+
+// Called when the game starts
+void UWeaponComponent::BeginPlay()
+{
+	Super::BeginPlay();
+	//if (!GetOwner()->HasAuthority()) return;
+	if (bShowDebug)
+	{
+		UE_LOG(LogTemp, Display, TEXT("%s(%s): BeginPlay()"),
+			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+	}
+	_NextAttackTime = FDateTime::UtcNow();
+}
+
+void UWeaponComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	// Replicated via Multicast to everyone, for things like mesh sync
+	DOREPLIFETIME_CONDITION(UWeaponComponent, _TargetActor,	 		COND_None);
+	DOREPLIFETIME_CONDITION(UWeaponComponent, _PrimaryWeapon,	 	COND_None);
+	DOREPLIFETIME_CONDITION(UWeaponComponent, _SecondaryWeapon,	 	COND_None);
+	//DOREPLIFETIME_CONDITION(UWeaponComponent, _NextAttackTime,	 		COND_OwnerOnly);
+}
+
+void UWeaponComponent::OnComponentCreated()
+{
+	if (bVerboseOutput) bShowDebug = true;
+	Super::OnComponentCreated();
+	
+	SetAutoActivate(true);
+	SetIsReplicated(true);
+	
+	RegisterComponent();
+	
+}
+
+void UWeaponComponent::WeaponSlotReady(EWeaponSlots WeaponSlot)
+{
+	AdjustWeaponAttachment(WeaponSlot);
+	switch(WeaponSlot)
+	{
+	case EWeaponSlots::PRIMARY:
+		bPrimaryOperating = false;
+		UE_LOG(LogTemp, Display, TEXT("WeaponSlotReady(): Primary Weapon is NO LONGER operating"));
+		break;
+		
+	case EWeaponSlots::SECONDARY:
+		bSecondaryOperating = false;
+		UE_LOG(LogTemp, Display, TEXT("WeaponSlotReady(): Secondary Weapon is NO LONGER operating"));
+		break;
+		
+	// Set both to false as an "oh crap" case
+	default:
+		bPrimaryOperating	= false;
+		UE_LOG(LogTemp, Display, TEXT("WeaponSlotReady(): Primary Weapon is NO LONGER operating"));
+		bSecondaryOperating = false;
+		UE_LOG(LogTemp, Display, TEXT("WeaponSlotReady(): Secondary Weapon is NO LONGER operating"));
+		break;
+	}
+}
+
+float UWeaponComponent::WeaponReadyChanged(EWeaponSlots weaponSlot)
+{
+	if (bShowDebug)
+	{
+		UE_LOG(LogTemp, Display, TEXT("%s(%s): WeaponReadyChanged()"),
+			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+	}
+	AWeaponBase* hitWeapon = nullptr;
+	switch(weaponSlot)
+	{
+	case EWeaponSlots::PRIMARY:
+		if (IsValid(_PrimaryWeapon))
+		{
+			hitWeapon = _PrimaryWeapon;
+		}
+		break;
+	case EWeaponSlots::SECONDARY:
+		if (IsValid(_SecondaryWeapon))
+		{
+			hitWeapon = _SecondaryWeapon;
+		}
+		break;
+	default:
+		break;
+	}
+	
+	if (IsValid(GetOwner()))
+	{
+		// If the montage is invalid
+		const EWeaponTypes WeaponType = hitWeapon->getWeaponData().WeaponType;
+		if (StowAnimations.Contains(WeaponType))
+		{
+			UAnimMontage* animMontage = StowAnimations[WeaponType];
+			if (hitWeapon->getIsWeaponArmed())
+			{
+				if (DrawAnimations.Contains(WeaponType))
+					animMontage = DrawAnimations[WeaponType];
+				else
+					animMontage = nullptr;
+			}
+			
+			if (IsValid(animMontage))
+			{
+				if (GetOwner()->HasAuthority())
+				{
+					Multicast_SendAnimation(Cast<ACharacter>(GetOwner()), animMontage);
+				}
+				else
+				{
+					const float animLength = LocalPlayAnimMontage(Cast<ACharacter>(
+												GetOwner()), animMontage);
+					if (animLength <= 0.f)
+					{
+						UE_LOG(LogTemp, Warning, TEXT("Failed to play Anim Montage '%s'"), *animMontage->GetPathName());
+					}
+				}
+			}
+		}
+		if (IsValid(hitWeapon))
+		{
+			return hitWeapon->getIsWeaponArmed() ?
+				     hitWeapon->getWeaponData().DelayDrawTime
+				   : hitWeapon->getWeaponData().DelayStowTime;
+		}
+	}
+	return 0.f;
+}
+
+void UWeaponComponent::Multicast_WeaponSoundEffect_Implementation(ACharacter* characterRef, USoundBase* soundEffect)
+{
+	if (bShowDebug)
+	{
+		UE_LOG(LogTemp, Display, TEXT("%s(%s): Multicast_WeaponSoundEffect_Implementation()"),
+			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+	}
+	if (IsValid(characterRef))
+	{
+		const FVector soundLocation = characterRef->GetActorLocation();
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), soundEffect, soundLocation, FRotator());
+	}
+}
+
+void UWeaponComponent::Multicast_SendAnimation_Implementation(ACharacter* characterRef, UAnimMontage* animToPlay)
+{
+	if (bShowDebug)
+	{
+		UE_LOG(LogTemp, Display, TEXT("%s(%s): Multicast_SendAnimation_Implementation()"),
+			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+	}
+	
+	// Dont play on the activating client, they played it when they ran the command
+	const ULocalPlayer* localPlayer = GetWorld()->GetFirstLocalPlayerFromController();
+	if ( IsValid(localPlayer) )
+	{
+		if (GetOwner()->GetInstigatorController() == localPlayer->PlayerController)
+		{
+			UE_LOG(LogTemp, Display, TEXT("%s(%s): Animation was self; Ignoring."),
+				*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+			return;
+		}
+	}
+	const float animLength = LocalPlayAnimMontage(characterRef, animToPlay);
+	if (animLength <= 0.f)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Failed to play Anim Montage '%s'"), *animToPlay->GetPathName());
+	}
+}
+
+void UWeaponComponent::SendSoundEffect(ACharacter* characterRef, USoundBase* soundToPlay)
+{
+	if (bShowDebug)
+	{
+		UE_LOG(LogTemp, Display, TEXT("%s(%s): SendSoundEffect()"),
+			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+	}
+	if (IsValid(characterRef))
+		Multicast_WeaponSoundEffect(characterRef, soundToPlay);
+}
+
+void UWeaponComponent::DelaySoundEffect(USoundBase* soundToPlay, float soundDelay)
+{
+	if (soundDelay <= 0.0f)
+		SendSoundEffect(Cast<ACharacter>(GetOwner()), soundToPlay);
+	else
+	{
+		FTimerDelegate attackArgs;
+		attackArgs.BindUFunction(this, FName("SendSoundEffect"),
+			Cast<ACharacter>(GetOwner()), soundToPlay);
+	
+		FTimerHandle doSoundEffectTimer;
+		GetWorld()->GetTimerManager().SetTimer(
+			doSoundEffectTimer, attackArgs, soundDelay, false);
+	}
+}
+
+void UWeaponComponent::Server_RequestAttack_Implementation(EWeaponSlots weaponType)
+{
+	if (bShowDebug)
+	{
+		UE_LOG(LogTemp, Display, TEXT("%s(%s): Server_RequestAttack_Implementation()"),
+			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+	}
+	
+	if (GetOwner()->HasAuthority())
+	{
+		FDateTime nowTime = FDateTime::UtcNow();
+		if (_NextAttackTime < nowTime)
+		{
+			// Determine the weapon being used
+			AWeaponBase* weaponInUse = _PrimaryWeapon;
+			bool isOperating = bPrimaryOperating;
+			switch (weaponType)
+			{
+			case EWeaponSlots::SECONDARY:
+				weaponInUse = _SecondaryWeapon;
+				isOperating = bSecondaryOperating;
+				break;
+			default:
+				break;
+			}
+
+			if (isOperating)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("%s(%s): Server_RequestAttack - Weapon is operating!"), *GetName(), GetOwner()->HasAuthority()?TEXT("SRV"):TEXT("CLI"));
+				return;
+			}
+
+			if (!weaponInUse->getIsWeaponArmed())
+			{
+				SetToggleWeapon(weaponType, true);
+				return;
+			}
+
+			if (!IsValid(weaponInUse))
+			{
+				if (bShowDebug)
+					UE_LOG(LogTemp, Error, TEXT("%s(%s): Server_RequestAttack - No weapon in use!"), *GetName(), GetOwner()->HasAuthority()?TEXT("SRV"):TEXT("CLI"));
+				return;
+			}
+			
+			const FStWeaponData weaponData = weaponInUse->getWeaponData();
+			
+			// Add cooldown to the next attack
+			const int mSeconds = static_cast<int>(weaponData.AttackDelay * 1000);
+			_NextAttackTime = nowTime + FTimespan::FromMilliseconds(mSeconds);
+
+			// Authorize Attack
+			UE_LOG(LogTemp, Display, TEXT("%s(%s): Server_RequestAttack - doAttack()"), *GetName(), GetOwner()->HasAuthority()?TEXT("SRV"):TEXT("CLI"));
+			
+			if (weaponInUse->doAttack())
+			{
+				ACharacterBase* ownerCharacter = Cast<ACharacterBase>(GetOwner());
+
+				// If the attacker is a gamemode character, we need to do some more stuff
+				if (IsValid(ownerCharacter))
+				{
+					const EWeaponTypes animWeaponType = weaponInUse->getWeaponData().WeaponType;
+					if (!AttackAnimations.Contains(animWeaponType))
+						return;
+					
+					UAnimMontage* animMontage = AttackAnimations[animWeaponType];
+					if (IsValid(animMontage))
+					{
+						Multicast_SendAnimation(ownerCharacter, animMontage);
+					}
+					
+				}
+			}
+		}
+	}// if server (authority)
+}
+
+void UWeaponComponent::OnRep_TargetChanged_Implementation()
+{
+	if (bShowDebug)
+	{
+		UE_LOG(LogTemp, Display, TEXT("%s(%s): OnRep_TargetChanged_Implementation()"),
+			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+	}
+	FString newTgt = "-no target-";
+	if (IsValid(_TargetActor)) newTgt = _TargetActor->GetName();
+	UE_LOG(LogTemp, Display, TEXT("%s(%s): Target has Changed. New Target = %s"), *GetName(), GetOwner()->HasAuthority()?TEXT("SRV"):TEXT("CLI"), *newTgt);
+}
