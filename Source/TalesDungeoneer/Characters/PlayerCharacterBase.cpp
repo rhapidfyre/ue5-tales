@@ -45,7 +45,8 @@ void APlayerCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInpu
 
 void APlayerCharacterBase::BeginPlay()
 {
-
+	Super::BeginPlay();
+	
 	//Add Input Mapping Context
 	if ( APlayerController* PlayerController = Cast<APlayerController>(Controller) )
 	{

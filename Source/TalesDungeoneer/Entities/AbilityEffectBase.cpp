@@ -13,23 +13,19 @@ AAbilityEffectBase::AAbilityEffectBase()
 
 AAbilityEffectBase::AAbilityEffectBase(ACharacterBase* Instigator, const FName AbilityName, FVector ImpactLocation)
 {
+	SetAbilityInstigator(Instigator);
+	SetAbilityName(AbilityName);
+	SetImpactLocation(ImpactLocation);
 	
-	_Instigator		= Instigator;
-	_AbilityName	= AbilityName;
-	_ImpactLocation = ImpactLocation;
+	SetupDefaults();
 	
 }
 
 AAbilityEffectBase::AAbilityEffectBase(ACharacterBase* Instigator, const FName AbilityName, AActor* TargetActor)
 {
-	_Instigator  = Instigator;
-	_AbilityName = AbilityName;
-	_TargetActor		 = TargetActor;
-	
-	if (UAbilitySystem::GetAbilityNameIsValid(AbilityName))
-	{
-		_AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
-	}
+	SetAbilityInstigator(Instigator);
+	SetAbilityName(AbilityName);
+	SetTargetActor(Cast<ACharacterBase>(TargetActor));
 	
 	SetupDefaults();
 }
@@ -41,71 +37,98 @@ void AAbilityEffectBase::EventOnEffectTick_Implementation()
 
 void AAbilityEffectBase::SetAbilityInstigator(ACharacterBase* AbilityInstigator)
 {
-	if (HasAuthority())
+	if (!bInitialized)
 	{
-		if (!bInitialized && IsValid(AbilityInstigator))
+		if (HasAuthority())
 		{
-			_Instigator = AbilityInstigator;
+			if (!bInitialized && IsValid(AbilityInstigator))
+			{
+				_Instigator = AbilityInstigator;
+				UE_LOG(LogTemp,Warning, TEXT("%s(%s): SetAbilityInstigator()"),
+					*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+			}
 		}
 	}
 }
 
 void AAbilityEffectBase::SetTargetActor(ACharacterBase* TargetActor)
 {
-	if (HasAuthority())
+	if (!bInitialized)
 	{
-		if (!bInitialized && IsValid(TargetActor))
+		if (HasAuthority())
 		{
-			_TargetActor = TargetActor;
+			if (!bInitialized && IsValid(TargetActor))
+			{
+				_TargetActor = TargetActor;
+			}
 		}
 	}
 }
 
 void AAbilityEffectBase::SetImpactLocation(FVector ImpactLocation)
 {
-	if (HasAuthority())
+	if (!bInitialized)
 	{
-		if (!bInitialized && !ImpactLocation.IsNearlyZero(0.0001))
+		if (HasAuthority())
 		{
-			_ImpactLocation = ImpactLocation;
+			if (!bInitialized && !ImpactLocation.IsNearlyZero(0.0001))
+			{
+				_ImpactLocation = ImpactLocation;
+			}
 		}
 	}
 }
 
 void AAbilityEffectBase::SetImpactRotation(FRotator ImpactRotation)
 {
-	if (HasAuthority())
+	if (!bInitialized)
 	{
-		if (!bInitialized && !ImpactRotation.IsNearlyZero(0.0001))
+		if (HasAuthority())
 		{
-			_ImpactRotation = ImpactRotation;
+			if (!bInitialized && !ImpactRotation.IsNearlyZero(0.0001))
+			{
+				_ImpactRotation = ImpactRotation;
+			}
 		}
 	}
 }
 
 void AAbilityEffectBase::SetAbilityName(FName AbilityName)
 {
-	
-	if (UAbilitySystem::GetAbilityNameIsValid(AbilityName))
+	if (!bInitialized)
 	{
-		_AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
+		if (UAbilitySystem::GetAbilityNameIsValid(AbilityName))
+		{
+			_AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
+			InitializeAbility();
+		}
 	}
 }
 
 void AAbilityEffectBase::BeginPlay()
 {
-	bInitialized = true;
-	if (HasAuthority())
+	if (bShowDebug)
 	{
-		
-		if (!IsValid(_Instigator))
-		{
-			UE_LOG(LogTemp,Warning,
-				TEXT("'%s' was created with no owner... Destroying."), *GetName());
-			Destroy();
-			return;
-		}
+		UE_LOG(LogTemp, Display,
+			TEXT("%s(%s): Successfully created. Duration: %d"),
+			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), _TimeRemaining);
+	}
+	Super::BeginPlay();
+}
 
+void AAbilityEffectBase::BeginDestroy()
+{
+	Super::BeginDestroy();
+	UE_LOG(LogTemp,Warning, TEXT("%s(%s): BeginDestroy()"),
+		*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+}
+
+void AAbilityEffectBase::SetOwner(AActor* NewOwner)
+{
+	if (!bInitialized)
+	{
+		Super::SetOwner(NewOwner);
+	
 		_OriginLocation = GetActorLocation();
 
 		if (!IsValid(_TargetActor))
@@ -114,64 +137,58 @@ void AAbilityEffectBase::BeginPlay()
 			if (_ImpactLocation.IsNearlyZero(0.0001))
 				_TargetActor = _Instigator;
 		}
-	
-		// Determine Ability Data
-		_TimeRemaining = FMath::RoundToInt( _AbilityData.EffectDuration );
-
-		if (_TimeRemaining < 1)
-		{
-			UE_LOG(LogTemp, Warning,
-				TEXT("'%s' was created with an invalid duration of %d seconds... Destroying."),
-				*GetName(), _TimeRemaining);
-		
-			this->ConditionalBeginDestroy();
-			return;
-		
-		}
-
-		if (bShowDebug)
-		{
-			UE_LOG(LogTemp, Display,
-				TEXT("'%s' was successfully created with a duration of %d seconds."),
-				*GetName(), _TimeRemaining);
-		}
-
-		if (IsValid(_AbilityData.SpawnActor))
-		{
-			FTransform SpawnTransform = _Instigator->GetActorTransform();
-			SpawnTransform.SetScale3D( FVector(1.f) );
-		
-			ASpellActorBase* SpellActor = GetWorld()->SpawnActorDeferred<ASpellActorBase>(
-						ASpellActorBase::StaticClass(), SpawnTransform);
-
-			if (IsValid(SpellActor))
-			{
-				SpellActor->SetOwner(_Instigator);
-				
-				SpellActor->FinishSpawning(SpawnTransform);
-			}
-		
-		}
-	
-		// Start the expiration timer
-		GetWorld()->GetTimerManager().SetTimer(_EffectTimer, this,
-								&AAbilityEffectBase::EffectTick, 1.f, true);
-
-		// Trigger Delegates
-		OnEffectActivated.Broadcast();Super::BeginPlay();
+		UE_LOG(LogTemp, Display, TEXT("%s(%s): New Owner Set"),
+			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
 	}
 }
 
-void AAbilityEffectBase::BeginDestroy()
+void AAbilityEffectBase::SetAbilityReady()
 {
-	Super::BeginDestroy();
-	UE_LOG(LogTemp,Warning, TEXT("'%s' is being destroyed!"), *GetName());
+	if (!bInitialized)
+	{
+		// Perform setup verification steps
+		
+
+		bInitialized = true;
+		
+		// Activate Ability Actor
+		if (HasAuthority())
+		{
+			// Start the expiration timer
+			GetWorld()->GetTimerManager().SetTimer(_EffectTimer, this,
+									&AAbilityEffectBase::EffectTick, 1.f, true);
+
+			// Trigger Delegates
+			OnEffectActivated.Broadcast();
+		}
+	}
 }
 
 void AAbilityEffectBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(AAbilityEffectBase, _AbilityName);
+}
+
+void AAbilityEffectBase::InitializeAbility()
+{
+	
+	if (UAbilitySystem::GetAbilityNameIsValid(_AbilityName))
+	{
+		_AbilityData = UAbilitySystem::GetAbilityDataFromName(_AbilityName);
+	}
+	
+	// Determine Ability Data
+	_TimeRemaining = FMath::RoundToInt( _AbilityData.EffectDuration );
+
+	if (_TimeRemaining < 1)
+	{
+		UE_LOG(LogTemp, Warning,
+			TEXT("'%s' was created with an invalid duration of %d seconds... Destroying."),
+			*GetName(), _TimeRemaining);
+		return;
+	}
+	
 }
 
 void AAbilityEffectBase::SetupDefaults()

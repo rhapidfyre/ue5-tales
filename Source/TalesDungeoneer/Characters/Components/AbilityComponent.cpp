@@ -124,6 +124,7 @@ void UAbilityComponent::ActivateAbility(
 					break;
 				}
 				AbilityEffect->FinishSpawning(SpawnTransform);
+				AbilityEffect->SetAbilityReady(); // Manual 'BeginPlay()' Override
 				
 				if (IsValid(EffectTarget))
 				{

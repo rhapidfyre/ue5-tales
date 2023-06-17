@@ -5,7 +5,7 @@
 UDataTable* UAbilitySystem::GetAbilityDataTable()
 {
 	const FSoftObjectPath itemTable = FSoftObjectPath(
-		"/TalesDungeoneer/DataTables/DT_AbilityData.DT_AbilityData");
+		"/Game/TalesContent/DataTables/DT_AbilityData.DT_AbilityData");
 	UDataTable* dataTable = Cast<UDataTable>(itemTable.ResolveObject());
 	if (IsValid(dataTable)) return dataTable;
 	return Cast<UDataTable>(itemTable.TryLoad());

@@ -25,6 +25,11 @@ public:
 	AAbilityEffectBase();
 	AAbilityEffectBase(ACharacterBase* Instigator, const FName AbilityName, FVector ImpactLocation);
 	AAbilityEffectBase(ACharacterBase* Instigator, const FName AbilityName, AActor* TargetActor);
+
+	virtual void SetOwner(AActor* NewOwner) override;
+
+	// Called when spawning the actor in C++ and it is set up, ready to operate.
+	void SetAbilityReady();
 	
 	// Event triggers when the timer reached zero and the effect wears off
 	// Doesn't trigger on instant abilities with no timer or invalid object creation.
@@ -97,6 +102,8 @@ protected:
 		TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	
 private:
+
+	void InitializeAbility();
 
 	void SetupDefaults();
 
