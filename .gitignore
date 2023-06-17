@@ -1,5 +1,6 @@
 # Rider Linkage Files
-Plugins/**/*
+Plugins/RiderLink/**/*
+Plugins/**/Binaries/*
 Content/**/*
 !Content/TalesContent/**/*
 .idea/*
