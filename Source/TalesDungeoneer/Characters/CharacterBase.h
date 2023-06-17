@@ -6,6 +6,7 @@
 #include "InventoryComponent.h"
 #include "VitalityComponent.h"
 #include "Components/WeaponComponent.h"
+#include "Components/AbilityComponent.h"
 
 #include "CharacterBase.generated.h"
 
@@ -152,15 +153,15 @@ public: // members
 	UInputAction* SecondaryInputAction;
 
 	/** Character Inventory */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UInventoryComponent* InventoryComponent;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) UInventoryComponent* InventoryComponent;
 
 	/** Vitality Component */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UVitalityComponent*  VitalityComponent;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) UVitalityComponent*	 VitalityComponent;
 
 	/** Weapon Component */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UWeaponComponent*    WeaponComponent;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) UWeaponComponent*	 WeaponComponent;
+
+	/** Ability Component */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) UAbilityComponent*	 AbilityComponent;
 	
 };

@@ -13,9 +13,11 @@ AAbilityEffectBase::AAbilityEffectBase()
 
 AAbilityEffectBase::AAbilityEffectBase(ACharacterBase* Instigator, const FName AbilityName, FVector ImpactLocation)
 {
+	
 	_Instigator		= Instigator;
 	_AbilityName	= AbilityName;
 	_ImpactLocation = ImpactLocation;
+	
 }
 
 AAbilityEffectBase::AAbilityEffectBase(ACharacterBase* Instigator, const FName AbilityName, AActor* TargetActor)
@@ -28,6 +30,7 @@ AAbilityEffectBase::AAbilityEffectBase(ACharacterBase* Instigator, const FName A
 	{
 		_AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
 	}
+	
 	SetupDefaults();
 }
 
@@ -36,18 +39,13 @@ void AAbilityEffectBase::EventOnEffectTick_Implementation()
 	EffectTick();
 }
 
-void AAbilityEffectBase::CancelEffect()
-{
-	
-}
-
-void AAbilityEffectBase::SetInstigator(ACharacterBase* Instigator)
+void AAbilityEffectBase::SetAbilityInstigator(ACharacterBase* AbilityInstigator)
 {
 	if (HasAuthority())
 	{
-		if (!bInitialized && IsValid(Instigator))
+		if (!bInitialized && IsValid(AbilityInstigator))
 		{
-			_Instigator = Instigator;
+			_Instigator = AbilityInstigator;
 		}
 	}
 }
@@ -74,13 +72,29 @@ void AAbilityEffectBase::SetImpactLocation(FVector ImpactLocation)
 	}
 }
 
+void AAbilityEffectBase::SetImpactRotation(FRotator ImpactRotation)
+{
+	if (HasAuthority())
+	{
+		if (!bInitialized && !ImpactRotation.IsNearlyZero(0.0001))
+		{
+			_ImpactRotation = ImpactRotation;
+		}
+	}
+}
+
 void AAbilityEffectBase::SetAbilityName(FName AbilityName)
 {
 	
+	if (UAbilitySystem::GetAbilityNameIsValid(AbilityName))
+	{
+		_AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
+	}
 }
 
 void AAbilityEffectBase::BeginPlay()
 {
+	bInitialized = true;
 	if (HasAuthority())
 	{
 		
@@ -133,7 +147,8 @@ void AAbilityEffectBase::BeginPlay()
 			if (IsValid(SpellActor))
 			{
 				SpellActor->SetOwner(_Instigator);
-			
+				
+				SpellActor->FinishSpawning(SpawnTransform);
 			}
 		
 		}
@@ -150,6 +165,7 @@ void AAbilityEffectBase::BeginPlay()
 void AAbilityEffectBase::BeginDestroy()
 {
 	Super::BeginDestroy();
+	UE_LOG(LogTemp,Warning, TEXT("'%s' is being destroyed!"), *GetName());
 }
 
 void AAbilityEffectBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const

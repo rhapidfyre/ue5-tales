@@ -65,6 +65,9 @@ ACharacterBase::ACharacterBase()
 	WeaponComponent = CreateDefaultSubobject
 			<UWeaponComponent>(TEXT("WeaponComponent"));
 	
+	AbilityComponent = CreateDefaultSubobject
+			<UAbilityComponent>(TEXT("AbilityComponent"));
+	
 }
 
 void ACharacterBase::ToggleWeapon(EWeaponSlots WeaponSlot,

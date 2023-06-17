@@ -2,7 +2,6 @@
 
 #include "AbilityData.h"
 
-
 UDataTable* UAbilitySystem::GetAbilityDataTable()
 {
 	const FSoftObjectPath itemTable = FSoftObjectPath(

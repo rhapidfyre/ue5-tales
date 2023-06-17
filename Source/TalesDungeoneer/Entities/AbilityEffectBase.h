@@ -45,9 +45,9 @@ public:
 	/**
 	 * @brief Server Only\n Manually sets the instigator of this ability.
 	 *						Does nothing if the actor has finished initialization.
-	 * @param Instigator The character who should be the instigator
+	 * @param AbilityInstigator The character who should be the instigator
 	 */
-	UFUNCTION(BlueprintCallable) void SetInstigator(ACharacterBase* Instigator);
+	UFUNCTION(BlueprintCallable) void SetAbilityInstigator(ACharacterBase* AbilityInstigator);
 	
 	/**
 	 * @brief Server Only\n Manually sets the target actor of this ability.
@@ -63,6 +63,13 @@ public:
 	 * @param ImpactLocation The target impact location.
 	 */
 	UFUNCTION(BlueprintCallable) void SetImpactLocation(FVector ImpactLocation);
+
+	/**
+	 * @brief Server Only\n Manually sets the impact rotation of this ability.
+	 *						Does nothing if Target Actor is set.
+	 * @param ImpactRotation The target impact rotation.
+	 */
+	UFUNCTION(BlueprintCallable) void SetImpactRotation(FRotator ImpactRotation);
 
 	/**
 	 * @brief Server Only\n Manually sets the FName of the ability to inherit.
@@ -108,9 +115,15 @@ private:
 
 	// If no target, this is the location the ability will target or impact
 	UPROPERTY() FVector _ImpactLocation = FVector(0.f);
-
+	
+	// If no target actor, this is the rotation from (0,0,0)
+	UPROPERTY() FRotator _ImpactRotation = FRotator(0.f);
+	
 	// The location of the ability origination
 	UPROPERTY() FVector _OriginLocation = FVector(0.f); 
+	
+	// The rotiation of the ability origination
+	UPROPERTY() FVector _OriginRotation = FVector(0.f); 
 
 	// The timer that handles expiration and tick. Destroys object on expiration.
 	UPROPERTY() FTimerHandle _EffectTimer = FTimerHandle();
