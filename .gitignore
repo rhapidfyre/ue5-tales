@@ -2,33 +2,9 @@
 Plugins/RiderLink/**/*
 Plugins/**/Binaries/*
 Content/**/*
-!Content/TalesContent/**/*
 .idea/*
 
-
-Content/__ExternalActors__/*
-Content/__ExternalObjects__/*
-
-# Assets... Uploaded to Google Cloud instead
-Content/Hyper*/*
-Content/AOE_Abilities/*
-Content/M5VFXVOL*/*
-Content/Megascans/**/*
-Content/MS_Tropical/**/*
-Content/PiratesPack/**/*
-Content/PN_*/**/*
-Content/PyroVFX/*
-Content/Realistic_Starter_*/*
-Content/MW*/**/*
-Content/FXVarietyPack/**/*
-Content/Schooner_Hannah/*
-Content/OrcaGames*/*
-Content/SurvivalSea/*
-Content/FarmAnimalsPack/*
-Content/Skeleton_Pirate/*
-Content/GlowingOrbsPack/*
-Content/Magic_Projectiles/*
-Content/StarterContent/*
+!*/Content/TalesContent/*
 
 # Visual Studio 2015 user specific files
 .vs/
