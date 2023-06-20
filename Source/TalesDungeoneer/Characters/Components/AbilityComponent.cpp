@@ -29,43 +29,46 @@ void UAbilityComponent::AbilityAction(UInputAction* HotkeyAction)
 		{
 			if (Hotkey.AbilityInput == HotkeyAction)
 			{
-				if (GetOwner()->HasAuthority())
+				AController* PawnController = GetOwner()->GetInstigatorController();
+				if (IsValid(PawnController))
 				{
-					ActivateAbility(Hotkey.AbilityName, GetTargetedActor());
-				}
-				else
-				{
-					AController* PawnController = GetOwner()->GetInstigatorController();
-					if (IsValid(PawnController))
+					// Is it a player?
+					APlayerController* PlayerController = Cast<APlayerController>(PawnController);
+					if (IsValid(PlayerController))
 					{
-						// Is it a player?
-						APlayerController* PlayerController = Cast<APlayerController>(PawnController);
-						if (IsValid(PlayerController))
+						APlayerCameraManager* CamManager = PlayerController->PlayerCameraManager;
+						if (IsValid(CamManager))
 						{
-							APlayerCameraManager* CamManager = PlayerController->PlayerCameraManager;
-							if (IsValid(CamManager))
+							if (GetOwner()->HasAuthority())
+							{
+								ActivateAbility(Hotkey.AbilityName, GetTargetedActor(),
+									CamManager->GetActorForwardVector());
+							}
+							else
 							{
 								Server_RequestAbility(Hotkey.AbilityName,
 									GetTargetedActor(),
 									CamManager->GetActorForwardVector());
-								return;
 							}
-						}
-						
-						// Is it an NPC?
-						AAIController* AiController = Cast<AAIController>(PawnController);
-						if (IsValid(AiController))
-						{
-							FVector AiFocalPoint = AiController->GetFocalPoint();
-							ActivateAbility(Hotkey.AbilityName, GetTargetedActor(),
-								UKismetMathLibrary::GetDirectionUnitVector(
-									GetOwner()->GetActorLocation(), AiFocalPoint));
 							return;
 						}
-						
 					}
+					
+					// Is it an NPC?
+					AAIController* AiController = Cast<AAIController>(PawnController);
+					if (IsValid(AiController))
+					{
+						FVector AiFocalPoint = AiController->GetFocalPoint();
+						ActivateAbility(Hotkey.AbilityName, GetTargetedActor(),
+							UKismetMathLibrary::GetDirectionUnitVector(
+								GetOwner()->GetActorLocation(), AiFocalPoint));
+						return;
+					}
+
+					ActivateAbility(Hotkey.AbilityName, GetTargetedActor(),
+						GetOwner()->GetActorForwardVector());
+					
 				}
-				return;
 			}
 		}
 		UE_LOG(LogTemp, Warning, TEXT("%s(%s): Hotkey '%s' Not Found in Ability Actions!"),
@@ -192,10 +195,16 @@ void UAbilityComponent::SpawnEffectsActor(
 	const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
 	FTransform SpawnTransform(EffectInstigator->GetActorTransform());
 	SpawnTransform.SetScale3D(FVector(1.f));
-		
+
+	const FVector EndPosition = SpawnTransform.GetLocation() + (ForwardVector * AbilityData.MaxReach);
+	
 	// Spawns the ability effect actor
-	AAbilityEffectBase* AbilityEffect = GetWorld()->SpawnActorDeferred<AAbilityEffectBase>(
-			AbilityData.SpawnActor, SpawnTransform);
+	TSubclassOf<AAbilityEffectBase> AbilityBase = AAbilityEffectBase::StaticClass();
+	if (IsValid(AbilityData.SpawnActor))
+		AbilityBase = AbilityData.SpawnActor;
+	
+	AAbilityEffectBase* AbilityEffect = GetWorld()->
+				SpawnActorDeferred<AAbilityEffectBase>(AbilityBase, SpawnTransform);
 	
 	if (bShowDebug)
 	{
@@ -205,15 +214,36 @@ void UAbilityComponent::SpawnEffectsActor(
 	if (IsValid(AbilityEffect))
 	{
 		AbilityEffect->SetAbilityName(AbilityName);
-
+		AbilityEffect->SetTargetActor( Cast<ACharacterBase>(GetTargetedActor()) );
+		
+		AbilityEffect->FinishSpawning(SpawnTransform);
+		
 		if (IsValid(EffectInstigator) && !AbilityData.AttachBoneOnSpawn.IsNone())
 		{
 			USkeletalMeshComponent* SkeletalMesh = EffectInstigator->GetMesh();
 			AbilityEffect->AttachToComponent(SkeletalMesh,
 				FAttachmentTransformRules::SnapToTargetNotIncludingScale, AbilityData.AttachBoneOnSpawn);
 		}
+		
+		AbilityEffect->SetImpactLocation( GetOwner()->GetActorLocation() );
+		if (AbilityData.TargetType == EAbilityTarget::PROJECTILE)
+		{
+			FHitResult HitResult;
+			// ReSharper disable once CppTooWideScope
+			const bool TraceHit = GetWorld()->LineTraceSingleByChannel(HitResult,
+				AbilityEffect->GetActorLocation(), EndPosition,ECC_Visibility);
+			
+			if (TraceHit)
+			{
+				AbilityEffect->SetImpactLocation(HitResult.ImpactPoint);
+			}
+			else
+			{
+				AbilityEffect->SetImpactLocation(EndPosition);
+			}
+			
+		}
 				
-		AbilityEffect->FinishSpawning(SpawnTransform);
 		UE_LOG(LogTemp, Display, TEXT("%s(%s): AbilityEffect->FinishSpawning()"), *GetName(),
 			GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
 	}

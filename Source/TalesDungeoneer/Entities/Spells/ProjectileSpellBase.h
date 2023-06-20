@@ -61,8 +61,6 @@ protected:
 	virtual bool PerformMultiHitTrace(TArray<FHitResult>& HitResults);
 
 	virtual void AbilityComplete(bool WasSuccessful) override;
-
-private:
 	
 public: // variables (members)
 

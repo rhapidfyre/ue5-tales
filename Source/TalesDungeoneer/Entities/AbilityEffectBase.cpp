@@ -65,15 +65,9 @@ void AAbilityEffectBase::SetTargetActor(ACharacterBase* TargetActor)
 
 void AAbilityEffectBase::SetImpactLocation(FVector ImpactLocation)
 {
-	if (!bInitialized)
+	if (HasAuthority())
 	{
-		if (HasAuthority())
-		{
-			if (!bInitialized && !ImpactLocation.IsNearlyZero(0.0001))
-			{
-				_ImpactLocation = ImpactLocation;
-			}
-		}
+		_ImpactLocation = ImpactLocation;
 	}
 }
 

@@ -15,42 +15,13 @@
 // Sets default values
 AProjectileBase::AProjectileBase()
 {
-	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-	bReplicates = true;
-	
-	Arrow = CreateDefaultSubobject<UArrowComponent>(TEXT("Arrow"));
-	
-	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Movement"));
-	ProjectileMovement->SetIsReplicated(true);
-	ProjectileMovement->Deactivate();
-	
-	SphereCollision = CreateDefaultSubobject<USphereComponent>(TEXT("SphereCollision"));
-	SphereCollision->SetupAttachment(GetRootComponent());
-	SphereCollision->InitSphereRadius(40.f);
-	SphereCollision->SetIsReplicated(true);
-
-	// Set Collision Responses
-	SphereCollision->SetCollisionResponseToAllChannels(ECR_Ignore);
-	FCollisionResponseContainer CollResponse;
-
-	// Check for interception hit
-	CollResponse.SetResponse(ECC_Pawn, ECR_Overlap);
-	CollResponse.SetResponse(ECC_Destructible, ECR_Overlap);
-
-	// Check for extermination
-	CollResponse.SetResponse(ECC_Visibility, ECR_Overlap);
-	CollResponse.SetResponse(ECC_WorldDynamic, ECR_Overlap);
-	CollResponse.SetResponse(ECC_WorldStatic, ECR_Overlap);
-	
-	SphereCollision->SetCollisionResponseToChannels(CollResponse);
-	SphereCollision->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-	
+	SetupDefaults();
 }
 
 AProjectileBase::AProjectileBase(FName AbilityName)
 {
 	_AbilityName = AbilityName;
+	SetupDefaults();
 	SetFromAbilityData();
 }
 
@@ -72,13 +43,6 @@ void AProjectileBase::SetGravityConsidered(bool AllowGravity)
 	_GravityScale = AllowGravity ? 1.f : 0.f;
 }
 
-void AProjectileBase::SetProjectileDirection(FVector EndPosition)
-{
-	const FVector StartPosition = GetActorLocation();
-	const FVector WorldDirection = EndPosition - StartPosition;
-	SetActorRotation(WorldDirection.Rotation());
-}
-
 void AProjectileBase::SetProjectileScale(float newScale)
 {
 	UE_LOG(LogTemp, Warning, TEXT("%s: NOT YET IMPLEMENTED"), *GetName());
@@ -98,12 +62,61 @@ void AProjectileBase::BeginPlay()
 	{
 		SphereCollision->OnComponentHit.AddDynamic(this, &AProjectileBase::CheckCollision);
 		SphereCollision->OnComponentBeginOverlap.AddDynamic(this, &AProjectileBase::CheckOverlap);
+		
+		_OriginLocation = GetActorLocation();
+		
+		ProjectileMovement->ProjectileGravityScale = _GravityScale;
+		ProjectileMovement->Velocity = _SpeedVector;
+		ProjectileMovement->Activate(true);
+		
 	}
 	
-	ProjectileMovement->ProjectileGravityScale = _GravityScale;
-	ProjectileMovement->Velocity = _SpeedVector;
-	ProjectileMovement->Activate(true);
 	
+}
+
+void AProjectileBase::Destroyed()
+{
+	ApplyHitEffect(nullptr, GetActorLocation());
+	Super::Destroyed();
+}
+
+void AProjectileBase::SetupDefaults()
+{
+	
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = HasAuthority();
+	bReplicates = true;
+
+	SetActorTickEnabled( HasAuthority() );
+	
+	SphereCollision = CreateDefaultSubobject<USphereComponent>(TEXT("SphereCollision"));
+	SetRootComponent(SphereCollision);
+	SphereCollision->InitSphereRadius(40.f);
+	SphereCollision->SetIsReplicated(true);
+	
+	Arrow = CreateDefaultSubobject<UArrowComponent>(TEXT("Arrow"));
+	Arrow->SetHiddenInGame(false);
+	Arrow->SetupAttachment(GetRootComponent());
+	
+	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Movement"));
+	ProjectileMovement->SetIsReplicated(true);
+	ProjectileMovement->Deactivate();
+
+	// Set Collision Responses
+	SphereCollision->SetCollisionResponseToAllChannels(ECR_Ignore);
+	FCollisionResponseContainer CollResponse;
+
+	// Check for interception hit
+	CollResponse.SetResponse(ECC_Pawn, ECR_Overlap);
+	CollResponse.SetResponse(ECC_Destructible, ECR_Overlap);
+
+	// Check for extermination
+	CollResponse.SetResponse(ECC_Visibility, ECR_Overlap);
+	CollResponse.SetResponse(ECC_WorldDynamic, ECR_Overlap);
+	CollResponse.SetResponse(ECC_WorldStatic, ECR_Overlap);
+	
+	SphereCollision->SetCollisionResponseToChannels(CollResponse);
+	SphereCollision->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 }
 
 void AProjectileBase::SetFromAbilityData()
@@ -111,13 +124,7 @@ void AProjectileBase::SetFromAbilityData()
 	FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(_AbilityName);
 	if (UAbilitySystem::GetAbilityDataIsValid(AbilityData))
 	{
-		if (IsValid(AbilityData.VisualEffects.NiagaraEffect))
-		{
-			UNiagaraComponent* NiagaraComponent = UNiagaraFunctionLibrary::SpawnSystemAttached(
-					AbilityData.VisualEffects.NiagaraEffect, GetRootComponent(),
-					FName("root"),FVector(0.f),FRotator(0.f),
-					EAttachLocation::SnapToTargetIncludingScale,true);
-		}
+		_AbilityData = AbilityData;
 	}
 }
 
@@ -125,6 +132,17 @@ void AProjectileBase::SetFromAbilityData()
 void AProjectileBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	if (HasAuthority())
+	{
+		if ((_OriginLocation - GetActorLocation()).Length() > _AbilityData.MaxReach)
+		{
+			UE_LOG(LogTemp, Display, TEXT("%s(%s): Max Reach Achieved. Destroying."),
+				*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+			SetOwner(nullptr);
+			SetActorTickEnabled(false);
+			Destroy();
+		}
+	}
 }
 
 void AProjectileBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -132,7 +150,7 @@ void AProjectileBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(AProjectileBase, _GravityScale);
 	DOREPLIFETIME(AProjectileBase, _SpeedVector);
-	
+	DOREPLIFETIME(AProjectileBase, _AbilityName);
 }
 
 
@@ -176,16 +194,16 @@ void AProjectileBase::CheckOverlap(UPrimitiveComponent* OverlappedComponent, AAc
 	}
 }
 
-void AProjectileBase::ApplyHitEffect(ACharacterBase* HitCharacter, FVector HitVector)
+void AProjectileBase::Multicast_ImpactEffects_Implementation(FVector HitVector)
 {
 	const FStSpellData SpellData = UAbilitySystem::GetSpellDataFromName(_AbilityName);
-	const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(_AbilityName);
 	
 	// Use Niagara Effect
 	if (IsValid(SpellData.ImpactData.NiagaraEffect))
 	{
 		UNiagaraComponent* NiagaraEmitter = UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(),
-			SpellData.ImpactData.NiagaraEffect, HitVector, FRotator::ZeroRotator);
+			SpellData.ImpactData.NiagaraEffect, HitVector, FRotator::ZeroRotator,
+			FVector(1.f),true,true);
 		if (NiagaraEmitter != nullptr)
 		{
 			NiagaraEmitter->SetIsReplicated(true);
@@ -193,7 +211,7 @@ void AProjectileBase::ApplyHitEffect(ACharacterBase* HitCharacter, FVector HitVe
 	}
 
 	// Otherwise, use cascade system
-	if (IsValid(SpellData.ImpactData.CascadeEffect))
+	else if (IsValid(SpellData.ImpactData.CascadeEffect))
 	{
 		UParticleSystemComponent* ParticleEmitter = UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),
 			SpellData.ImpactData.CascadeEffect, HitVector, FRotator::ZeroRotator);
@@ -202,6 +220,14 @@ void AProjectileBase::ApplyHitEffect(ACharacterBase* HitCharacter, FVector HitVe
 			ParticleEmitter->SetIsReplicated(true);
 		}
 	}
+}
+
+void AProjectileBase::ApplyHitEffect(ACharacterBase* HitCharacter, FVector HitVector)
+{
+	const FStSpellData SpellData		= UAbilitySystem::GetSpellDataFromName(_AbilityName);
+	const FStAbilityData AbilityData	= UAbilitySystem::GetAbilityDataFromName(_AbilityName);
+	
+	Multicast_ImpactEffects(HitVector);
 		
 	// Apply effects/damages to the character that was hit
 	if (IsValid(HitCharacter))
@@ -218,5 +244,17 @@ void AProjectileBase::ApplyHitEffect(ACharacterBase* HitCharacter, FVector HitVe
 		HitCharacter->VitalityComponent->ModifyVitalityStat(EVitalityCategories::HEALTH,	SpellData.ConsumeHealth);
 		HitCharacter->VitalityComponent->ModifyVitalityStat(EVitalityCategories::MAGIC,		SpellData.ConsumeMagic);
 		HitCharacter->VitalityComponent->ModifyVitalityStat(EVitalityCategories::STAMINA,	SpellData.ConsumeStamina);
+	}
+}
+
+void AProjectileBase::OnRep_AbilityName_Implementation()
+{
+	FStSpellData SpellData = UAbilitySystem::GetSpellDataFromName(_AbilityName);
+	if (IsValid(SpellData.VisualEffects.NiagaraEffect))
+	{
+		UNiagaraComponent* NiagaraComponent = UNiagaraFunctionLibrary::SpawnSystemAttached(
+				SpellData.VisualEffects.NiagaraEffect, GetRootComponent(),
+				FName("root"),FVector(0.f),FRotator(0.f),
+				EAttachLocation::SnapToTargetIncludingScale,true);
 	}
 }

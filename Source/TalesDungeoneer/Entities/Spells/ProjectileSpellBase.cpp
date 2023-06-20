@@ -1,6 +1,7 @@
 ﻿
 #include "ProjectileSpellBase.h"
 
+#include "Kismet/KismetMathLibrary.h"
 #include "TalesDungeoneer/Entities/ProjectileBase.h"
 
 
@@ -30,22 +31,35 @@ void AProjectileSpellBase::FireProjectile()
 	SetGravityConsidered(SpellData.bUseGravity);
 	SetProjectileSpeed(SpellData.ImpactData.SpeedDirection);
 	
-	FTransform SpawnTransform( GetActorLocation() );
-			   SpawnTransform.SetRotation(GetActorRotation().Quaternion());
-			   SpawnTransform.SetScale3D( FVector(SpellData.VisualEffects.EffectScale) );
+	FVector EndPosition = GetImpactPosition();
+	AActor* TargetActor = GetTargetActor();
+	if (IsValid(TargetActor))
+		EndPosition = TargetActor->GetActorLocation();
 	
-	AProjectileBase* Projectile = GetWorld()->SpawnActorDeferred<AProjectileBase>(
-		SpellData.ProjectileActor, SpawnTransform);
+	const FVector StartPosition = GetActorLocation();
+	
+	FVector FaceDirection = (StartPosition - EndPosition).GetSafeNormal();
+	FRotator FaceRotation = FaceDirection.Rotation();
+	
+	FTransform SpawnTransform( FaceRotation );
+			   SpawnTransform.SetLocation( StartPosition );
+			   SpawnTransform.SetScale3D( FVector(SpellData.VisualEffects.EffectScale) );
+
+	TSubclassOf<AProjectileBase> UsingActor = AProjectileBase::StaticClass();
+	if (IsValid(SpellData.ProjectileActor))
+		UsingActor = SpellData.ProjectileActor;
+	
+	AProjectileBase* Projectile = GetWorld()->
+				SpawnActorDeferred<AProjectileBase>(UsingActor, SpawnTransform);
 
 	if (IsValid(Projectile))
 	{
-
 		Projectile->SetGravityConsidered(_GravityScale > 0.f);
 		Projectile->SetProjectileSpeed(_SpeedVector);
+		Projectile->SetProjectileData( GetAbilityName() );
 		Projectile->SetTargetActor( GetTargetActor() );
-		Projectile->SetAbilityName( GetAbilityName() );
+		
 		Projectile->FinishSpawning(SpawnTransform);
-		Projectile->SetProjectileDirection( GetImpactPosition() );
 		
 		UE_LOG(LogTemp, Display, TEXT("%s(%s): Projectile Spawned - %f"),
 			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), _GravityScale);
