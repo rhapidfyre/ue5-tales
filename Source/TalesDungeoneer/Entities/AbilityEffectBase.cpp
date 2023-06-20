@@ -2,8 +2,11 @@
 
 #include "AbilityEffectBase.h"
 
+#include "NiagaraComponent.h"
+#include "NiagaraFunctionLibrary.h"
+#include "Components/AudioComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
-#include "TalesDungeoneer/Entities/SpellActorBase.h"
 
 
 AAbilityEffectBase::AAbilityEffectBase()
@@ -28,11 +31,6 @@ AAbilityEffectBase::AAbilityEffectBase(ACharacterBase* Instigator, const FName A
 	SetTargetActor(Cast<ACharacterBase>(TargetActor));
 	
 	SetupDefaults();
-}
-
-void AAbilityEffectBase::EventOnEffectTick_Implementation()
-{
-	EffectTick();
 }
 
 void AAbilityEffectBase::SetAbilityInstigator(ACharacterBase* AbilityInstigator)
@@ -99,33 +97,81 @@ void AAbilityEffectBase::SetAbilityName(FName AbilityName)
 	{
 		if (UAbilitySystem::GetAbilityNameIsValid(AbilityName))
 		{
-			_AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
-			InitializeAbility();
+			_AbilityName = AbilityName;
 		}
 	}
 }
 
 void AAbilityEffectBase::BeginPlay()
 {
-	if (bShowDebug)
-	{
-		UE_LOG(LogTemp, Display,
-			TEXT("%s(%s): Successfully created. Duration: %d"),
-			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), _TimeRemaining);
-	}
 	Super::BeginPlay();
+	InitializeAbility();
+	
+	// Setup success timer
+	if (HasAuthority())
+	{
+		if (_TimeRemaining <= 0.f)
+		{
+			_TimeRemaining = 3.0;
+		}
+		GetWorld()->GetTimerManager().SetTimer(_EffectTimer,
+			this, &AAbilityEffectBase::EffectTick, TimerTickRate, true);
+		
+	}
+	
 }
 
 void AAbilityEffectBase::BeginDestroy()
 {
-	Super::BeginDestroy();
-	UE_LOG(LogTemp,Warning, TEXT("%s(%s): BeginDestroy()"),
+	UE_LOG(LogTemp, Display, TEXT("%s(%s): BeginDestroy()"),
 		*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+		
+	if (_AbilityData.SoundData.SoundSuccess)
+	{
+		UAudioComponent* SuccessSound = UGameplayStatics::SpawnSoundAttached(
+			_AbilityData.SoundData.SoundCasting, GetRootComponent(), NAME_None, FVector(0.f), FRotator(0.f),
+			EAttachLocation::SnapToTarget, false);
+			
+		if (IsValid(SuccessSound))
+			SuccessSound->Play();
+			
+	}
+	//LoopSound->Stop();
+	Super::BeginDestroy();
+	
+}
+
+void AAbilityEffectBase::OnConstruction(const FTransform& Transform)
+{
+	UE_LOG(LogTemp, Display, TEXT("%s(%s): OnConstruction() - Ability Name: %s"),
+	*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), *_AbilityName.ToString());
+	
+	if (IsValid(GetOwner()))
+	{
+		const ACharacterBase* MyOwner = Cast<ACharacterBase>(GetOwner());
+		if (IsValid(MyOwner))
+		{
+			USkeletalMeshComponent* SkeletalMesh = MyOwner->GetMesh();
+			if (IsValid(SkeletalMesh))
+			{
+				const FStAbilityData AbilityData = GetAbilityData();
+				
+				AttachToComponent(SkeletalMesh,
+					FAttachmentTransformRules::SnapToTargetIncludingScale,
+					FName("None"));//AbilityData.AttachBoneOnSpawn);
+				
+				//this->SetActorRelativeLocation(AbilityData.AttachOffset);
+				//this->SetActorRelativeRotation(AbilityData.AttachRotOffset.Rotation());
+			}
+		}
+	}
+	
+	Super::OnConstruction(Transform);
 }
 
 void AAbilityEffectBase::SetOwner(AActor* NewOwner)
 {
-	if (!bInitialized)
+	if (!bInitialized && HasAuthority())
 	{
 		Super::SetOwner(NewOwner);
 	
@@ -137,30 +183,6 @@ void AAbilityEffectBase::SetOwner(AActor* NewOwner)
 			if (_ImpactLocation.IsNearlyZero(0.0001))
 				_TargetActor = _Instigator;
 		}
-		UE_LOG(LogTemp, Display, TEXT("%s(%s): New Owner Set"),
-			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
-	}
-}
-
-void AAbilityEffectBase::SetAbilityReady()
-{
-	if (!bInitialized)
-	{
-		// Perform setup verification steps
-		
-
-		bInitialized = true;
-		
-		// Activate Ability Actor
-		if (HasAuthority())
-		{
-			// Start the expiration timer
-			GetWorld()->GetTimerManager().SetTimer(_EffectTimer, this,
-									&AAbilityEffectBase::EffectTick, 1.f, true);
-
-			// Trigger Delegates
-			OnEffectActivated.Broadcast();
-		}
 	}
 }
 
@@ -170,23 +192,73 @@ void AAbilityEffectBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
 	DOREPLIFETIME(AAbilityEffectBase, _AbilityName);
 }
 
+void AAbilityEffectBase::AbilityComplete(bool WasSuccessful)
+{
+	if (WasSuccessful)
+	{
+		
+	}
+	else
+	{
+		
+	}
+	Destroy();
+}
+
 void AAbilityEffectBase::InitializeAbility()
 {
-	
+	bInitialized = true;
 	if (UAbilitySystem::GetAbilityNameIsValid(_AbilityName))
 	{
 		_AbilityData = UAbilitySystem::GetAbilityDataFromName(_AbilityName);
-	}
-	
-	// Determine Ability Data
-	_TimeRemaining = FMath::RoundToInt( _AbilityData.EffectDuration );
+		_SpellData   = UAbilitySystem::GetSpellDataFromName(_AbilityName);
+		
+		_TimeRemaining = FMath::RoundToInt( _AbilityData.EffectDuration );
+		if (_TimeRemaining <= 0.f)
+		{
+			_TimeRemaining = 1.f;
+		}
 
-	if (_TimeRemaining < 1)
+		UE_LOG(LogTemp, Display, TEXT("%s(%s): InitializeAbility() - '%s'"),
+			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), *_AbilityData.DisplayName);
+		
+		if (_AbilityData.VisualEffects.NiagaraEffect)
+		{
+			NiagaraComponent->SetAsset(_AbilityData.VisualEffects.NiagaraEffect);
+			NiagaraComponent->SetWorldScale3D(FVector(_AbilityData.VisualEffects.EffectScale));
+			NiagaraComponent->Activate(true);
+			NiagaraComponent->SetAutoDestroy(true);
+		}
+		
+		if (_AbilityData.SoundData.SoundCasting)
+		{
+			UAudioComponent* CastSound = UGameplayStatics::SpawnSoundAttached(
+				_AbilityData.SoundData.SoundCasting, GetRootComponent(), NAME_None, FVector(0.f), FRotator(0.f),
+				EAttachLocation::SnapToTarget, false);
+			
+			if (IsValid(CastSound))
+					CastSound->Play();
+			
+		}
+	
+		if (_AbilityData.SoundData.SoundLooping)
+		{
+			LoopSound = UGameplayStatics::SpawnSoundAttached(
+				_AbilityData.SoundData.SoundLooping, GetRootComponent(), NAME_None, FVector(0.f), FRotator(0.f),
+				EAttachLocation::SnapToTarget, false,
+				1.f, 1.f,0.f, nullptr,
+				nullptr, true);
+			
+			if (IsValid(LoopSound))
+			{
+				LoopSound->StopDelayed(_TimeRemaining);
+			}
+		}
+	}
+	else
 	{
-		UE_LOG(LogTemp, Warning,
-			TEXT("'%s' was created with an invalid duration of %d seconds... Destroying."),
-			*GetName(), _TimeRemaining);
-		return;
+		UE_LOG(LogTemp, Warning, TEXT("%s(%s): InitializeAbility() Failed"),
+			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
 	}
 	
 }
@@ -196,19 +268,26 @@ void AAbilityEffectBase::SetupDefaults()
 #ifdef UE_BUILD_DEBUG
 	bShowDebug = true;
 #endif
+	
+	bReplicates = true;
+	
+	SceneRoot = CreateDefaultSubobject<USceneComponent>(TEXT("SceneRoot"));
+	SetRootComponent(SceneRoot);
+
+	NiagaraComponent = CreateDefaultSubobject<UNiagaraComponent>(TEXT("NiagaraComponent"));
+	NiagaraComponent->SetupAttachment(GetRootComponent());
+	
+	UE_LOG(LogTemp, Display, TEXT("%s(%s): SetupDefaults()"), *GetName(),
+		HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
 }
 
 void AAbilityEffectBase::EffectTick()
 {
-	_TimeRemaining -= 1.f;
-	OnEffectTick.Broadcast(_TimeRemaining);
-	
-	if (_TimeRemaining < 0)
+	_TimeRemaining -= TimerTickRate;
+	if (_TimeRemaining <= 0.f)
 	{
-		if (bShowDebug)
-		{
-			UE_LOG(LogTemp, Display, TEXT("'%s' has expired and will be destroyed"), *GetName());
-		}
-		OnEffectExpired.Broadcast();
+		OnEffectExpired.Broadcast(_AbilityName);
+		AbilityComplete(true);
+		Destroy();
 	}
 }

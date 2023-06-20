@@ -1,6 +1,10 @@
 ﻿
 #include "AbilityComponent.h"
+
+#include "AiController.h"
 #include "../CharacterBase.h"
+#include "GameFramework/GameSession.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "TalesDungeoneer/Entities/AbilityEffectBase.h"
 
 
@@ -27,11 +31,39 @@ void UAbilityComponent::AbilityAction(UInputAction* HotkeyAction)
 			{
 				if (GetOwner()->HasAuthority())
 				{
-					ActivateAbility(Hotkey.AbilityName);
+					ActivateAbility(Hotkey.AbilityName, GetTargetedActor());
 				}
 				else
 				{
-					Server_RequestAbility(Hotkey.AbilityName);
+					AController* PawnController = GetOwner()->GetInstigatorController();
+					if (IsValid(PawnController))
+					{
+						// Is it a player?
+						APlayerController* PlayerController = Cast<APlayerController>(PawnController);
+						if (IsValid(PlayerController))
+						{
+							APlayerCameraManager* CamManager = PlayerController->PlayerCameraManager;
+							if (IsValid(CamManager))
+							{
+								Server_RequestAbility(Hotkey.AbilityName,
+									GetTargetedActor(),
+									CamManager->GetActorForwardVector());
+								return;
+							}
+						}
+						
+						// Is it an NPC?
+						AAIController* AiController = Cast<AAIController>(PawnController);
+						if (IsValid(AiController))
+						{
+							FVector AiFocalPoint = AiController->GetFocalPoint();
+							ActivateAbility(Hotkey.AbilityName, GetTargetedActor(),
+								UKismetMathLibrary::GetDirectionUnitVector(
+									GetOwner()->GetActorLocation(), AiFocalPoint));
+							return;
+						}
+						
+					}
 				}
 				return;
 			}
@@ -76,64 +108,16 @@ bool UAbilityComponent::SetAbilityInputAction(FName AbilityName, UInputAction* I
 
 
 void UAbilityComponent::ActivateAbility(
-		const FName AbilityName, AActor* TargetActor, FTransform TargetTransform)
+		const FName AbilityName, AActor* TargetActor, FVector ForwardVector)
 {
 	if (GetOwner()->HasAuthority())
 	{
 		if (UAbilitySystem::GetAbilityNameIsValid(AbilityName))
 		{
 			const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
-			ACharacterBase* Instigator = Cast<ACharacterBase>(GetOwner());
-			FTransform SpawnTransform(Instigator->GetActorTransform());
-			SpawnTransform.SetScale3D(FVector(1.f));
-		
-			// Spawns the ability effect actor
-			AAbilityEffectBase* AbilityEffect = GetWorld()->SpawnActorDeferred<AAbilityEffectBase>(
-				AAbilityEffectBase::StaticClass(), SpawnTransform);
-		
-			if (IsValid(AbilityEffect))
-			{
-				if (bShowDebug)
-				{
-					UE_LOG(LogTemp, Display, TEXT("%s(%s): Ability Actor Spawned"),
-						*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"))
-				}
+			ACharacterBase* EffectInstigator = Cast<ACharacterBase>(GetOwner());
+			SpawnEffectsActor(EffectInstigator, AbilityName, ForwardVector);
 			
-				AbilityEffect->SetOwner( GetOwner() );
-				AbilityEffect->SetAbilityName(AbilityName);
-
-				ACharacterBase* EffectTarget = nullptr;
-				switch(AbilityData.TargetType)
-				{
-				case EAbilityTarget::SELF:
-					AbilityEffect->SetTargetActor(Instigator);
-					EffectTarget = Instigator;
-					break;
-				case EAbilityTarget::TARGET:
-					if (IsValid(TargetActor))
-					{
-						AbilityEffect->SetTargetActor(Cast<ACharacterBase>(TargetActor));
-						EffectTarget = Cast<ACharacterBase>(TargetActor);
-						break;
-					}
-					__fallthrough;
-				default:
-					AbilityEffect->SetImpactLocation(TargetTransform.GetLocation());
-					AbilityEffect->SetImpactRotation(
-							TargetTransform.GetRotation().Rotator());
-					break;
-				}
-				AbilityEffect->FinishSpawning(SpawnTransform);
-				AbilityEffect->SetAbilityReady(); // Manual 'BeginPlay()' Override
-				
-				if (IsValid(EffectTarget))
-				{
-					// Tells the target actor to apply the effect
-					EffectTarget->AbilityComponent->ApplyEffect(
-						Instigator, AbilityName);
-				}
-				
-			}
 		}
 	}
 	else
@@ -141,6 +125,7 @@ void UAbilityComponent::ActivateAbility(
 		Server_RequestAbility(AbilityName);
 	}
 }
+
 
 void UAbilityComponent::ApplyEffect(ACharacterBase* EffectInstigator, FName AbilityName)
 {
@@ -182,11 +167,9 @@ void UAbilityComponent::ApplyEffect(ACharacterBase* EffectInstigator, FName Abil
 void UAbilityComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
 #ifdef UE_BUILD_DEBUG
 	bShowDebug = true;
 #endif
-	
 }
 
 void UAbilityComponent::OnComponentCreated()
@@ -197,6 +180,43 @@ void UAbilityComponent::OnComponentCreated()
 	SetIsReplicated(true);
 	
 	RegisterComponent();
+}
+
+void UAbilityComponent::SpawnEffectsActor(
+	ACharacterBase* EffectInstigator, FName AbilityName, FVector ForwardVector)
+{
+
+	if (!UAbilitySystem::GetAbilityNameIsValid(AbilityName) || !IsValid(EffectInstigator))
+		return;
+	
+	const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
+	FTransform SpawnTransform(EffectInstigator->GetActorTransform());
+	SpawnTransform.SetScale3D(FVector(1.f));
+		
+	// Spawns the ability effect actor
+	AAbilityEffectBase* AbilityEffect = GetWorld()->SpawnActorDeferred<AAbilityEffectBase>(
+			AbilityData.SpawnActor, SpawnTransform);
+	
+	if (bShowDebug)
+	{
+		UE_LOG(LogTemp, Display, TEXT("%s(%s): AbilityEffect->SpawnActorDeferred()"), *GetName(),
+			GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+	}
+	if (IsValid(AbilityEffect))
+	{
+		AbilityEffect->SetAbilityName(AbilityName);
+
+		if (IsValid(EffectInstigator) && !AbilityData.AttachBoneOnSpawn.IsNone())
+		{
+			USkeletalMeshComponent* SkeletalMesh = EffectInstigator->GetMesh();
+			AbilityEffect->AttachToComponent(SkeletalMesh,
+				FAttachmentTransformRules::SnapToTargetNotIncludingScale, AbilityData.AttachBoneOnSpawn);
+		}
+				
+		AbilityEffect->FinishSpawning(SpawnTransform);
+		UE_LOG(LogTemp, Display, TEXT("%s(%s): AbilityEffect->FinishSpawning()"), *GetName(),
+			GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+	}
 }
 
 void UAbilityComponent::TickTimer()
@@ -236,7 +256,7 @@ void UAbilityComponent::TickTimer()
 	}
 
 	// Save resources by invalidating the timer, if no effects are active
-	if (_ActiveEffects.Num() < 1)
+	if (_ActiveEffects.Num() < 1 && _EffectsTimer.IsValid())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("%s(%s): No effects remaining. Timer invalidated."),
 			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
@@ -263,11 +283,11 @@ void UAbilityComponent::Client_AbilityExpired_Implementation(FName AbilityName, 
 }
 
 void UAbilityComponent::Server_RequestAbility_Implementation(
-	FName AbilityName, AActor* TargetActor, FTransform TargetTransform)
+	FName AbilityName, AActor* TargetActor, FVector ForwardVector)
 {
 	if (GetOwner()->HasAuthority())
 	{
-		ActivateAbility(AbilityName, TargetActor, TargetTransform);
+		ActivateAbility(AbilityName, TargetActor, ForwardVector);
 	}
 }
 

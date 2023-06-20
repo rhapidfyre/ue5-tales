@@ -57,3 +57,17 @@ enum class EElementalType : uint8
 {
 	NONE, FIRE, FROST, NATURE, AIR, WATER, DARK, SHOCK
 };
+
+UENUM(BlueprintType)
+enum class ECharacterClass : uint8
+{
+	WIZARD		UMETA(DisplayName = "Wizard"),
+	WARRIOR		UMETA(DisplayName = "Warrior"),
+	NECRO		UMETA(DisplayName = "Necromancer"),
+	KNIGHT		UMETA(DisplayName = "Knight"),
+	RANGER		UMETA(DisplayName = "Ranger"),
+	CLERIC		UMETA(DisplayName = "Cleric"),
+	ROGUE		UMETA(DisplayName = "Assassin"),
+	MERC		UMETA(DisplayName = "Mercenary"),
+	DEVIANT		UMETA(DisplayName = "Deviant")		
+};

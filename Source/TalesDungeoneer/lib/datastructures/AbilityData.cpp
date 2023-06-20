@@ -11,6 +11,15 @@ UDataTable* UAbilitySystem::GetAbilityDataTable()
 	return Cast<UDataTable>(itemTable.TryLoad());
 }
 
+UDataTable* UAbilitySystem::GetSpellDataTable()
+{
+	const FSoftObjectPath itemTable = FSoftObjectPath(
+		"/Game/TalesContent/DataTables/DT_SpellData.DT_SpellData");
+	UDataTable* dataTable = Cast<UDataTable>(itemTable.ResolveObject());
+	if (IsValid(dataTable)) return dataTable;
+	return Cast<UDataTable>(itemTable.TryLoad());
+}
+
 FStAbilityData UAbilitySystem::GetAbilityDataFromName(FName AbilityName)
 {
 	if (!AbilityName.IsNone())
@@ -32,12 +41,43 @@ FStAbilityData UAbilitySystem::GetAbilityDataFromName(FName AbilityName)
 	return FStAbilityData();
 }
 
+FStSpellData UAbilitySystem::GetSpellDataFromName(FName SpellName)
+{
+	if (!SpellName.IsNone())
+	{
+		if ( const UDataTable* dt = GetSpellDataTable() )
+		{
+			if (IsValid(dt))
+			{
+				const FString ErrorCaught;
+				FStSpellData* spellPtr = dt->FindRow<FStSpellData>(SpellName, ErrorCaught);
+
+				if (spellPtr != nullptr)
+					return *spellPtr;
+				
+			}
+		}
+	}
+	// Return a default item data struct
+	return FStSpellData();
+}
+
 bool UAbilitySystem::GetAbilityNameIsValid(FName AbilityName)
 {
 	if (!AbilityName.IsNone())
 	{
 		const FStAbilityData itemData = (GetAbilityDataFromName(AbilityName));
 		return !itemData.DisplayName.IsEmpty();
+	}
+	return false; // Invalid or not found
+}
+
+bool UAbilitySystem::GetSpellNameIsValid(FName SpellName)
+{
+	if (!SpellName.IsNone())
+	{
+		const FStSpellData SpellData = (GetSpellDataFromName(SpellName));
+		return SpellData.AllowedClass.Num() > 0;
 	}
 	return false; // Invalid or not found
 }

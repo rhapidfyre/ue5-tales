@@ -27,10 +27,17 @@ public:
 	AAbilityEffectBase(ACharacterBase* Instigator, const FName AbilityName, AActor* TargetActor);
 
 	virtual void SetOwner(AActor* NewOwner) override;
-
-	// Called when spawning the actor in C++ and it is set up, ready to operate.
-	void SetAbilityReady();
 	
+	UFUNCTION(BlueprintPure) FStAbilityData GetAbilityData() const
+	{
+		if (!UAbilitySystem::GetAbilityDataIsValid(_AbilityData))
+			return UAbilitySystem::GetAbilityDataFromName(_AbilityName);
+		return _AbilityData;
+	}
+
+	
+	UFUNCTION(BlueprintPure) FStSpellData GetSpellData() const { return _SpellData; }
+
 	// Event triggers when the timer reached zero and the effect wears off
 	// Doesn't trigger on instant abilities with no timer or invalid object creation.
 	UPROPERTY(BlueprintCallable) FOnEffectExpired OnEffectExpired;
@@ -89,17 +96,40 @@ public:
 	 */
 	UFUNCTION(BlueprintPure) ACharacterBase* GetOriginatingActor() const { return _Instigator; }
 
-	// Called when the timer fires every second, until the object is destroyed
-	UFUNCTION(BlueprintNativeEvent) void EventOnEffectTick();
+	/**
+	 * @brief Gets the actor targeted by this ability
+	 * @return The actor targeted by this ability, or nullptr
+	 */
+	UFUNCTION(BlueprintPure) AActor* GetTargetActor() const { return _TargetActor; }
 
+	/**
+	 * @brief Gets the vector targeted by this ability
+	 * @return The vector targeted by this ability, or zero-vector
+	 */
+	UFUNCTION(BlueprintPure) FVector GetImpactLocation() const { return _ImpactLocation; }
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)	USceneComponent* SceneRoot;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)	UAudioComponent* LoopSound;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) UNiagaraComponent* NiagaraComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float TimerTickRate = 0.05;
+	
 protected:
 	
 	virtual void BeginPlay() override;
 	
 	virtual void BeginDestroy() override;
+
+	virtual void OnConstruction(const FTransform& Transform) override;
 	
 	virtual void GetLifetimeReplicatedProps(
-		TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
+	/**
+	 * @brief Called when the ability casting timer completes (ticks < 0)
+	 * @param WasSuccessful True if the ability activated successfully. False if it failed.
+	 */
+	virtual void AbilityComplete(bool WasSuccessful = false);
 	
 private:
 
@@ -113,6 +143,9 @@ private:
 	// The data regarding the ability that is in this effect
 	UPROPERTY() FStAbilityData	_AbilityData;
 	UPROPERTY(Replicated) FName _AbilityName;
+
+	// The data of the spell being used, if any
+	UPROPERTY() FStSpellData	_SpellData;
 
 	// The actor of origination for the ability that is in effect
 	UPROPERTY() ACharacterBase* _Instigator = nullptr;
@@ -136,7 +169,7 @@ private:
 	UPROPERTY() FTimerHandle _EffectTimer = FTimerHandle();
 
 	// Time remaining until the ability expires
-	UPROPERTY() int _TimeRemaining = 0;
+	UPROPERTY() float _TimeRemaining = 0;
 
 	// Once the actor has been initialized, the settings cannot be modified
 	bool bInitialized = false;

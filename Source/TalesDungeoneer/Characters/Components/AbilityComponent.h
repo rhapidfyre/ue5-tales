@@ -32,7 +32,8 @@ public:
 	UPROPERTY(BlueprintCallable) FOnAbilityExpired	 OnAbilityExpired;
 
 	// Blueprint overridable version of AbilityAction (C++)
-	UFUNCTION(BlueprintNativeEvent) void EventOnAbilityAction(UInputAction* AbilitySlot);
+	UFUNCTION(BlueprintNativeEvent)
+	void EventOnAbilityAction(UInputAction* AbilitySlot);
 
 	/**
 	 * @brief Activates a set ability, mapped to a specific AbilityName
@@ -56,12 +57,11 @@ public:
 	 * @brief Called to activate the requested ability directly.
 	 * @param AbilityName The FName of the ability to request
 	 * @param TargetActor An optional actor as the target of the ability
-	 * @param TargetTransform The transform data of where the ability should target.
-	 *							Required if TargetActor is not used.
+	 * @param ForwardVector The direction to fire the spell
 	 */
 	UFUNCTION(BlueprintCallable)
 	void ActivateAbility(const FName AbilityName,
-		AActor* TargetActor = nullptr, FTransform TargetTransform = FTransform());
+		AActor* TargetActor = nullptr, FVector ForwardVector = FVector(0.f));
 
 	/**
 	 * @brief Applies an effect to the component, so other components (UI) can track it.
@@ -75,6 +75,8 @@ public:
 	// The timer does not run if there are no active effects
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float TimerRate = 0.1;
 
+	UFUNCTION(BlueprintPure) AActor* GetTargetedActor() const { return _TargetActor; }
+	
 protected:
 	
 	virtual void BeginPlay() override;
@@ -84,17 +86,19 @@ protected:
 
 	virtual void OnComponentCreated() override;
 
+	virtual void SpawnEffectsActor(
+		ACharacterBase* EffectInstigator, FName AbilityName, FVector ForwardVector = FVector(0.f));
+
 	/**
 	 * @brief Sends the ability activation request to the server in case
 	 * ActivateAbility() was called on the client.
 	 * @param AbilityName The ability FName to request
 	 * @param TargetActor An optional actor as the target of the ability
-	 * @param TargetTransform The transform data of where the ability should target.
-	 *							Required if TargetActor is not used.
+	 * @param ForwardVector The direction the spell is going if aimed/fired
 	 */
 	UFUNCTION(Server, Reliable)
 	void Server_RequestAbility(FName AbilityName,
-		AActor* TargetActor = nullptr, FTransform TargetTransform = FTransform());
+		AActor* TargetActor = nullptr, FVector ForwardVector = FVector(0.f));
 
 
 	// Mappings for abilities, i.e: Hotkeys
@@ -114,6 +118,8 @@ private:
 	// Stack count is zero if the effect has fully worn off
 	UFUNCTION(Client, Reliable)
 	void Client_AbilityExpired(FName AbilityName, int StackCount);
+
+	UPROPERTY() AActor* _TargetActor;
 
 	// Fires every time the Effects Timer ticks
 	virtual void TickTimer();
