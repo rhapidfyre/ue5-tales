@@ -2,6 +2,8 @@
 #include "AbilityComponent.h"
 
 #include "AiController.h"
+#include "NiagaraComponent.h"
+#include "NiagaraFunctionLibrary.h"
 #include "../CharacterBase.h"
 #include "Components/AudioComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -147,7 +149,7 @@ void UAbilityComponent::ApplyEffect(ACharacterBase* EffectInstigator, FName Abil
 		{
 
 			// ReSharper disable once CppLocalVariableMayBeConst
-			FStAbilityEffect AbilityEffect = FStAbilityEffect(AbilityData);
+			FStAbilityEffect AbilityEffect = FStAbilityEffect(AbilityName);
 			
 			// Lock against reading from the array
 			// Releases lock automatically when scope is lost
@@ -206,21 +208,17 @@ void UAbilityComponent::SpawnEffectsActor(
 
 	// Spawns the ability effect actor
 	TSubclassOf<AAbilityEffectBase> AbilityBase = AAbilityEffectBase::StaticClass();
-	if (IsValid(AbilityData.SpawnActor))
-		AbilityBase = AbilityData.SpawnActor;
+
+	if (IsValid(AbilityData.AbilityBase))
+		AbilityBase = AbilityData.AbilityBase;
 	
 	AAbilityEffectBase* AbilityEffect = GetWorld()->
 				SpawnActorDeferred<AAbilityEffectBase>(AbilityBase, SpawnTransform);
 	
-	if (bShowDebug)
-	{
-		UE_LOG(LogTemp, Display, TEXT("%s(%s): AbilityEffect->SpawnActorDeferred()"), *GetName(),
-			GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
-	}
-	
 	if (IsValid(AbilityEffect))
 	{
 		SetIsCasting(true);
+		
 		AbilityEffect->SetAbilityInstigator( Cast<ACharacterBase>(GetOwner()) );
 		AbilityEffect->SetTargetActor( Cast<ACharacterBase>(GetTargetedActor()) );
 		AbilityEffect->SetAbilityName(AbilityName);
@@ -229,11 +227,11 @@ void UAbilityComponent::SpawnEffectsActor(
 		
 		AbilityEffect->FinishSpawning(SpawnTransform);
 		
-		if (IsValid(EffectInstigator) && !AbilityData.AttachBoneOnSpawn.IsNone())
+		if (IsValid(EffectInstigator) && !AbilityData.SpawnBone.IsNone())
 		{
 			USkeletalMeshComponent* SkeletalMesh = EffectInstigator->GetMesh();
 			AbilityEffect->AttachToComponent(SkeletalMesh,
-				FAttachmentTransformRules::SnapToTargetNotIncludingScale, AbilityData.AttachBoneOnSpawn);
+				FAttachmentTransformRules::SnapToTargetIncludingScale, AbilityData.SpawnBone);
 		}
 		
 		AbilityEffect->SetImpactLocation( GetOwner()->GetActorLocation() );
@@ -243,21 +241,31 @@ void UAbilityComponent::SpawnEffectsActor(
 			// ReSharper disable once CppTooWideScope
 			const bool TraceHit = GetWorld()->LineTraceSingleByChannel(HitResult,
 				AbilityEffect->GetActorLocation(), EndPosition,ECC_Visibility);
-			
+
 			if (TraceHit)
 				AbilityEffect->SetImpactLocation(HitResult.ImpactPoint);
 			else
 				AbilityEffect->SetImpactLocation(EndPosition);
-			
+
 		}
 				
 		UE_LOG(LogTemp, Display, TEXT("%s(%s): AbilityEffect->FinishSpawning()"), *GetName(),
 			GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+		
 	}
 }
 
 void UAbilityComponent::Multicast_StopCasting_Implementation(FName AbilityName, bool WasSuccessful)
 {
+
+	// Disallow on dedicated server, playable clients only
+	if (GetOwner()->HasAuthority())
+	{
+		if (IsRunningDedicatedServer())
+			return;
+	}
+	
+	// Determine Success/Fail Animation
 	const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
 	UAnimMontage* AnimMontage = AbilityData.AnimationData.AnimationOnFail;
 	if (WasSuccessful)
@@ -272,16 +280,71 @@ void UAbilityComponent::Multicast_StopCasting_Implementation(FName AbilityName, 
 			CharacterBase->PlayAnimMontage(AnimMontage);
 		}
 	}
+
+	// If effect was successful, run 'EffectsComplete'
+	TArray<FStAbilityFx> AbilityEffects = AbilityData.EffectFailed;
+	if (WasSuccessful)
+		AbilityEffects = AbilityData.EffectComplete;
+
+	// Determine Attachment Requirements
+	const ACharacter* ThisCharacter = Cast<ACharacter>(GetOwner());
+	if (!IsValid(ThisCharacter))
+		return;
 	
-	if (AbilityData.SoundData.SoundSuccess)
+	USceneComponent* AttachComp = GetOwner()->GetRootComponent();
+	USceneComponent* SkelComp = ThisCharacter->GetMesh();
+	if (!IsValid(SkelComp))
+		SkelComp = AttachComp;
+	
+	// Apply Visual Effects
+	for (FStAbilityFx AbilityFx : AbilityEffects)
 	{
-		UAudioComponent* SuccessSound = UGameplayStatics::SpawnSoundAtLocation(GetWorld(),
-			AbilityData.SoundData.SoundSuccess, GetOwner()->GetActorLocation(), FRotator::ZeroRotator,
-			EAttachLocation::SnapToTarget, 1.f, 0.f);
+		FName AttachBone = AbilityFx.NiagaraBone;
+	
+		// Dispatch Audio Effect
+		if (IsValid(AbilityFx.SoundEffect))
+		{
 			
-		if (IsValid(SuccessSound))
-			SuccessSound->Play();
+			UAudioComponent* SoundEffect = UGameplayStatics::SpawnSoundAttached(
+				AbilityFx.SoundEffect, AbilityFx.bAttachSound ? SkelComp : AttachComp, AttachBone,
+				AttachComp->GetSocketLocation(AttachBone) + AbilityFx.EffectOffset,
+				AttachComp->GetSocketRotation(AttachBone) + AbilityFx.EffectRotation,
+				EAttachLocation::SnapToTargetIncludingScale, true);
+			if (IsValid(SoundEffect))
+			{
+				SoundEffect->bAutoDestroy = true;
+				SoundEffect->Play();
+			}
+		}
+
+		// Dispatch Niagara Effect
+		if (IsValid(AbilityFx.NiagaraEffect))
+		{
+			if (AbilityFx.bAttachNiagaraToActor || AbilityFx.bAttachNiagaraToSkeleton)
+			{
+				UNiagaraComponent* NiagaraSys = UNiagaraFunctionLibrary::SpawnSystemAttached(AbilityFx.NiagaraEffect,
+					AbilityFx.bAttachNiagaraToSkeleton ? SkelComp : AttachComp, AttachBone, 
+					FVector::ZeroVector + AbilityFx.EffectOffset,
+					FRotator::ZeroRotator + AbilityFx.EffectRotation,
+					EAttachLocation::SnapToTargetIncludingScale,
+					AbilityFx.NiagaraLoopTime > 0.f, true);
+		
+				if (IsValid(NiagaraSys))
+				{
+					NiagaraSys->SetRelativeScale3D( FVector(AbilityFx.EffectScale) );
+				}
+			}
+			else
+			{
+				UNiagaraComponent* NiagaraSys = UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(),
+				   AbilityFx.NiagaraEffect,
+				   GetOwner()->GetActorLocation() + AbilityFx.EffectOffset,
+				   GetOwner()->GetActorRotation() + AbilityFx.EffectRotation,
+				   FVector(AbilityFx.EffectScale), true, true);
+			}
+		}
 	}
+	
 }
 
 void UAbilityComponent::SetNoLongerCasting(FName AbilityName, bool WasSuccessful)
@@ -310,7 +373,7 @@ void UAbilityComponent::TickTimer()
 			FStAbilityEffect* AbilityData = &ArrayOfEffects[i];
 			
 			// Only reduce timer if concurrent tick, or is topmost index of array
-			if (AbilityData->bTicksConcurrently || i == 0)
+			if (AbilityData->bTicksIndependently || i == 0)
 			{
 				AbilityData->TimeRemaining -= TimerRate;
 				if (AbilityData->TimeRemaining < 0.f)

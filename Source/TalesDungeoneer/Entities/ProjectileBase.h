@@ -7,7 +7,6 @@
 #include "GameFramework/Actor.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/SphereComponent.h"
-#include "TalesDungeoneer/lib/datastructures/AbilityData.h"
 
 #include "ProjectileBase.generated.h"
 
@@ -24,16 +23,7 @@ public:
 	
 	AProjectileBase();
 
-	// If the projectile uses an ability effect
-	AProjectileBase(FName AbilityName);
-
 	virtual void OnConstruction(const FTransform& Transform) override;
-
-	/**
-	 * @brief Used if the projectile mimics a spell or ability effect
-	 * @param AbilityName The name of the ability to mimic
-	 */
-	void SetProjectileData(FName AbilityName);
 
 	UFUNCTION(BlueprintCallable)
 	void SetGravityConsidered(bool AllowGravity = true);
@@ -52,7 +42,11 @@ public:
 	void SetTargetActor(AActor* TargetActor) { _TargetActor = TargetActor; }
 	AActor* GetTargetActor() const { return _TargetActor; };
 
-	FName GetAbilityName() const { return _AbilityName; };
+	FVector GetOriginLocation() const { return _OriginLocation; }
+
+	UFUNCTION(BlueprintCallable)
+	void SetMaxTravelDistance(float MaxTravelDistance = 2048.f);
+	float GetMaxTravelDistance() const { return _MaxTravelDistance; }
 	
 protected:
 
@@ -60,14 +54,11 @@ protected:
 
 	virtual void Destroyed() override;
 
-private:
-	
-	void SetupDefaults();
-	
-	void SetFromAbilityData();
+	virtual void ApplyHitEffect(AActor* HitCharacter, FVector HitVector);
 
-	UFUNCTION(NetMulticast, Unreliable)
-	void Multicast_ImpactEffects(FVector HitVector);
+private:
+
+	void SetupDefaults();
 
 public:
 	
@@ -79,8 +70,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	USphereComponent* SphereCollision;
-	
-	UFUNCTION(NetMulticast, Unreliable) void OnRep_AbilityName();
 	
 private:
 	/**
@@ -110,13 +99,8 @@ private:
 					  AActor* OtherActor, UPrimitiveComponent* OtherComp,
 					  int OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-	void ApplyHitEffect(ACharacterBase* HitCharacter, FVector HitVector);
-
 	UPROPERTY() AActor* _TargetActor;
-	
-	UPROPERTY() FStAbilityData _AbilityData;
-
-	UPROPERTY(ReplicatedUsing=OnRep_AbilityName) FName _AbilityName = FName();
+	UPROPERTY() float _MaxTravelDistance = 2048.f;
 	
 	UPROPERTY(Replicated) float _GravityScale = 1.f;
 	UPROPERTY(Replicated) FVector _SpeedVector = FVector(0.f);

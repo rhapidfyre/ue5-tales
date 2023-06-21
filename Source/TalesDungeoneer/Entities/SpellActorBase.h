@@ -12,7 +12,7 @@
  * Every spell has stuff in common.. For example, every spell has a
  * school of magic, a visual effect, a sound effect and a world location.
  */
-UCLASS(NotBlueprintable, BlueprintType)
+UCLASS(Blueprintable, BlueprintType)
 class TALESDUNGEONEER_API ASpellActorBase : public AAbilityEffectBase
 {
 	GENERATED_BODY()

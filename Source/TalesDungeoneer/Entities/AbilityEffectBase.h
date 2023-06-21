@@ -114,8 +114,6 @@ public:
 	UFUNCTION(BlueprintPure) FVector GetImpactLocation() const { return _ImpactLocation; }
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)	USceneComponent* SceneRoot;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)	UAudioComponent* LoopSound;
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite) UNiagaraComponent* NiagaraComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float TimerTickRate = 0.05;
 
@@ -138,10 +136,17 @@ protected:
 	
 private:
 
-	UFUNCTION() void PlayDelayedAnimation(ACharacter* PlayTarget, UAnimMontage* AnimMontage);
-	UFUNCTION() void PlayDelayedSound(FVector SoundLocation, USoundBase* SoundBase);
-	UFUNCTION() void PlayDelayedNiagara(UNiagaraSystem* NiagaraEffect, float NiagaraScale = 1.f);
+	// Allows tracking of effects/sounds for cleanup if this actor gets destroyed
+	TArray<UNiagaraComponent*> LoopingNiagaraEmitters;
+	TArray<UAudioComponent*> LoopingSoundEmitters;
 
+	//Helper Functions
+	void ExecuteCastingEffects(FStAbilityFx AbilityFx, bool StopOnDestroyed = false);
+	UFUNCTION() void PlayDelayedAnimation(ACharacter* PlayTarget, UAnimMontage* AnimMontage);
+	UFUNCTION() void PlayDelayedSound(FVector SoundLocation, USoundBase* SoundBase,
+		float LoopTime = 0.f, bool StopOnDestroy = false);
+	UFUNCTION() void PlayDelayedNiagara(FStAbilityFx VisualEffect);
+	
 	void InitializeAbility();
 
 	void SetupDefaults();

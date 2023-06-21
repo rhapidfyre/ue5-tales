@@ -1,8 +1,7 @@
 ﻿
 #include "ProjectileSpellBase.h"
 
-#include "AiController.h"
-#include "TalesDungeoneer/Entities/ProjectileBase.h"
+#include "TalesDungeoneer/Entities/Projectiles/SpellProjectileBase.h"
 
 
 AProjectileSpellBase::AProjectileSpellBase()
@@ -28,8 +27,6 @@ void AProjectileSpellBase::FireProjectile()
 
 	const FStSpellData SpellData = GetSpellData();
 	
-	SetGravityConsidered(SpellData.ImpactData.bUseGravity);
-	
 	FVector EndPosition = GetImpactPosition();
 	AActor* TargetActor = GetTargetActor();
 	if (IsValid(TargetActor))
@@ -37,12 +34,8 @@ void AProjectileSpellBase::FireProjectile()
 	
 	const FVector StartPosition = GetActorLocation();
 
-	/*
-	FVector FaceDirection = (EndPosition - StartPosition).GetSafeNormal();
-	FRotator FaceRotation = FaceDirection.Rotation();
-	*/
-
 	FRotator FaceRotation = FRotator::ZeroRotator;
+	
 	AController* PawnController = GetOriginatingActor()->GetInstigatorController();
 	if (IsValid(PawnController))
 	{
@@ -56,34 +49,30 @@ void AProjectileSpellBase::FireProjectile()
 		FaceRotation = (EndPosition - StartPosition).GetSafeNormal().Rotation();
 	}
 	
-	FTransform SpawnTransform( StartPosition );
-			   SpawnTransform.SetRotation( FaceRotation.Quaternion() );
-			   SpawnTransform.SetScale3D( FVector(SpellData.VisualEffects.EffectScale) );
-	
-	TSubclassOf<AProjectileBase> UsingActor = AProjectileBase::StaticClass();
-	if (IsValid(SpellData.ImpactData.ProjectileActor))
-		UsingActor = SpellData.ImpactData.ProjectileActor;
-	
-	AProjectileBase* Projectile = GetWorld()->
-	SpawnActorDeferred<AProjectileBase>(UsingActor, SpawnTransform);
-	
-	if (IsValid(Projectile))
+	for (FStProjectileData ProjectileData : SpellData.ImpactData)
 	{
-		Projectile->SetGravityConsidered(_GravityScale > 0.f);
-		Projectile->SetProjectileSpeed(SpellData.ImpactData.ProjectileSpeed * FaceRotation.Vector());
-		Projectile->SetProjectileData( GetAbilityName() );
-		Projectile->SetTargetActor( GetTargetActor() );
-		
-		Projectile->FinishSpawning(SpawnTransform);
-		
-		UE_LOG(LogTemp, Display, TEXT("%s(%s): Projectile Spawned - %f"),
-			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), _GravityScale);
-		
+		FTransform SpawnTransform( StartPosition + ProjectileData.SpawnOffset );
+		SpawnTransform.SetRotation( (FaceRotation + ProjectileData.SpawnRotation).GetNormalized().Quaternion() );
+		SpawnTransform.SetScale3D( FVector(1.f) );
+	
+		TSubclassOf<ASpellProjectileBase> UsingActor = ASpellProjectileBase::StaticClass();
+		if (IsValid(ProjectileData.Projectile))
+			UsingActor = ProjectileData.Projectile;
+	
+		ASpellProjectileBase* Projectile = GetWorld()->
+				SpawnActorDeferred<ASpellProjectileBase>(UsingActor, SpawnTransform);
+	
+		if (IsValid(Projectile))
+		{
+			Projectile->SetGravityConsidered(ProjectileData.bUseGravity);
+			Projectile->SetProjectileSpeed(ProjectileData.ProjectileSpeed * FaceRotation.Vector());
+			Projectile->SetProjectileData( GetAbilityName() );
+			Projectile->SetTargetActor( GetTargetActor() );
+			Projectile->FinishSpawning(SpawnTransform);
+			UE_LOG(LogTemp, Display, TEXT("%s(%s): Projectile Spawned - %f"),
+				*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), _GravityScale);
+		}
 	}
-
-	UE_LOG(LogTemp, Display, TEXT("(%s)(%s): Spawn Position '%s', Owner Actor Position '%s'"),
-		*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"),
-		*Projectile->GetActorLocation().ToString(),*GetActorLocation().ToString());
 }
 
 FVector AProjectileSpellBase::GetImpactPosition() const

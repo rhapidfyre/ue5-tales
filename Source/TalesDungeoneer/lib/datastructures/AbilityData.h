@@ -21,6 +21,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnEffectTick, int, TimeRemaining);
 class AAbilityEffectBase;
 class AProjectileBase;
 class ASpellActorBase;
+class ACharacterBase;
 
 // Data relating to hotkeys that activate abilities (such as keys 1-6)
 USTRUCT(BlueprintType)
@@ -32,29 +33,65 @@ struct FStAbilityHotkey
 };
 
 USTRUCT(BlueprintType)
-struct FStAbilityVfx
+struct FStAbilityActorSpawner
 {
 	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DelayEffect = 0.f;
-	// Overrides Cascade Effect if used
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) UNiagaraSystem* NiagaraEffect = nullptr;
-	// Used if Niagara Effect is invalid
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) UParticleSystem* CascadeEffect = nullptr;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) float EffectScale		= 1.f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FVector EffectOffset	= FVector(0.f);
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FRotator EffectRotation = FRotator(0.f);
+	// The actor to spawn when this ability has completed
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TSubclassOf<AActor> SpawnedActor = nullptr;
+	// When this spawns, should it be owned by the actor who activated this ability?
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bOwnedOnSpawn				= false;
+	// Should this actor be attached to the owner who activated it?
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bAttachOnSpawn				= true;
+	// The bone that the spawned actor should attach to
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FName AttachBone				= FName("root");
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FVector AttachOffset			= FVector(0.f);
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FRotator AttachRotation 		= FRotator(0.f);
+};
+
+USTRUCT(BlueprintType)
+struct FStAbilityFx
+{
+	GENERATED_BODY()
+
+	// The effect will loop for this amount of time. Does not loop for values <= 0
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float NiagaraLoopTime			= 0.f;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DelaySound				= 0.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DelayEffect				= 0.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float EffectScale				= 1.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float SoundVolume				= 1.f;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bAttachNiagaraToActor   	= true;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bAttachNiagaraToSkeleton   = true;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bAttachSound				= true;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FName NiagaraBone				= FName("root");
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FName SoundBone					= FName("root");
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) USoundBase* SoundEffect			= nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) UNiagaraSystem* NiagaraEffect	= nullptr;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FVector EffectOffset			= FVector(0.f);
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FRotator EffectRotation 		= FRotator(0.f);
 };
 
 USTRUCT(BlueprintType)
 struct FStAbilitySoundData
 {
 	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DelaySoundCasting = 0.f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) USoundBase* SoundCasting = nullptr;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DelaySoundLooping = 0.f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) USoundBase* SoundLooping = nullptr;
+	// The effect will loop for this amount of time. Does not loop for values <= 0
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float SoundLoopTime = 0.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DelaySound = 0.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) USoundBase* SoundReference = nullptr;
+};
+
+USTRUCT(BlueprintType)
+struct FStCastingSoundData : public FStAbilitySoundData
+{
+	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DelaySoundSuccess = 0.f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) USoundBase* SoundSuccess = nullptr;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DelaySoundFailure = 0.f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) USoundBase* SoundFailure = nullptr;
 };
@@ -83,24 +120,26 @@ struct FStProjectileData
 	// If true, projectile will be affected by gravity.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bUseGravity = false;
 	
-	// If valid, when the projectile impacts something, this actor will spawn
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) TSubclassOf<ASpellActorBase> ImpactActor = nullptr;
+	// The projectile actor to use. If invalid, the projectile is invisible and has no sfx or vfx
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TSubclassOf<AProjectileBase> Projectile = nullptr;
 	
-	// If valid, when the ability successfully activates, this actor will be spawned
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) TSubclassOf<AProjectileBase> ProjectileActor = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FVector SpawnOffset = FVector(0.f);
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FRotator SpawnRotation = FRotator(0.f);
 	
-	// The niagara system to play upon impact. Overrides Cascade Effect.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) UNiagaraSystem* NiagaraEffect = nullptr;
+	// If valid, when the projectile begins play, these actors will spawn
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStAbilityActorSpawner> SpawnsOnFire = {};
 	
-	// Used if NiagaraEffect is not given.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) UParticleSystem* CascadeEffect = nullptr;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) float EffectScale = 1.f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FVector EffectOffset = FVector(0.f);
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FRotator EffectRotation = FRotator(0.f);
-
-	// The sound to loop while the projectile is moving
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) USoundBase* SoundEffect = nullptr;
+	// If valid, when the projectile impacts something, these actors will spawn
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStAbilityActorSpawner> SpawnsOnImpact = {};
+	
+	// The effects that play when the projectile comes to life
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStAbilityFx> EffectsOnSpawn = {};
+	
+	// The effects to play when the projectile is active/idle
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStAbilityFx> EffectsLooped = {};
+	
+	// The effects to play when the projectile is destroyed
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStAbilityFx> EffectsFinal = {};
 	
 };
 
@@ -108,44 +147,55 @@ USTRUCT(BlueprintType)
 struct FStSpellData : public FTableRowBase
 {
 	GENERATED_BODY()
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FString DisplayName = FString();
 
-	// If true, the damage will repeat every tick during the duration of the effect
-	// If false, the damage is done once upon application
+	// If true, the ability effects will spawn attached to the actor who cast this ability
+	// If false, the ability effects will spawn at the actor's root and remain there.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bAttachToCaster = false;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FName SpawnBone = FName();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FVector SpawnOffset = FVector(0.f);
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FRotator SpawnRotation = FRotator(0.f);
+	
+	// If true, the affects (hp, magic, stamina, etc) will be applied each tick
+	// If false, the affects are only applied once and then finished
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bIsOverTime = false;
 	
+	// The number of hit points to deduct when the ability triggers
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float HitpointsAffected = 0.f;
+	
+	// The number of magic points to deduct when the ability triggers
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float MagicPointsAffected = 0.f;
+	
+	// The number of stamina points to deduct when the ability triggers
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float StaminaAffected = 0.f;
 
 	// The maximum distance, in feet, this spell can go from the origin
 	// Ignored for spells that originate from the character
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float MaxReach = 304.8f;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bIsProjectile = false;
 
-	// Data for when the project hits something (if this is a projectile)
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStProjectileData ImpactData = FStProjectileData();
-	
-	// Spawn Offset from Spawn Location (Parent origin)
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FName SpawnBone = FName();
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FVector SpawnOffset = FVector(0.f);
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FRotator SpawnRotation = FRotator(0.f);
+	// Data for when the project hits something. No entries means this is NOT a projectile.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStProjectileData> ImpactData = {};
 
+	// The sound this spell makes while it's active (such as a projectile traveling)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStAbilitySoundData SoundData = FStAbilitySoundData();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStAbilityVfx VisualEffects = FStAbilityVfx();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float ConsumeMagic	 = 1.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float ConsumeHealth  = 0.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float ConsumeStamina = 0.f;
 
 	// Classes that can use this spell
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<ECharacterClass> AllowedClass = {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TMap<ECharacterClass, int> AllowedClass = {};
+	
+	// The effects that play when the spell comes to life
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStAbilityFx> EffectsOnSpawn = {};
 
-	// Minimum level to use this ability
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) int   MinimumLevel = 1;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) float ConsumeMagic	 = 1.f;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) float ConsumeHealth  = 0.f;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) float ConsumeStamina = 0.f;
+	// The effects that play while the spell is active/ticking
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStAbilityFx> EffectsLooped = {};
+
+	// The effects that play when the spell completes
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStAbilityFx> EffectsFinal = {};
 
 	 
 };
@@ -160,95 +210,72 @@ struct FStAbilityData : public FTableRowBase
 	// The name to be displayed in the UI
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FString DisplayName = FString();
 
-	// The icon that will show in the ability tree and hot bar
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) UTexture2D* DisplayIcon   = nullptr;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) EAbilityType AbilityType  = EAbilityType::NONE;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) EAbilityTarget TargetType = EAbilityTarget::SELF;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) ESpellCastingType CastingType = ESpellCastingType::ONE_OFF;
+	// If true, the ability actor will spawn attached to the actor who cast this ability
+	// If false, the ability actor will spawn at the actor's root and remain there.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bAttachToCaster = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FName SpawnBone = FName("root");
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FVector SpawnOffset = FVector(0.f);
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FRotator SpawnRotation = FRotator(0.f);
+	
+	// If valid, when the ability successfully activates, these actors will be spawned
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TSubclassOf<AAbilityEffectBase> AbilityBase = nullptr;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float ConsumeMagic	 = 1.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float ConsumeHealth  = 0.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float ConsumeStamina = 0.f;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bCanActivateWhileMoving  = true;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bSprintCancelsActivation = true;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bJumpCancelsActivation   = true;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bSwimCancelsActivation   = true;
+	// The icon that will show in the ability tree and hot bar
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) UTexture2D* DisplayIcon   		= nullptr;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bSprintCancels = true;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bJumpCancels   = true;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bSwimCancels   = true;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bMoveCancels   = true;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) EAbilityType AbilityType  		= EAbilityType::NONE;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) EAbilityTarget TargetType 		= EAbilityTarget::SELF;
+	
+	// If true, each stack of this effect will multiply the effect
+	// If false, the effect will be the same regardless of number of stacks
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bEffectsStack = true;
+
+	// If true, all stacks tick their timers concurrently, independent of one another
+	// If false, only the top-most effect in the stack will reduce their timer
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bTickIndependently = true;
 	
 	// The maximum amount of stacks this effect allows before maxing out
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) int NumOfStackedEffects = 10;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) int NumOfStackedEffects = 1;
 
 	// The maximum distance, in feet, this ability can reach
 	// For AOEs, this is the max range the origin can be thrown
 	// Negative or zero means it goes off centered on the character
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) float MaxReach = 304.8f;
-
-	// If true, each stack of this effect will multiply the effect
-	// If false, each stack just increases the time the effect lasts
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bEffectsStack = true;
-
-	// If true, all stacks tick their timers concurrently
-	// If false, each stack reduction resets the timer for the next reduction
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bConcurrentStacks = true;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float MaxReach = 2048.f;
 	
 	// The amount of time it takes for this ability to activate successfully
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float ActivationTime = 3.f;
 	
 	// The length, in seconds, that the effect from this ability will last.
-	// A duration of <= 0 will result in a single tick of the ability before wearing off.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) float EffectDuration = 6.f;
-
-	// Spawns an actor of this type for more effects. Ignored if unset.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) TSubclassOf<AAbilityEffectBase> SpawnActor = nullptr;
-
-	/**
-	 * @brief Only works if SpawnActor is set. If other than None, the actor will
-	 * attach to this bone with the given offsets. If None, it is ignored.
-	 */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FName AttachBoneOnSpawn = FName();
-	
-	// The offset from the actors attachment position at (0,0,0)
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FVector AttachOffset	= FVector(0.f);
-	
-	// The rotational offset from the actors attachment position at (0,0,0)
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FVector AttachRotOffset = FVector(0.f);
+	// A duration of <= 0 will apply the effects once without ticking
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float EffectDuration = 0.f;
 
 	// The animation data for the ability procedure
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStAbilityAnimData AnimationData = FStAbilityAnimData();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStAbilityAnimData AnimationData	= FStAbilityAnimData();
+	
 	// The sound data for when the ability is activated
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStAbilitySoundData SoundData = FStAbilitySoundData();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStCastingSoundData SoundData		= FStCastingSoundData();
 
 	// The visual effects played when the ability is activated
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStAbilityVfx VisualEffects = FStAbilityVfx();
-};
-
-
-// Used for tracking active effects. Contains the minimal amount of memory
-// necessary for effectively tracking active effects.
-USTRUCT(BlueprintType)
-struct FStAbilityEffect
-{
-	GENERATED_BODY()
-
-	FStAbilityEffect() {};
-	FStAbilityEffect(FStAbilityData AbilityData)
-	{
-		AbilityName			= AbilityName;
-		EffectInstigator	= EffectInstigator;
-		bTicksConcurrently	= AbilityData.bConcurrentStacks;
-		TimeRemaining		= AbilityData.EffectDuration;
-	}
-
-	// The name of the ability that initiated this effect
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FName AbilityName = FName();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStAbilityFx> EffectCasting		= {};
 	
-	// The time remaining on this effect
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) float TimeRemaining = 0.f;
+	// The visual effects played when the ability is activated, and looped until completed
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStAbilityFx> EffectLooped		= {};
 	
-	// If true, this effects timer will reduce even if it isnt the top most entry in the array
-	// If false, this effect will not have its time reduced until it is at the top of the array
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bTicksConcurrently = true;
-
-	// The actor that instigated this effect
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) AActor* EffectInstigator = nullptr;
+	// The visual effect played when the ability has completed
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStAbilityFx> EffectComplete		= {};
+	
+	// The visual effect played when the ability has completed
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStAbilityFx> EffectFailed		= {};
 };
-
 
 UCLASS()
 class UAbilitySystem : public UBlueprintFunctionLibrary
@@ -286,3 +313,36 @@ public:
     
 };
 
+
+// Used for tracking active effects. Contains the minimal amount of memory
+// necessary for effectively tracking active effects.
+USTRUCT(BlueprintType)
+struct FStAbilityEffect
+{
+	GENERATED_BODY()
+
+	FStAbilityEffect() {};
+	FStAbilityEffect(FName ConstructName)
+	{
+		const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(ConstructName);
+		AbilityName			= ConstructName;
+		bTicksIndependently	= AbilityData.bTickIndependently;
+		TimeRemaining		= AbilityData.EffectDuration;
+	}
+
+	// The name of the ability that initiated this effect
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FName AbilityName = FName();
+	
+	// The time remaining on this effect
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float TimeRemaining = 0.f;
+	
+	// If true, this effects timer will reduce while active
+	// If false, this effects timer will not reduce unless it is at the top of the stack
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bTicksIndependently = false;
+
+	// The character that instigated this effect
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) ACharacterBase* EffectInstigator = nullptr;
+
+	// The actor targeted by the effect
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) AActor* TargetActor = nullptr;
+};
