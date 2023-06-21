@@ -108,7 +108,20 @@ protected:
 	// Overrideable event that fires everytime the Effects Timer ticks
 	UFUNCTION(BlueprintNativeEvent) void OnTickTimer();
 	
+	UFUNCTION(BlueprintPure) bool GetIsCasting() const { return bIsCasting; }
+	UFUNCTION(BlueprintCallable)
+		void SetIsCasting(bool IsCastingSpell = false) { bIsCasting = IsCastingSpell; }
+
+	// Used by the timer delegate to cancel casting
+	UFUNCTION()
+	void SetNoLongerCasting(FName AbilityName, bool WasSuccessful = false);
+	
 private:
+
+	UFUNCTION(NetMulticast, Unreliable)
+	void Multicast_StopCasting(FName AbilityName, bool WasSuccessful);
+
+	UPROPERTY(Replicated) bool bIsCasting = false;
 
 	// Called when an ability has been added and the current stack count
 	UFUNCTION(Client, Reliable)

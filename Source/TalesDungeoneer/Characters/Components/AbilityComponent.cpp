@@ -3,8 +3,10 @@
 
 #include "AiController.h"
 #include "../CharacterBase.h"
-#include "GameFramework/GameSession.h"
+#include "Components/AudioComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Net/UnrealNetwork.h"
 #include "TalesDungeoneer/Entities/AbilityEffectBase.h"
 
 
@@ -41,7 +43,8 @@ void UAbilityComponent::AbilityAction(UInputAction* HotkeyAction)
 						{
 							if (GetOwner()->HasAuthority())
 							{
-								ActivateAbility(Hotkey.AbilityName, GetTargetedActor(),
+								ActivateAbility(Hotkey.AbilityName,
+									GetTargetedActor(),
 									CamManager->GetActorForwardVector());
 							}
 							else
@@ -119,13 +122,16 @@ void UAbilityComponent::ActivateAbility(
 		{
 			const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
 			ACharacterBase* EffectInstigator = Cast<ACharacterBase>(GetOwner());
+			if (IsValid(TargetActor))
+			{
+				_TargetActor = TargetActor;
+			}
 			SpawnEffectsActor(EffectInstigator, AbilityName, ForwardVector);
-			
 		}
 	}
 	else
 	{
-		Server_RequestAbility(AbilityName);
+		Server_RequestAbility(AbilityName, TargetActor, ForwardVector);
 	}
 }
 
@@ -197,7 +203,7 @@ void UAbilityComponent::SpawnEffectsActor(
 	SpawnTransform.SetScale3D(FVector(1.f));
 
 	const FVector EndPosition = SpawnTransform.GetLocation() + (ForwardVector * AbilityData.MaxReach);
-	
+
 	// Spawns the ability effect actor
 	TSubclassOf<AAbilityEffectBase> AbilityBase = AAbilityEffectBase::StaticClass();
 	if (IsValid(AbilityData.SpawnActor))
@@ -211,10 +217,15 @@ void UAbilityComponent::SpawnEffectsActor(
 		UE_LOG(LogTemp, Display, TEXT("%s(%s): AbilityEffect->SpawnActorDeferred()"), *GetName(),
 			GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
 	}
+	
 	if (IsValid(AbilityEffect))
 	{
-		AbilityEffect->SetAbilityName(AbilityName);
+		SetIsCasting(true);
+		AbilityEffect->SetAbilityInstigator( Cast<ACharacterBase>(GetOwner()) );
 		AbilityEffect->SetTargetActor( Cast<ACharacterBase>(GetTargetedActor()) );
+		AbilityEffect->SetAbilityName(AbilityName);
+		
+		AbilityEffect->OnAbilityFinished.AddDynamic(this, &UAbilityComponent::SetNoLongerCasting);
 		
 		AbilityEffect->FinishSpawning(SpawnTransform);
 		
@@ -234,18 +245,51 @@ void UAbilityComponent::SpawnEffectsActor(
 				AbilityEffect->GetActorLocation(), EndPosition,ECC_Visibility);
 			
 			if (TraceHit)
-			{
 				AbilityEffect->SetImpactLocation(HitResult.ImpactPoint);
-			}
 			else
-			{
 				AbilityEffect->SetImpactLocation(EndPosition);
-			}
 			
 		}
 				
 		UE_LOG(LogTemp, Display, TEXT("%s(%s): AbilityEffect->FinishSpawning()"), *GetName(),
 			GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+	}
+}
+
+void UAbilityComponent::Multicast_StopCasting_Implementation(FName AbilityName, bool WasSuccessful)
+{
+	const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
+	UAnimMontage* AnimMontage = AbilityData.AnimationData.AnimationOnFail;
+	if (WasSuccessful)
+		AnimMontage = AbilityData.AnimationData.AnimationOnSuccess;
+	
+	if (IsValid(AnimMontage))
+	{
+		ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
+		if (IsValid(CharacterBase))
+		{
+			CharacterBase->StopAnimMontage(nullptr);
+			CharacterBase->PlayAnimMontage(AnimMontage);
+		}
+	}
+	
+	if (AbilityData.SoundData.SoundSuccess)
+	{
+		UAudioComponent* SuccessSound = UGameplayStatics::SpawnSoundAtLocation(GetWorld(),
+			AbilityData.SoundData.SoundSuccess, GetOwner()->GetActorLocation(), FRotator::ZeroRotator,
+			EAttachLocation::SnapToTarget, 1.f, 0.f);
+			
+		if (IsValid(SuccessSound))
+			SuccessSound->Play();
+	}
+}
+
+void UAbilityComponent::SetNoLongerCasting(FName AbilityName, bool WasSuccessful)
+{
+	if (GetOwner()->HasAuthority())
+	{
+		Multicast_StopCasting(AbilityName, WasSuccessful);
+		bIsCasting = false;
 	}
 }
 
@@ -325,4 +369,5 @@ void UAbilityComponent::Server_RequestAbility_Implementation(
 void UAbilityComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(UAbilityComponent, bIsCasting);
 }

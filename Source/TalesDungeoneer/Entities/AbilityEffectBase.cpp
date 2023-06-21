@@ -6,6 +6,7 @@
 #include "NiagaraFunctionLibrary.h"
 #include "Components/AudioComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Delegates/Delegate.h"
 #include "Net/UnrealNetwork.h"
 
 
@@ -35,17 +36,11 @@ AAbilityEffectBase::AAbilityEffectBase(ACharacterBase* Instigator, const FName A
 
 void AAbilityEffectBase::SetAbilityInstigator(ACharacterBase* AbilityInstigator)
 {
-	if (!bInitialized)
+	if (HasAuthority())
 	{
-		if (HasAuthority())
-		{
-			if (!bInitialized && IsValid(AbilityInstigator))
-			{
-				_Instigator = AbilityInstigator;
-				UE_LOG(LogTemp,Warning, TEXT("%s(%s): SetAbilityInstigator()"),
-					*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
-			}
-		}
+		_Instigator = AbilityInstigator;
+		UE_LOG(LogTemp,Warning, TEXT("%s(%s): SetAbilityInstigator()"),
+			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
 	}
 }
 
@@ -112,27 +107,54 @@ void AAbilityEffectBase::BeginPlay()
 			this, &AAbilityEffectBase::EffectTick, TimerTickRate, true);
 		
 	}
+	else
+	{
+		const FStAbilityData AbilityData = GetAbilityData();
+		
+		if (IsValid(AbilityData.AnimationData.AnimationOnStart))
+		{
+			if (AbilityData.AnimationData.DelayStartAnim > 0.f)
+			{
+				FTimerHandle StartAnimTimer;
+				FTimerDelegate StartAnimDelegate;
+				StartAnimDelegate.BindUFunction(this, FName("PlayDelayedAnimation"),
+					 GetOriginatingActor(), AbilityData.AnimationData.AnimationOnStart);
+				GetWorld()->GetTimerManager().SetTimer(StartAnimTimer, StartAnimDelegate,
+					_AbilityData.AnimationData.DelayStartAnim, false);
+			}
+			else
+			{
+				PlayDelayedAnimation(GetOriginatingActor(), AbilityData.AnimationData.AnimationOnStart);
+			}
+		}
+
+		if (IsValid(AbilityData.VisualEffects.NiagaraEffect))
+		{
+			if (AbilityData.VisualEffects.DelayEffect > 0.f)
+			{
+				FTimerHandle NiagaraTimer;
+				FTimerDelegate NiagaraDelegate;
+				NiagaraDelegate.BindUFunction(this, FName("PlayDelayedNiagara"),
+					 AbilityData.VisualEffects.NiagaraEffect, AbilityData.VisualEffects.EffectScale);
+				GetWorld()->GetTimerManager().SetTimer(NiagaraTimer, NiagaraDelegate,
+					AbilityData.VisualEffects.DelayEffect, false);
+			}
+			else
+			{
+				PlayDelayedNiagara(AbilityData.VisualEffects.NiagaraEffect,
+					AbilityData.VisualEffects.EffectScale);
+			}
+		}
+		
+	}
 	
 }
 
-void AAbilityEffectBase::BeginDestroy()
+void AAbilityEffectBase::Destroyed()
 {
-	UE_LOG(LogTemp, Display, TEXT("%s(%s): BeginDestroy()"),
+	UE_LOG(LogTemp, Display, TEXT("%s(%s): Destroyed()"),
 		*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
-		
-	if (_AbilityData.SoundData.SoundSuccess)
-	{
-		UAudioComponent* SuccessSound = UGameplayStatics::SpawnSoundAttached(
-			_AbilityData.SoundData.SoundCasting, GetRootComponent(), NAME_None, FVector(0.f), FRotator(0.f),
-			EAttachLocation::SnapToTarget, false);
-			
-		if (IsValid(SuccessSound))
-			SuccessSound->Play();
-			
-	}
-	//LoopSound->Stop();
-	Super::BeginDestroy();
-	
+	Super::Destroyed();
 }
 
 void AAbilityEffectBase::OnConstruction(const FTransform& Transform)
@@ -184,19 +206,46 @@ void AAbilityEffectBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(AAbilityEffectBase, _AbilityName);
+	DOREPLIFETIME(AAbilityEffectBase, _Instigator);
+	DOREPLIFETIME(AAbilityEffectBase, _WasSuccessful);
 }
 
 void AAbilityEffectBase::AbilityComplete(bool WasSuccessful)
 {
-	if (WasSuccessful)
-	{
-		
-	}
-	else
-	{
-		
-	}
+	OnAbilityFinished.Broadcast(GetAbilityName(), WasSuccessful);
 	Destroy();
+}
+
+void AAbilityEffectBase::PlayDelayedAnimation(ACharacter* PlayTarget, UAnimMontage* AnimMontage)
+{
+	if (IsValid(PlayTarget) && IsValid(AnimMontage))
+	{
+		PlayTarget->StopAnimMontage(nullptr); // Stop all excuting montages
+		PlayTarget->PlayAnimMontage(AnimMontage);
+	}
+}
+
+void AAbilityEffectBase::PlayDelayedSound(FVector SoundLocation, USoundBase* SoundBase)
+{
+	UAudioComponent* CastSound = UGameplayStatics::SpawnSoundAttached(
+		SoundBase, GetRootComponent(), NAME_None, SoundLocation, FRotator(0.f),
+		EAttachLocation::SnapToTarget, false);
+	if (IsValid(CastSound))
+	{
+		CastSound->bAutoDestroy = true;
+		CastSound->Play();
+	}
+}
+
+void AAbilityEffectBase::PlayDelayedNiagara(UNiagaraSystem* NiagaraEffect, float NiagaraScale)
+{
+	UNiagaraComponent* NiagaraSys = UNiagaraFunctionLibrary::SpawnSystemAttached(
+		NiagaraEffect, GetRootComponent(), FName(), FVector::ZeroVector,
+		FRotator::ZeroRotator, EAttachLocation::SnapToTarget, true);
+	if (IsValid(NiagaraSys))
+	{
+		NiagaraSys->SetRelativeScale3D( FVector(NiagaraScale) );
+	}
 }
 
 void AAbilityEffectBase::InitializeAbility()
@@ -204,10 +253,11 @@ void AAbilityEffectBase::InitializeAbility()
 	bInitialized = true;
 	if (UAbilitySystem::GetAbilityNameIsValid(_AbilityName))
 	{
-		_AbilityData = UAbilitySystem::GetAbilityDataFromName(_AbilityName);
+		const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(_AbilityName);
+		_AbilityData = AbilityData;
 		_SpellData   = UAbilitySystem::GetSpellDataFromName(_AbilityName);
 		
-		_TimeRemaining = FMath::RoundToInt( _AbilityData.EffectDuration );
+		_TimeRemaining = FMath::RoundToInt( _AbilityData.ActivationTime );
 		if (_TimeRemaining <= 0.f)
 		{
 			_TimeRemaining = 1.f;
@@ -215,7 +265,8 @@ void AAbilityEffectBase::InitializeAbility()
 
 		UE_LOG(LogTemp, Display, TEXT("%s(%s): InitializeAbility() - '%s'"),
 			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), *_AbilityData.DisplayName);
-		
+
+		/*
 		if (_AbilityData.VisualEffects.NiagaraEffect)
 		{
 			NiagaraComponent->SetAsset(_AbilityData.VisualEffects.NiagaraEffect);
@@ -223,19 +274,26 @@ void AAbilityEffectBase::InitializeAbility()
 			NiagaraComponent->Activate(true);
 			NiagaraComponent->SetAutoDestroy(true);
 		}
+		*/
 		
-		if (_AbilityData.SoundData.SoundCasting)
+		if (AbilityData.SoundData.SoundCasting)
 		{
-			UAudioComponent* CastSound = UGameplayStatics::SpawnSoundAttached(
-				_AbilityData.SoundData.SoundCasting, GetRootComponent(), NAME_None, FVector(0.f), FRotator(0.f),
-				EAttachLocation::SnapToTarget, false);
-			
-			if (IsValid(CastSound))
-					CastSound->Play();
-			
+			if (AbilityData.SoundData.DelaySoundCasting > 0.f)
+			{
+				FTimerHandle CastTimer;
+				FTimerDelegate CastDelegate;
+				CastDelegate.BindUFunction(this, FName("PlayDelayedSound"),
+					 GetOriginatingActor()->GetActorLocation(), AbilityData.SoundData.SoundCasting);
+				GetWorld()->GetTimerManager().SetTimer(CastTimer, CastDelegate,
+					AbilityData.SoundData.DelaySoundCasting, false);
+			}
+			else
+			{
+				PlayDelayedSound( GetOriginatingActor()->GetActorLocation(), AbilityData.SoundData.SoundCasting );
+			}
 		}
 	
-		if (_AbilityData.SoundData.SoundLooping)
+		if (AbilityData.SoundData.SoundLooping)
 		{
 			LoopSound = UGameplayStatics::SpawnSoundAttached(
 				_AbilityData.SoundData.SoundLooping, GetRootComponent(), NAME_None, FVector(0.f), FRotator(0.f),
@@ -268,8 +326,10 @@ void AAbilityEffectBase::SetupDefaults()
 	SceneRoot = CreateDefaultSubobject<USceneComponent>(TEXT("SceneRoot"));
 	SetRootComponent(SceneRoot);
 
+	/*
 	NiagaraComponent = CreateDefaultSubobject<UNiagaraComponent>(TEXT("NiagaraComponent"));
 	NiagaraComponent->SetupAttachment(GetRootComponent());
+	*/
 	
 	UE_LOG(LogTemp, Display, TEXT("%s(%s): SetupDefaults()"), *GetName(),
 		HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
@@ -282,6 +342,5 @@ void AAbilityEffectBase::EffectTick()
 	{
 		OnEffectExpired.Broadcast(_AbilityName);
 		AbilityComplete(true);
-		Destroy();
 	}
 }

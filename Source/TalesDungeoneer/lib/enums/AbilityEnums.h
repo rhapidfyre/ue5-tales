@@ -24,6 +24,17 @@ enum class EAbilityType : uint8
 	SYNERGY		UMETA(DisplayName = "Synergy")
 };
 
+UENUM()
+enum class ESpellCastingType : uint8
+{
+	ONE_OFF 	UMETA(DisplayName = "One Handed Offense"),
+	TWO_OFF		UMETA(DisplayName = "Two Handed Offense"),
+	ONE_BUFF	UMETA(DisplayName = "One Handed Defensive"),
+	TWO_BUFF	UMETA(DisplayName = "Two Handed Defensive"),
+	ONE_AOE		UMETA(DisplayName = "One Handed Area Effect"),
+	TWO_AOE		UMETA(DisplayName = "Two Handed Area Effect")
+};
+
 UENUM(BlueprintType)
 enum class EAbilityTarget : uint8
 {

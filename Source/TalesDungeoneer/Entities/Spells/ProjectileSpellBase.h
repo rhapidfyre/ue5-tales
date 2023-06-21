@@ -23,9 +23,9 @@ public:
 	/**
 	 * @brief Accessor for setting the movement vector instead of accessing the
 	 *			projectile motion component directly.
-	 * @param SpeedVector The speed of the projectile upon spawning
+	 * @param ProjectileSpeed The speed of the projectile upon spawning
 	 */
-	UFUNCTION(BlueprintCallable) void SetProjectileSpeed(FVector SpeedVector);
+	UFUNCTION(BlueprintCallable) void SetProjectileSpeed(float ProjectileSpeed = 0.f);
 
 	/**
 	 * @brief Accessor for setting the gravity boolean instead of accessing the
@@ -68,6 +68,6 @@ public: // variables (members)
 	UPROPERTY(BlueprintReadWrite, Category = "Actor Settings")
 	bool bUsePhysics = true;
 
-	FVector _SpeedVector = FVector(1.0f);
+	float _ProjectileSpeed = 0.f;
 	float _GravityScale = 1.f;
 };

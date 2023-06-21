@@ -1,7 +1,7 @@
 ﻿
 #include "ProjectileSpellBase.h"
 
-#include "Kismet/KismetMathLibrary.h"
+#include "AiController.h"
 #include "TalesDungeoneer/Entities/ProjectileBase.h"
 
 
@@ -11,9 +11,9 @@ AProjectileSpellBase::AProjectileSpellBase()
 	bReplicates = true;
 }
 
-void AProjectileSpellBase::SetProjectileSpeed(FVector SpeedVector)
+void AProjectileSpellBase::SetProjectileSpeed(float ProjectileSpeed)
 {
-	_SpeedVector = SpeedVector;
+	_ProjectileSpeed = ProjectileSpeed;
 }
 
 void AProjectileSpellBase::SetGravityConsidered(bool AllowGravity)
@@ -28,8 +28,7 @@ void AProjectileSpellBase::FireProjectile()
 
 	const FStSpellData SpellData = GetSpellData();
 	
-	SetGravityConsidered(SpellData.bUseGravity);
-	SetProjectileSpeed(SpellData.ImpactData.SpeedDirection);
+	SetGravityConsidered(SpellData.ImpactData.bUseGravity);
 	
 	FVector EndPosition = GetImpactPosition();
 	AActor* TargetActor = GetTargetActor();
@@ -37,25 +36,41 @@ void AProjectileSpellBase::FireProjectile()
 		EndPosition = TargetActor->GetActorLocation();
 	
 	const FVector StartPosition = GetActorLocation();
-	
-	FVector FaceDirection = (StartPosition - EndPosition).GetSafeNormal();
-	FRotator FaceRotation = FaceDirection.Rotation();
-	
-	FTransform SpawnTransform( FaceRotation );
-			   SpawnTransform.SetLocation( StartPosition );
-			   SpawnTransform.SetScale3D( FVector(SpellData.VisualEffects.EffectScale) );
 
+	/*
+	FVector FaceDirection = (EndPosition - StartPosition).GetSafeNormal();
+	FRotator FaceRotation = FaceDirection.Rotation();
+	*/
+
+	FRotator FaceRotation = FRotator::ZeroRotator;
+	AController* PawnController = GetOriginatingActor()->GetInstigatorController();
+	if (IsValid(PawnController))
+	{
+		FVector CamLocation;
+		PawnController->GetPlayerViewPoint(CamLocation, FaceRotation);
+	}
+	
+	// If we failed to get a viewpoint, get the difference in impact location
+	if (FaceRotation.IsNearlyZero())
+	{
+		FaceRotation = (EndPosition - StartPosition).GetSafeNormal().Rotation();
+	}
+	
+	FTransform SpawnTransform( StartPosition );
+			   SpawnTransform.SetRotation( FaceRotation.Quaternion() );
+			   SpawnTransform.SetScale3D( FVector(SpellData.VisualEffects.EffectScale) );
+	
 	TSubclassOf<AProjectileBase> UsingActor = AProjectileBase::StaticClass();
-	if (IsValid(SpellData.ProjectileActor))
-		UsingActor = SpellData.ProjectileActor;
+	if (IsValid(SpellData.ImpactData.ProjectileActor))
+		UsingActor = SpellData.ImpactData.ProjectileActor;
 	
 	AProjectileBase* Projectile = GetWorld()->
-				SpawnActorDeferred<AProjectileBase>(UsingActor, SpawnTransform);
-
+	SpawnActorDeferred<AProjectileBase>(UsingActor, SpawnTransform);
+	
 	if (IsValid(Projectile))
 	{
 		Projectile->SetGravityConsidered(_GravityScale > 0.f);
-		Projectile->SetProjectileSpeed(_SpeedVector);
+		Projectile->SetProjectileSpeed(SpellData.ImpactData.ProjectileSpeed * FaceRotation.Vector());
 		Projectile->SetProjectileData( GetAbilityName() );
 		Projectile->SetTargetActor( GetTargetActor() );
 		

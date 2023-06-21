@@ -8,6 +8,9 @@
 
 #include "AbilityEffectBase.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAbilityFinished, FName, AbilityName, bool, WasSuccessful);
+
+
 //
 // This is the main parent for all abilities in the game. This is spawned
 // whenever an ability is activated, and performs all of the initialization,
@@ -26,6 +29,8 @@ public:
 	AAbilityEffectBase(ACharacterBase* Instigator, const FName AbilityName, FVector ImpactLocation);
 	AAbilityEffectBase(ACharacterBase* Instigator, const FName AbilityName, AActor* TargetActor);
 
+	UPROPERTY(BlueprintAssignable) FOnAbilityFinished OnAbilityFinished;
+	
 	virtual void SetOwner(AActor* NewOwner) override;
 	
 	UFUNCTION(BlueprintPure) FStAbilityData GetAbilityData() const
@@ -110,15 +115,15 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)	USceneComponent* SceneRoot;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)	UAudioComponent* LoopSound;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) UNiagaraComponent* NiagaraComponent;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite) UNiagaraComponent* NiagaraComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float TimerTickRate = 0.05;
-	
+
 protected:
 	
 	virtual void BeginPlay() override;
-	
-	virtual void BeginDestroy() override;
+
+	virtual void Destroyed() override;
 
 	virtual void OnConstruction(const FTransform& Transform) override;
 	
@@ -133,6 +138,10 @@ protected:
 	
 private:
 
+	UFUNCTION() void PlayDelayedAnimation(ACharacter* PlayTarget, UAnimMontage* AnimMontage);
+	UFUNCTION() void PlayDelayedSound(FVector SoundLocation, USoundBase* SoundBase);
+	UFUNCTION() void PlayDelayedNiagara(UNiagaraSystem* NiagaraEffect, float NiagaraScale = 1.f);
+
 	void InitializeAbility();
 
 	void SetupDefaults();
@@ -144,11 +153,13 @@ private:
 	UPROPERTY() FStAbilityData	_AbilityData;
 	UPROPERTY(Replicated) FName _AbilityName;
 
+	UPROPERTY(Replicated) bool _WasSuccessful = false;
+	
 	// The data of the spell being used, if any
 	UPROPERTY() FStSpellData	_SpellData;
 
 	// The actor of origination for the ability that is in effect
-	UPROPERTY() ACharacterBase* _Instigator = nullptr;
+	UPROPERTY(Replicated) ACharacterBase* _Instigator = nullptr;
 
 	// The actor targeted by this ability. If nullptr, it uses _ImpactLocation
 	UPROPERTY() AActor* _TargetActor = nullptr;

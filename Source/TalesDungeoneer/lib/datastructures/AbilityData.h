@@ -35,6 +35,7 @@ USTRUCT(BlueprintType)
 struct FStAbilityVfx
 {
 	GENERATED_BODY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DelayEffect = 0.f;
 	// Overrides Cascade Effect if used
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) UNiagaraSystem* NiagaraEffect = nullptr;
 	// Used if Niagara Effect is invalid
@@ -48,10 +49,27 @@ USTRUCT(BlueprintType)
 struct FStAbilitySoundData
 {
 	GENERATED_BODY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DelaySoundCasting = 0.f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) USoundBase* SoundCasting = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DelaySoundLooping = 0.f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) USoundBase* SoundLooping = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DelaySoundSuccess = 0.f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) USoundBase* SoundSuccess = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DelaySoundFailure = 0.f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) USoundBase* SoundFailure = nullptr;
+};
+
+USTRUCT(BlueprintType)
+struct FStAbilityAnimData
+{
+	GENERATED_BODY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bHoldStartAnim  = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DelayStartAnim = 0.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) UAnimMontage* AnimationOnStart		= nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DelayFailAnim = 0.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) UAnimMontage* AnimationOnFail		= nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DelaySuccessAnim = 0.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) UAnimMontage* AnimationOnSuccess	= nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -59,11 +77,17 @@ struct FStProjectileData
 {
 	GENERATED_BODY()
 
-	// The speed of the projectile. Leave as 0,0,0 if this isn't a projectile
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FVector SpeedDirection = FVector(0.f);
+	// The speed of the projectile
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float ProjectileSpeed = 0.f;
+	
+	// If true, projectile will be affected by gravity.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bUseGravity = false;
 	
 	// If valid, when the projectile impacts something, this actor will spawn
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) TSubclassOf<ASpellActorBase> ImpactActor = nullptr;
+	
+	// If valid, when the ability successfully activates, this actor will be spawned
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TSubclassOf<AProjectileBase> ProjectileActor = nullptr;
 	
 	// The niagara system to play upon impact. Overrides Cascade Effect.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) UNiagaraSystem* NiagaraEffect = nullptr;
@@ -98,32 +122,29 @@ struct FStSpellData : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float MaxReach = 304.8f;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bIsProjectile = false;
+
+	// Data for when the project hits something (if this is a projectile)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStProjectileData ImpactData = FStProjectileData();
-	
-	// If true, projectile will be affected by gravity.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bUseGravity = false;
-	
-	// If valid, when the ability successfully activates, this actor will be spawned
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) TSubclassOf<AProjectileBase> ProjectileActor = nullptr;
 	
 	// Spawn Offset from Spawn Location (Parent origin)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FName SpawnBone = FName();
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FVector SpawnOffset = FVector(0.f);
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FRotator SpawnRotation = FRotator(0.f);
 
-	// The sound data for when the spell is activated
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStAbilitySoundData SoundData = FStAbilitySoundData();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStAbilityVfx VisualEffects = FStAbilityVfx();
 
-	// Classes that can use this ability
+	// Classes that can use this spell
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<ECharacterClass> AllowedClass = {};
 
 	// Minimum level to use this ability
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) int   MinimumLevel = 1;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) float ConsumeMagic	 = 0.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float ConsumeMagic	 = 1.f;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float ConsumeHealth  = 0.f;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float ConsumeStamina = 0.f;
 
 	 
@@ -143,6 +164,7 @@ struct FStAbilityData : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) UTexture2D* DisplayIcon   = nullptr;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) EAbilityType AbilityType  = EAbilityType::NONE;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) EAbilityTarget TargetType = EAbilityTarget::SELF;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) ESpellCastingType CastingType = ESpellCastingType::ONE_OFF;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bCanActivateWhileMoving  = true;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bSprintCancelsActivation = true;
@@ -187,9 +209,12 @@ struct FStAbilityData : public FTableRowBase
 	// The rotational offset from the actors attachment position at (0,0,0)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FVector AttachRotOffset = FVector(0.f);
 
+	// The animation data for the ability procedure
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStAbilityAnimData AnimationData = FStAbilityAnimData();
 	// The sound data for when the ability is activated
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStAbilitySoundData SoundData = FStAbilitySoundData();
 
+	// The visual effects played when the ability is activated
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStAbilityVfx VisualEffects = FStAbilityVfx();
 };
 
