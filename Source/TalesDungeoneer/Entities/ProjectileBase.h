@@ -45,6 +45,10 @@ public:
 	FVector GetOriginLocation() const { return _OriginLocation; }
 
 	UFUNCTION(BlueprintCallable)
+	ACharacterBase* GetInstigatingActor() const { return _InstigatingActor; }
+	void SetInstigatingActor(ACharacterBase* InstigatingActor) { _InstigatingActor = InstigatingActor; };
+
+	UFUNCTION(BlueprintCallable)
 	void SetMaxTravelDistance(float MaxTravelDistance = 2048.f);
 	float GetMaxTravelDistance() const { return _MaxTravelDistance; }
 	
@@ -55,19 +59,20 @@ protected:
 	virtual void Destroyed() override;
 
 	virtual void ApplyHitEffect(AActor* HitCharacter, FVector HitVector);
-
-private:
-
+	
 	void SetupDefaults();
 
 public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UStaticMesh* UsingMesh;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UProjectileMovementComponent* ProjectileMovement;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	UArrowComponent* Arrow;
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UStaticMeshComponent* RootMesh;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	USphereComponent* SphereCollision;
 	
@@ -99,12 +104,14 @@ private:
 					  AActor* OtherActor, UPrimitiveComponent* OtherComp,
 					  int OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-	UPROPERTY() AActor* _TargetActor;
-	UPROPERTY() float _MaxTravelDistance = 2048.f;
+	
+	UPROPERTY(Replicated) ACharacterBase* _InstigatingActor = nullptr;
+	UPROPERTY(Replicated) AActor* _TargetActor = nullptr;
+	UPROPERTY(Replicated) float _MaxTravelDistance = 2048.f;
 	
 	UPROPERTY(Replicated) float _GravityScale = 1.f;
 	UPROPERTY(Replicated) FVector _SpeedVector = FVector(0.f);
 
-	UPROPERTY() FVector _OriginLocation;
+	UPROPERTY(Replicated) FVector _OriginLocation;
 	
 };

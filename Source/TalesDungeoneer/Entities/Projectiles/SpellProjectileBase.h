@@ -45,11 +45,11 @@ private:
 
 	// Allows tracking of effects for cleanup if this actor gets destroyed
 	// Only needed for attached effects or effects that are looped
-	TArray<UNiagaraComponent*> LoopingNiagaraEmitters;
+	UPROPERTY() TArray<UNiagaraComponent*> LoopingNiagaraEmitters;
 	
 	// Allows tracking of effects for cleanup if this actor gets destroyed
 	// Only needed for attached effects or effects that are looped
-	TArray<UAudioComponent*> LoopingSoundEmitters;
+	UPROPERTY() TArray<UAudioComponent*> LoopingSoundEmitters;
 
 	//Helper Function
 	void PlayAbilityEffects(FStAbilityFx VisualEffect);
@@ -58,7 +58,8 @@ private:
 	// Can be called either directly, or by an FTimerHandle for a delay
 	void ExecuteSpellEffect(FStAbilityFx AbilityFx, bool StopOnDestroyed = false);
 	
-	UPROPERTY() FStAbilityData _AbilityData;
+	UPROPERTY() FStAbilityData	_AbilityData;
+	UPROPERTY() FStSpellData	_SpellData;
 
 	UPROPERTY(Replicated) FName _AbilityName = FName();
 	

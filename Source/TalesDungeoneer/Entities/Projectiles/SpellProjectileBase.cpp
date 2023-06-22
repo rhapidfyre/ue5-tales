@@ -11,6 +11,7 @@
 
 void ASpellProjectileBase::PlayAbilityEffects(FStAbilityFx AbilityEffect)
 {
+	FTransform ActorTransform = GetActorTransform();
 	if (IsValid(AbilityEffect.NiagaraEffect))
 	{
 		if (AbilityEffect.bAttachNiagaraToActor || AbilityEffect.bAttachNiagaraToSkeleton)
@@ -30,19 +31,20 @@ void ASpellProjectileBase::PlayAbilityEffects(FStAbilityFx AbilityEffect)
 		else
 		{
 			UNiagaraComponent* NiagaraComponent = UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(),
-					AbilityEffect.NiagaraEffect, GetActorLocation(), GetActorRotation(),
+					AbilityEffect.NiagaraEffect, ActorTransform.GetLocation(), ActorTransform.GetRotation().Rotator(),
 					FVector(AbilityEffect.EffectScale),true, true);
 		}
 	}
 	if (IsValid(AbilityEffect.SoundEffect))
 	{
 		UAudioComponent* ImpactSound = UGameplayStatics::SpawnSoundAtLocation(GetWorld(),
-			AbilityEffect.SoundEffect, GetActorLocation(),
-			FRotator::ZeroRotator, AbilityEffect.SoundVolume);
+			AbilityEffect.SoundEffect, ActorTransform.GetLocation(),
+			FRotator::ZeroRotator, AbilityEffect.SoundVolume);	
 		if (IsValid(ImpactSound))
 		{
-			LoopingSoundEmitters.Add(ImpactSound);
 			ImpactSound->bAutoDestroy = true;
+			if (!AbilityEffect.SoundEffect->IsOneShot())
+				LoopingSoundEmitters.Add(ImpactSound);
 			ImpactSound->Play();
 		}
 	}
@@ -65,6 +67,7 @@ void ASpellProjectileBase::ExecuteSpellEffect(FStAbilityFx AbilityFx, bool StopO
 		}
 	}
 	
+	//TODO - Need to add a delay to this
 	if (IsValid(AbilityFx.SoundEffect))
 	{
 		UAudioComponent* ImpactSound = UGameplayStatics::SpawnSoundAtLocation(GetWorld(),
@@ -82,16 +85,18 @@ void ASpellProjectileBase::ExecuteSpellEffect(FStAbilityFx AbilityFx, bool StopO
 ASpellProjectileBase::ASpellProjectileBase(FName AbilityName)
 {
 	SetProjectileData(AbilityName);
+	SetupDefaults();
 }
 
 void ASpellProjectileBase::SetProjectileData(FName AbilityName)
 {
 	_AbilityName = AbilityName;
-	SetFromAbilityData();
 }
 
 void ASpellProjectileBase::BeginPlay()
 {
+	SetFromAbilityData();
+	
 	Super::BeginPlay();
 	
 	FStSpellData SpellData = UAbilitySystem::GetSpellDataFromName(_AbilityName);
@@ -139,21 +144,23 @@ void ASpellProjectileBase::Destroyed()
 
 void ASpellProjectileBase::SetFromAbilityData()
 {
-	const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(_AbilityName);
-	if (UAbilitySystem::GetAbilityDataIsValid(AbilityData))
+	_AbilityData = UAbilitySystem::GetAbilityDataFromName(_AbilityName);
+	_SpellData   = UAbilitySystem::GetSpellDataFromName(_AbilityName);
+	
+	SetMaxTravelDistance(_AbilityData.MaxReach);
+	
+	if (_SpellData.ImpactData.Num() > 0)
 	{
-		SetMaxTravelDistance(AbilityData.MaxReach);
-		_AbilityData = AbilityData;
+		SetProjectileScale(1.f);//_SpellData.ImpactData[0].ProjectileScale);
+		SetProjectileSpeed( FVector(_SpellData.ImpactData[0].ProjectileSpeed) * GetActorForwardVector());
+		SetGravityConsidered( _SpellData.ImpactData[0].bUseGravity );
 	}
 }
 
 void ASpellProjectileBase::ApplyHitEffect(AActor* HitActor, FVector HitVector)
 {
-	const FStSpellData SpellData		= UAbilitySystem::GetSpellDataFromName(_AbilityName);
-	const FStAbilityData AbilityData	= UAbilitySystem::GetAbilityDataFromName(_AbilityName);
-
 	// Create the effects actor (Client & Server)
-	for (FStProjectileData ProjectileData : SpellData.ImpactData)
+	for (FStProjectileData ProjectileData : _SpellData.ImpactData)
 	{
 		for (FStAbilityFx AbilityFx : ProjectileData.EffectsFinal)
 		{
@@ -178,13 +185,11 @@ void ASpellProjectileBase::ApplyHitEffect(AActor* HitActor, FVector HitVector)
 			HitCharacter->AbilityComponent->ApplyEffect(HitInstigator, _AbilityName);
 
 			// Apply damages
-			HitCharacter->VitalityComponent->ModifyVitalityStat(EVitalityCategories::HEALTH,	SpellData.ConsumeHealth);
-			HitCharacter->VitalityComponent->ModifyVitalityStat(EVitalityCategories::MAGIC,		SpellData.ConsumeMagic);
-			HitCharacter->VitalityComponent->ModifyVitalityStat(EVitalityCategories::STAMINA,	SpellData.ConsumeStamina);
+			HitCharacter->VitalityComponent->ModifyVitalityStat(EVitalityCategories::HEALTH,  _SpellData.ConsumeHealth);
+			HitCharacter->VitalityComponent->ModifyVitalityStat(EVitalityCategories::MAGIC,	  _SpellData.ConsumeMagic);
+			HitCharacter->VitalityComponent->ModifyVitalityStat(EVitalityCategories::STAMINA, _SpellData.ConsumeStamina);
 		}
 	}
-	
-	Super::ApplyHitEffect(HitActor, HitVector);
 }
 
 

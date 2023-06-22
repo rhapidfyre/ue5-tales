@@ -16,8 +16,38 @@ AProjectileBase::AProjectileBase()
 void AProjectileBase::OnConstruction(const FTransform& Transform)
 {
 	Super::OnConstruction(Transform);
-	ProjectileMovement->Velocity = FVector(0.f);
-	ProjectileMovement->ProjectileGravityScale = 1.f;
+	
+	RootMesh->SetNotifyRigidBodyCollision(true);
+	
+	SphereCollision->SetHiddenInGame(true);
+	SphereCollision->SetVisibility(false);
+	SphereCollision->SetGenerateOverlapEvents(true);
+	SphereCollision->SetCollisionProfileName(FName("Projectile"));
+	SphereCollision->SetCollisionResponseToAllChannels(ECR_Overlap);
+	SphereCollision->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	SphereCollision->Deactivate();
+
+	_OriginLocation = GetActorLocation();
+	
+	if (!IsValid(UsingMesh))
+	{
+		UsingMesh = Cast<UStaticMesh>(StaticLoadObject(UStaticMesh::StaticClass(), nullptr,
+			TEXT("StaticMesh'/Game/TalesContent/Meshes/GeoShapes/Sphere.Sphere'")));
+	}
+	
+	if (IsValid(UsingMesh))
+	{
+		const bool IsAuthority = HasAuthority();
+		RootMesh->SetStaticMesh(UsingMesh);
+		RootMesh->SetCollisionObjectType(ECC_WorldDynamic);
+		RootMesh->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
+		RootMesh->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+		RootMesh->SetCollisionResponseToChannel(ECC_Vehicle, ECR_Overlap);
+		RootMesh->SetCollisionResponseToChannel(ECC_Destructible, ECR_Overlap);
+		RootMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+		RootMesh->SetSimulatePhysics(false);
+	}
+	
 }
 
 void AProjectileBase::SetGravityConsidered(bool AllowGravity)
@@ -27,7 +57,8 @@ void AProjectileBase::SetGravityConsidered(bool AllowGravity)
 
 void AProjectileBase::SetProjectileScale(float newScale)
 {
-	UE_LOG(LogTemp, Warning, TEXT("%s: NOT YET IMPLEMENTED"), *GetName());
+	UE_LOG(LogTemp, Warning, TEXT("%s(%s): NOT YET IMPLEMENTED"), *GetName(),
+		HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
 }
 
 void AProjectileBase::SetProjectileSpeed(FVector SpeedVector)
@@ -43,136 +74,153 @@ void AProjectileBase::SetMaxTravelDistance(float MaxTravelDistance)
 // Called when the game starts or when spawned
 void AProjectileBase::BeginPlay()
 {
-	UE_LOG(LogTemp, Display, TEXT("%s(%s): BeginPlay()"),
-		*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
 	Super::BeginPlay();
+
+	RootMesh->SetEnableGravity(_GravityScale > 0.f);
+	ProjectileMovement->ProjectileGravityScale = _GravityScale;
+	ProjectileMovement->Velocity = _SpeedVector;
 	
-	if (HasAuthority())
-	{
-		SphereCollision->OnComponentHit.AddDynamic(this, &AProjectileBase::CheckCollision);
-		SphereCollision->OnComponentBeginOverlap.AddDynamic(this, &AProjectileBase::CheckOverlap);
-		
-		_OriginLocation = GetActorLocation();
-		
-		ProjectileMovement->ProjectileGravityScale = _GravityScale;
-		ProjectileMovement->Velocity = _SpeedVector;
-		ProjectileMovement->Activate(true);
-	}
+	RootMesh->OnComponentHit.AddDynamic(this, &AProjectileBase::CheckCollision);
+	RootMesh->OnComponentBeginOverlap.AddDynamic(this, &AProjectileBase::CheckOverlap);
+	//SphereCollision->OnComponentBeginOverlap.AddDynamic(this, &AProjectileBase::CheckOverlap);
+	
+	ProjectileMovement->Activate(true);
+	//SphereCollision->Activate(true);
 }
 
 void AProjectileBase::Destroyed()
 {
-	UE_LOG(LogTemp, Display, TEXT("%s(%s): Destroyed()"),
-		*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
 	Super::Destroyed();
 }
 
 void AProjectileBase::SetupDefaults()
 {
-	
-	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = HasAuthority();
+	PrimaryActorTick.bCanEverTick = true;
 	bReplicates = true;
+	
+	SetActorEnableCollision(true);
+	SetActorTickEnabled(true);
 
-	SetActorTickEnabled( HasAuthority() );
+	RootMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Root"));
+	SetRootComponent(RootMesh);
 	
 	SphereCollision = CreateDefaultSubobject<USphereComponent>(TEXT("SphereCollision"));
-	SetRootComponent(SphereCollision);
 	SphereCollision->InitSphereRadius(40.f);
-	SphereCollision->SetIsReplicated(true);
-	
-	Arrow = CreateDefaultSubobject<UArrowComponent>(TEXT("Arrow"));
-	Arrow->SetHiddenInGame(false);
-	Arrow->SetupAttachment(GetRootComponent());
+	SphereCollision->SetupAttachment(RootMesh);
 	
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Movement"));
-	ProjectileMovement->SetIsReplicated(true);
 	ProjectileMovement->Deactivate();
-
-	// Set Collision Responses
-	SphereCollision->SetCollisionResponseToAllChannels(ECR_Ignore);
-	FCollisionResponseContainer CollResponse;
-
-	// Check for interception hit
-	CollResponse.SetResponse(ECC_Pawn, ECR_Overlap);
-	CollResponse.SetResponse(ECC_Destructible, ECR_Overlap);
-
-	// Check for extermination
-	CollResponse.SetResponse(ECC_Visibility, ECR_Overlap);
-	CollResponse.SetResponse(ECC_WorldDynamic, ECR_Overlap);
-	CollResponse.SetResponse(ECC_WorldStatic, ECR_Overlap);
-	
-	SphereCollision->SetCollisionResponseToChannels(CollResponse);
-	SphereCollision->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-}
-
-void AProjectileBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
-{
-	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-	DOREPLIFETIME(AProjectileBase, _GravityScale);
-	DOREPLIFETIME(AProjectileBase, _SpeedVector);
 }
 
 // Called every frame
 void AProjectileBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (HasAuthority())
+	const float travelDistance = GetMaxTravelDistance();
+	if (travelDistance > 0.f)
 	{
-		const float travelDistance = GetMaxTravelDistance();
-		if (travelDistance > 0.f)
+		const FVector OriginLoc = GetOriginLocation();
+		const FVector ActorLoc = GetActorLocation();
+		const float TravelLength = (OriginLoc-ActorLoc).Length();
+		if (TravelLength > travelDistance)
 		{
-			if ((GetOriginLocation() - GetActorLocation()).Length() > travelDistance)
-			{
-				SetOwner(nullptr);
-				SetActorTickEnabled(false);
-				Destroy();
-			}
+			SetOwner(nullptr);
+			Destroy();
 		}
 	}
 }
 
-
-
 void AProjectileBase::CheckCollision(UPrimitiveComponent* HitComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	UE_LOG(LogTemp, Display, TEXT("%s(%s): Evaluating Collision Hit with actor '%s'"),
-		*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), *OtherActor->GetName());
+	const FString ServerOrClientText = HasAuthority()?TEXT("SERVER"):TEXT("CLIENT");
+	UE_LOG(LogTemp, Display, TEXT("%s(%s): Evaluating Collision with actor '%s'"),
+		*GetName(), *ServerOrClientText, *OtherActor->GetName());
 	if (IsValid(OtherActor))
 	{
-
-		// If an actor is targeted, target that actor specifically
-		// Otherwise, target the actor that was hit by the collision
-		ACharacterBase* HitCharacter = Cast<ACharacterBase>(GetTargetActor());
-		if (!IsValid(HitCharacter))
+		ACharacterBase* InstigatingActor = Cast<ACharacterBase>(GetInstigator()); //GetInstigatingActor();
+		if (OtherActor != InstigatingActor && OtherActor != this)
 		{
-			HitCharacter = Cast<ACharacterBase>(Hit.GetActor());
+			// If an actor is targeted, target that actor specifically
+			// Otherwise, target the actor that was hit by the collision
+			ACharacterBase* HitCharacter = Cast<ACharacterBase>(GetTargetActor());
+			if (!IsValid(HitCharacter))
+			{
+				const FVector HitVector = GetActorLocation();
+				ApplyHitEffect(OtherActor, HitVector);
+				Destroy();
+			}
+			else
+			{
+				if (IsValid(HitCharacter))
+				{
+					if (HitCharacter != GetInstigatingActor())
+					{
+						const FVector HitVector = HitCharacter->GetActorLocation();
+						ApplyHitEffect(HitCharacter, HitVector);
+						Destroy();
+					}
+				}
+			}
 		}
-		const FVector HitVector = HitCharacter->GetActorLocation();
-		ApplyHitEffect(HitCharacter, HitVector);
-		
 	}
 }
 
 void AProjectileBase::CheckOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	UE_LOG(LogTemp, Display, TEXT("%s(%s): Evaluating Overlap with actor '%s'"),
-		*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), *OtherActor->GetName());
-	ACharacterBase* HitActor = Cast<ACharacterBase>(OtherActor);
-	if (IsValid(HitActor))
+	const FString ServerOrClientText = HasAuthority()?TEXT("SERVER"):TEXT("CLIENT");
+	UE_LOG(LogTemp, Display, TEXT("%s(%s): Evaluating Overlap (%s) with actor '%s'"),
+		*GetName(), *ServerOrClientText, *this->GetName(), *OtherActor->GetName());
+	if (IsValid(OtherActor))
 	{
-		// If an actor is targeted, target that actor specifically
-		// Otherwise, target the actor that was hit by the collision
-		ACharacterBase* HitCharacter = Cast<ACharacterBase>(GetTargetActor());
-		if (!IsValid(HitCharacter))
+		ACharacterBase* InstigatingActor = Cast<ACharacterBase>(GetInstigator()); //GetInstigatingActor();
+		if (OtherActor != InstigatingActor && OtherActor != this)
 		{
-			HitCharacter = Cast<ACharacterBase>(SweepResult.GetActor());
+			// If an actor is targeted, target that actor specifically
+			// Otherwise, target the actor that was hit by the collision
+			ACharacterBase* HitCharacter = Cast<ACharacterBase>(GetTargetActor());
+			if (!IsValid(HitCharacter))
+			{
+				const FVector HitVector = GetActorLocation();
+				ApplyHitEffect(OtherActor, HitVector);
+				Destroy();
+			}
+			else
+			{
+				if (IsValid(HitCharacter))
+				{
+					if (HitCharacter != GetInstigatingActor())
+					{
+						const FVector HitVector = HitCharacter->GetActorLocation();
+						ApplyHitEffect(HitCharacter, HitVector);
+						Destroy();
+					}
+				}
+			}
 		}
-		const FVector HitVector = HitCharacter->GetActorLocation();
-		ApplyHitEffect(HitCharacter, HitVector);
 	}
 }
 
-void AProjectileBase::ApplyHitEffect(AActor* HitActor, FVector HitVector) {}
+void AProjectileBase::ApplyHitEffect(AActor* HitActor, FVector HitVector)
+{
+	// Does Nothing, implemented by children
+}
+
+
+/**************************************
+ *			REPLICATION & NETWORKING
+ */
+
+void AProjectileBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(AProjectileBase, _GravityScale);
+	DOREPLIFETIME(AProjectileBase, _SpeedVector);
+	DOREPLIFETIME(AProjectileBase, _InstigatingActor);
+	DOREPLIFETIME(AProjectileBase, _TargetActor);
+	DOREPLIFETIME(AProjectileBase, _MaxTravelDistance);
+	DOREPLIFETIME(AProjectileBase, _GravityScale);
+	DOREPLIFETIME(AProjectileBase, _SpeedVector);
+	DOREPLIFETIME(AProjectileBase, _OriginLocation);
+}

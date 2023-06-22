@@ -323,7 +323,7 @@ void AAbilityEffectBase::PlayDelayedNiagara(FStAbilityFx VisualEffect)
 		UNiagaraComponent* NiagaraSys = UNiagaraFunctionLibrary::SpawnSystemAttached(
 			VisualEffect.NiagaraEffect, AttachComponent, VisualEffect.NiagaraBone,
 			VisualEffect.EffectOffset, VisualEffect.EffectRotation,
-			EAttachLocation::SnapToTarget, VisualEffect.NiagaraLoopTime > 0.f);
+			EAttachLocation::SnapToTargetIncludingScale, VisualEffect.NiagaraLoopTime > 0.f);
 		if (IsValid(NiagaraSys))
 		{
 			LoopingNiagaraEmitters.Add(NiagaraSys);
@@ -372,7 +372,7 @@ void AAbilityEffectBase::InitializeAbility()
 }
 
 void AAbilityEffectBase::SetupDefaults()
-{
+{ 
 #ifdef UE_BUILD_DEBUG
 	bShowDebug = true;
 #endif

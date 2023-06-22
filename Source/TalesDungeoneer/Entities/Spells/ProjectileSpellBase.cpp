@@ -64,13 +64,10 @@ void AProjectileSpellBase::FireProjectile()
 	
 		if (IsValid(Projectile))
 		{
-			Projectile->SetGravityConsidered(ProjectileData.bUseGravity);
-			Projectile->SetProjectileSpeed(ProjectileData.ProjectileSpeed * FaceRotation.Vector());
-			Projectile->SetProjectileData( GetAbilityName() );
+			Projectile->SetInstigator( GetInstigator() );
 			Projectile->SetTargetActor( GetTargetActor() );
+			Projectile->SetProjectileData( GetAbilityName() );
 			Projectile->FinishSpawning(SpawnTransform);
-			UE_LOG(LogTemp, Display, TEXT("%s(%s): Projectile Spawned - %f"),
-				*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), _GravityScale);
 		}
 	}
 }

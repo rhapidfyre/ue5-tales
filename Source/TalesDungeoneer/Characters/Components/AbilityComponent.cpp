@@ -218,7 +218,7 @@ void UAbilityComponent::SpawnEffectsActor(
 	if (IsValid(AbilityEffect))
 	{
 		SetIsCasting(true);
-		
+		AbilityEffect->SetInstigator( GetOwner()->GetInstigator() );
 		AbilityEffect->SetAbilityInstigator( Cast<ACharacterBase>(GetOwner()) );
 		AbilityEffect->SetTargetActor( Cast<ACharacterBase>(GetTargetedActor()) );
 		AbilityEffect->SetAbilityName(AbilityName);

@@ -53,6 +53,7 @@ public:
 
 	// Event triggers when the timer ticks, including right before expiring.
 	UPROPERTY(BlueprintCallable) FOnEffectTick OnEffectTick;
+	
 	/**
 	 * @brief Returns the name of the ability this object is representing
 	 * @return The FName (data table row) of this ability
@@ -65,6 +66,12 @@ public:
 	 * @param AbilityInstigator The character who should be the instigator
 	 */
 	UFUNCTION(BlueprintCallable) void SetAbilityInstigator(ACharacterBase* AbilityInstigator);
+	
+	/**
+	 * @brief Returns the instigator of the ability
+	 * @return The ACharacterBase of the actor who initiated this ability
+	 */
+	UFUNCTION(BlueprintPure) ACharacterBase* GetAbilityInstigator() const { return _Instigator; };
 	
 	/**
 	 * @brief Server Only\n Manually sets the target actor of this ability.
