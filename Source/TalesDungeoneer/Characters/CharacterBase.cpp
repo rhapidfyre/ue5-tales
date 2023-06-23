@@ -10,6 +10,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Net/UnrealNetwork.h"
 
 
 // Sets default values
@@ -103,6 +104,14 @@ void ACharacterBase::StopBlocking()
 	WeaponComponent->SetIsBlocking(false);
 }
 
+
+void ACharacterBase::SetCharacterTeam(ECharacterTeam NewTeam)
+{
+	if (HasAuthority())
+	{
+		_CharacterTeam = NewTeam;
+	}
+}
 
 // Called when the game starts or when spawned
 void ACharacterBase::BeginPlay()
@@ -285,4 +294,8 @@ void ACharacterBase::Look(const FInputActionValue& Value)
 
 //////////////////////////////////////////////////////////////////////////
 // Replication
-
+void ACharacterBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(ACharacterBase, _CharacterTeam);
+}

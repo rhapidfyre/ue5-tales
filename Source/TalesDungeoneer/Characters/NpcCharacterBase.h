@@ -19,4 +19,8 @@ public: // functions
 	
 	ANpcCharacterBase();
 
+protected:
+	
+	virtual void BeginPlay() override;
+	
 };

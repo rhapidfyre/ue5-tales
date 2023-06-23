@@ -147,7 +147,7 @@ void ASpellProjectileBase::SetFromAbilityData()
 	_AbilityData = UAbilitySystem::GetAbilityDataFromName(_AbilityName);
 	_SpellData   = UAbilitySystem::GetSpellDataFromName(_AbilityName);
 	
-	SetMaxTravelDistance(_AbilityData.MaxReach);
+	SetMaxTravelDistance(_AbilityData.MaxRange);
 	
 	if (_SpellData.ImpactData.Num() > 0)
 	{

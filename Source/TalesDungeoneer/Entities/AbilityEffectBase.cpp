@@ -8,6 +8,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Delegates/Delegate.h"
 #include "Net/UnrealNetwork.h"
+#include "TalesDungeoneer/Characters/PlayerCharacterBase.h"
 
 AAbilityEffectBase::AAbilityEffectBase()
 {
@@ -149,39 +150,35 @@ void AAbilityEffectBase::BeginPlay()
 			this, &AAbilityEffectBase::EffectTick, TimerTickRate, true);
 		
 	}
-	else
-	{
-		const FStAbilityData AbilityData = GetAbilityData();
+	const FStAbilityData AbilityData = GetAbilityData();
 		
-		if (IsValid(AbilityData.AnimationData.AnimationOnStart))
+	if (IsValid(AbilityData.AnimationData.AnimationOnStart))
+	{
+		if (AbilityData.AnimationData.DelayStartAnim > 0.f)
 		{
-			if (AbilityData.AnimationData.DelayStartAnim > 0.f)
-			{
-				FTimerHandle StartAnimTimer;
-				FTimerDelegate StartAnimDelegate;
-				ACharacter* OriginatingActor;
-				StartAnimDelegate.BindUObject(this, &AAbilityEffectBase::PlayDelayedAnimation,
-					 OriginatingActor, AbilityData.AnimationData.AnimationOnStart);
-				GetWorld()->GetTimerManager().SetTimer(StartAnimTimer, StartAnimDelegate,
-					_AbilityData.AnimationData.DelayStartAnim, false);
-			}
-			else
-			{
-				PlayDelayedAnimation(GetOriginatingActor(), AbilityData.AnimationData.AnimationOnStart);
-			}
+			FTimerHandle StartAnimTimer;
+			FTimerDelegate StartAnimDelegate;
+			ACharacter* OriginatingActor;
+			StartAnimDelegate.BindUObject(this, &AAbilityEffectBase::PlayDelayedAnimation,
+				 OriginatingActor, AbilityData.AnimationData.AnimationOnStart);
+			GetWorld()->GetTimerManager().SetTimer(StartAnimTimer, StartAnimDelegate,
+				_AbilityData.AnimationData.DelayStartAnim, false);
 		}
-
-		// Dispatch casting effects
-		for (auto AbilityFx : AbilityData.EffectCasting)
+		else
 		{
-			ExecuteCastingEffects(AbilityFx);
-		}
-		for (auto AbilityFx : AbilityData.EffectLooped)
-		{
-			ExecuteCastingEffects(AbilityFx, true);
+			PlayDelayedAnimation(GetOriginatingActor(), AbilityData.AnimationData.AnimationOnStart);
 		}
 	}
-	
+
+	// Dispatch casting effects
+	for (auto AbilityFx : AbilityData.EffectCasting)
+	{
+		ExecuteCastingEffects(AbilityFx);
+	}
+	for (auto AbilityFx : AbilityData.EffectLooped)
+	{
+		ExecuteCastingEffects(AbilityFx, true);
+	}
 }
 
 void AAbilityEffectBase::Destroyed()
@@ -262,8 +259,17 @@ void AAbilityEffectBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
 	DOREPLIFETIME(AAbilityEffectBase, _WasSuccessful);
 }
 
+/**
+ * @brief Applies the ability's effect (if any) to the targeted actor. If no target is selected,
+ *			and no optional override character is given, this does nothing.
+ * @param OverrideCharacter Optional - Overrides GetTargetActor as the target for this effect
+ */
 void AAbilityEffectBase::ApplyEffectToTarget(ACharacterBase* OverrideCharacter)
 {
+	ACharacterBase* InstigatingActor = Cast<ACharacterBase>(GetInstigator());
+	if (!IsValid(InstigatingActor))
+		return;
+	
 	ACharacterBase* EffectTarget = OverrideCharacter;
 	if (!IsValid(EffectTarget))
 	{
@@ -273,23 +279,113 @@ void AAbilityEffectBase::ApplyEffectToTarget(ACharacterBase* OverrideCharacter)
 			return;
 		}
 	}
-	
-	// Apply effect to target actor
-	EffectTarget->AbilityComponent->ApplyEffect(Cast<ACharacterBase>(GetInstigator()), _AbilityName);
+
+	const FStSpellData   SpellData	 = GetSpellData();
+	const FStAbilityData AbilityData = GetAbilityData();
+	if (AbilityData.AbilityType == EAbilityType::DETRIMENT)
+	{
+		const bool IsSameTeam = (EffectTarget->GetCharacterTeam() == InstigatingActor->GetCharacterTeam());
+		if (EffectTarget == GetInstigator() || IsSameTeam)
+		{
+			UE_LOG(LogTemp, Display, TEXT("%s(%s): Offensive spell targeting teammember has been ignored"),
+				*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+			return;
+		}
+	}
+
+	UE_LOG(LogTemp, Display, TEXT("%s(%s): Applying Effect to Actor '%s'"),
+			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), *EffectTarget->GetName());
 
 	// Apply damages
-	EffectTarget->VitalityComponent->ModifyVitalityStat(EVitalityCategories::HEALTH,  _SpellData.ConsumeHealth);
-	EffectTarget->VitalityComponent->ModifyVitalityStat(EVitalityCategories::MAGIC,	  _SpellData.ConsumeMagic);
-	EffectTarget->VitalityComponent->ModifyVitalityStat(EVitalityCategories::STAMINA, _SpellData.ConsumeStamina);
+	EffectTarget->VitalityComponent->ModifyVitalityStat(EVitalityCategories::HEALTH,  SpellData.ConsumeHealth);
+	EffectTarget->VitalityComponent->ModifyVitalityStat(EVitalityCategories::MAGIC,   SpellData.ConsumeMagic);
+	EffectTarget->VitalityComponent->ModifyVitalityStat(EVitalityCategories::STAMINA, SpellData.ConsumeStamina);
+
+	// Apply effect to target actor
+	EffectTarget->AbilityComponent->ApplyEffect(InstigatingActor, _AbilityName);
 	
 }
 
 void AAbilityEffectBase::AbilityComplete(bool WasSuccessful)
 {
-	if (IsValid( GetTargetActor() ))
+	const FStAbilityData AbilityData = GetAbilityData();
+
+	// The instigator is always nullptr (world) or ACharacterBase (gamemode character)
+	ACharacterBase* InstigatorPawn = Cast<ACharacterBase>( GetInstigator() );
+
+	TArray<ACharacterBase*> AllCharacters; // Filtered array of all characters to be affected
+	
+	{//begin explicit scope
+		ACharacterBase* TargetCharacter = Cast<ACharacterBase>( GetTargetActor() );
+		if (IsValid(TargetCharacter))
+		{
+			// Target is self, or within range
+			if (	TargetCharacter == InstigatorPawn
+				||	InstigatorPawn->GetDistanceTo(TargetCharacter) <= AbilityData.MaxRange)
+			{
+				// Add target to list of affected characters
+				AllCharacters.Add(TargetCharacter);
+			}
+		}
+	}//end explicit scope
+	
+	TArray<AActor*> AllTargets; // Used for all actors matching the eligible type(s)
+	const ECharacterTeam InstigatorTeam = InstigatorPawn->GetCharacterTeam();
+	
+	switch(AbilityData.TargetType)
 	{
-		ApplyEffectToTarget();
+	case EAbilityTarget::NEAR:
+		
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), ACharacterBase::StaticClass(), AllTargets);
+		for (int i = AllTargets.Num() - 1; i >= 0; i--)
+		{
+			ACharacterBase* TargetCharacter = Cast<ACharacterBase>(AllTargets[i]);
+			if (IsValid(TargetCharacter) && TargetCharacter != InstigatorPawn)
+			{
+				// Target actor within tolerance area
+				if (InstigatorPawn->GetDistanceTo(TargetCharacter) <= AbilityData.MaxRange)
+					AllCharacters.Add(TargetCharacter);
+			}
+		}
+		break;
+		
+	case EAbilityTarget::GROUP:
+		
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), ACharacterBase::StaticClass(), AllTargets);
+		
+		for (int i = AllTargets.Num() - 1; i >= 0; i--)
+		{
+			ACharacterBase* TargetCharacter = Cast<ACharacterBase>(AllTargets[i]);
+			if (IsValid(TargetCharacter))
+			{
+				const bool IsSameTeam = (InstigatorTeam == TargetCharacter->GetCharacterTeam());
+				const bool IsBenefitSpell = AbilityData.AbilityType == EAbilityType::BENEFIT;
+				if ( (IsSameTeam && IsBenefitSpell) || (!IsSameTeam && !IsBenefitSpell))
+				{
+					// Target within tolerance area
+					if (InstigatorPawn->GetDistanceTo(TargetCharacter) <= AbilityData.MaxRange)
+						AllCharacters.Add(TargetCharacter);
+				}
+			}
+		}
+		
+		break;
+		
+	case EAbilityTarget::CONE:
+		//TODO - Target everything within an angle ahead of the caster
+		break;
+		
+	default:
+		break;
+		
 	}
+	//switch
+	
+	for (ACharacterBase* SoftTarget : AllCharacters)
+	{
+		ApplyEffectToTarget(SoftTarget);
+	}
+		
 	OnAbilityFinished.Broadcast(GetAbilityName(), WasSuccessful);
 	Destroy();
 }
@@ -418,5 +514,6 @@ void AAbilityEffectBase::EffectTick()
 	if (_TimeRemaining <= 0.f)
 	{
 		AbilityComplete(true);
+		_EffectTimer.Invalidate();
 	}
 }

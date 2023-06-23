@@ -22,6 +22,16 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPrimaryAttack);
 // Called when secondary attack is triggered
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSecondaryAttack);
 
+UENUM(BlueprintType)
+enum class ECharacterTeam : uint8
+{
+	SPECTATOR	UMETA(DisplayName = "Unassigned"),
+	PLAYER		UMETA(DisplayName = "Players"),
+	DUNGEONEER	UMETA(DisplayName = "Dungeoneer"),
+	FRIEND		UMETA(DisplayName = "Friendly NPCs"),
+	ENEMY		UMETA(DisplayName = "Enemy NPCs")
+};
+
 /**
  * Character Base is the base C++ class for all logic, methods and members that affect ALL
  * characters, regardless of NPC or Player and their race/class/stats.
@@ -67,8 +77,12 @@ public: // functions
 	// Called when blocking should stop
 	// Does nothing if the character isn't blocking
 	UFUNCTION(BlueprintCallable) void StopBlocking();
+
+	UFUNCTION(BlueprintPure) ECharacterTeam GetCharacterTeam() const { return _CharacterTeam; }
 	
 protected: // functions
+	
+	UFUNCTION(BlueprintCallable) void SetCharacterTeam(ECharacterTeam NewTeam);
 	
 	virtual void BeginPlay() override;
 	
@@ -163,5 +177,9 @@ public: // members
 
 	/** Ability Component */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) UAbilityComponent*	 AbilityComponent;
+
+private:
+
+	UPROPERTY(Replicated) ECharacterTeam _CharacterTeam = ECharacterTeam::SPECTATOR;
 	
 };

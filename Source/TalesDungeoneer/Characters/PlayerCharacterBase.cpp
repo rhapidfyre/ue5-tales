@@ -46,6 +46,8 @@ void APlayerCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInpu
 void APlayerCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
+
+	SetCharacterTeam(ECharacterTeam::PLAYER);
 	
 	//Add Input Mapping Context
 	if ( APlayerController* PlayerController = Cast<APlayerController>(Controller) )

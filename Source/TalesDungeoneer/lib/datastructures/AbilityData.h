@@ -174,9 +174,8 @@ struct FStSpellData : public FTableRowBase
 	// The number of stamina points to deduct when the ability triggers
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float StaminaAffected = 0.f;
 
-	// The maximum distance, in feet, this spell can go from the origin
-	// Ignored for spells that originate from the character
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) float MaxReach = 304.8f;
+	// The maximum distance from the impact point this spell can affect
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float MaxRadius = 304.8f;
 
 	// Data for when the project hits something. No entries means this is NOT a projectile.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStProjectileData> ImpactData = {};
@@ -228,7 +227,7 @@ struct FStAbilityData : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float ConsumeStamina = 0.f;
 
 	// The icon that will show in the ability tree and hot bar
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) UTexture2D* DisplayIcon   		= nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) UTexture2D* DisplayIcon = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bSprintCancels = true;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bJumpCancels   = true;
@@ -249,10 +248,10 @@ struct FStAbilityData : public FTableRowBase
 	// The maximum amount of stacks this effect allows before maxing out
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) int NumOfStackedEffects = 1;
 
-	// The maximum distance, in feet, this ability can reach
-	// For AOEs, this is the max range the origin can be thrown
-	// Negative or zero means it goes off centered on the character
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) float MaxReach = 2048.f;
+	// The maximum distance from the casting actor that the effect can be applied
+	// For non-projectiles, this is the max distance from the casting actor
+	// For projectiles, this is how far the projectile can go without hitting anything
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float MaxRange = 2048.f;
 	
 	// The amount of time it takes for this ability to activate successfully
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float ActivationTime = 3.f;

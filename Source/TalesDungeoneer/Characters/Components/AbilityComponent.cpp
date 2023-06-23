@@ -155,14 +155,13 @@ void UAbilityComponent::ApplyEffect(ACharacterBase* EffectInstigator, FName Abil
 		{
 
 			// ReSharper disable once CppLocalVariableMayBeConst
-			//FStAbilityEffect AbilityEffect = FStAbilityEffect(AbilityName);
-			UAbilityEffect* AbilityEffect = NewObject<UAbilityEffect>(
-				GetOwner(), UAbilityEffect::StaticClass());
+			UStatusEffect* AbilityEffect = NewObject<UStatusEffect>(
+						GetOwner(), UStatusEffect::StaticClass());
+			AddReplicatedSubObject(AbilityEffect);
+			AbilityEffect->OnEffectExpired.AddDynamic(this, &UAbilityComponent::RemoveExpiredEffect);
 			AbilityEffect->SetAbilityName(AbilityName);
 			AbilityEffect->SetEffectInstigator(EffectInstigator);
 			AbilityEffect->InitializeEffect();
-			AbilityEffect->OnEffectExpired.AddDynamic(this, &UAbilityComponent::RemoveExpiredEffect);
-			AddReplicatedSubObject(AbilityEffect);
 			
 			// Lock against reading from the array
 			// Releases lock automatically when scope is lost
@@ -191,7 +190,7 @@ void UAbilityComponent::ApplyEffect(ACharacterBase* EffectInstigator, FName Abil
  * @param AbilityEffect The UObject to remove from the TArray
  * @param AbilityName The name of the ability being removed
  */
-void UAbilityComponent::RemoveExpiredEffect(UAbilityEffect* AbilityEffect, FName AbilityName)
+void UAbilityComponent::RemoveExpiredEffect(UStatusEffect* AbilityEffect, FName AbilityName)
 {
 	if ( IsValid(AbilityEffect) && (_ActiveEffects.Contains(AbilityEffect)) )
 	{
@@ -204,7 +203,7 @@ int UAbilityComponent::GetNumStacksActive(FName AbilityName)
 {
 	int NumStacks = 0;
 	FRWScopeLock ReadLock(_MutexLock, SLT_ReadOnly);
-	for (UAbilityEffect* AbilityEffect : _ActiveEffects)
+	for (UStatusEffect* AbilityEffect : _ActiveEffects)
 	{
 		if (AbilityEffect->GetAbilityName() == AbilityName)
 			NumStacks += 1;
@@ -214,7 +213,7 @@ int UAbilityComponent::GetNumStacksActive(FName AbilityName)
 
 bool UAbilityComponent::GetIsEffectActiveByName(FName AbilityName)
 {
-	for (const UAbilityEffect* AbilityEffect : _ActiveEffects)
+	for (const UStatusEffect* AbilityEffect : _ActiveEffects)
 	{
 		if (AbilityEffect->GetAbilityName() == AbilityName)
 			return true;
@@ -227,13 +226,13 @@ bool UAbilityComponent::GetIsEffectActiveByName(FName AbilityName)
  * @param AbilityName Optional - If valid, returns the effect of this type with the lowest time left
  * @return Object Pointer with the lowest timer, or nullptr if effect is not active
  */
-UAbilityEffect* UAbilityComponent::GetEffectWithLowestTimer(FName AbilityName)
+UStatusEffect* UAbilityComponent::GetEffectWithLowestTimer(FName AbilityName)
 {
-	UAbilityEffect* ReturnPointer = nullptr;
+	UStatusEffect* ReturnPointer = nullptr;
 	float LowestTimeRemaining = -1.f;
 	const bool UseAbilityName = !AbilityName.IsNone();
 	FRWScopeLock ReadLock(_MutexLock, SLT_ReadOnly);
-	for (UAbilityEffect* AbilityEffect : _ActiveEffects)
+	for (UStatusEffect* AbilityEffect : _ActiveEffects)
 	{
 		// If using ability name, make sure it matches
 		if (IsValid(AbilityEffect))
@@ -256,13 +255,13 @@ UAbilityEffect* UAbilityComponent::GetEffectWithLowestTimer(FName AbilityName)
  * @param AbilityName Optional - If valid, returns effect of this type with highest time left
  * @return Object with the highest timer, or nullptr if effect is not active
  */
-UAbilityEffect* UAbilityComponent::GetEffectWithGreatestTimer(FName AbilityName)
+UStatusEffect* UAbilityComponent::GetEffectWithGreatestTimer(FName AbilityName)
 {
-	UAbilityEffect* ReturnPointer = nullptr;
+	UStatusEffect* ReturnPointer = nullptr;
 	float GreatestTimeRemaining = -1.f;
 	const bool UseAbilityName = !AbilityName.IsNone();
 	FRWScopeLock ReadLock(_MutexLock, SLT_ReadOnly);
-	for (UAbilityEffect* AbilityEffect : _ActiveEffects)
+	for (UStatusEffect* AbilityEffect : _ActiveEffects)
 	{
 		// If using ability name, make sure it matches
 		if (IsValid(AbilityEffect))
@@ -295,14 +294,14 @@ float UAbilityComponent::GetTotalEffectStackTimer(FName AbilityName)
 	// If timers run consecutively and not concurrently, return the lowest timer
 	if (UseAbilityName && !AbilityData.bTickIndependently)
 	{
-		const UAbilityEffect* AbilityEffect = GetEffectWithLowestTimer(AbilityName);
+		const UStatusEffect* AbilityEffect = GetEffectWithLowestTimer(AbilityName);
 		if (IsValid(AbilityEffect))
 			return AbilityEffect->GetSecondsRemaining();
 	}
 	
 	for (int i = 1; i < _ActiveEffects.Num() ; i++)
 	{
-		const UAbilityEffect* AbilityEffect = _ActiveEffects[i];
+		const UStatusEffect* AbilityEffect = _ActiveEffects[i];
 		
 		// If using ability name, make sure it matches
 		if (IsValid(AbilityEffect))
@@ -332,7 +331,7 @@ void UAbilityComponent::DestroyAllEffects()
 	AActor* MyOwner = GetOwner();
 	checkf(IsValid(MyOwner), TEXT("DestroySlot:: Invalid Inventory Owner"));
 	checkf(MyOwner->HasAuthority(), TEXT("DestroySlot:: Called without Authority!"));
-	for (UAbilityEffect* AbilityEffect : _ActiveEffects)
+	for (UStatusEffect* AbilityEffect : _ActiveEffects)
 	{
 		if (IsValid(AbilityEffect))
 		{
@@ -363,15 +362,46 @@ void UAbilityComponent::OnComponentCreated()
 void UAbilityComponent::SpawnEffectsActor(
 	ACharacterBase* EffectInstigator, FName AbilityName, FVector ForwardVector)
 {
-
-	if (!UAbilitySystem::GetAbilityNameIsValid(AbilityName) || !IsValid(EffectInstigator))
-		return;
 	
+	// Is the ability valid
+	if (!UAbilitySystem::GetAbilityNameIsValid(AbilityName) || !IsValid(EffectInstigator))
+	{
+		SetIsCasting(false);
+		
+		if (!IsValid(EffectInstigator))
+			Client_AbilityFailure(AbilityName, "Invalid Ability Name");
+		else
+			Client_AbilityFailure(AbilityName, "Invalid Instigator");
+		
+		return;
+		
+	}
+
+	// Is the player already casting something
+	if (bIsCasting)
+	{
+		Client_AbilityFailure(AbilityName, "Already Casting");
+		return;
+	}
+
+	// Validate the casting request
 	const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
+
+	// Targeted spells must have a target
+	if (   AbilityData.TargetType == EAbilityTarget::TARGET
+		|| AbilityData.TargetType == EAbilityTarget::AOE)
+	{
+		if (!IsValid( GetTargetedActor() ))
+		{
+			Client_AbilityFailure(AbilityName, "No Target Selected");
+			return;
+		}
+	}
+	
 	FTransform SpawnTransform(EffectInstigator->GetActorTransform());
 	SpawnTransform.SetScale3D(FVector(1.f));
 
-	const FVector EndPosition = SpawnTransform.GetLocation() + (ForwardVector * AbilityData.MaxReach);
+	const FVector EndPosition = SpawnTransform.GetLocation() + (ForwardVector * AbilityData.MaxRange);
 
 	// Spawns the ability effect actor
 	TSubclassOf<AAbilityEffectBase> AbilityBase = AAbilityEffectBase::StaticClass();
@@ -395,16 +425,8 @@ void UAbilityComponent::SpawnEffectsActor(
 		AbilityEffect->OnAbilityFinished.AddDynamic(this,
 			&UAbilityComponent::SetNoLongerCasting);
 		
-		AbilityEffect->FinishSpawning(SpawnTransform);
-		
-		if (IsValid(EffectInstigator) && !AbilityData.SpawnBone.IsNone())
-		{
-			USkeletalMeshComponent* SkeletalMesh = EffectInstigator->GetMesh();
-			AbilityEffect->AttachToComponent(SkeletalMesh,
-				FAttachmentTransformRules::SnapToTargetIncludingScale, AbilityData.SpawnBone);
-		}
-		
 		AbilityEffect->SetImpactLocation( GetOwner()->GetActorLocation() );
+
 		if (AbilityData.TargetType == EAbilityTarget::PROJECTILE)
 		{
 			FHitResult HitResult;
@@ -418,9 +440,19 @@ void UAbilityComponent::SpawnEffectsActor(
 				AbilityEffect->SetImpactLocation(EndPosition);
 
 		}
+		
 		else if (AbilityData.TargetType == EAbilityTarget::SELF)
 		{
 			AbilityEffect->SetTargetActor( EffectInstigator );
+		}
+
+		// Finish spawning and set initialized to true
+		AbilityEffect->FinishSpawning(SpawnTransform);
+		if (IsValid(EffectInstigator) && !AbilityData.SpawnBone.IsNone())
+		{
+			USkeletalMeshComponent* SkeletalMesh = EffectInstigator->GetMesh();
+			AbilityEffect->AttachToComponent(SkeletalMesh,
+				FAttachmentTransformRules::SnapToTargetIncludingScale, AbilityData.SpawnBone);
 		}
 				
 		UE_LOG(LogTemp, Display, TEXT("%s(%s): AbilityEffect->FinishSpawning()"), *GetName(),
@@ -531,6 +563,12 @@ void UAbilityComponent::SetNoLongerCasting(FName AbilityName, bool WasSuccessful
 	}
 }
 
+void UAbilityComponent::Client_AbilityFailure_Implementation(
+					FName AbilityName, const FString& FailureReason)
+{
+	OnAbilityFailed.Broadcast(AbilityName, *FailureReason);
+}
+
 void UAbilityComponent::TickTimer()
 {
 	// Lock against reading from the array
@@ -539,7 +577,7 @@ void UAbilityComponent::TickTimer()
 	
 	// Iterate through all active effects
 	TMap<FName, int> AbilitiesRemoved = {}; 
-	for (UAbilityEffect* AbilityEffect : _ActiveEffects)
+	for (UStatusEffect* AbilityEffect : _ActiveEffects)
 	{
 		if (AbilityEffect->GetSecondsRemaining() < 0.f)
 		{

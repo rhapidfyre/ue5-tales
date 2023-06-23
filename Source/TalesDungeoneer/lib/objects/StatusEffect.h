@@ -7,34 +7,34 @@
 #include "Delegates/Delegate.h"
 #include "TalesDungeoneer/lib/datastructures/AbilityData.h"
 
-#include "AbilityEffect.generated.h"
+#include "StatusEffect.generated.h"
 
 
 // Called when this effect has started play
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnEffectActivated,
-	UAbilityEffect*, AbilityEffect, FName, AbilityName);
+	UStatusEffect*, AbilityEffect, FName, AbilityName);
 
 // Called when this effect wears off
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnEffectExpired,
-	UAbilityEffect*, AbilityEffect, FName, AbilityName);
+	UStatusEffect*, AbilityEffect, FName, AbilityName);
 
 // Called when this effect ticks
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnEffectTick,
-UAbilityEffect*, AbilityEffect, FName, AbilityName);
+	UStatusEffect*, AbilityEffect, FName, AbilityName);
 
 
 /**
  * 
  */
 UCLASS(Blueprintable, BlueprintType)
-class TALESDUNGEONEER_API UAbilityEffect : public UObject
+class TALESDUNGEONEER_API UStatusEffect : public UObject
 {
 	GENERATED_BODY()
 	
 public:
 	
-	UAbilityEffect() {}
-	UAbilityEffect(FName AbilityName, ACharacterBase* EffectInstigator = nullptr);
+	UStatusEffect() {}
+	UStatusEffect(FName AbilityName, ACharacterBase* EffectInstigator = nullptr);
 	
 	UPROPERTY(BlueprintAssignable) FOnEffectActivated OnEffectActivated;
 	UPROPERTY(BlueprintAssignable) FOnEffectExpired OnEffectExpired;
@@ -146,10 +146,10 @@ private:
 	UPROPERTY() bool bTicksIndependently = false;
 
 	// The character that instigated this effect
-	UPROPERTY() ACharacterBase* _EffectInstigator = nullptr;
+	UPROPERTY(Replicated) ACharacterBase* _EffectInstigator = nullptr;
 
 	// The actor targeted by the effect
-	UPROPERTY() AActor* _TargetActor = nullptr;
+	UPROPERTY(Replicated) AActor* _TargetActor = nullptr;
 
 	bool bInitialized = false;
 

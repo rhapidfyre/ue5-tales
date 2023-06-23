@@ -1,44 +1,55 @@
 ﻿// Copyright Take Five Games, LLC 2023 - All Rights Reserved
 
 
-#include "AbilityEffect.h"
+#include "StatusEffect.h"
 
 #include "Net/UnrealNetwork.h"
 
 
-UAbilityEffect::UAbilityEffect(FName AbilityName, ACharacterBase* EffectInstigator)
+UStatusEffect::UStatusEffect(FName AbilityName, ACharacterBase* EffectInstigator)
 {
 	_AbilityName = AbilityName;
 	_EffectInstigator = EffectInstigator;
-	InitializeEffect();
 }
 
-void UAbilityEffect::SetAbilityName(FName AbilityName)
+void UStatusEffect::SetAbilityName(FName AbilityName)
 {
 	if (!bInitialized)
 		_AbilityName = AbilityName;
 }
 
-void UAbilityEffect::SetEffectInstigator(ACharacterBase* EffectInstigator)
+void UStatusEffect::SetEffectInstigator(ACharacterBase* EffectInstigator)
 {
 	if (!bInitialized)
 		_EffectInstigator = EffectInstigator;
 }
 
-void UAbilityEffect::InitializeEffect()
+void UStatusEffect::InitializeEffect()
 {
+	if (!HasAuthority())
+		return;
+	
 	if (!bInitialized)
 	{
-		bInitialized = true;
 		const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(_AbilityName);
 		bTicksIndependently	= AbilityData.bTickIndependently;
 		_TimeRemaining		= AbilityData.EffectDuration;
+		
 		UE_LOG(LogTemp, Display, TEXT("%s(%s) has successfully initialized... Owner: %s"),
-			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), *(GetOwningActor()->GetName()));
+				*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), *(GetOwningActor()->GetName()));
+	
+		GetWorld()->GetTimerManager().SetTimer(_Timer, this,
+				&UStatusEffect::TimerTick, 0.5, true);
+		
+		bInitialized = true;
+
+		// Only dispatch if anything is listening
+		if (OnEffectActivated.IsBound())
+				OnEffectActivated.Broadcast(this, _AbilityName);
 	}
 }
 
-void UAbilityEffect::PostInitProperties()
+void UStatusEffect::PostInitProperties()
 {
 	UObject::PostInitProperties();
 	// Called when the World exists. Custom 'BeginPlay' function for UObject.
@@ -48,37 +59,28 @@ void UAbilityEffect::PostInitProperties()
 	}
 }
 
-void UAbilityEffect::BeginDestroy()
+void UStatusEffect::BeginDestroy()
 {
 	UE_LOG(LogTemp, Display, TEXT("%s(%s) has been destroyed"),
 		*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
 	UObject::BeginDestroy();
 }
 
-void UAbilityEffect::BeginPlay()
+void UStatusEffect::BeginPlay()
 {
 	if (_TimeRemaining <= 0.f)
 	{
 		this->ConditionalBeginDestroy();
 	}
-	
-	GetWorld()->GetTimerManager().SetTimer(_Timer, this,
-		&UAbilityEffect::TimerTick, 0.5, true);
-
-	// Only dispatch if anything is listening
-	if (OnEffectActivated.IsBound())
-		OnEffectActivated.Broadcast(this, _AbilityName);
-	
-	
 }
 
-void UAbilityEffect::ApplyInitialEffects()
+void UStatusEffect::ApplyInitialEffects()
 {
 	const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(_AbilityName);
 	const FStSpellData   SpellData   = UAbilitySystem::GetSpellDataFromName(_AbilityName);
 }
 
-void UAbilityEffect::TimerTick()
+void UStatusEffect::TimerTick()
 {
 	if (bInitialized)
 	{
@@ -106,7 +108,7 @@ void UAbilityEffect::TimerTick()
 	}
 }
 
-UWorld* UAbilityEffect::GetWorld() const
+UWorld* UStatusEffect::GetWorld() const
 {
 	if (const UObject* MyOuter = GetOuter())
 	{
@@ -116,9 +118,12 @@ UWorld* UAbilityEffect::GetWorld() const
 }
 
 
-void UAbilityEffect::GetLifetimeReplicatedProps(
+void UStatusEffect::GetLifetimeReplicatedProps(
 	TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-	DOREPLIFETIME_CONDITION(UAbilityEffect, _AbilityName, COND_OwnerOnly);
+	DOREPLIFETIME_CONDITION(UStatusEffect, _AbilityName, COND_OwnerOnly);
+	DOREPLIFETIME_CONDITION(UStatusEffect, _TimeRemaining, COND_OwnerOnly);
+	DOREPLIFETIME_CONDITION(UStatusEffect, _TargetActor, COND_OwnerOnly);
+	DOREPLIFETIME_CONDITION(UStatusEffect, _EffectInstigator, COND_OwnerOnly);
 }

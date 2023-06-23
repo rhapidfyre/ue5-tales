@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 //#include "TalesDungeoneer/lib/datastructures/AbilityData.h"
-#include "TalesDungeoneer/lib/objects/AbilityEffect.h"
+#include "TalesDungeoneer/lib/objects/StatusEffect.h"
 #include "Delegates/Delegate.h"
 
 #include "AbilityComponent.generated.h"
@@ -21,6 +21,9 @@ FName, AbilityName, int, NumStacksActive);
 
 // Called when this effect wears off
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnActiveEffectsUpdated);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAbilityFailed,
+	FName, AbilityName, FString, FailureMessage);
 
 
 
@@ -38,6 +41,9 @@ public:
 	UPROPERTY(BlueprintAssignable) FOnAbilityAdded			OnAbilityAdded;
 	UPROPERTY(BlueprintAssignable) FOnAbilityRemoved		OnAbilityRemoved;
 	UPROPERTY(BlueprintAssignable) FOnActiveEffectsUpdated  OnActiveEffectsUpdated;
+	UPROPERTY(BlueprintAssignable) FOnAbilityFailed			OnAbilityFailed;
+
+
 	// Blueprint overridable version of AbilityAction (C++)
 	UFUNCTION(BlueprintNativeEvent)
 	void EventOnAbilityAction(UInputAction* AbilitySlot);
@@ -86,20 +92,20 @@ public:
 
 	// Removes the expired effect from the TArray
 	UFUNCTION(BlueprintCallable)
-	void RemoveExpiredEffect(UAbilityEffect* AbilityEffect, FName AbilityName);
+	void RemoveExpiredEffect(UStatusEffect* AbilityEffect, FName AbilityName);
 
 	UFUNCTION(BlueprintPure)
-	TArray<UAbilityEffect*> GetActiveEffects() const { return _ActiveEffects; }
+	TArray<UStatusEffect*> GetActiveEffects() { return _ActiveEffects; }
 
 	UFUNCTION(BlueprintCallable) int GetNumStacksActive(FName AbilityName);
 
 	UFUNCTION(BlueprintCallable) bool GetIsEffectActiveByName(FName AbilityName);
 
 	// Returns the ability effect that has the least amount of time left
-	UFUNCTION(BlueprintCallable) UAbilityEffect* GetEffectWithLowestTimer(FName AbilityName = "None");
+	UFUNCTION(BlueprintCallable) UStatusEffect* GetEffectWithLowestTimer(FName AbilityName = "None");
 
 	// Returns the ability effect that has the greatest amount of time left
-	UFUNCTION(BlueprintCallable) UAbilityEffect* GetEffectWithGreatestTimer(FName AbilityName = "None");
+	UFUNCTION(BlueprintCallable) UStatusEffect* GetEffectWithGreatestTimer(FName AbilityName = "None");
 	
 	// Returns the total time of all effects in the stack
 	UFUNCTION(BlueprintCallable) float GetTotalEffectStackTimer(FName AbilityName = "None");
@@ -147,6 +153,9 @@ protected:
 	
 private:
 
+	UFUNCTION(Client, Reliable)
+	void Client_AbilityFailure(FName AbilityName, const FString& FailureReason);
+
 	UFUNCTION()	void DestroyAllEffects();
 	
 	UFUNCTION(NetMulticast, Unreliable)
@@ -162,7 +171,7 @@ private:
 	// Active abilities
 	//TMap< FName, TArray<FStAbilityEffect> > _ActiveEffects;
 	UPROPERTY(ReplicatedUsing=OnRep_ActiveEffectsUpdated)
-	TArray<UAbilityEffect*> _ActiveEffects;
+	TArray<UStatusEffect*> _ActiveEffects;
 	UFUNCTION(Client, Reliable) void OnRep_ActiveEffectsUpdated();
 
 	// A simple timer for managing effect expiration

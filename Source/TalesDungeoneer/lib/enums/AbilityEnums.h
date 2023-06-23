@@ -20,8 +20,8 @@ enum class EAbilityType : uint8
 	// A utility ability is one that provide a non-beneficial assistance, such as levitation
 	UTIL		UMETA(DisplayName = "Utility"),
 	
-	// A synergetic Ability is an ability that links up to other synergetic abilities
-	SYNERGY		UMETA(DisplayName = "Synergy")
+	// A synergetic Ability is an ability feeds on the power of other synergetic abilities
+	SYNERGY		UMETA(DisplayName = "Synergy"),
 };
 
 UENUM()
@@ -42,18 +42,21 @@ enum class EAbilityTarget : uint8
 	SELF	UMETA(DisplayName = "Self Only"),
 	
 	// Targets all group members within a certain range
-	GROUP	UMETA(DisplayName = "Group"),
+	GROUP	UMETA(DisplayName = "Nearby Group Members"),
 	
 	// Targets a single entity
 	TARGET	UMETA(DisplayName = "Single Target"),
 	
-	// Hits everything in a radius around the origination point
-	AOE		UMETA(DisplayName = "Area of Effect"),
+	// Hits everything in a radius around the target (if selected) or impact location
+	AOE		UMETA(DisplayName = "Area of Target"),
+	
+	// Hits everything in a radius around the caster
+	NEAR	UMETA(DisplayName = "Area of Self"),
 	
 	// Hits everything in a certain fan-pattern from the origination point
-	CONE	UMETA(DisplayName = "Cone"),
+	CONE	UMETA(DisplayName = "Forward Cone"),
 	
 	// Ability fires a projectile, like a fireball or an arrow
-	PROJECTILE	UMETA(DisplayName = "Projectile")
+	PROJECTILE	UMETA(DisplayName = "Moving Projectile")
 };
 
