@@ -8,7 +8,8 @@
 
 #include "AbilityEffectBase.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAbilityFinished, FName, AbilityName, bool, WasSuccessful);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAbilityFinished,
+	FName, AbilityName, bool, WasSuccessful);
 
 
 //
@@ -134,6 +135,13 @@ protected:
 	
 	virtual void GetLifetimeReplicatedProps(
 	TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
+	/**
+	 * @brief Applies the effect given for this ability to the targeted actor. Does nothing if there is not
+	 *		a target actor & the parameter is also null.
+	 * @param OverrideCharacter Optional character who will have the effect applied instead of the target
+	 */
+	virtual void ApplyEffectToTarget(ACharacterBase* OverrideCharacter = nullptr);
 
 	/**
 	 * @brief Called when the ability casting timer completes (ticks < 0)

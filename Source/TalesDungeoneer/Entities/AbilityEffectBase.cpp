@@ -262,6 +262,28 @@ void AAbilityEffectBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
 	DOREPLIFETIME(AAbilityEffectBase, _WasSuccessful);
 }
 
+void AAbilityEffectBase::ApplyEffectToTarget(ACharacterBase* OverrideCharacter)
+{
+	ACharacterBase* EffectTarget = OverrideCharacter;
+	if (!IsValid(EffectTarget))
+	{
+		EffectTarget = Cast<ACharacterBase>(GetTargetActor());
+		if (!IsValid(EffectTarget))
+		{
+			return;
+		}
+	}
+	
+	// Apply effect to target actor
+	EffectTarget->AbilityComponent->ApplyEffect(Cast<ACharacterBase>(GetInstigator()), _AbilityName);
+
+	// Apply damages
+	EffectTarget->VitalityComponent->ModifyVitalityStat(EVitalityCategories::HEALTH,  _SpellData.ConsumeHealth);
+	EffectTarget->VitalityComponent->ModifyVitalityStat(EVitalityCategories::MAGIC,	  _SpellData.ConsumeMagic);
+	EffectTarget->VitalityComponent->ModifyVitalityStat(EVitalityCategories::STAMINA, _SpellData.ConsumeStamina);
+	
+}
+
 void AAbilityEffectBase::AbilityComplete(bool WasSuccessful)
 {
 	OnAbilityFinished.Broadcast(GetAbilityName(), WasSuccessful);
@@ -391,7 +413,6 @@ void AAbilityEffectBase::EffectTick()
 	_TimeRemaining -= TimerTickRate;
 	if (_TimeRemaining <= 0.f)
 	{
-		OnEffectExpired.Broadcast(_AbilityName);
 		AbilityComplete(true);
 	}
 }

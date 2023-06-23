@@ -12,10 +12,24 @@
 
 #include "AbilityData.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnEffectActivated, FName, AbilityName);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnEffectExpired, FName, AbilityName);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnEffectActivated,
+	FName, AbilityName, int, NumStacksActive);
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnEffectTick, int, TimeRemaining);
+// Called when an effect wears off or is canceled/removed
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnEffectExpired,
+	FName, AbilityName, int, NumStacksRemaining);
+
+// Called when an effect ticks
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnEffectTick,
+	int, TimeRemaining, int, NuMStacksActive);
+
+// Called when an ability has started casting
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAbilityCastStarted,
+	FName, AbilityName, float, CastTime);
+
+// Called when an ability has finished casting
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAbilityCastComplete,
+	FName, AbilityName, bool, WasSuccessful);
 
 // Fwd Declaration
 class AAbilityEffectBase;
@@ -329,6 +343,8 @@ struct FStAbilityEffect
 		bTicksIndependently	= AbilityData.bTickIndependently;
 		TimeRemaining		= AbilityData.EffectDuration;
 	}
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) int UniqueId = 0;
 
 	// The name of the ability that initiated this effect
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FName AbilityName = FName();

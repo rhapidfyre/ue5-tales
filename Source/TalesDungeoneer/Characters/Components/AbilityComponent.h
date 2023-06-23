@@ -10,15 +10,6 @@
 #include "AbilityComponent.generated.h"
 
 
-// Called when an ability has been added
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(
-	FOnAbilityActivated, FName, AbilityName, int, StackCount);
-
-// Called everytime an ability expires
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(
-	FOnAbilityExpired, FName, AbilityName, int, StackCount);
-
-
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class TALESDUNGEONEER_API UAbilityComponent : public UActorComponent
 {
@@ -28,8 +19,11 @@ public:
 
 	UAbilityComponent();
 
-	UPROPERTY(BlueprintCallable) FOnAbilityActivated OnAbilityActivated;
-	UPROPERTY(BlueprintCallable) FOnAbilityExpired	 OnAbilityExpired;
+	UPROPERTY(BlueprintAssignable) FOnAbilityCastStarted	OnAbilityCastStarted;
+	UPROPERTY(BlueprintAssignable) FOnAbilityCastComplete	OnAbilityCastComplete;
+	UPROPERTY(BlueprintAssignable) FOnEffectActivated		OnEffectActivated;
+	UPROPERTY(BlueprintAssignable) FOnEffectExpired			OnEffectExpired;
+	UPROPERTY(BlueprintAssignable) FOnEffectTick			OnEffectTick;
 
 	// Blueprint overridable version of AbilityAction (C++)
 	UFUNCTION(BlueprintNativeEvent)
@@ -125,12 +119,12 @@ private:
 
 	// Called when an ability has been added and the current stack count
 	UFUNCTION(Client, Reliable)
-	void Client_AbilityAdded(FName AbilityName, int StackCount);
+	void Client_AbilityAdded(FName AbilityName, FStAbilityEffect AbilityEffect);
 
 	// Called when an ability has expired and the current stack count
 	// Stack count is zero if the effect has fully worn off
 	UFUNCTION(Client, Reliable)
-	void Client_AbilityExpired(FName AbilityName, int StackCount);
+	void Client_AbilityExpired(FName AbilityName, FStAbilityEffect AbilityEffect);
 
 	UPROPERTY() AActor* _TargetActor;
 

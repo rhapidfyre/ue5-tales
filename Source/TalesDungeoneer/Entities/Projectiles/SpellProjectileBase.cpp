@@ -181,13 +181,7 @@ void ASpellProjectileBase::ApplyHitEffect(AActor* HitActor, FVector HitVector)
 		ACharacterBase* HitCharacter = Cast<ACharacterBase>(HitActor);
 		if (IsValid(HitCharacter))
 		{
-			// Apply effect to target actor
-			HitCharacter->AbilityComponent->ApplyEffect(HitInstigator, _AbilityName);
-
-			// Apply damages
-			HitCharacter->VitalityComponent->ModifyVitalityStat(EVitalityCategories::HEALTH,  _SpellData.ConsumeHealth);
-			HitCharacter->VitalityComponent->ModifyVitalityStat(EVitalityCategories::MAGIC,	  _SpellData.ConsumeMagic);
-			HitCharacter->VitalityComponent->ModifyVitalityStat(EVitalityCategories::STAMINA, _SpellData.ConsumeStamina);
+			
 		}
 	}
 }

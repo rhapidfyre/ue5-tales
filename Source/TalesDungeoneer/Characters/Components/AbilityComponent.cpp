@@ -33,6 +33,7 @@ void UAbilityComponent::AbilityAction(UInputAction* HotkeyAction)
 		{
 			if (Hotkey.AbilityInput == HotkeyAction)
 			{
+				const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(Hotkey.AbilityName);
 				AController* PawnController = GetOwner()->GetInstigatorController();
 				if (IsValid(PawnController))
 				{
@@ -51,6 +52,8 @@ void UAbilityComponent::AbilityAction(UInputAction* HotkeyAction)
 							}
 							else
 							{
+								OnAbilityCastStarted.Broadcast(
+									Hotkey.AbilityName, AbilityData.ActivationTime);
 								Server_RequestAbility(Hotkey.AbilityName,
 									GetTargetedActor(),
 									CamManager->GetActorForwardVector());
@@ -118,11 +121,11 @@ bool UAbilityComponent::SetAbilityInputAction(FName AbilityName, UInputAction* I
 void UAbilityComponent::ActivateAbility(
 		const FName AbilityName, AActor* TargetActor, FVector ForwardVector)
 {
+	const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
 	if (GetOwner()->HasAuthority())
 	{
 		if (UAbilitySystem::GetAbilityNameIsValid(AbilityName))
 		{
-			const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
 			ACharacterBase* EffectInstigator = Cast<ACharacterBase>(GetOwner());
 			if (IsValid(TargetActor))
 			{
@@ -133,6 +136,7 @@ void UAbilityComponent::ActivateAbility(
 	}
 	else
 	{
+		OnAbilityCastStarted.Broadcast(AbilityName, AbilityData.ActivationTime);
 		Server_RequestAbility(AbilityName, TargetActor, ForwardVector);
 	}
 }
@@ -155,12 +159,10 @@ void UAbilityComponent::ApplyEffect(ACharacterBase* EffectInstigator, FName Abil
 			// Releases lock automatically when scope is lost
 			FRWScopeLock WriteLock(_MutexLock, SLT_Write);
 
-			// Add the effect to the appropriate key in the active effects map
+			// Add the effect to the appropriate key in the active effects map	
 			_ActiveEffects[AbilityName].Add(AbilityEffect);
-			
-			UE_LOG(LogTemp, Warning, TEXT("%s(%s): Added New Effect: %s"),
-				*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"),
-				*AbilityName.ToString());
+			OnEffectActivated.Broadcast(AbilityName, _ActiveEffects[AbilityName].Num());
+			Client_AbilityAdded(AbilityName, AbilityEffect);
 		}
 
 		// If the timer isn't valid, initiate it (AKA this is the first effect)
@@ -218,12 +220,15 @@ void UAbilityComponent::SpawnEffectsActor(
 	if (IsValid(AbilityEffect))
 	{
 		SetIsCasting(true);
+		OnAbilityCastStarted.Broadcast(AbilityName, AbilityData.ActivationTime);
+		
 		AbilityEffect->SetInstigator( GetOwner()->GetInstigator() );
 		AbilityEffect->SetAbilityInstigator( Cast<ACharacterBase>(GetOwner()) );
 		AbilityEffect->SetTargetActor( Cast<ACharacterBase>(GetTargetedActor()) );
 		AbilityEffect->SetAbilityName(AbilityName);
 		
-		AbilityEffect->OnAbilityFinished.AddDynamic(this, &UAbilityComponent::SetNoLongerCasting);
+		AbilityEffect->OnAbilityFinished.AddDynamic(this,
+			&UAbilityComponent::SetNoLongerCasting);
 		
 		AbilityEffect->FinishSpawning(SpawnTransform);
 		
@@ -257,7 +262,9 @@ void UAbilityComponent::SpawnEffectsActor(
 
 void UAbilityComponent::Multicast_StopCasting_Implementation(FName AbilityName, bool WasSuccessful)
 {
-
+	const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
+	OnAbilityCastComplete.Broadcast(AbilityName, WasSuccessful);
+	
 	// Disallow on dedicated server, playable clients only
 	if (GetOwner()->HasAuthority())
 	{
@@ -266,7 +273,6 @@ void UAbilityComponent::Multicast_StopCasting_Implementation(FName AbilityName, 
 	}
 	
 	// Determine Success/Fail Animation
-	const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
 	UAnimMontage* AnimMontage = AbilityData.AnimationData.AnimationOnFail;
 	if (WasSuccessful)
 		AnimMontage = AbilityData.AnimationData.AnimationOnSuccess;
@@ -353,6 +359,7 @@ void UAbilityComponent::SetNoLongerCasting(FName AbilityName, bool WasSuccessful
 	{
 		Multicast_StopCasting(AbilityName, WasSuccessful);
 		bIsCasting = false;
+		
 	}
 }
 
@@ -370,18 +377,19 @@ void UAbilityComponent::TickTimer()
 		for (int i = ArrayOfEffects.Num() - 1; i >= 0; i++)
 		{
 			// Obtain a reference, for cleaner code
-			FStAbilityEffect* AbilityData = &ArrayOfEffects[i];
+			FStAbilityEffect* AbilityEffect = &ArrayOfEffects[i];
 			
 			// Only reduce timer if concurrent tick, or is topmost index of array
-			if (AbilityData->bTicksIndependently || i == 0)
+			if (AbilityEffect->bTicksIndependently || i == 0)
 			{
-				AbilityData->TimeRemaining -= TimerRate;
-				if (AbilityData->TimeRemaining < 0.f)
+				AbilityEffect->TimeRemaining -= TimerRate;
+				if (AbilityEffect->TimeRemaining < 0.f)
 				{
 					// Remove this entry if the time has expired
 					const FName OldAbilityName = EffectName;
+					Client_AbilityExpired(OldAbilityName, *AbilityEffect);
 					ArrayOfEffects.RemoveAt(i);
-					OnAbilityExpired.Broadcast(OldAbilityName, ArrayOfEffects.Num());
+					OnEffectExpired.Broadcast(OldAbilityName, ArrayOfEffects.Num());
 					
 					UE_LOG(LogTemp, Display, TEXT("%s(%s): Effect '%s' Expired. There are %d remaining in the stack."),
 						*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"),
@@ -407,16 +415,59 @@ void UAbilityComponent::OnTickTimer_Implementation()
 	TickTimer();
 }
 
-void UAbilityComponent::Client_AbilityAdded_Implementation(FName AbilityName, int StackCount)
+void UAbilityComponent::Client_AbilityAdded_Implementation(FName AbilityName, FStAbilityEffect AbilityEffect)
 {
+	if (AbilityName.IsNone())
+		return;
+	
+	for (FStAbilityEffect& ExistingEffect : _ActiveEffects[AbilityName])
+	{
+		// If this ability already exists, update it and return
+		if (ExistingEffect.UniqueId == AbilityEffect.UniqueId)
+		{
+			// Sync the time
+			ExistingEffect.TimeRemaining = AbilityEffect.TimeRemaining;
+			return;
+		}
+	}
+	
+	// Otherwise, add it
+	_ActiveEffects[AbilityName].Add(AbilityEffect);
+	
 	// Trigger Delegates, such as the HUD
-	OnAbilityActivated.Broadcast(AbilityName, StackCount);
+	OnEffectActivated.Broadcast(AbilityName, _ActiveEffects[AbilityName].Num());
+	
 }
 
-void UAbilityComponent::Client_AbilityExpired_Implementation(FName AbilityName, int StackCount)
+void UAbilityComponent::Client_AbilityExpired_Implementation(
+		FName AbilityName, FStAbilityEffect AbilityEffect)
 {
+	if (AbilityName.IsNone())
+		return;
+
+	if (!_ActiveEffects.Contains(AbilityName))
+		return;
+	
+	int EffectIndex = 0;
+	// Exclusive Scope
+	{
+		FRWScopeLock ReadLock(_MutexLock,SLT_ReadOnly);
+	
+		for (int i = _ActiveEffects[AbilityName].Num() - 1; i >= 0; i++)
+		{
+			FStAbilityEffect& ExistingEffect = _ActiveEffects[AbilityName][i];
+			if (ExistingEffect.UniqueId == AbilityEffect.UniqueId)
+			{
+				EffectIndex = i;
+			}
+		}
+	}
+
+	FRWScopeLock WriteLock(_MutexLock, SLT_Write);
+	_ActiveEffects[AbilityName].RemoveAt(EffectIndex);
+	
 	// Trigger Delegates, such as the HUD
-	OnAbilityExpired.Broadcast(AbilityName, StackCount);
+	OnEffectExpired.Broadcast(AbilityName, _ActiveEffects[AbilityName].Num());
 }
 
 void UAbilityComponent::Server_RequestAbility_Implementation(
