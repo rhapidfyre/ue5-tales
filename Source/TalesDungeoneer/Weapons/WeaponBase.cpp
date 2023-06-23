@@ -280,7 +280,7 @@ void AWeaponBase::soundEffectWithDelay(USoundBase* soundEffect, float soundDelay
 		return;
 	}
 	FTimerDelegate soundArgs; FTimerHandle soundTimer;
-	soundArgs.BindUFunction(this, FName("SendSoundEffect"), soundEffect);
+	soundArgs.BindUObject(this, &AWeaponBase::PrepSoundEffect, soundEffect);
 	GetWorld()->GetTimerManager().SetTimer(soundTimer, soundArgs, soundDelay, false);
 }
 

@@ -58,7 +58,7 @@ void ASpellProjectileBase::ExecuteSpellEffect(FStAbilityFx AbilityFx, bool StopO
 		{
 			FTimerHandle LoopTimer;
 			FTimerDelegate LoopDelegate;
-			LoopDelegate.BindUFunction(this, FName("PlayAbilityEffects"), AbilityFx);
+			LoopDelegate.BindUObject(this, &ASpellProjectileBase::PlayAbilityEffects, AbilityFx);
 			GetWorld()->GetTimerManager().SetTimer(LoopTimer, LoopDelegate, 1.f, false);
 		}
 		else
@@ -173,15 +173,16 @@ void ASpellProjectileBase::ApplyHitEffect(AActor* HitActor, FVector HitVector)
 	// Apply effects/damages to the character that was hit (Server Only)
 	if (IsValid(HitActor) && HasAuthority())
 	{
-		ACharacterBase* HitInstigator = nullptr;
-			
-		if (IsValid(GetOwner()))
-			HitInstigator = Cast<ACharacterBase>(GetOwner());
-
 		ACharacterBase* HitCharacter = Cast<ACharacterBase>(HitActor);
+		
+		// Always hit the target if something is specifically targeted
+		if (IsValid( GetTargetActor() ))
+			HitCharacter = Cast<ACharacterBase>( GetTargetActor() );
+		
 		if (IsValid(HitCharacter))
 		{
-			
+			HitCharacter->AbilityComponent->ApplyEffect(
+				Cast<ACharacterBase>(GetInstigator()), GetAbilityName() );
 		}
 	}
 }

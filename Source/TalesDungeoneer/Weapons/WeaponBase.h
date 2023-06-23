@@ -111,6 +111,9 @@ private: // private functions
 	 */
 	UFUNCTION(NetMulticast, Unreliable) void sendSoundEffect(USoundBase* soundEffect);
 	
+	// For use with a timer
+	UFUNCTION() void PrepSoundEffect(USoundBase* soundEffect) { sendSoundEffect(soundEffect); }
+	
 	// private variables
 	// Replicated boolean for whether the weapon is armed or not
 	UPROPERTY(Replicated, ReplicatedUsing = OnRep_IsWeaponArmed)

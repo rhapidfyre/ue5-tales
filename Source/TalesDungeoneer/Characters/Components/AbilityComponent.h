@@ -4,10 +4,24 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "TalesDungeoneer/lib/datastructures/AbilityData.h"
+//#include "TalesDungeoneer/lib/datastructures/AbilityData.h"
+#include "TalesDungeoneer/lib/objects/AbilityEffect.h"
 #include "Delegates/Delegate.h"
 
 #include "AbilityComponent.generated.h"
+
+
+// Called when this effect has started play
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAbilityAdded,
+FName, AbilityName, int, NumStacksActive);
+
+// Called when this effect wears off
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAbilityRemoved,
+FName, AbilityName, int, NumStacksActive);
+
+// Called when this effect wears off
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnActiveEffectsUpdated);
+
 
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
@@ -21,10 +35,9 @@ public:
 
 	UPROPERTY(BlueprintAssignable) FOnAbilityCastStarted	OnAbilityCastStarted;
 	UPROPERTY(BlueprintAssignable) FOnAbilityCastComplete	OnAbilityCastComplete;
-	UPROPERTY(BlueprintAssignable) FOnEffectActivated		OnEffectActivated;
-	UPROPERTY(BlueprintAssignable) FOnEffectExpired			OnEffectExpired;
-	UPROPERTY(BlueprintAssignable) FOnEffectTick			OnEffectTick;
-
+	UPROPERTY(BlueprintAssignable) FOnAbilityAdded			OnAbilityAdded;
+	UPROPERTY(BlueprintAssignable) FOnAbilityRemoved		OnAbilityRemoved;
+	UPROPERTY(BlueprintAssignable) FOnActiveEffectsUpdated  OnActiveEffectsUpdated;
 	// Blueprint overridable version of AbilityAction (C++)
 	UFUNCTION(BlueprintNativeEvent)
 	void EventOnAbilityAction(UInputAction* AbilitySlot);
@@ -70,10 +83,32 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float TimerRate = 0.1;
 
 	UFUNCTION(BlueprintPure) AActor* GetTargetedActor() const { return _TargetActor; }
+
+	// Removes the expired effect from the TArray
+	UFUNCTION(BlueprintCallable)
+	void RemoveExpiredEffect(UAbilityEffect* AbilityEffect, FName AbilityName);
+
+	UFUNCTION(BlueprintPure)
+	TArray<UAbilityEffect*> GetActiveEffects() const { return _ActiveEffects; }
+
+	UFUNCTION(BlueprintCallable) int GetNumStacksActive(FName AbilityName);
+
+	UFUNCTION(BlueprintCallable) bool GetIsEffectActiveByName(FName AbilityName);
+
+	// Returns the ability effect that has the least amount of time left
+	UFUNCTION(BlueprintCallable) UAbilityEffect* GetEffectWithLowestTimer(FName AbilityName = "None");
+
+	// Returns the ability effect that has the greatest amount of time left
+	UFUNCTION(BlueprintCallable) UAbilityEffect* GetEffectWithGreatestTimer(FName AbilityName = "None");
+	
+	// Returns the total time of all effects in the stack
+	UFUNCTION(BlueprintCallable) float GetTotalEffectStackTimer(FName AbilityName = "None");
 	
 protected:
 	
 	virtual void BeginPlay() override;
+
+	virtual void OnUnregister() override;
 
 	virtual void GetLifetimeReplicatedProps(
 		TArray<FLifetimeProperty>& OutLifetimeProps) const override;
@@ -112,19 +147,12 @@ protected:
 	
 private:
 
+	UFUNCTION()	void DestroyAllEffects();
+	
 	UFUNCTION(NetMulticast, Unreliable)
 	void Multicast_StopCasting(FName AbilityName, bool WasSuccessful);
 
 	UPROPERTY(Replicated) bool bIsCasting = false;
-
-	// Called when an ability has been added and the current stack count
-	UFUNCTION(Client, Reliable)
-	void Client_AbilityAdded(FName AbilityName, FStAbilityEffect AbilityEffect);
-
-	// Called when an ability has expired and the current stack count
-	// Stack count is zero if the effect has fully worn off
-	UFUNCTION(Client, Reliable)
-	void Client_AbilityExpired(FName AbilityName, FStAbilityEffect AbilityEffect);
 
 	UPROPERTY() AActor* _TargetActor;
 
@@ -132,7 +160,10 @@ private:
 	virtual void TickTimer();
 
 	// Active abilities
-	TMap< FName, TArray<FStAbilityEffect> > _ActiveEffects;
+	//TMap< FName, TArray<FStAbilityEffect> > _ActiveEffects;
+	UPROPERTY(ReplicatedUsing=OnRep_ActiveEffectsUpdated)
+	TArray<UAbilityEffect*> _ActiveEffects;
+	UFUNCTION(Client, Reliable) void OnRep_ActiveEffectsUpdated();
 
 	// A simple timer for managing effect expiration
 	UPROPERTY() FTimerHandle _EffectsTimer;

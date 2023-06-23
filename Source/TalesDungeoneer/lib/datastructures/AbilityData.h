@@ -12,17 +12,6 @@
 
 #include "AbilityData.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnEffectActivated,
-	FName, AbilityName, int, NumStacksActive);
-
-// Called when an effect wears off or is canceled/removed
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnEffectExpired,
-	FName, AbilityName, int, NumStacksRemaining);
-
-// Called when an effect ticks
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnEffectTick,
-	int, TimeRemaining, int, NuMStacksActive);
-
 // Called when an ability has started casting
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAbilityCastStarted,
 	FName, AbilityName, float, CastTime);
@@ -325,40 +314,4 @@ public:
 										 Category = "Ability Data")
 	static bool GetAbilityDataIsValid(FStAbilityData AbilityData = FStAbilityData());
     
-};
-
-
-// Used for tracking active effects. Contains the minimal amount of memory
-// necessary for effectively tracking active effects.
-USTRUCT(BlueprintType)
-struct FStAbilityEffect
-{
-	GENERATED_BODY()
-
-	FStAbilityEffect() {};
-	FStAbilityEffect(FName ConstructName)
-	{
-		const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(ConstructName);
-		AbilityName			= ConstructName;
-		bTicksIndependently	= AbilityData.bTickIndependently;
-		TimeRemaining		= AbilityData.EffectDuration;
-	}
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) int UniqueId = 0;
-
-	// The name of the ability that initiated this effect
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FName AbilityName = FName();
-	
-	// The time remaining on this effect
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) float TimeRemaining = 0.f;
-	
-	// If true, this effects timer will reduce while active
-	// If false, this effects timer will not reduce unless it is at the top of the stack
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bTicksIndependently = false;
-
-	// The character that instigated this effect
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) ACharacterBase* EffectInstigator = nullptr;
-
-	// The actor targeted by the effect
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) AActor* TargetActor = nullptr;
 };

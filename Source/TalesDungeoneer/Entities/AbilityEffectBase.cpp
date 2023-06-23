@@ -45,7 +45,7 @@ void AAbilityEffectBase::ExecuteCastingEffects(FStAbilityFx AbilityFx, bool Stop
 		{
 			FTimerHandle CastTimer;
 			FTimerDelegate CastDelegate;
-			CastDelegate.BindUFunction(this, FName("PlayDelayedSound"),
+			CastDelegate.BindUObject(this, &AAbilityEffectBase::PlayDelayedSound,
 				 ActorLocation, AbilityFx.SoundEffect, loopTime, StopOnDestroyed);
 			GetWorld()->GetTimerManager().SetTimer(CastTimer, CastDelegate,
 				AbilityFx.DelaySound, false);
@@ -63,8 +63,7 @@ void AAbilityEffectBase::ExecuteCastingEffects(FStAbilityFx AbilityFx, bool Stop
 		{
 			FTimerHandle NiagaraTimer;
 			FTimerDelegate NiagaraDelegate;
-			NiagaraDelegate.BindUFunction(this,
-				FName("PlayDelayedNiagara"), AbilityFx);
+			NiagaraDelegate.BindUObject(this, &AAbilityEffectBase::PlayDelayedNiagara, AbilityFx);
 			GetWorld()->GetTimerManager().SetTimer(NiagaraTimer, NiagaraDelegate,
 				AbilityFx.DelayEffect, false);
 					
@@ -160,8 +159,9 @@ void AAbilityEffectBase::BeginPlay()
 			{
 				FTimerHandle StartAnimTimer;
 				FTimerDelegate StartAnimDelegate;
-				StartAnimDelegate.BindUFunction(this, FName("PlayDelayedAnimation"),
-					 GetOriginatingActor(), AbilityData.AnimationData.AnimationOnStart);
+				ACharacter* OriginatingActor;
+				StartAnimDelegate.BindUObject(this, &AAbilityEffectBase::PlayDelayedAnimation,
+					 OriginatingActor, AbilityData.AnimationData.AnimationOnStart);
 				GetWorld()->GetTimerManager().SetTimer(StartAnimTimer, StartAnimDelegate,
 					_AbilityData.AnimationData.DelayStartAnim, false);
 			}
@@ -286,6 +286,10 @@ void AAbilityEffectBase::ApplyEffectToTarget(ACharacterBase* OverrideCharacter)
 
 void AAbilityEffectBase::AbilityComplete(bool WasSuccessful)
 {
+	if (IsValid( GetTargetActor() ))
+	{
+		ApplyEffectToTarget();
+	}
 	OnAbilityFinished.Broadcast(GetAbilityName(), WasSuccessful);
 	Destroy();
 }

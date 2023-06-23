@@ -76,7 +76,7 @@ void UWeaponComponent::SetToggleWeapon(EWeaponSlots WeaponSlot, bool MakeReady)
 
 		// Sets operating to false after the delay time has been reached
 		// This prevents the weapons from being drawn/sheathed prematurely
-		TempArgs.BindUFunction(this, FName("WeaponSlotReady"), WeaponSlot);
+		TempArgs.BindUObject(this, &UWeaponComponent::WeaponSlotReady, WeaponSlot);
 		GetWorld()->GetTimerManager().SetTimer(TempTimer, TempArgs, changeTime, false);
 	}
 	// Otherwise just make the weapon ready
@@ -579,7 +579,7 @@ void UWeaponComponent::DelaySoundEffect(USoundBase* soundToPlay, float soundDela
 	else
 	{
 		FTimerDelegate attackArgs;
-		attackArgs.BindUFunction(this, FName("SendSoundEffect"),
+		attackArgs.BindUObject(this, &UWeaponComponent::SendSoundEffect,
 			Cast<ACharacter>(GetOwner()), soundToPlay);
 	
 		FTimerHandle doSoundEffectTimer;

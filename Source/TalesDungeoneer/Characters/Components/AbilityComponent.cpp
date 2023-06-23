@@ -6,6 +6,7 @@
 #include "NiagaraFunctionLibrary.h"
 #include "../CharacterBase.h"
 #include "Components/AudioComponent.h"
+#include "Engine/ActorChannel.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Net/UnrealNetwork.h"
@@ -16,6 +17,7 @@ UAbilityComponent::UAbilityComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
 	SetIsReplicatedByDefault(true);
+	bReplicateUsingRegisteredSubObjectList = true;
 }
 
 
@@ -153,16 +155,23 @@ void UAbilityComponent::ApplyEffect(ACharacterBase* EffectInstigator, FName Abil
 		{
 
 			// ReSharper disable once CppLocalVariableMayBeConst
-			FStAbilityEffect AbilityEffect = FStAbilityEffect(AbilityName);
+			//FStAbilityEffect AbilityEffect = FStAbilityEffect(AbilityName);
+			UAbilityEffect* AbilityEffect = NewObject<UAbilityEffect>(
+				GetOwner(), UAbilityEffect::StaticClass());
+			AbilityEffect->SetAbilityName(AbilityName);
+			AbilityEffect->SetEffectInstigator(EffectInstigator);
+			AbilityEffect->InitializeEffect();
+			AbilityEffect->OnEffectExpired.AddDynamic(this, &UAbilityComponent::RemoveExpiredEffect);
+			AddReplicatedSubObject(AbilityEffect);
 			
 			// Lock against reading from the array
 			// Releases lock automatically when scope is lost
 			FRWScopeLock WriteLock(_MutexLock, SLT_Write);
 
 			// Add the effect to the appropriate key in the active effects map	
-			_ActiveEffects[AbilityName].Add(AbilityEffect);
-			OnEffectActivated.Broadcast(AbilityName, _ActiveEffects[AbilityName].Num());
-			Client_AbilityAdded(AbilityName, AbilityEffect);
+			_ActiveEffects.Add(AbilityEffect);
+			//OnEffectActivated.Broadcast(AbilityName, _ActiveEffects[AbilityName].Num());
+			//Client_AbilityAdded(AbilityName, AbilityEffect);
 		}
 
 		// If the timer isn't valid, initiate it (AKA this is the first effect)
@@ -177,12 +186,168 @@ void UAbilityComponent::ApplyEffect(ACharacterBase* EffectInstigator, FName Abil
 	}
 }
 
+/**
+ * @brief Called when an effect has expired and needs to be removed from the array.
+ * @param AbilityEffect The UObject to remove from the TArray
+ * @param AbilityName The name of the ability being removed
+ */
+void UAbilityComponent::RemoveExpiredEffect(UAbilityEffect* AbilityEffect, FName AbilityName)
+{
+	if ( IsValid(AbilityEffect) && (_ActiveEffects.Contains(AbilityEffect)) )
+	{
+		RemoveReplicatedSubObject(AbilityEffect);
+		_ActiveEffects.RemoveSingle(AbilityEffect);
+	}
+}
+
+int UAbilityComponent::GetNumStacksActive(FName AbilityName)
+{
+	int NumStacks = 0;
+	FRWScopeLock ReadLock(_MutexLock, SLT_ReadOnly);
+	for (UAbilityEffect* AbilityEffect : _ActiveEffects)
+	{
+		if (AbilityEffect->GetAbilityName() == AbilityName)
+			NumStacks += 1;
+	}
+	return NumStacks;
+}
+
+bool UAbilityComponent::GetIsEffectActiveByName(FName AbilityName)
+{
+	for (const UAbilityEffect* AbilityEffect : _ActiveEffects)
+	{
+		if (AbilityEffect->GetAbilityName() == AbilityName)
+			return true;
+	}
+	return false;
+}
+
+/**
+ * @brief Returns the ability effect that has the least amount of time left
+ * @param AbilityName Optional - If valid, returns the effect of this type with the lowest time left
+ * @return Object Pointer with the lowest timer, or nullptr if effect is not active
+ */
+UAbilityEffect* UAbilityComponent::GetEffectWithLowestTimer(FName AbilityName)
+{
+	UAbilityEffect* ReturnPointer = nullptr;
+	float LowestTimeRemaining = -1.f;
+	const bool UseAbilityName = !AbilityName.IsNone();
+	FRWScopeLock ReadLock(_MutexLock, SLT_ReadOnly);
+	for (UAbilityEffect* AbilityEffect : _ActiveEffects)
+	{
+		// If using ability name, make sure it matches
+		if (IsValid(AbilityEffect))
+		{
+			if (!UseAbilityName || (UseAbilityName && AbilityName == AbilityEffect->GetAbilityName()))
+			{
+				if (AbilityEffect->GetSecondsRemaining() < LowestTimeRemaining || LowestTimeRemaining < 0.f)
+				{
+					ReturnPointer		= AbilityEffect;
+					LowestTimeRemaining = AbilityEffect->GetSecondsRemaining();
+				}
+			}
+		}
+	}
+	return ReturnPointer;
+}
+
+/**
+ * @brief 
+ * @param AbilityName Optional - If valid, returns effect of this type with highest time left
+ * @return Object with the highest timer, or nullptr if effect is not active
+ */
+UAbilityEffect* UAbilityComponent::GetEffectWithGreatestTimer(FName AbilityName)
+{
+	UAbilityEffect* ReturnPointer = nullptr;
+	float GreatestTimeRemaining = -1.f;
+	const bool UseAbilityName = !AbilityName.IsNone();
+	FRWScopeLock ReadLock(_MutexLock, SLT_ReadOnly);
+	for (UAbilityEffect* AbilityEffect : _ActiveEffects)
+	{
+		// If using ability name, make sure it matches
+		if (IsValid(AbilityEffect))
+		{
+			if (!UseAbilityName || (UseAbilityName && AbilityName == AbilityEffect->GetAbilityName()))
+			{
+				if (AbilityEffect->GetSecondsRemaining() > GreatestTimeRemaining || GreatestTimeRemaining < 0.f)
+				{
+					ReturnPointer		= AbilityEffect;
+					GreatestTimeRemaining = AbilityEffect->GetSecondsRemaining();
+				}
+			}
+		}
+	}
+	return ReturnPointer;
+}
+
+/**
+ * @brief Calculates the total seconds remaining, accounting for concurrent timers.
+ * @param AbilityName Optional - The ability name to consider when calculating
+ * @return 
+ */
+float UAbilityComponent::GetTotalEffectStackTimer(FName AbilityName)
+{
+	const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
+	float TotalSecondsRemaining = 0.f;
+	const bool UseAbilityName = !AbilityName.IsNone();
+	FRWScopeLock ReadLock(_MutexLock, SLT_ReadOnly);
+
+	// If timers run consecutively and not concurrently, return the lowest timer
+	if (UseAbilityName && !AbilityData.bTickIndependently)
+	{
+		const UAbilityEffect* AbilityEffect = GetEffectWithLowestTimer(AbilityName);
+		if (IsValid(AbilityEffect))
+			return AbilityEffect->GetSecondsRemaining();
+	}
+	
+	for (int i = 1; i < _ActiveEffects.Num() ; i++)
+	{
+		const UAbilityEffect* AbilityEffect = _ActiveEffects[i];
+		
+		// If using ability name, make sure it matches
+		if (IsValid(AbilityEffect))
+		{
+			
+			if (!UseAbilityName || (UseAbilityName && AbilityName == AbilityEffect->GetAbilityName()))
+			{
+				if (AbilityEffect->DoesTimerTickIndependently())
+					TotalSecondsRemaining += AbilityEffect->GetSecondsRemaining();
+			}
+		}
+	}
+	return TotalSecondsRemaining;
+}
+
 void UAbilityComponent::BeginPlay()
 {
 	Super::BeginPlay();
 #ifdef UE_BUILD_DEBUG
 	bShowDebug = true;
 #endif
+}
+
+
+void UAbilityComponent::DestroyAllEffects()
+{
+	AActor* MyOwner = GetOwner();
+	checkf(IsValid(MyOwner), TEXT("DestroySlot:: Invalid Inventory Owner"));
+	checkf(MyOwner->HasAuthority(), TEXT("DestroySlot:: Called without Authority!"));
+	for (UAbilityEffect* AbilityEffect : _ActiveEffects)
+	{
+		if (IsValid(AbilityEffect))
+		{
+			AbilityEffect->ConditionalBeginDestroy();
+		}
+	}
+	_ActiveEffects.Empty();
+}
+
+void UAbilityComponent::OnUnregister()
+{
+	const AActor* MyOwner = GetOwner();
+	if (IsValid(MyOwner) && MyOwner->HasAuthority())
+		DestroyAllEffects();
+	Super::OnUnregister();
 }
 
 void UAbilityComponent::OnComponentCreated()
@@ -252,6 +417,10 @@ void UAbilityComponent::SpawnEffectsActor(
 			else
 				AbilityEffect->SetImpactLocation(EndPosition);
 
+		}
+		else if (AbilityData.TargetType == EAbilityTarget::SELF)
+		{
+			AbilityEffect->SetTargetActor( EffectInstigator );
 		}
 				
 		UE_LOG(LogTemp, Display, TEXT("%s(%s): AbilityEffect->FinishSpawning()"), *GetName(),
@@ -359,7 +528,6 @@ void UAbilityComponent::SetNoLongerCasting(FName AbilityName, bool WasSuccessful
 	{
 		Multicast_StopCasting(AbilityName, WasSuccessful);
 		bIsCasting = false;
-		
 	}
 }
 
@@ -368,106 +536,50 @@ void UAbilityComponent::TickTimer()
 	// Lock against reading from the array
 	// Releases lock automatically when scope is lost
 	FRWScopeLock WriteLock(_MutexLock, SLT_Write);
-
-	// We want to manipulate the existing entries, not copy them.
-	// So we will iterate the location in memory, and utilize pointers.
-	for (auto &[EffectName, ArrayOfEffects] : _ActiveEffects)
+	
+	// Iterate through all active effects
+	TMap<FName, int> AbilitiesRemoved = {}; 
+	for (UAbilityEffect* AbilityEffect : _ActiveEffects)
 	{
-		// Iterate through all active effects of this name
-		for (int i = ArrayOfEffects.Num() - 1; i >= 0; i++)
+		if (AbilityEffect->GetSecondsRemaining() < 0.f)
 		{
-			// Obtain a reference, for cleaner code
-			FStAbilityEffect* AbilityEffect = &ArrayOfEffects[i];
+			const FName OldAbilityName = AbilityEffect->GetAbilityName();
+			if (AbilitiesRemoved.Contains(OldAbilityName))
+				AbilitiesRemoved[OldAbilityName] += 1;
+			else
+				AbilitiesRemoved.Add(AbilityEffect->GetAbilityName(), 1);
 			
-			// Only reduce timer if concurrent tick, or is topmost index of array
-			if (AbilityEffect->bTicksIndependently || i == 0)
-			{
-				AbilityEffect->TimeRemaining -= TimerRate;
-				if (AbilityEffect->TimeRemaining < 0.f)
-				{
-					// Remove this entry if the time has expired
-					const FName OldAbilityName = EffectName;
-					Client_AbilityExpired(OldAbilityName, *AbilityEffect);
-					ArrayOfEffects.RemoveAt(i);
-					OnEffectExpired.Broadcast(OldAbilityName, ArrayOfEffects.Num());
-					
-					UE_LOG(LogTemp, Display, TEXT("%s(%s): Effect '%s' Expired. There are %d remaining in the stack."),
-						*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"),
-							*OldAbilityName.ToString(), ArrayOfEffects.Num());
-					
-				}
-			}
+			// Deregister object or garbage collector will null exception
+			RemoveReplicatedSubObject(AbilityEffect);
+			_ActiveEffects.RemoveSingle(AbilityEffect);
 		}
 	}
 
+	// For each ability that expired, update
+	for (auto &[AbilityName, StackCount] : AbilitiesRemoved)
+	{
+		OnAbilityRemoved.Broadcast(AbilityName, StackCount);
+	}
+	
 	// Save resources by invalidating the timer, if no effects are active
 	if (_ActiveEffects.Num() < 1 && _EffectsTimer.IsValid())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("%s(%s): No effects remaining. Timer invalidated."),
+		UE_LOG(LogTemp, Warning, TEXT("%s(%s): No active effects remain."),
 			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
 		_EffectsTimer.Invalidate();
 	}
-	
+}
+
+void UAbilityComponent::OnRep_ActiveEffectsUpdated_Implementation()
+{
+	UE_LOG(LogTemp, Display, TEXT("%s(%s): Active Effects has been Updated"),
+		*GetName(), GetOwner()->HasAuthority()? TEXT("SERVER") : TEXT("CLIENT") );
+	OnActiveEffectsUpdated.Broadcast();
 }
 
 void UAbilityComponent::OnTickTimer_Implementation()
 {
 	TickTimer();
-}
-
-void UAbilityComponent::Client_AbilityAdded_Implementation(FName AbilityName, FStAbilityEffect AbilityEffect)
-{
-	if (AbilityName.IsNone())
-		return;
-	
-	for (FStAbilityEffect& ExistingEffect : _ActiveEffects[AbilityName])
-	{
-		// If this ability already exists, update it and return
-		if (ExistingEffect.UniqueId == AbilityEffect.UniqueId)
-		{
-			// Sync the time
-			ExistingEffect.TimeRemaining = AbilityEffect.TimeRemaining;
-			return;
-		}
-	}
-	
-	// Otherwise, add it
-	_ActiveEffects[AbilityName].Add(AbilityEffect);
-	
-	// Trigger Delegates, such as the HUD
-	OnEffectActivated.Broadcast(AbilityName, _ActiveEffects[AbilityName].Num());
-	
-}
-
-void UAbilityComponent::Client_AbilityExpired_Implementation(
-		FName AbilityName, FStAbilityEffect AbilityEffect)
-{
-	if (AbilityName.IsNone())
-		return;
-
-	if (!_ActiveEffects.Contains(AbilityName))
-		return;
-	
-	int EffectIndex = 0;
-	// Exclusive Scope
-	{
-		FRWScopeLock ReadLock(_MutexLock,SLT_ReadOnly);
-	
-		for (int i = _ActiveEffects[AbilityName].Num() - 1; i >= 0; i++)
-		{
-			FStAbilityEffect& ExistingEffect = _ActiveEffects[AbilityName][i];
-			if (ExistingEffect.UniqueId == AbilityEffect.UniqueId)
-			{
-				EffectIndex = i;
-			}
-		}
-	}
-
-	FRWScopeLock WriteLock(_MutexLock, SLT_Write);
-	_ActiveEffects[AbilityName].RemoveAt(EffectIndex);
-	
-	// Trigger Delegates, such as the HUD
-	OnEffectExpired.Broadcast(AbilityName, _ActiveEffects[AbilityName].Num());
 }
 
 void UAbilityComponent::Server_RequestAbility_Implementation(
@@ -484,4 +596,5 @@ void UAbilityComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(UAbilityComponent, bIsCasting);
+	DOREPLIFETIME_CONDITION(UAbilityComponent, _ActiveEffects, COND_OwnerOnly);
 }
