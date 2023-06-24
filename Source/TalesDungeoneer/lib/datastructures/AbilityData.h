@@ -259,6 +259,10 @@ struct FStAbilityData : public FTableRowBase
 	// The length, in seconds, that the effect from this ability will last.
 	// A duration of <= 0 will apply the effects once without ticking
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float EffectDuration = 0.f;
+	
+	// The minimum length of time until this ability can be re-activated
+	// This timer starts as soon as the ability succeeds
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float CooldownSeconds = 4.f;
 
 	// The animation data for the ability procedure
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStAbilityAnimData AnimationData	= FStAbilityAnimData();

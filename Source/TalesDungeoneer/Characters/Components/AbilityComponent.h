@@ -137,8 +137,11 @@ protected:
 
 
 	// Mappings for abilities, i.e: Hotkeys
-	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite)
-	TArray<FStAbilityHotkey> _AbilityActions;
+	//UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite)
+	//TArray<FStAbilityHotkey> _AbilityActions;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TMap<UInputAction*, FName> _AbilityMappings;
 
 	// Overrideable event that fires everytime the Effects Timer ticks
 	UFUNCTION(BlueprintNativeEvent) void OnTickTimer();

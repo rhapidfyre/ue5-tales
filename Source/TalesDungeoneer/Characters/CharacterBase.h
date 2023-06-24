@@ -83,6 +83,8 @@ public: // functions
 protected: // functions
 	
 	UFUNCTION(BlueprintCallable) void SetCharacterTeam(ECharacterTeam NewTeam);
+
+	UFUNCTION()	virtual void HotkeyTriggered(UInputAction* HotkeyAction);
 	
 	virtual void BeginPlay() override;
 	

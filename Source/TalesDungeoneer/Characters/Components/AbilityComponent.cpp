@@ -31,6 +31,26 @@ void UAbilityComponent::AbilityAction(UInputAction* HotkeyAction)
 {
 	if (IsValid(HotkeyAction))
 	{
+		if (_AbilityMappings.Contains(HotkeyAction))
+		{
+			const FName AbilityName = _AbilityMappings[HotkeyAction];
+			if (UAbilitySystem::GetAbilityNameIsValid(AbilityName))
+			{
+				const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
+
+				if (GetOwner()->HasAuthority())
+				{
+					ActivateAbility(AbilityName, GetTargetedActor());
+				}
+				else
+				{
+					OnAbilityCastStarted.Broadcast(AbilityName, AbilityData.ActivationTime);
+					Server_RequestAbility(AbilityName, GetTargetedActor());
+				}
+				return;
+			}
+		}
+		/*
 		for (const FStAbilityHotkey Hotkey : _AbilityActions)
 		{
 			if (Hotkey.AbilityInput == HotkeyAction)
@@ -80,7 +100,7 @@ void UAbilityComponent::AbilityAction(UInputAction* HotkeyAction)
 					
 				}
 			}
-		}
+			*/
 		UE_LOG(LogTemp, Warning, TEXT("%s(%s): Hotkey '%s' Not Found in Ability Actions!"),
 			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), *HotkeyAction->GetName());
 	}
@@ -92,29 +112,8 @@ bool UAbilityComponent::SetAbilityInputAction(FName AbilityName, UInputAction* I
 {
 	if (IsValid(InputAction))
 	{
-		if (AbilityName.IsNone())
-		{
-			for (FStAbilityHotkey Hotkey : _AbilityActions)
-			{
-				if (Hotkey.AbilityInput == InputAction)
-				{
-					// Un-assigns the hotkey
-					Hotkey.AbilityName = FName();
-					return true;
-				}
-			}
-		}
-		else
-		{
-			for (FStAbilityHotkey Hotkey : _AbilityActions)
-			{
-				if (Hotkey.AbilityInput == InputAction)
-				{
-					Hotkey.AbilityName = AbilityName;
-					return true;
-				}
-			}
-		}
+		_AbilityMappings.Add(InputAction, AbilityName);
+		return true;
 	}
 	return false;
 }

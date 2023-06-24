@@ -176,6 +176,14 @@ void ACharacterBase::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 
 }
 
+void ACharacterBase::HotkeyTriggered(UInputAction* HotkeyAction)
+{
+	if (IsValid(AbilityComponent))
+	{
+		AbilityComponent->AbilityAction(HotkeyAction);
+	}
+}
+
 void ACharacterBase::PrimaryAttack_Implementation()
 {
 	WeaponComponent->PerformAttack(EWeaponSlots::PRIMARY);
