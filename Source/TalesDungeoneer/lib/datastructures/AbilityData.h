@@ -229,6 +229,9 @@ struct FStAbilityData : public FTableRowBase
 	// The icon that will show in the ability tree and hot bar
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) UTexture2D* DisplayIcon = nullptr;
 
+	// If true, ALL abilities will be disabled during the casting of this effect
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bRequiresFocus = true;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bSprintCancels = true;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bJumpCancels   = true;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bSwimCancels   = true;

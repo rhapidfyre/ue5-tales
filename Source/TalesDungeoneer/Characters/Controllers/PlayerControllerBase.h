@@ -3,14 +3,18 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/PlayerController.h"
+// ReSharper disable once CppUnusedIncludeDirective
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 #include "InputMappingContext.h"
-
+#include "Delegates/Delegate.h"
+#include "GameFramework/PlayerController.h"
 #include "PlayerControllerBase.generated.h"
 
-UCLASS()
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHotkeyTriggered,
+		UInputAction*, HotkeyPressed);
+
+UCLASS(BlueprintType, Blueprintable)
 class TALESDUNGEONEER_API APlayerControllerBase : public APlayerController
 {
 	GENERATED_BODY()
@@ -21,16 +25,18 @@ public: // methods
 
 	UFUNCTION(BlueprintCallable)
 	FKey GetKeyMapping(UInputAction* InputAction);
+
+	UPROPERTY(BlueprintAssignable) FOnHotkeyTriggered OnHotkeyTriggered;
 	
 protected: // methods
 
 	virtual void BeginPlay() override;
 
 	virtual void OnConstruction(const FTransform& Transform) override;
-	
+
 	virtual void HotkeyTriggered(UInputAction* HotkeyAction);
 
-	virtual void SetupKeyBindings();
+	virtual void SetupInputComponent() override;
 
 public: //members
 

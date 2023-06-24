@@ -147,8 +147,7 @@ protected:
 	UFUNCTION(BlueprintNativeEvent) void OnTickTimer();
 	
 	UFUNCTION(BlueprintPure) bool GetIsCasting() const { return bIsCasting; }
-	UFUNCTION(BlueprintCallable)
-		void SetIsCasting(bool IsCastingSpell = false) { bIsCasting = IsCastingSpell; }
+	UFUNCTION(BlueprintCallable) void SetIsCasting(FName SpellName);
 
 	// Used by the timer delegate to cancel casting
 	UFUNCTION()

@@ -15,10 +15,11 @@ APlayerControllerBase::APlayerControllerBase()
 void APlayerControllerBase::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
-void APlayerControllerBase::SetupKeyBindings()
+
+void APlayerControllerBase::SetupInputComponent()
 {
+	Super::SetupInputComponent();
 	// Set up hotkey action bindings
 	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent))
 	{
@@ -75,7 +76,10 @@ void APlayerControllerBase::HotkeyTriggered(UInputAction* HotkeyAction)
 		if (IsValid(ControlledCharacter))
 		{
 			if (IsValid(ControlledCharacter->AbilityComponent))
+			{
 				ControlledCharacter->AbilityComponent->AbilityAction(HotkeyAction);
+				OnHotkeyTriggered.Broadcast(HotkeyAction);
+			}
 		}
 	}
 }

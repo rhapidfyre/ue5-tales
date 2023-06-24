@@ -50,57 +50,6 @@ void UAbilityComponent::AbilityAction(UInputAction* HotkeyAction)
 				return;
 			}
 		}
-		/*
-		for (const FStAbilityHotkey Hotkey : _AbilityActions)
-		{
-			if (Hotkey.AbilityInput == HotkeyAction)
-			{
-				const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(Hotkey.AbilityName);
-				AController* PawnController = GetOwner()->GetInstigatorController();
-				if (IsValid(PawnController))
-				{
-					// Is it a player?
-					APlayerController* PlayerController = Cast<APlayerController>(PawnController);
-					if (IsValid(PlayerController))
-					{
-						APlayerCameraManager* CamManager = PlayerController->PlayerCameraManager;
-						if (IsValid(CamManager))
-						{
-							if (GetOwner()->HasAuthority())
-							{
-								ActivateAbility(Hotkey.AbilityName,
-									GetTargetedActor(),
-									CamManager->GetActorForwardVector());
-							}
-							else
-							{
-								OnAbilityCastStarted.Broadcast(
-									Hotkey.AbilityName, AbilityData.ActivationTime);
-								Server_RequestAbility(Hotkey.AbilityName,
-									GetTargetedActor(),
-									CamManager->GetActorForwardVector());
-							}
-							return;
-						}
-					}
-					
-					// Is it an NPC?
-					AAIController* AiController = Cast<AAIController>(PawnController);
-					if (IsValid(AiController))
-					{
-						FVector AiFocalPoint = AiController->GetFocalPoint();
-						ActivateAbility(Hotkey.AbilityName, GetTargetedActor(),
-							UKismetMathLibrary::GetDirectionUnitVector(
-								GetOwner()->GetActorLocation(), AiFocalPoint));
-						return;
-					}
-
-					ActivateAbility(Hotkey.AbilityName, GetTargetedActor(),
-						GetOwner()->GetActorForwardVector());
-					
-				}
-			}
-			*/
 		UE_LOG(LogTemp, Warning, TEXT("%s(%s): Hotkey '%s' Not Found in Ability Actions!"),
 			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), *HotkeyAction->GetName());
 	}
@@ -365,7 +314,7 @@ void UAbilityComponent::SpawnEffectsActor(
 	// Is the ability valid
 	if (!UAbilitySystem::GetAbilityNameIsValid(AbilityName) || !IsValid(EffectInstigator))
 	{
-		SetIsCasting(false);
+		SetIsCasting(FName());
 		
 		if (!IsValid(EffectInstigator))
 			Client_AbilityFailure(AbilityName, "Invalid Ability Name");
@@ -413,7 +362,7 @@ void UAbilityComponent::SpawnEffectsActor(
 	
 	if (IsValid(AbilityEffect))
 	{
-		SetIsCasting(true);
+		SetIsCasting(AbilityName);
 		OnAbilityCastStarted.Broadcast(AbilityName, AbilityData.ActivationTime);
 		
 		AbilityEffect->SetInstigator( GetOwner()->GetInstigator() );
@@ -551,6 +500,16 @@ void UAbilityComponent::Multicast_StopCasting_Implementation(FName AbilityName, 
 		}
 	}
 	
+}
+
+void UAbilityComponent::SetIsCasting(FName SpellName)
+{
+	bIsCasting = SpellName.IsNone();
+	if (bIsCasting)
+	{
+		const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(SpellName);
+		OnAbilityCastStarted.Broadcast(SpellName, AbilityData.ActivationTime);
+	}
 }
 
 void UAbilityComponent::SetNoLongerCasting(FName AbilityName, bool WasSuccessful)
