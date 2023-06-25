@@ -514,6 +514,8 @@ void AAbilityEffectBase::EffectTick()
 	if (_TimeRemaining <= 0.f)
 	{
 		AbilityComplete(true);
-		_EffectTimer.Invalidate();
+		GetWorld()->GetTimerManager().ClearAllTimersForObject(this);
+		if (_EffectTimer.IsValid())
+			_EffectTimer.Invalidate();
 	}
 }

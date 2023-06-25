@@ -20,6 +20,7 @@ void APlayerControllerBase::BeginPlay()
 void APlayerControllerBase::SetupInputComponent()
 {
 	Super::SetupInputComponent();
+	
 	// Set up hotkey action bindings
 	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent))
 	{
@@ -36,14 +37,15 @@ void APlayerControllerBase::SetupInputComponent()
 				}
 			}
 			
-			// Setup Hotkey bindings 
-			for (UInputAction* InputReference : Hotkeys)
-			{
-				EnhancedInputComponent->BindAction(InputReference, ETriggerEvent::Triggered,
-						this, &APlayerControllerBase::HotkeyTriggered, InputReference);
-			}
-			
 		}
+			
+		// Setup Hotkey bindings 
+		for (UInputAction* InputReference : Hotkeys)
+		{
+			EnhancedInputComponent->BindAction(InputReference, ETriggerEvent::Triggered,
+					this, &APlayerControllerBase::HotkeyTriggered, InputReference);
+		}
+		
 	}
 }
 

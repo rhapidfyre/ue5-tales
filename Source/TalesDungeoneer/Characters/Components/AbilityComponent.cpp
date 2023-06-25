@@ -1,4 +1,4 @@
-﻿
+﻿ 
 #include "AbilityComponent.h"
 
 #include "AiController.h"
@@ -72,10 +72,26 @@ void UAbilityComponent::ActivateAbility(
 		const FName AbilityName, AActor* TargetActor, FVector ForwardVector)
 {
 	const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
+	
 	if (GetOwner()->HasAuthority())
 	{
 		if (UAbilitySystem::GetAbilityNameIsValid(AbilityName))
 		{
+
+			// Caster is focused and can't use any other abilities
+			if (bIsFocused)
+			{
+				Client_AbilityFailure(AbilityName, "You are already focusing on something else!");
+				return;
+			}
+
+			// Actor is casting and can't focus on the new ability
+			if (bIsCasting && AbilityData.bRequiresFocus)
+			{
+				Client_AbilityFailure(AbilityName, "This ability requires focus!");
+				return;
+			}
+			
 			ACharacterBase* EffectInstigator = Cast<ACharacterBase>(GetOwner());
 			if (IsValid(TargetActor))
 			{
@@ -86,6 +102,21 @@ void UAbilityComponent::ActivateAbility(
 	}
 	else
 	{
+
+		// Caster is focused and can't use any other abilities
+		if (bIsFocused)
+		{
+			OnAbilityFailed.Broadcast(AbilityName, "You are already focusing on something else!");
+			return;
+		}
+
+		// Actor is casting and can't focus on the new ability
+		if (bIsCasting && AbilityData.bRequiresFocus)
+		{
+			OnAbilityFailed.Broadcast(AbilityName, "This ability requires focus!");
+			return;
+		}
+		
 		OnAbilityCastStarted.Broadcast(AbilityName, AbilityData.ActivationTime);
 		Server_RequestAbility(AbilityName, TargetActor, ForwardVector);
 	}
@@ -273,7 +304,6 @@ void UAbilityComponent::BeginPlay()
 #endif
 }
 
-
 void UAbilityComponent::DestroyAllEffects()
 {
 	AActor* MyOwner = GetOwner();
@@ -315,21 +345,19 @@ void UAbilityComponent::SpawnEffectsActor(
 	if (!UAbilitySystem::GetAbilityNameIsValid(AbilityName) || !IsValid(EffectInstigator))
 	{
 		SetIsCasting(FName());
-		
-		if (!IsValid(EffectInstigator))
-			Client_AbilityFailure(AbilityName, "Invalid Ability Name");
-		else
-			Client_AbilityFailure(AbilityName, "Invalid Instigator");
-		
-		return;
-		
-	}
 
-	// Is the player already casting something
-	if (bIsCasting)
-	{
-		Client_AbilityFailure(AbilityName, "Already Casting");
+		if (GetOwner()->HasAuthority())
+		{
+			if (!IsValid(EffectInstigator))
+				Client_AbilityCanceled(AbilityName, "Invalid Ability Name");
+			else
+				Client_AbilityCanceled(AbilityName, "Invalid Instigator");
+		}
+		else
+			OnAbilityCanceled.Broadcast(AbilityName, "Invalid Ability Name or Instigator");
+
 		return;
+		
 	}
 
 	// Validate the casting request
@@ -341,7 +369,10 @@ void UAbilityComponent::SpawnEffectsActor(
 	{
 		if (!IsValid( GetTargetedActor() ))
 		{
-			Client_AbilityFailure(AbilityName, "No Target Selected");
+			if (GetOwner()->HasAuthority())
+				Client_AbilityCanceled(AbilityName, "No Target Selected");
+			else
+				OnAbilityCanceled.Broadcast(AbilityName, "No Target Selected");
 			return;
 		}
 	}
@@ -356,6 +387,8 @@ void UAbilityComponent::SpawnEffectsActor(
 
 	if (IsValid(AbilityData.AbilityBase))
 		AbilityBase = AbilityData.AbilityBase;
+
+	bIsFocused = AbilityData.bRequiresFocus;
 	
 	AAbilityEffectBase* AbilityEffect = GetWorld()->
 				SpawnActorDeferred<AAbilityEffectBase>(AbilityBase, SpawnTransform);
@@ -419,6 +452,15 @@ void UAbilityComponent::Multicast_StopCasting_Implementation(FName AbilityName, 
 	{
 		if (IsRunningDedicatedServer())
 			return;
+	}
+
+	if (AbilityData.bRequiresFocus)
+	{
+		// If this character is us
+		if (GetOwner()->GetInstigatorController() == GetWorld()->GetFirstPlayerController())
+		{
+			bIsFocused = false;
+		}
 	}
 	
 	// Determine Success/Fail Animation
@@ -527,6 +569,12 @@ void UAbilityComponent::Client_AbilityFailure_Implementation(
 	OnAbilityFailed.Broadcast(AbilityName, *FailureReason);
 }
 
+void UAbilityComponent::Client_AbilityCanceled_Implementation(FName AbilityName, const FString& FailureReason)
+{
+	bIsFocused = false;
+	OnAbilityCanceled.Broadcast(AbilityName, *FailureReason);
+}
+
 void UAbilityComponent::TickTimer()
 {
 	// Lock against reading from the array
@@ -591,6 +639,6 @@ void UAbilityComponent::Server_RequestAbility_Implementation(
 void UAbilityComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-	DOREPLIFETIME(UAbilityComponent, bIsCasting);
+	DOREPLIFETIME_CONDITION(UAbilityComponent, bIsCasting, COND_OwnerOnly);
 	DOREPLIFETIME_CONDITION(UAbilityComponent, _ActiveEffects, COND_OwnerOnly);
 }

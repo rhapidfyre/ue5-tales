@@ -23,7 +23,10 @@ FName, AbilityName, int, NumStacksActive);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnActiveEffectsUpdated);
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAbilityFailed,
-	FName, AbilityName, FString, FailureMessage);
+FName, AbilityName, FString, FailureMessage);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAbilityCanceled,
+	FName, AbilityName, FString, CancelReason);
 
 
 
@@ -41,7 +44,12 @@ public:
 	UPROPERTY(BlueprintAssignable) FOnAbilityAdded			OnAbilityAdded;
 	UPROPERTY(BlueprintAssignable) FOnAbilityRemoved		OnAbilityRemoved;
 	UPROPERTY(BlueprintAssignable) FOnActiveEffectsUpdated  OnActiveEffectsUpdated;
+
+	// Called whenever casting/activation is denied
 	UPROPERTY(BlueprintAssignable) FOnAbilityFailed			OnAbilityFailed;
+
+	// Called when the currently casting ability is canceled
+	UPROPERTY(BlueprintAssignable) FOnAbilityCanceled		OnAbilityCanceled;
 
 
 	// Blueprint overridable version of AbilityAction (C++)
@@ -158,12 +166,20 @@ private:
 	UFUNCTION(Client, Reliable)
 	void Client_AbilityFailure(FName AbilityName, const FString& FailureReason);
 
+
+	UFUNCTION(Client, Reliable)
+	void Client_AbilityCanceled(FName AbilityName, const FString& FailureReason);
+
 	UFUNCTION()	void DestroyAllEffects();
 	
 	UFUNCTION(NetMulticast, Unreliable)
 	void Multicast_StopCasting(FName AbilityName, bool WasSuccessful);
 
+	// True if the player is casting any abilities
 	UPROPERTY(Replicated) bool bIsCasting = false;
+
+	// If true, the player cannot use any other focused abilities
+	UPROPERTY() bool bIsFocused = false; 
 
 	UPROPERTY() AActor* _TargetActor;
 
