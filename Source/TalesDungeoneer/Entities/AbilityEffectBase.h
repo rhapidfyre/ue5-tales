@@ -27,6 +27,7 @@ class AAbilityEffectBase : public AActor
 public:
 
 	AAbilityEffectBase();
+	
 	AAbilityEffectBase(ACharacterBase* Instigator, const FName AbilityName, FVector ImpactLocation);
 	AAbilityEffectBase(ACharacterBase* Instigator, const FName AbilityName, AActor* TargetActor);
 
@@ -41,6 +42,8 @@ public:
 		return _AbilityData;
 	}
 
+	UFUNCTION(BlueprintCallable) void SetAbilityComponent(UAbilityComponent* CastComponent)
+				{ _CastingComponent = CastComponent; }
 	
 	UFUNCTION(BlueprintPure) FStSpellData GetSpellData() const { return _SpellData; }
 
@@ -125,6 +128,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float TimerTickRate = 0.05;
 
+	UFUNCTION(BlueprintCallable)
+	void CancelCasting(FName AbilityName = "None", FString Reason = "None");
+	
 protected:
 	
 	virtual void BeginPlay() override;
@@ -201,6 +207,8 @@ private:
 
 	// Time remaining until the ability expires
 	UPROPERTY() float _TimeRemaining = 0;
+
+	UPROPERTY() UAbilityComponent* _CastingComponent = nullptr;
 
 	// Once the actor has been initialized, the settings cannot be modified
 	bool bInitialized = false;

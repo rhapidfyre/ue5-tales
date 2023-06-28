@@ -117,6 +117,12 @@ public:
 	
 	// Returns the total time of all effects in the stack
 	UFUNCTION(BlueprintCallable) float GetTotalEffectStackTimer(FName AbilityName = "None");
+
+	/**
+	 * @brief Call to stop the casting of any ability.
+	 * @param OnlyFocused If true, interrupt ONLY focused abilities. False interrupts everything.
+	 */
+	UFUNCTION(BlueprintCallable) void InterruptCasting(bool OnlyFocused = false);
 	
 protected:
 	
@@ -143,10 +149,8 @@ protected:
 	void Server_RequestAbility(FName AbilityName,
 		AActor* TargetActor = nullptr, FVector ForwardVector = FVector(0.f));
 
-
-	// Mappings for abilities, i.e: Hotkeys
-	//UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite)
-	//TArray<FStAbilityHotkey> _AbilityActions;
+	UFUNCTION(Server, Reliable)
+	void Server_InterruptCasting(bool OnlyFocused = false);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<UInputAction*, FName> _AbilityMappings;
@@ -179,7 +183,7 @@ private:
 	UPROPERTY(Replicated) bool bIsCasting = false;
 
 	// If true, the player cannot use any other focused abilities
-	UPROPERTY() bool bIsFocused = false; 
+	UPROPERTY(Replicated) bool bIsFocused = false; 
 
 	UPROPERTY() AActor* _TargetActor;
 

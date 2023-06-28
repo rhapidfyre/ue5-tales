@@ -296,6 +296,33 @@ float UAbilityComponent::GetTotalEffectStackTimer(FName AbilityName)
 	return TotalSecondsRemaining;
 }
 
+void UAbilityComponent::Server_InterruptCasting_Implementation(bool OnlyFocused)
+{
+	InterruptCasting(OnlyFocused);
+}
+
+void UAbilityComponent::InterruptCasting(bool OnlyFocused)
+{
+	if ( GetIsCasting() )
+	{
+		// Caster is focused, OR cancel ALL abilities
+		if (bIsFocused || !OnlyFocused)
+		{
+			if (GetOwner()->HasAuthority())
+			{
+				OnAbilityCanceled.Broadcast(FName(), "Canceled by Player");
+				SetIsCasting(FName());
+				bIsFocused = false;
+			}
+			else
+			{
+				OnAbilityCanceled.Broadcast(FName(), "Canceled by Player");
+				Server_InterruptCasting(OnlyFocused);
+			}
+		}
+	}
+}
+
 void UAbilityComponent::BeginPlay()
 {
 	Super::BeginPlay();
@@ -399,6 +426,7 @@ void UAbilityComponent::SpawnEffectsActor(
 		OnAbilityCastStarted.Broadcast(AbilityName, AbilityData.ActivationTime);
 		
 		AbilityEffect->SetInstigator( GetOwner()->GetInstigator() );
+		AbilityEffect->SetAbilityComponent( this );
 		AbilityEffect->SetAbilityInstigator( Cast<ACharacterBase>(GetOwner()) );
 		AbilityEffect->SetTargetActor( Cast<ACharacterBase>(GetTargetedActor()) );
 		AbilityEffect->SetAbilityName(AbilityName);
@@ -429,6 +457,7 @@ void UAbilityComponent::SpawnEffectsActor(
 
 		// Finish spawning and set initialized to true
 		AbilityEffect->FinishSpawning(SpawnTransform);
+		
 		if (IsValid(EffectInstigator) && !AbilityData.SpawnBone.IsNone())
 		{
 			USkeletalMeshComponent* SkeletalMesh = EffectInstigator->GetMesh();
@@ -546,7 +575,7 @@ void UAbilityComponent::Multicast_StopCasting_Implementation(FName AbilityName, 
 
 void UAbilityComponent::SetIsCasting(FName SpellName)
 {
-	bIsCasting = SpellName.IsNone();
+	bIsCasting = !SpellName.IsNone();
 	if (bIsCasting)
 	{
 		const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(SpellName);
@@ -640,5 +669,6 @@ void UAbilityComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME_CONDITION(UAbilityComponent, bIsCasting, COND_OwnerOnly);
+	DOREPLIFETIME_CONDITION(UAbilityComponent, bIsFocused, COND_OwnerOnly);
 	DOREPLIFETIME_CONDITION(UAbilityComponent, _ActiveEffects, COND_OwnerOnly);
 }

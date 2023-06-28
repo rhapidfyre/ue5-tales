@@ -133,6 +133,14 @@ void AAbilityEffectBase::SetAbilityName(FName AbilityName)
 	}
 }
 
+void AAbilityEffectBase::CancelCasting(FName AbilityName, FString Reason)
+{
+	if (HasAuthority())
+	{
+		Destroy();
+	}
+}
+
 void AAbilityEffectBase::BeginPlay()
 {
 	Super::BeginPlay();
@@ -141,6 +149,11 @@ void AAbilityEffectBase::BeginPlay()
 	if (_TimeRemaining <= 0.f)
 	{
 		_TimeRemaining = 3.0;
+	}
+
+	if (IsValid(_CastingComponent))
+	{
+		_CastingComponent->OnAbilityCanceled.AddDynamic(this, &AAbilityEffectBase::CancelCasting);
 	}
 	
 	// Setup success timer
