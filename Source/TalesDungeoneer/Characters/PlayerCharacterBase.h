@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CharacterBase.h" // Includes core and actor files
-#include "EnhancedInputComponent.h"
+#include "Components/WidgetComponent.h"
 
 #include "PlayerCharacterBase.generated.h"
 
@@ -20,6 +20,9 @@ class TALESDUNGEONEER_API APlayerCharacterBase : public ACharacterBase
 public: // functions
 	
 	APlayerCharacterBase();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UWidgetComponent* OverheadWidget = nullptr;
 	
 protected:
 	

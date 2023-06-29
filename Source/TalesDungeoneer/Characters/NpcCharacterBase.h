@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CharacterBase.h"
+#include "Components/WidgetComponent.h"
 
 #include "NpcCharacterBase.generated.h"
 
@@ -19,6 +20,9 @@ public: // functions
 	
 	ANpcCharacterBase();
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UWidgetComponent* OverheadWidget = nullptr;
+	
 protected:
 	
 	virtual void BeginPlay() override;

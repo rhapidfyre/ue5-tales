@@ -181,8 +181,15 @@ void ASpellProjectileBase::ApplyHitEffect(AActor* HitActor, FVector HitVector)
 		
 		if (IsValid(HitCharacter))
 		{
+			// Apply any damages
+			HitCharacter->VitalityComponent->DamageHealth(GetInstigator(), _SpellData.HitpointsAffected);
+			HitCharacter->VitalityComponent->ConsumeStamina(GetInstigator(), _SpellData.StaminaAffected);
+			HitCharacter->VitalityComponent->ConsumeMagic(GetInstigator(), _SpellData.MagicPointsAffected);
+
+			// Apply any spell effect
 			HitCharacter->AbilityComponent->ApplyEffect(
 				Cast<ACharacterBase>(GetInstigator()), GetAbilityName() );
+			
 		}
 	}
 }
