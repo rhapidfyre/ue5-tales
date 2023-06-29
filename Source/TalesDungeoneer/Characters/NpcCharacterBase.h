@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CharacterBase.h"
-#include "Components/WidgetComponent.h"
 
 #include "NpcCharacterBase.generated.h"
 
@@ -19,9 +18,6 @@ class TALESDUNGEONEER_API ANpcCharacterBase : public ACharacterBase
 public: // functions
 	
 	ANpcCharacterBase();
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	UWidgetComponent* OverheadWidget = nullptr;
 	
 protected:
 	

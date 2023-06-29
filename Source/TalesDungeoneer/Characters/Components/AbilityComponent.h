@@ -186,7 +186,6 @@ private:
 	UFUNCTION(Client, Reliable)
 	void Client_AbilityFailure(FName AbilityName, const FString& FailureReason);
 
-
 	UFUNCTION(Client, Reliable)
 	void Client_AbilityCanceled(FName AbilityName, const FString& FailureReason);
 
@@ -211,7 +210,7 @@ private:
 	//TMap< FName, TArray<FStAbilityEffect> > _ActiveEffects;
 	UPROPERTY(ReplicatedUsing=OnRep_ActiveEffectsUpdated)
 	TArray<UStatusEffect*> _ActiveEffects;
-	UFUNCTION(Client, Reliable) void OnRep_ActiveEffectsUpdated();
+	UFUNCTION(NetMulticast, Reliable) void OnRep_ActiveEffectsUpdated();
 
 	// A simple timer for managing effect expiration
 	UPROPERTY() FTimerHandle _EffectsTimer;

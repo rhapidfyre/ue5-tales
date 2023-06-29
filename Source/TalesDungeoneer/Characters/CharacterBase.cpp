@@ -67,7 +67,11 @@ ACharacterBase::ACharacterBase()
 			<UWeaponComponent>(TEXT("WeaponComponent"));
 	
 	AbilityComponent = CreateDefaultSubobject
-			<UAbilityComponent>(TEXT("AbilityComponent"));
+		<UAbilityComponent>(TEXT("AbilityComponent"));
+	
+	OverheadWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("OverheadWidget"));
+	OverheadWidget->bOwnerNoSee = true;
+	
 	
 }
 

@@ -122,7 +122,7 @@ void UStatusEffect::GetLifetimeReplicatedProps(
 	TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-	DOREPLIFETIME_CONDITION(UStatusEffect, _AbilityName, COND_OwnerOnly);
+	DOREPLIFETIME(UStatusEffect, _AbilityName);
 	DOREPLIFETIME_CONDITION(UStatusEffect, _TimeRemaining, COND_OwnerOnly);
 	DOREPLIFETIME_CONDITION(UStatusEffect, _TargetActor, COND_OwnerOnly);
 	DOREPLIFETIME_CONDITION(UStatusEffect, _EffectInstigator, COND_OwnerOnly);

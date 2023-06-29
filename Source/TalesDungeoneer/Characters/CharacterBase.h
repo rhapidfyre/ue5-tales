@@ -7,6 +7,7 @@
 #include "VitalityComponent.h"
 #include "Components/WeaponComponent.h"
 #include "Components/AbilityComponent.h"
+#include "Components/WidgetComponent.h"
 
 #include "CharacterBase.generated.h"
 
@@ -190,6 +191,11 @@ public: // members
 	/** Ability Component */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) UAbilityComponent*	 AbilityComponent;
 
+	/** Overhead Component */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) UWidgetComponent*	 OverheadWidget;
+
+	
+	
 private:
 
 	UPROPERTY(Replicated) ECharacterTeam _CharacterTeam = ECharacterTeam::SPECTATOR;

@@ -747,8 +747,6 @@ void UAbilityComponent::TickTimer()
 
 void UAbilityComponent::OnRep_ActiveEffectsUpdated_Implementation()
 {
-	UE_LOG(LogTemp, Display, TEXT("%s(%s): Active Effects has been Updated"),
-		*GetName(), GetOwner()->HasAuthority()? TEXT("SERVER") : TEXT("CLIENT") );
 	OnActiveEffectsUpdated.Broadcast();
 }
 

@@ -321,14 +321,18 @@ void AAbilityEffectBase::ApplyEffectToTarget(ACharacterBase* OverrideCharacter)
 
 void AAbilityEffectBase::AbilityComplete(bool WasSuccessful)
 {
+	if (!HasAuthority())
+		return;
+	
 	const FStAbilityData AbilityData = GetAbilityData();
 
 	// The instigator is always nullptr (world) or ACharacterBase (gamemode character)
 	ACharacterBase* InstigatorPawn = Cast<ACharacterBase>( GetInstigator() );
 
 	TArray<ACharacterBase*> AllCharacters; // Filtered array of all characters to be affected
-	
-	{//begin explicit scope
+
+	if (AbilityData.TargetType == EAbilityTarget::TARGET)
+	{
 		ACharacterBase* TargetCharacter = Cast<ACharacterBase>( GetTargetActor() );
 		if (IsValid(TargetCharacter))
 		{
@@ -340,7 +344,7 @@ void AAbilityEffectBase::AbilityComplete(bool WasSuccessful)
 				AllCharacters.Add(TargetCharacter);
 			}
 		}
-	}//end explicit scope
+	}
 	
 	TArray<AActor*> AllTargets; // Used for all actors matching the eligible type(s)
 	const ECharacterTeam InstigatorTeam = InstigatorPawn->GetCharacterTeam();
