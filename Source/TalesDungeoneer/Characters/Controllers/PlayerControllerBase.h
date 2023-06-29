@@ -36,6 +36,8 @@ protected: // methods
 
 	virtual void HotkeyTriggered(UInputAction* HotkeyAction);
 
+	virtual void HotkeyTarget(UInputAction* HotkeyAction);
+
 	virtual void SetupInputComponent() override;
 
 public: //members
@@ -44,6 +46,9 @@ public: //members
 	TArray<UInputMappingContext*> MappingContexts;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<UInputAction*> Hotkeys;
+	TArray<UInputAction*> AbilityHotkeys;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<UInputAction*> TargetingHotkeys;
 	
 };

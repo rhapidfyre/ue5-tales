@@ -78,7 +78,17 @@ public: // functions
 	// Does nothing if the character isn't blocking
 	UFUNCTION(BlueprintCallable) void StopBlocking();
 
-	UFUNCTION(BlueprintPure) ECharacterTeam GetCharacterTeam() const { return _CharacterTeam; }
+	UFUNCTION(BlueprintPure)
+	ECharacterTeam GetCharacterTeam() const { return _CharacterTeam; }
+	
+	UFUNCTION(BlueprintPure)
+	int GetCharacterLevel() const { return _CharacterLevel; }
+
+	UFUNCTION(BlueprintPure)
+	ECharacterClass GetCharacterClass() const { return _CharacterClass; }
+
+	UFUNCTION(BlueprintPure)
+	int GetRiskLevel() const { return _CharacterRisk; }
 	
 protected: // functions
 	
@@ -183,5 +193,10 @@ public: // members
 private:
 
 	UPROPERTY(Replicated) ECharacterTeam _CharacterTeam = ECharacterTeam::SPECTATOR;
+
+	UPROPERTY(Replicated) int _CharacterLevel = 1;
 	
+	UPROPERTY(Replicated) ECharacterClass _CharacterClass = ECharacterClass::WARRIOR;
+
+	UPROPERTY(Replicated) int _CharacterRisk = 0;
 };

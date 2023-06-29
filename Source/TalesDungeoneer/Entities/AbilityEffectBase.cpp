@@ -398,6 +398,10 @@ void AAbilityEffectBase::AbilityComplete(bool WasSuccessful)
 	{
 		ApplyEffectToTarget(SoftTarget);
 	}
+	
+	InstigatorPawn->VitalityComponent->DamageHealth(InstigatorPawn, _SpellData.ConsumeHealth);
+	InstigatorPawn->VitalityComponent->ConsumeMagic(InstigatorPawn, _SpellData.ConsumeMagic);
+	InstigatorPawn->VitalityComponent->ConsumeStamina(InstigatorPawn, _SpellData.ConsumeStamina);
 		
 	OnAbilityFinished.Broadcast(GetAbilityName(), WasSuccessful);
 	Destroy();

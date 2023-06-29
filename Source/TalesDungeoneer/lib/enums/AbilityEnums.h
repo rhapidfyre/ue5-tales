@@ -7,6 +7,19 @@
 #include "AbilityEnums.generated.h"
 
 UENUM(BlueprintType)
+enum class ETargetingOption : uint8
+{
+	ONE			UMETA(DisplayName = "Target Self"),
+	NEAR_ENEMY	UMETA(DisplayName = "Nearest Enemy"),
+	NEAR_NPC	UMETA(DisplayName = "Nearest Npc"),
+	NEAR_PARTY  UMETA(DisplayName = "Nearest Party Member"),
+	TWO			UMETA(DisplayName = "Party Member 2"),
+	THREE		UMETA(DisplayName = "Party Member 3"),
+	FOUR		UMETA(DisplayName = "Party Member 4"),
+	FIVE		UMETA(DisplayName = "Party Member 5")
+};
+
+UENUM(BlueprintType)
 enum class EAbilityType : uint8
 {
 	NONE		UMETA(DisplayName = "Invalid Ability"),

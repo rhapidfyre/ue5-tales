@@ -1,14 +1,11 @@
 ﻿ 
 #include "AbilityComponent.h"
 
-#include "AiController.h"
 #include "NiagaraComponent.h"
 #include "NiagaraFunctionLibrary.h"
 #include "../CharacterBase.h"
 #include "Components/AudioComponent.h"
-#include "Engine/ActorChannel.h"
 #include "Kismet/GameplayStatics.h"
-#include "Kismet/KismetMathLibrary.h"
 #include "Net/UnrealNetwork.h"
 #include "TalesDungeoneer/Entities/AbilityEffectBase.h"
 
@@ -50,6 +47,12 @@ void UAbilityComponent::AbilityAction(UInputAction* HotkeyAction)
 				return;
 			}
 		}
+		
+		else if (_TargetMappings.Contains(HotkeyAction))
+		{
+			
+		}
+
 		UE_LOG(LogTemp, Warning, TEXT("%s(%s): Hotkey '%s' Not Found in Ability Actions!"),
 			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), *HotkeyAction->GetName());
 	}
@@ -95,7 +98,7 @@ void UAbilityComponent::ActivateAbility(
 			ACharacterBase* EffectInstigator = Cast<ACharacterBase>(GetOwner());
 			if (IsValid(TargetActor))
 			{
-				_TargetActor = TargetActor;
+				_TargetActor = Cast<ACharacterBase>( TargetActor );
 			}
 			SpawnEffectsActor(EffectInstigator, AbilityName, ForwardVector);
 		}
@@ -161,6 +164,91 @@ void UAbilityComponent::ApplyEffect(ACharacterBase* EffectInstigator, FName Abil
 				&UAbilityComponent::OnTickTimer, TimerRate, true);
 		}
 		
+	}
+}
+
+void UAbilityComponent::SetTargetedActorByHotkey(UInputAction* TargetHotkey)
+{
+	if (IsValid(TargetHotkey))
+	{
+		if (_TargetMappings.Contains(TargetHotkey))
+		{
+			
+			ACharacterBase* SelfActor = Cast<ACharacterBase>(GetOwner());
+			ACharacterBase* NearestActor = nullptr;
+			float NearestDistance = -1;
+			
+			TArray<AActor*> NearbyActors;
+			ECharacterTeam MatchingTeam = ECharacterTeam::DUNGEONEER;
+			
+			switch(_TargetMappings[TargetHotkey])
+			{
+			case ETargetingOption::ONE:
+				SetTargetedActor( SelfActor );
+				return;
+			case ETargetingOption::TWO:
+				//SetTargetedActor(  );
+				return;
+			case ETargetingOption::THREE:
+				//SetTargetedActor(  );
+				return;
+			case ETargetingOption::FOUR:
+				//SetTargetedActor(  );
+				return;
+			case ETargetingOption::FIVE:
+				//SetTargetedActor(  );
+				return;
+			case ETargetingOption::NEAR_ENEMY:
+				MatchingTeam = ECharacterTeam::ENEMY;
+				break;
+			case ETargetingOption::NEAR_PARTY:
+				MatchingTeam = ECharacterTeam::PLAYER;
+				break;
+			case ETargetingOption::NEAR_NPC:
+				MatchingTeam = ECharacterTeam::FRIEND;
+				break;
+			default:
+				return;
+			}
+
+			// Get all game mode characters
+			UGameplayStatics::GetAllActorsOfClass(GetWorld(),
+				ACharacterBase::StaticClass(), NearbyActors);
+
+			// Find the nearest one matching the filter
+			for (int i = NearbyActors.Num() - 1; i >= 0; i--)
+			{
+				ACharacterBase* TargetCharacter = Cast<ACharacterBase>(NearbyActors[i]);
+				if (TargetCharacter->GetCharacterTeam() == MatchingTeam)
+				{
+					float NewDistance = SelfActor->GetDistanceTo(TargetCharacter);
+					if (NewDistance < NearestDistance || NearestDistance < 0)
+					{
+						NearestDistance = NewDistance;
+						NearestActor = TargetCharacter;
+					}
+				}
+			}
+			
+			if (IsValid(NearestActor))
+			{
+				SetTargetedActor(NearestActor);
+			}
+			
+		}
+	}
+}
+
+void UAbilityComponent::SetTargetedActor(ACharacterBase* NewTarget)
+{
+	if (GetOwner()->HasAuthority())
+	{
+		_TargetActor = NewTarget;
+		OnNewTargetSet.Broadcast(NewTarget);
+	}
+	else
+	{
+		Server_RequestTarget(NewTarget);
 	}
 }
 
@@ -425,6 +513,10 @@ void UAbilityComponent::SpawnEffectsActor(
 		SetIsCasting(AbilityName);
 		OnAbilityCastStarted.Broadcast(AbilityName, AbilityData.ActivationTime);
 		
+		EffectInstigator->VitalityComponent->DamageHealth(EffectInstigator, AbilityData.ConsumeHealth);
+		EffectInstigator->VitalityComponent->ConsumeMagic(EffectInstigator, AbilityData.ConsumeMagic);
+		EffectInstigator->VitalityComponent->ConsumeStamina(EffectInstigator, AbilityData.ConsumeStamina);
+		
 		AbilityEffect->SetInstigator( GetOwner()->GetInstigator() );
 		AbilityEffect->SetAbilityComponent( this );
 		AbilityEffect->SetAbilityInstigator( Cast<ACharacterBase>(GetOwner()) );
@@ -592,6 +684,11 @@ void UAbilityComponent::SetNoLongerCasting(FName AbilityName, bool WasSuccessful
 	}
 }
 
+void UAbilityComponent::Server_RequestTarget_Implementation(ACharacterBase* NewTarget)
+{
+	SetTargetedActor(NewTarget);
+}
+
 void UAbilityComponent::Client_AbilityFailure_Implementation(
 					FName AbilityName, const FString& FailureReason)
 {
@@ -602,6 +699,11 @@ void UAbilityComponent::Client_AbilityCanceled_Implementation(FName AbilityName,
 {
 	bIsFocused = false;
 	OnAbilityCanceled.Broadcast(AbilityName, *FailureReason);
+}
+
+void UAbilityComponent::OnRep_TargetActor_Implementation()
+{
+	OnNewTargetSet.Broadcast(_TargetActor);
 }
 
 void UAbilityComponent::TickTimer()
@@ -670,5 +772,6 @@ void UAbilityComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME_CONDITION(UAbilityComponent, bIsCasting, COND_OwnerOnly);
 	DOREPLIFETIME_CONDITION(UAbilityComponent, bIsFocused, COND_OwnerOnly);
-	DOREPLIFETIME_CONDITION(UAbilityComponent, _ActiveEffects, COND_OwnerOnly);
+	DOREPLIFETIME(UAbilityComponent, _ActiveEffects);
+	DOREPLIFETIME(UAbilityComponent, _TargetActor);
 }

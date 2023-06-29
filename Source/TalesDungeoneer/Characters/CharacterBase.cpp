@@ -306,4 +306,7 @@ void ACharacterBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(ACharacterBase, _CharacterTeam);
+	DOREPLIFETIME(ACharacterBase, _CharacterLevel);
+	DOREPLIFETIME(ACharacterBase, _CharacterClass);
+	DOREPLIFETIME(ACharacterBase, _CharacterRisk);
 }

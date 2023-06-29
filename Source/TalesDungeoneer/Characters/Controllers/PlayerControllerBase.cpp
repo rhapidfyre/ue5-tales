@@ -39,11 +39,18 @@ void APlayerControllerBase::SetupInputComponent()
 			
 		}
 			
-		// Setup Hotkey bindings 
-		for (UInputAction* InputReference : Hotkeys)
+		// Setup Hotkey Ability bindings 
+		for (UInputAction* InputReference : AbilityHotkeys)
 		{
 			EnhancedInputComponent->BindAction(InputReference, ETriggerEvent::Triggered,
 					this, &APlayerControllerBase::HotkeyTriggered, InputReference);
+		}
+			
+		// Setup Hotkey Target bindings 
+		for (UInputAction* InputReference : TargetingHotkeys)
+		{
+			EnhancedInputComponent->BindAction(InputReference, ETriggerEvent::Triggered,
+					this, &APlayerControllerBase::HotkeyTarget, InputReference);
 		}
 		
 	}
@@ -79,8 +86,27 @@ void APlayerControllerBase::HotkeyTriggered(UInputAction* HotkeyAction)
 		{
 			if (IsValid(ControlledCharacter->AbilityComponent))
 			{
+				// Send hotkey to ability component for processing
 				ControlledCharacter->AbilityComponent->AbilityAction(HotkeyAction);
+
+				// Allow other scripts to hear the request
 				OnHotkeyTriggered.Broadcast(HotkeyAction);
+				
+			}
+		}
+	}
+}
+
+void APlayerControllerBase::HotkeyTarget(UInputAction* HotkeyAction)
+{
+	if (IsValid(HotkeyAction))
+	{
+		const ACharacterBase* ControlledCharacter = Cast<ACharacterBase>( GetCharacter() );
+		if (IsValid(ControlledCharacter))
+		{
+			if (IsValid(ControlledCharacter->AbilityComponent))
+			{
+				ControlledCharacter->AbilityComponent->SetTargetedActorByHotkey(HotkeyAction);
 			}
 		}
 	}
