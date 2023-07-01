@@ -3,13 +3,19 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+
 #include "InventoryComponent.h"
 #include "VitalityComponent.h"
+#include "lib/VitalityData.h"
+
 #include "Components/WeaponComponent.h"
 #include "Components/AbilityComponent.h"
 #include "Components/WidgetComponent.h"
 
+#include "TalesDungeoneer/lib/enums/GlobalEnums.h"
+
 #include "CharacterBase.generated.h"
+
 
 // Called when primary action is triggered
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPrimaryAction);
@@ -23,15 +29,6 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPrimaryAttack);
 // Called when secondary attack is triggered
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSecondaryAttack);
 
-UENUM(BlueprintType)
-enum class ECharacterTeam : uint8
-{
-	SPECTATOR	UMETA(DisplayName = "Unassigned"),
-	PLAYER		UMETA(DisplayName = "Players"),
-	DUNGEONEER	UMETA(DisplayName = "Dungeoneer"),
-	FRIEND		UMETA(DisplayName = "Friendly NPCs"),
-	ENEMY		UMETA(DisplayName = "Enemy NPCs")
-};
 
 /**
  * Character Base is the base C++ class for all logic, methods and members that affect ALL
@@ -199,10 +196,9 @@ public: // members
 private:
 
 	UPROPERTY(Replicated) ECharacterTeam _CharacterTeam = ECharacterTeam::SPECTATOR;
-
 	UPROPERTY(Replicated) int _CharacterLevel = 1;
-	
 	UPROPERTY(Replicated) ECharacterClass _CharacterClass = ECharacterClass::WARRIOR;
-
 	UPROPERTY(Replicated) int _CharacterRisk = 0;
+
+	UPROPERTY(Replicated) FStCharacterStats _CharacterStats = FStCharacterStats();
 };

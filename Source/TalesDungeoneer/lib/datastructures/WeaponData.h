@@ -2,15 +2,16 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "TalesDungeoneer/lib/DamageTypes.h"
 #include "PickupActorBase.h"
 #include "Engine/DataTable.h"
 #include "Engine/EngineTypes.h"
+#include "TalesDungeoneer/lib/enums/WeaponEnums.h"
 
 #include "WeaponData.generated.h"
 
 
 class AWeaponBase;
+class UDamageTypeBase;
 
 
 USTRUCT(BlueprintType)
