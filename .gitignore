@@ -1,8 +1,10 @@
 # Rider Linkage Files
 Plugins/RiderLink/**/*
+Plugins/Developer/RiderLink/**/*
 Plugins/**/Binaries/*
 Content/*
 .idea/*
+**/*/desktop.ini
 
 !*/TalesContent
 
