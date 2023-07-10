@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CharacterBase.h"
+#include "TalesDungeoneer/lib/datastructures/LootData.h"
 
 #include "NpcCharacterBase.generated.h"
 
@@ -18,9 +19,24 @@ class TALESDUNGEONEER_API ANpcCharacterBase : public ACharacterBase
 public: // functions
 	
 	ANpcCharacterBase();
+
+	// Where KEY(FName) is the item name and VALUE(float) is the chance (0-1)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) UDataTable* LootTable;
 	
 protected:
 	
 	virtual void BeginPlay() override;
+
+	// Generates loot when the NPC begins play, instead of calculating on death.
+	// Avoids any lag spike or skip when the NPC dies
+	virtual void SetupLootTable();
+
+private:
+
+	UFUNCTION()
+	void DropLootTable(AActor* MyKiller);
+
+	// The items to drop upon death (KEY = Item Name, VALUE = quantity)
+	UPROPERTY() TMap<FName, int> _DropLoot;
 	
 };
