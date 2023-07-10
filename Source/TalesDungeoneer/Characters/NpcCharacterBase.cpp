@@ -91,14 +91,22 @@ void ANpcCharacterBase::SetupLootTable()
 	
 }
 
-void ANpcCharacterBase::DropLootTable(AActor* MyKiller)
+/**
+ * @brief Called when the NPC dies, spawning the loot table on the ground
+ * @param MyKiller Unused in this call
+ */
+ void ANpcCharacterBase::DropLootTable(AActor* MyKiller)
 {
-	for (TPair<FName, int> LootData : _DropLoot)
+	for (const TPair<FName, int> LootData : _DropLoot)
 	{
 		FTransform SpawnTransform( GetActorLocation() );
-		SpawnTransform.SetRotation(FQuat(FMath::RandRange(0.f,359.9f)));
+		SpawnTransform.SetRotation(FQuat(FMath::RandRange(0.f,359.9f),
+										 FMath::RandRange(0.f,359.9f),
+										 FMath::RandRange(0.f,359.9f), 0.f));
+		
 		APickupActorBase* PickupActor = GetWorld()->SpawnActorDeferred<APickupActorBase>(
 			APickupActorBase::StaticClass(),SpawnTransform);
+
 		if (IsValid(PickupActor))
 		{
 			PickupActor->SpawnQuantity = LootData.Value;
