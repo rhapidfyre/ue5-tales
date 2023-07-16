@@ -3,8 +3,7 @@
 
 #include "PlayerCharacterBase.h"
 
-#include "EnhancedInputSubsystems.h"
-#include "Components/WidgetComponent.h"
+#include "PickupActorBase.h"
 
 
 // Sets default values
@@ -18,6 +17,5 @@ APlayerCharacterBase::APlayerCharacterBase()
 void APlayerCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
-
 	SetCharacterTeam(ECharacterTeam::PLAYER);
 }

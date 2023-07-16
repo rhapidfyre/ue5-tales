@@ -31,6 +31,8 @@ protected:
 	// Avoids any lag spike or skip when the NPC dies
 	virtual void SetupLootTable();
 
+	virtual void OnConstruction(const FTransform& Transform) override;
+
 private:
 
 	UFUNCTION()

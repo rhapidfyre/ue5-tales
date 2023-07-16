@@ -91,6 +91,12 @@ void ANpcCharacterBase::SetupLootTable()
 	
 }
 
+void ANpcCharacterBase::OnConstruction(const FTransform& Transform)
+{
+	// Disallow NPCs from picking up pick up actors
+	InventoryComponent->bPickupItems = false;
+}
+
 /**
  * @brief Called when the NPC dies, spawning the loot table on the ground
  * @param MyKiller Unused in this call

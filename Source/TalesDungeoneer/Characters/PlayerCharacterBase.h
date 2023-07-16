@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CharacterBase.h" // Includes core and actor files
+#include "Components/SphereComponent.h"
 
 #include "PlayerCharacterBase.generated.h"
 
@@ -23,5 +24,6 @@ public: // functions
 protected:
 	
 	virtual void BeginPlay() override;
+	
 	
 };
