@@ -29,6 +29,9 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPrimaryAttack);
 // Called when secondary attack is triggered
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSecondaryAttack);
 
+// Called when secondary attack is triggered
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCharacterLevelUp, int, NewLevel);
+
 
 /**
  * Character Base is the base C++ class for all logic, methods and members that affect ALL
@@ -50,6 +53,7 @@ public: // functions
 	UPROPERTY(BlueprintCallable) FOnPrimaryAttack OnPrimaryAttack;
 	UPROPERTY(BlueprintCallable) FOnSecondaryAction OnSecondaryAction;
 	UPROPERTY(BlueprintCallable) FOnSecondaryAttack OnSecondaryAttack;
+	UPROPERTY(BlueprintCallable) FOnCharacterLevelUp OnCharacterLevelUp;
 	
 	/** Returns CameraBoom sub object **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
@@ -80,13 +84,36 @@ public: // functions
 	ECharacterTeam GetCharacterTeam() const { return _CharacterTeam; }
 	
 	UFUNCTION(BlueprintPure)
-	int GetCharacterLevel() const { return _CharacterLevel; }
+	void SetCharacterLevel(int NewLevel = 1);
+	UFUNCTION(BlueprintPure) int GetCharacterLevel() const { return _CharacterLevel; }
 
 	UFUNCTION(BlueprintPure)
 	ECharacterClass GetCharacterClass() const { return _CharacterClass; }
 
 	UFUNCTION(BlueprintPure)
 	int GetRiskLevel() const { return _CharacterRisk; }
+
+	UFUNCTION(BlueprintPure)
+	float GetExperiencePoints() const { return _ExperiencePoints; }
+	// Sets the current experience points pool to the given value
+	UFUNCTION(BlueprintCallable) void SetExperiencePoints(float NewValue = 0.f);
+	// Adds experience points without accounting for level differences or scaling
+	UFUNCTION(BlueprintCallable) void AddExperiencePoints(float AddValue = 0.f);
+	// Removes experience points without accounting for level differences or scaling
+	UFUNCTION(BlueprintCallable) void RemoveExperiencePoints(float AddValue = 0.f);
+
+	/**
+	 * @brief Modifies the experience points given, accounting for level differences.
+	 * @param AwardLevel The level of the risk (5 = Equal fight to a level 5)
+	 * @param BasePoints The amount of unscaled experience points to award
+	 */
+	UFUNCTION(BlueprintCallable) void AwardExperiencePoints(int AwardLevel = 1, float BasePoints = 0.f);
+	
+	UFUNCTION(BlueprintPure)
+	float GetExperienceNeeded() const
+	{
+		return _BaseExperience*pow(_ExpGrowthFactor, GetCharacterLevel()-1);
+	}
 	
 protected: // functions
 	
@@ -197,8 +224,13 @@ private:
 
 	UPROPERTY(Replicated) ECharacterTeam _CharacterTeam = ECharacterTeam::SPECTATOR;
 	UPROPERTY(Replicated) int _CharacterLevel = 1;
+	UPROPERTY(Replicated) float _ExperiencePoints = 0.f;
+	
 	UPROPERTY(Replicated) ECharacterClass _CharacterClass = ECharacterClass::WARRIOR;
 	UPROPERTY(Replicated) int _CharacterRisk = 0;
 
 	UPROPERTY(Replicated) FStCharacterStats _CharacterStats = FStCharacterStats();
+
+	float _BaseExperience = 1000.f;
+	float _ExpGrowthFactor = 1.2;
 };

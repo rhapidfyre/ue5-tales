@@ -108,6 +108,77 @@ void ACharacterBase::StopBlocking()
 	WeaponComponent->SetIsBlocking(false);
 }
 
+void ACharacterBase::SetCharacterLevel(int NewLevel)
+{
+	const int OldLevel = _CharacterLevel;
+	if (OldLevel != _CharacterLevel)
+	{
+		_CharacterLevel = NewLevel;
+		_ExperiencePoints = 0.f;
+		
+		if (_CharacterLevel > OldLevel)
+		{
+			OnCharacterLevelUp.Broadcast(_CharacterLevel);
+		}
+		
+	}
+}
+
+
+void ACharacterBase::SetExperiencePoints(float NewValue)
+{
+	_ExperiencePoints = NewValue;
+}
+
+
+void ACharacterBase::AddExperiencePoints(float AddValue)
+{
+	const float NewValue = _ExperiencePoints + FMath::Abs(AddValue);
+	const float NextLevel = GetExperienceNeeded();
+	if (NewValue >= NextLevel)
+	{
+		if (_CharacterLevel < 100)
+		{
+			_CharacterLevel += 1;
+			_ExperiencePoints = 0.f;
+			OnCharacterLevelUp.Broadcast(_CharacterLevel);
+			return;
+		}
+	}
+	_ExperiencePoints = NewValue > NextLevel ? NextLevel : NewValue;
+}
+
+
+void ACharacterBase::RemoveExperiencePoints(float AddValue)
+{
+	const float newValue = _ExperiencePoints -= FMath::Abs(AddValue);
+	_ExperiencePoints = newValue > 0.f ? newValue : 0.f;
+}
+
+
+void ACharacterBase::AwardExperiencePoints(int AwardLevel, float BasePoints)
+{
+	const float ExperienceReward = BasePoints > 0.f ? BasePoints : 1.f;
+	
+	const double UnderScalingFactor = 0.52135;
+	const double OverScalingFactor = 0.27623;
+	
+	float ExperienceAward = ExperienceReward;
+	
+	int EffectiveLevel  = AwardLevel > 0 ? AwardLevel : 1;
+	int LevelDifference = (_CharacterLevel - EffectiveLevel);
+
+	// Player is higher level
+	if (LevelDifference > 0)
+		ExperienceAward = ExperienceReward * pow(OverScalingFactor, abs(LevelDifference));
+	
+	// Player is lower level
+	else if (LevelDifference < 0)
+		ExperienceAward = ExperienceReward * pow(UnderScalingFactor, abs(LevelDifference));
+
+	AddExperiencePoints(ExperienceAward);
+}
+
 
 void ACharacterBase::SetCharacterTeam(ECharacterTeam NewTeam)
 {
@@ -116,6 +187,7 @@ void ACharacterBase::SetCharacterTeam(ECharacterTeam NewTeam)
 		_CharacterTeam = NewTeam;
 	}
 }
+
 
 // Called when the game starts or when spawned
 void ACharacterBase::BeginPlay()
@@ -313,4 +385,5 @@ void ACharacterBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 	DOREPLIFETIME(ACharacterBase, _CharacterLevel);
 	DOREPLIFETIME(ACharacterBase, _CharacterClass);
 	DOREPLIFETIME(ACharacterBase, _CharacterRisk);
+	DOREPLIFETIME_CONDITION(ACharacterBase, _ExperiencePoints, COND_OwnerOnly);
 }
