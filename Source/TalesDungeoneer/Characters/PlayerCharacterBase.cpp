@@ -3,8 +3,6 @@
 
 #include "PlayerCharacterBase.h"
 
-#include "PickupActorBase.h"
-
 
 // Sets default values
 APlayerCharacterBase::APlayerCharacterBase()
@@ -18,4 +16,5 @@ void APlayerCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
 	SetCharacterTeam(ECharacterTeam::PLAYER);
+	OnPlayerJoined.Broadcast();
 }

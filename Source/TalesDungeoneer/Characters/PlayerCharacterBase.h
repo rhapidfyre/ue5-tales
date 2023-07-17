@@ -7,6 +7,8 @@
 
 #include "PlayerCharacterBase.generated.h"
 
+// Called when this player has fully spawned into the world
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPlayerJoined);
 
 /**
  * Player Character Base is the base C++ class for all logic, methods and members that affect all
@@ -20,10 +22,11 @@ class TALESDUNGEONEER_API APlayerCharacterBase : public ACharacterBase
 public: // functions
 	
 	APlayerCharacterBase();
+
+	UPROPERTY(BlueprintAssignable) FOnPlayerJoined OnPlayerJoined;
 	
 protected:
 	
 	virtual void BeginPlay() override;
-	
 	
 };
