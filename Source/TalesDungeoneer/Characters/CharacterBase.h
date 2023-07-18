@@ -83,8 +83,7 @@ public: // functions
 	UFUNCTION(BlueprintPure)
 	ECharacterTeam GetCharacterTeam() const { return _CharacterTeam; }
 	
-	UFUNCTION(BlueprintPure)
-	void SetCharacterLevel(int NewLevel = 1);
+	UFUNCTION(BlueprintCallable) void SetCharacterLevel(int NewLevel = 1);
 	UFUNCTION(BlueprintPure) int GetCharacterLevel() const { return _CharacterLevel; }
 
 	UFUNCTION(BlueprintPure)

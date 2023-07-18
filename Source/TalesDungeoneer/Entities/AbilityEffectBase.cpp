@@ -310,10 +310,13 @@ void AAbilityEffectBase::ApplyEffectToTarget(ACharacterBase* OverrideCharacter)
 			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), *EffectTarget->GetName());
 
 	// Apply damages
-	EffectTarget->VitalityComponent->ModifyVitalityStat(EVitalityCategories::HEALTH,  SpellData.ConsumeHealth);
-	EffectTarget->VitalityComponent->ModifyVitalityStat(EVitalityCategories::MAGIC,   SpellData.ConsumeMagic);
-	EffectTarget->VitalityComponent->ModifyVitalityStat(EVitalityCategories::STAMINA, SpellData.ConsumeStamina);
-
+	for (FStAbilityDamageData DamageInfo : SpellData.DamageData)
+	{
+		// TODO - Damage Resistance & Bonuses
+		EffectTarget->VitalityComponent->ModifyVitalityStat(EVitalityCategories::HEALTH,  DamageInfo.ConsumeHealth);
+		EffectTarget->VitalityComponent->ModifyVitalityStat(EVitalityCategories::MAGIC,   DamageInfo.ConsumeMagic);
+		EffectTarget->VitalityComponent->ModifyVitalityStat(EVitalityCategories::STAMINA, DamageInfo.ConsumeStamina);
+	}
 	// Apply effect to target actor
 	EffectTarget->AbilityComponent->ApplyEffect(InstigatingActor, _AbilityName);
 	
@@ -403,10 +406,14 @@ void AAbilityEffectBase::AbilityComplete(bool WasSuccessful)
 		ApplyEffectToTarget(SoftTarget);
 	}
 	
-	InstigatorPawn->VitalityComponent->DamageHealth(InstigatorPawn, _SpellData.ConsumeHealth);
-	InstigatorPawn->VitalityComponent->ConsumeMagic(InstigatorPawn, _SpellData.ConsumeMagic);
-	InstigatorPawn->VitalityComponent->ConsumeStamina(InstigatorPawn, _SpellData.ConsumeStamina);
-		
+	for (FStAbilityDamageData DamageInfo : _SpellData.DamageData)
+	{
+		// TODO - Damage Resistances & Bonuses
+		InstigatorPawn->VitalityComponent->DamageHealth(InstigatorPawn, DamageInfo.ConsumeHealth);
+		InstigatorPawn->VitalityComponent->ConsumeMagic(InstigatorPawn, DamageInfo.ConsumeMagic);
+		InstigatorPawn->VitalityComponent->ConsumeStamina(InstigatorPawn, DamageInfo.ConsumeStamina);
+	}
+	
 	OnAbilityFinished.Broadcast(GetAbilityName(), WasSuccessful);
 	Destroy();
 }

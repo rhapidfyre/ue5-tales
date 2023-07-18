@@ -24,5 +24,8 @@ public:
 	
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "GetAppVersion"), Category = "Game Config")
 		static FString GetAppVersion();
-	
+
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Maximum Character Level"), Category = "Game Config")
+		static int GetGameMaxCharacterLevel();
+
 };

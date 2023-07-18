@@ -8,6 +8,7 @@
 #include "GameFramework/Actor.h"
 #include "EnhancedInput/Public/InputAction.h"
 #include "NiagaraSystem.h"
+#include "lib/VitalityEnums.h"
 #include "TalesDungeoneer/lib/enums/GlobalEnums.h"
 
 #include "AbilityData.generated.h"
@@ -113,6 +114,16 @@ struct FStAbilityAnimData
 };
 
 USTRUCT(BlueprintType)
+struct FStAbilityDamageData
+{
+	GENERATED_BODY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) EDamageType DamageType = EDamageType::ADMIN;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float ConsumeMagic	 = 1.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float ConsumeHealth  = 0.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float ConsumeStamina = 0.f;
+};
+
+USTRUCT(BlueprintType)
 struct FStProjectileData
 {
 	GENERATED_BODY()
@@ -153,6 +164,8 @@ struct FStSpellData : public FTableRowBase
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FString DisplayName = FString();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FString Description = "Description";
+
 	// If true, the ability effects will spawn attached to the actor who cast this ability
 	// If false, the ability effects will spawn at the actor's root and remain there.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bAttachToCaster = false;
@@ -183,12 +196,10 @@ struct FStSpellData : public FTableRowBase
 	// The sound this spell makes while it's active (such as a projectile traveling)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStAbilitySoundData SoundData = FStAbilitySoundData();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) float ConsumeMagic	 = 1.f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) float ConsumeHealth  = 0.f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) float ConsumeStamina = 0.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStAbilityDamageData> DamageData = {};
 
 	// Classes that can use this spell
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) TMap<ECharacterClass, int> AllowedClass = {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TMap<ECharacterClass, int> AllowedClasses = {};
 	
 	// The effects that play when the spell comes to life
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStAbilityFx> EffectsOnSpawn = {};
@@ -210,7 +221,12 @@ struct FStAbilityData : public FTableRowBase
 	GENERATED_BODY()
 
 	// The name to be displayed in the UI
+	UPROPERTY(BlueprintReadOnly) FName GameName = FName();
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FString DisplayName = FString();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FString Description = "Description";
+
+	// Classes that can use this ability
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TMap<ECharacterClass, int> AllowedClasses = {};
 
 	// If true, the ability actor will spawn attached to the actor who cast this ability
 	// If false, the ability actor will spawn at the actor's root and remain there.
@@ -292,32 +308,28 @@ class UAbilitySystem : public UBlueprintFunctionLibrary
 	GENERATED_BODY()
 public:
 	
-	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Ability Data Table"),
-										 Category = "Ability Data")
+	UFUNCTION(BlueprintPure, meta = (Category = "Ability Data Table Globals"))
 	static UDataTable* GetAbilityDataTable();
 	
-	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Ability Data Table"),
-										 Category = "Ability Data")
+	UFUNCTION(BlueprintPure, meta = (Category = "Ability Data Table Globals"))
 	static UDataTable* GetSpellDataTable();
 
-	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Ability Data Table"),
-										 Category = "Ability Data")
+	UFUNCTION(BlueprintPure, meta = (Category = "Ability Data Table Globals"))
+	static TArray<FStAbilityData> GetAbilityDataTableSortedByClass(ECharacterClass CharacterClass);
+
+	UFUNCTION(BlueprintPure, meta = (Category = "Ability Data Table Globals"))
 	static FStAbilityData GetAbilityDataFromName(FName AbilityName);
 	
-	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Ability Data Table"),
-										 Category = "Ability Data")
+	UFUNCTION(BlueprintPure, meta = (Category = "Ability Data Table Globals"))
 	static FStSpellData GetSpellDataFromName(FName SpellName);
 	
-	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Ability Data Table"),
-										 Category = "Ability Data")
+	UFUNCTION(BlueprintPure, meta = (Category = "Ability Data Table Globals"))
 	static bool GetAbilityNameIsValid(FName AbilityName);
 	
-	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Ability Data Table"),
-										 Category = "Ability Data")
+	UFUNCTION(BlueprintPure, meta = (Category = "Ability Data Table Globals"))
 	static bool GetSpellNameIsValid(FName SpellName);
 	
-	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Ability Data Table"),
-										 Category = "Ability Data")
+	UFUNCTION(BlueprintPure, meta = (Category = "Ability Data Table Globals"))
 	static bool GetAbilityDataIsValid(FStAbilityData AbilityData = FStAbilityData());
     
 };

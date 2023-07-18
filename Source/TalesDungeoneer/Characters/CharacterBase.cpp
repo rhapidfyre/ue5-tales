@@ -7,6 +7,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "TalesDungeoneer/lib/datastructures/GlobalData.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -137,7 +138,7 @@ void ACharacterBase::AddExperiencePoints(float AddValue)
 	const float NextLevel = GetExperienceNeeded();
 	if (NewValue >= NextLevel)
 	{
-		if (_CharacterLevel < 100)
+		if (_CharacterLevel < UGlobalData::GetGameMaxCharacterLevel())
 		{
 			_CharacterLevel += 1;
 			_ExperiencePoints = 0.f;
@@ -159,24 +160,32 @@ void ACharacterBase::RemoveExperiencePoints(float AddValue)
 void ACharacterBase::AwardExperiencePoints(int AwardLevel, float BasePoints)
 {
 	const float ExperienceReward = BasePoints > 0.f ? BasePoints : 1.f;
-	
-	const double UnderScalingFactor = 0.52135;
-	const double OverScalingFactor = 0.27623;
-	
-	float ExperienceAward = ExperienceReward;
-	
-	int EffectiveLevel  = AwardLevel > 0 ? AwardLevel : 1;
-	int LevelDifference = (_CharacterLevel - EffectiveLevel);
 
-	// Player is higher level
-	if (LevelDifference > 0)
-		ExperienceAward = ExperienceReward * pow(OverScalingFactor, abs(LevelDifference));
+	// EXP Penalties	https://www.desmos.com/calculator
+	// Only players of equal level to the encounter should get the same experience reward.
+	// Players who are level should get less, but at a lower rate of decay.
+	// Players who are higher level should take a stronger penalty.
+	// This discourages power-leveling by lessening the reward and punishing grinding low level NPCs
+	const double UnderScalingFactor = 0.00225; // The exp penalty for being under level
+	const double OverScalingFactor  = 0.001; // The exp penalty for being over level
 	
-	// Player is lower level
-	else if (LevelDifference < 0)
-		ExperienceAward = ExperienceReward * pow(UnderScalingFactor, abs(LevelDifference));
+	const int ConvergenceLevel = 30; // What level the experience dies
+	
+	int EffectiveLevel   = (AwardLevel > 0) ? AwardLevel : 1;
+	int LevelDifference  = (_CharacterLevel - EffectiveLevel);
 
-	AddExperiencePoints(ExperienceAward);
+	// Award no experience
+	if (LevelDifference >= ConvergenceLevel)
+		return;
+	
+	const double ScalingFactor = (LevelDifference > 0) ? OverScalingFactor : UnderScalingFactor;
+	if (LevelDifference == 0)
+		AddExperiencePoints(BasePoints);
+	else
+	{
+		const float XpAdjustment = 1/(1+pow(EULERS_NUMBER, 0.3 * (abs(LevelDifference) - 8)));
+		AddExperiencePoints(BasePoints * XpAdjustment);
+	}
 }
 
 

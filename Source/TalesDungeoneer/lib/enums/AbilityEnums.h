@@ -28,10 +28,10 @@ enum class EAbilityType : uint8
 	BENEFIT		UMETA(DisplayName = "Beneficial"),
 	
 	// A detriment is an ability that causes harm
-	DETRIMENT	UMETA(DisplayName = "Detrimental"),
+	DETRIMENT	UMETA(DisplayName = "Offensive"),
 	
 	// A utility ability is one that provide a non-beneficial assistance, such as levitation
-	UTIL		UMETA(DisplayName = "Utility"),
+	UTIL		UMETA(DisplayName = "Defensive"),
 	
 	// A synergetic Ability is an ability feeds on the power of other synergetic abilities
 	SYNERGY		UMETA(DisplayName = "Synergy"),

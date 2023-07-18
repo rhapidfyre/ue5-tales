@@ -20,6 +20,78 @@ UDataTable* UAbilitySystem::GetSpellDataTable()
 	return Cast<UDataTable>(itemTable.TryLoad());
 }
 
+TArray<FStAbilityData> AbilityMergeArray(ECharacterClass AllowedClass,
+	TArray<FStAbilityData>& UnsortedArrayA, TArray<FStAbilityData>& UnsortedArrayB)
+{
+	TArray<FStAbilityData> FinalArray;
+	while ( !UnsortedArrayA.IsEmpty() && !UnsortedArrayB.IsEmpty() )
+	{
+		if (UnsortedArrayA[0].AllowedClasses[AllowedClass] > UnsortedArrayB[0].AllowedClasses[AllowedClass])
+		{
+			FStAbilityData NewData = UAbilitySystem::GetAbilityDataFromName(UnsortedArrayB[0].GameName);
+			FinalArray.Add(UnsortedArrayB[0]);
+			UnsortedArrayB.RemoveAt(0);
+		}
+		else
+		{
+			FStAbilityData NewData = UAbilitySystem::GetAbilityDataFromName(UnsortedArrayA[0].GameName);
+			FinalArray.Add(UnsortedArrayA[0]);
+			UnsortedArrayA.RemoveAt(0);
+		}
+	}
+	while ( !UnsortedArrayA.IsEmpty() )
+	{
+		FStAbilityData NewData = UAbilitySystem::GetAbilityDataFromName(UnsortedArrayA[0].GameName);
+		FinalArray.Add(UnsortedArrayA[0]);
+		UnsortedArrayA.RemoveAt(0);
+	}
+	while ( !UnsortedArrayB.IsEmpty() )
+	{
+		FStAbilityData NewData = UAbilitySystem::GetAbilityDataFromName(UnsortedArrayB[0].GameName);
+		FinalArray.Add(UnsortedArrayB[0]);
+		UnsortedArrayB.RemoveAt(0);
+	}
+	return FinalArray;
+}
+
+TArray<FStAbilityData> AbilityMergeSort(ECharacterClass AllowedClass,
+	TArray<FStAbilityData> UnsortedArray)
+{
+	const int sizeOfArray = UnsortedArray.Num();
+	if (sizeOfArray < 2) return UnsortedArray;
+
+	TArray<FStAbilityData> UnsortedArrayA;
+	TArray<FStAbilityData> UnsortedArrayB;
+	for (int i = 0; i < sizeOfArray; i++)
+	{
+		if (i < sizeOfArray/2)
+			UnsortedArrayA.Add(UnsortedArray[i]);
+		else
+			UnsortedArrayB.Add(UnsortedArray[i]);
+	}
+
+	UnsortedArrayA = AbilityMergeSort(AllowedClass, UnsortedArrayA);
+	UnsortedArrayA = AbilityMergeSort(AllowedClass, UnsortedArrayB);
+	return AbilityMergeArray(AllowedClass, UnsortedArrayA, UnsortedArrayB);
+}
+
+TArray<FStAbilityData> UAbilitySystem::GetAbilityDataTableSortedByClass(ECharacterClass CharacterClass)
+{
+	const UDataTable* AbilityTable = GetAbilityDataTable();
+	const FString ErrorCaught;
+	
+	TArray<FName> UnsortedArray = AbilityTable->GetRowNames();
+	
+	TArray<FStAbilityData> SortedArray;
+	for (int i = 0; i < UnsortedArray.Num(); i++)
+	{
+		FStAbilityData AbilityData = GetAbilityDataFromName(UnsortedArray[i]);
+		if (AbilityData.AllowedClasses.Contains(CharacterClass))
+			SortedArray.Add(AbilityData);
+	}
+	return AbilityMergeSort(CharacterClass, SortedArray);
+}
+
 FStAbilityData UAbilitySystem::GetAbilityDataFromName(FName AbilityName)
 {
 	if (!AbilityName.IsNone())
@@ -32,8 +104,10 @@ FStAbilityData UAbilitySystem::GetAbilityDataFromName(FName AbilityName)
 				FStAbilityData* abilityPtr = dt->FindRow<FStAbilityData>(AbilityName, ErrorCaught);
 
 				if (abilityPtr != nullptr)
+				{
+					abilityPtr->GameName = AbilityName;
 					return *abilityPtr;
-				
+				}
 			}
 		}
 	}
@@ -77,7 +151,7 @@ bool UAbilitySystem::GetSpellNameIsValid(FName SpellName)
 	if (!SpellName.IsNone())
 	{
 		const FStSpellData SpellData = (GetSpellDataFromName(SpellName));
-		return SpellData.AllowedClass.Num() > 0;
+		return SpellData.AllowedClasses.Num() > 0;
 	}
 	return false; // Invalid or not found
 }

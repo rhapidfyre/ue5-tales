@@ -13,3 +13,8 @@ FString UGlobalData::GetAppVersion()
 
 	return AppVersion;
 }
+
+int UGlobalData::GetGameMaxCharacterLevel()
+{
+	return 100;
+}
