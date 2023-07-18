@@ -217,10 +217,11 @@ public: // members
 	/** Overhead Component */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) UWidgetComponent*	 OverheadWidget;
 
-	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) int UnlockPointsOnLevelUp = 1;
 	
 private:
 
+	
 	UPROPERTY(Replicated) ECharacterTeam _CharacterTeam = ECharacterTeam::SPECTATOR;
 	UPROPERTY(Replicated) int _CharacterLevel = 1;
 	UPROPERTY(Replicated) float _ExperiencePoints = 0.f;

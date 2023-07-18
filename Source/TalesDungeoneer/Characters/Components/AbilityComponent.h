@@ -29,9 +29,15 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAbilityCanceled,
 FName, AbilityName, FString, CancelReason);
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnNewTargetSet,
-	ACharacterBase*, NewTarget);
+ACharacterBase*, NewTarget);
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAbilityHotkeyChanged,
+	UInputAction*, HotkeyAction, FName, AbilityName);
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAbilityLearned, FName, AbilityName);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAbilityForgotten, FName, AbilityName);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnAbilitiesReset);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUnlockPointsChanged, int, TotalPoints);
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class TALESDUNGEONEER_API UAbilityComponent : public UActorComponent
@@ -42,12 +48,17 @@ public:
 
 	UAbilityComponent();
 
-	UPROPERTY(BlueprintAssignable) FOnAbilityCastStarted	OnAbilityCastStarted;
-	UPROPERTY(BlueprintAssignable) FOnAbilityCastComplete	OnAbilityCastComplete;
-	UPROPERTY(BlueprintAssignable) FOnAbilityAdded			OnAbilityAdded;
-	UPROPERTY(BlueprintAssignable) FOnAbilityRemoved		OnAbilityRemoved;
-	UPROPERTY(BlueprintAssignable) FOnActiveEffectsUpdated  OnActiveEffectsUpdated;
-	UPROPERTY(BlueprintAssignable) FOnNewTargetSet			OnNewTargetSet;
+	UPROPERTY(BlueprintAssignable) FOnAbilityCastStarted		OnAbilityCastStarted;
+	UPROPERTY(BlueprintAssignable) FOnAbilityCastComplete		OnAbilityCastComplete;
+	UPROPERTY(BlueprintAssignable) FOnAbilityAdded				OnAbilityAdded;
+	UPROPERTY(BlueprintAssignable) FOnAbilityRemoved			OnAbilityRemoved;
+	UPROPERTY(BlueprintAssignable) FOnActiveEffectsUpdated  	OnActiveEffectsUpdated;
+	UPROPERTY(BlueprintAssignable) FOnNewTargetSet				OnNewTargetSet;
+	UPROPERTY(BlueprintAssignable) FOnAbilityLearned			OnAbilityLearned;
+	UPROPERTY(BlueprintAssignable) FOnAbilityForgotten			OnAbilityForgotten;
+	UPROPERTY(BlueprintAssignable) FOnAbilitiesReset			OnAbilitiesReset;
+	UPROPERTY(BlueprintAssignable) FOnAbilityHotkeyChanged  	OnAbilityHotkeyChanged;
+	UPROPERTY(BlueprintAssignable) FOnUnlockPointsChanged		OnUnlockPointsChanged;
 	
 	// Called whenever casting/activation is denied
 	UPROPERTY(BlueprintAssignable) FOnAbilityFailed			OnAbilityFailed;
@@ -96,6 +107,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ApplyEffect(ACharacterBase* EffectInstigator, FName AbilityName);
 
+	UFUNCTION(BlueprintPure)
+	TMap<UInputAction*, FName> GetAbilityMappings() const { return _AbilityMappings; };
+	
 	// The tick rate of the Effects Timer
 	// The timer does not run if there are no active effects
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float TimerRate = 0.1;
@@ -133,6 +147,16 @@ public:
 	 * @param OnlyFocused If true, interrupt ONLY focused abilities. False interrupts everything.
 	 */
 	UFUNCTION(BlueprintCallable) void InterruptCasting(bool OnlyFocused = false);
+
+	UFUNCTION(BlueprintPure) TSet<FName> GetKnownAbilities() const { return _KnownAbilities; }
+
+	UFUNCTION(Server, Reliable, BlueprintCallable) void Server_RequestAbilityAdd(FName AbilityName);
+	UFUNCTION(Server, Reliable, BlueprintCallable) void Server_RequestAbilityRemove(FName AbilityName);
+	UFUNCTION(Server, Reliable, BlueprintCallable) void Server_RequestAbilityReset();
+
+	UFUNCTION(BlueprintPure) int GetNumberOfUnlockPointsAvailable() const { return _UnlockPoints; }
+	UFUNCTION(BlueprintCallable) void AddUnlockPoints(int NumPoints = 1);
+	UFUNCTION(BlueprintCallable) void RemoveUnlockPoints(int NumPoints = 1);
 	
 protected:
 	
@@ -180,6 +204,9 @@ protected:
 	
 private:
 
+	UFUNCTION(Client, Reliable) void OnRep_UnlockPoints();
+	UPROPERTY(ReplicatedUsing=OnRep_UnlockPoints) int _UnlockPoints = 2;
+	
 	UFUNCTION(Server, Reliable)
 	void Server_RequestTarget(ACharacterBase* NewTarget);
 
@@ -211,6 +238,14 @@ private:
 	UPROPERTY(ReplicatedUsing=OnRep_ActiveEffectsUpdated)
 	TArray<UStatusEffect*> _ActiveEffects;
 	UFUNCTION(NetMulticast, Reliable) void OnRep_ActiveEffectsUpdated();
+
+	UPROPERTY()	TSet<FName> _KnownAbilities;
+	UFUNCTION(BlueprintCallable) void AddKnownAbility(FName AbilityName, int UnlockPoints = 1);
+	UFUNCTION(BlueprintCallable) void RemoveKnownAbility(FName AbilityName);
+	UFUNCTION(BlueprintCallable) void ResetKnownAbilities();
+	UFUNCTION(Client, Reliable) void Client_AddKnownAbility(FName AbilityName);
+	UFUNCTION(Client, Reliable) void Client_RemoveKnownAbility(FName AbilityName);
+	UFUNCTION(Client, Reliable) void Client_ResetKnownAbilities();
 
 	// A simple timer for managing effect expiration
 	UPROPERTY() FTimerHandle _EffectsTimer;

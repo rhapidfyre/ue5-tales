@@ -142,6 +142,7 @@ void ACharacterBase::AddExperiencePoints(float AddValue)
 		{
 			_CharacterLevel += 1;
 			_ExperiencePoints = 0.f;
+			AbilityComponent->AddUnlockPoints( UnlockPointsOnLevelUp );
 			OnCharacterLevelUp.Broadcast(_CharacterLevel);
 			return;
 		}

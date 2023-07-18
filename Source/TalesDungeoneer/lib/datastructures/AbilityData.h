@@ -162,8 +162,10 @@ struct FStSpellData : public FTableRowBase
 {
 	GENERATED_BODY()
 	
+	// Non-editable entry for game use only
+	UPROPERTY(BlueprintReadOnly) FName GameName = FName();
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FString DisplayName = FString();
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FString Description = "Description";
 
 	// If true, the ability effects will spawn attached to the actor who cast this ability
@@ -220,8 +222,12 @@ struct FStAbilityData : public FTableRowBase
 {
 	GENERATED_BODY()
 
-	// The name to be displayed in the UI
+	// Non-editable entry for game use only
 	UPROPERTY(BlueprintReadOnly) FName GameName = FName();
+	
+	// How many unlock points this ability should cost
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) int UnlockPoints = 1;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FString DisplayName = FString();
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FString Description = "Description";
 

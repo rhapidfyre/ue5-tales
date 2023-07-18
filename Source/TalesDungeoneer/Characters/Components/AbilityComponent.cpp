@@ -65,6 +65,7 @@ bool UAbilityComponent::SetAbilityInputAction(FName AbilityName, UInputAction* I
 	if (IsValid(InputAction))
 	{
 		_AbilityMappings.Add(InputAction, AbilityName);
+		OnAbilityHotkeyChanged.Broadcast(InputAction, AbilityName);
 		return true;
 	}
 	return false;
@@ -411,6 +412,57 @@ void UAbilityComponent::InterruptCasting(bool OnlyFocused)
 	}
 }
 
+void UAbilityComponent::Server_RequestAbilityAdd_Implementation(FName AbilityName)
+{
+	if (GetOwner()->HasAuthority())
+	{
+		if (UAbilitySystem::GetAbilityNameIsValid(AbilityName))
+		{
+			// TODO - Restrictions, allowed classes, etc.
+			const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
+			AddKnownAbility(AbilityName, AbilityData.UnlockPoints);
+		}
+	}
+}
+
+void UAbilityComponent::Server_RequestAbilityRemove_Implementation(FName AbilityName)
+{
+	if (GetOwner()->HasAuthority())
+	{
+		if (UAbilitySystem::GetAbilityNameIsValid(AbilityName))
+		{
+			RemoveKnownAbility(AbilityName);
+		}
+	}
+}
+
+void UAbilityComponent::Server_RequestAbilityReset_Implementation()
+{
+	if (GetOwner()->HasAuthority())
+	{
+		ResetKnownAbilities();
+	}
+}
+
+void UAbilityComponent::AddUnlockPoints(int NumPoints)
+{
+	if (GetOwner()->HasAuthority())
+	{
+		_UnlockPoints += abs(NumPoints);
+		OnUnlockPointsChanged.Broadcast(_UnlockPoints);
+	}
+}
+
+void UAbilityComponent::RemoveUnlockPoints(int NumPoints)
+{
+	if (GetOwner()->HasAuthority())
+	{
+		const int NewTotal = _UnlockPoints -= abs(NumPoints);
+		_UnlockPoints = NewTotal > 0 ? NewTotal : 0;
+		OnUnlockPointsChanged.Broadcast(_UnlockPoints);
+	}
+}
+
 void UAbilityComponent::BeginPlay()
 {
 	Super::BeginPlay();
@@ -684,6 +736,11 @@ void UAbilityComponent::SetNoLongerCasting(FName AbilityName, bool WasSuccessful
 	}
 }
 
+void UAbilityComponent::OnRep_UnlockPoints_Implementation()
+{
+	OnUnlockPointsChanged.Broadcast(_UnlockPoints);
+}
+
 void UAbilityComponent::Server_RequestTarget_Implementation(ACharacterBase* NewTarget)
 {
 	SetTargetedActor(NewTarget);
@@ -745,6 +802,79 @@ void UAbilityComponent::TickTimer()
 	}
 }
 
+void UAbilityComponent::AddKnownAbility(FName AbilityName, int UnlockPoints)
+{
+	// Allow client to run everything so the UI is smooth and fast
+	if (_UnlockPoints >= UnlockPoints)
+	{
+		bool isAlreadySet = false;
+		_KnownAbilities.Add(AbilityName, &isAlreadySet);
+		if (!isAlreadySet)
+		{
+			RemoveUnlockPoints(UnlockPoints);
+			
+			// If this executed on the server, send notification to the owning client
+			if (GetOwner()->HasAuthority())
+			{
+				OnAbilityLearned.Broadcast(AbilityName);
+				Client_AddKnownAbility(AbilityName);
+			}
+			
+			// Send request to server to do the actual exchange
+			else
+				Server_RequestAbilityAdd(AbilityName);
+			
+		}
+	}
+}
+
+void UAbilityComponent::RemoveKnownAbility(FName AbilityName)
+{
+	if (GetOwner()->HasAuthority())
+	{
+		if (_KnownAbilities.Remove(AbilityName) > 0)
+		{
+			OnAbilityForgotten.Broadcast(AbilityName);
+			Client_RemoveKnownAbility(AbilityName);
+		}
+	}
+}
+
+void UAbilityComponent::ResetKnownAbilities()
+{
+	if (GetOwner()->HasAuthority())
+	{
+		if (!_KnownAbilities.IsEmpty())
+		{
+			OnAbilitiesReset.Broadcast();
+			Client_ResetKnownAbilities();
+		}
+	}
+}
+
+void UAbilityComponent::Client_AddKnownAbility_Implementation(FName AbilityName)
+{
+	bool isAlreadySet = false;
+	_KnownAbilities.Add(AbilityName, &isAlreadySet);
+	if (!isAlreadySet)
+		OnAbilityLearned.Broadcast(AbilityName);
+}
+
+void UAbilityComponent::Client_RemoveKnownAbility_Implementation(FName AbilityName)
+{
+	if (_KnownAbilities.Remove(AbilityName) > 0)
+		OnAbilityForgotten.Broadcast(AbilityName);
+}
+
+void UAbilityComponent::Client_ResetKnownAbilities_Implementation()
+{
+	if (!_KnownAbilities.IsEmpty())
+	{
+		_KnownAbilities.Empty();
+		OnAbilitiesReset.Broadcast();
+	}
+}
+
 void UAbilityComponent::OnRep_ActiveEffectsUpdated_Implementation()
 {
 	OnActiveEffectsUpdated.Broadcast();
@@ -770,6 +900,7 @@ void UAbilityComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME_CONDITION(UAbilityComponent, bIsCasting, COND_OwnerOnly);
 	DOREPLIFETIME_CONDITION(UAbilityComponent, bIsFocused, COND_OwnerOnly);
+	DOREPLIFETIME_CONDITION(UAbilityComponent, _UnlockPoints, COND_OwnerOnly);
 	DOREPLIFETIME(UAbilityComponent, _ActiveEffects);
 	DOREPLIFETIME(UAbilityComponent, _TargetActor);
 }
