@@ -2,3 +2,8 @@
 
 
 #include "TalesPlayerStateBase.h"
+
+void ATalesPlayerStateBase::UpdatePlayerName()
+{
+	OnPlayerNameUpdated.Broadcast();
+}

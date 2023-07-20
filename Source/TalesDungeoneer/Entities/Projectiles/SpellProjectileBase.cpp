@@ -119,7 +119,7 @@ void ASpellProjectileBase::BeginPlay()
 
 void ASpellProjectileBase::Destroyed()
 {
-	ApplyHitEffect(GetTargetActor(), GetActorLocation());
+	//ApplyHitEffect(GetTargetActor(), GetActorLocation());
 	
 	for (UNiagaraComponent* NiagaraComponent : LoopingNiagaraEmitters)
 	{
@@ -182,13 +182,51 @@ void ASpellProjectileBase::ApplyHitEffect(AActor* HitActor, FVector HitVector)
 		if (IsValid(HitCharacter))
 		{
 			// Apply any damages
-			HitCharacter->VitalityComponent->DamageHealth(GetInstigator(), _SpellData.HitpointsAffected);
-			HitCharacter->VitalityComponent->ConsumeStamina(GetInstigator(), _SpellData.StaminaAffected);
-			HitCharacter->VitalityComponent->ConsumeMagic(GetInstigator(), _SpellData.MagicPointsAffected);
-
+			for (FStAbilityDamageData DamageData : _SpellData.DamageData)
+			{
+				HitCharacter->VitalityComponent->DamageHealth(GetInstigator(), DamageData.ConsumeHealth);
+				HitCharacter->VitalityComponent->ConsumeStamina(GetInstigator(), DamageData.ConsumeStamina);
+				HitCharacter->VitalityComponent->ConsumeMagic(GetInstigator(), DamageData.ConsumeMagic);
+			}
 			// Apply any spell effect
 			HitCharacter->AbilityComponent->ApplyEffect(
 				Cast<ACharacterBase>(GetInstigator()), GetAbilityName() );
+			
+		}
+	}
+}
+
+void ASpellProjectileBase::ProcessCollision(AActor* HitActor, bool IsOverlap)
+{
+	if (IsValid(HitActor))
+	{
+		ACharacterBase* InstigatingActor = Cast<ACharacterBase>(GetInstigator()); //GetInstigatingActor();
+		if (HitActor != InstigatingActor && HitActor != this)
+		{
+			// If an actor is targeted, target that actor specifically
+			// Otherwise, target the actor that was hit by the collision
+			ACharacterBase* HitCharacter = Cast<ACharacterBase>(HitActor);
+			if (_AbilityData.TargetType == EAbilityTarget::TARGET && IsValid(GetTargetActor()))
+				HitCharacter = Cast<ACharacterBase>(GetTargetActor());
+			
+			if (IsValid(HitCharacter))
+			{
+				if (IsValid(InstigatingActor))
+				{
+					// Hit isn't the same person, nor on the same team
+					if (HitCharacter != InstigatingActor && HitCharacter->GetCharacterTeam() != InstigatingActor->GetCharacterTeam())
+					{
+						const FVector HitVector = HitCharacter->GetActorLocation();
+						ApplyHitEffect(HitCharacter, HitVector);
+						Destroy();
+					}
+				}
+			}
+				
+			// Continue if this is an overlap
+			// If it's a blocked collision, it should be destroyed
+			if (!IsOverlap)
+				Destroy();
 			
 		}
 	}

@@ -330,10 +330,13 @@ public:
 	static FStSpellData GetSpellDataFromName(FName SpellName);
 	
 	UFUNCTION(BlueprintPure, meta = (Category = "Ability Data Table Globals"))
-	static bool GetAbilityNameIsValid(FName AbilityName);
+	static bool GetAbilityNameIsValid(FName AbilityName, bool PerformLookup = true);
 	
 	UFUNCTION(BlueprintPure, meta = (Category = "Ability Data Table Globals"))
-	static bool GetSpellNameIsValid(FName SpellName);
+	static bool GetSpellNameIsValid(FName SpellName, bool PerformLookup = true);
+	
+	UFUNCTION(BlueprintPure, meta = (Category = "Ability Data Table Globals"))
+	static bool GetNameIsValidAbilityOrSpell(FName GameName, bool PerformLookup = true);
 	
 	UFUNCTION(BlueprintPure, meta = (Category = "Ability Data Table Globals"))
 	static bool GetAbilityDataIsValid(FStAbilityData AbilityData = FStAbilityData());

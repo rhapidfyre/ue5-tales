@@ -26,23 +26,27 @@ void AProjectileSpellBase::FireProjectile()
 		return;
 
 	const FStSpellData SpellData = GetSpellData();
-	
-	FVector EndPosition = GetImpactPosition();
-	AActor* TargetActor = GetTargetActor();
-	if (IsValid(TargetActor))
-		EndPosition = TargetActor->GetActorLocation();
-	
-	const FVector StartPosition = GetActorLocation();
 
+	const FVector StartPosition = GetActorLocation();
+	FVector EndPosition = GetImpactPosition();
 	FRotator FaceRotation = FRotator::ZeroRotator;
 	
-	AController* PawnController = GetOriginatingActor()->GetInstigatorController();
-	if (IsValid(PawnController))
+	// If the target is valid and this is a targeted projectile, go towards the actor
+	AActor* TargetActor = GetTargetActor();
+	if (IsValid(TargetActor) && GetAbilityData().TargetType == EAbilityTarget::TARGET)
+		EndPosition = TargetActor->GetActorLocation();
+
+	// If it isn't a targeted ability OR it's a true projectile, fire in camera direction
+	else
 	{
-		FVector CamLocation;
-		PawnController->GetPlayerViewPoint(CamLocation, FaceRotation);
+		AController* PawnController = GetOriginatingActor()->GetInstigatorController();
+		if (IsValid(PawnController))
+		{
+			FVector CamLocation;
+			PawnController->GetPlayerViewPoint(CamLocation, FaceRotation);
+		}
 	}
-	
+
 	// If we failed to get a viewpoint, get the difference in impact location
 	if (FaceRotation.IsNearlyZero())
 	{
@@ -121,10 +125,7 @@ void AProjectileSpellBase::AbilityComplete(bool WasSuccessful)
 	if (WasSuccessful)
 	{
 		const FStAbilityData AbilityData = GetAbilityData();
-		if (AbilityData.TargetType == EAbilityTarget::PROJECTILE)
-		{
-			FireProjectile();
-		}
+		FireProjectile();
 	}
 	// This calls Destroy(), logic must happen first
 	Super::AbilityComplete(WasSuccessful);

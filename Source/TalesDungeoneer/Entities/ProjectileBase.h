@@ -89,6 +89,7 @@ private:
 	void CheckCollision(UPrimitiveComponent* HitComp, AActor* OtherActor,
 						UPrimitiveComponent* OtherComp, FVector NormalImpulse,
 						const FHitResult& Hit);
+	virtual void ProcessCollision(AActor* HitActor, bool IsOverlap = false);
 
 	/**
 	 * @brief Called by the engine when this actor overlaps

@@ -11,12 +11,15 @@
 #include "Components/WeaponComponent.h"
 #include "Components/AbilityComponent.h"
 #include "Components/WidgetComponent.h"
+#include "TalesDungeoneer/Entities/SimpleActors/FloatingTextBase.h"
 
 #include "TalesDungeoneer/lib/enums/GlobalEnums.h"
 
 #include "CharacterBase.generated.h"
 
 
+class AFloatingTextBase;
+class UFloatingTextWidgetBase;
 // Called when primary action is triggered
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPrimaryAction);
 
@@ -85,6 +88,8 @@ public: // functions
 	
 	UFUNCTION(BlueprintCallable) void SetCharacterLevel(int NewLevel = 1);
 	UFUNCTION(BlueprintPure) int GetCharacterLevel() const { return _CharacterLevel; }
+
+	UFUNCTION(BlueprintPure) int GetExperienceWorth() const { return _ExperienceWorth; }
 
 	UFUNCTION(BlueprintPure)
 	ECharacterClass GetCharacterClass() const { return _CharacterClass; }
@@ -159,6 +164,17 @@ private: // methods
 	
 	// Called when the equipment slot gets updated in InventoryComponent
 	void UpdateWeapon(EWeaponSlots WeaponSlot = EWeaponSlots::PRIMARY);
+
+	UFUNCTION()
+	void SpawnDamageText(AActor* DamageTaker, AActor* DamageInstigator, float DamageTaken);
+
+	// Called when the character starts an ability.
+	// Checks if the ability should modify the combat state
+	UFUNCTION()	void CheckAbilityStart(FName AbilityName, float CastTime);
+	
+	// Called when the character successfully activates an ability
+	// Checks if the ability should modify the combat state
+	UFUNCTION()	void CheckAbilitySuccess(FName AbilityName, bool WasSuccessful);
 	
 public: // members
 	
@@ -201,7 +217,7 @@ public: // members
 	/** Attack Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* SecondaryInputAction;
-
+	
 	/** Character Inventory */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) UInventoryComponent* InventoryComponent;
 
@@ -218,6 +234,9 @@ public: // members
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) UWidgetComponent*	 OverheadWidget;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) int UnlockPointsOnLevelUp = 1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<AFloatingTextBase> DamageTextActor = AFloatingTextBase::StaticClass();
 	
 private:
 
@@ -233,4 +252,5 @@ private:
 
 	float _BaseExperience = 1000.f;
 	float _ExpGrowthFactor = 1.2;
+	float _ExperienceWorth = 100.f;
 };

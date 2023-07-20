@@ -39,6 +39,12 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAbilityForgotten, FName, AbilityN
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnAbilitiesReset);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUnlockPointsChanged, int, TotalPoints);
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAbilityOnCooldown,
+	FName, AbilityName);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAbilityReady,
+	FName, AbilityName);
+
+
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class TALESDUNGEONEER_API UAbilityComponent : public UActorComponent
 {
@@ -59,6 +65,8 @@ public:
 	UPROPERTY(BlueprintAssignable) FOnAbilitiesReset			OnAbilitiesReset;
 	UPROPERTY(BlueprintAssignable) FOnAbilityHotkeyChanged  	OnAbilityHotkeyChanged;
 	UPROPERTY(BlueprintAssignable) FOnUnlockPointsChanged		OnUnlockPointsChanged;
+	UPROPERTY(BlueprintAssignable) FOnAbilityOnCooldown  		OnAbilityOnCooldown;
+	UPROPERTY(BlueprintAssignable) FOnAbilityReady				OnAbilityReady;
 	
 	// Called whenever casting/activation is denied
 	UPROPERTY(BlueprintAssignable) FOnAbilityFailed			OnAbilityFailed;
@@ -142,11 +150,13 @@ public:
 	// Returns the total time of all effects in the stack
 	UFUNCTION(BlueprintCallable) float GetTotalEffectStackTimer(FName AbilityName = "None");
 
+	UFUNCTION(BlueprintPure) bool GetIsAbilityOnCooldown(FName AbilityName) const { return _AbilitiesOnCooldown.Contains(AbilityName);}
+	UFUNCTION(BlueprintCallable) void EndAbilityCooldown(FName AbilityName);
 	/**
 	 * @brief Call to stop the casting of any ability.
 	 * @param OnlyFocused If true, interrupt ONLY focused abilities. False interrupts everything.
 	 */
-	UFUNCTION(BlueprintCallable) void InterruptCasting(bool OnlyFocused = false);
+	UFUNCTION(BlueprintCallable) void InterruptCasting(bool OnlyFocused = false, bool CanceledIntentionally = false);
 
 	UFUNCTION(BlueprintPure) TSet<FName> GetKnownAbilities() const { return _KnownAbilities; }
 
@@ -157,10 +167,21 @@ public:
 	UFUNCTION(BlueprintPure) int GetNumberOfUnlockPointsAvailable() const { return _UnlockPoints; }
 	UFUNCTION(BlueprintCallable) void AddUnlockPoints(int NumPoints = 1);
 	UFUNCTION(BlueprintCallable) void RemoveUnlockPoints(int NumPoints = 1);
+
+	UFUNCTION(BlueprintCallable)
+	bool StartCasting(FName AbilityName);
+	
+	UFUNCTION(BlueprintCallable)
+	bool StopCasting(FName AbilityName, bool WasSuccessful = true);
+
+	UFUNCTION(BlueprintCallable)
+	bool IsAbilityInProgress(FName AbilityName) const { return _AbilitiesInProgress.Contains(AbilityName); }
 	
 protected:
 	
 	virtual void BeginPlay() override;
+
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	virtual void OnUnregister() override;
 
@@ -184,8 +205,11 @@ protected:
 		AActor* TargetActor = nullptr, FVector ForwardVector = FVector(0.f));
 
 	UFUNCTION(Server, Reliable)
-	void Server_InterruptCasting(bool OnlyFocused = false);
+	void Server_InterruptCasting(bool OnlyFocused = false, bool CanceledIntentionally = false);
 
+	UFUNCTION(BlueprintCallable) void CancelCasting(FName AbilityName);
+	UFUNCTION(Server, Reliable)	void Server_CancelCasting(FName AbilityName);
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<UInputAction*, FName> _AbilityMappings;
 
@@ -210,11 +234,21 @@ private:
 	UFUNCTION(Server, Reliable)
 	void Server_RequestTarget(ACharacterBase* NewTarget);
 
+	/**
+	 * @brief An ability has failed to cast
+	 * @param AbilityName The name of the ability. 'None' cancels ALL abilities.
+	 * @param FailureReason The reason for the failure
+	 */
 	UFUNCTION(Client, Reliable)
 	void Client_AbilityFailure(FName AbilityName, const FString& FailureReason);
 
+	/**
+	 * @brief Cancels a spell for reason other than a failure
+	 * @param AbilityName The name of the ability. 'None' cancels ALL abilities.
+	 * @param CancelReason The reason for the cancellation
+	 */
 	UFUNCTION(Client, Reliable)
-	void Client_AbilityCanceled(FName AbilityName, const FString& FailureReason);
+	void Client_AbilityCanceled(FName AbilityName, const FString& CancelReason);
 
 	UFUNCTION()	void DestroyAllEffects();
 	
@@ -225,7 +259,7 @@ private:
 	UPROPERTY(Replicated) bool bIsCasting = false;
 
 	// If true, the player cannot use any other focused abilities
-	UPROPERTY(Replicated) bool bIsFocused = false; 
+	UPROPERTY(Replicated) FName FocusedAbility = FName(); 
 
 	UPROPERTY(ReplicatedUsing=OnRep_TargetActor) ACharacterBase* _TargetActor;
 	UFUNCTION(Client, Reliable) void OnRep_TargetActor();
@@ -247,11 +281,21 @@ private:
 	UFUNCTION(Client, Reliable) void Client_RemoveKnownAbility(FName AbilityName);
 	UFUNCTION(Client, Reliable) void Client_ResetKnownAbilities();
 
+	UFUNCTION(Client, Reliable) void Client_AbilityCooldown(FName AbilityName, bool OnCooldown = true);
+
 	// A simple timer for managing effect expiration
 	UPROPERTY() FTimerHandle _EffectsTimer;
 
 	FRWLock _MutexLock;
 
 	bool bShowDebug = false;
+
+	FVector _OwnerSpeed = FVector(0.f);
+	UPROPERTY() ACharacterBase* _PlayerCharacter;
+
+	UPROPERTY() TSet<FName> _AbilitiesInProgress;
+	UPROPERTY() TSet<FName> _AbilitiesOnCooldown;
 	
+	UFUNCTION(Client, Reliable) void Client_StartCasting(FName AbilityName);
+	UFUNCTION(Client, Reliable) void Client_StopCasting(FName AbilityName, bool WasSuccessful = true);
 };

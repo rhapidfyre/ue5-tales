@@ -43,6 +43,8 @@ protected:
 
 private:
 
+	virtual void ProcessCollision(AActor* HitActor, bool IsOverlap = false) override;
+
 	// Allows tracking of effects for cleanup if this actor gets destroyed
 	// Only needed for attached effects or effects that are looped
 	UPROPERTY() TArray<UNiagaraComponent*> LoopingNiagaraEmitters;

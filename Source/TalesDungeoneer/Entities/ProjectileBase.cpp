@@ -25,6 +25,7 @@ void AProjectileBase::OnConstruction(const FTransform& Transform)
 	SphereCollision->SetCollisionProfileName(FName("Projectile"));
 	SphereCollision->SetCollisionResponseToAllChannels(ECR_Overlap);
 	SphereCollision->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	SphereCollision->IgnoreActorWhenMoving(this, true);
 	SphereCollision->Deactivate();
 
 	_OriginLocation = GetActorLocation();
@@ -82,10 +83,13 @@ void AProjectileBase::BeginPlay()
 	
 	RootMesh->OnComponentHit.AddDynamic(this, &AProjectileBase::CheckCollision);
 	RootMesh->OnComponentBeginOverlap.AddDynamic(this, &AProjectileBase::CheckOverlap);
-	//SphereCollision->OnComponentBeginOverlap.AddDynamic(this, &AProjectileBase::CheckOverlap);
+
+	if (IsValid(GetInstigator()))
+	{
+		SphereCollision->IgnoreActorWhenMoving(GetInstigator(), true);
+	}
 	
 	ProjectileMovement->Activate(true);
-	//SphereCollision->Activate(true);
 }
 
 void AProjectileBase::Destroyed()
@@ -133,33 +137,29 @@ void AProjectileBase::Tick(float DeltaTime)
 void AProjectileBase::CheckCollision(UPrimitiveComponent* HitComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	const FString ServerOrClientText = HasAuthority()?TEXT("SERVER"):TEXT("CLIENT");
-	UE_LOG(LogTemp, Display, TEXT("%s(%s): Evaluating Collision with actor '%s'"),
-		*GetName(), *ServerOrClientText, *OtherActor->GetName());
-	if (IsValid(OtherActor))
+	ProcessCollision(OtherActor);
+}
+
+void AProjectileBase::ProcessCollision(AActor* HitActor, bool IsOverlap)
+{
+	if (IsValid(HitActor))
 	{
 		ACharacterBase* InstigatingActor = Cast<ACharacterBase>(GetInstigator()); //GetInstigatingActor();
-		if (OtherActor != InstigatingActor && OtherActor != this)
+		if (HitActor != InstigatingActor && HitActor != this)
 		{
 			// If an actor is targeted, target that actor specifically
 			// Otherwise, target the actor that was hit by the collision
-			ACharacterBase* HitCharacter = Cast<ACharacterBase>(GetTargetActor());
-			if (!IsValid(HitCharacter))
+			ACharacterBase* HitCharacter = Cast<ACharacterBase>(HitActor);
+			if (IsValid(HitCharacter))
 			{
-				const FVector HitVector = GetActorLocation();
-				ApplyHitEffect(OtherActor, HitVector);
-				Destroy();
-			}
-			else
-			{
-				if (IsValid(HitCharacter))
+				ACharacterBase* HitInstigator = Cast<ACharacterBase>(GetInstigatingActor());
+				
+				// Hit isn't the same person, nor on the same team
+				if (HitCharacter != HitInstigator && HitCharacter->GetCharacterTeam() != HitInstigator->GetCharacterTeam())
 				{
-					if (HitCharacter != GetInstigatingActor())
-					{
-						const FVector HitVector = HitCharacter->GetActorLocation();
-						ApplyHitEffect(HitCharacter, HitVector);
-						Destroy();
-					}
+					const FVector HitVector = HitCharacter->GetActorLocation();
+					ApplyHitEffect(HitCharacter, HitVector);
+					Destroy();
 				}
 			}
 		}
@@ -167,39 +167,9 @@ void AProjectileBase::CheckCollision(UPrimitiveComponent* HitComp, AActor* Other
 }
 
 void AProjectileBase::CheckOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+                                   UPrimitiveComponent* OtherComp, int OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	const FString ServerOrClientText = HasAuthority()?TEXT("SERVER"):TEXT("CLIENT");
-	UE_LOG(LogTemp, Display, TEXT("%s(%s): Evaluating Overlap (%s) with actor '%s'"),
-		*GetName(), *ServerOrClientText, *this->GetName(), *OtherActor->GetName());
-	if (IsValid(OtherActor))
-	{
-		ACharacterBase* InstigatingActor = Cast<ACharacterBase>(GetInstigator()); //GetInstigatingActor();
-		if (OtherActor != InstigatingActor && OtherActor != this)
-		{
-			// If an actor is targeted, target that actor specifically
-			// Otherwise, target the actor that was hit by the collision
-			ACharacterBase* HitCharacter = Cast<ACharacterBase>(GetTargetActor());
-			if (!IsValid(HitCharacter))
-			{
-				const FVector HitVector = GetActorLocation();
-				ApplyHitEffect(OtherActor, HitVector);
-				Destroy();
-			}
-			else
-			{
-				if (IsValid(HitCharacter))
-				{
-					if (HitCharacter != GetInstigatingActor())
-					{
-						const FVector HitVector = HitCharacter->GetActorLocation();
-						ApplyHitEffect(HitCharacter, HitVector);
-						Destroy();
-					}
-				}
-			}
-		}
-	}
+	ProcessCollision(OtherActor, true);
 }
 
 void AProjectileBase::ApplyHitEffect(AActor* HitActor, FVector HitVector)

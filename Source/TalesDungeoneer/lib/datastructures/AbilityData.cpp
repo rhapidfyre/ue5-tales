@@ -93,27 +93,38 @@ FStSpellData UAbilitySystem::GetSpellDataFromName(FName SpellName)
 	return FStSpellData();
 }
 
-bool UAbilitySystem::GetAbilityNameIsValid(FName AbilityName)
+bool UAbilitySystem::GetAbilityNameIsValid(FName AbilityName, bool PerformLookup)
 {
 	if (!AbilityName.IsNone())
 	{
+		if (!PerformLookup)
+			return true;
 		const FStAbilityData itemData = (GetAbilityDataFromName(AbilityName));
 		return !itemData.DisplayName.IsEmpty();
 	}
 	return false; // Invalid or not found
 }
 
-bool UAbilitySystem::GetSpellNameIsValid(FName SpellName)
+bool UAbilitySystem::GetSpellNameIsValid(FName SpellName, bool PerformLookup)
 {
 	if (!SpellName.IsNone())
 	{
-		if (GetAbilityNameIsValid(SpellName))
+		if (!PerformLookup)
+			return true;
+		if (GetAbilityNameIsValid(SpellName, PerformLookup))
 		{
 			const FStAbilityData AbilityData = GetAbilityDataFromName(SpellName);
 			return AbilityData.AllowedClasses.Num() > 0;
 		}
 	}
 	return false; // Invalid or not found
+}
+
+bool UAbilitySystem::GetNameIsValidAbilityOrSpell(FName GameName, bool PerformLookup)
+{
+	if (GetAbilityNameIsValid(GameName, PerformLookup))
+		return true;
+	return GetSpellNameIsValid(GameName, PerformLookup);
 }
 
 bool UAbilitySystem::GetAbilityDataIsValid(FStAbilityData AbilityData)

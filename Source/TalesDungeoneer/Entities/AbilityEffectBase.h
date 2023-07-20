@@ -130,6 +130,11 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void CancelCasting(FName AbilityName = "None", FString Reason = "None");
+
+	// Called if the spell is canceled prior to successful completion
+	UFUNCTION(BlueprintCallable) void DestroyPrematurely();
+
+	UFUNCTION(BlueprintPure) bool DidSpellFail() const { return bSpellFailed; }
 	
 protected:
 	
@@ -156,6 +161,8 @@ protected:
 	virtual void AbilityComplete(bool WasSuccessful = false);
 	
 private:
+
+	UPROPERTY(Replicated) bool bSpellFailed = false;
 
 	// Allows tracking of effects/sounds for cleanup if this actor gets destroyed
 	TArray<UNiagaraComponent*> LoopingNiagaraEmitters;

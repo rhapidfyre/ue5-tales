@@ -137,8 +137,16 @@ void AAbilityEffectBase::CancelCasting(FName AbilityName, FString Reason)
 {
 	if (HasAuthority())
 	{
+		OnAbilityFinished.Broadcast(GetAbilityName(), false);
 		Destroy();
 	}
+}
+
+void AAbilityEffectBase::DestroyPrematurely()
+{
+	bSpellFailed = true;
+	OnAbilityFinished.Broadcast(GetAbilityName(), false);
+	Destroy();
 }
 
 void AAbilityEffectBase::BeginPlay()
@@ -196,9 +204,6 @@ void AAbilityEffectBase::BeginPlay()
 
 void AAbilityEffectBase::Destroyed()
 {
-	UE_LOG(LogTemp, Display, TEXT("%s(%s): Destroyed()"),
-		*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
-
 	for (UNiagaraComponent* NiagaraEmitter : LoopingNiagaraEmitters)
 	{
 		if (IsValid(NiagaraEmitter))
@@ -215,7 +220,6 @@ void AAbilityEffectBase::Destroyed()
 			SoundEmitter->DestroyComponent();
 		}
 	}
-	
 	Super::Destroyed();
 }
 
@@ -279,6 +283,11 @@ void AAbilityEffectBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
  */
 void AAbilityEffectBase::ApplyEffectToTarget(ACharacterBase* OverrideCharacter)
 {
+	// If the projectile is not targeted
+	// Let the child projectile class handle damage
+	if (!IsValid(GetTargetActor()) && GetAbilityData().TargetType == EAbilityTarget::PROJECTILE)
+		return;
+	
 	ACharacterBase* InstigatingActor = Cast<ACharacterBase>(GetInstigator());
 	if (!IsValid(InstigatingActor))
 		return;
@@ -405,14 +414,11 @@ void AAbilityEffectBase::AbilityComplete(bool WasSuccessful)
 	{
 		ApplyEffectToTarget(SoftTarget);
 	}
-	
-	for (FStAbilityDamageData DamageInfo : _SpellData.DamageData)
-	{
-		// TODO - Damage Resistances & Bonuses
-		InstigatorPawn->VitalityComponent->DamageHealth(InstigatorPawn, DamageInfo.ConsumeHealth);
-		InstigatorPawn->VitalityComponent->ConsumeMagic(InstigatorPawn, DamageInfo.ConsumeMagic);
-		InstigatorPawn->VitalityComponent->ConsumeStamina(InstigatorPawn, DamageInfo.ConsumeStamina);
-	}
+
+	// Deductions for a successful cast
+	InstigatorPawn->VitalityComponent->DamageHealth(InstigatorPawn, _SpellData.HitpointsAffected);
+	InstigatorPawn->VitalityComponent->ConsumeMagic(InstigatorPawn, _SpellData.MagicPointsAffected);
+	InstigatorPawn->VitalityComponent->ConsumeStamina(InstigatorPawn, _SpellData.StaminaAffected);
 	
 	OnAbilityFinished.Broadcast(GetAbilityName(), WasSuccessful);
 	Destroy();

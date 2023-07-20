@@ -5,6 +5,7 @@
 #include "NiagaraFunctionLibrary.h"
 #include "../CharacterBase.h"
 #include "Components/AudioComponent.h"
+#include "GameFramework/PawnMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
 #include "TalesDungeoneer/Entities/AbilityEffectBase.h"
@@ -33,17 +34,7 @@ void UAbilityComponent::AbilityAction(UInputAction* HotkeyAction)
 			const FName AbilityName = _AbilityMappings[HotkeyAction];
 			if (UAbilitySystem::GetAbilityNameIsValid(AbilityName))
 			{
-				const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
-
-				if (GetOwner()->HasAuthority())
-				{
-					ActivateAbility(AbilityName, GetTargetedActor());
-				}
-				else
-				{
-					OnAbilityCastStarted.Broadcast(AbilityName, AbilityData.ActivationTime);
-					Server_RequestAbility(AbilityName, GetTargetedActor());
-				}
+				ActivateAbility(AbilityName, GetTargetedActor());
 				return;
 			}
 		}
@@ -81,11 +72,16 @@ void UAbilityComponent::ActivateAbility(
 	{
 		if (UAbilitySystem::GetAbilityNameIsValid(AbilityName))
 		{
-
-			// Caster is focused and can't use any other abilities
-			if (bIsFocused)
+			
+			if (GetIsAbilityOnCooldown(AbilityName))
 			{
-				Client_AbilityFailure(AbilityName, "You are already focusing on something else!");
+				return;
+			}
+			
+			// Caster is focused and can't use any other abilities
+			if (!FocusedAbility.IsNone())
+			{
+				Client_AbilityCanceled(AbilityName, "You are already focusing on something else!");
 				return;
 			}
 
@@ -93,6 +89,12 @@ void UAbilityComponent::ActivateAbility(
 			if (bIsCasting && AbilityData.bRequiresFocus)
 			{
 				Client_AbilityFailure(AbilityName, "This ability requires focus!");
+				return;
+			}
+
+			if (AbilityData.TargetType == EAbilityTarget::TARGET && !IsValid(GetTargetedActor()))
+			{
+				Client_AbilityFailure(AbilityName, "No Target");
 				return;
 			}
 			
@@ -106,26 +108,37 @@ void UAbilityComponent::ActivateAbility(
 	}
 	else
 	{
+			
+		if (GetIsAbilityOnCooldown(AbilityName))
+		{
+			return;
+		}
 
 		// Caster is focused and can't use any other abilities
-		if (bIsFocused)
+		if (!FocusedAbility.IsNone())
 		{
-			OnAbilityFailed.Broadcast(AbilityName, "You are already focusing on something else!");
+			OnAbilityCanceled.Broadcast(AbilityName, "Already Focusing On " + AbilityData.DisplayName);
 			return;
 		}
 
 		// Actor is casting and can't focus on the new ability
 		if (bIsCasting && AbilityData.bRequiresFocus)
 		{
-			OnAbilityFailed.Broadcast(AbilityName, "This ability requires focus!");
+			OnAbilityFailed.Broadcast(AbilityName, "This Ability Requires Focus!");
+			return;
+		}
+
+		if (AbilityData.TargetType == EAbilityTarget::TARGET && !IsValid(GetTargetedActor()))
+		{
+			OnAbilityFailed.Broadcast(AbilityName, "No Target");
 			return;
 		}
 		
-		OnAbilityCastStarted.Broadcast(AbilityName, AbilityData.ActivationTime);
+		StartCasting(AbilityName);
 		Server_RequestAbility(AbilityName, TargetActor, ForwardVector);
+		
 	}
 }
-
 
 void UAbilityComponent::ApplyEffect(ACharacterBase* EffectInstigator, FName AbilityName)
 {
@@ -152,8 +165,6 @@ void UAbilityComponent::ApplyEffect(ACharacterBase* EffectInstigator, FName Abil
 
 			// Add the effect to the appropriate key in the active effects map	
 			_ActiveEffects.Add(AbilityEffect);
-			//OnEffectActivated.Broadcast(AbilityName, _ActiveEffects[AbilityName].Num());
-			//Client_AbilityAdded(AbilityName, AbilityEffect);
 		}
 
 		// If the timer isn't valid, initiate it (AKA this is the first effect)
@@ -385,28 +396,79 @@ float UAbilityComponent::GetTotalEffectStackTimer(FName AbilityName)
 	return TotalSecondsRemaining;
 }
 
-void UAbilityComponent::Server_InterruptCasting_Implementation(bool OnlyFocused)
+void UAbilityComponent::EndAbilityCooldown(FName AbilityName)
 {
-	InterruptCasting(OnlyFocused);
+	if (_AbilitiesOnCooldown.Contains(AbilityName))
+		_AbilitiesOnCooldown.Remove(AbilityName);
+	
+	if (GetOwner()->HasAuthority())
+	{
+		OnAbilityReady.Broadcast(AbilityName);
+		Client_AbilityCooldown(AbilityName, false);
+	}
+	
 }
 
-void UAbilityComponent::InterruptCasting(bool OnlyFocused)
+void UAbilityComponent::Server_InterruptCasting_Implementation(bool OnlyFocused, bool CanceledIntentionally)
+{
+	InterruptCasting(OnlyFocused, CanceledIntentionally);
+}
+
+void UAbilityComponent::InterruptCasting(bool OnlyFocused, bool CanceledIntentionally)
 {
 	if ( GetIsCasting() )
 	{
 		// Caster is focused, OR cancel ALL abilities
-		if (bIsFocused || !OnlyFocused)
+		if (!FocusedAbility.IsNone() || !OnlyFocused)
 		{
 			if (GetOwner()->HasAuthority())
 			{
-				OnAbilityCanceled.Broadcast(FName(), "Canceled by Player");
+				if (CanceledIntentionally)
+					Client_AbilityCanceled(FocusedAbility, "Canceled by Player");
+				else
+					Client_AbilityFailure(FocusedAbility, "Lost Concentration!");
+				if (OnlyFocused)
+				{
+					TArray<AActor*> EffectActors;
+					UGameplayStatics::GetAllActorsOfClass(GetWorld(),
+						AAbilityEffectBase::StaticClass(), EffectActors);
+					for (AActor* EffectActor : EffectActors)
+					{
+						AAbilityEffectBase* EffectBase = Cast<AAbilityEffectBase>(EffectActor);
+						if (IsValid(EffectBase))
+						{
+							EffectBase->GetAbilityName() == FocusedAbility;
+							_AbilitiesInProgress.Remove(FocusedAbility);
+							EffectBase->Destroy();
+						}
+					}
+				}
+				else
+				{
+					TArray<AActor*> EffectActors;
+					UGameplayStatics::GetAllActorsOfClass(GetWorld(),
+						AAbilityEffectBase::StaticClass(), EffectActors);
+					for (AActor* EffectActor : EffectActors)
+					{
+						AAbilityEffectBase* EffectBase = Cast<AAbilityEffectBase>(EffectActor);
+						if (IsValid(EffectBase))
+						{
+							FName AbilityName = EffectBase->GetAbilityName();
+							_AbilitiesInProgress.Remove(AbilityName);
+							EffectBase->Destroy();
+						}
+					}
+				}
 				SetIsCasting(FName());
-				bIsFocused = false;
+				FocusedAbility = FName();
 			}
 			else
 			{
-				OnAbilityCanceled.Broadcast(FName(), "Canceled by Player");
-				Server_InterruptCasting(OnlyFocused);
+				if (CanceledIntentionally)
+					OnAbilityCanceled.Broadcast(FocusedAbility, "Canceled by Player");
+				else
+					OnAbilityFailed.Broadcast(FocusedAbility, "Lost Concentration!");
+				Server_InterruptCasting(OnlyFocused, CanceledIntentionally);
 			}
 		}
 	}
@@ -465,10 +527,29 @@ void UAbilityComponent::RemoveUnlockPoints(int NumPoints)
 
 void UAbilityComponent::BeginPlay()
 {
-	Super::BeginPlay();
 #ifdef UE_BUILD_DEBUG
 	bShowDebug = true;
 #endif
+	Super::BeginPlay();
+	_PlayerCharacter = Cast<ACharacterBase>(GetOwner());
+	if (IsValid(_PlayerCharacter))
+	{
+		SetComponentTickEnabled(true);
+	}
+}
+
+void UAbilityComponent::TickComponent(float DeltaTime, ELevelTick TickType,
+	FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	if (!FocusedAbility.IsNone())
+	{
+		FVector PlayerVelocity = _PlayerCharacter->GetMovementComponent()->Velocity;
+		if (!PlayerVelocity.Equals(FVector(0.f), 1.f))
+		{
+			InterruptCasting(true, false);
+		}
+	}
 }
 
 void UAbilityComponent::DestroyAllEffects()
@@ -543,6 +624,15 @@ void UAbilityComponent::SpawnEffectsActor(
 			return;
 		}
 	}
+
+	if (_AbilitiesInProgress.Contains(AbilityName))
+	{
+		if (GetOwner()->HasAuthority())
+			Client_AbilityCanceled(AbilityName, "Already Casting");
+		else
+			OnAbilityCanceled.Broadcast(AbilityName, "Already in Progress");
+		return;
+	}
 	
 	FTransform SpawnTransform(EffectInstigator->GetActorTransform());
 	SpawnTransform.SetScale3D(FVector(1.f));
@@ -555,24 +645,23 @@ void UAbilityComponent::SpawnEffectsActor(
 	if (IsValid(AbilityData.AbilityBase))
 		AbilityBase = AbilityData.AbilityBase;
 
-	bIsFocused = AbilityData.bRequiresFocus;
+	FocusedAbility = AbilityData.bRequiresFocus ? AbilityName : FName();
 	
 	AAbilityEffectBase* AbilityEffect = GetWorld()->
 				SpawnActorDeferred<AAbilityEffectBase>(AbilityBase, SpawnTransform);
 	
 	if (IsValid(AbilityEffect))
 	{
-		SetIsCasting(AbilityName);
-		OnAbilityCastStarted.Broadcast(AbilityName, AbilityData.ActivationTime);
-		
-		EffectInstigator->VitalityComponent->DamageHealth(EffectInstigator, AbilityData.ConsumeHealth);
-		EffectInstigator->VitalityComponent->ConsumeMagic(EffectInstigator, AbilityData.ConsumeMagic);
+		StartCasting(AbilityName);
+
+		// Deductions for starting to cast
+		EffectInstigator->VitalityComponent->DamageHealth(EffectInstigator,   AbilityData.ConsumeHealth);
+		EffectInstigator->VitalityComponent->ConsumeMagic(EffectInstigator,   AbilityData.ConsumeMagic);
 		EffectInstigator->VitalityComponent->ConsumeStamina(EffectInstigator, AbilityData.ConsumeStamina);
 		
 		AbilityEffect->SetInstigator( GetOwner()->GetInstigator() );
 		AbilityEffect->SetAbilityComponent( this );
 		AbilityEffect->SetAbilityInstigator( Cast<ACharacterBase>(GetOwner()) );
-		AbilityEffect->SetTargetActor( Cast<ACharacterBase>(GetTargetedActor()) );
 		AbilityEffect->SetAbilityName(AbilityName);
 		
 		AbilityEffect->OnAbilityFinished.AddDynamic(this,
@@ -580,23 +669,30 @@ void UAbilityComponent::SpawnEffectsActor(
 		
 		AbilityEffect->SetImpactLocation( GetOwner()->GetActorLocation() );
 
-		if (AbilityData.TargetType == EAbilityTarget::PROJECTILE)
+		FHitResult HitResult;
+		switch(AbilityData.TargetType)
 		{
-			FHitResult HitResult;
-			// ReSharper disable once CppTooWideScope
-			const bool TraceHit = GetWorld()->LineTraceSingleByChannel(HitResult,
-				AbilityEffect->GetActorLocation(), EndPosition,ECC_Visibility);
-
-			if (TraceHit)
+		case EAbilityTarget::PROJECTILE:
+			if (GetWorld()->LineTraceSingleByChannel(HitResult,
+				AbilityEffect->GetActorLocation(), EndPosition,ECC_Visibility))
 				AbilityEffect->SetImpactLocation(HitResult.ImpactPoint);
 			else
 				AbilityEffect->SetImpactLocation(EndPosition);
-
-		}
-		
-		else if (AbilityData.TargetType == EAbilityTarget::SELF)
-		{
+			break;
+		case EAbilityTarget::GROUP:
+			__fallthrough;
+		case EAbilityTarget::NEAR:
+			__fallthrough;
+		case EAbilityTarget::SELF:
 			AbilityEffect->SetTargetActor( EffectInstigator );
+			break;
+		case EAbilityTarget::AOE:
+			__fallthrough;
+		case EAbilityTarget::TARGET:
+			AbilityEffect->SetTargetActor( Cast<ACharacterBase>(GetTargetedActor()) );
+			break;
+		default:
+			break;
 		}
 
 		// Finish spawning and set initialized to true
@@ -615,24 +711,37 @@ void UAbilityComponent::SpawnEffectsActor(
 	}
 }
 
+void UAbilityComponent::CancelCasting(FName AbilityName)
+{
+	if (GetOwner()->HasAuthority())
+	{
+		if (_AbilitiesInProgress.Contains(AbilityName))
+		{
+			StopCasting(AbilityName, false);
+		}
+	}
+	else
+	{
+		Server_CancelCasting(AbilityName);
+	}
+}
+
+void UAbilityComponent::Server_CancelCasting_Implementation(FName AbilityName)
+{
+	if (GetOwner()->HasAuthority())
+		CancelCasting(AbilityName);
+}
+
 void UAbilityComponent::Multicast_StopCasting_Implementation(FName AbilityName, bool WasSuccessful)
 {
 	const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
-	OnAbilityCastComplete.Broadcast(AbilityName, WasSuccessful);
-	
-	// Disallow on dedicated server, playable clients only
-	if (GetOwner()->HasAuthority())
-	{
-		if (IsRunningDedicatedServer())
-			return;
-	}
 
 	if (AbilityData.bRequiresFocus)
 	{
 		// If this character is us
 		if (GetOwner()->GetInstigatorController() == GetWorld()->GetFirstPlayerController())
 		{
-			bIsFocused = false;
+			FocusedAbility = FName();
 		}
 	}
 	
@@ -720,20 +829,34 @@ void UAbilityComponent::Multicast_StopCasting_Implementation(FName AbilityName, 
 void UAbilityComponent::SetIsCasting(FName SpellName)
 {
 	bIsCasting = !SpellName.IsNone();
-	if (bIsCasting)
-	{
-		const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(SpellName);
-		OnAbilityCastStarted.Broadcast(SpellName, AbilityData.ActivationTime);
-	}
 }
 
 void UAbilityComponent::SetNoLongerCasting(FName AbilityName, bool WasSuccessful)
 {
+	_AbilitiesInProgress.Remove(AbilityName);
 	if (GetOwner()->HasAuthority())
 	{
-		Multicast_StopCasting(AbilityName, WasSuccessful);
+		
 		bIsCasting = false;
+		const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
+		
+		
+		if (AbilityData.bRequiresFocus)
+			FocusedAbility = FName();
+		
+		_AbilitiesOnCooldown.Add(AbilityName);
+		Client_AbilityCooldown(AbilityName, true);
+		
+		FTimerHandle ThrowAwayTimer;
+		FTimerDelegate CooldownDelegate;
+		CooldownDelegate.BindUObject(this, &UAbilityComponent::EndAbilityCooldown, AbilityName);
+		GetWorld()->GetTimerManager().SetTimer(ThrowAwayTimer,
+			CooldownDelegate, AbilityData.CooldownSeconds, false);
+		
+		Multicast_StopCasting(AbilityName, WasSuccessful);
+		Client_StopCasting(AbilityName, WasSuccessful);
 	}
+	
 }
 
 void UAbilityComponent::OnRep_UnlockPoints_Implementation()
@@ -752,10 +875,10 @@ void UAbilityComponent::Client_AbilityFailure_Implementation(
 	OnAbilityFailed.Broadcast(AbilityName, *FailureReason);
 }
 
-void UAbilityComponent::Client_AbilityCanceled_Implementation(FName AbilityName, const FString& FailureReason)
+void UAbilityComponent::Client_AbilityCanceled_Implementation(FName AbilityName, const FString& CancelReason)
 {
-	bIsFocused = false;
-	OnAbilityCanceled.Broadcast(AbilityName, *FailureReason);
+	FocusedAbility = FName();
+	OnAbilityCanceled.Broadcast(AbilityName, *CancelReason);
 }
 
 void UAbilityComponent::OnRep_TargetActor_Implementation()
@@ -852,6 +975,94 @@ void UAbilityComponent::ResetKnownAbilities()
 	}
 }
 
+void UAbilityComponent::Client_AbilityCooldown_Implementation(FName AbilityName, bool OnCooldown)
+{
+	if (OnCooldown)
+		_AbilitiesOnCooldown.Add(AbilityName);
+	else
+		EndAbilityCooldown(AbilityName);
+}
+
+void UAbilityComponent::Client_StartCasting_Implementation(FName AbilityName)
+{
+	if (!GetOwner()->HasAuthority())
+		StartCasting(AbilityName);
+}
+
+void UAbilityComponent::Client_StopCasting_Implementation(FName AbilityName, bool WasSuccessful)
+{
+	if (!GetOwner()->HasAuthority())
+		StopCasting(AbilityName, WasSuccessful);
+}
+
+/**
+ * @brief Starts an ability casting, performing the appropriate logic.
+ *        If called on the client, it just triggers OnAbilityCastStarted
+ * @param AbilityName The name of the ability to start casting
+ * @return True on success, false if the ability is already casting
+ */
+bool UAbilityComponent::StartCasting(FName AbilityName)
+{
+	const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
+
+	bool* isAlreadyInProgress = nullptr;
+	_AbilitiesInProgress.Add(AbilityName, isAlreadyInProgress);
+	if (isAlreadyInProgress)
+		return false;
+	
+	if (GetOwner()->HasAuthority())
+	{
+		SetIsCasting(AbilityName);
+		Client_StartCasting(AbilityName);
+		OnAbilityCastStarted.Broadcast(AbilityName, AbilityData.ActivationTime);
+	}
+	else
+	{
+		OnAbilityCastStarted.Broadcast(AbilityName, AbilityData.ActivationTime);
+	}
+	return true;
+}
+
+/**
+ * @brief Stops an ability casting, performing the appropriate logic.
+ *        If called on the client, it just triggers OnAbilityCastComplete
+ * @param AbilityName The name of the ability to start casting
+ * @param WasSuccessful Whether the casting was successful or not
+ * @return True on success, false if the ability was not being cast
+ */
+bool UAbilityComponent::StopCasting(FName AbilityName, bool WasSuccessful)
+{
+	const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
+	
+	const int elementsRemoved = _AbilitiesInProgress.Remove(AbilityName);
+	if (elementsRemoved < 1)
+		return false;
+	
+	if (GetOwner()->HasAuthority())
+	{
+		SetIsCasting(AbilityName);
+		
+		_AbilitiesOnCooldown.Add(AbilityName);
+		Client_AbilityCooldown(AbilityName, true);
+		
+		FTimerHandle ThrowAwayTimer;
+		FTimerDelegate CooldownDelegate;
+		CooldownDelegate.BindUObject(this, &UAbilityComponent::EndAbilityCooldown, AbilityName);
+		GetWorld()->GetTimerManager().SetTimer(ThrowAwayTimer,
+			CooldownDelegate, AbilityData.CooldownSeconds, false);
+		
+		Client_StartCasting(AbilityName);
+		OnAbilityCastComplete.Broadcast(AbilityName, WasSuccessful);
+	}
+	else
+	{
+		if (WasSuccessful)
+			_AbilitiesOnCooldown.Add(AbilityName);
+		OnAbilityCastComplete.Broadcast(AbilityName, WasSuccessful);
+	}
+	return true;
+}
+
 void UAbilityComponent::Client_AddKnownAbility_Implementation(FName AbilityName)
 {
 	bool isAlreadySet = false;
@@ -894,13 +1105,19 @@ void UAbilityComponent::Server_RequestAbility_Implementation(
 	}
 }
 
+
+
+
 //-------------------------------- REPLICATION
 void UAbilityComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	
 	DOREPLIFETIME_CONDITION(UAbilityComponent, bIsCasting, COND_OwnerOnly);
-	DOREPLIFETIME_CONDITION(UAbilityComponent, bIsFocused, COND_OwnerOnly);
+	DOREPLIFETIME_CONDITION(UAbilityComponent, FocusedAbility, COND_OwnerOnly);
 	DOREPLIFETIME_CONDITION(UAbilityComponent, _UnlockPoints, COND_OwnerOnly);
+	
 	DOREPLIFETIME(UAbilityComponent, _ActiveEffects);
 	DOREPLIFETIME(UAbilityComponent, _TargetActor);
+	
 }

@@ -11,7 +11,9 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
+#include "TalesDungeoneer/Entities/SimpleActors/FloatingTextBase.h"
 
 
 // Sets default values
@@ -136,6 +138,25 @@ void ACharacterBase::AddExperiencePoints(float AddValue)
 {
 	const float NewValue = _ExperiencePoints + FMath::Abs(AddValue);
 	const float NextLevel = GetExperienceNeeded();
+	
+	FTransform SpawnTransform(GetActorLocation()
+		+ FVector(
+			FMath::RandRange(32.f, 196.0f),
+			FMath::RandRange(32.f, 196.0f),
+			FMath::RandRange(32.f, 196.0f))
+	);
+	
+	AFloatingTextBase* FloatText = GetWorld()->SpawnActor<AFloatingTextBase>(
+		DamageTextActor, SpawnTransform);
+
+	if (IsValid(FloatText))
+	{
+		FloatText->TextShown = "+ " + FString::SanitizeFloat(AddValue) + " XP";
+		FloatText->TextColor = FLinearColor::Blue;
+		FloatText->SecondsToShow = 3.f;
+		FloatText->UpdateFloatingText();
+	}
+	
 	if (NewValue >= NextLevel)
 	{
 		if (_CharacterLevel < UGlobalData::GetGameMaxCharacterLevel())
@@ -144,6 +165,23 @@ void ACharacterBase::AddExperiencePoints(float AddValue)
 			_ExperiencePoints = 0.f;
 			AbilityComponent->AddUnlockPoints( UnlockPointsOnLevelUp );
 			OnCharacterLevelUp.Broadcast(_CharacterLevel);
+			FTransform LevelUpSpawnTransform(GetActorLocation()
+				+ FVector(
+					FMath::RandRange(32.f, 196.0f),
+					FMath::RandRange(32.f, 196.0f),
+					FMath::RandRange(32.f, 196.0f))
+			);
+	
+			AFloatingTextBase* LevelUpText = GetWorld()->SpawnActor<AFloatingTextBase>(
+				DamageTextActor, LevelUpSpawnTransform);
+
+			if (IsValid(FloatText))
+			{
+				LevelUpText->TextShown = "LEVEL UP";
+				LevelUpText->TextColor = FLinearColor::Yellow;
+				LevelUpText->SecondsToShow = 3.f;
+				LevelUpText->UpdateFloatingText();
+			}
 			return;
 		}
 	}
@@ -214,7 +252,21 @@ void ACharacterBase::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
-	
+
+	const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
+	if (IsValid(LocalPlayer))
+	{
+		if (!VitalityComponent->OnDamageTaken.IsAlreadyBound(this, &ACharacterBase::SpawnDamageText))
+			VitalityComponent->OnDamageTaken.AddDynamic(this, &ACharacterBase::SpawnDamageText);
+	}
+
+	// When an ability is started, check if Combat State should change
+	if (!AbilityComponent->OnAbilityCastStarted.IsAlreadyBound(this, &ACharacterBase::CheckAbilityStart))
+		AbilityComponent->OnAbilityCastStarted.AddDynamic(this, &ACharacterBase::CheckAbilityStart);
+
+	// When an ability is finished, check if Combat State should change
+	if (!AbilityComponent->OnAbilityCastComplete.IsAlreadyBound(this, &ACharacterBase::CheckAbilitySuccess))
+		 AbilityComponent->OnAbilityCastComplete.AddDynamic(this, &ACharacterBase::CheckAbilitySuccess);
 }
 
 // Called every frame
@@ -327,8 +379,10 @@ void ACharacterBase::UpdateWeapon(EWeaponSlots WeaponSlot)
 	default:
 		break;
 	}
+	
 	const int equipmentSlot   = InventoryComponent->getEquipmentSlotNumber(equipmentEnum);
 	const FName equipmentItem = InventoryComponent->getItemNameInSlot(equipmentSlot, true);
+
 	if (UItemSystem::getItemNameIsValid(equipmentItem))
 	{
 		WeaponComponent->SetWeapon(equipmentItem, WeaponSlot);
@@ -336,6 +390,80 @@ void ACharacterBase::UpdateWeapon(EWeaponSlots WeaponSlot)
 	else
 	{
 		WeaponComponent->UnsetWeapon(WeaponSlot);	
+	}
+	
+}
+
+void ACharacterBase::SpawnDamageText(AActor* DamageTaker, AActor* DamageInstigator, float DamageTaken)
+{
+	if (!IsValid(DamageTaker))
+		return;
+
+	// Do not run on dedicated server
+	const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
+	if (!IsValid(LocalPlayer))
+		return;
+	
+	// Makes sure this delegate is running on the player who dealt the damage
+	if (!IsValid(DamageInstigator))
+		return;
+
+	// Damage Instigator must be THIS player
+	if (LocalPlayer->GetPlayerController(GetWorld()) != DamageInstigator->GetInstigatorController())
+		return;
+	
+	if (!IsValid(DamageTextActor))
+		return;
+	
+	FTransform SpawnTransform(DamageTaker->GetActorLocation()
+		+ FVector(
+			FMath::RandRange(32.f, 196.0f),
+			FMath::RandRange(32.f, 196.0f),
+			FMath::RandRange(32.f, 196.0f))
+	);
+	
+	AFloatingTextBase* FloatText = GetWorld()->SpawnActor<AFloatingTextBase>(
+		DamageTextActor, SpawnTransform);
+
+	if (IsValid(FloatText))
+	{
+		FloatText->TextShown = FString::SanitizeFloat(DamageTaken < 0 ? 0-DamageTaken : DamageTaken);
+		FloatText->TextColor = DamageTaken > 0 ? FLinearColor::Red : FLinearColor::Green;
+		FloatText->SecondsToShow = 3.f;
+		FloatText->UpdateFloatingText();
+	}
+}
+
+void ACharacterBase::CheckAbilityStart(FName AbilityName, float CastTime)
+{
+	const ECombatState CombatState = VitalityComponent->GetCombatState();
+	if (CombatState != ECombatState::ALERT && CombatState != ECombatState::ENGAGED)
+	{
+		// Check if ability requires focus
+		const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
+		if (AbilityData.bRequiresFocus)
+		{
+			VitalityComponent->SetCombatState(ECombatState::ALERT);
+		}
+	}
+}
+
+void ACharacterBase::CheckAbilitySuccess(FName AbilityName, bool WasSuccessful)
+{
+	if (!WasSuccessful)
+		return;
+	
+	const ECombatState CombatState = VitalityComponent->GetCombatState();
+	if (CombatState != ECombatState::ENGAGED)
+	{
+		// Check if ability requires focus and is a detrimental ability
+		const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
+		if (AbilityData.AbilityType == EAbilityType::DETRIMENT)
+		{
+			// If the character took hostile action towards another actor
+			if (IsValid(AbilityComponent->GetTargetedActor()))
+				VitalityComponent->SetCombatState(ECombatState::ENGAGED);
+		}
 	}
 }
 
