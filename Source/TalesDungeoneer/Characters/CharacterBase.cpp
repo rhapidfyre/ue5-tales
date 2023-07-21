@@ -11,7 +11,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "Kismet/GameplayStatics.h"
+
 #include "Net/UnrealNetwork.h"
 #include "TalesDungeoneer/Entities/SimpleActors/FloatingTextBase.h"
 
@@ -465,6 +465,17 @@ void ACharacterBase::CheckAbilitySuccess(FName AbilityName, bool WasSuccessful)
 				VitalityComponent->SetCombatState(ECombatState::ENGAGED);
 		}
 	}
+}
+
+void ACharacterBase::OnRep_CharacterLevel_Implementation(int OldLevel)
+{
+	if (OldLevel < _CharacterLevel)
+		OnCharacterLevelUp.Broadcast(_CharacterLevel);
+}
+
+void ACharacterBase::OnRep_ExperienceChanged_Implementation()
+{
+	OnExperienceChanged.Broadcast();
 }
 
 void ACharacterBase::PrimaryAction_Implementation()

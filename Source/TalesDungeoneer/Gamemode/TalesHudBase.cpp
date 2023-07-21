@@ -1,4 +1,4 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Copyright Take Five Games, LLC 2023 - All Rights Reserved
 
 
 #include "TalesHudBase.h"

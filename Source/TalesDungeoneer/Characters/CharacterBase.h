@@ -32,8 +32,14 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPrimaryAttack);
 // Called when secondary attack is triggered
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSecondaryAttack);
 
-// Called when secondary attack is triggered
+// Called when the character gains a level by an increase in experience
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCharacterLevelUp, int, NewLevel);
+
+// Called anytime the characters experience has been modified, up or down
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnExperienceChanged);
+
+// Called anytime the characters level has been modified, up or down
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCharacterLevelChanged);
 
 
 /**
@@ -52,11 +58,13 @@ public: // functions
 	
 	ACharacterBase();
 
-	UPROPERTY(BlueprintCallable) FOnPrimaryAction OnPrimaryAction;
-	UPROPERTY(BlueprintCallable) FOnPrimaryAttack OnPrimaryAttack;
-	UPROPERTY(BlueprintCallable) FOnSecondaryAction OnSecondaryAction;
-	UPROPERTY(BlueprintCallable) FOnSecondaryAttack OnSecondaryAttack;
-	UPROPERTY(BlueprintCallable) FOnCharacterLevelUp OnCharacterLevelUp;
+	UPROPERTY(BlueprintAssignable) FOnPrimaryAction OnPrimaryAction;
+	UPROPERTY(BlueprintAssignable) FOnPrimaryAttack OnPrimaryAttack;
+	UPROPERTY(BlueprintAssignable) FOnSecondaryAction OnSecondaryAction;
+	UPROPERTY(BlueprintAssignable) FOnSecondaryAttack OnSecondaryAttack;
+	UPROPERTY(BlueprintAssignable) FOnCharacterLevelUp OnCharacterLevelUp;
+	UPROPERTY(BlueprintAssignable) FOnExperienceChanged OnExperienceChanged;
+	UPROPERTY(BlueprintAssignable) FOnCharacterLevelChanged OnCharacterLevelChanged;
 	
 	/** Returns CameraBoom sub object **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
@@ -242,8 +250,11 @@ private:
 
 	
 	UPROPERTY(Replicated) ECharacterTeam _CharacterTeam = ECharacterTeam::SPECTATOR;
-	UPROPERTY(Replicated) int _CharacterLevel = 1;
-	UPROPERTY(Replicated) float _ExperiencePoints = 0.f;
+	UFUNCTION(Client, Reliable) void OnRep_CharacterLevel(int OldLevel);
+	UPROPERTY(Replicated, ReplicatedUsing=OnRep_CharacterLevel) int _CharacterLevel = 1;
+
+	UFUNCTION(Client, Reliable) void OnRep_ExperienceChanged();
+	UPROPERTY(Replicated, ReplicatedUsing=OnRep_ExperienceChanged) float _ExperiencePoints = 0.f;
 	
 	UPROPERTY(Replicated) ECharacterClass _CharacterClass = ECharacterClass::WARRIOR;
 	UPROPERTY(Replicated) int _CharacterRisk = 0;

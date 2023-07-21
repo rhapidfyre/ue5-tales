@@ -4,6 +4,7 @@
 
 #include "GlobalEnums.generated.h"
 
+
 UENUM(BlueprintType)
 enum class ECharacterClass : uint8
 {
@@ -16,6 +17,17 @@ enum class ECharacterClass : uint8
 	ROGUE		UMETA(DisplayName = "Assassin"),
 	MERC		UMETA(DisplayName = "Mercenary"),
 	DEVIANT		UMETA(DisplayName = "Deviant")		
+};
+
+
+UENUM(BlueprintType)
+enum class ECharacterRace : uint8
+{
+	HUMAN		UMETA(DisplayName = "Human"),
+	DWARF		UMETA(DisplayName = "Dwarf"),
+	ELF			UMETA(DisplayName = "Elf"),
+	FRIEND		UMETA(DisplayName = "Friendly NPCs"),
+	ENEMY		UMETA(DisplayName = "Enemy NPCs")
 };
 
 

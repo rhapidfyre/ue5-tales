@@ -8,13 +8,11 @@
 ATalesDungeoneerGameMode::ATalesDungeoneerGameMode()
 {
 	
-	// set default pawn class to our Blueprinted character
-	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(
-			TEXT("/Game/TalesContent/Blueprints/TalesPlayerCharacter"));
-	
-	if (PlayerPawnBPClass.Class != nullptr)
-	{
-		DefaultPawnClass = PlayerPawnBPClass.Class;
-	}
-	
+}
+
+void ATalesDungeoneerGameMode::OnConstruction(const FTransform& Transform)
+{
+	Super::OnConstruction(Transform);
+	if (IsValid(DefaultCharacter))
+		DefaultPawnClass = DefaultCharacter;
 }

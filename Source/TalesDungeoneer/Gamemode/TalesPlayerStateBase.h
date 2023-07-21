@@ -10,9 +10,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPlayerNameUpdated);
 
-/**
- * 
- */
+
 UCLASS(BlueprintType, Blueprintable)
 class TALESDUNGEONEER_API ATalesPlayerStateBase : public APlayerState
 {

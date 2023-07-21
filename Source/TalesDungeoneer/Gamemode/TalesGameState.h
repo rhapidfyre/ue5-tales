@@ -7,10 +7,7 @@
 
 #include "TalesGameState.generated.h"
 
-/**
- * 
- */
-UCLASS()
+UCLASS(Blueprintable, BlueprintType)
 class TALESDUNGEONEER_API ATalesGameState : public AGameStateBase
 {
 	GENERATED_BODY()

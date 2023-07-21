@@ -1,4 +1,4 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Copyright Take Five Games, LLC 2023 - All Rights Reserved
 
 #pragma once
 
@@ -7,7 +7,8 @@
 
 #include "TalesHudBase.generated.h"
 
-UCLASS()
+
+UCLASS(Blueprintable, BlueprintType)
 class TALESDUNGEONEER_API ATalesHudBase : public AHUD
 {
 	GENERATED_BODY()
