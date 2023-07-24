@@ -12,4 +12,4 @@ ACreatorCharacterBase::ACreatorCharacterBase()
 void ACreatorCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
-}
+}	

@@ -4,7 +4,6 @@
 #pragma once
 
 #include "CharacterBase.h" // Includes core and actor files
-#include "Components/SphereComponent.h"
 
 #include "CreatorCharacterBase.generated.h"
 
