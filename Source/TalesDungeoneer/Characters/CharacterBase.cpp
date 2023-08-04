@@ -70,7 +70,10 @@ ACharacterBase::ACharacterBase()
 			<UWeaponComponent>(TEXT("WeaponComponent"));
 	
 	AbilityComponent = CreateDefaultSubobject
-		<UAbilityComponent>(TEXT("AbilityComponent"));
+	<UAbilityComponent>(TEXT("AbilityComponent"));
+	
+	MeshMergeComponent = CreateDefaultSubobject
+		<UMeshMergeComponent>(TEXT("MeshMergeComponent"));
 	
 	OverheadWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("OverheadWidget"));
 	OverheadWidget->bOwnerNoSee = true;
@@ -125,6 +128,16 @@ void ACharacterBase::SetCharacterLevel(int NewLevel)
 		}
 		
 	}
+}
+
+void ACharacterBase::SetCharacterClass(ECharacterClass NewClass)
+{
+	_CharacterClass = NewClass;
+}
+
+void ACharacterBase::SetCharacterRace(ECharacterRace NewRace)
+{
+	_CharacterRace = NewRace;
 }
 
 
@@ -268,6 +281,27 @@ void ACharacterBase::BeginPlay()
 	if (!AbilityComponent->OnAbilityCastComplete.IsAlreadyBound(this, &ACharacterBase::CheckAbilitySuccess))
 		 AbilityComponent->OnAbilityCastComplete.AddDynamic(this, &ACharacterBase::CheckAbilitySuccess);
 }
+
+
+void ACharacterBase::OnConstruction(const FTransform& Transform)
+{
+	
+	// Setup character with default values
+	
+}
+
+void ACharacterBase::PostRegisterAllComponents()
+{
+	Super::PostRegisterAllComponents();
+	
+	// If the mesh merge component isn't ready, run first time setup
+	//if (!MeshMergeComponent->GetIsMeshMergeSystemReady())
+	//{
+		//MeshMergeComponent->InitializeMeshMerge();
+	//};
+	
+}
+
 
 // Called every frame
 void ACharacterBase::Tick(float DeltaTime)
@@ -530,9 +564,19 @@ void ACharacterBase::Look(const FInputActionValue& Value)
 void ACharacterBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	
 	DOREPLIFETIME(ACharacterBase, _CharacterTeam);
 	DOREPLIFETIME(ACharacterBase, _CharacterLevel);
 	DOREPLIFETIME(ACharacterBase, _CharacterClass);
+	DOREPLIFETIME(ACharacterBase, _CharacterRace);
 	DOREPLIFETIME(ACharacterBase, _CharacterRisk);
+	DOREPLIFETIME(ACharacterBase, _IsMale);
+	
+	DOREPLIFETIME(ACharacterBase, SkinColor);
+	DOREPLIFETIME(ACharacterBase, BodyData);
+	DOREPLIFETIME(ACharacterBase, PronounObjective);
+	DOREPLIFETIME(ACharacterBase, PronounPossessive);
+	DOREPLIFETIME(ACharacterBase, PronounSubject);
+	
 	DOREPLIFETIME_CONDITION(ACharacterBase, _ExperiencePoints, COND_OwnerOnly);
 }

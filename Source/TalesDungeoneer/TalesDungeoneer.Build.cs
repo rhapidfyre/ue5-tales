@@ -12,7 +12,7 @@ public class TalesDungeoneer : ModuleRules
 		{
 			"Core", "CoreUObject", "Engine", "InputCore",
 			"HeadMountedDisplay", "EnhancedInput", "Niagara",
-			"UMG", "Slate", "SlateCore",
+			"UMG", "Slate", "SlateCore", "GameplayTags",
 			"T5GInventorySystem", "VitalityMatters", "AIModule"
 		});
 	}

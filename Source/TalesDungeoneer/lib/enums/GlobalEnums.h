@@ -16,7 +16,9 @@ enum class ECharacterClass : uint8
 	CLERIC		UMETA(DisplayName = "Cleric"),
 	ROGUE		UMETA(DisplayName = "Assassin"),
 	MERC		UMETA(DisplayName = "Mercenary"),
-	DEVIANT		UMETA(DisplayName = "Deviant")		
+	DEVIANT		UMETA(DisplayName = "Deviant"),
+	// Used for non-selections
+	ANY			UMETA(DisplayName = "Any"),
 };
 
 
@@ -27,7 +29,9 @@ enum class ECharacterRace : uint8
 	DWARF		UMETA(DisplayName = "Dwarf"),
 	ELF			UMETA(DisplayName = "Elf"),
 	FRIEND		UMETA(DisplayName = "Friendly NPCs"),
-	ENEMY		UMETA(DisplayName = "Enemy NPCs")
+	ENEMY		UMETA(DisplayName = "Enemy NPCs"),
+	// Used for non-selections
+	ANY			UMETA(DisplayName = "Any")
 };
 
 

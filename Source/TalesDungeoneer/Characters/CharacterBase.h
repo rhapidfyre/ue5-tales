@@ -10,10 +10,11 @@
 
 #include "Components/WeaponComponent.h"
 #include "Components/AbilityComponent.h"
+#include "Components/MeshMergeComponent.h"
 #include "Components/WidgetComponent.h"
 #include "TalesDungeoneer/Entities/SimpleActors/FloatingTextBase.h"
 
-#include "TalesDungeoneer/lib/enums/GlobalEnums.h"
+#include "TalesDungeoneer/lib/datastructures/GlobalData.h"
 
 #include "CharacterBase.generated.h"
 
@@ -99,8 +100,17 @@ public: // functions
 
 	UFUNCTION(BlueprintPure) int GetExperienceWorth() const { return _ExperienceWorth; }
 
+	UFUNCTION(BlueprintCallable)
+	void SetCharacterClass(ECharacterClass NewClass);
+	
+	UFUNCTION(BlueprintCallable)
+	void SetCharacterRace(ECharacterRace NewRace);
+
 	UFUNCTION(BlueprintPure)
 	ECharacterClass GetCharacterClass() const { return _CharacterClass; }
+
+	UFUNCTION(BlueprintPure)
+	ECharacterRace GetCharacterRace() const { return _CharacterRace; }
 
 	UFUNCTION(BlueprintPure)
 	int GetRiskLevel() const { return _CharacterRisk; }
@@ -126,6 +136,9 @@ public: // functions
 	{
 		return _BaseExperience*pow(_ExpGrowthFactor, GetCharacterLevel()-1);
 	}
+
+	UFUNCTION(BlueprintPure) bool GetCharacterIsMale() const { return _IsMale; }
+	UFUNCTION(BlueprintPure) bool GetCharacterIsFemale() const { return !_IsMale; }
 	
 protected: // functions
 	
@@ -134,6 +147,10 @@ protected: // functions
 	UFUNCTION()	virtual void HotkeyTriggered(UInputAction* HotkeyAction);
 	
 	virtual void BeginPlay() override;
+
+	virtual void OnConstruction(const FTransform& Transform) override;
+
+	virtual void PostRegisterAllComponents() override;
 	
 	virtual void Tick(float DeltaTime) override;
 
@@ -241,10 +258,26 @@ public: // members
 	/** Overhead Component */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) UWidgetComponent*	 OverheadWidget;
 
+	/** Mesh Merge Component */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) UMeshMergeComponent*  MeshMergeComponent;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) int UnlockPointsOnLevelUp = 1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<AFloatingTextBase> DamageTextActor = AFloatingTextBase::StaticClass();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
+	FName PronounSubject	= "he";
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
+	FName PronounObjective	= "him";
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
+	FName PronounPossessive = "his";
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
+	FSlateColor SkinColor;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
+	TArray<FStCharacterParts> BodyData;
 	
 private:
 
@@ -256,7 +289,9 @@ private:
 	UFUNCTION(Client, Reliable) void OnRep_ExperienceChanged();
 	UPROPERTY(Replicated, ReplicatedUsing=OnRep_ExperienceChanged) float _ExperiencePoints = 0.f;
 	
-	UPROPERTY(Replicated) ECharacterClass _CharacterClass = ECharacterClass::WARRIOR;
+	UPROPERTY(Replicated) ECharacterClass _CharacterClass	= ECharacterClass::WARRIOR;
+	UPROPERTY(Replicated) ECharacterRace _CharacterRace		= ECharacterRace::HUMAN;
+	
 	UPROPERTY(Replicated) int _CharacterRisk = 0;
 
 	UPROPERTY(Replicated) FStCharacterStats _CharacterStats = FStCharacterStats();
@@ -264,4 +299,6 @@ private:
 	float _BaseExperience = 1000.f;
 	float _ExpGrowthFactor = 1.2;
 	float _ExperienceWorth = 100.f;
+
+	UPROPERTY(Replicated) bool _IsMale = true;
 };
