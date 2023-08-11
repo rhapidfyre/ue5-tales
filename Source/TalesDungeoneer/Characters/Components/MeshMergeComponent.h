@@ -27,6 +27,7 @@ struct TALESDUNGEONEER_API FStMeshMergeData
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) USkeletalMesh* MeshAsset = nullptr;
 };
 
+
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class TALESDUNGEONEER_API UMeshMergeComponent : public UActorComponent
 {
@@ -42,7 +43,17 @@ public:
 
 	void InitializeMeshMerge();
 
-	void AddNewMeshForMerging();
+	UFUNCTION(BlueprintPure)
+	int GetMeshMergeIndexByTag(FGameplayTag SearchTag) const;
+
+	UFUNCTION(BlueprintCallable)
+	int AddNewMeshToArrayByTag(FGameplayTag GameTag, FName EquipmentName, bool IsMale = true);
+
+	UFUNCTION(BlueprintCallable)
+	void SetNewMeshByIndex(FName EquipmentName, int ArrayIndex = -1, bool IsMale = true, bool MergeNow = false);
+
+	UFUNCTION(BlueprintCallable)
+	void SetNewMeshByTag(FName EquipmentName, FGameplayTag GameTag, bool IsMale = true, bool MergeNow = false);
 
 protected:
 	

@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include "lib/VitalityData.h"
 #include "lib/EquipmentData.h"
-
+#include "GameplayTags.h"
 #include "TalesDungeoneer/lib/enums/GlobalEnums.h"
 
 #include "GlobalData.generated.h"
@@ -25,12 +25,11 @@ struct FStCharacterRaces : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) UTexture2D* RaceIcon = nullptr;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FString Description = "None";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bSinglePlayerOnly = false;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bIsSexless = false;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStCharacterStats StatModifiers = FStCharacterStats();
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStDamageIntMap> DamageBonuses;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStDamageIntMap> NaturalResistances;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FText DisplayName = FText();
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FName GameSafeName = FName();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FText DisplayName = {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FName GameSafeName = {};
 };
 
 USTRUCT(BlueprintType)
@@ -39,20 +38,20 @@ struct FStCharacterClasses : public FTableRowBase
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) ECharacterClass RaceEnum = ECharacterClass::WARRIOR;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) UTexture2D* ClassIcon = nullptr;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FString Description = "None";
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FString Description = {};
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bSinglePlayerOnly = false;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStCharacterStats StatModifiers = FStCharacterStats();
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStDamageIntMap> DamageBonuses;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStDamageIntMap> NaturalResistances;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FText DisplayName = FText();
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FName GameSafeName = FName();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStCharacterStats StatModifiers = {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStDamageIntMap> DamageBonuses = {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStDamageIntMap> NaturalResistances = {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FText DisplayName = {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FName GameSafeName = {};
 };
 
 USTRUCT(BlueprintType)
 struct FStBodyPartSettings
 {
 	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FName BodyPartName = FName();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FGameplayTag BodyPartName = {};
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FText BodyPartDisplayName = FText();
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) UTexture2D* BodyPartIcon = nullptr;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) USkeletalMesh* BodyPartMesh = nullptr;
