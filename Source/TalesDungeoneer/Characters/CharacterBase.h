@@ -6,7 +6,6 @@
 
 #include "InventoryComponent.h"
 #include "VitalityComponent.h"
-#include "lib/VitalityData.h"
 
 #include "Components/WeaponComponent.h"
 #include "Components/AbilityComponent.h"
@@ -21,6 +20,7 @@
 
 class AFloatingTextBase;
 class UFloatingTextWidgetBase;
+
 // Called when primary action is triggered
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPrimaryAction);
 
@@ -117,12 +117,18 @@ public: // functions
 
 	UFUNCTION(BlueprintPure)
 	float GetExperiencePoints() const { return _ExperiencePoints; }
-	// Sets the current experience points pool to the given value
+	
+	// Sets the current experience points pool to the given value. Does NOT run any logic.
 	UFUNCTION(BlueprintCallable) void SetExperiencePoints(float NewValue = 0.f);
+
 	// Adds experience points without accounting for level differences or scaling
 	UFUNCTION(BlueprintCallable) void AddExperiencePoints(float AddValue = 0.f);
+
 	// Removes experience points without accounting for level differences or scaling
 	UFUNCTION(BlueprintCallable) void RemoveExperiencePoints(float AddValue = 0.f);
+
+	// Gets the character's role-play-friendly name
+	UFUNCTION(BlueprintPure) FString GetCharacterName() const { return _CharacterName; }
 
 	/**
 	 * @brief Modifies the experience points given, accounting for level differences.
@@ -136,9 +142,6 @@ public: // functions
 	{
 		return _BaseExperience*pow(_ExpGrowthFactor, GetCharacterLevel()-1);
 	}
-
-	UFUNCTION(BlueprintPure) bool GetCharacterIsMale() const { return _IsMale; }
-	UFUNCTION(BlueprintPure) bool GetCharacterIsFemale() const { return !_IsMale; }
 	
 protected: // functions
 	
@@ -182,6 +185,12 @@ protected: // functions
 	UFUNCTION(BlueprintNativeEvent) void SecondaryAction();
 	// CPP Virtual Void override for calling SecondaryAction() (Blueprint Override)
 	virtual void SecondaryActionVirtual();
+
+	/**
+	 * @brief Sets the new name for this character. Typically used during creation/loading.
+	 * @param ProposedName The new name string to use for this character
+	 */
+	UFUNCTION(BlueprintCallable) void SetCharacterName(FString ProposedName);
 
 	virtual void PostInitializeComponents() override;
 	
@@ -291,12 +300,14 @@ private:
 	
 	UPROPERTY(Replicated) ECharacterClass _CharacterClass	= ECharacterClass::WARRIOR;
 	UPROPERTY(Replicated) ECharacterRace _CharacterRace		= ECharacterRace::HUMAN;
+
+	UPROPERTY(Replicated) FString _CharacterName = "Unnamed Character";
 	
 	UPROPERTY(Replicated) int _CharacterRisk = 0;
 
-	UPROPERTY(Replicated) FStCharacterStats _CharacterStats = FStCharacterStats();
+	//UPROPERTY(Replicated) FStCharacterStats _CharacterStats = FStCharacterStats();
 
-	float _BaseExperience = 1000.f;
+	float _BaseExperience  = 1000.f;
 	float _ExpGrowthFactor = 1.2;
 	float _ExperienceWorth = 100.f;
 

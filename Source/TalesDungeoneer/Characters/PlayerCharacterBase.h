@@ -4,9 +4,11 @@
 #pragma once
 
 #include "CharacterBase.h" // Includes core and actor files
-#include "Components/SphereComponent.h"
 
 #include "PlayerCharacterBase.generated.h"
+
+
+class USavedCharacter;
 
 // Called when this player has fully spawned into the world
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPlayerJoined);
@@ -21,10 +23,14 @@ class TALESDUNGEONEER_API APlayerCharacterBase : public ACharacterBase
 	GENERATED_BODY()
 
 public: // functions
+
+	UPROPERTY(VisibleAnywhere, BlueprintAssignable) FOnPlayerJoined OnPlayerJoined;
 	
 	APlayerCharacterBase();
 
-	UPROPERTY(BlueprintAssignable) FOnPlayerJoined OnPlayerJoined;
+	UFUNCTION(BlueprintCallable)
+	void LoadSaveData(const FString& SaveName,
+		const int32 UserIndex, USaveGame* SaveData);
 	
 protected:
 	

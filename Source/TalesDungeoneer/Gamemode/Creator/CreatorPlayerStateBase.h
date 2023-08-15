@@ -13,4 +13,11 @@ UCLASS(BlueprintType, Blueprintable)
 class TALESDUNGEONEER_API ACreatorPlayerStateBase : public APlayerState
 {
 	GENERATED_BODY()
+	
+public:
+	ACreatorPlayerStateBase();
+
+protected:
+	virtual void BeginPlay() override;
+	
 };

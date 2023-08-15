@@ -388,6 +388,12 @@ void ACharacterBase::SecondaryActionVirtual()
 	SecondaryAction();
 }
 
+void ACharacterBase::SetCharacterName(FString ProposedName)
+{
+	// TODO - Add checks for symbols, special characters, etc
+	_CharacterName = ProposedName;
+}
+
 void ACharacterBase::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
@@ -570,6 +576,7 @@ void ACharacterBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 	DOREPLIFETIME(ACharacterBase, _CharacterClass);
 	DOREPLIFETIME(ACharacterBase, _CharacterRace);
 	DOREPLIFETIME(ACharacterBase, _CharacterRisk);
+	DOREPLIFETIME(ACharacterBase, _CharacterName);
 	DOREPLIFETIME(ACharacterBase, _IsMale);
 	
 	DOREPLIFETIME(ACharacterBase, SkinColor);

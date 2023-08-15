@@ -24,6 +24,7 @@ void UAbilityComponent::EventOnAbilityAction_Implementation(UInputAction* Abilit
 	AbilityAction(AbilitySlot);
 }
 
+
 void UAbilityComponent::AbilityAction(UInputAction* HotkeyAction)
 {
 	if (IsValid(HotkeyAction))

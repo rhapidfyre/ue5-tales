@@ -2,3 +2,16 @@
 
 
 #include "CreatorPlayerStateBase.h"
+
+
+//Class Methods
+
+ACreatorPlayerStateBase::ACreatorPlayerStateBase()
+{
+	
+}
+
+void ACreatorPlayerStateBase::BeginPlay()
+{
+	Super::BeginPlay();
+}
