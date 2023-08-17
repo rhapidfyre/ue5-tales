@@ -143,6 +143,13 @@ public: // functions
 		return _BaseExperience*pow(_ExpGrowthFactor, GetCharacterLevel()-1);
 	}
 	
+	/**
+	 * @brief Sets the new name for this character. Typically used during creation/loading.
+	 * @param ProposedName The new name string to use for this character
+	 */
+	UFUNCTION(BlueprintCallable) void SetCharacterName(FString ProposedName);
+
+	
 protected: // functions
 	
 	UFUNCTION(BlueprintCallable) void SetCharacterTeam(ECharacterTeam NewTeam);
@@ -185,12 +192,6 @@ protected: // functions
 	UFUNCTION(BlueprintNativeEvent) void SecondaryAction();
 	// CPP Virtual Void override for calling SecondaryAction() (Blueprint Override)
 	virtual void SecondaryActionVirtual();
-
-	/**
-	 * @brief Sets the new name for this character. Typically used during creation/loading.
-	 * @param ProposedName The new name string to use for this character
-	 */
-	UFUNCTION(BlueprintCallable) void SetCharacterName(FString ProposedName);
 
 	virtual void PostInitializeComponents() override;
 	
