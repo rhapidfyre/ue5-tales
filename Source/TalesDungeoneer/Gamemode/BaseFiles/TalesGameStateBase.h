@@ -191,10 +191,10 @@ private: // members
 	bool bSaveMetaIsReady = false;
 
 	// A TArray of SaveSlotName of saved characters
-	TArray<FString> _SavedCharacters;
+	UPROPERTY()	TArray<FString> _SavedCharacters;
 
 	// Which character is currently selected, where -1
 	// indicates no character selected, or user is in the creator.
-	int _SelectedCharacter = -1;
+	UPROPERTY()	int _SelectedCharacter = -1;
 	
 };

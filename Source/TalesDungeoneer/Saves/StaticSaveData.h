@@ -50,8 +50,8 @@ public:
 	
 private:
 
-	TArray<FString> _CharacterNames;
+	UPROPERTY()	TArray<FString> _CharacterNames;
 	
-	int _SelectedCharacter = -1;
-
+	UPROPERTY()	int _SelectedCharacter = -1;
+	
 };
