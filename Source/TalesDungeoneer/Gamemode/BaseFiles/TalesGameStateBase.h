@@ -1,5 +1,7 @@
 ﻿// Copyright Take Five Games, LLC 2023 - All Rights Reserved
 
+// ReSharper disable CppUEBlueprintCallableFunctionUnused
+
 #pragma once
 
 #include "GameFramework/GameState.h"
@@ -14,6 +16,10 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSaveGameObjectReady);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnGameSaved, bool, bSuccess);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCharacterSaved, bool, bSuccess);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnCharacterSelected,
+	FString, SaveSlotName, int, SelectedIndex);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnCharacterDeleted,
+	FString, SaveSlotName, int, DeletedIndex);
 
 
 /* The tales game state base holds all of the logic for operations that
@@ -33,30 +39,44 @@ public: // methods
 	 *			   creating it if it does not exist.
 	 * @param SaveSlotName The name of the new save meta file
 	 */
-	UFUNCTION(BlueprintCallable) void SetSaveGameMetaName(FString SaveSlotName);
+	UFUNCTION(BlueprintCallable)
+	void SetSaveGameMetaName(FString SaveSlotName);
 
 	/**
 	 *		SAVING
 	 */
 	
 	// Called whenever save metadata has been modified
-	UFUNCTION(BlueprintCallable) bool SaveMetaData();
+	UFUNCTION(BlueprintCallable)
+	bool SaveMetaData();
 
 	// Forces an asynchronous save of the save game meta file
-	UFUNCTION(BlueprintCallable) void SaveMetaDataAsync();
+	UFUNCTION(BlueprintCallable)
+	void SaveMetaDataAsync() const;
 	
+	// PERMANENTLY deletes the character and the associated save game
+	UFUNCTION(BlueprintCallable)
+	void RemoveSelectedCharacter();
 
-	// Performs synchronous save of the currently active character
-	// Internally updates the save game meta file
-	UFUNCTION(BlueprintCallable) bool SaveCharacter(const FString SaveSlotName);
-
-	// Performs asynchronous save of the currently active character
-	// Internally updates the save game meta file
-	UFUNCTION(BlueprintCallable) void SaveCharacterAsync(const FString SaveSlotName);
-
+	/**
+	 * @brief Saves the character
+	 * @param SaveResponse Response from the save attempt, whether successful or failure
+	 * @param RunAsync If true, runs the save async and ignores the response
+	 * @return True if ran async, or sync-save is successful. False otherwise.
+	 */
+	UFUNCTION(BlueprintCallable)
+	bool SaveCurrentCharacter(FString& SaveResponse, bool RunAsync = true);
+	
+	
 	/**
 	 *		LOADING
 	 */
+	// Performs an async metadata load, calling SaveGameMetaLoaded when done
+	UFUNCTION(BlueprintCallable) void LoadSaveGameMetaAsync();
+
+	/**
+	 *		OTHER METHODS
+	*/
 	
 	// Returns the current name of the save game meta file
 	UFUNCTION(BlueprintCallable)
@@ -65,9 +85,6 @@ public: // methods
 	// Retrieves a USaveGame object with the current meta
 	UFUNCTION(BlueprintCallable) USaveGame* GetSaveGameMeta() const;
 	
-	// Performs an async metadata load, calling SaveGameMetaLoaded when done
-	UFUNCTION(BlueprintCallable) void LoadSaveGameMetaAsync();
-
 	// Returns an array of all known saved character slot names
 	UFUNCTION(BlueprintCallable) TArray<FString> GetSavedCharacterSlotNames() const;
 
@@ -78,7 +95,7 @@ public: // methods
 	 */
 	UFUNCTION(BlueprintCallable)
 	void GetSavedCharacterDataAsync(FString SaveSlotName,
-			APlayerCharacterBase* PlayerCharacter);
+			ACharacterBase* PlayerCharacter);
 
 	/**
 	 * @brief Returns the save data for the requested character slot. Return requires validation.
@@ -88,65 +105,65 @@ public: // methods
 	UFUNCTION(BlueprintCallable)
 	USavedCharacter* GetSavedCharacterData(FString SaveSlotName = "");
 	
-	// Return the string of '_CharacterNames' for the selected character slot index
-	UFUNCTION(BlueprintPure) FString GetSelectedCharacterSlotSaveName() const;
+	// Return the string of the '_CharacterNames' for the selected
+	// character slot index. Returns empty string if no character selected.
+	UFUNCTION(BlueprintPure) FString GetSelectedCharacterSaveSlotName() const;
 
-	/**
-	 *		OTHER METHODS
-	 */
+	UFUNCTION(BlueprintPure) int GetSelectedCharacterIndex() const;
+	
 	
 	UFUNCTION(BlueprintCallable)
 	void SetSavedCharacterNameList(TArray<FString> RestoredCharacters);
 	
-	UFUNCTION(BlueprintPure) int GetSelectedCharacterIndex() const;
-	
+	// Sets which character is currently selected
+	UFUNCTION(BlueprintCallable) void SetSelectedCharacter(int CharacterIndex);
 	
 protected: // methods
 	
 	virtual void BeginPlay() override;
-	
-	/**
-	 * @brief Saves the character
-	 * @param SaveResponse Response from the save attempt, whether successful or failure
-	 * @param RunAsync If true, runs the save async and ignores the response
-	 * @return True if ran async, or sync-save is successful. False otherwise.
-	 */
-	bool SaveCurrentCharacter(FString& SaveResponse, bool RunAsync = true);
 
 	// Called when LoadSaveGameMetaAsync executes
 	void SaveGameMetaLoaded(const FString& SlotName,
-				const int32 UserIndex, USaveGame* LoadedGameData);
+		const int32 UserIndex, USaveGame* LoadedGameData);
 
+	// Creates the save metadata file if it doesn't exist.
+	// Returns true if created, false otherwise.
+	bool CreateSaveGameIfNotExists();
+
+	// Creates the save data for the current character if it doesn't exist.
+	// Returns true if created, false otherwise.
+	bool CreateCharacterSaveIfNotExists();
 	
 private: // methods
+
+	// Performs synchronous save of the currently active character
+	// Internally updates the save game meta file
+	UFUNCTION(BlueprintCallable) bool SaveCharacter(const FString SaveSlotName);
+
+	// Performs asynchronous save of the currently active character
+	// Internally updates the save game meta file
+	UFUNCTION(BlueprintCallable) void SaveCharacterAsync(const FString SaveSlotName);
+
 	
 	// Sets the values in the save metadata
-	void Helper_SetSaveValues(UGlobalSaveData* SaveMeta);
+	void Helper_SetSaveValues(UGlobalSaveData* SaveMeta) const;
 
 	// Loads the values from save metadata into memory (this object)
 	void Helper_LoadSavedValues(const UGlobalSaveData* SaveMeta);
 
 	// Sets the character save values from game
-	void Helper_SetCharacterValues(
-			const ACharacterBase* CharacterBase, USaveGame* SaveData);
+	void Helper_SetCharacterValues(	const ACharacterBase* CharacterBase,
+		USaveGame* SaveData) const;
 
 	// Sets the character save values from game
 	void Helper_LoadCharacterValues(const FString SaveSlotName);
 
 	// Called when an asynchronous save has finished
 	UFUNCTION()	void SaveGameDelegate(const FString& SlotName,
-		const int32 UserIndex, bool bSuccess);
+		const int32 UserIndex, bool bSuccess) const;
 
-	UFUNCTION(BlueprintCallable) void SaveCharacterDelegate(
-		const FString& SlotName, const int32 UserIndex, bool bSuccess);
-
-	// Creates the save metadata file if it doesn't exist.
-	// Returns true if the file exists or was created.
-	bool CreateSaveGameIfNotExists();
-
-	// Creates the save data for the current character if it doesn't exist.
-	// Returns true if the file exists or was created.
-	bool CreateCharacterSaveIfNotExists();
+	UFUNCTION(BlueprintCallable) void SaveCharacterDelegate(const FString& SlotName,
+		const int32 UserIndex, bool bSuccess) const;
 	
 public: // members
 
@@ -159,6 +176,12 @@ public: // members
 	// Called when a character has been saved
 	UPROPERTY(BlueprintAssignable)	FOnCharacterSaved		OnCharacterSaved;
 	
+	// Called when a character has been selected
+	UPROPERTY(BlueprintAssignable)	FOnCharacterSelected	OnCharacterSelected;
+
+	// Called when a character has been deleted
+	UPROPERTY(BlueprintAssignable) FOnCharacterDeleted OnCharacterDeleted;
+	
 private: // members
 
 	// The name of the meta file
@@ -170,8 +193,8 @@ private: // members
 	// A TArray of SaveSlotName of saved characters
 	TArray<FString> _SavedCharacters;
 
-	// Which index of the '_SavedCharacters' is currently selected or being played
-	// Negative indicates no character selected, or playing as the DM.
+	// Which character is currently selected, where -1
+	// indicates no character selected, or user is in the creator.
 	int _SelectedCharacter = -1;
 	
 };

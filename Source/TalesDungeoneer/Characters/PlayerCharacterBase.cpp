@@ -14,20 +14,6 @@ APlayerCharacterBase::APlayerCharacterBase()
 	
 }
 
-void APlayerCharacterBase::LoadSaveData(const FString& SaveName,
-		const int32 UserIndex, USaveGame* SaveData)
-{
-	USavedCharacter* CharacterData = Cast<USavedCharacter>(SaveData);
-	if (IsValid(CharacterData))
-	{
-		SetCharacterName(CharacterData->CharacterName);
-		SetCharacterLevel(CharacterData->CharacterLevel);
-		SetCharacterRace(CharacterData->CharacterRace);
-		SetCharacterClass(CharacterData->CharacterClass);
-		SetExperiencePoints(CharacterData->ExperiencePoints);
-	}
-}
-
 void APlayerCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();

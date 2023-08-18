@@ -19,10 +19,6 @@ class TALESDUNGEONEER_API ACreatorCharacterBase : public ACharacterBase
 public: // functions
 	
 	ACreatorCharacterBase();
-
-	UFUNCTION(BlueprintCallable)
-	void LoadSaveData(const FString& SaveName,
-		const int32 UserIndex, USaveGame* SaveData);
 	
 protected:
 	

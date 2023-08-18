@@ -8,9 +8,12 @@
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "TalesDungeoneer/lib/datastructures/GlobalData.h"
+
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
+
+#include "TalesDungeoneer/Saves/SavedCharacters.h"
 
 #include "Net/UnrealNetwork.h"
 #include "TalesDungeoneer/Entities/SimpleActors/FloatingTextBase.h"
@@ -302,6 +305,19 @@ void ACharacterBase::PostRegisterAllComponents()
 	
 }
 
+void ACharacterBase::LoadSaveData(const FString& SaveName,
+		const int32 UserIndex, USaveGame* SaveData)
+{
+	USavedCharacter* CharacterData = Cast<USavedCharacter>(SaveData);
+	if (IsValid(CharacterData))
+	{
+		SetCharacterName(CharacterData->CharacterName);
+		SetCharacterLevel(CharacterData->CharacterLevel);
+		SetCharacterRace(CharacterData->CharacterRace);
+		SetCharacterClass(CharacterData->CharacterClass);
+		SetExperiencePoints(CharacterData->ExperiencePoints);
+	}
+}
 
 // Called every frame
 void ACharacterBase::Tick(float DeltaTime)

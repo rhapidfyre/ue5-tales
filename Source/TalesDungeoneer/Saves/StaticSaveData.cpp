@@ -54,15 +54,34 @@ USavedCharacter* UGlobalSaveData::GetSavedCharacterData(FString SaveSlotName)
 	return nullptr;
 }
 
+void UGlobalSaveData::SetSelectedCharacter(int CharacterIndex)
+{
+	_SelectedCharacter = -1;
+	if (_CharacterNames.IsValidIndex(CharacterIndex))
+		_SelectedCharacter = CharacterIndex;
+}
+
+FString UGlobalSaveData::GetSelectedCharacterSaveSlotName() const
+{
+	if (_CharacterNames.IsValidIndex(_SelectedCharacter))
+		return _CharacterNames[_SelectedCharacter];
+	return "";
+}
+
 /**
  * @brief Triggers 'LoadSaveData' delegate if/when a save is located (async)
  * @param SaveSlotName The FName of the saved character slot being requested
  * @param PlayerCharacter Reference to the character being saved
  */
 void UGlobalSaveData::GetSavedCharacterDataAsync(FString SaveSlotName,
-		APlayerCharacterBase* PlayerCharacter)
+		ACharacterBase* PlayerCharacter)
 {
 	FAsyncLoadGameFromSlotDelegate LoadDelegate;
-	LoadDelegate.BindUObject(PlayerCharacter, &APlayerCharacterBase::LoadSaveData);
+	LoadDelegate.BindUObject(PlayerCharacter, &ACharacterBase::LoadSaveData);
 	UGameplayStatics::AsyncLoadGameFromSlot(SaveSlotName, 0, LoadDelegate);
+}
+
+int UGlobalSaveData::GetSelectedCharacterIndex() const
+{
+	return _SelectedCharacter;
 }

@@ -149,6 +149,9 @@ public: // functions
 	 */
 	UFUNCTION(BlueprintCallable) void SetCharacterName(FString ProposedName);
 
+	UFUNCTION(BlueprintCallable)
+	virtual void LoadSaveData(const FString& SaveName,
+		const int32 UserIndex, USaveGame* SaveData);
 	
 protected: // functions
 	

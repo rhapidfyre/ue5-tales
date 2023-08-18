@@ -4,15 +4,26 @@
 
 #include "CoreMinimal.h"
 #include "TalesDungeoneer/Gamemode/BaseFiles/TalesGameStateBase.h"
+#include "Delegates/Delegate.h"
 
 #include "CreatorGameStateBase.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnNewCharacterCreated);
+
 
 UCLASS(Blueprintable, BlueprintType)
-class TALESDUNGEONEER_API ACreatorGameState : public ATalesGameStateBase
+class TALESDUNGEONEER_API ACreatorGameStateBase : public ATalesGameStateBase
 {
 	GENERATED_BODY()
 
 public:
-	ACreatorGameState();
+	
+	ACreatorGameStateBase();
+
+	UPROPERTY(BlueprintAssignable)
+	FOnNewCharacterCreated OnNewCharacterCreated;
+	
+	UFUNCTION(BlueprintCallable)
+	bool CreateNewCharacter(FString& SaveResponse, bool RunAsync = false);
+	
 };

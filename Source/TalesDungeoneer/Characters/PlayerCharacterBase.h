@@ -27,10 +27,6 @@ public: // functions
 	UPROPERTY(VisibleAnywhere, BlueprintAssignable) FOnPlayerJoined OnPlayerJoined;
 	
 	APlayerCharacterBase();
-
-	UFUNCTION(BlueprintCallable)
-	void LoadSaveData(const FString& SaveName,
-		const int32 UserIndex, USaveGame* SaveData);
 	
 protected:
 	
