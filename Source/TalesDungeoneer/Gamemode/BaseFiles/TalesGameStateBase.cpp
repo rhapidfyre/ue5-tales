@@ -73,9 +73,9 @@ void ATalesGameStateBase::SaveMetaDataAsync() const
 
 void ATalesGameStateBase::RemoveSelectedCharacter()
 {
-	const FString SaveSlotName = GetSelectedCharacterSaveSlotName();
 	if (_SavedCharacters.IsValidIndex( GetSelectedCharacterIndex() ))
 	{
+		const FString SaveSlotName = GetSelectedCharacterSaveSlotName();
 		if (UGameplayStatics::DoesSaveGameExist(SaveSlotName, 0))
 		{
 			const int DeleteIndex = _SelectedCharacter;
