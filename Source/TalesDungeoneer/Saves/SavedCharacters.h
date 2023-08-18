@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/SaveGame.h"
 #include "TalesDungeoneer/lib/enums/GlobalEnums.h"
+#include "TalesDungeoneer/Characters/Components/MeshMergeComponent.h"
 
 #include "SavedCharacters.generated.h"
 
@@ -47,7 +48,18 @@ public:
 
 	UPROPERTY(VisibleAnywhere, Category = "Character Save Data")
 	uint32 UserIndex = 0;
+
+	UPROPERTY(VisibleAnywhere, Category = "Mesh Merge Save Data")
+	USkeleton* Skeleton = nullptr;
+
+	UPROPERTY(VisibleAnywhere, Category = "Mesh Merge Save Data")
+	TArray < FStMeshMergeData > MeshesToMerge = {};
 	
+	UPROPERTY(VisibleAnywhere, Category = "Mesh Merge Save Data")
+	TArray < FSkelMeshMergeSectionMapping > MeshSectionMappings = {};
+	
+	UPROPERTY(VisibleAnywhere, Category = "Mesh Merge Save Data")
+	TArray < FSkelMeshMergeUVTransformMapping > UvTransformsPerMesh = {};
 };
 
 /**

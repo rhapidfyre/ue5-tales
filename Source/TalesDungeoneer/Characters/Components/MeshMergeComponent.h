@@ -71,17 +71,17 @@ public:
 	
 	// An optional array to map sections from the source meshes to merged section entries
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray < FSkelMeshMergeSectionMapping > MeshSectionMappings;
+	TArray < FSkelMeshMergeSectionMapping > MeshSectionMappings = {};
 	
 	// An optional array to transform the UVs in each mesh
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray < FSkelMeshMergeUVTransformMapping > UvTransformsPerMesh;
+	TArray < FSkelMeshMergeUVTransformMapping > UvTransformsPerMesh = {};
 	
 	// The list of skeletal meshes to merge.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray < FStMeshMergeData > MeshesToMerge;
+	TArray < FStMeshMergeData > MeshesToMerge = {};
 
-	TArray < FStMeshMergeData > DefaultMeshes;
+	TArray < FStMeshMergeData > DefaultMeshes= {} ;
 	
 	// The number of high LODs to remove from input meshes
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

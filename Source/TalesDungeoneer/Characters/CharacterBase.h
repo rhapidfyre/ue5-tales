@@ -42,6 +42,8 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnExperienceChanged);
 // Called anytime the characters level has been modified, up or down
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCharacterLevelChanged);
 
+// Called when the character has been restored from a save file
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCharacterRestored, FString, SaveSlotName);
 
 /**
  * Character Base is the base C++ class for all logic, methods and members that affect ALL
@@ -66,7 +68,7 @@ public: // functions
 	UPROPERTY(BlueprintAssignable) FOnCharacterLevelUp OnCharacterLevelUp;
 	UPROPERTY(BlueprintAssignable) FOnExperienceChanged OnExperienceChanged;
 	UPROPERTY(BlueprintAssignable) FOnCharacterLevelChanged OnCharacterLevelChanged;
-	
+	UPROPERTY(BlueprintAssignable) FOnCharacterRestored OnCharacterRestored;
 	/** Returns CameraBoom sub object **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 
@@ -164,6 +166,8 @@ protected: // functions
 	virtual void OnConstruction(const FTransform& Transform) override;
 
 	virtual void PostRegisterAllComponents() override;
+
+	virtual void CharacterRestoredFromSave(const FString SaveSlotName);
 	
 	virtual void Tick(float DeltaTime) override;
 

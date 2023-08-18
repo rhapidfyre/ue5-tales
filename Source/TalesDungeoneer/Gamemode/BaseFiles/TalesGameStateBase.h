@@ -70,9 +70,13 @@ public: // methods
 	
 	/**
 	 *		LOADING
-	 */
-	// Performs an async metadata load, calling SaveGameMetaLoaded when done
-	UFUNCTION(BlueprintCallable) void LoadSaveGameMetaAsync();
+	*/
+
+	UFUNCTION(BlueprintCallable)
+	bool LoadSaveGameMeta(bool LoadAsync = true);
+	
+	UFUNCTION(BlueprintCallable)
+	bool LoadCharacter(FString SaveSlotName = "", bool LoadAsync = true);
 
 	/**
 	 *		OTHER METHODS
@@ -111,12 +115,15 @@ public: // methods
 
 	UFUNCTION(BlueprintPure) int GetSelectedCharacterIndex() const;
 	
-	
 	UFUNCTION(BlueprintCallable)
 	void SetSavedCharacterNameList(TArray<FString> RestoredCharacters);
 	
 	// Sets which character is currently selected
 	UFUNCTION(BlueprintCallable) void SetSelectedCharacter(int CharacterIndex);
+
+	UFUNCTION(BlueprintCallable) int GetNextCharacterIndex();
+	UFUNCTION(BlueprintCallable) int GetPrevCharacterIndex();
+	UFUNCTION(BlueprintCallable) int GetLastCharacterIndex() const;
 	
 protected: // methods
 	
@@ -125,6 +132,11 @@ protected: // methods
 	// Called when LoadSaveGameMetaAsync executes
 	void SaveGameMetaLoaded(const FString& SlotName,
 		const int32 UserIndex, USaveGame* LoadedGameData);
+	
+	// Called when LoadCharacterASync executes
+	void CharacterSaveLoaded(const FString& SlotName,
+		int32 UserIndex, USaveGame* LoadedGameData);
+
 
 	// Creates the save metadata file if it doesn't exist.
 	// Returns true if created, false otherwise.
@@ -133,17 +145,29 @@ protected: // methods
 	// Creates the save data for the current character if it doesn't exist.
 	// Returns true if created, false otherwise.
 	bool CreateCharacterSaveIfNotExists();
+
+	// Performs an sync character data load, returning true on success
+	bool LoadCharacterSync(FString SaveSlotName = "");
+
+	// Performs an async character data load, calling CharacterLoaded when done
+	void LoadCharacterAsync(FString SaveSlotName = "");
+
+	// Performs a synch character data load, returning true on success
+	bool LoadSaveGameMetaSync();
 	
-private: // methods
+	// Performs an async metadata load, calling SaveGameMetaLoaded when done
+	void LoadSaveGameMetaAsync();
 
 	// Performs synchronous save of the currently active character
 	// Internally updates the save game meta file
-	UFUNCTION(BlueprintCallable) bool SaveCharacter(const FString SaveSlotName);
+	bool SaveCharacterSync(const FString SaveSlotName);
 
 	// Performs asynchronous save of the currently active character
 	// Internally updates the save game meta file
-	UFUNCTION(BlueprintCallable) void SaveCharacterAsync(const FString SaveSlotName);
+	void SaveCharacterAsync(const FString SaveSlotName);
 
+	
+private: // methods
 	
 	// Sets the values in the save metadata
 	void Helper_SetSaveValues(UGlobalSaveData* SaveMeta) const;
@@ -180,7 +204,7 @@ public: // members
 	UPROPERTY(BlueprintAssignable)	FOnCharacterSelected	OnCharacterSelected;
 
 	// Called when a character has been deleted
-	UPROPERTY(BlueprintAssignable) FOnCharacterDeleted OnCharacterDeleted;
+	UPROPERTY(BlueprintAssignable)	FOnCharacterDeleted OnCharacterDeleted;
 	
 private: // members
 

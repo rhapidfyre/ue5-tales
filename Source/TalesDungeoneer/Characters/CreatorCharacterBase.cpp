@@ -12,4 +12,9 @@ ACreatorCharacterBase::ACreatorCharacterBase()
 void ACreatorCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+void ACreatorCharacterBase::CharacterRestoredFromSave(const FString SaveSlotName)
+{
+	Super::CharacterRestoredFromSave(SaveSlotName);
 }	

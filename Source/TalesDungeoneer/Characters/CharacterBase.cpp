@@ -305,10 +305,15 @@ void ACharacterBase::PostRegisterAllComponents()
 	
 }
 
-void ACharacterBase::LoadSaveData(const FString& SaveName,
-		const int32 UserIndex, USaveGame* SaveData)
+void ACharacterBase::CharacterRestoredFromSave(const FString SaveSlotName)
 {
-	USavedCharacter* CharacterData = Cast<USavedCharacter>(SaveData);
+	OnCharacterRestored.Broadcast(SaveSlotName);
+}
+
+void ACharacterBase::LoadSaveData(const FString& SaveName,
+                                  const int32 UserIndex, USaveGame* SaveData)
+{
+	const USavedCharacter* CharacterData = Cast<USavedCharacter>(SaveData);
 	if (IsValid(CharacterData))
 	{
 		SetCharacterName(CharacterData->CharacterName);
@@ -316,6 +321,23 @@ void ACharacterBase::LoadSaveData(const FString& SaveName,
 		SetCharacterRace(CharacterData->CharacterRace);
 		SetCharacterClass(CharacterData->CharacterClass);
 		SetExperiencePoints(CharacterData->ExperiencePoints);
+		
+		if (IsValid(MeshMergeComponent))
+		{
+			MeshMergeComponent->Skeleton				= CharacterData->Skeleton;			
+			MeshMergeComponent->MeshSectionMappings		= CharacterData->MeshSectionMappings; 
+			MeshMergeComponent->UvTransformsPerMesh		= CharacterData->UvTransformsPerMesh; 
+			MeshMergeComponent->MeshesToMerge			= CharacterData->MeshesToMerge;		
+			MeshMergeComponent->PerformMeshMerge();
+		}
+		UE_LOG(LogTemp, Display, TEXT("LoadSaveData(): Successfully restored character from Save Slot '%s'"),
+			*SaveName);
+		CharacterRestoredFromSave(SaveName);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("LoadSaveData(): Could not find character Save Slot '%s'"),
+			*SaveName);
 	}
 }
 

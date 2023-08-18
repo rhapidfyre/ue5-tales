@@ -23,5 +23,8 @@ public: // functions
 protected:
 	
 	virtual void BeginPlay() override;
+
+	virtual void CharacterRestoredFromSave(
+		const FString SaveSlotName) override;
 	
 };
