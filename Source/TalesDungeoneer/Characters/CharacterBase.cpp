@@ -321,6 +321,7 @@ void ACharacterBase::LoadSaveData(const FString& SaveName,
 		SetCharacterRace(CharacterData->CharacterRace);
 		SetCharacterClass(CharacterData->CharacterClass);
 		SetExperiencePoints(CharacterData->ExperiencePoints);
+
 		
 		if (IsValid(MeshMergeComponent))
 		{
@@ -330,6 +331,60 @@ void ACharacterBase::LoadSaveData(const FString& SaveName,
 			MeshMergeComponent->MeshesToMerge			= CharacterData->MeshesToMerge;		
 			MeshMergeComponent->PerformMeshMerge();
 		}
+
+		// Reinitialize Vitality Component Data
+		// Must occur before equipment or vitality stats will be incorrect
+		if (IsValid(VitalityComponent))
+		{
+			// Set initial values
+			VitalityComponent->SetCombatState(ECombatState::RELAXED);
+			VitalityComponent->VitalityTickRate = 0.25;
+			VitalityComponent->SprintSpeedMultiplier = 1.2;
+			VitalityComponent->StaminaRegenIfThirsty = 0.25;
+			VitalityComponent->StaminaCooldown = 0.25;
+			VitalityComponent->StaminaMaximum = 0.25;
+			VitalityComponent->StaminaRegenRate = 0.25;
+			VitalityComponent->StaminaDrainRate = 0.25;
+			VitalityComponent->HealthRegenIfAlert = 0.25;
+			VitalityComponent->HealthRegenRate = 0.25;
+			VitalityComponent->HealthMaximum = 0.25;
+			VitalityComponent->MagicMaximum = 0.25;
+			VitalityComponent->CaloriesMaximum = 0.25;
+			VitalityComponent->CaloriesAtRest = 0.25;
+			VitalityComponent->HydrationMaximum = 0.25;
+			VitalityComponent->HungerAtRest = 0.25;
+
+			// Restore Natural Stats
+			VitalityComponent->SetVitalityStat(EVitalityCategories::STRENGTH,  100);
+			VitalityComponent->SetVitalityStat(EVitalityCategories::AGILITY,   100);
+			VitalityComponent->SetVitalityStat(EVitalityCategories::FORTITUDE, 100);
+			VitalityComponent->SetVitalityStat(EVitalityCategories::INTELLECT, 100);
+			VitalityComponent->SetVitalityStat(EVitalityCategories::ASTUTENESS,100);
+			VitalityComponent->SetVitalityStat(EVitalityCategories::CHARISMA,  100);
+
+			// Restore Natural Damage Bonuses
+			for (FStDamageIntMap IntMap : _DamageBonuses_ )
+			{
+				VitalityComponent->SetTotalDamageBonus(IntMap.DamageEnum, IntMap.MapValue);
+			}
+
+			// Restore Natural Damage Resistances
+			for (FStDamageIntMap IntMap : _DamageResists_ )
+			{
+				VitalityComponent->SetTotalResistanceValue(IntMap.DamageEnum, IntMap.MapValue);
+			}
+
+			// Initialize System
+			VitalityComponent->InitSubsystems(true);
+
+			// Set current values
+			VitalityComponent->SetVitalityStat(EVitalityCategories::HEALTH,  100);
+			VitalityComponent->SetVitalityStat(EVitalityCategories::STAMINA, 100);
+			VitalityComponent->SetVitalityStat(EVitalityCategories::MAGIC,   100);
+			VitalityComponent->SetVitalityStat(EVitalityCategories::HUNGER,  100);
+			VitalityComponent->SetVitalityStat(EVitalityCategories::THIRST,  100);
+		}
+		
 		UE_LOG(LogTemp, Display, TEXT("LoadSaveData(): Successfully restored character from Save Slot '%s'"),
 			*SaveName);
 		CharacterRestoredFromSave(SaveName);
