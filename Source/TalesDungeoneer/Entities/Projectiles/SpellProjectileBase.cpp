@@ -184,9 +184,9 @@ void ASpellProjectileBase::ApplyHitEffect(AActor* HitActor, FVector HitVector)
 			// Apply any damages
 			for (FStAbilityDamageData DamageData : _SpellData.DamageData)
 			{
-				HitCharacter->VitalityComponent->DamageHealth(GetInstigator(), DamageData.ConsumeHealth);
-				HitCharacter->VitalityComponent->ConsumeStamina(GetInstigator(), DamageData.ConsumeStamina);
-				HitCharacter->VitalityComponent->ConsumeMagic(GetInstigator(), DamageData.ConsumeMagic);
+				HitCharacter->VitalityWelfare->DamageHealth(GetInstigator(),  DamageData.ConsumeHealth);
+				HitCharacter->VitalityWelfare->DamageStamina(GetInstigator(), DamageData.ConsumeStamina);
+				HitCharacter->VitalityWelfare->DamageMagic(GetInstigator(),   DamageData.ConsumeMagic);
 			}
 			// Apply any spell effect
 			HitCharacter->AbilityComponent->ApplyEffect(

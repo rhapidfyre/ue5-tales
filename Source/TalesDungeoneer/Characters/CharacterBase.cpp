@@ -66,8 +66,9 @@ ACharacterBase::ACharacterBase()
 	InventoryComponent = CreateDefaultSubobject
 			<UInventoryComponent>(TEXT("InventoryComponent"));
 	
-	VitalityComponent = CreateDefaultSubobject
-			<UVitalityComponent>(TEXT("VitalityComponent"));
+	VitalityStats   = CreateDefaultSubobject<UVitalityStatComponent>(TEXT("VitalityStats"));
+	VitalityWelfare = CreateDefaultSubobject<UVitalityWelfareComponent>(TEXT("VitalityWelfare"));
+	VitalityEffects = CreateDefaultSubobject<UVitalityEffectsComponent>(TEXT("VitalityEffects"));
 	
 	WeaponComponent = CreateDefaultSubobject
 			<UWeaponComponent>(TEXT("WeaponComponent"));
@@ -272,8 +273,8 @@ void ACharacterBase::BeginPlay()
 	const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
 	if (IsValid(LocalPlayer))
 	{
-		if (!VitalityComponent->OnDamageTaken.IsAlreadyBound(this, &ACharacterBase::SpawnDamageText))
-			VitalityComponent->OnDamageTaken.AddDynamic(this, &ACharacterBase::SpawnDamageText);
+		if (!VitalityWelfare->OnDamageTaken.IsAlreadyBound(this, &ACharacterBase::SpawnDamageText))
+			VitalityWelfare->OnDamageTaken.AddDynamic(this, &ACharacterBase::SpawnDamageText);
 	}
 
 	// When an ability is started, check if Combat State should change
@@ -334,55 +335,54 @@ void ACharacterBase::LoadSaveData(const FString& SaveName,
 
 		// Reinitialize Vitality Component Data
 		// Must occur before equipment or vitality stats will be incorrect
-		if (IsValid(VitalityComponent))
+		if (IsValid(VitalityWelfare))
 		{
 			// Set initial values
-			VitalityComponent->SetCombatState(ECombatState::RELAXED);
-			VitalityComponent->VitalityTickRate = 0.25;
-			VitalityComponent->SprintSpeedMultiplier = 1.2;
-			VitalityComponent->StaminaRegenIfThirsty = 0.25;
-			VitalityComponent->StaminaCooldown = 0.25;
-			VitalityComponent->StaminaMaximum = 0.25;
-			VitalityComponent->StaminaRegenRate = 0.25;
-			VitalityComponent->StaminaDrainRate = 0.25;
-			VitalityComponent->HealthRegenIfAlert = 0.25;
-			VitalityComponent->HealthRegenRate = 0.25;
-			VitalityComponent->HealthMaximum = 0.25;
-			VitalityComponent->MagicMaximum = 0.25;
-			VitalityComponent->CaloriesMaximum = 0.25;
-			VitalityComponent->CaloriesAtRest = 0.25;
-			VitalityComponent->HydrationMaximum = 0.25;
-			VitalityComponent->HungerAtRest = 0.25;
+			VitalityWelfare->UseHealthSubsystem			= CharacterData->UseHealthSubsystem; 
+			VitalityWelfare->UseStaminaSubsystem		= CharacterData->UseStaminaSubsystem; 
+			VitalityWelfare->UseMagicSubsystem			= CharacterData->UseMagicSubsystem; 
+			VitalityWelfare->UseSurvivalSubsystem		= CharacterData->UseSurvivalSubsystem; 
+			VitalityWelfare->StartingHealthCurrent		= CharacterData->StartingHealthCurrent;
+			VitalityWelfare->StartingHealthMaximum		= CharacterData->StartingHealthMaximum;
+			VitalityWelfare->PassiveHealthRegen			= CharacterData->PassiveHealthRegen;
+			VitalityWelfare->HealthTimerTickRate		= CharacterData->HealthTimerTickRate;
+			VitalityWelfare->StartingStaminaCurrent 	= CharacterData->StartingStaminaCurrent;
+			VitalityWelfare->StartingStaminaMaximum 	= CharacterData->StartingStaminaMaximum;
+			VitalityWelfare->PassiveStaminaRegen		= CharacterData->PassiveStaminaRegen;
+			VitalityWelfare->StaminaTimerTickRate		= CharacterData->StaminaTimerTickRate;
+			VitalityWelfare->StartingMagicCurrent		= CharacterData->StartingMagicCurrent;
+			VitalityWelfare->StartingMagicMaximum		= CharacterData->StartingMagicMaximum;
+			VitalityWelfare->PassiveMagicRegen			= CharacterData->PassiveMagicRegen;
+			VitalityWelfare->MagicTimerTickRate			= CharacterData->MagicTimerTickRate;
+			VitalityWelfare->StartingHydrationCurrent	= CharacterData->StartingHydrationCurrent;
+			VitalityWelfare->StartingHungerCurrent		= CharacterData->StartingHungerCurrent;
+			VitalityWelfare->StartingHydrationMaximum	= CharacterData->StartingHydrationMaximum;
+			VitalityWelfare->StartingHungerMaximum 		= CharacterData->StartingHungerMaximum;
+			VitalityWelfare->PassiveHydrationDrain 		= CharacterData->PassiveHydrationDrain;
+			VitalityWelfare->PassiveHungerDrain			= CharacterData->PassiveHungerDrain;
+			VitalityWelfare->HydrationTimerTickRate		= CharacterData->HydrationTimerTickRate;
+			VitalityWelfare->CaloriesTimerTickRate		= CharacterData->CaloriesTimerTickRate;
+			VitalityWelfare->ResetCombatState();
+			VitalityWelfare->ReloadSettings();
 
 			// Restore Natural Stats
-			VitalityComponent->SetVitalityStat(EVitalityCategories::STRENGTH,  100);
-			VitalityComponent->SetVitalityStat(EVitalityCategories::AGILITY,   100);
-			VitalityComponent->SetVitalityStat(EVitalityCategories::FORTITUDE, 100);
-			VitalityComponent->SetVitalityStat(EVitalityCategories::INTELLECT, 100);
-			VitalityComponent->SetVitalityStat(EVitalityCategories::ASTUTENESS,100);
-			VitalityComponent->SetVitalityStat(EVitalityCategories::CHARISMA,  100);
+			VitalityStats->SetNaturalCoreStat(EVitalityStat::STRENGTH,  100);
+			VitalityStats->SetNaturalCoreStat(EVitalityStat::AGILITY,   100);
+			VitalityStats->SetNaturalCoreStat(EVitalityStat::FORTITUDE, 100);
+			VitalityStats->SetNaturalCoreStat(EVitalityStat::INTELLECT, 100);
+			VitalityStats->SetNaturalCoreStat(EVitalityStat::ASTUTENESS,100);
+			VitalityStats->SetNaturalCoreStat(EVitalityStat::CHARISMA,  100);
+			VitalityStats->ReloadSettings();
 
 			// Restore Natural Damage Bonuses
-			for (FStDamageIntMap IntMap : _DamageBonuses_ )
-			{
-				VitalityComponent->SetTotalDamageBonus(IntMap.DamageEnum, IntMap.MapValue);
-			}
+			for (const FStVitalityDamageMap IntMap : CharacterData->BaseStats.DamageBonuses)
+				VitalityStats->SetNaturalDamageBonusValue(IntMap.DamageType, IntMap.MapValue);
 
 			// Restore Natural Damage Resistances
-			for (FStDamageIntMap IntMap : _DamageResists_ )
-			{
-				VitalityComponent->SetTotalResistanceValue(IntMap.DamageEnum, IntMap.MapValue);
-			}
+			for (const FStVitalityDamageMap IntMap : CharacterData->BaseStats.DamageResistances)
+				VitalityStats->SetNaturalResistanceValue(IntMap.DamageType, IntMap.MapValue);
 
-			// Initialize System
-			VitalityComponent->InitSubsystems(true);
-
-			// Set current values
-			VitalityComponent->SetVitalityStat(EVitalityCategories::HEALTH,  100);
-			VitalityComponent->SetVitalityStat(EVitalityCategories::STAMINA, 100);
-			VitalityComponent->SetVitalityStat(EVitalityCategories::MAGIC,   100);
-			VitalityComponent->SetVitalityStat(EVitalityCategories::HUNGER,  100);
-			VitalityComponent->SetVitalityStat(EVitalityCategories::THIRST,  100);
+			
 		}
 		
 		UE_LOG(LogTemp, Display, TEXT("LoadSaveData(): Successfully restored character from Save Slot '%s'"),
@@ -527,10 +527,8 @@ void ACharacterBase::UpdateWeapon(EWeaponSlots WeaponSlot)
 	
 }
 
-void ACharacterBase::SpawnDamageText(AActor* DamageTaker, AActor* DamageInstigator, float DamageTaken)
+void ACharacterBase::SpawnDamageText(AActor* DamageInstigator, float DamageTaken)
 {
-	if (!IsValid(DamageTaker))
-		return;
 
 	// Do not run on dedicated server
 	const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
@@ -548,7 +546,7 @@ void ACharacterBase::SpawnDamageText(AActor* DamageTaker, AActor* DamageInstigat
 	if (!IsValid(DamageTextActor))
 		return;
 	
-	FTransform SpawnTransform(DamageTaker->GetActorLocation()
+	FTransform SpawnTransform(GetActorLocation()
 		+ FVector(
 			FMath::RandRange(32.f, 196.0f),
 			FMath::RandRange(32.f, 196.0f),
@@ -569,14 +567,14 @@ void ACharacterBase::SpawnDamageText(AActor* DamageTaker, AActor* DamageInstigat
 
 void ACharacterBase::CheckAbilityStart(FName AbilityName, float CastTime)
 {
-	const ECombatState CombatState = VitalityComponent->GetCombatState();
+	const ECombatState CombatState = VitalityWelfare->GetCombatState();
 	if (CombatState != ECombatState::ALERT && CombatState != ECombatState::ENGAGED)
 	{
 		// Check if ability requires focus
 		const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
 		if (AbilityData.bRequiresFocus)
 		{
-			VitalityComponent->SetCombatState(ECombatState::ALERT);
+			VitalityWelfare->SetCombatAlert();
 		}
 	}
 }
@@ -586,7 +584,7 @@ void ACharacterBase::CheckAbilitySuccess(FName AbilityName, bool WasSuccessful)
 	if (!WasSuccessful)
 		return;
 	
-	const ECombatState CombatState = VitalityComponent->GetCombatState();
+	const ECombatState CombatState = VitalityWelfare->GetCombatState();
 	if (CombatState != ECombatState::ENGAGED)
 	{
 		// Check if ability requires focus and is a detrimental ability
@@ -595,7 +593,7 @@ void ACharacterBase::CheckAbilitySuccess(FName AbilityName, bool WasSuccessful)
 		{
 			// If the character took hostile action towards another actor
 			if (IsValid(AbilityComponent->GetTargetedActor()))
-				VitalityComponent->SetCombatState(ECombatState::ENGAGED);
+				VitalityWelfare->SetCombatEngaged();
 		}
 	}
 }

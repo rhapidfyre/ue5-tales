@@ -44,9 +44,9 @@ void ANpcCharacterBase::ResetHateList(AActor* HatedActor)
 		_HateList.Empty();
 }
 
-void ANpcCharacterBase::RememberDamage(AActor* DamageTaker, AActor* DamagingActor, float DamageValue)
+void ANpcCharacterBase::RememberDamage(AActor* DamagingActor, float DamageValue)
 {
-	if (IsValid(DamageTaker) && IsValid(DamagingActor))
+	if (IsValid(DamagingActor))
 	{
 		if (!FMath::IsNearlyZero(DamageValue, 0.001f))
 		{
@@ -122,11 +122,11 @@ void ANpcCharacterBase::BeginPlay()
 	SetCharacterTeam(ECharacterTeam::ENEMY);
 	SetupLootTable();
 	
-	if (!VitalityComponent->OnDamageTaken.IsAlreadyBound(this, &ANpcCharacterBase::RememberDamage))
-		 VitalityComponent->OnDamageTaken.AddDynamic(this, &ANpcCharacterBase::RememberDamage);
+	if (!VitalityWelfare->OnDamageTaken.IsAlreadyBound(this, &ANpcCharacterBase::RememberDamage))
+		 VitalityWelfare->OnDamageTaken.AddDynamic(this, &ANpcCharacterBase::RememberDamage);
 	
-	if (!VitalityComponent->OnCombatStateChanged.IsAlreadyBound(this, &ANpcCharacterBase::CheckCombatState))
-		 VitalityComponent->OnCombatStateChanged.AddDynamic(this, &ANpcCharacterBase::CheckCombatState);
+	if (!VitalityWelfare->OnCombatStateChanged.IsAlreadyBound(this, &ANpcCharacterBase::CheckCombatState))
+		 VitalityWelfare->OnCombatStateChanged.AddDynamic(this, &ANpcCharacterBase::CheckCombatState);
 	
 }
 
@@ -195,8 +195,8 @@ void ANpcCharacterBase::SetupLootTable()
 	}
 
 	// Listen for the death event to spawn the loot
-	if (!VitalityComponent->OnDeath.IsAlreadyBound(this, &ANpcCharacterBase::DropLootTable))
-		 VitalityComponent->OnDeath.AddDynamic(this, &ANpcCharacterBase::DropLootTable);
+	if (!VitalityWelfare->OnDeath.IsAlreadyBound(this, &ANpcCharacterBase::DropLootTable))
+		 VitalityWelfare->OnDeath.AddDynamic(this, &ANpcCharacterBase::DropLootTable);
 	
 }
 

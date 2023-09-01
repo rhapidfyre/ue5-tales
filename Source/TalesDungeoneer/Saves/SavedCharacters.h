@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/SaveGame.h"
+#include "lib/VitalityData.h"
 #include "TalesDungeoneer/lib/enums/GlobalEnums.h"
 #include "TalesDungeoneer/Characters/Components/MeshMergeComponent.h"
 
@@ -60,6 +61,33 @@ public:
 	
 	UPROPERTY(VisibleAnywhere, Category = "Mesh Merge Save Data")
 	TArray < FSkelMeshMergeUVTransformMapping > UvTransformsPerMesh = {};
+
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Welfare Save Data") bool  UseHealthSubsystem = true;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Welfare Save Data")	bool  UseStaminaSubsystem = true;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Welfare Save Data")	bool  UseMagicSubsystem = true;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Welfare Save Data")	bool  UseSurvivalSubsystem = false;
+	
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Welfare Save Data")	float StartingHealthCurrent = 0.f;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Welfare Save Data")	float StartingHealthMaximum = 0.f;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Welfare Save Data")	float PassiveHealthRegen = 0.f;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Welfare Save Data")	float HealthTimerTickRate = 0.f;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Welfare Save Data")	float StartingStaminaCurrent = 0.f;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Welfare Save Data")	float StartingStaminaMaximum = 0.f;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Welfare Save Data")	float PassiveStaminaRegen = 0.f;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Welfare Save Data")	float StaminaTimerTickRate = 0.f;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Welfare Save Data")	float StartingMagicCurrent = 0.f;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Welfare Save Data")	float StartingMagicMaximum = 0.f;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Welfare Save Data")	float PassiveMagicRegen = 0.f;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Welfare Save Data")	float MagicTimerTickRate = 0.f;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Welfare Save Data")	float StartingHydrationCurrent = 0.f;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Welfare Save Data")	float StartingHungerCurrent = 0.f;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Welfare Save Data")	float StartingHydrationMaximum = 0.f;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Welfare Save Data")	float StartingHungerMaximum = 0.f;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Welfare Save Data")	float PassiveHydrationDrain = 0.f;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Welfare Save Data")	float PassiveHungerDrain = 0.f;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Welfare Save Data")	float HydrationTimerTickRate = 0.f;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Welfare Save Data")	float CaloriesTimerTickRate = 0.f;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Welfare Save Data") FStVitalityStats BaseStats;
 };
 
 /**

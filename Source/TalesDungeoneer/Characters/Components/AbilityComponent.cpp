@@ -655,9 +655,9 @@ void UAbilityComponent::SpawnEffectsActor(
 		StartCasting(AbilityName);
 
 		// Deductions for starting to cast
-		EffectInstigator->VitalityComponent->DamageHealth(EffectInstigator,   AbilityData.ConsumeHealth);
-		EffectInstigator->VitalityComponent->ConsumeMagic(EffectInstigator,   AbilityData.ConsumeMagic);
-		EffectInstigator->VitalityComponent->ConsumeStamina(EffectInstigator, AbilityData.ConsumeStamina);
+		EffectInstigator->VitalityWelfare->DamageHealth(EffectInstigator,  AbilityData.ConsumeHealth);
+		EffectInstigator->VitalityWelfare->DamageMagic(EffectInstigator,   AbilityData.ConsumeMagic);
+		EffectInstigator->VitalityWelfare->DamageStamina(EffectInstigator, AbilityData.ConsumeStamina);
 		
 		AbilityEffect->SetInstigator( GetOwner()->GetInstigator() );
 		AbilityEffect->SetAbilityComponent( this );

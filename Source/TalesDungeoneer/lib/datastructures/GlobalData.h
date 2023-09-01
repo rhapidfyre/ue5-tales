@@ -13,8 +13,8 @@ USTRUCT(BlueprintType)
 struct FStEquipmentItem
 {
 	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStCharacterStats StatBonuses = FStCharacterStats();
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStEquipmentData EquipmentData = FStEquipmentData();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStVitalityStats StatBonuses = {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStEquipmentData EquipmentData = {};
 };
 
 USTRUCT(BlueprintType)
@@ -22,14 +22,12 @@ struct FStCharacterRaces : public FTableRowBase
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) ECharacterRace RaceEnum = ECharacterRace::HUMAN;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) UTexture2D* RaceIcon = nullptr;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FString Description = "None";
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bSinglePlayerOnly = false;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStCharacterStats StatModifiers = FStCharacterStats();
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStDamageIntMap> DamageBonuses;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStDamageIntMap> NaturalResistances;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FText DisplayName = {};
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FName GameSafeName = {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) UTexture2D* RaceIcon	= nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FString Description		= "None";
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bSinglePlayerOnly	= false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStVitalityStats StatModifiers = {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FText DisplayName		= {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FName GameSafeName		= {};
 };
 
 USTRUCT(BlueprintType)
@@ -37,14 +35,12 @@ struct FStCharacterClasses : public FTableRowBase
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) ECharacterClass RaceEnum = ECharacterClass::WARRIOR;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) UTexture2D* ClassIcon = nullptr;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FString Description = {};
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bSinglePlayerOnly = false;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStCharacterStats StatModifiers = {};
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStDamageIntMap> DamageBonuses = {};
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStDamageIntMap> NaturalResistances = {};
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FText DisplayName = {};
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FName GameSafeName = {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) UTexture2D* ClassIcon	= nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FString Description		= {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bSinglePlayerOnly	= false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStVitalityStats StatModifiers = {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FText DisplayName		= {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FName GameSafeName		= {};
 };
 
 USTRUCT(BlueprintType)

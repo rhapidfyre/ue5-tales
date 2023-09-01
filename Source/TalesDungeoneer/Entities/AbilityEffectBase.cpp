@@ -322,9 +322,9 @@ void AAbilityEffectBase::ApplyEffectToTarget(ACharacterBase* OverrideCharacter)
 	for (FStAbilityDamageData DamageInfo : SpellData.DamageData)
 	{
 		// TODO - Damage Resistance & Bonuses
-		EffectTarget->VitalityComponent->ModifyVitalityStat(EVitalityCategories::HEALTH,  DamageInfo.ConsumeHealth);
-		EffectTarget->VitalityComponent->ModifyVitalityStat(EVitalityCategories::MAGIC,   DamageInfo.ConsumeMagic);
-		EffectTarget->VitalityComponent->ModifyVitalityStat(EVitalityCategories::STAMINA, DamageInfo.ConsumeStamina);
+		EffectTarget->VitalityWelfare->DamageHealth(GetOwner(),  DamageInfo.ConsumeHealth);
+		EffectTarget->VitalityWelfare->DamageMagic(GetOwner(),   DamageInfo.ConsumeMagic);
+		EffectTarget->VitalityWelfare->DamageStamina(GetOwner(), DamageInfo.ConsumeStamina);
 	}
 	// Apply effect to target actor
 	EffectTarget->AbilityComponent->ApplyEffect(InstigatingActor, _AbilityName);
@@ -416,9 +416,9 @@ void AAbilityEffectBase::AbilityComplete(bool WasSuccessful)
 	}
 
 	// Deductions for a successful cast
-	InstigatorPawn->VitalityComponent->DamageHealth(InstigatorPawn, _SpellData.HitpointsAffected);
-	InstigatorPawn->VitalityComponent->ConsumeMagic(InstigatorPawn, _SpellData.MagicPointsAffected);
-	InstigatorPawn->VitalityComponent->ConsumeStamina(InstigatorPawn, _SpellData.StaminaAffected);
+	InstigatorPawn->VitalityWelfare->DamageHealth(InstigatorPawn,  _SpellData.HitpointsAffected);
+	InstigatorPawn->VitalityWelfare->DamageMagic(InstigatorPawn,   _SpellData.MagicPointsAffected);
+	InstigatorPawn->VitalityWelfare->DamageStamina(InstigatorPawn, _SpellData.StaminaAffected);
 	
 	OnAbilityFinished.Broadcast(GetAbilityName(), WasSuccessful);
 	Destroy();

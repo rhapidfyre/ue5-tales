@@ -47,7 +47,7 @@ public: // functions
 	void ResetHateList(AActor* HatedActor = nullptr);
 
 	UFUNCTION(BlueprintPure) TMap<AActor*, float> GetHateList() const { return _HateList; }
-	UFUNCTION() void RememberDamage(AActor* DamageTaker, AActor* DamagingActor, float DamageValue);
+	UFUNCTION() void RememberDamage(AActor* DamagingActor, float DamageValue);
 
 	
 protected:

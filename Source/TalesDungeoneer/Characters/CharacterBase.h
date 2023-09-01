@@ -5,7 +5,10 @@
 #include "GameFramework/Character.h"
 
 #include "InventoryComponent.h"
-#include "VitalityComponent.h"
+
+#include "VitalityStatComponent.h"
+#include "VitalityWelfareComponent.h"
+#include "VitalityEffectsComponent.h"
 
 #include "Components/WeaponComponent.h"
 #include "Components/AbilityComponent.h"
@@ -208,7 +211,7 @@ private: // methods
 	void UpdateWeapon(EWeaponSlots WeaponSlot = EWeaponSlots::PRIMARY);
 
 	UFUNCTION()
-	void SpawnDamageText(AActor* DamageTaker, AActor* DamageInstigator, float DamageTaken);
+	void SpawnDamageText(AActor* DamageInstigator, float DamageTaken);
 
 	// Called when the character starts an ability.
 	// Checks if the ability should modify the combat state
@@ -263,8 +266,14 @@ public: // members
 	/** Character Inventory */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) UInventoryComponent* InventoryComponent;
 
-	/** Vitality Component */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) UVitalityComponent*	 VitalityComponent;
+	/** Vitality Welfare Component */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) UVitalityWelfareComponent*	VitalityWelfare;
+
+	/** Vitality Stats Component */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) UVitalityStatComponent*		VitalityStats;
+
+	/** Vitality Effects Component */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) UVitalityEffectsComponent*	VitalityEffects;
 
 	/** Weapon Component */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) UWeaponComponent*	 WeaponComponent;
