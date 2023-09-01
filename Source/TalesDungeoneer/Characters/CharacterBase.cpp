@@ -317,13 +317,14 @@ void ACharacterBase::LoadSaveData(const FString& SaveName,
 	const USavedCharacter* CharacterData = Cast<USavedCharacter>(SaveData);
 	if (IsValid(CharacterData))
 	{
+		// Set Character Persona Data
 		SetCharacterName(CharacterData->CharacterName);
 		SetCharacterLevel(CharacterData->CharacterLevel);
 		SetCharacterRace(CharacterData->CharacterRace);
 		SetCharacterClass(CharacterData->CharacterClass);
 		SetExperiencePoints(CharacterData->ExperiencePoints);
 
-		
+		// Restore Character Design
 		if (IsValid(MeshMergeComponent))
 		{
 			MeshMergeComponent->Skeleton				= CharacterData->Skeleton;			
@@ -382,9 +383,10 @@ void ACharacterBase::LoadSaveData(const FString& SaveName,
 			for (const FStVitalityDamageMap IntMap : CharacterData->BaseStats.DamageResistances)
 				VitalityStats->SetNaturalResistanceValue(IntMap.DamageType, IntMap.MapValue);
 
+			// Restore Active Effects
+			VitalityEffects->ReloadSettings(CharacterData->SavedEffects);
 			
 		}
-		
 		UE_LOG(LogTemp, Display, TEXT("LoadSaveData(): Successfully restored character from Save Slot '%s'"),
 			*SaveName);
 		CharacterRestoredFromSave(SaveName);

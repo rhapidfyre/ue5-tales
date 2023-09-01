@@ -2,6 +2,9 @@
 
 #include "TalesGameStateBase.h"
 #include "TalesDungeoneer/Saves/SavedCharacters.h"
+#include "VitalityStatComponent.h"
+#include "VitalityEffectsComponent.h"
+#include "VitalityWelfareComponent.h"
 
 #include "Kismet/GameplayStatics.h"
 
@@ -425,16 +428,63 @@ void ATalesGameStateBase::Helper_SetCharacterValues(
 	USavedCharacter* SavedCharacter = Cast<USavedCharacter>(SaveData);
 	if (IsValid(SavedCharacter))
 	{
+		// Set Character Persona Data
 		SavedCharacter->CharacterName  = CharacterBase->GetCharacterName();
 		SavedCharacter->CharacterLevel = CharacterBase->GetCharacterLevel();
 		SavedCharacter->CharacterClass = CharacterBase->GetCharacterClass();
 		SavedCharacter->CharacterRace  = CharacterBase->GetCharacterRace();
 		
+		// Save Mesh Mesh Data
 		SavedCharacter->Skeleton            = CharacterBase->MeshMergeComponent->Skeleton;
 		SavedCharacter->MeshSectionMappings = CharacterBase->MeshMergeComponent->MeshSectionMappings;
 		SavedCharacter->UvTransformsPerMesh = CharacterBase->MeshMergeComponent->UvTransformsPerMesh;
 		SavedCharacter->MeshesToMerge       = CharacterBase->MeshMergeComponent->MeshesToMerge;
 
+		// Save Vitality Data
+		const UVitalityWelfareComponent* VitalityWelfare = CharacterBase->VitalityWelfare;
+		if (IsValid(VitalityWelfare))
+		{
+			// Set initial values
+			SavedCharacter->UseHealthSubsystem			= VitalityWelfare->UseHealthSubsystem;
+			SavedCharacter->UseStaminaSubsystem			= VitalityWelfare->UseStaminaSubsystem;
+			SavedCharacter->UseMagicSubsystem			= VitalityWelfare->UseMagicSubsystem;
+			SavedCharacter->UseSurvivalSubsystem		= VitalityWelfare->UseSurvivalSubsystem;
+			SavedCharacter->StartingHealthCurrent		= VitalityWelfare->StartingHealthCurrent;
+			SavedCharacter->StartingHealthMaximum		= VitalityWelfare->StartingHealthMaximum;
+			SavedCharacter->PassiveHealthRegen			= VitalityWelfare->PassiveHealthRegen;
+			SavedCharacter->HealthTimerTickRate			= VitalityWelfare->HealthTimerTickRate;
+			SavedCharacter->StartingStaminaCurrent		= VitalityWelfare->StartingStaminaCurrent;
+			SavedCharacter->StartingStaminaMaximum		= VitalityWelfare->StartingStaminaMaximum;
+			SavedCharacter->PassiveStaminaRegen			= VitalityWelfare->PassiveStaminaRegen;
+			SavedCharacter->StaminaTimerTickRate		= VitalityWelfare->StaminaTimerTickRate;
+			SavedCharacter->StartingMagicCurrent		= VitalityWelfare->StartingMagicCurrent;
+			SavedCharacter->StartingMagicMaximum		= VitalityWelfare->StartingMagicMaximum;
+			SavedCharacter->PassiveMagicRegen			= VitalityWelfare->PassiveMagicRegen;
+			SavedCharacter->MagicTimerTickRate			= VitalityWelfare->MagicTimerTickRate;
+			SavedCharacter->StartingHydrationCurrent	= VitalityWelfare->StartingHydrationCurrent;
+			SavedCharacter->StartingHungerCurrent		= VitalityWelfare->StartingHungerCurrent;
+			SavedCharacter->StartingHydrationMaximum	= VitalityWelfare->StartingHydrationMaximum;
+			SavedCharacter->StartingHungerMaximum		= VitalityWelfare->StartingHungerMaximum;
+			SavedCharacter->PassiveHydrationDrain		= VitalityWelfare->PassiveHydrationDrain;
+			SavedCharacter->PassiveHungerDrain			= VitalityWelfare->PassiveHungerDrain;
+			SavedCharacter->HydrationTimerTickRate		= VitalityWelfare->HydrationTimerTickRate;
+			SavedCharacter->CaloriesTimerTickRate		= VitalityWelfare->CaloriesTimerTickRate;
+		}
+		
+		const UVitalityStatComponent* VitalityStats = CharacterBase->VitalityStats;
+		if (IsValid(VitalityStats))
+		{
+			// Restore Natural Stats
+			SavedCharacter->BaseStats = VitalityStats->GetAllNaturalStats();
+		}
+		
+		const UVitalityEffectsComponent* VitalityFx = CharacterBase->VitalityEffects;
+		if (IsValid(VitalityFx))
+		{
+			// Restore Natural Stats
+			SavedCharacter->SavedEffects = VitalityFx->GetAllActiveEffects();
+		}
+		
 		// Save the version of the game when this character was saved
 		SavedCharacter->SaveVersion    = UGlobalData::GetAppVersion();
 	}
