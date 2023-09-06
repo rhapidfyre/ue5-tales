@@ -100,6 +100,10 @@ public:
 	// Leave empty if the generated skeleton is OK.
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	USkeleton* Skeleton = nullptr;
+	
+	// The animation blueprint that will be used
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSubclassOf<UAnimInstance> AnimBlueprint = nullptr;
 
 private:
 	

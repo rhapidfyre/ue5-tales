@@ -17,6 +17,8 @@
 
 #include "Net/UnrealNetwork.h"
 #include "TalesDungeoneer/Entities/SimpleActors/FloatingTextBase.h"
+#include "TalesDungeoneer/Gamemode/BaseFiles/TalesGameStateBase.h"
+#include "TalesDungeoneer/Saves/StaticSaveData.h"
 
 
 // Sets default values
@@ -270,6 +272,13 @@ void ACharacterBase::BeginPlay()
 		}
 	}
 
+	// Reload Character Data
+	ATalesGameStateBase* TalesGameState = Cast<ATalesGameStateBase>(GetWorld()->GetGameState());
+	if (IsValid(TalesGameState))
+	{
+		TalesGameState->LoadCharacter(TalesGameState->GetSelectedCharacterSaveSlotName());
+	}
+
 	const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
 	if (IsValid(LocalPlayer))
 	{
@@ -309,6 +318,8 @@ void ACharacterBase::PostRegisterAllComponents()
 void ACharacterBase::CharacterRestoredFromSave(const FString SaveSlotName)
 {
 	OnCharacterRestored.Broadcast(SaveSlotName);
+	if (HasAuthority())
+		Client_CharacterRestored(SaveSlotName);
 }
 
 void ACharacterBase::LoadSaveData(const FString& SaveName,
@@ -501,6 +512,11 @@ void ACharacterBase::PostInitializeComponents()
 			UpdateWeapon(EWeaponSlots::SECONDARY);
 		}
 	}
+}
+
+void ACharacterBase::Client_CharacterRestored_Implementation(const FString& SaveSlotName)
+{
+	OnCharacterRestored.Broadcast(SaveSlotName);
 }
 
 void ACharacterBase::UpdateWeapon(EWeaponSlots WeaponSlot)

@@ -3,6 +3,8 @@
 
 #include "PlayerCharacterBase.h"
 
+#include "Kismet/GameplayStatics.h"
+#include "TalesDungeoneer/Gamemode/BaseFiles/TalesGameStateBase.h"
 #include "TalesDungeoneer/Saves/SavedCharacters.h"
 
 
@@ -18,5 +20,17 @@ void APlayerCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
 	SetCharacterTeam(ECharacterTeam::PLAYER);
+	const AGameStateBase* GameStateBase = GetWorld()->GetGameState();
+	const ATalesGameStateBase* TalesGameState = Cast<ATalesGameStateBase>(GameStateBase);
+	if (IsValid(TalesGameState))
+	{
+		const FString SaveSlotName = TalesGameState->GetSelectedCharacterSaveSlotName();
+		USavedCharacter* SavedCharacter = Cast<USavedCharacter>(
+			UGameplayStatics::LoadGameFromSlot(SaveSlotName, 0));
+		
+		if (IsValid(SavedCharacter))
+			LoadSaveData(SaveSlotName, 0, SavedCharacter);
+		
+	}
 	OnPlayerJoined.Broadcast();
 }

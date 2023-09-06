@@ -353,7 +353,7 @@ void ATalesGameStateBase::SetSelectedCharacter(int CharacterIndex)
 		_SelectedCharacter = CharacterIndex;
 		LoadCharacterAsync(GetSelectedCharacterSaveSlotName());
 	}
-	
+	SaveMetaData();
 	OnCharacterSelected.Broadcast(
 		GetSelectedCharacterSaveSlotName(),
 		GetSelectedCharacterIndex());
@@ -416,6 +416,7 @@ void ATalesGameStateBase::Helper_LoadSavedValues(const UGlobalSaveData* SaveMeta
 	{
 		_SavedCharacters	= SaveMeta->GetAllCharacterSaves();
 		_SelectedCharacter	= SaveMeta->GetSelectedCharacterIndex();
+		LoadCharacterAsync(SaveMeta->GetSelectedCharacterSaveSlotName());
 		OnCharacterSelected.Broadcast(
 			GetSelectedCharacterSaveSlotName(),
 			GetSelectedCharacterIndex());
@@ -429,10 +430,11 @@ void ATalesGameStateBase::Helper_SetCharacterValues(
 	if (IsValid(SavedCharacter))
 	{
 		// Set Character Persona Data
-		SavedCharacter->CharacterName  = CharacterBase->GetCharacterName();
-		SavedCharacter->CharacterLevel = CharacterBase->GetCharacterLevel();
-		SavedCharacter->CharacterClass = CharacterBase->GetCharacterClass();
-		SavedCharacter->CharacterRace  = CharacterBase->GetCharacterRace();
+		SavedCharacter->CharacterName  		= CharacterBase->GetCharacterName();
+		SavedCharacter->CharacterLevel 		= CharacterBase->GetCharacterLevel();
+		SavedCharacter->CharacterRace  		= CharacterBase->GetCharacterRace();
+		SavedCharacter->CharacterClass 		= CharacterBase->GetCharacterClass();
+		SavedCharacter->ExperiencePoints	= CharacterBase->GetExperiencePoints();
 		
 		// Save Mesh Mesh Data
 		SavedCharacter->Skeleton            = CharacterBase->MeshMergeComponent->Skeleton;

@@ -401,11 +401,12 @@ void UAbilityComponent::EndAbilityCooldown(FName AbilityName)
 	if (_AbilitiesOnCooldown.Contains(AbilityName))
 		_AbilitiesOnCooldown.Remove(AbilityName);
 	
-	if (GetOwner()->HasAuthority())
-	{
-		OnAbilityReady.Broadcast(AbilityName);
+	OnAbilityReady.Broadcast(AbilityName);
+	
+	// If this instance has authority and the player controller is NOT this controller
+	// then it is a dedicated server, or a client on the server machine.
+	if (GetWorld()->GetFirstPlayerController() != GetOwner()->GetInstigatorController())
 		Client_AbilityCooldown(AbilityName, false);
-	}
 	
 }
 
@@ -845,7 +846,11 @@ void UAbilityComponent::SetNoLongerCasting(FName AbilityName, bool WasSuccessful
 			FocusedAbility = FName();
 		
 		_AbilitiesOnCooldown.Add(AbilityName);
-		Client_AbilityCooldown(AbilityName, true);
+		
+		// If this instance has authority and the player controller is NOT this controller
+		// then it is a dedicated server, or a client on the server machine.
+		if (GetWorld()->GetFirstPlayerController() != GetOwner()->GetInstigatorController())
+			Client_AbilityCooldown(AbilityName, true);
 		
 		FTimerHandle ThrowAwayTimer;
 		FTimerDelegate CooldownDelegate;
@@ -979,8 +984,7 @@ void UAbilityComponent::Client_AbilityCooldown_Implementation(FName AbilityName,
 {
 	if (OnCooldown)
 		_AbilitiesOnCooldown.Add(AbilityName);
-	else
-		EndAbilityCooldown(AbilityName);
+	EndAbilityCooldown(AbilityName);
 }
 
 void UAbilityComponent::Client_StartCasting_Implementation(FName AbilityName)
@@ -1043,7 +1047,11 @@ bool UAbilityComponent::StopCasting(FName AbilityName, bool WasSuccessful)
 		SetIsCasting(AbilityName);
 		
 		_AbilitiesOnCooldown.Add(AbilityName);
-		Client_AbilityCooldown(AbilityName, true);
+
+		// If this instance has authority and the player controller is NOT this controller
+		// then it is a dedicated server, or a client on the server machine.
+		if (GetWorld()->GetFirstPlayerController() != GetOwner()->GetInstigatorController())
+			Client_AbilityCooldown(AbilityName, true);
 		
 		FTimerHandle ThrowAwayTimer;
 		FTimerDelegate CooldownDelegate;

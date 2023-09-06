@@ -206,6 +206,9 @@ protected: // functions
 	virtual void PostInitializeComponents() override;
 	
 private: // methods
+
+	UFUNCTION(Client, Reliable)
+	void Client_CharacterRestored(const FString& SaveSlotName);
 	
 	// Called when the equipment slot gets updated in InventoryComponent
 	void UpdateWeapon(EWeaponSlots WeaponSlot = EWeaponSlots::PRIMARY);

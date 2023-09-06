@@ -78,4 +78,10 @@ public:
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Maximum Character Level"), Category = "Game Config")
 		static int GetGameMaxCharacterLevel();
 
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Debug Build"), Category = "Game Config")
+		static bool GetGameIsInDebugMode()
+	{
+		return (UE_BUILD_DEBUG || UE_BUILD_DEVELOPMENT);
+	};
+
 };

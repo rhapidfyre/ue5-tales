@@ -127,9 +127,14 @@ bool UMeshMergeComponent::PerformMeshMerge()
 		UE_LOG(LogTemp, Warning, TEXT("Merge failed!"));
 		return nullptr;
 	}
-	if (Skeleton && !bSkeletonBefore)
+	if (IsValid(Skeleton) && !bSkeletonBefore)
 	{
 		BaseMesh->SetSkeleton(Skeleton);
+	}
+	if (IsValid(AnimBlueprint))
+	{
+		//CharacterBase->GetMesh()->SetAnimationMode(EAnimationMode::AnimationBlueprint);
+		CharacterBase->GetMesh()->SetAnimInstanceClass(AnimBlueprint);
 	}
 	if (bRunDuplicateCheck)
 	{
