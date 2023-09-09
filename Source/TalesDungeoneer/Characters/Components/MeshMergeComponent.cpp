@@ -46,11 +46,11 @@ UMeshMergeComponent::UMeshMergeComponent()
 
 bool UMeshMergeComponent::PerformMeshMerge()
 {
-	// System is not initialized, OR meshes array is empty
-	if (!bHasInitialized || MeshesToMerge.Num() < 1)
-	{
+	if (!bHasInitialized)
+		InitializeMeshMerge();
+	
+	if (MeshesToMerge.Num() < 1)
 		return true;
-	}
 	
 	if (!IsValid(GetOwner()))
 	{
@@ -173,7 +173,16 @@ bool UMeshMergeComponent::PerformMeshMerge()
 	if (IsValid(BaseMesh))
 	{
 		CharacterBase->GetMesh()->SetSkeletalMesh(BaseMesh);
-		UE_LOG(LogTemp, Display, TEXT("Merge SUCCESS!"));
+		
+		// Resets the overhead widget location based on the mesh size
+		if (IsValid(CharacterBase->OverheadWidget))
+		{
+			const FVector MeshBounds = BaseMesh->GetBounds().BoxExtent * 2;
+			CharacterBase->OverheadWidget->SetRelativeLocation(FVector(0.f));
+			CharacterBase->OverheadWidget->AddRelativeLocation(
+				FVector(0.f,0.f,MeshBounds.Z + CharacterBase->OverheadWidgetHeight), false);
+		}
+		
 		return true;
 	}
 	UE_LOG(LogTemp, Warning, TEXT("PerformMeshMerge() failed!"));

@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CharacterBase.h"
-#include "TalesDungeoneer/lib/datastructures/LootData.h"
+#include "Controllers/AiControllerBase.h"
 
 #include "NpcCharacterBase.generated.h"
 
@@ -23,38 +23,14 @@ public: // functions
 	// Where KEY(FName) is the item name and VALUE(float) is the chance (0-1)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) UDataTable* LootTable;
 
-	/**
-	 * @brief Adds hate points to the actor. For managing aggro.
-	 * @param HatedActor The actor to add hate towards
-	 * @param HatePoints How many hate points to add
-	 */
-	UFUNCTION(BlueprintCallable)
-	void AddHate(AActor* HatedActor, float HatePoints = 0);
-	
-	/**
-	 * @brief Removes hate points from the actor. For managing aggro.
-	 * @param HatedActor The actor to remove hate towards
-	 * @param HatePoints How many hate points to remove
-	 */
-	UFUNCTION(BlueprintCallable)
-	void RemoveHate(AActor* HatedActor, float HatePoints = 0);
-	
-	/**
-	 * @brief Removes an actor or all actors from the hate list
-	 * @param HatedActor The actor to remove. If nullptr, removes ALL actors.
-	 */
-	UFUNCTION(BlueprintCallable)
-	void ResetHateList(AActor* HatedActor = nullptr);
-
-	UFUNCTION(BlueprintPure) TMap<AActor*, float> GetHateList() const { return _HateList; }
-	UFUNCTION() void RememberDamage(AActor* DamagingActor, float DamageValue);
+	// Used to set the starting level for this NPC
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor Settings")
+	int StartingLevel = 1;
 
 	
 protected:
 	
 	virtual void BeginPlay() override;
-	
-	UFUNCTION() void CheckCombatState(ECombatState OldCombatState, ECombatState NewCombatState);
 
 	// Generates loot when the NPC begins play, instead of calculating on death.
 	// Avoids any lag spike or skip when the NPC dies
@@ -68,12 +44,11 @@ private:
 	void DropLootTable(AActor* MyKiller);
 
 	// The items to drop upon death (KEY = Item Name, VALUE = quantity)
-	UPROPERTY() TMap<FName, int> _DropLoot;
+	UPROPERTY() TMap<FName, int> _LootTable;
 
-	// List of all enemies who have "aggro" on this actor
-	UPROPERTY() TMap<AActor*, float> _HateList;
-
-	// List of all enemies who have damaged this actor during this engagement
-	UPROPERTY() TMap<AActor*, float> _DamagingActors;
+public:
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<AAiControllerBase> AiControllerBase = AAiControllerBase::StaticClass();
 	
 };

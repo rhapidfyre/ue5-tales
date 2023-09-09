@@ -18,7 +18,7 @@ UGlobalSaveData::UGlobalSaveData(TArray<FString> RestoredCharacters)
 }
 
 /**
- * @brief Sets the character names of the savegame object.
+ * @brief Sets the character names of the save game object.
  * @param RestoredCharacters The list of character names saved
  */
 void UGlobalSaveData::SetSavedCharacterNameList(TArray<FString> RestoredCharacters)

@@ -8,6 +8,10 @@
 
 #include "Kismet/GameplayStatics.h"
 
+bool ATalesGameStateBase::CheckIsServer() const
+{
+	return GetNetMode() < NM_Client;
+}
 
 FString GetCleanedSaveSlotString(FString UncleanedString)
 {
@@ -76,6 +80,7 @@ void ATalesGameStateBase::SaveMetaDataAsync() const
 
 void ATalesGameStateBase::RemoveSelectedCharacter()
 {
+	if (!CheckIsServer()) return;
 	if (_SavedCharacters.IsValidIndex( GetSelectedCharacterIndex() ))
 	{
 		const FString SaveSlotName = GetSelectedCharacterSaveSlotName();
@@ -92,6 +97,7 @@ void ATalesGameStateBase::RemoveSelectedCharacter()
 
 bool ATalesGameStateBase::SaveCharacterSync(const FString SaveSlotName)
 {
+	if (!CheckIsServer()) return false;
 	const ACharacterBase* CharacterBase = Cast<ACharacterBase>
 			( UGameplayStatics::GetPlayerCharacter(GetWorld(), 0) );
 	
@@ -116,6 +122,7 @@ bool ATalesGameStateBase::SaveCharacterSync(const FString SaveSlotName)
 
 void ATalesGameStateBase::SaveCharacterAsync(const FString SaveSlotName)
 {
+	if (!CheckIsServer())return;
 	const ACharacterBase* CharacterBase = Cast<ACharacterBase>
 			( UGameplayStatics::GetPlayerCharacter(GetWorld(), 0) );
 	
@@ -144,6 +151,7 @@ void ATalesGameStateBase::SaveCharacterAsync(const FString SaveSlotName)
 
 USaveGame* ATalesGameStateBase::GetSaveGameMeta() const
 {
+	if (!CheckIsServer()) return nullptr;
 	USaveGame* SavedMeta = Cast<USaveGame>(
 			UGameplayStatics::LoadGameFromSlot(_SaveMetaName,0));
 	if (IsValid(SavedMeta))
@@ -158,6 +166,7 @@ TArray<FString> ATalesGameStateBase::GetSavedCharacterSlotNames() const
 
 void ATalesGameStateBase::GetSavedCharacterDataAsync(FString SaveSlotName, ACharacterBase* PlayerCharacter)
 {
+	if (!CheckIsServer()) return;
 	FAsyncLoadGameFromSlotDelegate LoadDelegate;
 	LoadDelegate.BindUObject(PlayerCharacter, &ACharacterBase::LoadSaveData);
 	UGameplayStatics::AsyncLoadGameFromSlot(SaveSlotName, 0, LoadDelegate);
@@ -165,6 +174,7 @@ void ATalesGameStateBase::GetSavedCharacterDataAsync(FString SaveSlotName, AChar
 
 USavedCharacter* ATalesGameStateBase::GetSavedCharacterData(FString SaveSlotName)
 {
+	if (!CheckIsServer()) return nullptr;
 	if (!SaveSlotName.IsEmpty())
 	{
 		USaveGame* SaveGame = UGameplayStatics::LoadGameFromSlot(SaveSlotName, 0);
@@ -190,6 +200,7 @@ int ATalesGameStateBase::GetSelectedCharacterIndex() const
 
 void ATalesGameStateBase::SetSavedCharacterNameList(TArray<FString> RestoredCharacters)
 {
+	if (!CheckIsServer()) return;
 	_SavedCharacters = RestoredCharacters;
 }
 
@@ -208,6 +219,8 @@ void ATalesGameStateBase::BeginPlay()
 
 bool ATalesGameStateBase::SaveCurrentCharacter(FString& SaveResponse, bool RunAsync)
 {
+	if (!CheckIsServer())
+		return false;
 	SaveResponse = "Saving Character FAILED - Reason Unknown"; 
 	if (!bSaveMetaIsReady)
 	{
@@ -286,6 +299,8 @@ bool ATalesGameStateBase::LoadSaveGameMeta(bool LoadAsync)
  */
 bool ATalesGameStateBase::LoadCharacter(FString SaveSlotName, bool LoadAsync)
 {
+	if (!CheckIsServer())
+		return false;
 	if (SaveSlotName.IsEmpty())
 		SaveSlotName = GetSelectedCharacterSaveSlotName();
 	
@@ -303,6 +318,8 @@ bool ATalesGameStateBase::LoadCharacter(FString SaveSlotName, bool LoadAsync)
 void ATalesGameStateBase::CharacterSaveLoaded(
 		const FString& SlotName, const int32 UserIndex, USaveGame* LoadedGameData)
 {
+	if (!CheckIsServer())
+		return;
 	const USavedCharacter* SavedCharacter = Cast<USavedCharacter>( LoadedGameData );
 	if (!IsValid(LoadedGameData))
 	{
@@ -325,6 +342,8 @@ void ATalesGameStateBase::CharacterSaveLoaded(
 void ATalesGameStateBase::SaveGameMetaLoaded(
 		const FString& SlotName, const int32 UserIndex, USaveGame* LoadedGameData)
 {
+	if (!CheckIsServer())
+		return;
 	const UGlobalSaveData* SaveMeta = Cast<UGlobalSaveData>( LoadedGameData );
 	if (!IsValid(LoadedGameData))
 	{
@@ -403,6 +422,7 @@ int ATalesGameStateBase::GetLastCharacterIndex() const
 
 void ATalesGameStateBase::Helper_SetSaveValues(UGlobalSaveData* SaveMeta) const
 {
+	if (!CheckIsServer()) return;
 	if (IsValid(SaveMeta))
 	{
 		SaveMeta->SetSavedCharacterNameList(_SavedCharacters);
@@ -412,6 +432,7 @@ void ATalesGameStateBase::Helper_SetSaveValues(UGlobalSaveData* SaveMeta) const
 
 void ATalesGameStateBase::Helper_LoadSavedValues(const UGlobalSaveData* SaveMeta)
 {
+	if (!CheckIsServer()) return;
 	if (IsValid(SaveMeta))
 	{
 		_SavedCharacters	= SaveMeta->GetAllCharacterSaves();
@@ -426,6 +447,8 @@ void ATalesGameStateBase::Helper_LoadSavedValues(const UGlobalSaveData* SaveMeta
 void ATalesGameStateBase::Helper_SetCharacterValues(
 	const ACharacterBase* CharacterBase, USaveGame* SaveData) const
 {
+	if (!CheckIsServer()) return;
+	
 	USavedCharacter* SavedCharacter = Cast<USavedCharacter>(SaveData);
 	if (IsValid(SavedCharacter))
 	{
@@ -494,12 +517,14 @@ void ATalesGameStateBase::Helper_SetCharacterValues(
 
 void ATalesGameStateBase::Helper_LoadCharacterValues(const FString SaveSlotName)
 {
+	if (!CheckIsServer()) return;
 	USavedCharacter* SavedCharacter = GetSavedCharacterData(SaveSlotName);
 	if (IsValid(SavedCharacter))
 	{
 		ACharacterBase* CharacterBase = Cast<ACharacterBase>
 				( UGameplayStatics::GetPlayerCharacter(GetWorld(), 0) );
-		CharacterBase->LoadSaveData(SaveSlotName, 0, SavedCharacter);
+		if (IsValid(CharacterBase))
+			CharacterBase->LoadSaveData(SaveSlotName, 0, SavedCharacter);
 	}
 }
 

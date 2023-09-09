@@ -31,7 +31,8 @@ class TALESDUNGEONEER_API ATalesGameStateBase : public AGameStateBase
 	GENERATED_BODY()
 	
 public: // methods
-	
+
+	bool CheckIsServer() const;
 	ATalesGameStateBase();
 
 	/**

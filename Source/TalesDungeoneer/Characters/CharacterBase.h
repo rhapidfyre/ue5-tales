@@ -171,6 +171,8 @@ protected: // functions
 	virtual void PostRegisterAllComponents() override;
 
 	virtual void CharacterRestoredFromSave(const FString SaveSlotName);
+
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 	
 	virtual void Tick(float DeltaTime) override;
 
@@ -307,15 +309,19 @@ public: // members
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
 	TArray<FStCharacterParts> BodyData;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float OverheadWidgetHeight = 32.f;
 	
 private:
 
 	
 	UPROPERTY(Replicated) ECharacterTeam _CharacterTeam = ECharacterTeam::SPECTATOR;
-	UFUNCTION(Client, Reliable) void OnRep_CharacterLevel(int OldLevel);
+	
+	UFUNCTION(NetMulticast, Reliable) void OnRep_CharacterLevel(int OldLevel);
 	UPROPERTY(Replicated, ReplicatedUsing=OnRep_CharacterLevel) int _CharacterLevel = 1;
 
-	UFUNCTION(Client, Reliable) void OnRep_ExperienceChanged();
+	UFUNCTION(Client, Reliable) void OnRep_ExperienceChanged(float OldExperience);
 	UPROPERTY(Replicated, ReplicatedUsing=OnRep_ExperienceChanged) float _ExperiencePoints = 0.f;
 	
 	UPROPERTY(Replicated) ECharacterClass _CharacterClass	= ECharacterClass::WARRIOR;

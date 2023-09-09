@@ -83,8 +83,7 @@ ACharacterBase::ACharacterBase()
 	
 	OverheadWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("OverheadWidget"));
 	OverheadWidget->bOwnerNoSee = true;
-	
-	
+	OverheadWidget->SetupAttachment(GetMesh(), FName("root"));
 }
 
 void ACharacterBase::ToggleWeapon(EWeaponSlots WeaponSlot,
@@ -123,16 +122,10 @@ void ACharacterBase::StopBlocking()
 void ACharacterBase::SetCharacterLevel(int NewLevel)
 {
 	const int OldLevel = _CharacterLevel;
-	if (OldLevel != _CharacterLevel)
+	if (OldLevel != NewLevel)
 	{
 		_CharacterLevel = NewLevel;
 		_ExperiencePoints = 0.f;
-		
-		if (_CharacterLevel > OldLevel)
-		{
-			OnCharacterLevelUp.Broadcast(_CharacterLevel);
-		}
-		
 	}
 }
 
@@ -155,36 +148,21 @@ void ACharacterBase::SetExperiencePoints(float NewValue)
 
 void ACharacterBase::AddExperiencePoints(float AddValue)
 {
+	// Only execute on the server, or when playing standalone
+	if (GetNetMode() >= NM_Client) return;
+	
 	const float NewValue = _ExperiencePoints + FMath::Abs(AddValue);
 	const float NextLevel = GetExperienceNeeded();
-	
-	FTransform SpawnTransform(GetActorLocation()
-		+ FVector(
-			FMath::RandRange(32.f, 196.0f),
-			FMath::RandRange(32.f, 196.0f),
-			FMath::RandRange(32.f, 196.0f))
-	);
-	
-	AFloatingTextBase* FloatText = GetWorld()->SpawnActor<AFloatingTextBase>(
-		DamageTextActor, SpawnTransform);
-
-	if (IsValid(FloatText))
-	{
-		FloatText->TextShown = "+ " + FString::SanitizeFloat(AddValue) + " XP";
-		FloatText->TextColor = FLinearColor::Blue;
-		FloatText->SecondsToShow = 3.f;
-		FloatText->UpdateFloatingText();
-	}
-	
+		
 	if (NewValue >= NextLevel)
 	{
 		if (_CharacterLevel < UGlobalData::GetGameMaxCharacterLevel())
 		{
 			_CharacterLevel += 1;
-			_ExperiencePoints = 0.f;
+			_ExperiencePoints = NewValue/NextLevel;
+			
 			AbilityComponent->AddUnlockPoints( UnlockPointsOnLevelUp );
-			OnCharacterLevelUp.Broadcast(_CharacterLevel);
-			FTransform LevelUpSpawnTransform(GetActorLocation()
+			const FTransform LevelUpSpawnTransform(GetActorLocation()
 				+ FVector(
 					FMath::RandRange(32.f, 196.0f),
 					FMath::RandRange(32.f, 196.0f),
@@ -194,17 +172,38 @@ void ACharacterBase::AddExperiencePoints(float AddValue)
 			AFloatingTextBase* LevelUpText = GetWorld()->SpawnActor<AFloatingTextBase>(
 				DamageTextActor, LevelUpSpawnTransform);
 
-			if (IsValid(FloatText))
+			if (IsValid(LevelUpText))
 			{
 				LevelUpText->TextShown = "LEVEL UP";
 				LevelUpText->TextColor = FLinearColor::Yellow;
 				LevelUpText->SecondsToShow = 3.f;
 				LevelUpText->UpdateFloatingText();
 			}
-			return;
+			OnExperienceChanged.Broadcast();
 		}
+		return;
 	}
+
+	const FTransform SpawnTransform(GetActorLocation()
+		+ FVector(
+			FMath::RandRange(32.f, 196.0f),
+			FMath::RandRange(32.f, 196.0f),
+			FMath::RandRange(32.f, 196.0f))
+	);
+	
+	AFloatingTextBase* FloatText = GetWorld()->SpawnActor<AFloatingTextBase>(
+		DamageTextActor, SpawnTransform);
+	
+	if (IsValid(FloatText))
+	{
+		FloatText->TextShown = "+ " + FString::FromInt(FMath::RoundToInt(AddValue)) + " XP";
+		FloatText->TextColor = FLinearColor::Blue;
+		FloatText->SecondsToShow = 3.f;
+		FloatText->UpdateFloatingText();
+	}
+	
 	_ExperiencePoints = NewValue > NextLevel ? NextLevel : NewValue;
+	OnExperienceChanged.Broadcast();
 }
 
 
@@ -292,7 +291,7 @@ void ACharacterBase::BeginPlay()
 
 	// When an ability is finished, check if Combat State should change
 	if (!AbilityComponent->OnAbilityCastComplete.IsAlreadyBound(this, &ACharacterBase::CheckAbilitySuccess))
-		 AbilityComponent->OnAbilityCastComplete.AddDynamic(this, &ACharacterBase::CheckAbilitySuccess);
+		AbilityComponent->OnAbilityCastComplete.AddDynamic(this, &ACharacterBase::CheckAbilitySuccess);
 }
 
 
@@ -320,6 +319,24 @@ void ACharacterBase::CharacterRestoredFromSave(const FString SaveSlotName)
 	OnCharacterRestored.Broadcast(SaveSlotName);
 	if (HasAuthority())
 		Client_CharacterRestored(SaveSlotName);
+}
+
+void ACharacterBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	if (GetNetMode() < NM_Client)
+	{
+		if (IsValid(GetWorld()))
+		{
+			ATalesGameStateBase* TalesGameState = Cast<ATalesGameStateBase>(GetWorld()->GetGameState());
+			if (IsValid(TalesGameState))
+			{
+				FString SaveResponse;
+				TalesGameState->SaveCurrentCharacter(SaveResponse, false);
+				UE_LOG(LogTemp, Display, TEXT("Character Save: %s"), *SaveResponse);
+			}
+		}
+	}
+	Super::EndPlay(EndPlayReason);
 }
 
 void ACharacterBase::LoadSaveData(const FString& SaveName,
@@ -618,11 +635,13 @@ void ACharacterBase::CheckAbilitySuccess(FName AbilityName, bool WasSuccessful)
 
 void ACharacterBase::OnRep_CharacterLevel_Implementation(int OldLevel)
 {
-	if (OldLevel < _CharacterLevel)
-		OnCharacterLevelUp.Broadcast(_CharacterLevel);
+	const int NewLevel = GetCharacterLevel();
+	if (OldLevel < NewLevel)
+		OnCharacterLevelUp.Broadcast(NewLevel);
+	OnCharacterLevelChanged.Broadcast();
 }
 
-void ACharacterBase::OnRep_ExperienceChanged_Implementation()
+void ACharacterBase::OnRep_ExperienceChanged_Implementation(float OldExperience)
 {
 	OnExperienceChanged.Broadcast();
 }
