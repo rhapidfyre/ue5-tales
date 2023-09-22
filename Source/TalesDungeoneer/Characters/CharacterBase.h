@@ -9,6 +9,8 @@
 #include "VitalityStatComponent.h"
 #include "VitalityWelfareComponent.h"
 #include "VitalityEffectsComponent.h"
+#include "Perception/AIPerceptionStimuliSourceComponent.h"
+#include "Perception/AISense_Sight.h"
 
 #include "Components/WeaponComponent.h"
 #include "Components/AbilityComponent.h"
@@ -312,6 +314,9 @@ public: // members
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float OverheadWidgetHeight = 32.f;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UAIPerceptionStimuliSourceComponent* AiStimuli = nullptr;
 	
 private:
 

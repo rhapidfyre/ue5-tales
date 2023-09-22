@@ -1071,6 +1071,15 @@ bool UAbilityComponent::StopCasting(FName AbilityName, bool WasSuccessful)
 	return true;
 }
 
+void UAbilityComponent::SetUnlockPoints(int UnlockPoints)
+{
+	if (GetOwner()->HasAuthority())
+	{
+		_UnlockPoints = abs(UnlockPoints);
+		OnUnlockPointsChanged.Broadcast(_UnlockPoints);
+	}
+}
+
 void UAbilityComponent::Client_AddKnownAbility_Implementation(FName AbilityName)
 {
 	bool isAlreadySet = false;

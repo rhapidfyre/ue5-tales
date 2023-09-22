@@ -4,8 +4,11 @@
 
 #include "CharacterBase.h"
 #include "Controllers/AiControllerBase.h"
+#include "Delegates/Delegate.h"
 
 #include "NpcCharacterBase.generated.h"
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPatrolStatusChanged, bool, IsPatrollingNpc);
 
 /**
  * Player Character Base is the base C++ class for all logic, methods and members that affect all
@@ -20,13 +23,11 @@ public: // functions
 	
 	ANpcCharacterBase();
 
-	// Where KEY(FName) is the item name and VALUE(float) is the chance (0-1)
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) UDataTable* LootTable;
+	UFUNCTION(BlueprintPure) bool GetNpcIsPatroller() const { return bIsPatrollingNpc; }
 
-	// Used to set the starting level for this NPC
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor Settings")
-	int StartingLevel = 1;
+	UFUNCTION(BlueprintCallable) void SetNpcAsPatroller(bool NewTruthValue = true);
 
+	UFUNCTION(BlueprintPure) float GetDistanceFromOriginPoint() const;
 	
 protected:
 	
@@ -38,6 +39,24 @@ protected:
 
 	virtual void OnConstruction(const FTransform& Transform) override;
 
+
+public:
+
+	UPROPERTY(BlueprintAssignable) FOnPatrolStatusChanged OnPatrolStatusChanged;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<AAiControllerBase> AiControllerBase = AAiControllerBase::StaticClass();
+
+	// Where KEY(FName) is the item name and VALUE(float) is the chance (0-1)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) UDataTable* LootTable = nullptr;
+
+	// Used to set the starting level for this NPC
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor Settings")
+	int StartingLevel = 1;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor Settings")
+	bool bNpcPatrolsWhenIdle = false;
+	
 private:
 
 	UFUNCTION()
@@ -46,9 +65,9 @@ private:
 	// The items to drop upon death (KEY = Item Name, VALUE = quantity)
 	UPROPERTY() TMap<FName, int> _LootTable;
 
-public:
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<AAiControllerBase> AiControllerBase = AAiControllerBase::StaticClass();
+	bool bIsPatrollingNpc = false;
+
+	// The coordinates where this NPC spawned
+	FVector _SpawnOrigin = FVector(0.f);
 	
 };

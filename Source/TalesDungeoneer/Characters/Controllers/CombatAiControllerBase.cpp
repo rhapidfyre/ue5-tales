@@ -139,9 +139,41 @@ void ACombatAiControllerBase::CheckCombatState(
 	
 }
 
+void ACombatAiControllerBase::PerceptionUpdated_Implementation(AActor* StimulusActor, FAIStimulus StimulusData)
+{
+	
+}
+
+/**
+ * @brief Checks if the supplied target is on this actors hate list
+ * @param TargetActor The actor being tested
+ * @return True if the target is on the hate list (has aggro)
+ */
+bool ACombatAiControllerBase::IsTargetOnHateList(AActor* TargetActor)
+{
+	const ACharacterBase* CharacterBase = Cast<ACharacterBase>(TargetActor);
+	if (IsValid(CharacterBase))
+		return _HateList.Find(CharacterBase) != nullptr;
+	return false;
+}
+
+/**
+ * @brief Checks if the supplied target is being perceived by this ai
+ * @param TargetActor The actor being tested
+ * @return True if the target is currently being detected by this ai
+ */
+bool ACombatAiControllerBase::IsTargetValid(AActor* TargetActor)
+{
+	const ACharacterBase* CharacterBase = Cast<ACharacterBase>(TargetActor);
+	if (IsValid(CharacterBase))
+		return _ValidTargets.Find(CharacterBase) != nullptr;
+	return false;
+}
+
 void ACombatAiControllerBase::BeginPlay()
 {
 	Super::BeginPlay();
+	
 	CharacterReference = Cast<ANpcCharacterBase>(GetPawn());
 	if (IsValid(CharacterReference))
 	{
@@ -155,9 +187,47 @@ void ACombatAiControllerBase::BeginPlay()
 				VitalityWelfare->OnCombatStateChanged.AddDynamic(this, &ACombatAiControllerBase::CheckCombatState);
 		}
 	}
+
+	if (IsValid(AiPerception))
+	{
+		if (!AiPerception->OnTargetPerceptionUpdated.IsAlreadyBound(this, &ACombatAiControllerBase::TargetPerception))
+			 AiPerception->OnTargetPerceptionUpdated.AddDynamic(this, &ACombatAiControllerBase::TargetPerception);
+	}
 }
 
 void ACombatAiControllerBase::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
+}
+
+void ACombatAiControllerBase::TargetPerception(AActor* StimulusActor, FAIStimulus StimulusData)
+{
+	
+	// Add sensed characters to the target list
+	ACharacterBase* StimulusTarget = Cast<ACharacterBase>(StimulusActor);
+	if (!IsValid(StimulusTarget))
+		return;
+	
+	if (StimulusData.WasSuccessfullySensed())
+	{
+		if (!_ValidTargets.Contains(StimulusTarget))
+		{
+			_ValidTargets.Add(StimulusTarget);
+			UE_LOG(LogTemp, Display, TEXT("%s is now tracking %s for a total of %d targets"),
+				*GetName(), *StimulusTarget->GetName(), _ValidTargets.Num());
+		}
+	}
+	else
+	{
+		if (_ValidTargets.Contains(StimulusTarget))
+		{
+			_ValidTargets.Remove(StimulusTarget);
+			UE_LOG(LogTemp, Display, TEXT("%s is no longer tracking %s for a total of %d targets"),
+				*GetName(), *StimulusTarget->GetName(), _ValidTargets.Num());
+		}
+	}
+	
+	// Let other functions/blueprints execute
+	PerceptionUpdated(StimulusActor, StimulusData);
+	
 }

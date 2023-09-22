@@ -164,7 +164,7 @@ public:
 	UFUNCTION(Server, Reliable, BlueprintCallable) void Server_RequestAbilityRemove(FName AbilityName);
 	UFUNCTION(Server, Reliable, BlueprintCallable) void Server_RequestAbilityReset();
 
-	UFUNCTION(BlueprintPure) int GetNumberOfUnlockPointsAvailable() const { return _UnlockPoints; }
+	UFUNCTION(BlueprintPure) int GetNumberOfUnlockPoints() const { return _UnlockPoints; }
 	UFUNCTION(BlueprintCallable) void AddUnlockPoints(int NumPoints = 1);
 	UFUNCTION(BlueprintCallable) void RemoveUnlockPoints(int NumPoints = 1);
 
@@ -176,6 +176,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	bool IsAbilityInProgress(FName AbilityName) const { return _AbilitiesInProgress.Contains(AbilityName); }
+
+	UFUNCTION(BlueprintCallable)
+	void SetUnlockPoints(int UnlockPoints = 0);
 	
 protected:
 	

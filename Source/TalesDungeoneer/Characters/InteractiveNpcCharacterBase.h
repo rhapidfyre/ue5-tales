@@ -20,6 +20,9 @@ public:
 	// Sets default values for this actor's properties
 	AInteractiveNpcCharacterBase();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bCanBeTargetedByCombatants = false;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

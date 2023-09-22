@@ -496,6 +496,9 @@ void ATalesGameStateBase::Helper_SetCharacterValues(
 			SavedCharacter->CaloriesTimerTickRate		= VitalityWelfare->CaloriesTimerTickRate;
 		}
 		
+		if (IsValid(CharacterBase->AbilityComponent))
+			SavedCharacter->UnlockPointsAvailable = CharacterBase->AbilityComponent->GetNumberOfUnlockPoints(); 
+		
 		const UVitalityStatComponent* VitalityStats = CharacterBase->VitalityStats;
 		if (IsValid(VitalityStats))
 		{

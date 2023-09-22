@@ -18,7 +18,6 @@
 #include "Net/UnrealNetwork.h"
 #include "TalesDungeoneer/Entities/SimpleActors/FloatingTextBase.h"
 #include "TalesDungeoneer/Gamemode/BaseFiles/TalesGameStateBase.h"
-#include "TalesDungeoneer/Saves/StaticSaveData.h"
 
 
 // Sets default values
@@ -76,10 +75,15 @@ ACharacterBase::ACharacterBase()
 			<UWeaponComponent>(TEXT("WeaponComponent"));
 	
 	AbilityComponent = CreateDefaultSubobject
-	<UAbilityComponent>(TEXT("AbilityComponent"));
+		<UAbilityComponent>(TEXT("AbilityComponent"));
 	
 	MeshMergeComponent = CreateDefaultSubobject
 		<UMeshMergeComponent>(TEXT("MeshMergeComponent"));
+	
+	
+	if (!IsValid(AiStimuli))
+		AiStimuli = CreateDefaultSubobject<UAIPerceptionStimuliSourceComponent>("AiStimuli");
+	AiStimuli->bAutoRegister = true;
 	
 	OverheadWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("OverheadWidget"));
 	OverheadWidget->bOwnerNoSee = true;
@@ -297,21 +301,18 @@ void ACharacterBase::BeginPlay()
 
 void ACharacterBase::OnConstruction(const FTransform& Transform)
 {
-	
-	// Setup character with default values
-	
+	AiStimuli->RegisterForSense(UAISense_Sight::StaticClass());
+	AiStimuli->RegisterWithPerceptionSystem();
 }
 
 void ACharacterBase::PostRegisterAllComponents()
 {
 	Super::PostRegisterAllComponents();
-	
 	// If the mesh merge component isn't ready, run first time setup
 	//if (!MeshMergeComponent->GetIsMeshMergeSystemReady())
 	//{
 		//MeshMergeComponent->InitializeMeshMerge();
 	//};
-	
 }
 
 void ACharacterBase::CharacterRestoredFromSave(const FString SaveSlotName)
@@ -402,6 +403,8 @@ void ACharacterBase::LoadSaveData(const FString& SaveName,
 			VitalityStats->SetNaturalCoreStat(EVitalityStat::ASTUTENESS,100);
 			VitalityStats->SetNaturalCoreStat(EVitalityStat::CHARISMA,  100);
 			VitalityStats->ReloadSettings();
+
+			AbilityComponent->SetUnlockPoints(CharacterData->UnlockPointsAvailable);
 
 			// Restore Natural Damage Bonuses
 			for (const FStVitalityDamageMap IntMap : CharacterData->BaseStats.DamageBonuses)

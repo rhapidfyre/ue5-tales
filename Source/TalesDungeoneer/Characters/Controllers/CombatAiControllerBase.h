@@ -38,16 +38,24 @@ public:
 	UFUNCTION(BlueprintPure) TMap<ACharacterBase*, float> GetHateList() const { return _HateList; }
 	
 	UFUNCTION(BlueprintCallable) void RememberDamage(AActor* DamagingActor, float DamageValue);
+
+	UFUNCTION(BlueprintNativeEvent) void PerceptionUpdated(AActor* StimulusActor, FAIStimulus StimulusData);
+
+	UFUNCTION(BlueprintPure) bool IsTargetOnHateList(AActor* TargetActor);
 	
-private:
-	
-	UFUNCTION() void CheckCombatState(ECombatState OldCombatState, ECombatState NewCombatState);
+	UFUNCTION(BlueprintPure) bool IsTargetValid(AActor* TargetActor);
 	
 protected:
 	
 	virtual void BeginPlay() override;
 
 	virtual void Tick(float DeltaSeconds) override;
+	
+	UFUNCTION() void TargetPerception(AActor* StimulusActor, FAIStimulus StimulusData);
+	
+private:
+	
+	UFUNCTION() void CheckCombatState(ECombatState OldCombatState, ECombatState NewCombatState);
 
 public:
 	
@@ -55,6 +63,9 @@ public:
 	ECharacterTeam AiTeam = ECharacterTeam::ENEMY;
 	
 private:
+	
+	// Keeps a list of all targets this NPC can perceive & respond to
+	UPROPERTY() TSet<ACharacterBase*> _ValidTargets;
 	
 	// Keeps a list of all hated targets by this AI
 	// The current target is the actor with the highest value

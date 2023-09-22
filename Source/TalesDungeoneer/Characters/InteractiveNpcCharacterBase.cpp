@@ -3,6 +3,8 @@
 
 #include "InteractiveNpcCharacterBase.h"
 
+#include "Perception/AISense_Sight.h"
+
 
 // Sets default values
 AInteractiveNpcCharacterBase::AInteractiveNpcCharacterBase()
@@ -15,7 +17,12 @@ AInteractiveNpcCharacterBase::AInteractiveNpcCharacterBase()
 void AInteractiveNpcCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	if (!bCanBeTargetedByCombatants)
+	{
+		AiStimuli->UnregisterFromSense(UAISense_Sight::StaticClass());
+		AiStimuli->UnregisterFromPerceptionSystem();
+		AiStimuli->Deactivate();
+	}
 }
 
 // Called every frame

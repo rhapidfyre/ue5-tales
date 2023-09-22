@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "AiController.h"
 #include "Perception/AIPerceptionStimuliSourceComponent.h"
+#include "BehaviorTree/BehaviorTree.h"
 #include "Perception/AIPerceptionComponent.h"
 
 #include "AiControllerBase.generated.h"
@@ -19,6 +20,8 @@ public:
 
 	AAiControllerBase();
 
+	UFUNCTION(BlueprintPure) bool GetAiShouldPatrol() const { return _PatrolArea; }
+
 protected:
 	
 	virtual void BeginPlay() override;
@@ -32,20 +35,21 @@ protected:
 public:
 	
 	// Sets the behavior tree this Ai Controller will use
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UBehaviorTree* BehaviorTree = nullptr;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	UAIPerceptionComponent* AiPerception = nullptr;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	UAIPerceptionStimuliSourceComponent* AiStimuli = nullptr;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Ai Settings")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ai Settings")
 	float GainSightRadius = 1024.f;
 	
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Ai Settings")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ai Settings")
 	float LoseSightRadius = 2048.f;
+
+private:
+
+	bool _PatrolArea = false;
 	
 	
 };

@@ -16,6 +16,18 @@ ANpcCharacterBase::ANpcCharacterBase()
 	bReplicates = true;
 }
 
+void ANpcCharacterBase::SetNpcAsPatroller(bool NewTruthValue)
+{
+	bNpcPatrolsWhenIdle = NewTruthValue;
+	bIsPatrollingNpc = NewTruthValue;
+	OnPatrolStatusChanged.Broadcast(bIsPatrollingNpc);
+}
+
+float ANpcCharacterBase::GetDistanceFromOriginPoint() const
+{
+	return (GetActorLocation() - _SpawnOrigin).SquaredLength();
+}
+
 void ANpcCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
@@ -24,6 +36,7 @@ void ANpcCharacterBase::BeginPlay()
 	SetCharacterTeam(ECharacterTeam::ENEMY);
 	SetCharacterLevel(StartingLevel);
 	SetupLootTable();
+	SetNpcAsPatroller(bNpcPatrolsWhenIdle);
 }
 
 void ANpcCharacterBase::SetupLootTable()
@@ -99,6 +112,9 @@ void ANpcCharacterBase::OnConstruction(const FTransform& Transform)
 	// Update the pawn controller with the custom controller
 	if (IsValid(AiControllerBase))
 		AIControllerClass = AiControllerBase;
+	
+	bIsPatrollingNpc = bNpcPatrolsWhenIdle;
+	
 }
 
 /**

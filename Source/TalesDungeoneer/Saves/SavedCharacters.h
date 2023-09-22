@@ -90,6 +90,9 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Vitality Save Data")	float CaloriesTimerTickRate = 0.f;
 	UPROPERTY(VisibleAnywhere, Category = "Vitality Save Data") FStVitalityStats BaseStats;
 	UPROPERTY(VisibleAnywhere, Category = "Vitality Save Data") TArray<FStVitalityEffects> SavedEffects;
+
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Save Data") int UnlockPointsAvailable = 0;
+	
 };
 
 /**
