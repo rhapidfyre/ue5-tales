@@ -8,6 +8,9 @@
 
 #include "GlobalData.generated.h"
 
+struct FStMeshMergeData;
+struct FStStartingItem;
+
 // Combines both the InventorySystem and VitalitySystem
 USTRUCT(BlueprintType)
 struct FStEquipmentItem
@@ -15,6 +18,44 @@ struct FStEquipmentItem
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStVitalityStats StatBonuses = {};
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStEquipmentData EquipmentData = {};
+};
+
+USTRUCT(BlueprintType)
+struct FStFactionDataMap
+{
+	GENERATED_BODY()
+	FStFactionDataMap() {};
+	FStFactionDataMap(EFaction NewEnum, float NewValue)
+	{
+		FactionEnum = NewEnum;
+		FactionValue = NewValue;
+	}
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) EFaction FactionEnum = EFaction::NONE;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float FactionValue = 0.f;
+};
+
+USTRUCT(BlueprintType)
+struct FStFactionData
+{
+	GENERATED_BODY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStFactionDataMap> DataMap = {};
+	float GetFactionValue(EFaction FactionToCheck) const
+	{
+		for (const FStFactionDataMap TempMap : DataMap)
+		{
+			if (TempMap.FactionEnum == FactionToCheck)
+				return TempMap.FactionValue;
+		}
+		return 0.f;
+	}
+	EFactionState GetFactionState(EFaction FactionToCheck) const
+	{
+		const float FactionValue = GetFactionValue(FactionToCheck);
+		if (FactionValue < -100.f) return EFactionState::HATE;
+		if (FactionValue < 100.f)  return EFactionState::NONE;
+		if (FactionValue  < 500.f) return EFactionState::LIKE;
+		return EFactionState::ALLY;
+	}
 };
 
 USTRUCT(BlueprintType)
@@ -65,6 +106,36 @@ struct FStCharacterParts : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStBodyPartSettings> BodyParts;
 };
 
+
+USTRUCT(BlueprintType)
+struct FStNpcData : public FTableRowBase
+{
+	GENERATED_BODY()
+	
+	// The name of the NPC
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FString CharacterName = "";
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) USkeleton* MaleSkeleton = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TSubclassOf<UAnimInstance> MaleAnimationBp = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStMeshMergeData> MaleMeshes = {};
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) USkeleton* FemaleSkeleton = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TSubclassOf<UAnimInstance> FemaleAnimationBp = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStMeshMergeData> FemaleMeshes = {};
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) ECharacterRace CharacterRace = ECharacterRace::HUMAN;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) ECharacterClass CharacterClass	= ECharacterClass::WARRIOR;
+
+	// Factions that this NPC is a member of
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<EFaction> FactionMemberships = {};
+	
+	// Faction states for this NPC
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStFactionData FactionData = FStFactionData();
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStStartingItem> StartingItems;
+	
+};
 
 UCLASS()
 class UGlobalData : public UBlueprintFunctionLibrary

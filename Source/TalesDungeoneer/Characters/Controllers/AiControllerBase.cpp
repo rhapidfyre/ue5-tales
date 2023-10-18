@@ -20,7 +20,7 @@ AAiControllerBase::AAiControllerBase()
 void AAiControllerBase::BeginPlay()
 {
 	Super::BeginPlay();
-	ANpcCharacterBase* CharacterBase = Cast<ANpcCharacterBase>( GetCharacter() );
+	const ANpcCharacterBase* CharacterBase = Cast<ANpcCharacterBase>( GetCharacter() );
 	if (IsValid(CharacterBase))
 	{
 		 _PatrolArea = CharacterBase->GetNpcIsPatroller();

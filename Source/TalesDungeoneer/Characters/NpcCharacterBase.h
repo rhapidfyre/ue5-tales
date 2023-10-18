@@ -10,6 +10,13 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPatrolStatusChanged, bool, IsPatrollingNpc);
 
+USTRUCT(BlueprintType)
+struct FStNpcStartingItem : public FStStartingItem
+{
+	GENERATED_BODY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float ChanceToSpawn = 1.f;
+};
+
 /**
  * Player Character Base is the base C++ class for all logic, methods and members that affect all
  * PLAYER based characters, prior to handling by child classes or dependent blueprint classes.
@@ -37,11 +44,23 @@ protected:
 	// Avoids any lag spike or skip when the NPC dies
 	virtual void SetupLootTable();
 
+	// Issues the starting equipment for this character
+	virtual void SetupEquipment();
+
 	virtual void OnConstruction(const FTransform& Transform) override;
 
 
 public:
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<ECharacterClass> EligibleClasses = {ECharacterClass::WARRIOR};
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<ECharacterRace> EligibleRaces = {ECharacterRace::ENEMY};
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<FStNpcStartingItem> StartingItems = {};
+	
 	UPROPERTY(BlueprintAssignable) FOnPatrolStatusChanged OnPatrolStatusChanged;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -50,11 +69,18 @@ public:
 	// Where KEY(FName) is the item name and VALUE(float) is the chance (0-1)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) UDataTable* LootTable = nullptr;
 
-	// Used to set the starting level for this NPC
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor Settings")
-	int StartingLevel = 1;
+	// The minimum level variance from the adjusted dungeon level
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Npc Settings")
+	int MinimumLevelSpread = 0;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor Settings")
+	// The maximum level variance from the adjusted dungeon level
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Npc Settings")
+	int MaximumLevelSpread = 3;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Npc Settings")
+	FName NpcDataTableRowName = FName();
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Npc Settings")
 	bool bNpcPatrolsWhenIdle = false;
 	
 private:

@@ -12,10 +12,12 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 #include "TalesDungeoneer/Saves/SavedCharacters.h"
 
 #include "Net/UnrealNetwork.h"
+#include "Perception/AISense_Sight.h"
 #include "TalesDungeoneer/Entities/SimpleActors/FloatingTextBase.h"
 #include "TalesDungeoneer/Gamemode/BaseFiles/TalesGameStateBase.h"
 
@@ -80,18 +82,65 @@ ACharacterBase::ACharacterBase()
 	MeshMergeComponent = CreateDefaultSubobject
 		<UMeshMergeComponent>(TEXT("MeshMergeComponent"));
 	
-	
 	if (!IsValid(AiStimuli))
 		AiStimuli = CreateDefaultSubobject<UAIPerceptionStimuliSourceComponent>("AiStimuli");
 	AiStimuli->bAutoRegister = true;
-	
-	OverheadWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("OverheadWidget"));
-	OverheadWidget->bOwnerNoSee = true;
-	OverheadWidget->SetupAttachment(GetMesh(), FName("root"));
+
+	// Allow weapon overlap collisions
+	GetCapsuleComponent()->SetGenerateOverlapEvents(true);
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_GameTraceChannel4, ECR_Overlap);
+}
+
+/**
+ * @brief Returns the value of faction of this NPC to the given target actor.
+ *		Consideration will return the lowest level. So, an NPC who has 3 factions
+ *		aligned with LIKE but one with HATE, this NPC will hate the given actor.
+ * @param TargetActor The actor to consider
+ * @param FactionValue The value of the faction between characters
+ * @return The faction state of consideration
+ */
+EFactionState ACharacterBase::GetFactionConsideration(ACharacterBase* TargetActor, float& FactionValue)
+{
+	bool IsMemberOfSameFaction = false;
+	EFactionState CurrentRegard = EFactionState::ALLY;
+	if (IsValid(TargetActor))
+	{
+		
+		// Loop through this actor's faction memberships, checking if any of them
+		// are conflicting with the target actor's memberships.
+		for (const EFaction MyFaction : GetFactionMemberships())
+		{
+			// "What is your state towards this current faction membership?"
+			const EFactionState TheirConsideration = TargetActor->GetFactionState(MyFaction);
+			if (TheirConsideration < CurrentRegard)
+				CurrentRegard = TheirConsideration;
+			
+			// Stop the loop immediately if we're hated
+			if (CurrentRegard < EFactionState::NONE)
+				return EFactionState::HATE;
+		}
+
+		// Loop through the target actor's faction memberships, checking if
+		// any of them are hated factions to our memberships.
+		for (const EFaction TargetFaction : TargetActor->GetFactionMemberships())
+		{
+			// "Does your Faction Membership affect how I consider you?"
+			const EFactionState FactionState = GetFactionState(TargetFaction);
+			if (FactionState < CurrentRegard)
+				CurrentRegard = FactionState;
+			
+			// Stop the loop immediately if we hate them
+			if (CurrentRegard < EFactionState::NONE)
+				return EFactionState::HATE;
+			
+		}
+		return CurrentRegard;
+	}
+	return EFactionState::NONE;
 }
 
 void ACharacterBase::ToggleWeapon(EWeaponSlots WeaponSlot,
-		bool ForceDraw, bool ForceStow)
+                                  bool ForceDraw, bool ForceStow)
 {
 	if (ForceDraw)
 	{
@@ -128,8 +177,11 @@ void ACharacterBase::SetCharacterLevel(int NewLevel)
 	const int OldLevel = _CharacterLevel;
 	if (OldLevel != NewLevel)
 	{
-		_CharacterLevel = NewLevel;
-		_ExperiencePoints = 0.f;
+		if (NewLevel > 0)
+		{
+			_CharacterLevel = NewLevel;
+			_ExperiencePoints = 0.f;
+		}
 	}
 }
 
@@ -143,6 +195,89 @@ void ACharacterBase::SetCharacterRace(ECharacterRace NewRace)
 	_CharacterRace = NewRace;
 }
 
+void ACharacterBase::SetFactionState(EFaction FactionEnum, EFactionState FactionState)
+{
+	for (FStFactionDataMap& DataMap : _FactionData.DataMap)
+	{
+		if (DataMap.FactionEnum == FactionEnum)
+		{
+			switch(FactionState)
+			{
+			case EFactionState::LIKE:
+				DataMap.FactionValue = 100.f;
+				break;
+			case EFactionState::ALLY:
+				DataMap.FactionValue = 500.f;
+				break;
+			case EFactionState::HATE:
+				DataMap.FactionValue = -100.f;
+				break;
+			default:
+				DataMap.FactionValue = 0.f;
+				break;
+			}
+			return;
+		}
+	}
+}
+
+void ACharacterBase::SetFactionValue(EFaction FactionEnum, float PointsToSet)
+{
+	// Set the existing value, if exists
+	for (FStFactionDataMap& DataMap : _FactionData.DataMap)
+	{
+		if (DataMap.FactionEnum == FactionEnum)
+		{
+			DataMap.FactionValue = PointsToSet;
+			return;
+		}
+	}
+	_FactionData.DataMap.Add(FStFactionDataMap(FactionEnum, PointsToSet));
+}
+
+void ACharacterBase::IncreaseFaction(EFaction FactionEnum, float PointsToAdd)
+{
+	for (FStFactionDataMap& DataMap : _FactionData.DataMap)
+	{
+		if (DataMap.FactionEnum == FactionEnum)
+		{
+			DataMap.FactionValue += abs(PointsToAdd);
+			return;
+		}
+	}
+	_FactionData.DataMap.Add(
+		FStFactionDataMap(FactionEnum, abs(PointsToAdd))
+		);
+}
+
+void ACharacterBase::DecreaseFaction(EFaction FactionEnum, float PointsToLose)
+{
+	for (FStFactionDataMap& DataMap : _FactionData.DataMap)
+	{
+		if (DataMap.FactionEnum == FactionEnum)
+		{
+			DataMap.FactionValue -= abs(PointsToLose);
+			return;
+		}
+	}
+	_FactionData.DataMap.Add(
+		FStFactionDataMap(FactionEnum, abs(PointsToLose))
+		);
+}
+
+void ACharacterBase::SetFactionMembership(EFaction FactionEnum, bool IsMember)
+{
+	if (IsMember)
+		_FactionMembership.AddUnique(FactionEnum);
+	else
+		_FactionMembership.Remove(FactionEnum);
+}
+
+
+EFactionState ACharacterBase::GetFactionState(EFaction FactionToCheck) const
+{
+	return _FactionData.GetFactionState(FactionToCheck);
+}
 
 void ACharacterBase::SetExperiencePoints(float NewValue)
 {
@@ -279,7 +414,13 @@ void ACharacterBase::BeginPlay()
 	ATalesGameStateBase* TalesGameState = Cast<ATalesGameStateBase>(GetWorld()->GetGameState());
 	if (IsValid(TalesGameState))
 	{
-		TalesGameState->LoadCharacter(TalesGameState->GetSelectedCharacterSaveSlotName());
+		if (! TalesGameState->LoadCharacter(
+			  TalesGameState->GetSelectedCharacterSaveSlotName(), true)
+			)
+		{
+			// If no character exists to load, this is likely an NPC
+			
+		}
 	}
 
 	const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
@@ -296,13 +437,19 @@ void ACharacterBase::BeginPlay()
 	// When an ability is finished, check if Combat State should change
 	if (!AbilityComponent->OnAbilityCastComplete.IsAlreadyBound(this, &ACharacterBase::CheckAbilitySuccess))
 		AbilityComponent->OnAbilityCastComplete.AddDynamic(this, &ACharacterBase::CheckAbilitySuccess);
+
+	if (IsValid(MeshMergeComponent))
+		MeshMergeComponent->InitializeMeshMerge();
 }
 
 
 void ACharacterBase::OnConstruction(const FTransform& Transform)
 {
+	Super::OnConstruction(Transform);
 	AiStimuli->RegisterForSense(UAISense_Sight::StaticClass());
 	AiStimuli->RegisterWithPerceptionSystem();
+	
+	SetCharacterName(CharacterName);
 }
 
 void ACharacterBase::PostRegisterAllComponents()
@@ -514,10 +661,17 @@ void ACharacterBase::SecondaryActionVirtual()
 	SecondaryAction();
 }
 
+float ACharacterBase::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
+	AActor* DamageCauser)
+{
+	VitalityWelfare->DamageHealth(DamageCauser, DamageAmount);
+	return Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+}
+
 void ACharacterBase::SetCharacterName(FString ProposedName)
 {
 	// TODO - Add checks for symbols, special characters, etc
-	_CharacterName = ProposedName;
+	CharacterName = ProposedName;
 }
 
 void ACharacterBase::PostInitializeComponents()
@@ -527,6 +681,8 @@ void ACharacterBase::PostInitializeComponents()
 	{
 		if (IsValid(InventoryComponent))
 		{
+			InventoryComponent->InitializeInventory();
+			
 			// Don gear that is equipped at time of initialization
 			UpdateWeapon(EWeaponSlots::PRIMARY);
 			UpdateWeapon(EWeaponSlots::SECONDARY);
@@ -702,12 +858,14 @@ void ACharacterBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	
+	DOREPLIFETIME(ACharacterBase, _FactionMembership);
+	DOREPLIFETIME(ACharacterBase, _FactionData);
 	DOREPLIFETIME(ACharacterBase, _CharacterTeam);
 	DOREPLIFETIME(ACharacterBase, _CharacterLevel);
 	DOREPLIFETIME(ACharacterBase, _CharacterClass);
 	DOREPLIFETIME(ACharacterBase, _CharacterRace);
 	DOREPLIFETIME(ACharacterBase, _CharacterRisk);
-	DOREPLIFETIME(ACharacterBase, _CharacterName);
+	DOREPLIFETIME(ACharacterBase, CharacterName);
 	DOREPLIFETIME(ACharacterBase, _IsMale);
 	
 	DOREPLIFETIME(ACharacterBase, SkinColor);

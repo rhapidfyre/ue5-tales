@@ -25,9 +25,9 @@ void AThrownWeaponBase::updateWeapon()
 	Super::updateWeapon();
 }
 
-bool AThrownWeaponBase::checkForHit()
+bool AThrownWeaponBase::checkForHit(TArray<AActor*>& HitActors)
 {
-	return Super::checkForHit();
+	return Super::checkForHit(HitActors);
 }
 
 void AThrownWeaponBase::startAttackTimer()

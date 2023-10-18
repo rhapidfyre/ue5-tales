@@ -7,18 +7,17 @@
 #include "InventoryComponent.h"
 
 #include "VitalityStatComponent.h"
-#include "VitalityWelfareComponent.h"
 #include "VitalityEffectsComponent.h"
+#include "VitalityWelfareComponent.h"
 #include "Perception/AIPerceptionStimuliSourceComponent.h"
-#include "Perception/AISense_Sight.h"
 
 #include "Components/WeaponComponent.h"
 #include "Components/AbilityComponent.h"
 #include "Components/MeshMergeComponent.h"
-#include "Components/WidgetComponent.h"
 #include "TalesDungeoneer/Entities/SimpleActors/FloatingTextBase.h"
 
 #include "TalesDungeoneer/lib/datastructures/GlobalData.h"
+#include "TalesDungeoneer/Widgets/OverheadDataWidgetBase.h"
 
 #include "CharacterBase.generated.h"
 
@@ -74,12 +73,16 @@ public: // functions
 	UPROPERTY(BlueprintAssignable) FOnExperienceChanged OnExperienceChanged;
 	UPROPERTY(BlueprintAssignable) FOnCharacterLevelChanged OnCharacterLevelChanged;
 	UPROPERTY(BlueprintAssignable) FOnCharacterRestored OnCharacterRestored;
+
 	/** Returns CameraBoom sub object **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 
 	/** Returns FollowCamera sub object **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
+	UFUNCTION(BlueprintPure)
+	EFactionState GetFactionConsideration(ACharacterBase* TargetActor, float& FactionValue);
+	
 	UFUNCTION(BlueprintCallable)
 	void ToggleWeapon(EWeaponSlots WeaponSlot = EWeaponSlots::PRIMARY,
 						bool ForceDraw = false, bool ForceStow = false);
@@ -112,12 +115,33 @@ public: // functions
 	
 	UFUNCTION(BlueprintCallable)
 	void SetCharacterRace(ECharacterRace NewRace);
+	
+	UFUNCTION(BlueprintCallable)
+	void SetFactionState(EFaction FactionEnum, EFactionState FactionState);
+
+	UFUNCTION(BlueprintCallable)
+	void SetFactionValue(EFaction FactionEnum, float PointsToSet = 0.f);
+	
+	UFUNCTION(BlueprintCallable)
+	void IncreaseFaction(EFaction FactionEnum, float PointsToAdd = 1.f);
+
+	UFUNCTION(BlueprintCallable)
+	void DecreaseFaction(EFaction FactionEnum, float PointsToLose = 1.f);
+
+	UFUNCTION(BlueprintCallable)
+	void SetFactionMembership(EFaction FactionEnum, bool IsMember = true);
 
 	UFUNCTION(BlueprintPure)
 	ECharacterClass GetCharacterClass() const { return _CharacterClass; }
 
 	UFUNCTION(BlueprintPure)
 	ECharacterRace GetCharacterRace() const { return _CharacterRace; }
+
+	UFUNCTION(BlueprintPure)
+	TArray<EFaction> GetFactionMemberships() const { return _FactionMembership; }
+
+	UFUNCTION(BlueprintPure)
+	EFactionState GetFactionState(EFaction FactionToCheck) const;
 
 	UFUNCTION(BlueprintPure)
 	int GetRiskLevel() const { return _CharacterRisk; }
@@ -135,7 +159,7 @@ public: // functions
 	UFUNCTION(BlueprintCallable) void RemoveExperiencePoints(float AddValue = 0.f);
 
 	// Gets the character's role-play-friendly name
-	UFUNCTION(BlueprintPure) FString GetCharacterName() const { return _CharacterName; }
+	UFUNCTION(BlueprintPure) FString GetCharacterName() const { return CharacterName; }
 
 	/**
 	 * @brief Modifies the experience points given, accounting for level differences.
@@ -149,6 +173,9 @@ public: // functions
 	{
 		return _BaseExperience*pow(_ExpGrowthFactor, GetCharacterLevel()-1);
 	}
+
+	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent,
+			AController* EventInstigator, AActor* DamageCauser) override;
 	
 	/**
 	 * @brief Sets the new name for this character. Typically used during creation/loading.
@@ -230,6 +257,12 @@ private: // methods
 	
 public: // members
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Character Settings")
+	FString CharacterName = "Unnamed Character";
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Settings")
+	TSubclassOf<UOverheadDataWidgetBase> HeadDisplayWidget = nullptr;
+	
 	/** Camera boom positioning the camera behind the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	USpringArmComponent* CameraBoom;
@@ -239,35 +272,35 @@ public: // members
 	UCameraComponent* FollowCamera;
 	
 	/** MappingContext */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Character Input Settings")
 	UInputMappingContext* DefaultMappingContext;
 
 	/** Jump Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Character Input Settings")
 	UInputAction* JumpInputAction;
 
 	/** Move Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Character Input Settings")
 	UInputAction* MoveInputAction;
 
 	/** Look Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Character Input Settings")
 	UInputAction* LookInputAction;
 
 	/** Attack Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Character Input Settings")
 	UInputAction* PrimaryAttackInputAction;
 
 	/** Attack Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Character Input Settings")
 	UInputAction* SecondaryAttackInputAction;
 
 	/** Attack Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Character Input Settings")
 	UInputAction* PrimaryInputAction;
 
 	/** Attack Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Character Input Settings")
 	UInputAction* SecondaryInputAction;
 	
 	/** Character Inventory */
@@ -288,32 +321,26 @@ public: // members
 	/** Ability Component */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) UAbilityComponent*	 AbilityComponent;
 
-	/** Overhead Component */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) UWidgetComponent*	 OverheadWidget;
-
 	/** Mesh Merge Component */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) UMeshMergeComponent*  MeshMergeComponent;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) int UnlockPointsOnLevelUp = 1;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Settings") int UnlockPointsOnLevelUp = 1;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Settings")
 	TSubclassOf<AFloatingTextBase> DamageTextActor = AFloatingTextBase::StaticClass();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Character Settings")
 	FName PronounSubject	= "he";
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Character Settings")
 	FName PronounObjective	= "him";
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Character Settings")
 	FName PronounPossessive = "his";
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Character Settings")
 	FSlateColor SkinColor;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Character Settings")
 	TArray<FStCharacterParts> BodyData;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float OverheadWidgetHeight = 32.f;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	UAIPerceptionStimuliSourceComponent* AiStimuli = nullptr;
@@ -332,11 +359,10 @@ private:
 	UPROPERTY(Replicated) ECharacterClass _CharacterClass	= ECharacterClass::WARRIOR;
 	UPROPERTY(Replicated) ECharacterRace _CharacterRace		= ECharacterRace::HUMAN;
 
-	UPROPERTY(Replicated) FString _CharacterName = "Unnamed Character";
+	UPROPERTY(Replicated) TArray<EFaction> _FactionMembership = {};
+	UPROPERTY(Replicated) FStFactionData _FactionData = FStFactionData();
 	
 	UPROPERTY(Replicated) int _CharacterRisk = 0;
-
-	//UPROPERTY(Replicated) FStCharacterStats _CharacterStats = FStCharacterStats();
 
 	float _BaseExperience  = 1000.f;
 	float _ExpGrowthFactor = 1.2;

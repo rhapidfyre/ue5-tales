@@ -5,8 +5,11 @@
 #include "TalesDungeoneer/Characters/NpcCharacterBase.h"
 #include "TalesDungeoneer/Characters/Controllers/AiControllerBase.h"
 #include "TalesDungeoneer/lib/enums/GlobalEnums.h"
+#include "Delegates/Delegate.h"
 
 #include "CombatAiControllerBase.generated.h"
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnHateListUpdated);
 
 /**
  * 
@@ -19,6 +22,8 @@ class TALESDUNGEONEER_API ACombatAiControllerBase : public AAiControllerBase
 public:
 	
 	ACombatAiControllerBase() {};
+
+	UPROPERTY(BlueprintAssignable) FOnHateListUpdated OnHateListUpdated;
 
 	/* Hate List Methods */
 	
@@ -39,8 +44,6 @@ public:
 	
 	UFUNCTION(BlueprintCallable) void RememberDamage(AActor* DamagingActor, float DamageValue);
 
-	UFUNCTION(BlueprintNativeEvent) void PerceptionUpdated(AActor* StimulusActor, FAIStimulus StimulusData);
-
 	UFUNCTION(BlueprintPure) bool IsTargetOnHateList(AActor* TargetActor);
 	
 	UFUNCTION(BlueprintPure) bool IsTargetValid(AActor* TargetActor);
@@ -54,9 +57,14 @@ protected:
 	UFUNCTION() void TargetPerception(AActor* StimulusActor, FAIStimulus StimulusData);
 	
 private:
+
+	UFUNCTION(NetMulticast, Unreliable)
+	void Multicast_HateListUpdated();
 	
 	UFUNCTION() void CheckCombatState(ECombatState OldCombatState, ECombatState NewCombatState);
 
+	void SortHateList();
+	
 public:
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)

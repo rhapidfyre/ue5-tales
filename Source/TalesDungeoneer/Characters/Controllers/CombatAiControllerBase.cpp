@@ -12,10 +12,21 @@ float ACombatAiControllerBase::AddHateTowardsTarget(ACharacterBase* HateTarget, 
 			_HateList.Add(HateTarget, HatePoints);
 		else
 			_HateList.Add(HateTarget, *OldValue + HatePoints);
+		
+		SortHateList();
+		
 		const float* NewValue = _HateList.Find(HateTarget);
 		return NewValue != nullptr ? *NewValue : 0.f;
 	}
 	return 0.f;
+}
+
+void ACombatAiControllerBase::SortHateList()
+{
+	// TODO - We need a scope lock, as this hate list can change during sort
+	// Sorts the hate list by highest hate value first
+	_HateList.ValueSort([](const float A, const float B){return A > B;});
+	Multicast_HateListUpdated();
 }
 
 float ACombatAiControllerBase::RemoveHateFromTarget(ACharacterBase* HateTarget, float HatePoints)
@@ -25,6 +36,9 @@ float ACombatAiControllerBase::RemoveHateFromTarget(ACharacterBase* HateTarget, 
 		const float newValue = _HateList.Add(HateTarget, _HateList[HateTarget] - abs(HatePoints));
 		if (FMath::IsNearlyZero(newValue, 0.001f))
 			ClearTargetFromHateList(HateTarget);
+		
+		SortHateList();
+		
 		const float* NewValue = _HateList.Find(HateTarget);
 		return NewValue != nullptr ? *NewValue : 0.f;
 	}
@@ -139,11 +153,6 @@ void ACombatAiControllerBase::CheckCombatState(
 	
 }
 
-void ACombatAiControllerBase::PerceptionUpdated_Implementation(AActor* StimulusActor, FAIStimulus StimulusData)
-{
-	
-}
-
 /**
  * @brief Checks if the supplied target is on this actors hate list
  * @param TargetActor The actor being tested
@@ -227,7 +236,9 @@ void ACombatAiControllerBase::TargetPerception(AActor* StimulusActor, FAIStimulu
 		}
 	}
 	
-	// Let other functions/blueprints execute
-	PerceptionUpdated(StimulusActor, StimulusData);
-	
+}
+
+void ACombatAiControllerBase::Multicast_HateListUpdated_Implementation()
+{
+	OnHateListUpdated.Broadcast();
 }

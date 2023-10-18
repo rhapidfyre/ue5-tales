@@ -2,7 +2,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "NiagaraSystem.h"
 #include "GameFramework/Actor.h"
+#include "TalesDungeoneer/lib/datastructures/WeaponData.h"
 
 #include "WeaponBase.generated.h"
 
@@ -24,22 +26,26 @@ public: // public functions
 	// Sets default values for this actor's properties
 	AWeaponBase();
 
-	UPROPERTY(BlueprintAssignable, Category = "Weapon Events") FOnHit OnHit;
+	UPROPERTY(BlueprintAssignable, Category = "Weapon Events")
+	FOnHit OnHit;
 	
 	/**
 	 * Set to true when the weapon should be drawn. False to stow.
 	 * @param setArmed True for draw, false for stow.
 	 */
-	UFUNCTION(BlueprintCallable) void setWeaponIsArmed(bool setArmed = false);
-	UFUNCTION(BlueprintPure) bool getIsWeaponArmed() const { return bIsWeaponArmed; };
+	UFUNCTION(BlueprintCallable)
+	void setWeaponIsArmed(bool setArmed = false);
+	
+	UFUNCTION(BlueprintPure)
+	bool getIsWeaponArmed() const { return bIsWeaponArmed; };
 
 	/**
 	 * Received when the client's weapon is saying that it hit something
 	 * Requires validation! Trust but verify.
-	 * @param hitActor The actor the client says that they hit.
+	 * @param HitActors The actors the client says they hit.
 	 */
 	UFUNCTION(Server, Reliable, BlueprintCallable)
-	void Server_RequestWeaponHit(AActor* hitActor);
+	void Server_RequestWeaponHit(const TArray<AActor*> &HitActors);
 
 	/** Used on the client making the attack. Performs sounds, animations and
 	 * all hit related effects prior to the server event, to ensure everything
@@ -47,29 +53,47 @@ public: // public functions
 	 */
 	void PerformWeaponHit(AActor* hitActor);
 
-	UFUNCTION(BlueprintPure) bool getIsMeleeWeapon();
-	UFUNCTION(BlueprintPure) bool getIsRangedWeapon();
+	UFUNCTION(BlueprintPure)
+	bool getIsMeleeWeapon();
+	
+	UFUNCTION(BlueprintPure)
+	bool getIsRangedWeapon();
 	
 	/**
 	 * Gets information regarding the weapon's data.
 	 * @return The FStWeaponData of this weapon item
 	 */
-	UFUNCTION(BlueprintCallable) FStWeaponData getWeaponData();
+	UFUNCTION(BlueprintCallable)
+	FStWeaponData getWeaponData();
 	
 	
 	virtual bool doAttack();
+	
 	virtual void cancelAttack();
-	UFUNCTION(BlueprintPure) bool getIsAttacking();
-	UFUNCTION(BlueprintNativeEvent) void startAttack();
-	UFUNCTION(BlueprintNativeEvent) void stopAttack();
+	
+	UFUNCTION(BlueprintPure) bool
+	getIsAttacking();
+	
+	UFUNCTION(BlueprintNativeEvent)
+	void startAttack();
+	
+	UFUNCTION(BlueprintNativeEvent)
+	void stopAttack();
 
-	UFUNCTION(BlueprintCallable) void setWeaponName(FName weaponName);
+	UFUNCTION(BlueprintCallable)
+	void setWeaponName(FName weaponName);
 
-	UFUNCTION(BlueprintPure) FName getWeaponName() const { return mWeaponName; }
+	UFUNCTION(BlueprintPure)
+	FName getWeaponName() const { return mWeaponName; }
 
-	// Skeletal Mesh of the weapon, for graphics/display/cosmetics
-	UPROPERTY(Replicated, EditAnywhere)
-		USkeletalMeshComponent* mSkeletalMesh;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UStaticMeshComponent* WeaponMesh = nullptr;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	USceneComponent* WeaponGripLeft = nullptr;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	USceneComponent* WeaponGripRight = nullptr;
 	
 protected: // protected functions
 	
@@ -79,7 +103,7 @@ protected: // protected functions
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 	virtual void OnConstruction(const FTransform& Transform) override;
 	
-	virtual bool checkForHit();
+	virtual bool checkForHit(TArray<AActor*> &HitActors);
 	virtual void updateWeapon();
 	virtual void startAttackTimer();
 	virtual void cancelAttackTimer();

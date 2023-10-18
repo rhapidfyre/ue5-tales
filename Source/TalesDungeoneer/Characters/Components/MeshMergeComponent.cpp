@@ -173,16 +173,6 @@ bool UMeshMergeComponent::PerformMeshMerge()
 	if (IsValid(BaseMesh))
 	{
 		CharacterBase->GetMesh()->SetSkeletalMesh(BaseMesh);
-		
-		// Resets the overhead widget location based on the mesh size
-		if (IsValid(CharacterBase->OverheadWidget))
-		{
-			const FVector MeshBounds = BaseMesh->GetBounds().BoxExtent * 2;
-			CharacterBase->OverheadWidget->SetRelativeLocation(FVector(0.f));
-			CharacterBase->OverheadWidget->AddRelativeLocation(
-				FVector(0.f,0.f,MeshBounds.Z + CharacterBase->OverheadWidgetHeight), false);
-		}
-		
 		return true;
 	}
 	UE_LOG(LogTemp, Warning, TEXT("PerformMeshMerge() failed!"));
@@ -216,6 +206,8 @@ void UMeshMergeComponent::InitializeMeshMerge()
 			bHasInitialized = true;
 		}
 	}
+	else
+		PerformMeshMerge();
 }
 
 /**
@@ -315,21 +307,17 @@ void UMeshMergeComponent::SetNewMeshByTag(FName EquipmentName, FGameplayTag Game
 void UMeshMergeComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 void UMeshMergeComponent::OnComponentCreated()
 {
 	Super::OnComponentCreated();
 	RegisterComponent();
-	InitializeMeshMerge();
-	
 }
 
 void UMeshMergeComponent::InitializeComponent()
 {
 	Super::InitializeComponent();
-	InitializeMeshMerge();
 }
 
 void UMeshMergeComponent::InitializeDefaultMeshes()

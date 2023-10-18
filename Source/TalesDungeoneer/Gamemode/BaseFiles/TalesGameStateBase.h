@@ -33,8 +33,13 @@ class TALESDUNGEONEER_API ATalesGameStateBase : public AGameStateBase
 public: // methods
 
 	bool CheckIsServer() const;
+	
 	ATalesGameStateBase();
+	
+	UDataTable* GetNpcDataTable();
 
+	FStNpcData GetNpcData(FName NpcName);
+	
 	/**
 	 * @brief Sets the new save game meta file name,
 	 *			   creating it if it does not exist.
@@ -43,6 +48,9 @@ public: // methods
 	UFUNCTION(BlueprintCallable)
 	void SetSaveGameMetaName(FString SaveSlotName);
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
+	int DungeonLevel = 1;
+	
 	/**
 	 *		SAVING
 	 */
@@ -166,8 +174,10 @@ protected: // methods
 	// Performs asynchronous save of the currently active character
 	// Internally updates the save game meta file
 	void SaveCharacterAsync(const FString SaveSlotName);
-
 	
+	virtual void GetLifetimeReplicatedProps(
+		TArray<FLifetimeProperty> &OutLifetimeProps) const override;
+
 private: // methods
 	
 	// Sets the values in the save metadata
@@ -191,6 +201,12 @@ private: // methods
 		const int32 UserIndex, bool bSuccess) const;
 	
 public: // members
+
+	// The data table containing NPC data for NPCs spawning
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)	UDataTable* NpcDataTable = nullptr;
+
+	// The data table containing all items in the game
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)	UDataTable* ItemLookupTable = nullptr;
 
 	// Called when the save object is successfully loaded or created
 	UPROPERTY(BlueprintAssignable)	FOnSaveGameObjectReady	OnSaveGameObjectReady;

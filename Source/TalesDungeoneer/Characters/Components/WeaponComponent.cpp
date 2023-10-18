@@ -4,6 +4,7 @@
 #include "TalesDungeoneer/Weapons/WeaponSystem.h"
 #include "TalesDungeoneer/Characters/CharacterBase.h"
 #include "Kismet/GameplayStatics.h"
+#include "Logging/StructuredLog.h"
 #include "Net/UnrealNetwork.h"
 #include "TalesDungeoneer/Weapons/WeaponBase.h"
 
@@ -54,12 +55,10 @@ void UWeaponComponent::SetToggleWeapon(EWeaponSlots WeaponSlot, bool MakeReady)
 	if (isPrimaryWeapon)
 	{
 		bPrimaryOperating = true;
-		//bPrimaryReady     = MakeReady;
 	}
 	else
 	{
 		bSecondaryOperating = true;
-		//bSecondaryReady     = MakeReady;
 	}
 	
 	if (IsValid(selectedWeapon))
@@ -94,7 +93,8 @@ void UWeaponComponent::AdjustWeaponAttachment(EWeaponSlots weaponSlot)
 			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
 	}
 	const ACharacter* ownerActor = Cast<ACharacter>(GetOwner());
-	if (!IsValid(ownerActor)) return;
+	if (!IsValid(ownerActor))
+		return;
 
 	AWeaponBase* tempWeapon = _PrimaryWeapon;
 	switch (weaponSlot)
@@ -105,7 +105,9 @@ void UWeaponComponent::AdjustWeaponAttachment(EWeaponSlots weaponSlot)
 	default:
 		break;
 	}
-	if (!IsValid(tempWeapon)) return; // prevent invalid memory access
+	
+	if (!IsValid(tempWeapon))
+		return; // prevent invalid memory access
 	
 	const bool isWeaponReady = tempWeapon->getIsWeaponArmed();
 	
@@ -151,15 +153,8 @@ bool UWeaponComponent::PerformAttack(EWeaponSlots weaponType)
 	const FDateTime nowTime = FDateTime::UtcNow();
 	if (_NextAttackTime > nowTime)
 	{
-		// At least 1/4 second per attack, to prevent DDOSing the server
-		// Still needs to be verified server-side
+		// Prevent DDOSing the server - Still needs to be verified server-side
 		return false;
-	}
-
-	if (bShowDebug)
-	{
-		UE_LOG(LogTemp, Display, TEXT("%s(%s): PerformAttack()"),
-			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
 	}
 	
 	const ACharacterBase* ownerActor = Cast<ACharacterBase>(GetOwner());
@@ -175,25 +170,9 @@ bool UWeaponComponent::PerformAttack(EWeaponSlots weaponType)
 		default:
 			break;
 		}
-			
-		if (!IsValid(hitWeapon))
-		{
-			UE_LOG(LogTemp, Display, TEXT("%s(%s): Selected PerformAttack(weapon) was invalid - nullptr"),
-			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
-			return false;
-		}
-			
-		if (bVerboseOutput)
-		{
-			UE_LOG(LogTemp, Display, TEXT("%s(%s): PerformAttack weapon (%s) valid. Continuing!"),
-					*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"),
-					*hitWeapon->GetName());
-		}
-		const FStWeaponData weaponData = hitWeapon->getWeaponData();
-		const float addTime = weaponData.AttackDelay * 1000; 
-		_NextAttackTime = nowTime + FTimespan::FromMilliseconds(addTime);
 		
-		Server_RequestAttack(weaponType);
+		if (!IsValid(hitWeapon))
+			return false;
 		
 		// If the attacker is a game mode character, we need to do some more stuff
 		ACharacterBase* ownerCharacter = Cast<ACharacterBase>(GetOwner());
@@ -224,6 +203,13 @@ bool UWeaponComponent::PerformAttack(EWeaponSlots weaponType)
 				
 			}
 		}
+
+		// Check if the weapon is ready for an attack action
+		const FStWeaponData HitWeaponData = hitWeapon->getWeaponData();
+		if (hitWeapon->getIsWeaponArmed())
+			Server_RequestAttack(weaponType);
+		else
+			Server_ToggleWeapon(weaponType, true);
 		
 		return true;
 	}
@@ -277,19 +263,18 @@ void UWeaponComponent::ClearTargetedActor()
 
 void UWeaponComponent::UnsetWeapon(EWeaponSlots weaponSlot)
 {
-	if (!GetOwner()->HasAuthority()) return;
+	if (!GetOwner()->HasAuthority())
+		return;
+	
 	if (bShowDebug)
 	{
 		UE_LOG(LogTemp, Display, TEXT("%s(%s): UnsetWeapon()"),
 			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
 	}
-	if (bShowDebug)
-	{
-		UE_LOG(LogTemp, Display, TEXT("%s(%s): UnsetWeapon()"),
-			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
-	}
+	
 	// Block clients
-	if (!GetOwner()->HasAuthority()) return;
+	if (!GetOwner()->HasAuthority())
+		return;
 
 	AWeaponBase* tempWeapon = nullptr;
 	switch (weaponSlot)
@@ -311,6 +296,7 @@ void UWeaponComponent::UnsetWeapon(EWeaponSlots weaponSlot)
 		tempWeapon->SetOwner(nullptr);
 		tempWeapon->Destroy();
 	}
+	
 }
 
 bool UWeaponComponent::GetIsWeaponReady(EWeaponSlots WeaponSlot) const
@@ -333,7 +319,9 @@ bool UWeaponComponent::GetIsWeaponReady(EWeaponSlots WeaponSlot) const
 
 void UWeaponComponent::SetWeapon(FName weaponName, EWeaponSlots weaponSlot)
 {
-	if (!GetOwner()->HasAuthority()) return;
+	if (!GetOwner()->HasAuthority())
+		return;
+	
 	if (bShowDebug)
 	{
 		UE_LOG(LogTemp, Display, TEXT("%s(%s): SetWeapon(%s)"),
@@ -342,7 +330,8 @@ void UWeaponComponent::SetWeapon(FName weaponName, EWeaponSlots weaponSlot)
 	}
 
 	ACharacter* ownerActor = Cast<ACharacter>(GetOwner());
-	if (!IsValid(ownerActor)) return;
+	if (!IsValid(ownerActor))
+		return;
 
 	UnsetWeapon(weaponSlot);
 	
@@ -413,19 +402,16 @@ void UWeaponComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 	DOREPLIFETIME_CONDITION(UWeaponComponent, _TargetActor,	 		COND_None);
 	DOREPLIFETIME_CONDITION(UWeaponComponent, _PrimaryWeapon,	 	COND_None);
 	DOREPLIFETIME_CONDITION(UWeaponComponent, _SecondaryWeapon,	 	COND_None);
-	//DOREPLIFETIME_CONDITION(UWeaponComponent, _NextAttackTime,	 		COND_OwnerOnly);
 }
 
 void UWeaponComponent::OnComponentCreated()
 {
-	if (bVerboseOutput) bShowDebug = true;
+	if (bVerboseOutput)
+		bShowDebug = true;
 	Super::OnComponentCreated();
-	
 	SetAutoActivate(true);
 	SetIsReplicated(true);
-	
 	RegisterComponent();
-	
 }
 
 void UWeaponComponent::WeaponSlotReady(EWeaponSlots WeaponSlot)
@@ -451,6 +437,15 @@ void UWeaponComponent::WeaponSlotReady(EWeaponSlots WeaponSlot)
 		UE_LOG(LogTemp, Display, TEXT("WeaponSlotReady(): Secondary Weapon is NO LONGER operating"));
 		break;
 	}
+}
+
+void UWeaponComponent::BeginDestroy()
+{
+	if (IsValid(_PrimaryWeapon))
+		_PrimaryWeapon->Destroy();
+	if (IsValid(_SecondaryWeapon))
+		_SecondaryWeapon->Destroy();
+	Super::BeginDestroy();
 }
 
 float UWeaponComponent::WeaponReadyChanged(EWeaponSlots weaponSlot)
@@ -590,79 +585,68 @@ void UWeaponComponent::DelaySoundEffect(USoundBase* soundToPlay, float soundDela
 
 void UWeaponComponent::Server_RequestAttack_Implementation(EWeaponSlots weaponType)
 {
-	if (bShowDebug)
+	const FDateTime nowTime = FDateTime::UtcNow();
+	if (_NextAttackTime < nowTime)
 	{
-		UE_LOG(LogTemp, Display, TEXT("%s(%s): Server_RequestAttack_Implementation()"),
-			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
-	}
-	
-	if (GetOwner()->HasAuthority())
-	{
-		FDateTime nowTime = FDateTime::UtcNow();
-		if (_NextAttackTime < nowTime)
+		// Determine the weapon being used
+		AWeaponBase* weaponInUse = _PrimaryWeapon;
+		bool isOperating = bPrimaryOperating;
+		switch (weaponType)
 		{
-			// Determine the weapon being used
-			AWeaponBase* weaponInUse = _PrimaryWeapon;
-			bool isOperating = bPrimaryOperating;
-			switch (weaponType)
-			{
-			case EWeaponSlots::SECONDARY:
-				weaponInUse = _SecondaryWeapon;
-				isOperating = bSecondaryOperating;
-				break;
-			default:
-				break;
-			}
+		case EWeaponSlots::SECONDARY:
+			weaponInUse = _SecondaryWeapon;
+			isOperating = bSecondaryOperating;
+			break;
+		default:
+			break;
+		}
 
-			if (isOperating)
+		if (isOperating)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("%s(%s): Server_RequestAttack - Weapon is operating!"), *GetName(), GetOwner()->HasAuthority()?TEXT("SRV"):TEXT("CLI"));
+			return;
+		}
+
+		if (!weaponInUse->getIsWeaponArmed())
+		{
+			UE_LOG(LogTemp, Error, TEXT("%s(%s): Server_RequestAttack - Weapon not ready... Drawing!"), *GetName(), GetOwner()->HasAuthority()?TEXT("SRV"):TEXT("CLI"));
+			SetToggleWeapon(weaponType, true);
+			return;
+		}
+
+		if (!IsValid(weaponInUse))
+		{
+			if (bShowDebug)
+				UE_LOG(LogTemp, Error, TEXT("%s(%s): Server_RequestAttack - No weapon in use!"), *GetName(), GetOwner()->HasAuthority()?TEXT("SRV"):TEXT("CLI"));
+			return;
+		}
+		
+		const FStWeaponData weaponData = weaponInUse->getWeaponData();
+
+		// Authorize Attack
+		UE_LOG(LogTemp, Display, TEXT("%s(%s): Server_RequestAttack - doAttack()"), *GetName(), GetOwner()->HasAuthority()?TEXT("SRV"):TEXT("CLI"));
+
+		// Is the weapon able to attack?
+		if (weaponInUse->doAttack())
+		{
+			const EWeaponTypes animWeaponType = weaponInUse->getWeaponData().WeaponType;
+			if (!AttackAnimations.Contains(animWeaponType))
 			{
-				UE_LOG(LogTemp, Warning, TEXT("%s(%s): Server_RequestAttack - Weapon is operating!"), *GetName(), GetOwner()->HasAuthority()?TEXT("SRV"):TEXT("CLI"));
 				return;
 			}
-
-			if (!weaponInUse->getIsWeaponArmed())
+				
+			UAnimMontage* animMontage = AttackAnimations[animWeaponType];
+			if (IsValid(animMontage))
 			{
-				SetToggleWeapon(weaponType, true);
-				return;
+				Multicast_SendAnimation(
+					Cast<ACharacterBase>(GetOwner()), animMontage);
 			}
-
-			if (!IsValid(weaponInUse))
-			{
-				if (bShowDebug)
-					UE_LOG(LogTemp, Error, TEXT("%s(%s): Server_RequestAttack - No weapon in use!"), *GetName(), GetOwner()->HasAuthority()?TEXT("SRV"):TEXT("CLI"));
-				return;
-			}
-			
-			const FStWeaponData weaponData = weaponInUse->getWeaponData();
 			
 			// Add cooldown to the next attack
 			const int mSeconds = static_cast<int>(weaponData.AttackDelay * 1000);
 			_NextAttackTime = nowTime + FTimespan::FromMilliseconds(mSeconds);
-
-			// Authorize Attack
-			UE_LOG(LogTemp, Display, TEXT("%s(%s): Server_RequestAttack - doAttack()"), *GetName(), GetOwner()->HasAuthority()?TEXT("SRV"):TEXT("CLI"));
-			
-			if (weaponInUse->doAttack())
-			{
-				ACharacterBase* ownerCharacter = Cast<ACharacterBase>(GetOwner());
-
-				// If the attacker is a gamemode character, we need to do some more stuff
-				if (IsValid(ownerCharacter))
-				{
-					const EWeaponTypes animWeaponType = weaponInUse->getWeaponData().WeaponType;
-					if (!AttackAnimations.Contains(animWeaponType))
-						return;
-					
-					UAnimMontage* animMontage = AttackAnimations[animWeaponType];
-					if (IsValid(animMontage))
-					{
-						Multicast_SendAnimation(ownerCharacter, animMontage);
-					}
-					
-				}
-			}
 		}
-	}// if server (authority)
+	}
 }
 
 void UWeaponComponent::OnRep_TargetChanged_Implementation()

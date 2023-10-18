@@ -6,6 +6,7 @@
 #include "TalesDungeoneer/lib/datastructures/LootData.h"
 #include "PickupActorBase.h"
 #include "Controllers/CombatAiControllerBase.h"
+#include "TalesDungeoneer/Gamemode/BaseFiles/TalesGameStateBase.h"
 
 
 // Sets default values
@@ -31,12 +32,7 @@ float ANpcCharacterBase::GetDistanceFromOriginPoint() const
 void ANpcCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
-	if (IsValid(MeshMergeComponent))
-		MeshMergeComponent->PerformMeshMerge();
-	SetCharacterTeam(ECharacterTeam::ENEMY);
-	SetCharacterLevel(StartingLevel);
 	SetupLootTable();
-	SetNpcAsPatroller(bNpcPatrolsWhenIdle);
 }
 
 void ANpcCharacterBase::SetupLootTable()
@@ -103,11 +99,40 @@ void ANpcCharacterBase::SetupLootTable()
 	
 }
 
+void ANpcCharacterBase::SetupEquipment()
+{
+	TArray<FStStartingItem> InventoryStartingItems = {};
+	for (const FStNpcStartingItem StartingItem : StartingItems)
+	{
+		// Can this item be awarded?
+		if (FMath::RandRange(0.f, 1.f) < StartingItem.ChanceToSpawn)
+		{
+			FStStartingItem StartItem;
+			StartItem.quantity		= StartingItem.quantity;
+			StartItem.startingItem	= StartingItem.startingItem;
+			StartItem.equipType		= StartingItem.equipType;
+			InventoryStartingItems.Add(StartItem);
+		}
+	}
+	
+	if (IsValid(InventoryComponent))
+		InventoryComponent->StartingItems = InventoryStartingItems;
+}
+
 void ANpcCharacterBase::OnConstruction(const FTransform& Transform)
 {
-	// Disallow NPCs from picking up pick up actors
+	Super::OnConstruction(Transform);
+	// Disallow NPCs from picking up pick-up actors
 	InventoryComponent->bPickupItems = false;
-	SetCharacterLevel(StartingLevel);
+
+	// Set NPC level based on Adjusted Dungeon Level
+	const ATalesGameStateBase* GameState = Cast<ATalesGameStateBase>(GetWorld()->GetGameState());
+	SetCharacterLevel( !IsValid(GameState) ? 1
+			: GameState->DungeonLevel + FMath::RandRange(
+				0-MaximumLevelSpread,MaximumLevelSpread)
+		);
+	
+	SetNpcAsPatroller(bNpcPatrolsWhenIdle);
 	
 	// Update the pawn controller with the custom controller
 	if (IsValid(AiControllerBase))
@@ -115,6 +140,51 @@ void ANpcCharacterBase::OnConstruction(const FTransform& Transform)
 	
 	bIsPatrollingNpc = bNpcPatrolsWhenIdle;
 	
+	SetupEquipment(); // Determine starting equipment
+	
+	/* TODO To be implemented at a later, more stable version
+	// Setup NPC Data, Faction & Starting Items/Equipment
+	ATalesGameStateBase* GameState = Cast<ATalesGameStateBase>(GetWorld()->GetGameState());
+	if (IsValid(GameState))
+	{
+		FStNpcData NpcData = GameState->GetNpcData(NpcDataTableRowName);
+		if (!NpcData.CharacterName.IsEmpty())
+		{
+			SetCharacterName(NpcData.CharacterName);
+			SetCharacterRace(NpcData.CharacterRace);
+			SetCharacterClass(NpcData.CharacterClass);
+
+			USkeleton* UseSkeleton = NpcData.MaleSkeleton;
+			TSubclassOf<UAnimInstance> UseAnimBp = NpcData.MaleAnimationBp;
+			TArray<FStMeshMergeData> UseMeshes = NpcData.MaleMeshes;
+		
+			if (NpcData.FemaleMeshes.Num() > 0)
+			{
+				if (FMath::RandBool())
+				{
+					UseSkeleton = IsValid(NpcData.FemaleSkeleton) ? NpcData.FemaleSkeleton : NpcData.MaleSkeleton;
+					UseAnimBp   = IsValid(NpcData.FemaleAnimationBp) ? NpcData.FemaleAnimationBp : NpcData.MaleAnimationBp;
+					UseMeshes   = NpcData.FemaleMeshes;
+				}
+			}
+			
+			// Mesh Merge will be called by Super
+			MeshMergeComponent->Skeleton = UseSkeleton;
+			MeshMergeComponent->AnimBlueprint = UseAnimBp;
+			MeshMergeComponent->MeshesToMerge = UseMeshes;
+		
+			for (const EFaction FactionEnum : NpcData.FactionMemberships)
+				SetFactionMembership(FactionEnum, true);
+
+			for (const FStFactionDataMap DataMap : NpcData.FactionData.DataMap)
+				SetFactionValue(DataMap.FactionEnum, DataMap.FactionValue);
+		
+			InventoryComponent->StartingItems = NpcData.StartingItems;
+		}
+	}
+	*/
+	if (IsValid(MeshMergeComponent))
+		MeshMergeComponent->PerformMeshMerge();
 }
 
 /**

@@ -58,7 +58,7 @@ struct FStWeaponData : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) TSubclassOf<APickupActorBase> DropClass;
 
 	// The skeletal mesh the weapon should use.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) USkeletalMesh* Mesh = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) UStaticMesh* Mesh = nullptr;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FVector MeshOffset = FVector(0,0,0);
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FRotator MeshRotOffset = FRotator(0,0,0);
 	
@@ -80,15 +80,17 @@ struct FStWeaponData : public FTableRowBase
 
 	// The time it takes to stow this weapon
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DelayStowTime = 1.0f;
+
+	// The maximum number of targets this weapon can hit in a single attack
+	// Less than 1 indicates number of hit targets is limited only be hit radius
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) int MaxTargetsHitAtOnce = 1;
 	 
 	// How far away from the weapon it can hit, in centimeters.
 	// The line trace ends at this distance from the start point.
 	// Used for validation (Distance Of Actor 1 -> Actor 2)
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) float MaxReachDistance = 16.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float MaxReachDistance = 128.0f;
 
 	// Maximum hit radius of the weapon. Values below 1.f mean it can only hit one target.
-	// For melee weapons, this is the size of the hit detection. Zero means pinpoint accuracy.
-	// For ranged weapons, this is the size of the projectile it fires.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float MaxHitRadius = 0.0f;
 
 	// AoE Splash Damage Range, in centimeters.

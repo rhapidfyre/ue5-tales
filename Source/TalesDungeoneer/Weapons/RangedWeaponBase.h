@@ -3,6 +3,7 @@
 
 #include "CoreMinimal.h"
 #include "WeaponBase.h"
+#include "Components/ArrowComponent.h"
 
 #include "RangedWeaponBase.generated.h"
 
@@ -21,6 +22,9 @@ public:
 
 	UFUNCTION(Server, Reliable, BlueprintCallable)
 	void Server_FireWeapon(FVector fwdVector);
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UArrowComponent* ProjectileDirection = nullptr;
 	
 protected:
 	// Called when the game starts or when spawned
@@ -29,7 +33,7 @@ protected:
 	virtual void OnConstruction(const FTransform& Transform) override;
 
 	virtual void updateWeapon() override;
-	virtual bool checkForHit() override;
+	virtual bool checkForHit(TArray<AActor*>& HitActors) override;
 	virtual void startAttackTimer() override;
 	virtual void cancelAttackTimer() override;
 

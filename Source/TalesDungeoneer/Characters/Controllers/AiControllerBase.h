@@ -39,7 +39,7 @@ public:
 	UBehaviorTree* BehaviorTree = nullptr;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	UAIPerceptionComponent* AiPerception = nullptr;
+	UAIPerceptionComponent* AiPerception = nullptr;;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ai Settings")
 	float GainSightRadius = 1024.f;

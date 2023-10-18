@@ -7,6 +7,7 @@
 #include "VitalityWelfareComponent.h"
 
 #include "Kismet/GameplayStatics.h"
+#include "Net/UnrealNetwork.h"
 
 bool ATalesGameStateBase::CheckIsServer() const
 {
@@ -20,6 +21,29 @@ FString GetCleanedSaveSlotString(FString UncleanedString)
 
 
 ATalesGameStateBase::ATalesGameStateBase() {}
+
+UDataTable* ATalesGameStateBase::GetNpcDataTable()
+{
+	UDataTable* dataTable = NpcDataTable;
+	if (IsValid(dataTable))
+		return dataTable;
+	return nullptr;
+}
+
+FStNpcData ATalesGameStateBase::GetNpcData(FName NpcName)
+{
+	if ( const UDataTable* dt = GetNpcDataTable() )
+	{
+		if (IsValid(dt))
+		{
+			const FString errorCaught;
+			FStNpcData* recipePtr = dt->FindRow<FStNpcData>(NpcName, errorCaught);
+			if (recipePtr != nullptr)
+				return *recipePtr;
+		}
+	}
+	return {};
+}
 
 /**
  * @brief Sets the new save game meta file name,
@@ -147,6 +171,12 @@ void ATalesGameStateBase::SaveCharacterAsync(const FString SaveSlotName)
 	{
 		UE_LOG(LogTemp, Error, TEXT("SaveCharacterSync() FAILED: Could not retrieve save game object."));	
 	}
+}
+
+void ATalesGameStateBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(ATalesGameStateBase, DungeonLevel);
 }
 
 USaveGame* ATalesGameStateBase::GetSaveGameMeta() const

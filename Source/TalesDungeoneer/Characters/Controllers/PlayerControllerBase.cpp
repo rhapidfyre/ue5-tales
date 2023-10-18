@@ -42,14 +42,14 @@ void APlayerControllerBase::SetupInputComponent()
 		// Setup Hotkey Ability bindings 
 		for (UInputAction* InputReference : AbilityHotkeys)
 		{
-			EnhancedInputComponent->BindAction(InputReference, ETriggerEvent::Triggered,
+			EnhancedInputComponent->BindAction(InputReference, ETriggerEvent::Started,
 					this, &APlayerControllerBase::HotkeyTriggered, InputReference);
 		}
 			
 		// Setup Hotkey Target bindings 
 		for (UInputAction* InputReference : TargetingHotkeys)
 		{
-			EnhancedInputComponent->BindAction(InputReference, ETriggerEvent::Triggered,
+			EnhancedInputComponent->BindAction(InputReference, ETriggerEvent::Started,
 					this, &APlayerControllerBase::HotkeyTarget, InputReference);
 		}
 		

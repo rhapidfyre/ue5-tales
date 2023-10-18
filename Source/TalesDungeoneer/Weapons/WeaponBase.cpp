@@ -19,58 +19,30 @@ AWeaponBase::AWeaponBase()
 	
 	mWeaponName = UItemSystem::getInvalidName();
 
-	mSkeletalMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh"));
-	mSkeletalMesh->SetupAttachment(GetRootComponent());
+	WeaponMesh = CreateDefaultSubobject<UStaticMeshComponent>("WeaponMesh");
+	WeaponMesh->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	WeaponMesh->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
+	SetRootComponent(WeaponMesh);
+
+	WeaponGripLeft  = CreateDefaultSubobject<USceneComponent>("WeaponGripLeft");
+	WeaponGripLeft->SetupAttachment(GetRootComponent());
 	
-	mSkeletalMesh->SetSimulatePhysics(false);
-	mSkeletalMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	if (IsValid(mSkeletalMesh)) mSkeletalMesh->SetAutoActivate(true);
-	mSkeletalMesh->SetIsReplicated(true);
-	mSkeletalMesh->VisibilityBasedAnimTickOption = EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
-	SetActorTickEnabled(true);
+	WeaponGripRight = CreateDefaultSubobject<USceneComponent>("WeaponGripRight");
+	WeaponGripRight->SetupAttachment(GetRootComponent());
+	
+	
 }
-
-
-
 
 void AWeaponBase::OnConstruction(const FTransform& Transform)
 {
 	Super::OnConstruction(Transform);
-
-	if (IsValid(mSkeletalMesh))
-	{
-		if (IsValid(mSkeletalMesh)) mSkeletalMesh->RegisterComponent();
-		
-		// Setup the Skeletal Mesh. Attachment will be handled by whoever spawned this actor.
-		if (mWeaponName != UItemSystem::getInvalidName())
-		{
-			const FStWeaponData weaponData = UWeaponSystem::GetWeaponDataFromName(mWeaponName);
-			if (UWeaponSystem::GetWeaponIsValid(weaponData))
-			{
-				// Setup the skeletal mesh
-				mSkeletalMesh->SetSkeletalMesh(weaponData.Mesh);
-				mSkeletalMesh->AddRelativeLocation(weaponData.MeshOffset);
-				mSkeletalMesh->AddRelativeRotation(weaponData.MeshRotOffset);
-			
-			}//weapon found in data table
-		}//weapon name is valid
-	}//skeletal mesh valid
 	SetReplicates(true);
 }
 
 void AWeaponBase::BeginPlay()
 {
+	SetActorTickEnabled(true);
 	Super::BeginPlay();
-	if (HasAuthority())
-	{
-		if (!IsValid(mSkeletalMesh))
-		{
-			UE_LOG(LogTemp, Error, TEXT("%s(%s): Skeletal Mesh FAILED to initialize. Cannot continue."),
-				*GetName(), HasAuthority()?TEXT("SRV"):TEXT("CLI"));
-			Destroy();
-			return;
-		}
-	}
 	updateWeapon();
 }
 
@@ -115,9 +87,9 @@ void AWeaponBase::setWeaponIsArmed(bool setArmed)
 	bIsOperating = false;
 }
 
-void AWeaponBase::Server_RequestWeaponHit_Implementation(AActor* hitActor)
+void AWeaponBase::Server_RequestWeaponHit_Implementation(const TArray<AActor*> &HitActors)
 {
-	if (!IsValid(hitActor))
+	if (HitActors.Num() < 1)
 	{
 		UE_LOG(LogTemp, Error, TEXT("%s(%s): Server_RequestWeaponHit() - hitActor INVALID. Cannot proceed."),
 			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
@@ -137,44 +109,48 @@ void AWeaponBase::Server_RequestWeaponHit_Implementation(AActor* hitActor)
 
 	const float mSeconds = weaponData.AttackDelay * 1000;
 	mNextAttackTime = nowTime + FTimespan::FromMilliseconds(mSeconds);
-	
-	const float hitDistance = GetDistanceTo(hitActor);
-	const float maxHitRange = weaponData.MaxReachDistance + 32.f;
-	if (hitDistance > maxHitRange)
-	{
-		UE_LOG(LogTemp, Display, TEXT("%s(%s): Server_RequestWeaponHit() - Invalid Attack! Too far away! (%f > %f)"),
-			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), hitDistance, maxHitRange);
-		return;
-	}
 
-	float totalDamage = 0.f;
-	float dmgMultiplier = 1.f;
-	
-	for (int i = 0; i < weaponData.DamageData.Num(); i++)
+	for (AActor* HitActor : HitActors)
 	{
-		FStWeaponDamageData damageData = weaponData.DamageData[i];
-		const float temp = damageData.BaseDamage * dmgMultiplier;
-		float dmgMod = 0.f;
-		
-		if (damageData.DamageVariance)
+		if (IsValid(HitActor))
 		{
-			const float dmgVariance = damageData.DamageVariance * temp;
-			dmgMod = FMath::RandRange(0-dmgVariance, dmgVariance);
-		}
-		totalDamage += (temp + dmgMod);
+			const float hitDistance = GetDistanceTo(HitActor);
+			const float maxHitRange = weaponData.MaxReachDistance + 32.f;
+			if (hitDistance > maxHitRange)
+			{
+				UE_LOG(LogTemp, Display, TEXT("%s(%s): Server_RequestWeaponHit() - Invalid Attack! Too far away! (%f > %f)"),
+					*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), hitDistance, maxHitRange);
+				return;
+			}
 
-		FDamageEvent pointDamage(damageData.DamageType);
-		AController* ownerController = nullptr;
-		if (IsValid(GetOwner()))
-		{
-			const ACharacterBase* charBase = Cast<ACharacterBase>(GetOwner());
-			if (IsValid(GetOwner()))
-				ownerController = charBase->GetController();
-		}
-		hitActor->TakeDamage(totalDamage, pointDamage, ownerController, this);
-		
-	}
+			float totalDamage = 0.f;
+			float dmgMultiplier = 1.f;
 	
+			for (int i = 0; i < weaponData.DamageData.Num(); i++)
+			{
+				FStWeaponDamageData damageData = weaponData.DamageData[i];
+				const float temp = damageData.BaseDamage * dmgMultiplier;
+				float dmgMod = 0.f;
+		
+				if (damageData.DamageVariance)
+				{
+					const float dmgVariance = damageData.DamageVariance * temp;
+					dmgMod = FMath::RandRange(0-dmgVariance, dmgVariance);
+				}
+				totalDamage += (temp + dmgMod);
+
+				FDamageEvent pointDamage(damageData.DamageType);
+				AController* ownerController = nullptr;
+				if (IsValid(GetOwner()))
+				{
+					const ACharacterBase* charBase = Cast<ACharacterBase>(GetOwner());
+					if (IsValid(GetOwner()))
+						ownerController = charBase->GetController();
+				}
+				HitActor->TakeDamage(totalDamage, pointDamage, ownerController, this);
+			}
+		}
+	}
 }
 
 void AWeaponBase::PerformWeaponHit(AActor* hitActor)
@@ -284,7 +260,8 @@ void AWeaponBase::soundEffectWithDelay(USoundBase* soundEffect, float soundDelay
 	GetWorld()->GetTimerManager().SetTimer(soundTimer, soundArgs, soundDelay, false);
 }
 
-void AWeaponBase::niagaraEffectWithDelay(UNiagaraSystem* niagaraEffect, float effectDelay, float isLooped)
+void AWeaponBase::niagaraEffectWithDelay(
+	UNiagaraSystem* niagaraEffect, float effectDelay, float isLooped)
 {
 	if (bShowDebug)
 	{
@@ -313,10 +290,10 @@ void AWeaponBase::sendSoundEffect_Implementation(USoundBase* soundEffect)
 	}
 	if (!IsValid(soundEffect)) return;
 	UAudioComponent* tempAudio = NewObject<UAudioComponent>(this);
-	if (IsValid(tempAudio) && IsValid(mSkeletalMesh))
+	if (IsValid(tempAudio))
 	{
 		tempAudio->RegisterComponent();
-		tempAudio->AutoAttachParent = mSkeletalMesh;
+		tempAudio->AutoAttachParent = GetRootComponent();
 		tempAudio->bAutoManageAttachment = true;
 		tempAudio->SetSound(soundEffect);
 		tempAudio->Activate(true);
@@ -327,31 +304,10 @@ void AWeaponBase::sendSoundEffect_Implementation(USoundBase* soundEffect)
 
 void AWeaponBase::updateWeapon()
 {
-	if (bShowDebug)
-	{
-		UE_LOG(LogTemp, Display, TEXT("%s(%s): updateWeapon()"),
-			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
-	}
-	if (mWeaponName.IsValid())
-	{
-		if (UWeaponSystem::GetWeaponNameIsValid(mWeaponName))
-		{
-			// Setup the Skeletal Mesh. Attachment will be handled by whoever called this function.
-			if (mWeaponName != UItemSystem::getInvalidName())
-			{
-				const FStWeaponData weaponData = UWeaponSystem::GetWeaponDataFromName(mWeaponName);
-				if (UWeaponSystem::GetWeaponIsValid(weaponData))
-				{
-					mSkeletalMesh->SetSkeletalMesh(weaponData.Mesh);
-					mSkeletalMesh->SetSimulatePhysics(false);
-					mSkeletalMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-				}
-			}
-		}
-	}
+	
 }
 
-bool AWeaponBase::checkForHit()
+bool AWeaponBase::checkForHit(TArray<AActor*>& HitActors)
 {
 	return false; // Implemented in child classes
 }

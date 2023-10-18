@@ -10,12 +10,12 @@
 ARangedWeaponBase::ARangedWeaponBase()
 {
 	PrimaryActorTick.bCanEverTick = true;
+	ProjectileDirection = CreateDefaultSubobject<UArrowComponent>("ProjectileDirection");
 }
 
 void ARangedWeaponBase::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 void ARangedWeaponBase::OnConstruction(const FTransform& Transform)
@@ -59,8 +59,9 @@ void ARangedWeaponBase::Server_FireWeapon_Implementation(FVector fwdVector)
 void ARangedWeaponBase::SpawnProjectile(FVector fwdVector)
 {
 	const FStWeaponData weaponData = getWeaponData();
-	const FTransform barrelTransform = mSkeletalMesh->GetSocketTransform("HitStart", RTS_World);
+	const FTransform barrelTransform = ProjectileDirection->GetComponentTransform();
 	const FTransform spawnTransform(barrelTransform.GetLocation());
+	
 	AProjectileBase* bullet = GetWorld()->SpawnActorDeferred<AProjectileBase>(AProjectileBase::StaticClass(), spawnTransform,
 		nullptr, Cast<APawn>(GetOwner()), ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
 
@@ -80,7 +81,7 @@ void ARangedWeaponBase::SpawnProjectile(FVector fwdVector)
 }
 
 
-bool ARangedWeaponBase::checkForHit()
+bool ARangedWeaponBase::checkForHit(TArray<AActor*>& HitActors)
 {
 	return true;
 }

@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Animation/WidgetAnimation.h"
-#include "Components/TextBlock.h"
 #include "UObject/Object.h"
 #include "FloatingTextWidgetBase.generated.h"
 

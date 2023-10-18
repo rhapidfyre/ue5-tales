@@ -4,6 +4,7 @@
 #include "MeleeWeaponBase.h"
 
 #include "WeaponSystem.h"
+#include "TalesDungeoneer/Characters/CharacterBase.h"
 
 
 // Sets default values
@@ -13,21 +14,22 @@ AMeleeWeaponBase::AMeleeWeaponBase()
 	
 	mHitDetector = CreateDefaultSubobject<UCapsuleComponent>(TEXT("HitDetector"));
 	if (IsValid(mHitDetector)) mHitDetector->SetAutoActivate(true);
-	
-	mHitDetector->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	
-	mHitDetector->SetCollisionObjectType(ECC_GameTraceChannel4); // MeleeWeapon Detection
 
-	mHitDetector->SetCollisionResponseToChannel(ECC_Pawn,			ECR_Overlap);
-	mHitDetector->SetCollisionResponseToChannel(ECC_Visibility,		ECR_Block);
-	mHitDetector->SetCollisionResponseToChannel(ECC_Camera,			ECR_Ignore);
-	mHitDetector->SetCollisionResponseToChannel(ECC_PhysicsBody,	ECR_Block);
+	// MeleeWeapon Detection
+	mHitDetector->SetGenerateOverlapEvents(true);
+
+	// Set type as MeleeWeapon
+	mHitDetector->SetCollisionObjectType(ECC_GameTraceChannel4);
 	
 	// Overlap Resource Nodes
 	mHitDetector->SetCollisionResponseToChannel(ECC_GameTraceChannel5, ECR_Overlap);
 
-	// Overlap Pawns/Characters
-	mHitDetector->SetupAttachment(mSkeletalMesh);
+	mHitDetector->SetCollisionResponseToChannel(ECC_Pawn,			ECR_Overlap);
+	mHitDetector->SetCollisionResponseToChannel(ECC_Visibility,		ECR_Ignore);
+	mHitDetector->SetCollisionResponseToChannel(ECC_Camera,			ECR_Ignore);
+	mHitDetector->SetCollisionResponseToChannel(ECC_PhysicsBody,	ECR_Overlap);
+	
+	mHitDetector->SetupAttachment(GetRootComponent());
 }
 
 void AMeleeWeaponBase::OnConstruction(const FTransform& Transform)
@@ -36,104 +38,156 @@ void AMeleeWeaponBase::OnConstruction(const FTransform& Transform)
 	if (IsValid(mHitDetector))
 	{
 		mHitDetector->RegisterComponent();
-		mHitDetector->Deactivate();
-		mHitDetector->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	}
+}
+
+void AMeleeWeaponBase::BeginDestroy()
+{
+	mHitDetector->OnComponentBeginOverlap.RemoveDynamic(this, &AMeleeWeaponBase::onMeleeWeaponHit);
+	Super::BeginDestroy();
+}
+
+
+void AMeleeWeaponBase::startHitDetection()
+{
+	_HitTargets.Empty();
+	startAttackTimer();
 }
 
 // Called when the game starts or when spawned
 void AMeleeWeaponBase::BeginPlay()
 {
 	Super::BeginPlay();
-	if (!HasAuthority())
-	{
-		if ( IsValid(mHitDetector) )
-		{
-			if (!mHitDetector->OnComponentBeginOverlap.IsAlreadyBound(this, &AMeleeWeaponBase::onMeleeWeaponHit))
-				 mHitDetector->OnComponentBeginOverlap.AddDynamic(this, &AMeleeWeaponBase::onMeleeWeaponHit);
-		}
-	}
+	if (!mHitDetector->OnComponentBeginOverlap.IsAlreadyBound(this, &AMeleeWeaponBase::onMeleeWeaponHit))
+		 mHitDetector->OnComponentBeginOverlap.AddDynamic(this, &AMeleeWeaponBase::onMeleeWeaponHit);
 }
 
-TArray<AActor*> AMeleeWeaponBase::getOverlappingResources() const
+TArray<AActor*> AMeleeWeaponBase::getOverlappingResources()
 {
+	if (!bCanCollide) return {};
 	TArray<AActor*> hitActors;
 	mHitDetector->GetOverlappingActors(hitActors);
 	for (AActor* tempActor : hitActors)
 	{
 		if (IsValid(tempActor))
+		{
 			hitActors.Add(tempActor);
+			_HitTargets.Add(tempActor);
+		}
 	}
 	return hitActors;
 }
 
-void AMeleeWeaponBase::onMeleeWeaponHit(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void AMeleeWeaponBase::onMeleeWeaponHit(UPrimitiveComponent* OverlappedComp,
+	AActor* OtherActor, UPrimitiveComponent* OtherComp,
+	int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
- 	if (IsValid(OtherActor))
+	if (getIsAttacking())
 	{
-		if (getIsAttacking())
-		{
-			PerformWeaponHit(OtherActor);
-			Server_RequestWeaponHit(OtherActor);
-		}
+ 		if (IsValid(OtherActor))
+			_HitTargets.Add(OtherActor);
 	}
 }
 
 void AMeleeWeaponBase::startAttackTimer()
 {
-	mHitDetector->Activate();
-	mHitDetector->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	// If anything is targeted, hit that first, if able
+	ACharacterBase* WeaponOwner = Cast<ACharacterBase>(GetOwner());
+	if (IsValid(WeaponOwner))
+	{
+		ACharacterBase* WeaponTarget = WeaponOwner->AbilityComponent->GetTargetedActor();
+		if (IsValid(WeaponTarget))
+		{
+			// TODO - Line of Sight check
+
+			// If the target is within distance, hit that target.
+			if (WeaponOwner->GetDistanceTo(WeaponTarget) <= getWeaponData().MaxReachDistance)
+			{
+				Server_RequestWeaponHit({WeaponTarget});
+				cancelAttackTimer();
+
+				// End attack if only one target can be hit
+				if (getWeaponData().MaxTargetsHitAtOnce <= 1)
+					return;
+			}
+		}
+	}
+	
+	// Hit anything already within the collision area
+	TArray<AActor*> HitActors;
+	if (checkForHit(HitActors))
+	{
+		// Only one hit
+		if (getWeaponData().MaxTargetsHitAtOnce <= 1)
+		{
+			_HitTargets.Add(HitActors[0]);
+			cancelAttackTimer();
+			return;
+		}
+
+		// Weapon can hit multiple targets
+		for (AActor* HitActor : HitActors)
+		{
+			if (_HitTargets.Num() < getWeaponData().MaxTargetsHitAtOnce)
+			{
+				_HitTargets.Add(HitActor);
+			}
+			else
+			{
+				cancelAttackTimer();
+				return;
+			}
+		}
+	}
 	Super::startAttackTimer();
 }
 
 void AMeleeWeaponBase::cancelAttackTimer()
 {
 	Super::cancelAttackTimer();
-	mHitDetector->Deactivate();
-	mHitDetector->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	
+	if (!_HitTargets.IsEmpty())
+		Server_RequestWeaponHit(_HitTargets.Array());
+	
+	_HitTargets.Empty();
 }
 
 void AMeleeWeaponBase::updateWeapon()
 {
 	Super::updateWeapon();
-	if (IsValid(mSkeletalMesh))
-	{
-		const FStWeaponData weaponData = getWeaponData();
-		const FVector hitStart = mSkeletalMesh->GetSocketTransform("HitStart", RTS_World).GetLocation();
-		const FVector hitStop  = mSkeletalMesh->GetSocketTransform("HitStop",  RTS_World).GetLocation();
-		const float halfHeight = FVector::Dist(hitStart, hitStop)/2;
-
-		mHitDetector->ResetRelativeTransform();
-		mHitDetector->AttachToComponent(mSkeletalMesh,
-			FAttachmentTransformRules::SnapToTargetIncludingScale, "HitStart");
-
-		// Rotate, then Set center to midpoint
-		mHitDetector->SetCapsuleSize(weaponData.MaxHitRadius, halfHeight, false);
-
-		FRotator relativeRot(mSkeletalMesh->GetSocketTransform("HitStart", RTS_ParentBoneSpace).GetRotation());
-		relativeRot.Add(0.f,0.f,0.f);
-
-		// Sets the rotation and location to be accurate to the weapon's sockets
-		mHitDetector->AddRelativeRotation(relativeRot);
-	}
 }
 
 bool AMeleeWeaponBase::doAttack()
 {
+	// Verifies that the weapon is able to be used
 	if (Super::doAttack())
 	{
-		startAttackTimer();
+		// Cancels the attack timer after attack completes
+		const FStWeaponData weaponData = getWeaponData();
+		const float KillTime = weaponData.HitDetectDelay > weaponData.HitDetectStop
+		                     ? weaponData.HitDetectStop - 0.1 : weaponData.HitDetectDelay;
+
+		// Activates the hit detector, optionally with a delay
+		if (KillTime > 0.f)
+		{
+			GetWorld()->GetTimerManager().SetTimer(_DelayTimer, this,
+					&AMeleeWeaponBase::startHitDetection, KillTime, false);
+		}
+		else
+			startHitDetection();
+		
 		return true;
 	}
 	return false;
 }
 
-bool AMeleeWeaponBase::checkForHit()
+bool AMeleeWeaponBase::checkForHit(TArray<AActor*>& HitActors)
 {
+	if (!getIsAttacking()) return false;
 	// Checks if the melee weapon's collision is overlapping anything
 	const FStWeaponData weaponData = UWeaponSystem::GetWeaponDataFromName( getWeaponName() );
 	if (!UWeaponSystem::GetWeaponIsValid(weaponData)) return false;
-	return getOverlappingResources().Num() > 0;
+	HitActors = getOverlappingResources();
+	return HitActors.Num() > 0;
 }
 
