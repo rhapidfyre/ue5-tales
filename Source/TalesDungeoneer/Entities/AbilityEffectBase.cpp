@@ -172,24 +172,6 @@ void AAbilityEffectBase::BeginPlay()
 		
 	}
 	const FStAbilityData AbilityData = GetAbilityData();
-		
-	if (IsValid(AbilityData.AnimationData.AnimationOnStart))
-	{
-		if (AbilityData.AnimationData.DelayStartAnim > 0.f)
-		{
-			FTimerHandle StartAnimTimer;
-			FTimerDelegate StartAnimDelegate;
-			ACharacter* OriginatingActor;
-			StartAnimDelegate.BindUObject(this, &AAbilityEffectBase::PlayDelayedAnimation,
-				 OriginatingActor, AbilityData.AnimationData.AnimationOnStart);
-			GetWorld()->GetTimerManager().SetTimer(StartAnimTimer, StartAnimDelegate,
-				_AbilityData.AnimationData.DelayStartAnim, false);
-		}
-		else
-		{
-			PlayDelayedAnimation(GetOriginatingActor(), AbilityData.AnimationData.AnimationOnStart);
-		}
-	}
 
 	// Dispatch casting effects
 	for (auto AbilityFx : AbilityData.EffectCasting)

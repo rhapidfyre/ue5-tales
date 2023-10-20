@@ -227,6 +227,6 @@ void ANpcCharacterBase::OnConstruction(const FTransform& Transform)
 			PickupActor->FinishSpawning(SpawnTransform);
 		}
 	}
-	
+	UnregisterAllComponents(false);
 	Destroy();
 }

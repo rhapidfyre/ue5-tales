@@ -31,13 +31,13 @@ protected:
 
 public:
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString TextShown = "EmptyString";
 	
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FSlateColor TextColor = FLinearColor::White;
 	
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float SecondsToShow = 3.f;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)

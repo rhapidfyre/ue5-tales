@@ -37,7 +37,7 @@ protected:
 	virtual void startAttackTimer() override;
 	virtual void cancelAttackTimer() override;
 
-	virtual void BeginDestroy() override;
+	virtual void TargetHitByWeapon(AActor* HitActor);
 	
 private:
 	
@@ -49,9 +49,7 @@ private:
 	UPROPERTY()
 	FTimerHandle _DelayTimer;
 
-	bool bCanCollide = false;
-
-	// Server Only
+	// Keeps track of targets hit by this weapon
 	UPROPERTY()	TSet<AActor*> _HitTargets;
 	
 };

@@ -18,13 +18,13 @@ class TALESDUNGEONEER_API UFloatingTextWidgetBase : public UUserWidget
 	
 public:
 	
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString TextShown = "EmptyString";
 	
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FSlateColor TextColor = FLinearColor::White;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	UWidgetAnimation* SpawnAnimation = nullptr;
 
 	virtual void UpdateWidgetText();

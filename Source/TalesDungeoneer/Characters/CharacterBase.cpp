@@ -701,7 +701,7 @@ void ACharacterBase::UpdateWeapon(EWeaponSlots WeaponSlot)
 	switch(WeaponSlot)
 	{
 	case EWeaponSlots::SECONDARY:
-		equipmentEnum = EEquipmentSlotType::PRIMARY;
+		equipmentEnum = EEquipmentSlotType::SECONDARY;
 		break;
 	default:
 		break;
@@ -724,7 +724,7 @@ void ACharacterBase::UpdateWeapon(EWeaponSlots WeaponSlot)
 void ACharacterBase::SpawnDamageText(AActor* DamageInstigator, float DamageTaken)
 {
 
-	// Do not run on dedicated server
+	// Do not run on a server with no player (AKA dedicated server)
 	const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
 	if (!IsValid(LocalPlayer))
 		return;

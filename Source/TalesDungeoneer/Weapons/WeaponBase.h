@@ -42,10 +42,10 @@ public: // public functions
 	/**
 	 * Received when the client's weapon is saying that it hit something
 	 * Requires validation! Trust but verify.
-	 * @param HitActors The actors the client says they hit.
+	 * @param HitActor The actor the client reports they hit.
 	 */
 	UFUNCTION(Server, Reliable, BlueprintCallable)
-	void Server_RequestWeaponHit(const TArray<AActor*> &HitActors);
+	void Server_RequestWeaponHit(AActor* HitActor);
 
 	/** Used on the client making the attack. Performs sounds, animations and
 	 * all hit related effects prior to the server event, to ensure everything

@@ -233,6 +233,14 @@ private:
 
 	UFUNCTION(Client, Reliable) void OnRep_UnlockPoints();
 	UPROPERTY(ReplicatedUsing=OnRep_UnlockPoints) int _UnlockPoints = 2;
+
+	USkeleton* GetOwnerSkeleton();
+	
+	UFUNCTION()
+	void DelayedAnimation(UAnimMontage* AnimToPlay, bool bIsLooped = false);
+	
+	UFUNCTION(NetMulticast, Unreliable)
+	void Multicast_CastingAnimation(UAnimMontage* AnimToPlay, bool bIsLooped = false);
 	
 	UFUNCTION(Server, Reliable)
 	void Server_RequestTarget(ACharacterBase* NewTarget);

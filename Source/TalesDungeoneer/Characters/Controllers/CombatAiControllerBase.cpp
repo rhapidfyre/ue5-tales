@@ -26,7 +26,7 @@ void ACombatAiControllerBase::SortHateList()
 	// TODO - We need a scope lock, as this hate list can change during sort
 	// Sorts the hate list by highest hate value first
 	_HateList.ValueSort([](const float A, const float B){return A > B;});
-	Multicast_HateListUpdated();
+	OnHateListUpdated.Broadcast();
 }
 
 float ACombatAiControllerBase::RemoveHateFromTarget(ACharacterBase* HateTarget, float HatePoints)
@@ -236,9 +236,4 @@ void ACombatAiControllerBase::TargetPerception(AActor* StimulusActor, FAIStimulu
 		}
 	}
 	
-}
-
-void ACombatAiControllerBase::Multicast_HateListUpdated_Implementation()
-{
-	OnHateListUpdated.Broadcast();
 }

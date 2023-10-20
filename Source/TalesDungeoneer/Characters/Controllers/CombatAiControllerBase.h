@@ -57,9 +57,6 @@ protected:
 	UFUNCTION() void TargetPerception(AActor* StimulusActor, FAIStimulus StimulusData);
 	
 private:
-
-	UFUNCTION(NetMulticast, Unreliable)
-	void Multicast_HateListUpdated();
 	
 	UFUNCTION() void CheckCombatState(ECombatState OldCombatState, ECombatState NewCombatState);
 

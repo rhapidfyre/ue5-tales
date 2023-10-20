@@ -125,7 +125,7 @@ protected:
 	// for another operation (drawing/sheathing)
 	UFUNCTION() virtual void WeaponSlotReady(EWeaponSlots WeaponSlot);
 
-	virtual void BeginDestroy() override;
+	virtual void OnUnregister() override;
 
 private:
 	

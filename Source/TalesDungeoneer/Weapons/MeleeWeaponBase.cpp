@@ -41,16 +41,8 @@ void AMeleeWeaponBase::OnConstruction(const FTransform& Transform)
 	}
 }
 
-void AMeleeWeaponBase::BeginDestroy()
-{
-	mHitDetector->OnComponentBeginOverlap.RemoveDynamic(this, &AMeleeWeaponBase::onMeleeWeaponHit);
-	Super::BeginDestroy();
-}
-
-
 void AMeleeWeaponBase::startHitDetection()
 {
-	_HitTargets.Empty();
 	startAttackTimer();
 }
 
@@ -58,21 +50,26 @@ void AMeleeWeaponBase::startHitDetection()
 void AMeleeWeaponBase::BeginPlay()
 {
 	Super::BeginPlay();
+	
+	mHitDetector->IgnoreActorWhenMoving(GetOwner(), true);
+	
 	if (!mHitDetector->OnComponentBeginOverlap.IsAlreadyBound(this, &AMeleeWeaponBase::onMeleeWeaponHit))
 		 mHitDetector->OnComponentBeginOverlap.AddDynamic(this, &AMeleeWeaponBase::onMeleeWeaponHit);
 }
 
 TArray<AActor*> AMeleeWeaponBase::getOverlappingResources()
 {
-	if (!bCanCollide) return {};
 	TArray<AActor*> hitActors;
 	mHitDetector->GetOverlappingActors(hitActors);
 	for (AActor* tempActor : hitActors)
 	{
 		if (IsValid(tempActor))
 		{
-			hitActors.Add(tempActor);
-			_HitTargets.Add(tempActor);
+			if (tempActor != GetOwner())
+			{
+				hitActors.Add(tempActor);
+				TargetHitByWeapon(tempActor);
+			}
 		}
 	}
 	return hitActors;
@@ -85,12 +82,14 @@ void AMeleeWeaponBase::onMeleeWeaponHit(UPrimitiveComponent* OverlappedComp,
 	if (getIsAttacking())
 	{
  		if (IsValid(OtherActor))
-			_HitTargets.Add(OtherActor);
+			TargetHitByWeapon(OtherActor);
 	}
 }
 
 void AMeleeWeaponBase::startAttackTimer()
 {
+	_HitTargets.Empty();
+	
 	// If anything is targeted, hit that first, if able
 	ACharacterBase* WeaponOwner = Cast<ACharacterBase>(GetOwner());
 	if (IsValid(WeaponOwner))
@@ -103,12 +102,14 @@ void AMeleeWeaponBase::startAttackTimer()
 			// If the target is within distance, hit that target.
 			if (WeaponOwner->GetDistanceTo(WeaponTarget) <= getWeaponData().MaxReachDistance)
 			{
-				Server_RequestWeaponHit({WeaponTarget});
-				cancelAttackTimer();
+				TargetHitByWeapon(WeaponTarget);
 
 				// End attack if only one target can be hit
 				if (getWeaponData().MaxTargetsHitAtOnce <= 1)
+				{
+					cancelAttackTimer();
 					return;
+				}
 			}
 		}
 	}
@@ -120,7 +121,7 @@ void AMeleeWeaponBase::startAttackTimer()
 		// Only one hit
 		if (getWeaponData().MaxTargetsHitAtOnce <= 1)
 		{
-			_HitTargets.Add(HitActors[0]);
+			TargetHitByWeapon(HitActors[0]);
 			cancelAttackTimer();
 			return;
 		}
@@ -130,7 +131,7 @@ void AMeleeWeaponBase::startAttackTimer()
 		{
 			if (_HitTargets.Num() < getWeaponData().MaxTargetsHitAtOnce)
 			{
-				_HitTargets.Add(HitActor);
+				TargetHitByWeapon(HitActor);
 			}
 			else
 			{
@@ -144,12 +145,28 @@ void AMeleeWeaponBase::startAttackTimer()
 
 void AMeleeWeaponBase::cancelAttackTimer()
 {
-	Super::cancelAttackTimer();
-	
-	if (!_HitTargets.IsEmpty())
-		Server_RequestWeaponHit(_HitTargets.Array());
-	
+	Super::cancelAttackTimer();	
 	_HitTargets.Empty();
+}
+
+void AMeleeWeaponBase::TargetHitByWeapon(AActor* HitActor)
+{
+	// Do not allow the hit to be the wielder of the weapon
+	if (HitActor == GetOwner()) return;
+
+	// If the target is a valid target, add them to the hit targets list
+	// and dispatch the server event
+	if (IsValid(Cast<ACharacterBase>(HitActor)))
+	{
+		_HitTargets.Add(HitActor);
+		Server_RequestWeaponHit(HitActor);
+	}
+	
+	// Cancel further attacks if max targets has been reached
+	if (_HitTargets.Num() >= getWeaponData().MaxTargetsHitAtOnce)
+	{
+		cancelAttackTimer();
+	}
 }
 
 void AMeleeWeaponBase::updateWeapon()
@@ -183,7 +200,7 @@ bool AMeleeWeaponBase::doAttack()
 
 bool AMeleeWeaponBase::checkForHit(TArray<AActor*>& HitActors)
 {
-	if (!getIsAttacking()) return false;
+	if (!getIsWeaponArmed()) return false;
 	// Checks if the melee weapon's collision is overlapping anything
 	const FStWeaponData weaponData = UWeaponSystem::GetWeaponDataFromName( getWeaponName() );
 	if (!UWeaponSystem::GetWeaponIsValid(weaponData)) return false;

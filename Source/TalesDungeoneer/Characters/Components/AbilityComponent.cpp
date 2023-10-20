@@ -747,17 +747,28 @@ void UAbilityComponent::Multicast_StopCasting_Implementation(FName AbilityName, 
 	}
 	
 	// Determine Success/Fail Animation
-	UAnimMontage* AnimMontage = AbilityData.AnimationData.AnimationOnFail;
-	if (WasSuccessful)
-		AnimMontage = AbilityData.AnimationData.AnimationOnSuccess;
-	
-	if (IsValid(AnimMontage))
+	const USkeleton* OwnerSkeleton = GetOwnerSkeleton();
+	if (IsValid(OwnerSkeleton))
 	{
-		ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
-		if (IsValid(CharacterBase))
+		UAnimMontage* AnimMontage = nullptr;
+		
+		if (AbilityData.AnimationData.AnimationOnFail.Contains(OwnerSkeleton))
+			AnimMontage = *AbilityData.AnimationData.AnimationOnFail.Find(OwnerSkeleton);
+		
+		if (WasSuccessful)
 		{
-			CharacterBase->StopAnimMontage(nullptr);
-			CharacterBase->PlayAnimMontage(AnimMontage);
+			if (AbilityData.AnimationData.AnimationOnSuccess.Contains(OwnerSkeleton))
+				AnimMontage = *AbilityData.AnimationData.AnimationOnSuccess.Find(OwnerSkeleton);
+		}
+	
+		if (IsValid(AnimMontage))
+		{
+			ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
+			if (IsValid(CharacterBase))
+			{
+				CharacterBase->StopAnimMontage(nullptr);
+				CharacterBase->PlayAnimMontage(AnimMontage);
+			}
 		}
 	}
 
@@ -862,6 +873,31 @@ void UAbilityComponent::SetNoLongerCasting(FName AbilityName, bool WasSuccessful
 		Client_StopCasting(AbilityName, WasSuccessful);
 	}
 	
+}
+
+USkeleton* UAbilityComponent::GetOwnerSkeleton()
+{
+	ACharacterBase* CharacterBase = Cast<ACharacterBase>(GetOwner());
+	return CharacterBase->MeshMergeComponent->Skeleton;
+}
+
+void UAbilityComponent::DelayedAnimation(UAnimMontage* AnimToPlay, bool bIsLooped)
+{
+	Multicast_CastingAnimation(AnimToPlay, bIsLooped);
+}
+
+void UAbilityComponent::Multicast_CastingAnimation_Implementation(UAnimMontage* AnimToPlay, bool bIsLooped)
+{
+	if (IsValid(AnimToPlay))
+	{
+		AnimToPlay->bLoop = bIsLooped;
+		ACharacterBase* CharacterBase = Cast<ACharacterBase>(GetOwner());
+		if (IsValid(CharacterBase))
+		{
+			CharacterBase->StopAnimMontage(nullptr);
+			CharacterBase->PlayAnimMontage(AnimToPlay, 1.f);
+		}
+	}
 }
 
 void UAbilityComponent::OnRep_UnlockPoints_Implementation()
@@ -1018,6 +1054,29 @@ bool UAbilityComponent::StartCasting(FName AbilityName)
 	{
 		SetIsCasting(AbilityName);
 		Client_StartCasting(AbilityName);
+		const USkeleton* OwnerSkeleton = GetOwnerSkeleton();
+		if (IsValid(OwnerSkeleton))
+		{
+			if (AbilityData.AnimationData.AnimationOnStart.Contains(OwnerSkeleton))
+			{
+				UAnimMontage* AnimToPlay = *AbilityData.AnimationData.AnimationOnStart.Find(OwnerSkeleton);
+				if (IsValid(AnimToPlay))
+				{
+					if (AbilityData.AnimationData.DelayStartAnim > 0.f)
+					{
+						FTimerHandle ArbitraryTimer;
+						FTimerDelegate ArbitraryDelegate;
+						ArbitraryDelegate.BindUObject(this, &UAbilityComponent::DelayedAnimation,
+							AnimToPlay, AbilityData.AnimationData.bLoopStartAnim);
+						GetWorld()->GetTimerManager().SetTimer(ArbitraryTimer, ArbitraryDelegate,
+							AbilityData.AnimationData.DelayStartAnim, false);
+					}
+					else
+						Multicast_CastingAnimation(
+							*AbilityData.AnimationData.AnimationOnStart.Find(OwnerSkeleton));
+				}
+			}
+		}
 		OnAbilityCastStarted.Broadcast(AbilityName, AbilityData.ActivationTime);
 	}
 	else

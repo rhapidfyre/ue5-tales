@@ -207,7 +207,28 @@ bool UWeaponComponent::PerformAttack(EWeaponSlots weaponType)
 		// Check if the weapon is ready for an attack action
 		const FStWeaponData HitWeaponData = hitWeapon->getWeaponData();
 		if (hitWeapon->getIsWeaponArmed())
-			Server_RequestAttack(weaponType);
+		{
+			// If client, reset attack timer. If server, it'll be handled next.
+			if (GetOwner()->HasAuthority())
+			{
+				if (hitWeapon->doAttack())
+				{
+					const EWeaponTypes animWeaponType = HitWeaponData.WeaponType;
+					if (AttackAnimations.Contains(animWeaponType))
+					{
+						UAnimMontage* animMontage = AttackAnimations[animWeaponType];
+						if (IsValid(animMontage))
+						{
+							Multicast_SendAnimation(
+								Cast<ACharacterBase>(GetOwner()), animMontage);
+						}
+					}
+					return true;
+				}
+			}
+			else
+				Server_RequestAttack(weaponType);
+		}
 		else
 			Server_ToggleWeapon(weaponType, true);
 		
@@ -239,11 +260,6 @@ bool UWeaponComponent::GetIsBlocking()
 void UWeaponComponent::SetTargetedActor(AActor* targetActor)
 {
 	if (!GetOwner()->HasAuthority()) return;
-	if (bShowDebug)
-	{
-		UE_LOG(LogTemp, Display, TEXT("%s(%s): SetTargetedActor()"),
-			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
-	}
 	if (IsValid(targetActor))
 		_TargetActor = targetActor;
 	else
@@ -253,11 +269,6 @@ void UWeaponComponent::SetTargetedActor(AActor* targetActor)
 void UWeaponComponent::ClearTargetedActor()
 {
 	if (!GetOwner()->HasAuthority()) return;
-	if (bShowDebug)
-	{
-		UE_LOG(LogTemp, Display, TEXT("%s(%s): ClearTargetedActor()"),
-			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
-	}
 	_TargetActor = nullptr;
 }
 
@@ -265,12 +276,6 @@ void UWeaponComponent::UnsetWeapon(EWeaponSlots weaponSlot)
 {
 	if (!GetOwner()->HasAuthority())
 		return;
-	
-	if (bShowDebug)
-	{
-		UE_LOG(LogTemp, Display, TEXT("%s(%s): UnsetWeapon()"),
-			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
-	}
 	
 	// Block clients
 	if (!GetOwner()->HasAuthority())
@@ -321,13 +326,6 @@ void UWeaponComponent::SetWeapon(FName weaponName, EWeaponSlots weaponSlot)
 {
 	if (!GetOwner()->HasAuthority())
 		return;
-	
-	if (bShowDebug)
-	{
-		UE_LOG(LogTemp, Display, TEXT("%s(%s): SetWeapon(%s)"),
-			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"),
-			*weaponName.ToString());
-	}
 
 	ACharacter* ownerActor = Cast<ACharacter>(GetOwner());
 	if (!IsValid(ownerActor))
@@ -385,12 +383,6 @@ void UWeaponComponent::SetWeapon(FName weaponName, EWeaponSlots weaponSlot)
 void UWeaponComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	//if (!GetOwner()->HasAuthority()) return;
-	if (bShowDebug)
-	{
-		UE_LOG(LogTemp, Display, TEXT("%s(%s): BeginPlay()"),
-			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
-	}
 	_NextAttackTime = FDateTime::UtcNow();
 }
 
@@ -421,40 +413,31 @@ void UWeaponComponent::WeaponSlotReady(EWeaponSlots WeaponSlot)
 	{
 	case EWeaponSlots::PRIMARY:
 		bPrimaryOperating = false;
-		UE_LOG(LogTemp, Display, TEXT("WeaponSlotReady(): Primary Weapon is NO LONGER operating"));
 		break;
 		
 	case EWeaponSlots::SECONDARY:
 		bSecondaryOperating = false;
-		UE_LOG(LogTemp, Display, TEXT("WeaponSlotReady(): Secondary Weapon is NO LONGER operating"));
 		break;
 		
 	// Set both to false as an "oh crap" case
 	default:
 		bPrimaryOperating	= false;
-		UE_LOG(LogTemp, Display, TEXT("WeaponSlotReady(): Primary Weapon is NO LONGER operating"));
 		bSecondaryOperating = false;
-		UE_LOG(LogTemp, Display, TEXT("WeaponSlotReady(): Secondary Weapon is NO LONGER operating"));
 		break;
 	}
 }
 
-void UWeaponComponent::BeginDestroy()
+void UWeaponComponent::OnUnregister()
 {
 	if (IsValid(_PrimaryWeapon))
 		_PrimaryWeapon->Destroy();
 	if (IsValid(_SecondaryWeapon))
 		_SecondaryWeapon->Destroy();
-	Super::BeginDestroy();
+	Super::OnUnregister();
 }
 
 float UWeaponComponent::WeaponReadyChanged(EWeaponSlots weaponSlot)
 {
-	if (bShowDebug)
-	{
-		UE_LOG(LogTemp, Display, TEXT("%s(%s): WeaponReadyChanged()"),
-			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
-	}
 	AWeaponBase* hitWeapon = nullptr;
 	switch(weaponSlot)
 	{

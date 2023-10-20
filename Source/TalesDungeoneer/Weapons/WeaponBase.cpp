@@ -87,14 +87,9 @@ void AWeaponBase::setWeaponIsArmed(bool setArmed)
 	bIsOperating = false;
 }
 
-void AWeaponBase::Server_RequestWeaponHit_Implementation(const TArray<AActor*> &HitActors)
+void AWeaponBase::Server_RequestWeaponHit_Implementation(AActor* HitActor)
 {
-	if (HitActors.Num() < 1)
-	{
-		UE_LOG(LogTemp, Error, TEXT("%s(%s): Server_RequestWeaponHit() - hitActor INVALID. Cannot proceed."),
-			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
-		return;
-	}
+	if (!IsValid(HitActor)) return;
 	
 	const FDateTime nowTime = FDateTime::UtcNow();
 	if (mNextAttackTime > nowTime)
@@ -107,49 +102,40 @@ void AWeaponBase::Server_RequestWeaponHit_Implementation(const TArray<AActor*> &
 	// If the hit distance is greater than the weapon's max reach, then the hit is invalid.
 	const FStWeaponData weaponData = getWeaponData();
 
-	const float mSeconds = weaponData.AttackDelay * 1000;
-	mNextAttackTime = nowTime + FTimespan::FromMilliseconds(mSeconds);
-
-	for (AActor* HitActor : HitActors)
+	const float hitDistance = GetDistanceTo(HitActor);
+	const float maxHitRange = weaponData.MaxReachDistance + 32.f;
+	if (hitDistance > maxHitRange)
 	{
-		if (IsValid(HitActor))
-		{
-			const float hitDistance = GetDistanceTo(HitActor);
-			const float maxHitRange = weaponData.MaxReachDistance + 32.f;
-			if (hitDistance > maxHitRange)
-			{
-				UE_LOG(LogTemp, Display, TEXT("%s(%s): Server_RequestWeaponHit() - Invalid Attack! Too far away! (%f > %f)"),
-					*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), hitDistance, maxHitRange);
-				return;
-			}
+		UE_LOG(LogTemp, Display, TEXT("%s(%s): Server_RequestWeaponHit() - Invalid Attack! Too far away! (%f > %f)"),
+			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), hitDistance, maxHitRange);
+		return;
+	}
 
-			float totalDamage = 0.f;
-			float dmgMultiplier = 1.f;
+	float totalDamage = 0.f;
+	float dmgMultiplier = 1.f;
 	
-			for (int i = 0; i < weaponData.DamageData.Num(); i++)
-			{
-				FStWeaponDamageData damageData = weaponData.DamageData[i];
-				const float temp = damageData.BaseDamage * dmgMultiplier;
-				float dmgMod = 0.f;
-		
-				if (damageData.DamageVariance)
-				{
-					const float dmgVariance = damageData.DamageVariance * temp;
-					dmgMod = FMath::RandRange(0-dmgVariance, dmgVariance);
-				}
-				totalDamage += (temp + dmgMod);
-
-				FDamageEvent pointDamage(damageData.DamageType);
-				AController* ownerController = nullptr;
-				if (IsValid(GetOwner()))
-				{
-					const ACharacterBase* charBase = Cast<ACharacterBase>(GetOwner());
-					if (IsValid(GetOwner()))
-						ownerController = charBase->GetController();
-				}
-				HitActor->TakeDamage(totalDamage, pointDamage, ownerController, this);
-			}
+	for (int i = 0; i < weaponData.DamageData.Num(); i++)
+	{
+		FStWeaponDamageData damageData = weaponData.DamageData[i];
+		const float temp = damageData.BaseDamage * dmgMultiplier;
+		float dmgMod = 0.f;
+	
+		if (damageData.DamageVariance)
+		{
+			const float dmgVariance = damageData.DamageVariance * temp;
+			dmgMod = FMath::RandRange(0-dmgVariance, dmgVariance);
 		}
+		totalDamage += (temp + dmgMod);
+
+		FDamageEvent pointDamage(damageData.DamageType);
+		AController* ownerController = nullptr;
+		if (IsValid(GetOwner()))
+		{
+			const ACharacterBase* charBase = Cast<ACharacterBase>(GetOwner());
+			if (IsValid(GetOwner()))
+				ownerController = charBase->GetController();
+		}
+		HitActor->TakeDamage(totalDamage, pointDamage, ownerController, GetOwner());
 	}
 }
 

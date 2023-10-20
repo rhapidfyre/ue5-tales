@@ -84,7 +84,7 @@ struct FStAbilitySoundData
 {
 	GENERATED_BODY()
 	// The effect will loop for this amount of time. Does not loop for values <= 0
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) float SoundLoopTime = 0.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bLoopSound = false;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DelaySound = 0.f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) USoundBase* SoundReference = nullptr;
 };
@@ -93,6 +93,10 @@ USTRUCT(BlueprintType)
 struct FStCastingSoundData : public FStAbilitySoundData
 {
 	GENERATED_BODY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bLoopStartSound = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DelaySoundStart = 0.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) USoundBase* SoundStart = nullptr;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DelaySoundSuccess = 0.f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) USoundBase* SoundSuccess = nullptr;
 	
@@ -104,13 +108,16 @@ USTRUCT(BlueprintType)
 struct FStAbilityAnimData
 {
 	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bHoldStartAnim  = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bLoopStartAnim  = false;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DelayStartAnim = 0.f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) UAnimMontage* AnimationOnStart		= nullptr;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DelayFailAnim = 0.f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) UAnimMontage* AnimationOnFail		= nullptr;
+	// Which animation to play for the given skeleton. Allows one ability to have different animations.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TMap<USkeleton*, UAnimMontage*> AnimationOnStart;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DelaySuccessAnim = 0.f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) UAnimMontage* AnimationOnSuccess	= nullptr;
+	// Which animation to play for the given skeleton. Allows one ability to have different animations.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TMap<USkeleton*, UAnimMontage*> AnimationOnSuccess;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DelayFailAnim = 0.f;
+	// Which animation to play for the given skeleton. Allows one ability to have different animations.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TMap<USkeleton*, UAnimMontage*> AnimationOnFail;
 };
 
 USTRUCT(BlueprintType)
