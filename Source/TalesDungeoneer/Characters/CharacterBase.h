@@ -9,7 +9,6 @@
 #include "VitalityStatComponent.h"
 #include "VitalityEffectsComponent.h"
 #include "VitalityWelfareComponent.h"
-#include "Perception/AIPerceptionStimuliSourceComponent.h"
 
 #include "Components/WeaponComponent.h"
 #include "Components/AbilityComponent.h"
@@ -18,6 +17,7 @@
 
 #include "TalesDungeoneer/lib/datastructures/GlobalData.h"
 #include "TalesDungeoneer/Widgets/OverheadDataWidgetBase.h"
+#include "TalesDungeoneer/Saves/SavedCharacters.h"
 
 #include "CharacterBase.generated.h"
 
@@ -91,9 +91,9 @@ public: // functions
 	 * Once started, the attack will continue until finished.
 	 * @param WeaponSlot The weapon slot to attack with (defaults to Primary)
 	 */
-	UFUNCTION(BlueprintCallable)
-	void PerformAttack(EWeaponSlots WeaponSlot = EWeaponSlots::PRIMARY);
-
+	virtual void PerformAttack(
+		EWeaponSlots WeaponSlot = EWeaponSlots::PRIMARY);
+	
 	// Called when the UWeaponComponent should start blocking
 	// Does nothing if a shield/torch/etc is not equipped
 	UFUNCTION(BlueprintCallable) void StartBlocking();
@@ -183,9 +183,14 @@ public: // functions
 	 */
 	UFUNCTION(BlueprintCallable) void SetCharacterName(FString ProposedName);
 
-	UFUNCTION(BlueprintCallable)
 	virtual void LoadSaveData(const FString& SaveName,
-		const int32 UserIndex, USaveGame* SaveData);
+		const int32 UserIndex, USaveGame* SaveData) {};
+	
+	// SERVER-EVENT\nBlueprint override event. Contains the attack logic.
+	UFUNCTION(BlueprintNativeEvent) void PrimaryAttack();
+	
+	// SERVER-EVENT\nBlueprint override event. Contains the attack logic.
+	UFUNCTION(BlueprintNativeEvent) void SecondaryAttack();
 	
 protected: // functions
 	
@@ -214,13 +219,8 @@ protected: // functions
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	// SERVER-EVENT\nBlueprint override event. Contains the attack logic.
-	UFUNCTION(BlueprintNativeEvent) void PrimaryAttack();
 	// CPP Virtual Void override for calling PrimaryAttack() (Blueprint Override)
 	virtual void PrimaryAttackVirtual();
-
-	// SERVER-EVENT\nBlueprint override event. Contains the attack logic.
-	UFUNCTION(BlueprintNativeEvent) void SecondaryAttack();
 	// CPP Virtual Void override for calling SecondaryAttack() (Blueprint Override)
 	virtual void SecondaryAttackVirtual();
 	
@@ -237,7 +237,7 @@ protected: // functions
 	virtual void PostInitializeComponents() override;
 	
 private: // methods
-
+	
 	UFUNCTION(Client, Reliable)
 	void Client_CharacterRestored(const FString& SaveSlotName);
 	
@@ -341,13 +341,9 @@ public: // members
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Character Settings")
 	TArray<FStCharacterParts> BodyData;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	UAIPerceptionStimuliSourceComponent* AiStimuli = nullptr;
 	
 private:
 
-	
 	UPROPERTY(Replicated) ECharacterTeam _CharacterTeam = ECharacterTeam::SPECTATOR;
 	
 	UFUNCTION(NetMulticast, Reliable) void OnRep_CharacterLevel(int OldLevel);

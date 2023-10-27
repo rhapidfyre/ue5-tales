@@ -54,6 +54,10 @@ public:
 
 	UAbilityComponent();
 
+	void InitializePoints(int NumberOfPoints = 0);
+
+	UFUNCTION(Server, Reliable) void Server_InitializePoints(int NumberOfPoints = 0);
+
 	UPROPERTY(BlueprintAssignable) FOnAbilityCastStarted		OnAbilityCastStarted;
 	UPROPERTY(BlueprintAssignable) FOnAbilityCastComplete		OnAbilityCastComplete;
 	UPROPERTY(BlueprintAssignable) FOnAbilityAdded				OnAbilityAdded;
@@ -231,6 +235,8 @@ protected:
 	
 private:
 
+	bool bHasInitialized = false;
+	
 	UFUNCTION(Client, Reliable) void OnRep_UnlockPoints();
 	UPROPERTY(ReplicatedUsing=OnRep_UnlockPoints) int _UnlockPoints = 2;
 

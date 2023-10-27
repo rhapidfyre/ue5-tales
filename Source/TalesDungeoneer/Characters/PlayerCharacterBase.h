@@ -27,9 +27,20 @@ public: // functions
 	UPROPERTY(VisibleAnywhere, BlueprintAssignable) FOnPlayerJoined OnPlayerJoined;
 	
 	APlayerCharacterBase();
+
+	virtual void LoadSaveData(const FString& SaveName,
+		const int32 UserIndex, USaveGame* SaveData) override;
 	
 protected:
 	
 	virtual void BeginPlay() override;
-	
+
+private:
+
+	// Used to reinitialize the character with client's data
+	UFUNCTION(Server, Reliable)
+	void Server_InitializeCharacter(const FString& NewName, int NewLevel,
+		ECharacterRace NewRace, ECharacterClass NewClass, float NewExperience);
+
+	bool bHasInitialized = false;
 };

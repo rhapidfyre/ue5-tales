@@ -25,7 +25,6 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAbilityCastComplete,
 class AAbilityEffectBase;
 class AProjectileBase;
 class ASpellActorBase;
-class ACharacterBase;
 
 // Data relating to hotkeys that activate abilities (such as keys 1-6)
 USTRUCT(BlueprintType)

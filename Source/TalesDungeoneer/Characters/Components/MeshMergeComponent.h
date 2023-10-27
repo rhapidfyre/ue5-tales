@@ -9,6 +9,9 @@
 
 #include "MeshMergeComponent.generated.h"
 
+//FWD DECLARE
+class USavedCharacter;
+
 USTRUCT(BlueprintType)
 struct TALESDUNGEONEER_API FStMeshMergeData
 {
@@ -41,7 +44,13 @@ public:
 	UFUNCTION(BlueprintPure)
 	bool GetIsMeshMergeSystemReady() const { return bHasInitialized; }
 
-	void InitializeMeshMerge();
+	void InitializeMeshMerge(const USavedCharacter* CharacterData = nullptr);
+
+	UFUNCTION(Server, Reliable)
+	void Server_InitializeMeshMerge(USkeleton* NewSkeleton,
+		const TArray<FSkelMeshMergeSectionMapping>& NewMeshMaps,
+		const TArray<FSkelMeshMergeUVTransformMapping>& NewUvTransforms,
+		const TArray<FStMeshMergeData>& NewMeshes);
 
 	UFUNCTION(BlueprintPure)
 	int GetMeshMergeIndexByTag(FGameplayTag SearchTag) const;
@@ -62,6 +71,9 @@ protected:
 	virtual void OnComponentCreated() override;
 
 	virtual void InitializeComponent() override;
+	
+	virtual void GetLifetimeReplicatedProps(
+		TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 private:
 
@@ -70,15 +82,15 @@ private:
 public:
 	
 	// An optional array to map sections from the source meshes to merged section entries
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite)
 	TArray < FSkelMeshMergeSectionMapping > MeshSectionMappings = {};
 	
 	// An optional array to transform the UVs in each mesh
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite)
 	TArray < FSkelMeshMergeUVTransformMapping > UvTransformsPerMesh = {};
 	
 	// The list of skeletal meshes to merge.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite)
 	TArray < FStMeshMergeData > MeshesToMerge = {};
 
 	TArray < FStMeshMergeData > DefaultMeshes= {} ;
@@ -98,7 +110,7 @@ public:
 	
 	// Skeleton that will be used for the merged mesh.
 	// Leave empty if the generated skeleton is OK.
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(Replicated, EditAnywhere, BlueprintReadOnly)
 	USkeleton* Skeleton = nullptr;
 	
 	// The animation blueprint that will be used

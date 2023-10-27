@@ -5,6 +5,11 @@
 
 ACreatorGameStateBase::ACreatorGameStateBase() {}
 
+void ACreatorGameStateBase::BeginPlay()
+{
+	Super::BeginPlay();
+}
+
 
 /**
  * @brief Turns the current player character into a new saved character slot

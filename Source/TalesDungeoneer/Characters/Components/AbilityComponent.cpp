@@ -18,6 +18,20 @@ UAbilityComponent::UAbilityComponent()
 	bReplicateUsingRegisteredSubObjectList = true;
 }
 
+void UAbilityComponent::InitializePoints(int NumberOfPoints)
+{
+	Server_InitializePoints(NumberOfPoints);
+}
+
+void UAbilityComponent::Server_InitializePoints_Implementation(int NumberOfPoints)
+{
+	if (GetOwner()->HasAuthority() && !bHasInitialized)
+	{
+		bHasInitialized = true;
+		SetUnlockPoints(NumberOfPoints);
+	}
+}
+
 
 void UAbilityComponent::EventOnAbilityAction_Implementation(UInputAction* AbilitySlot)
 {

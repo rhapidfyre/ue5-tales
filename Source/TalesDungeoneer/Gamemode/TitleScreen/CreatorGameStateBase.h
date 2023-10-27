@@ -19,6 +19,8 @@ class TALESDUNGEONEER_API ACreatorGameStateBase : public ATalesGameStateBase
 public:
 	
 	ACreatorGameStateBase();
+	
+	virtual void BeginPlay() override;
 
 	UPROPERTY(BlueprintAssignable)
 	FOnNewCharacterCreated OnNewCharacterCreated;

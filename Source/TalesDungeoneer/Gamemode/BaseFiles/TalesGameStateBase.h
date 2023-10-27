@@ -33,6 +33,8 @@ class TALESDUNGEONEER_API ATalesGameStateBase : public AGameStateBase
 public: // methods
 
 	bool CheckIsServer() const;
+
+	bool CheckIsPlayableClient() const;
 	
 	ATalesGameStateBase();
 	

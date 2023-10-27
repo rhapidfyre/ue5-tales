@@ -82,6 +82,9 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Npc Settings")
 	bool bNpcPatrolsWhenIdle = false;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Npc Settings")
+	UAIPerceptionStimuliSourceComponent* AiStimuli = nullptr;
 	
 private:
 

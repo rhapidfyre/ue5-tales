@@ -20,8 +20,39 @@ public:
 	
 	virtual void Tick(float DeltaTime) override;
 
+	// Checks if this NPC can perform an attack, or needs to wait
+	UFUNCTION() bool NpcCanAttemptAttack();
+
+	// Checks if this NPC can perform an ability, or needs to wait
+	UFUNCTION() bool NpcCanActivateAbility();
+
+	// The absolute time (in approx. sec) between attacks
+	// X: Minimum Time, Y: Maximum Time
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat NPC Settings")
+	TArray<float> TimeBetweenAttacks = {2.f, 3.f};
+
+	// The absolute time (in approx. sec) between ability activations
+	// X: Minimum Time, Y: Maximum Time
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat NPC Settings")
+	TArray<float> TimeBetweenAbilities = {6.f, 10.f};
+
+	// Chance of synergy activation when ability activation is chosen
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat NPC Settings")
+	float SynergyChance = 0.33;
+
+	UFUNCTION(BlueprintCallable)
+	virtual void PerformAttack(EWeaponSlots WeaponSlot) override;
+
 protected:
 
 	virtual void BeginPlay() override;
+
+	UFUNCTION()	virtual void ProcessPrimaryAttack();
+
+	UFUNCTION()	virtual void ProcessSecondaryAttack();
+
+private:
+
+	FTimerHandle _AttackTimer = {};
 
 };

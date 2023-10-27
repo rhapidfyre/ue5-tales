@@ -91,6 +91,13 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Vitality Save Data") FStVitalityStats BaseStats;
 	UPROPERTY(VisibleAnywhere, Category = "Vitality Save Data") TArray<FStVitalityEffects> SavedEffects;
 
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Save Data") int Strength = 0;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Save Data") int Agility = 0;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Save Data") int Fortitude = 0;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Save Data") int Intellect = 0;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Save Data") int Astuteness = 0;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Save Data") int Charisma = 0;
+	
 	UPROPERTY(VisibleAnywhere, Category = "Vitality Save Data") int UnlockPointsAvailable = 0;
 	
 };

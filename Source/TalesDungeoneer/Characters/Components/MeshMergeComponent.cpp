@@ -4,6 +4,7 @@
 #include "MeshMergeComponent.h"
 
 #include "Engine/SkeletalMeshSocket.h"
+#include "Net/UnrealNetwork.h"
 #include "TalesDungeoneer/Characters/CharacterBase.h"
 #include "TalesDungeoneer/lib/GameplayTags.h"
 #include "TalesDungeoneer/lib/datastructures/EquipmentWorn.h"
@@ -46,25 +47,21 @@ UMeshMergeComponent::UMeshMergeComponent()
 
 bool UMeshMergeComponent::PerformMeshMerge()
 {
-	if (!bHasInitialized)
-		InitializeMeshMerge();
-	
-	if (MeshesToMerge.Num() < 1)
-		return true;
-	
-	if (!IsValid(GetOwner()))
+	if (MeshesToMerge.IsEmpty())
 	{
-		//UE_LOG(LogTemp, Warning, TEXT("Owner Actor was not a valid Actor!"));
-		return false;
+		if (DefaultMeshes.IsEmpty())
+		{
+			InitializeDefaultMeshes();
+		}
+		MeshesToMerge = DefaultMeshes;
 	}
 	
-	ACharacterBase* CharacterBase = Cast<ACharacterBase>(GetOwner());
+	const ACharacterBase* CharacterBase = Cast<ACharacterBase>(GetOwner());
 	if (!IsValid(CharacterBase))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Owner Actor was not a valid CharacterBase!"));
 		return false;
 	}
-	
 	
 	// Removes all invalid skeletal meshes from the array copy
 	// Invalid mesh assets will return TRUE, which removes it from the array.
@@ -75,7 +72,7 @@ bool UMeshMergeComponent::PerformMeshMerge()
 	});
 
 	// Checks for empty array
-	if (MeshesToMerge.Num() < 1)
+	if (MeshesToMerge.IsEmpty())
 	{
 		UE_LOG(LogTemp, Warning,
 			TEXT("Must provide multiple valid Skeletal Meshes in order to perform a merge."));
@@ -175,39 +172,91 @@ bool UMeshMergeComponent::PerformMeshMerge()
 		CharacterBase->GetMesh()->SetSkeletalMesh(BaseMesh);
 		return true;
 	}
+	
 	UE_LOG(LogTemp, Warning, TEXT("PerformMeshMerge() failed!"));
 	return false;
 }
 
 
-void UMeshMergeComponent::InitializeMeshMerge()
+void UMeshMergeComponent::InitializeMeshMerge(const USavedCharacter* CharacterData)
 {
-	if (!bHasInitialized || MeshesToMerge.Num() < 1)
+	InitializeDefaultMeshes();
+
+	if (bHasInitialized)
 	{
-		const ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
-		if (IsValid(CharacterBase))
+		if (!IsValid(CharacterData))
 		{
-			InitializeDefaultMeshes();
+			UE_LOG(LogTemp, Warning, TEXT("InitializeMeshMerge(%s): Already Initialized!"),
+				GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+			return;
+		}
+		PerformMeshMerge();
+		return;
+	}
 
-			// if the mesh merge array is empty by default, setup the default base
-			if (MeshesToMerge.Num() < 1)
-			{
-				// Throw Error
-				//checkf(DefaultMeshes.Num() > 0,
-				//	TEXT("There are no default meshes defined in DT_BodyParts for this race and class combination!!"));
-
-				for (FStMeshMergeData MeshMergeData : DefaultMeshes)
-				{
-					MeshesToMerge.Add(MeshMergeData);
-				}
-			}
-			
+	if (IsValid(CharacterData))
+	{
+		if (GetOwner()->HasAuthority())
+		{
+			bHasInitialized = true;
+			Skeleton				= CharacterData->Skeleton;			
+			MeshSectionMappings		= CharacterData->MeshSectionMappings; 
+			UvTransformsPerMesh		= CharacterData->UvTransformsPerMesh; 
+			MeshesToMerge			= CharacterData->MeshesToMerge;
 			PerformMeshMerge();
+		}
+		else
+		{
+			Server_InitializeMeshMerge(
+				CharacterData->Skeleton,
+				CharacterData->MeshSectionMappings,
+				CharacterData->UvTransformsPerMesh,
+				CharacterData->MeshesToMerge );
 			bHasInitialized = true;
 		}
+		return;
 	}
-	else
+	
+	// If save data isn't valid, use the defaults
+	if (!GetOwner()->HasAuthority())
+	{
+		Server_InitializeMeshMerge(Skeleton,
+			MeshSectionMappings, UvTransformsPerMesh, MeshesToMerge);
+		return;
+	}
+	
+	// if the mesh merge array is empty by default, setup the default base
+	if (MeshesToMerge.Num() < 1)
+	{
+		for (FStMeshMergeData MeshMergeData : DefaultMeshes)
+		{
+			MeshesToMerge.Add(MeshMergeData);
+		}
+		bHasInitialized = true;
 		PerformMeshMerge();
+	}
+	
+}
+
+void UMeshMergeComponent::Server_InitializeMeshMerge_Implementation(USkeleton* NewSkeleton,
+	const TArray<FSkelMeshMergeSectionMapping>& NewMeshMaps,
+	const TArray<FSkelMeshMergeUVTransformMapping>& NewUvTransforms,
+	const TArray<FStMeshMergeData>& NewMeshes)
+{
+	// The client can only initialize once
+	if (!bHasInitialized)
+	{
+		{
+			UE_LOG(LogTemp, Warning, TEXT("InitializeMeshMerge(%s): Success"),
+				GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+			return;
+		}
+		Skeleton				= NewSkeleton;			
+		MeshSectionMappings		= NewMeshMaps; 
+		UvTransformsPerMesh		= NewUvTransforms; 
+		MeshesToMerge			= NewMeshes;
+		InitializeMeshMerge();
+	}
 }
 
 /**
@@ -329,6 +378,14 @@ void UMeshMergeComponent::InitializeDefaultMeshes()
 		{
 			DefaultMeshes = UEquipmentSystem::GetAllDefaultMeshes();
 		}
-		bHasInitialized = DefaultMeshes.Num() > 0;
 	}
+}
+
+void UMeshMergeComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME_CONDITION(UMeshMergeComponent, Skeleton, COND_OwnerOnly);
+	DOREPLIFETIME_CONDITION(UMeshMergeComponent, MeshesToMerge, COND_OwnerOnly);
+	DOREPLIFETIME_CONDITION(UMeshMergeComponent, MeshSectionMappings, COND_OwnerOnly);
+	DOREPLIFETIME_CONDITION(UMeshMergeComponent, UvTransformsPerMesh, COND_OwnerOnly);
 }

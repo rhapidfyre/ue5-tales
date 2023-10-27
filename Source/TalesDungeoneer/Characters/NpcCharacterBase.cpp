@@ -6,6 +6,7 @@
 #include "TalesDungeoneer/lib/datastructures/LootData.h"
 #include "PickupActorBase.h"
 #include "Controllers/CombatAiControllerBase.h"
+#include "Perception/AISense_Sight.h"
 #include "TalesDungeoneer/Gamemode/BaseFiles/TalesGameStateBase.h"
 
 
@@ -15,6 +16,11 @@ ANpcCharacterBase::ANpcCharacterBase()
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	bReplicates = true;
+	
+	if (!IsValid(AiStimuli))
+		AiStimuli = CreateDefaultSubobject<UAIPerceptionStimuliSourceComponent>("AiStimuli");
+	AiStimuli->bAutoRegister = true;
+	
 }
 
 void ANpcCharacterBase::SetNpcAsPatroller(bool NewTruthValue)
@@ -122,6 +128,10 @@ void ANpcCharacterBase::SetupEquipment()
 void ANpcCharacterBase::OnConstruction(const FTransform& Transform)
 {
 	Super::OnConstruction(Transform);
+	
+	AiStimuli->RegisterForSense(UAISense_Sight::StaticClass());
+	AiStimuli->RegisterWithPerceptionSystem();
+	
 	// Disallow NPCs from picking up pick-up actors
 	InventoryComponent->bPickupItems = false;
 

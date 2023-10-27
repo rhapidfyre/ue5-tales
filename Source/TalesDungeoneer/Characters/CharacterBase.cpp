@@ -13,6 +13,7 @@
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Logging/StructuredLog.h"
 
 #include "TalesDungeoneer/Saves/SavedCharacters.h"
 
@@ -81,10 +82,6 @@ ACharacterBase::ACharacterBase()
 	
 	MeshMergeComponent = CreateDefaultSubobject
 		<UMeshMergeComponent>(TEXT("MeshMergeComponent"));
-	
-	if (!IsValid(AiStimuli))
-		AiStimuli = CreateDefaultSubobject<UAIPerceptionStimuliSourceComponent>("AiStimuli");
-	AiStimuli->bAutoRegister = true;
 
 	// Allow weapon overlap collisions
 	GetCapsuleComponent()->SetGenerateOverlapEvents(true);
@@ -419,7 +416,6 @@ void ACharacterBase::BeginPlay()
 			)
 		{
 			// If no character exists to load, this is likely an NPC
-			
 		}
 	}
 
@@ -438,28 +434,18 @@ void ACharacterBase::BeginPlay()
 	if (!AbilityComponent->OnAbilityCastComplete.IsAlreadyBound(this, &ACharacterBase::CheckAbilitySuccess))
 		AbilityComponent->OnAbilityCastComplete.AddDynamic(this, &ACharacterBase::CheckAbilitySuccess);
 
-	if (IsValid(MeshMergeComponent))
-		MeshMergeComponent->InitializeMeshMerge();
 }
 
 
 void ACharacterBase::OnConstruction(const FTransform& Transform)
 {
 	Super::OnConstruction(Transform);
-	AiStimuli->RegisterForSense(UAISense_Sight::StaticClass());
-	AiStimuli->RegisterWithPerceptionSystem();
-	
 	SetCharacterName(CharacterName);
 }
 
 void ACharacterBase::PostRegisterAllComponents()
 {
 	Super::PostRegisterAllComponents();
-	// If the mesh merge component isn't ready, run first time setup
-	//if (!MeshMergeComponent->GetIsMeshMergeSystemReady())
-	//{
-		//MeshMergeComponent->InitializeMeshMerge();
-	//};
 }
 
 void ACharacterBase::CharacterRestoredFromSave(const FString SaveSlotName)
@@ -485,95 +471,6 @@ void ACharacterBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
 		}
 	}
 	Super::EndPlay(EndPlayReason);
-}
-
-void ACharacterBase::LoadSaveData(const FString& SaveName,
-                                  const int32 UserIndex, USaveGame* SaveData)
-{
-	const USavedCharacter* CharacterData = Cast<USavedCharacter>(SaveData);
-	if (IsValid(CharacterData))
-	{
-		// Set Character Persona Data
-		SetCharacterName(CharacterData->CharacterName);
-		SetCharacterLevel(CharacterData->CharacterLevel);
-		SetCharacterRace(CharacterData->CharacterRace);
-		SetCharacterClass(CharacterData->CharacterClass);
-		SetExperiencePoints(CharacterData->ExperiencePoints);
-
-		// Restore Character Design
-		if (IsValid(MeshMergeComponent))
-		{
-			MeshMergeComponent->Skeleton				= CharacterData->Skeleton;			
-			MeshMergeComponent->MeshSectionMappings		= CharacterData->MeshSectionMappings; 
-			MeshMergeComponent->UvTransformsPerMesh		= CharacterData->UvTransformsPerMesh; 
-			MeshMergeComponent->MeshesToMerge			= CharacterData->MeshesToMerge;		
-			MeshMergeComponent->PerformMeshMerge();
-		}
-
-		// Reinitialize Vitality Component Data
-		// Must occur before equipment or vitality stats will be incorrect
-		if (IsValid(VitalityWelfare))
-		{
-			// Set initial values
-			VitalityWelfare->UseHealthSubsystem			= CharacterData->UseHealthSubsystem; 
-			VitalityWelfare->UseStaminaSubsystem		= CharacterData->UseStaminaSubsystem; 
-			VitalityWelfare->UseMagicSubsystem			= CharacterData->UseMagicSubsystem; 
-			VitalityWelfare->UseSurvivalSubsystem		= CharacterData->UseSurvivalSubsystem; 
-			VitalityWelfare->StartingHealthCurrent		= CharacterData->StartingHealthCurrent;
-			VitalityWelfare->StartingHealthMaximum		= CharacterData->StartingHealthMaximum;
-			VitalityWelfare->PassiveHealthRegen			= CharacterData->PassiveHealthRegen;
-			VitalityWelfare->HealthTimerTickRate		= CharacterData->HealthTimerTickRate;
-			VitalityWelfare->StartingStaminaCurrent 	= CharacterData->StartingStaminaCurrent;
-			VitalityWelfare->StartingStaminaMaximum 	= CharacterData->StartingStaminaMaximum;
-			VitalityWelfare->PassiveStaminaRegen		= CharacterData->PassiveStaminaRegen;
-			VitalityWelfare->StaminaTimerTickRate		= CharacterData->StaminaTimerTickRate;
-			VitalityWelfare->StartingMagicCurrent		= CharacterData->StartingMagicCurrent;
-			VitalityWelfare->StartingMagicMaximum		= CharacterData->StartingMagicMaximum;
-			VitalityWelfare->PassiveMagicRegen			= CharacterData->PassiveMagicRegen;
-			VitalityWelfare->MagicTimerTickRate			= CharacterData->MagicTimerTickRate;
-			VitalityWelfare->StartingHydrationCurrent	= CharacterData->StartingHydrationCurrent;
-			VitalityWelfare->StartingHungerCurrent		= CharacterData->StartingHungerCurrent;
-			VitalityWelfare->StartingHydrationMaximum	= CharacterData->StartingHydrationMaximum;
-			VitalityWelfare->StartingHungerMaximum 		= CharacterData->StartingHungerMaximum;
-			VitalityWelfare->PassiveHydrationDrain 		= CharacterData->PassiveHydrationDrain;
-			VitalityWelfare->PassiveHungerDrain			= CharacterData->PassiveHungerDrain;
-			VitalityWelfare->HydrationTimerTickRate		= CharacterData->HydrationTimerTickRate;
-			VitalityWelfare->CaloriesTimerTickRate		= CharacterData->CaloriesTimerTickRate;
-			VitalityWelfare->ResetCombatState();
-			VitalityWelfare->ReloadSettings();
-
-			// Restore Natural Stats
-			VitalityStats->SetNaturalCoreStat(EVitalityStat::STRENGTH,  100);
-			VitalityStats->SetNaturalCoreStat(EVitalityStat::AGILITY,   100);
-			VitalityStats->SetNaturalCoreStat(EVitalityStat::FORTITUDE, 100);
-			VitalityStats->SetNaturalCoreStat(EVitalityStat::INTELLECT, 100);
-			VitalityStats->SetNaturalCoreStat(EVitalityStat::ASTUTENESS,100);
-			VitalityStats->SetNaturalCoreStat(EVitalityStat::CHARISMA,  100);
-			VitalityStats->ReloadSettings();
-
-			AbilityComponent->SetUnlockPoints(CharacterData->UnlockPointsAvailable);
-
-			// Restore Natural Damage Bonuses
-			for (const FStVitalityDamageMap IntMap : CharacterData->BaseStats.DamageBonuses)
-				VitalityStats->SetNaturalDamageBonusValue(IntMap.DamageType, IntMap.MapValue);
-
-			// Restore Natural Damage Resistances
-			for (const FStVitalityDamageMap IntMap : CharacterData->BaseStats.DamageResistances)
-				VitalityStats->SetNaturalResistanceValue(IntMap.DamageType, IntMap.MapValue);
-
-			// Restore Active Effects
-			VitalityEffects->ReloadSettings(CharacterData->SavedEffects);
-			
-		}
-		UE_LOG(LogTemp, Display, TEXT("LoadSaveData(): Successfully restored character from Save Slot '%s'"),
-			*SaveName);
-		CharacterRestoredFromSave(SaveName);
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("LoadSaveData(): Could not find character Save Slot '%s'"),
-			*SaveName);
-	}
 }
 
 // Called every frame

@@ -19,12 +19,12 @@ class TALESDUNGEONEER_API ACreatorCharacterBase : public ACharacterBase
 public: // functions
 	
 	ACreatorCharacterBase();
+
+	virtual void LoadSaveData(const FString& SaveName,
+		const int32 UserIndex, USaveGame* SaveData) override;
 	
 protected:
 	
 	virtual void BeginPlay() override;
-
-	virtual void CharacterRestoredFromSave(
-		const FString SaveSlotName) override;
 	
 };

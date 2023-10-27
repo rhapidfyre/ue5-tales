@@ -9,9 +9,17 @@
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
 
+// Returns TRUE if the game state is any type of server
 bool ATalesGameStateBase::CheckIsServer() const
 {
 	return GetNetMode() < NM_Client;
+}
+
+// Returns TRUE if the game state is server, but also a client
+bool ATalesGameStateBase::CheckIsPlayableClient() const
+{
+	ENetMode NetMode = GetNetMode();
+	return NetMode == NM_ListenServer || NetMode == NM_Standalone;
 }
 
 FString GetCleanedSaveSlotString(FString UncleanedString)
@@ -104,7 +112,12 @@ void ATalesGameStateBase::SaveMetaDataAsync() const
 
 void ATalesGameStateBase::RemoveSelectedCharacter()
 {
-	if (!CheckIsServer()) return;
+	// Characters never exist on the server
+	if (CheckIsServer() && !CheckIsPlayableClient())
+	{
+		return;
+	}
+	
 	if (_SavedCharacters.IsValidIndex( GetSelectedCharacterIndex() ))
 	{
 		const FString SaveSlotName = GetSelectedCharacterSaveSlotName();
@@ -121,7 +134,11 @@ void ATalesGameStateBase::RemoveSelectedCharacter()
 
 bool ATalesGameStateBase::SaveCharacterSync(const FString SaveSlotName)
 {
-	if (!CheckIsServer()) return false;
+	// Characters always save on the client
+	if (!CheckIsPlayableClient())
+	{
+		return false;
+	}
 	const ACharacterBase* CharacterBase = Cast<ACharacterBase>
 			( UGameplayStatics::GetPlayerCharacter(GetWorld(), 0) );
 	
@@ -146,7 +163,10 @@ bool ATalesGameStateBase::SaveCharacterSync(const FString SaveSlotName)
 
 void ATalesGameStateBase::SaveCharacterAsync(const FString SaveSlotName)
 {
-	if (!CheckIsServer())return;
+	if (CheckIsServer() && !CheckIsPlayableClient())
+	{
+		return;
+	}
 	const ACharacterBase* CharacterBase = Cast<ACharacterBase>
 			( UGameplayStatics::GetPlayerCharacter(GetWorld(), 0) );
 	
@@ -181,7 +201,10 @@ void ATalesGameStateBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& 
 
 USaveGame* ATalesGameStateBase::GetSaveGameMeta() const
 {
-	if (!CheckIsServer()) return nullptr;
+	if (CheckIsServer() && !CheckIsPlayableClient())
+	{
+		return nullptr;
+	}
 	USaveGame* SavedMeta = Cast<USaveGame>(
 			UGameplayStatics::LoadGameFromSlot(_SaveMetaName,0));
 	if (IsValid(SavedMeta))
@@ -196,7 +219,10 @@ TArray<FString> ATalesGameStateBase::GetSavedCharacterSlotNames() const
 
 void ATalesGameStateBase::GetSavedCharacterDataAsync(FString SaveSlotName, ACharacterBase* PlayerCharacter)
 {
-	if (!CheckIsServer()) return;
+	if (CheckIsServer() && !CheckIsPlayableClient())
+	{
+		return;
+	}
 	FAsyncLoadGameFromSlotDelegate LoadDelegate;
 	LoadDelegate.BindUObject(PlayerCharacter, &ACharacterBase::LoadSaveData);
 	UGameplayStatics::AsyncLoadGameFromSlot(SaveSlotName, 0, LoadDelegate);
@@ -204,7 +230,10 @@ void ATalesGameStateBase::GetSavedCharacterDataAsync(FString SaveSlotName, AChar
 
 USavedCharacter* ATalesGameStateBase::GetSavedCharacterData(FString SaveSlotName)
 {
-	if (!CheckIsServer()) return nullptr;
+	if (CheckIsServer() && !CheckIsPlayableClient())
+	{
+		return nullptr;
+	}
 	if (!SaveSlotName.IsEmpty())
 	{
 		USaveGame* SaveGame = UGameplayStatics::LoadGameFromSlot(SaveSlotName, 0);
@@ -230,7 +259,10 @@ int ATalesGameStateBase::GetSelectedCharacterIndex() const
 
 void ATalesGameStateBase::SetSavedCharacterNameList(TArray<FString> RestoredCharacters)
 {
-	if (!CheckIsServer()) return;
+	if (CheckIsServer() && !CheckIsPlayableClient())
+	{
+		return;
+	}
 	_SavedCharacters = RestoredCharacters;
 }
 
@@ -249,8 +281,11 @@ void ATalesGameStateBase::BeginPlay()
 
 bool ATalesGameStateBase::SaveCurrentCharacter(FString& SaveResponse, bool RunAsync)
 {
-	if (!CheckIsServer())
+	if (CheckIsServer() && !CheckIsPlayableClient())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("SaveTheSaveCurrentCharacterGame() FAILED: Saves are clientside."));
 		return false;
+	}
 	SaveResponse = "Saving Character FAILED - Reason Unknown"; 
 	if (!bSaveMetaIsReady)
 	{
@@ -329,8 +364,13 @@ bool ATalesGameStateBase::LoadSaveGameMeta(bool LoadAsync)
  */
 bool ATalesGameStateBase::LoadCharacter(FString SaveSlotName, bool LoadAsync)
 {
-	if (!CheckIsServer())
+	if (CheckIsServer() && !CheckIsPlayableClient())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("LoadCharacter() FAILED: Saves are clientside."));
 		return false;
+	}
+	UE_LOG(LogTemp, Display, TEXT("LoadCharacter() Proceeding"));
+	
 	if (SaveSlotName.IsEmpty())
 		SaveSlotName = GetSelectedCharacterSaveSlotName();
 	
@@ -348,8 +388,11 @@ bool ATalesGameStateBase::LoadCharacter(FString SaveSlotName, bool LoadAsync)
 void ATalesGameStateBase::CharacterSaveLoaded(
 		const FString& SlotName, const int32 UserIndex, USaveGame* LoadedGameData)
 {
-	if (!CheckIsServer())
+	if (CheckIsServer() && !CheckIsPlayableClient())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("CharacterSaveLoaded() FAILED: Saves are clientside."));
 		return;
+	}
 	const USavedCharacter* SavedCharacter = Cast<USavedCharacter>( LoadedGameData );
 	if (!IsValid(LoadedGameData))
 	{
@@ -372,8 +415,11 @@ void ATalesGameStateBase::CharacterSaveLoaded(
 void ATalesGameStateBase::SaveGameMetaLoaded(
 		const FString& SlotName, const int32 UserIndex, USaveGame* LoadedGameData)
 {
-	if (!CheckIsServer())
+	if (CheckIsServer() && !CheckIsPlayableClient())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("SaveGameMetaLoaded() FAILED: Saves are clientside."));
 		return;
+	}
 	const UGlobalSaveData* SaveMeta = Cast<UGlobalSaveData>( LoadedGameData );
 	if (!IsValid(LoadedGameData))
 	{
@@ -452,7 +498,11 @@ int ATalesGameStateBase::GetLastCharacterIndex() const
 
 void ATalesGameStateBase::Helper_SetSaveValues(UGlobalSaveData* SaveMeta) const
 {
-	if (!CheckIsServer()) return;
+	if (CheckIsServer() && !CheckIsPlayableClient())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Helper_SetSaveValues() FAILED: Saves are clientside."));
+		return;
+	}
 	if (IsValid(SaveMeta))
 	{
 		SaveMeta->SetSavedCharacterNameList(_SavedCharacters);
@@ -462,7 +512,11 @@ void ATalesGameStateBase::Helper_SetSaveValues(UGlobalSaveData* SaveMeta) const
 
 void ATalesGameStateBase::Helper_LoadSavedValues(const UGlobalSaveData* SaveMeta)
 {
-	if (!CheckIsServer()) return;
+	if (CheckIsServer() && !CheckIsPlayableClient())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Helper_LoadSavedValues() FAILED: Saves are clientside."));
+		return;
+	}
 	if (IsValid(SaveMeta))
 	{
 		_SavedCharacters	= SaveMeta->GetAllCharacterSaves();
@@ -477,7 +531,7 @@ void ATalesGameStateBase::Helper_LoadSavedValues(const UGlobalSaveData* SaveMeta
 void ATalesGameStateBase::Helper_SetCharacterValues(
 	const ACharacterBase* CharacterBase, USaveGame* SaveData) const
 {
-	if (!CheckIsServer()) return;
+	if (CheckIsServer()) return;
 	
 	USavedCharacter* SavedCharacter = Cast<USavedCharacter>(SaveData);
 	if (IsValid(SavedCharacter))
@@ -504,22 +558,36 @@ void ATalesGameStateBase::Helper_SetCharacterValues(
 			SavedCharacter->UseStaminaSubsystem			= VitalityWelfare->UseStaminaSubsystem;
 			SavedCharacter->UseMagicSubsystem			= VitalityWelfare->UseMagicSubsystem;
 			SavedCharacter->UseSurvivalSubsystem		= VitalityWelfare->UseSurvivalSubsystem;
-			SavedCharacter->StartingHealthCurrent		= VitalityWelfare->StartingHealthCurrent;
-			SavedCharacter->StartingHealthMaximum		= VitalityWelfare->StartingHealthMaximum;
+			
+			float CurrentHealth, MaximumHealth;
+			VitalityWelfare->GetCurrentHealth(CurrentHealth, MaximumHealth);
+			SavedCharacter->StartingHealthCurrent		= CurrentHealth;
+			SavedCharacter->StartingHealthMaximum		= MaximumHealth;
 			SavedCharacter->PassiveHealthRegen			= VitalityWelfare->PassiveHealthRegen;
 			SavedCharacter->HealthTimerTickRate			= VitalityWelfare->HealthTimerTickRate;
-			SavedCharacter->StartingStaminaCurrent		= VitalityWelfare->StartingStaminaCurrent;
-			SavedCharacter->StartingStaminaMaximum		= VitalityWelfare->StartingStaminaMaximum;
+			
+			float CurrentStamina, MaximumStamina;
+			VitalityWelfare->GetCurrentStamina(CurrentStamina, MaximumStamina);
+			SavedCharacter->StartingStaminaCurrent		= CurrentStamina;
+			SavedCharacter->StartingStaminaMaximum		= MaximumStamina;
 			SavedCharacter->PassiveStaminaRegen			= VitalityWelfare->PassiveStaminaRegen;
 			SavedCharacter->StaminaTimerTickRate		= VitalityWelfare->StaminaTimerTickRate;
-			SavedCharacter->StartingMagicCurrent		= VitalityWelfare->StartingMagicCurrent;
-			SavedCharacter->StartingMagicMaximum		= VitalityWelfare->StartingMagicMaximum;
+			
+			float CurrentMagic, MaximumMagic;
+			VitalityWelfare->GetCurrentMagic(CurrentMagic, MaximumMagic);
+			SavedCharacter->StartingMagicCurrent		= CurrentMagic;
+			SavedCharacter->StartingMagicMaximum		= MaximumMagic;
 			SavedCharacter->PassiveMagicRegen			= VitalityWelfare->PassiveMagicRegen;
 			SavedCharacter->MagicTimerTickRate			= VitalityWelfare->MagicTimerTickRate;
-			SavedCharacter->StartingHydrationCurrent	= VitalityWelfare->StartingHydrationCurrent;
-			SavedCharacter->StartingHungerCurrent		= VitalityWelfare->StartingHungerCurrent;
-			SavedCharacter->StartingHydrationMaximum	= VitalityWelfare->StartingHydrationMaximum;
-			SavedCharacter->StartingHungerMaximum		= VitalityWelfare->StartingHungerMaximum;
+			
+			float CurrentHydration, CurrentCalories, MaximumHydration, MaximumCalories;
+			VitalityWelfare->GetCurrentHydration(CurrentHydration, MaximumHydration);
+			VitalityWelfare->GetCurrentHunger(CurrentCalories, MaximumCalories);
+			SavedCharacter->StartingHydrationCurrent	= CurrentHydration;
+			SavedCharacter->StartingHungerCurrent		= CurrentCalories;
+			SavedCharacter->StartingHydrationMaximum	= MaximumHydration;
+			SavedCharacter->StartingHungerMaximum		= MaximumCalories;
+			
 			SavedCharacter->PassiveHydrationDrain		= VitalityWelfare->PassiveHydrationDrain;
 			SavedCharacter->PassiveHungerDrain			= VitalityWelfare->PassiveHungerDrain;
 			SavedCharacter->HydrationTimerTickRate		= VitalityWelfare->HydrationTimerTickRate;
@@ -550,7 +618,7 @@ void ATalesGameStateBase::Helper_SetCharacterValues(
 
 void ATalesGameStateBase::Helper_LoadCharacterValues(const FString SaveSlotName)
 {
-	if (!CheckIsServer()) return;
+	if (CheckIsServer()) return;
 	USavedCharacter* SavedCharacter = GetSavedCharacterData(SaveSlotName);
 	if (IsValid(SavedCharacter))
 	{
