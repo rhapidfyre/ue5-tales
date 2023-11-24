@@ -64,6 +64,9 @@ public: // methods
 	// Forces an asynchronous save of the save game meta file
 	UFUNCTION(BlueprintCallable)
 	void SaveMetaDataAsync() const;
+
+	UFUNCTION(BlueprintPure)
+	bool GetIsSaveMetaReady() const { return bSaveMetaIsReady; }
 	
 	// PERMANENTLY deletes the character and the associated save game
 	UFUNCTION(BlueprintCallable)

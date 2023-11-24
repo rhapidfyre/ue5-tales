@@ -82,15 +82,18 @@ private:
 public:
 	
 	// An optional array to map sections from the source meshes to merged section entries
-	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite)
+	UFUNCTION(NetMulticast, Reliable) void OnRep_MeshSectionMappings();
+	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite, ReplicatedUsing=OnRep_MeshSectionMappings)
 	TArray < FSkelMeshMergeSectionMapping > MeshSectionMappings = {};
 	
 	// An optional array to transform the UVs in each mesh
-	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite)
+	UFUNCTION(NetMulticast, Reliable) void OnRep_UvTransformsPerMesh();
+	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite, ReplicatedUsing=OnRep_UvTransformsPerMesh)
 	TArray < FSkelMeshMergeUVTransformMapping > UvTransformsPerMesh = {};
 	
 	// The list of skeletal meshes to merge.
-	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite)
+	UFUNCTION(NetMulticast, Reliable) void OnRep_MeshesToMerge();
+	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite, ReplicatedUsing=OnRep_MeshesToMerge)
 	TArray < FStMeshMergeData > MeshesToMerge = {};
 
 	TArray < FStMeshMergeData > DefaultMeshes= {} ;

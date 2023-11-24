@@ -4,6 +4,7 @@
 #include "PlayerCharacterBase.h"
 
 #include "Kismet/GameplayStatics.h"
+#include "Net/UnrealNetwork.h"
 #include "TalesDungeoneer/Gamemode/BaseFiles/TalesGameStateBase.h"
 #include "TalesDungeoneer/Saves/SavedCharacters.h"
 
@@ -25,30 +26,34 @@ APlayerCharacterBase::APlayerCharacterBase()
 void APlayerCharacterBase::LoadSaveData(const FString& SaveName, const int32 UserIndex, USaveGame* SaveData)
 {
 	Super::LoadSaveData(SaveName, UserIndex, SaveData);
+
+	const ENetMode NetMode = GetNetMode();
+	if (NetMode == NM_DedicatedServer) return;
+
+	// Dissect the save data and pass it to the server, if applicable
 	const USavedCharacter* CharacterData = Cast<USavedCharacter>(SaveData);
 	if (IsValid(CharacterData))
 	{
-		// Set Character Persona Data
+		// Set Character Persona Data (Works on client or server)
 		UE_LOG(LogTemp, Display, TEXT("LoadSaveData(%s): %s, Lv. %d %s %s"),
 			GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"),
 			*CharacterData->CharacterName, CharacterData->CharacterLevel,
 			*UEnum::GetValueAsString(CharacterData->CharacterRace),
 			*UEnum::GetValueAsString(CharacterData->CharacterClass));
+		
 		Server_InitializeCharacter(
 			CharacterData->CharacterName,
 			CharacterData->CharacterLevel,
 			CharacterData->CharacterRace,
 			CharacterData->CharacterClass,
 			CharacterData->ExperiencePoints	);
-
+		
 		// Restore Character Design
-		if (IsValid(MeshMergeComponent))
-		{
-			MeshMergeComponent->InitializeMeshMerge(CharacterData);
-		}
+		Server_SetupMeshMerge(CharacterData->MeshesToMerge,
+			CharacterData->MeshSectionMappings,
+			CharacterData->UvTransformsPerMesh);
 
-		// Reinitialize Vitality Component Data
-		// Must occur before equipment or vitality stats will be incorrect
+		// Re-initialize Vitality Component Data
 		if (IsValid(VitalityWelfare))
 		{
 			VitalityWelfare->InitializeHealthSubsystem(
@@ -78,6 +83,7 @@ void APlayerCharacterBase::LoadSaveData(const FString& SaveName, const int32 Use
 				CharacterData->StartingHungerMaximum,
 				CharacterData->PassiveHungerDrain);
 		}
+		
 		if (IsValid(VitalityStats))
 		{
 			// Restore Natural Stats
@@ -103,38 +109,87 @@ void APlayerCharacterBase::LoadSaveData(const FString& SaveName, const int32 Use
 			VitalityEffects->InitializeEffects(CharacterData->SavedEffects);
 		}
 		
-		UE_LOG(LogTemp, Display, TEXT("LoadSaveData(): Successfully restored character from Save Slot '%s'"),
-			*SaveName);
+		UE_LOG(LogTemp, Display, TEXT("LoadSaveData(%s): Successfully restored character from Save Slot '%s'"),
+			HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), *SaveName);
 		CharacterRestoredFromSave(SaveName);
 	}
 	else
 	{
-		UE_LOG(LogTemp, Error, TEXT("LoadSaveData(): Could not find character Save Slot '%s'"),
-			*SaveName);
+		UE_LOG(LogTemp, Error, TEXT("LoadSaveData(%s): Could not find character Save Slot '%s'"),
+			HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), *SaveName);
 	}
+}
+
+void APlayerCharacterBase::AwaitGameState()
+{
+	const AGameStateBase* GameStateBase = GetWorld()->GetGameState();
+	const ATalesGameStateBase* TalesGameState = Cast<ATalesGameStateBase>(GameStateBase);
+	
+	if (IsValid(TalesGameState))
+	{
+		while (!TalesGameState->GetIsSaveMetaReady())
+		{
+			
+		}
+		const FString SaveSlotName = TalesGameState->GetSelectedCharacterSaveSlotName();
+		USavedCharacter* SavedCharacter = Cast<USavedCharacter>(
+			UGameplayStatics::LoadGameFromSlot(SaveSlotName, 0));
+		if (IsValid(SavedCharacter))
+			LoadSaveData(SaveSlotName, 0, SavedCharacter);
+	}
+	
+	// Re-fire if game state isn't valid
+	// This shouldn't happen but it stops any potential initialization issues
+	else
+	{
+		FTimerHandle TimerReference;
+		FTimerDelegate TimerDelegate;
+		TimerDelegate.BindUObject(this, &APlayerCharacterBase::AwaitGameState);
+		GetWorld()->GetTimerManager().SetTimer(TimerReference,	TimerDelegate,
+			1, false);
+	}
+	
 }
 
 void APlayerCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
 	SetCharacterTeam(ECharacterTeam::PLAYER);
-	const AGameStateBase* GameStateBase = GetWorld()->GetGameState();
-	const ATalesGameStateBase* TalesGameState = Cast<ATalesGameStateBase>(GameStateBase);
-	if (IsValid(TalesGameState))
+	const ENetMode NetMode = GetNetMode();
+	if (NetMode == NM_Client || NetMode == NM_ListenServer || NetMode == NM_Standalone)
 	{
-		const FString SaveSlotName = TalesGameState->GetSelectedCharacterSaveSlotName();
-		USavedCharacter* SavedCharacter = Cast<USavedCharacter>(
-			UGameplayStatics::LoadGameFromSlot(SaveSlotName, 0));
-		
-		if (IsValid(SavedCharacter))
-			LoadSaveData(SaveSlotName, 0, SavedCharacter);
-		
+		const AGameStateBase* GameStateBase = GetWorld()->GetGameState();
+		const ATalesGameStateBase* TalesGameState = Cast<ATalesGameStateBase>(GameStateBase);
+		if (IsValid(TalesGameState))
+		{
+			// Run async initialization of game state
+			FTimerHandle TimerReference;
+			FTimerDelegate TimerDelegate;
+			TimerDelegate.BindUObject(this, &APlayerCharacterBase::AwaitGameState);
+			GetWorld()->GetTimerManager().SetTimer(TimerReference, TimerDelegate,
+				1, false);
+		}
 	}
 	OnPlayerJoined.Broadcast();
 }
 
-void APlayerCharacterBase::Server_InitializeCharacter_Implementation(const FString& NewName, int NewLevel,
-	ECharacterRace NewRace, ECharacterClass NewClass, float NewExperience)
+void APlayerCharacterBase::Server_SetupMeshMerge_Implementation(
+	const TArray<FStMeshMergeData>& MeshesToMerge,
+	const TArray<FSkelMeshMergeSectionMapping>& MeshSectionMappings,
+	const TArray<FSkelMeshMergeUVTransformMapping>& UvTransformsPerMesh)
+{
+	if (IsValid(MeshMergeComponent))
+	{
+		MeshMergeComponent->MeshesToMerge		= MeshesToMerge;
+		MeshMergeComponent->MeshSectionMappings = MeshSectionMappings;
+		MeshMergeComponent->UvTransformsPerMesh = UvTransformsPerMesh;
+		MeshMergeComponent->PerformMeshMerge();
+	}
+}
+
+void APlayerCharacterBase::Server_InitializeCharacter_Implementation(
+	const FString& NewName, int NewLevel,
+    ECharacterRace NewRace, ECharacterClass NewClass, float NewExperience)
 {
 	if (bHasInitialized)
 	{
@@ -154,5 +209,7 @@ void APlayerCharacterBase::Server_InitializeCharacter_Implementation(const FStri
 		SetCharacterRace(NewRace);
 		SetCharacterClass(NewClass);
 		SetExperiencePoints(NewExperience);
+		bHasInitialized = true; // Prevents the clients from injecting
 	}
 }
+	

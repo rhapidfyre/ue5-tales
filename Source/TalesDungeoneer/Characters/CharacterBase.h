@@ -43,6 +43,9 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCharacterLevelUp, int, NewLevel);
 // Called anytime the characters experience has been modified, up or down
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnExperienceChanged);
 
+// Called anytime the characters name has been modified
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCharacterNameChanged);
+
 // Called anytime the characters level has been modified, up or down
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCharacterLevelChanged);
 
@@ -73,7 +76,8 @@ public: // functions
 	UPROPERTY(BlueprintAssignable) FOnExperienceChanged OnExperienceChanged;
 	UPROPERTY(BlueprintAssignable) FOnCharacterLevelChanged OnCharacterLevelChanged;
 	UPROPERTY(BlueprintAssignable) FOnCharacterRestored OnCharacterRestored;
-
+	UPROPERTY(BlueprintAssignable) FOnCharacterNameChanged OnCharacterNameChanged;
+	
 	/** Returns CameraBoom sub object **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 
@@ -254,10 +258,12 @@ private: // methods
 	// Called when the character successfully activates an ability
 	// Checks if the ability should modify the combat state
 	UFUNCTION()	void CheckAbilitySuccess(FName AbilityName, bool WasSuccessful);
-	
+
+	UFUNCTION(NetMulticast, Reliable) void OnRep_CharacterName();
 public: // members
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Character Settings")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Character Settings",
+		ReplicatedUsing=OnRep_CharacterName)
 	FString CharacterName = "Unnamed Character";
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Settings")

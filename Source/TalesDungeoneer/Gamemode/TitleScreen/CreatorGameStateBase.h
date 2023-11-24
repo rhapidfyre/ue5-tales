@@ -8,7 +8,7 @@
 
 #include "CreatorGameStateBase.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnNewCharacterCreated);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCharacterCreated, FName, SaveSlotName);
 
 
 UCLASS(Blueprintable, BlueprintType)
@@ -22,8 +22,7 @@ public:
 	
 	virtual void BeginPlay() override;
 
-	UPROPERTY(BlueprintAssignable)
-	FOnNewCharacterCreated OnNewCharacterCreated;
+	UPROPERTY(BlueprintAssignable) FOnCharacterCreated OnCharacterCreated;
 	
 	UFUNCTION(BlueprintCallable)
 	bool CreateNewCharacter(FString& SaveResponse, bool RunAsync = false);

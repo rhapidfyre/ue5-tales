@@ -37,7 +37,8 @@ ACharacterBase::ACharacterBase()
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
 
-	GetMesh()->SetIsReplicated(true);
+	USkeletalMeshComponent* SkeletalMesh = GetMesh();
+	SkeletalMesh->SetIsReplicated(true);
 
 	// Configure character movement
 	GetCharacterMovement()->bOrientRotationToMovement = true; // Character moves in the direction of input...	
@@ -285,7 +286,7 @@ void ACharacterBase::SetExperiencePoints(float NewValue)
 void ACharacterBase::AddExperiencePoints(float AddValue)
 {
 	// Only execute on the server, or when playing standalone
-	if (GetNetMode() >= NM_Client) return;
+	if (GetNetMode() < NM_Client) return;
 	
 	const float NewValue = _ExperiencePoints + FMath::Abs(AddValue);
 	const float NextLevel = GetExperienceNeeded();
@@ -411,11 +412,15 @@ void ACharacterBase::BeginPlay()
 	ATalesGameStateBase* TalesGameState = Cast<ATalesGameStateBase>(GetWorld()->GetGameState());
 	if (IsValid(TalesGameState))
 	{
-		if (! TalesGameState->LoadCharacter(
-			  TalesGameState->GetSelectedCharacterSaveSlotName(), true)
-			)
+		// Characters are saved on the client
+		if (GetNetMode() == NM_DedicatedServer)
 		{
-			// If no character exists to load, this is likely an NPC
+			if (! TalesGameState->LoadCharacter(
+				  TalesGameState->GetSelectedCharacterSaveSlotName(), true)
+				)
+			{
+				// If no character exists to load, this is likely an NPC
+			}
 		}
 	}
 
@@ -457,7 +462,7 @@ void ACharacterBase::CharacterRestoredFromSave(const FString SaveSlotName)
 
 void ACharacterBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
-	if (GetNetMode() < NM_Client)
+	if (GetNetMode() == NM_DedicatedServer)
 	{
 		if (IsValid(GetWorld()))
 		{
@@ -689,7 +694,12 @@ void ACharacterBase::CheckAbilitySuccess(FName AbilityName, bool WasSuccessful)
 	}
 }
 
-void ACharacterBase::OnRep_CharacterLevel_Implementation(int OldLevel)
+void ACharacterBase::OnRep_CharacterName_Implementation()
+{
+	OnCharacterNameChanged.Broadcast();
+}
+
+void ACharacterBase::	OnRep_CharacterLevel_Implementation(int OldLevel)
 {
 	const int NewLevel = GetCharacterLevel();
 	if (OldLevel < NewLevel)

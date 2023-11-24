@@ -112,11 +112,7 @@ void ATalesGameStateBase::SaveMetaDataAsync() const
 
 void ATalesGameStateBase::RemoveSelectedCharacter()
 {
-	// Characters never exist on the server
-	if (CheckIsServer() && !CheckIsPlayableClient())
-	{
-		return;
-	}
+	if (!CheckIsPlayableClient()) return;
 	
 	if (_SavedCharacters.IsValidIndex( GetSelectedCharacterIndex() ))
 	{
@@ -127,6 +123,7 @@ void ATalesGameStateBase::RemoveSelectedCharacter()
 			_SavedCharacters.RemoveAt(DeleteIndex);
 			_SelectedCharacter = _SavedCharacters.Num() - 1;
 			UGameplayStatics::DeleteGameInSlot(SaveSlotName, 0);
+			SaveMetaDataAsync(); // Update the save file
 			OnCharacterDeleted.Broadcast(SaveSlotName, DeleteIndex);
 		}
 	}
@@ -230,10 +227,7 @@ void ATalesGameStateBase::GetSavedCharacterDataAsync(FString SaveSlotName, AChar
 
 USavedCharacter* ATalesGameStateBase::GetSavedCharacterData(FString SaveSlotName)
 {
-	if (CheckIsServer() && !CheckIsPlayableClient())
-	{
-		return nullptr;
-	}
+	if (!CheckIsPlayableClient()) return nullptr;
 	if (!SaveSlotName.IsEmpty())
 	{
 		USaveGame* SaveGame = UGameplayStatics::LoadGameFromSlot(SaveSlotName, 0);
@@ -275,8 +269,8 @@ void ATalesGameStateBase::BeginPlay()
 		CreateSaveGameIfNotExists();
 
 	// Load the save game data from the previous session
-	LoadSaveGameMetaAsync();
-	
+	LoadSaveGameMeta( HasAuthority() );
+	OnSaveGameObjectReady.Broadcast();
 }
 
 bool ATalesGameStateBase::SaveCurrentCharacter(FString& SaveResponse, bool RunAsync)
@@ -364,7 +358,7 @@ bool ATalesGameStateBase::LoadSaveGameMeta(bool LoadAsync)
  */
 bool ATalesGameStateBase::LoadCharacter(FString SaveSlotName, bool LoadAsync)
 {
-	if (CheckIsServer() && !CheckIsPlayableClient())
+	if (!CheckIsPlayableClient())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("LoadCharacter() FAILED: Saves are clientside."));
 		return false;
@@ -388,7 +382,7 @@ bool ATalesGameStateBase::LoadCharacter(FString SaveSlotName, bool LoadAsync)
 void ATalesGameStateBase::CharacterSaveLoaded(
 		const FString& SlotName, const int32 UserIndex, USaveGame* LoadedGameData)
 {
-	if (CheckIsServer() && !CheckIsPlayableClient())
+	if (!CheckIsPlayableClient())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("CharacterSaveLoaded() FAILED: Saves are clientside."));
 		return;
@@ -531,7 +525,7 @@ void ATalesGameStateBase::Helper_LoadSavedValues(const UGlobalSaveData* SaveMeta
 void ATalesGameStateBase::Helper_SetCharacterValues(
 	const ACharacterBase* CharacterBase, USaveGame* SaveData) const
 {
-	if (CheckIsServer()) return;
+	if (!CheckIsPlayableClient()) return;
 	
 	USavedCharacter* SavedCharacter = Cast<USavedCharacter>(SaveData);
 	if (IsValid(SavedCharacter))
@@ -618,7 +612,7 @@ void ATalesGameStateBase::Helper_SetCharacterValues(
 
 void ATalesGameStateBase::Helper_LoadCharacterValues(const FString SaveSlotName)
 {
-	if (CheckIsServer()) return;
+	if (!CheckIsPlayableClient()) return;
 	USavedCharacter* SavedCharacter = GetSavedCharacterData(SaveSlotName);
 	if (IsValid(SavedCharacter))
 	{
@@ -696,6 +690,7 @@ bool ATalesGameStateBase::LoadCharacterSync(FString SaveSlotName)
 
 void ATalesGameStateBase::LoadCharacterAsync(FString SaveSlotName)
 {
+	if (!CheckIsPlayableClient()) return;
 	FAsyncLoadGameFromSlotDelegate LoadedDelegate;
 	LoadedDelegate.BindUObject(this, &ATalesGameStateBase::CharacterSaveLoaded);
 	UGameplayStatics::AsyncLoadGameFromSlot(SaveSlotName, 0, LoadedDelegate);
@@ -710,6 +705,8 @@ bool ATalesGameStateBase::LoadSaveGameMetaSync()
 		if (IsValid(SaveMeta))
 		{
 			Helper_LoadSavedValues(SaveMeta);
+			bSaveMetaIsReady = true;
+			OnSaveGameObjectReady.Broadcast();
 			return true;
 		}
 	}

@@ -30,7 +30,9 @@ public: // functions
 
 	virtual void LoadSaveData(const FString& SaveName,
 		const int32 UserIndex, USaveGame* SaveData) override;
-	
+
+	UFUNCTION() void AwaitGameState();
+
 protected:
 	
 	virtual void BeginPlay() override;
@@ -42,5 +44,11 @@ private:
 	void Server_InitializeCharacter(const FString& NewName, int NewLevel,
 		ECharacterRace NewRace, ECharacterClass NewClass, float NewExperience);
 
+	UFUNCTION(Server, Reliable)
+	void Server_SetupMeshMerge(
+		const TArray<FStMeshMergeData>& MeshesToMerge,
+		const TArray<FSkelMeshMergeSectionMapping>& MeshSectionMappings,
+		const TArray<FSkelMeshMergeUVTransformMapping>& UvTransformsPerMesh);
+	
 	bool bHasInitialized = false;
 };

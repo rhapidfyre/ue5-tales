@@ -19,6 +19,7 @@ void ACreatorGameStateBase::BeginPlay()
  */
 bool ACreatorGameStateBase::CreateNewCharacter(FString& SaveResponse, bool RunAsync)
 {
+	
 	if (CreateCharacterSaveIfNotExists())
 	{
 		if (SaveCurrentCharacter(SaveResponse, RunAsync))

@@ -47,6 +47,9 @@ UMeshMergeComponent::UMeshMergeComponent()
 
 bool UMeshMergeComponent::PerformMeshMerge()
 {
+	UE_LOG(LogTemp, Warning, TEXT("%s(%s): PerformMeshMerge()"), *GetName(),
+		GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+	const ENetMode NetMode = GetNetMode();
 	if (MeshesToMerge.IsEmpty())
 	{
 		if (DefaultMeshes.IsEmpty())
@@ -207,12 +210,14 @@ void UMeshMergeComponent::InitializeMeshMerge(const USavedCharacter* CharacterDa
 		}
 		else
 		{
+			/*
 			Server_InitializeMeshMerge(
 				CharacterData->Skeleton,
 				CharacterData->MeshSectionMappings,
 				CharacterData->UvTransformsPerMesh,
 				CharacterData->MeshesToMerge );
 			bHasInitialized = true;
+			*/
 		}
 		return;
 	}
@@ -220,8 +225,10 @@ void UMeshMergeComponent::InitializeMeshMerge(const USavedCharacter* CharacterDa
 	// If save data isn't valid, use the defaults
 	if (!GetOwner()->HasAuthority())
 	{
+		/*
 		Server_InitializeMeshMerge(Skeleton,
 			MeshSectionMappings, UvTransformsPerMesh, MeshesToMerge);
+		*/
 		return;
 	}
 	
@@ -246,11 +253,6 @@ void UMeshMergeComponent::Server_InitializeMeshMerge_Implementation(USkeleton* N
 	// The client can only initialize once
 	if (!bHasInitialized)
 	{
-		{
-			UE_LOG(LogTemp, Warning, TEXT("InitializeMeshMerge(%s): Success"),
-				GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
-			return;
-		}
 		Skeleton				= NewSkeleton;			
 		MeshSectionMappings		= NewMeshMaps; 
 		UvTransformsPerMesh		= NewUvTransforms; 
@@ -381,11 +383,29 @@ void UMeshMergeComponent::InitializeDefaultMeshes()
 	}
 }
 
+void UMeshMergeComponent::OnRep_MeshesToMerge_Implementation()
+{
+	if (GetNetMode() >= NM_Client)
+		PerformMeshMerge();
+}
+
+void UMeshMergeComponent::OnRep_UvTransformsPerMesh_Implementation()
+{
+	if (GetNetMode() >= NM_Client)
+		PerformMeshMerge();
+}
+
+void UMeshMergeComponent::OnRep_MeshSectionMappings_Implementation()
+{
+	if (GetNetMode() >= NM_Client)
+		PerformMeshMerge();
+}
+
 void UMeshMergeComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-	DOREPLIFETIME_CONDITION(UMeshMergeComponent, Skeleton, COND_OwnerOnly);
-	DOREPLIFETIME_CONDITION(UMeshMergeComponent, MeshesToMerge, COND_OwnerOnly);
-	DOREPLIFETIME_CONDITION(UMeshMergeComponent, MeshSectionMappings, COND_OwnerOnly);
-	DOREPLIFETIME_CONDITION(UMeshMergeComponent, UvTransformsPerMesh, COND_OwnerOnly);
+	DOREPLIFETIME(UMeshMergeComponent, Skeleton);
+	DOREPLIFETIME(UMeshMergeComponent, MeshesToMerge);
+	DOREPLIFETIME(UMeshMergeComponent, MeshSectionMappings);
+	DOREPLIFETIME(UMeshMergeComponent, UvTransformsPerMesh);
 }
