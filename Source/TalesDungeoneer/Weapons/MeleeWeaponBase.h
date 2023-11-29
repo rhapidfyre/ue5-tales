@@ -7,6 +7,11 @@
 
 #include "MeleeWeaponBase.generated.h"
 
+/*
+ *	THIS IS OLD STOP USING IT
+ *	Use "WeaponMeleeBase"
+ *
+ */
 UCLASS(Blueprintable)
 class TALESDUNGEONEER_API AMeleeWeaponBase : public AWeaponBase
 {
@@ -32,8 +37,8 @@ protected:
 	UFUNCTION(BlueprintPure) TArray<AActor*> getOverlappingResources();
 	
 	virtual void OnConstruction(const FTransform& Transform) override;
-	virtual void updateWeapon() override;
-	virtual bool checkForHit(TArray<AActor*>& HitActors) override;
+	virtual void UpdateWeapon() override;
+	virtual bool CheckForHit(TArray<AActor*>& HitActors) override;
 	virtual void startAttackTimer() override;
 	virtual void cancelAttackTimer() override;
 

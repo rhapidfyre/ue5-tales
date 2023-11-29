@@ -23,9 +23,9 @@ void ARangedWeaponBase::OnConstruction(const FTransform& Transform)
 	Super::OnConstruction(Transform);
 }
 
-void ARangedWeaponBase::updateWeapon()
+void ARangedWeaponBase::UpdateWeapon()
 {
-	Super::updateWeapon();
+	Super::UpdateWeapon();
 }
 
 bool ARangedWeaponBase::doAttack()
@@ -81,7 +81,7 @@ void ARangedWeaponBase::SpawnProjectile(FVector fwdVector)
 }
 
 
-bool ARangedWeaponBase::checkForHit(TArray<AActor*>& HitActors)
+bool ARangedWeaponBase::CheckForHit(TArray<AActor*>& HitActors)
 {
 	return true;
 }

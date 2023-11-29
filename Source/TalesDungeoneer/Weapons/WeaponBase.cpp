@@ -9,6 +9,7 @@
 #include "Net/UnrealNetwork.h"
 #include "TalesDungeoneer/Characters/CharacterBase.h"
 #include "Engine/DamageEvents.h"
+#include "Logging/StructuredLog.h"
 
 AWeaponBase::AWeaponBase()
 {
@@ -19,16 +20,27 @@ AWeaponBase::AWeaponBase()
 	
 	mWeaponName = UItemSystem::getInvalidName();
 
-	WeaponMesh = CreateDefaultSubobject<UStaticMeshComponent>("WeaponMesh");
-	WeaponMesh->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-	WeaponMesh->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
-	SetRootComponent(WeaponMesh);
+	WeaponRoot = CreateDefaultSubobject<USceneComponent>("WeaponRoot");
+	SetRootComponent(WeaponRoot);
 
-	WeaponGripLeft  = CreateDefaultSubobject<USceneComponent>("WeaponGripLeft");
-	WeaponGripLeft->SetupAttachment(GetRootComponent());
-	
+	// Allow use of static meshes
+	WeaponMeshStatic = CreateDefaultSubobject<UStaticMeshComponent>("WeaponMeshStatic");
+	WeaponMeshStatic->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	WeaponMeshStatic->SetCollisionResponseToAllChannels(ECR_Ignore);
+	WeaponMeshStatic->SetupAttachment(WeaponRoot, "root");
+
+	// Allow use of skeletal meshes
+	WeaponMeshSkeleton = CreateDefaultSubobject<USkeletalMeshComponent>("WeaponMeshSkeleton");
+	WeaponMeshSkeleton->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	WeaponMeshSkeleton->SetCollisionResponseToAllChannels(ECR_Ignore);
+	WeaponMeshSkeleton->SetupAttachment(WeaponRoot, "root");
+
+	// Optional weapon grip positions
+	// If not used, the weapon will be gripped at root
+	WeaponGripLeft = CreateDefaultSubobject<USceneComponent>("WeaponGripLeft");
+	WeaponGripLeft->SetupAttachment(WeaponRoot);
 	WeaponGripRight = CreateDefaultSubobject<USceneComponent>("WeaponGripRight");
-	WeaponGripRight->SetupAttachment(GetRootComponent());
+	WeaponGripRight->SetupAttachment(WeaponRoot);
 	
 	
 }
@@ -37,13 +49,14 @@ void AWeaponBase::OnConstruction(const FTransform& Transform)
 {
 	Super::OnConstruction(Transform);
 	SetReplicates(true);
+	UpdateWeapon();
 }
 
 void AWeaponBase::BeginPlay()
 {
 	SetActorTickEnabled(true);
 	Super::BeginPlay();
-	updateWeapon();
+	UpdateWeapon();
 }
 
 void AWeaponBase::PostActorCreated()
@@ -69,9 +82,14 @@ void AWeaponBase::setWeaponName(FName weaponName)
 			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), *weaponName.ToString());
 	}
 	// NetMulticast should run on both server and client, updating the mesh and everything
-	if (HasAuthority()) mWeaponName = weaponName;
+	if (HasAuthority())
+		mWeaponName = weaponName;
 }
 
+/**
+ * Set to true when the weapon should be drawn. False to stow.
+ * @param setArmed True for draw, false for stow.
+ */
 void AWeaponBase::setWeaponIsArmed(bool setArmed)
 {
 	if (bShowDebug)
@@ -85,11 +103,21 @@ void AWeaponBase::setWeaponIsArmed(bool setArmed)
 	if (bIsWeaponArmed)	startDrawEffects();
 	else				startStowEffects();
 	bIsOperating = false;
+	
 }
 
+/** Called by the client or server to validate the hit & calculate damage
+ * * Calls 'TakeDamage' on the actor after verification.
+ * @param HitActor The actor taking the hit
+ */
 void AWeaponBase::Server_RequestWeaponHit_Implementation(AActor* HitActor)
 {
-	if (!IsValid(HitActor)) return;
+	if (!IsValid(HitActor))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("%s(%s): Server_RequestWeaponHit() - Hit Actor is INVALID"),
+			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+		return;
+	}
 	
 	const FDateTime nowTime = FDateTime::UtcNow();
 	if (mNextAttackTime > nowTime)
@@ -102,24 +130,42 @@ void AWeaponBase::Server_RequestWeaponHit_Implementation(AActor* HitActor)
 	// If the hit distance is greater than the weapon's max reach, then the hit is invalid.
 	const FStWeaponData weaponData = getWeaponData();
 
-	const float hitDistance = GetDistanceTo(HitActor);
-	const float maxHitRange = weaponData.MaxReachDistance + 32.f;
-	if (hitDistance > maxHitRange)
+	// Verify the weapon owner's controller is valid
+	AController* OwnerController = GetOwner()->GetInstigatorController();
+	if (!IsValid(OwnerController))
 	{
-		UE_LOG(LogTemp, Display, TEXT("%s(%s): Server_RequestWeaponHit() - Invalid Attack! Too far away! (%f > %f)"),
-			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), hitDistance, maxHitRange);
+		UE_LOG(LogTemp, Display, TEXT("%s(%s): Server_RequestWeaponHit() - Owner Controller INVALID"),
+			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+		return ;
+	}
+
+	// Allows child classes to implement a validation failure
+	if (!GetIsAttackValid(HitActor))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("%s(%s): Server_RequestWeaponHit() - GetIsAttackValid returned FALSE!"),
+			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
 		return;
 	}
 
+	// Allows child blueprints to implement validation failure
+	if (!IsAttackValid(HitActor))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("%s(%s): Server_RequestWeaponHit() - IsAttackValid(BP) returned FALSE!"),
+			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+		return;
+	}
+	
 	float totalDamage = 0.f;
 	float dmgMultiplier = 1.f;
-	
-	for (int i = 0; i < weaponData.DamageData.Num(); i++)
+
+	// Apply each damage type on the weapon to the hit actor individually
+	// Allows for resistances, vulnerabilities, etc. to be checked properly
+	for (const FStWeaponDamageData damageData : weaponData.DamageData)
 	{
-		FStWeaponDamageData damageData = weaponData.DamageData[i];
 		const float temp = damageData.BaseDamage * dmgMultiplier;
 		float dmgMod = 0.f;
-	
+
+		// Modify damage based on the variance of the weapon
 		if (damageData.DamageVariance)
 		{
 			const float dmgVariance = damageData.DamageVariance * temp;
@@ -128,20 +174,37 @@ void AWeaponBase::Server_RequestWeaponHit_Implementation(AActor* HitActor)
 		totalDamage += (temp + dmgMod);
 
 		FDamageEvent pointDamage(damageData.DamageType);
-		AController* ownerController = nullptr;
-		if (IsValid(GetOwner()))
-		{
-			const ACharacterBase* charBase = Cast<ACharacterBase>(GetOwner());
-			if (IsValid(GetOwner()))
-				ownerController = charBase->GetController();
-		}
-		HitActor->TakeDamage(totalDamage, pointDamage, ownerController, GetOwner());
+		
+		// Each damage needs to be applied individually to allow for resist/bonus
+		// Resistance and vulnerability will be calculated by the actor taking the damage
+		HitActor->TakeDamage(totalDamage, pointDamage, OwnerController, GetOwner());
+	}
+
+	// Dispatch Hit Effects
+	// Always play the hit noise & particle effects, even if all the damage was resisted
+	if (IsValid(weaponData.WeaponSounds.UseSoundWeaponHit))
+	{
+		soundEffectWithDelay(weaponData.WeaponSounds.UseSoundWeaponHit,
+			weaponData.WeaponSounds.DelaySoundWeaponHit);
+	}
+	
+	// Play the "I got hit" animation if any damage was actually taken
+	const ACharacterBase* HitCharacterBase = Cast<ACharacterBase>( HitActor );
+	if ( IsValid(HitCharacterBase) && (totalDamage > 0.f) )
+	{
+		// Ask the Vitality System to play hit effects
+		HitCharacterBase->VitalityWelfare->HitByWeapon();
 	}
 }
 
-void AWeaponBase::PerformWeaponHit(AActor* hitActor)
+/** Used on the client making the attack. Performs sounds, animations and
+ * all hit related effects prior to the server event, to ensure everything
+ * appears seamless to the client making the attack.
+ * @param HitActor The actor that was hit by the attack
+ */
+void AWeaponBase::PerformWeaponHit(AActor* HitActor)
 {
-	OnHit.Broadcast(hitActor);
+	OnHit.Broadcast(HitActor);
 }
 
 bool AWeaponBase::getIsMeleeWeapon()
@@ -189,7 +252,7 @@ void AWeaponBase::OnRep_WeaponName_Implementation()
 		UE_LOG(LogTemp, Display, TEXT("%s(%s): OnRep_WeaponName_Implementation()"),
 			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
 	}
-	updateWeapon();
+	UpdateWeapon();
 }
 
 
@@ -229,21 +292,59 @@ void AWeaponBase::startDrawEffects(float delayTime)
 
 }
 
-void AWeaponBase::soundEffectWithDelay(USoundBase* soundEffect, float soundDelay)
+/** Plays the given effect based on the enum requested
+ * This should only be called by the client performing the action
+ * @param WeaponEffect The enum specifying which action is being taken
+ */
+void AWeaponBase::Server_PlayWeaponEffect_Implementation(const EWeaponEffectType WeaponEffect)
+{
+	const FStWeaponData WeaponData = getWeaponData();
+	float WeaponSoundDelay;
+	USoundBase* WeaponSoundBase;
+	
+	switch (WeaponEffect)
+	{
+	case (EWeaponEffectType::ATTACK):
+		WeaponSoundBase  = WeaponData.WeaponSounds.UseSoundWeaponAttack;
+		WeaponSoundDelay = WeaponData.WeaponSounds.DelaySoundWeaponAttack;
+		break;
+		
+	case (EWeaponEffectType::HIT):
+		WeaponSoundBase  = WeaponData.WeaponSounds.UseSoundWeaponHit;
+		WeaponSoundDelay = WeaponData.WeaponSounds.DelaySoundWeaponHit;
+		break;
+		
+	default:
+		return;
+	}
+	
+	if (!IsValid(WeaponSoundBase))
+	{
+		return;
+	}
+	soundEffectWithDelay(WeaponSoundBase, WeaponSoundDelay);
+}
+
+
+/** Processes the requested sound and delay timer, sending it to all clients.
+ * @param SoundBase The sound to be played
+ * @param TimerRate The delay. Defaults to zero.
+ */
+void AWeaponBase::soundEffectWithDelay(USoundBase* SoundBase, float TimerRate)
 {
 	if (bShowDebug)
 	{
 		UE_LOG(LogTemp, Display, TEXT("%s(%s): soundEffectWithDelay()"),
 			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
 	}
-	if (soundDelay < 0.01)
+	if (TimerRate < 0.01)
 	{
-		sendSoundEffect(soundEffect);
+		sendSoundEffect(SoundBase);
 		return;
 	}
 	FTimerDelegate soundArgs; FTimerHandle soundTimer;
-	soundArgs.BindUObject(this, &AWeaponBase::PrepSoundEffect, soundEffect);
-	GetWorld()->GetTimerManager().SetTimer(soundTimer, soundArgs, soundDelay, false);
+	soundArgs.BindUObject(this, &AWeaponBase::PrepSoundEffect, SoundBase);
+	GetWorld()->GetTimerManager().SetTimer(soundTimer, soundArgs, TimerRate, false);
 }
 
 void AWeaponBase::niagaraEffectWithDelay(
@@ -288,18 +389,48 @@ void AWeaponBase::sendSoundEffect_Implementation(USoundBase* soundEffect)
 	}
 }
 
-void AWeaponBase::updateWeapon()
+void AWeaponBase::UpdateWeapon()
 {
+	const FStWeaponData WeaponData = getWeaponData();
+	MaxTargetsHitAtOnce_ = WeaponData.MaxTargetsHitAtOnce;
 	
+	if (UWeaponSystem::GetWeaponNameIsValid(getWeaponName()))
+	{
+		if (IsValid(WeaponData.MeshStatic))
+			UsingStaticMesh = WeaponData.MeshStatic;
+		if (IsValid(WeaponData.MeshSkeletal))
+			UsingSkeletalMesh = WeaponData.MeshSkeletal;
+	}
+
+	// Validate Mesh and realign it
+	if (IsValid(UsingStaticMesh) || IsValid(UsingSkeletalMesh))
+	{
+		
+		if (IsValid(UsingSkeletalMesh))
+		{
+			WeaponMeshSkeleton->SetSkeletalMesh(UsingSkeletalMesh);
+		}
+		else
+		{
+			if (IsValid(UsingStaticMesh))
+			{
+				WeaponMeshStatic->SetStaticMesh(UsingStaticMesh);
+			}
+		}
+		WeaponMeshSkeleton->ResetRelativeTransform();
+		WeaponMeshSkeleton->AddRelativeLocation(WeaponData.MeshOffset);
+		WeaponMeshSkeleton->AddRelativeRotation(WeaponData.MeshRotOffset);
+	}
 }
 
-bool AWeaponBase::checkForHit(TArray<AActor*>& HitActors)
+bool AWeaponBase::CheckForHit(TArray<AActor*>& HitActors)
 {
 	return false; // Implemented in child classes
 }
 
 void AWeaponBase::startAttackTimer()
 {
+	UE_LOGFMT(LogTemp, Display, "{WeaponName}: Started Attack", *GetName());
 	// Invalidate the old attack timer, then recreate it.
 	GetWorld()->GetTimerManager().ClearTimer(mAttackTimer);
 	
@@ -315,8 +446,52 @@ void AWeaponBase::startAttackTimer()
 
 void AWeaponBase::cancelAttackTimer()
 {
+	UE_LOGFMT(LogTemp, Display, "{WeaponName}: Ended Attack", *GetName());
 	if (GetWorld()->GetTimerManager().IsTimerActive(mAttackTimer))
 		(GetWorld()->GetTimerManager().ClearTimer(mAttackTimer));
+}
+
+/** Allows child classes to deny or allow the attack.
+ * ex: Melee weapon checks distance - Invalid distance is found, then
+ * the attack check could return false and indicate failure.
+ * @param HitActor The actor to run the validation against (hit target)
+ * @return True by default. Children should set true or false accordingly.
+ */
+bool AWeaponBase::GetIsAttackValid(AActor* HitActor)
+{
+	return true;
+}
+
+/** Allows BLUEPRINT child classes to deny or allow the attack.
+ * ex: Melee weapon checks distance - Invalid distance is found, then
+ * the attack check could return false and indicate failure.
+ * @param HitActor The actor to run the validation against (hit target)
+ * @return True by default. Children should set true or false accordingly.
+ */
+bool AWeaponBase::IsAttackValid_Implementation(AActor* HitActor)
+{
+	return true;
+}
+
+void AWeaponBase::Multicast_PlayWeaponAttack_Implementation()
+{
+	if (UWeaponSystem::GetWeaponNameIsValid(getWeaponName()))
+	{
+		const FStWeaponData WeaponData = getWeaponData();
+		
+	}
+}
+
+void AWeaponBase::Multicast_PlayWeaponHit_Implementation()
+{
+}
+
+void AWeaponBase::Multicast_PlayWeaponStow_Implementation()
+{
+}
+
+void AWeaponBase::Multicast_PlayWeaponDraw_Implementation()
+{
 }
 
 void AWeaponBase::stopAttack_Implementation()
@@ -328,8 +503,16 @@ void AWeaponBase::stopAttack_Implementation()
 bool AWeaponBase::doAttack()
 {
 	if (!bIsWeaponArmed) return false;
+
+	// Attack is on cool down
+	if (mNextAttackTime > FDateTime::UtcNow())
+		return false;
+	
+	bool WeaponCanDoAttack = false;
+	
 	// Make sure this actor is a valid actor before running attack logic and accessing bad memory
-	const FStWeaponData weaponData = UWeaponSystem::GetWeaponDataFromName(mWeaponName);
+	const FName weaponName = getWeaponName();
+	const FStWeaponData weaponData = UWeaponSystem::GetWeaponDataFromName(weaponName);
 	if (UWeaponSystem::GetWeaponIsValid(weaponData))
 	{
 		// Weapon does damage?
@@ -339,11 +522,16 @@ bool AWeaponBase::doAttack()
 			{
 				// If the weapon is valid and does damage, the attack passes.
 				// We don't check delay/timers; That's the job of the UWeaponComponent
-				return true;
+				WeaponCanDoAttack = true;
 			}
 		}
 	}
-	return false;
+
+	// Request weapon attack effect from server for multicast
+	if (WeaponCanDoAttack)
+		Server_PlayWeaponEffect(EWeaponEffectType::ATTACK);
+	
+	return WeaponCanDoAttack;
 }
 
 void AWeaponBase::cancelAttack()
@@ -358,7 +546,7 @@ bool AWeaponBase::getIsAttacking()
 
 void AWeaponBase::startAttack_Implementation()
 {
-	if (doAttack())
+	if ( doAttack() )
 		startAttackTimer();
 }
 

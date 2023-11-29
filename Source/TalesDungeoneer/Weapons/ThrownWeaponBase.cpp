@@ -20,14 +20,14 @@ void AThrownWeaponBase::OnConstruction(const FTransform& Transform)
 	Super::OnConstruction(Transform);
 }
 
-void AThrownWeaponBase::updateWeapon()
+void AThrownWeaponBase::UpdateWeapon()
 {
-	Super::updateWeapon();
+	Super::UpdateWeapon();
 }
 
-bool AThrownWeaponBase::checkForHit(TArray<AActor*>& HitActors)
+bool AThrownWeaponBase::CheckForHit(TArray<AActor*>& HitActors)
 {
-	return Super::checkForHit(HitActors);
+	return Super::CheckForHit(HitActors);
 }
 
 void AThrownWeaponBase::startAttackTimer()

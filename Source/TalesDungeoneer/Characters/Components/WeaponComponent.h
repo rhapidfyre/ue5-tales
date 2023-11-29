@@ -103,14 +103,29 @@ public:
 	
 	void SetSecondarySlotNumber(int slotNumber = -1) { _SecondarySlot = slotNumber; }
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	// Where KEY is the weapon type and VALUE is the animation
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon System Settings")
 	TMap<EWeaponTypes, UAnimMontage*> AttackAnimations;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+
+	// Where KEY is the sound, and VALUE is the delay before playing
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon System Settings")
+	TMap<USoundBase*, float> AttackSounds = {};
+
+	// Where KEY is the weapon type and VALUE is the animation
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon System Settings")
 	TMap<EWeaponTypes, UAnimMontage*> StowAnimations;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	// Where KEY is the sound, and VALUE is the delay before playing
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon System Settings")
+	TArray<USoundBase*> StowSounds = {};
+	
+	// Where KEY is the weapon type and VALUE is the animation
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon System Settings")
 	TMap<EWeaponTypes, UAnimMontage*> DrawAnimations;
+	
+	// Where KEY is the sound, and VALUE is the delay before playing
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon System Settings")
+	TArray<USoundBase*> DrawSounds = {};
 	
 protected:
 	

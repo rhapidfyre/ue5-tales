@@ -59,7 +59,7 @@ FStWeaponData UWeaponSystem::GetWeaponDataFromName(FName weaponName)
 
 bool UWeaponSystem::GetWeaponNameIsValid(FName WeaponName)
 {
-	if (!WeaponName.IsValid())
+	if (WeaponName.IsValid())
 	{
 		const FStWeaponData itemData = GetWeaponDataFromName(WeaponName);
 		return GetWeaponIsValid(itemData);
@@ -69,5 +69,5 @@ bool UWeaponSystem::GetWeaponNameIsValid(FName WeaponName)
 
 bool UWeaponSystem::GetWeaponIsValid(const FStWeaponData &WeaponData)
 {
-	return (WeaponData.Mesh != nullptr);
+	return (WeaponData.MeshStatic != nullptr || WeaponData.MeshSkeletal != nullptr);
 }

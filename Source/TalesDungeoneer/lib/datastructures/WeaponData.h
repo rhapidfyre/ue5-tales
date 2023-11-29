@@ -58,7 +58,8 @@ struct FStWeaponData : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) TSubclassOf<APickupActorBase> DropClass;
 
 	// The skeletal mesh the weapon should use.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) UStaticMesh* Mesh = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) UStaticMesh* MeshStatic = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) USkeletalMesh* MeshSkeletal = nullptr;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FVector MeshOffset = FVector(0,0,0);
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FRotator MeshRotOffset = FRotator(0,0,0);
 	

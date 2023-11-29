@@ -21,8 +21,8 @@ protected:
 
 	virtual void BeginPlay() override;
 	virtual void OnConstruction(const FTransform& Transform) override;
-	virtual void updateWeapon() override;
-	virtual bool checkForHit(TArray<AActor*>& HitActors) override;
+	virtual void UpdateWeapon() override;
+	virtual bool CheckForHit(TArray<AActor*>& HitActors) override;
 	virtual void startAttackTimer() override;
 	virtual void cancelAttackTimer() override;
 

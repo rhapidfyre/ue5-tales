@@ -85,8 +85,8 @@ ACharacterBase::ACharacterBase()
 		<UMeshMergeComponent>(TEXT("MeshMergeComponent"));
 
 	// Allow weapon overlap collisions
-	GetCapsuleComponent()->SetGenerateOverlapEvents(true);
-	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_GameTraceChannel4, ECR_Overlap);
+	//GetCapsuleComponent()->SetGenerateOverlapEvents(true);
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_GameTraceChannel4, ECR_Block);
 }
 
 /**
@@ -699,7 +699,7 @@ void ACharacterBase::OnRep_CharacterName_Implementation()
 	OnCharacterNameChanged.Broadcast();
 }
 
-void ACharacterBase::	OnRep_CharacterLevel_Implementation(int OldLevel)
+void ACharacterBase::OnRep_CharacterLevel_Implementation(int OldLevel)
 {
 	const int NewLevel = GetCharacterLevel();
 	if (OldLevel < NewLevel)

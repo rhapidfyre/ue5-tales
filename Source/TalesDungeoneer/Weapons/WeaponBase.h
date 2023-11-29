@@ -12,6 +12,11 @@
 // Only useful on the owning client. Called when the weapon hits something.
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHit, AActor*, HitActor);
 
+UENUM()
+enum class EWeaponEffectType : uint8
+{
+	ATTACK, HIT, MISS, BREAK, FIRE, RELOAD
+};
 /**
  * WEAPON BASE
  * A C++ class containing all of the logic; Methods & Members, for all functionality in regards to weapons.
@@ -29,28 +34,16 @@ public: // public functions
 	UPROPERTY(BlueprintAssignable, Category = "Weapon Events")
 	FOnHit OnHit;
 	
-	/**
-	 * Set to true when the weapon should be drawn. False to stow.
-	 * @param setArmed True for draw, false for stow.
-	 */
 	UFUNCTION(BlueprintCallable)
 	void setWeaponIsArmed(bool setArmed = false);
 	
 	UFUNCTION(BlueprintPure)
 	bool getIsWeaponArmed() const { return bIsWeaponArmed; };
 
-	/**
-	 * Received when the client's weapon is saying that it hit something
-	 * Requires validation! Trust but verify.
-	 * @param HitActor The actor the client reports they hit.
-	 */
-	UFUNCTION(Server, Reliable, BlueprintCallable)
+	UFUNCTION(Server, Unreliable, BlueprintCallable)
 	void Server_RequestWeaponHit(AActor* HitActor);
 
-	/** Used on the client making the attack. Performs sounds, animations and
-	 * all hit related effects prior to the server event, to ensure everything
-	 * appears seamless to the client making the attack.
-	 */
+	UFUNCTION(BlueprintCallable)
 	void PerformWeaponHit(AActor* hitActor);
 
 	UFUNCTION(BlueprintPure)
@@ -58,6 +51,8 @@ public: // public functions
 	
 	UFUNCTION(BlueprintPure)
 	bool getIsRangedWeapon();
+
+	UFUNCTION(BlueprintPure) bool GetIsDebuggingMode() const { return bIsDebugging; }
 	
 	/**
 	 * Gets information regarding the weapon's data.
@@ -65,7 +60,6 @@ public: // public functions
 	 */
 	UFUNCTION(BlueprintCallable)
 	FStWeaponData getWeaponData();
-	
 	
 	virtual bool doAttack();
 	
@@ -85,15 +79,33 @@ public: // public functions
 
 	UFUNCTION(BlueprintPure)
 	FName getWeaponName() const { return mWeaponName; }
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	USceneComponent* WeaponRoot = nullptr;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Components")
+	UStaticMeshComponent* WeaponMeshStatic = nullptr;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UStaticMeshComponent* WeaponMesh = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Components")
+	USkeletalMeshComponent* WeaponMeshSkeleton = nullptr;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Components")
 	USceneComponent* WeaponGripLeft = nullptr;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Components")
 	USceneComponent* WeaponGripRight = nullptr;
+	
+	// The static mesh to use. Overriden by UsingSkeletalMesh.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Settings")
+	UStaticMesh* UsingStaticMesh = nullptr;
+
+	// Overrides UsingStaticMesh
+	// Weapon will always use a skeletal mesh if provided.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Settings")
+	USkeletalMesh* UsingSkeletalMesh = nullptr;
+
+	
+	
 	
 protected: // protected functions
 	
@@ -103,10 +115,23 @@ protected: // protected functions
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 	virtual void OnConstruction(const FTransform& Transform) override;
 	
-	virtual bool checkForHit(TArray<AActor*> &HitActors);
-	virtual void updateWeapon();
+	virtual bool CheckForHit(TArray<AActor*> &HitActors);
+	virtual void UpdateWeapon();
 	virtual void startAttackTimer();
 	virtual void cancelAttackTimer();
+
+	virtual bool GetIsAttackValid(AActor* HitActor);
+	UFUNCTION(BlueprintNativeEvent)	bool IsAttackValid(AActor* HitActor);
+	
+	UFUNCTION(BlueprintPure) int GetMaxNumTargetsHitAtOnce() const { return MaxTargetsHitAtOnce_; }
+
+	// Internal Weapon Operations
+	UFUNCTION(NetMulticast, Unreliable) void Multicast_PlayWeaponAttack();
+	UFUNCTION(NetMulticast, Unreliable) void Multicast_PlayWeaponHit();
+	UFUNCTION(NetMulticast, Unreliable) void Multicast_PlayWeaponStow();
+	UFUNCTION(NetMulticast, Unreliable) void Multicast_PlayWeaponDraw();
+
+	UFUNCTION(Server, Unreliable) void Server_PlayWeaponEffect(const EWeaponEffectType WeaponEffect);
 	
 	/**
 	 * Plays the given sound effect after the given delay from the actor's world location as a 3D noise.
@@ -151,6 +176,11 @@ private: // private functions
 	// Animation Instance for Animation Blueprinting (Anim Logic)
 	UPROPERTY(Replicated) TSubclassOf<UAnimInstance> mAnimInstance;
 
+#ifdef UE_BUILD_DEBUG
+	bool bIsDebugging = true;
+#else
+	bool bIsDebugging = false;
+#endif
 	
 	FTimerHandle mAttackTimer;
 
@@ -162,6 +192,9 @@ private: // private functions
 
 	bool bShowDebug = false;
 	bool bVerboseOutput = true;
+
+	// The maximum targets this weapon can hit per attack
+	int MaxTargetsHitAtOnce_ = 1;
 
 	// Server Only
 	FDateTime mNextAttackTime = FDateTime::UtcNow();

@@ -52,7 +52,7 @@ void AMeleeWeaponBase::BeginPlay()
 	Super::BeginPlay();
 	
 	mHitDetector->IgnoreActorWhenMoving(GetOwner(), true);
-	
+
 	if (!mHitDetector->OnComponentBeginOverlap.IsAlreadyBound(this, &AMeleeWeaponBase::onMeleeWeaponHit))
 		 mHitDetector->OnComponentBeginOverlap.AddDynamic(this, &AMeleeWeaponBase::onMeleeWeaponHit);
 }
@@ -61,6 +61,7 @@ TArray<AActor*> AMeleeWeaponBase::getOverlappingResources()
 {
 	TArray<AActor*> hitActors;
 	mHitDetector->GetOverlappingActors(hitActors);
+	TArray<AActor*> ArrayCopy = hitActors;
 	for (AActor* tempActor : hitActors)
 	{
 		if (IsValid(tempActor))
@@ -116,7 +117,7 @@ void AMeleeWeaponBase::startAttackTimer()
 	
 	// Hit anything already within the collision area
 	TArray<AActor*> HitActors;
-	if (checkForHit(HitActors))
+	if (CheckForHit(HitActors))
 	{
 		// Only one hit
 		if (getWeaponData().MaxTargetsHitAtOnce <= 1)
@@ -169,9 +170,9 @@ void AMeleeWeaponBase::TargetHitByWeapon(AActor* HitActor)
 	}
 }
 
-void AMeleeWeaponBase::updateWeapon()
+void AMeleeWeaponBase::UpdateWeapon()
 {
-	Super::updateWeapon();
+	Super::UpdateWeapon();
 }
 
 bool AMeleeWeaponBase::doAttack()
@@ -193,12 +194,14 @@ bool AMeleeWeaponBase::doAttack()
 		else
 			startHitDetection();
 		
+		// Melee weapons always play their miss sound (i.e: "WHOOSH!")
+		Server_PlayWeaponEffect(EWeaponEffectType::MISS);
 		return true;
 	}
 	return false;
 }
 
-bool AMeleeWeaponBase::checkForHit(TArray<AActor*>& HitActors)
+bool AMeleeWeaponBase::CheckForHit(TArray<AActor*>& HitActors)
 {
 	if (!getIsWeaponArmed()) return false;
 	// Checks if the melee weapon's collision is overlapping anything

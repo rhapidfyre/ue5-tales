@@ -1,6 +1,8 @@
 ﻿
 
 #include "WeaponComponent.h"
+
+#include "Components/AudioComponent.h"
 #include "TalesDungeoneer/Weapons/WeaponSystem.h"
 #include "TalesDungeoneer/Characters/CharacterBase.h"
 #include "Kismet/GameplayStatics.h"
@@ -21,6 +23,26 @@ float LocalPlayAnimMontage(ACharacter* characterReference, UAnimMontage* animMon
 				return animInstance->Montage_Play(animMontage, 1.0f);
 			}
 		}
+	}
+	return 0.f;
+}
+
+float LocalPlayAnimSound(ACharacter* CharacterReference, USoundBase* SoundBase)
+{
+	if (IsValid(CharacterReference) && IsValid(SoundBase))
+	{
+		UAudioComponent* tempAudio = NewObject<UAudioComponent>(CharacterReference);
+		if (IsValid(tempAudio))
+		{
+			tempAudio->RegisterComponent();
+			tempAudio->AutoAttachParent = CharacterReference->GetRootComponent();
+			tempAudio->bAutoManageAttachment = true;
+			tempAudio->SetSound(SoundBase);
+			tempAudio->Activate(true);
+			tempAudio->Play();
+			tempAudio->bAutoDestroy = true;
+		}
+		return tempAudio->GetSound()->Duration;
 	}
 	return 0.f;
 }
@@ -208,29 +230,73 @@ bool UWeaponComponent::PerformAttack(EWeaponSlots weaponType)
 		const FStWeaponData HitWeaponData = hitWeapon->getWeaponData();
 		if (hitWeapon->getIsWeaponArmed())
 		{
-			// If client, reset attack timer. If server, it'll be handled next.
-			if (GetOwner()->HasAuthority())
+			// Let the attacker animate
+			if (hitWeapon->doAttack())
 			{
-				if (hitWeapon->doAttack())
+				const EWeaponTypes animWeaponType = HitWeaponData.WeaponType;
+				if (AttackAnimations.Contains(animWeaponType))
 				{
-					const EWeaponTypes animWeaponType = HitWeaponData.WeaponType;
-					if (AttackAnimations.Contains(animWeaponType))
+					UAnimMontage* animMontage = AttackAnimations[animWeaponType];
+					if (IsValid(animMontage))
 					{
-						UAnimMontage* animMontage = AttackAnimations[animWeaponType];
-						if (IsValid(animMontage))
-						{
-							Multicast_SendAnimation(
-								Cast<ACharacterBase>(GetOwner()), animMontage);
-						}
+						LocalPlayAnimMontage(
+							Cast<ACharacterBase>(GetOwner()), animMontage);
 					}
-					return true;
 				}
+				
+				if (AttackSounds.Num() > 0)
+				{
+					TArray<USoundBase*> SoundKeys;
+					AttackSounds.GetKeys(SoundKeys);
+					float getSoundNumber = FMath::RandRange(0, AttackSounds.Num() - 1);
+					USoundBase* animSound = SoundKeys[getSoundNumber];
+					float* soundDelay = AttackSounds.Find(animSound);
+					if (IsValid(animSound))
+					{
+						DelaySoundEffect(animSound, soundDelay == nullptr? 0.f : *soundDelay);
+					}
+				}
+				
+				// Delay the next attack
+				const int mSeconds = static_cast<int>(HitWeaponData.AttackDelay * 1000);
+				_NextAttackTime = nowTime + FTimespan::FromMilliseconds(mSeconds);
 			}
-			else
-				Server_RequestAttack(weaponType);
+			
+			// Whether or not it worked client side, always send a request to
+			//    server for attack authorization, and let it handle the request.
+			Server_RequestAttack(weaponType);
+			
 		}
 		else
+		{
+			const EWeaponTypes animWeaponType = HitWeaponData.WeaponType;
+			if (DrawAnimations.Contains(animWeaponType))
+			{
+				UAnimMontage* animMontage = DrawAnimations[animWeaponType];
+				if (IsValid(animMontage))
+				{
+					LocalPlayAnimMontage(
+						Cast<ACharacterBase>(GetOwner()), animMontage);
+				}
+			}
+
+			if (DrawSounds.Num() > 0)
+			{
+				USoundBase* animSound = DrawSounds[ FMath::RandRange(0, DrawSounds.Num() - 1) ];
+				if (IsValid(animSound))
+				{
+					DelaySoundEffect(animSound);
+				}
+			}
+			
+			// Delay the next attack
+			const int mSeconds = static_cast<int>(HitWeaponData.AttackDelay * 1000);
+			_NextAttackTime = nowTime + FTimespan::FromMilliseconds(mSeconds);
+			
+			// Whether or not it worked client side, always send a request to
+			//    server for weapon toggle, and let it handle the request.
 			Server_ToggleWeapon(weaponType, true);
+		}
 		
 		return true;
 	}
@@ -508,8 +574,17 @@ void UWeaponComponent::Multicast_WeaponSoundEffect_Implementation(ACharacter* ch
 	}
 	if (IsValid(characterRef))
 	{
-		const FVector soundLocation = characterRef->GetActorLocation();
-		UGameplayStatics::PlaySoundAtLocation(GetWorld(), soundEffect, soundLocation, FRotator());
+		ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
+		if (IsValid(LocalPlayer))
+		{
+			// Only play the sound if the instigating character is NOT this player
+			// (they already played it when they instigated the action)
+			if (characterRef->GetInstigatorController() != LocalPlayer->GetPlayerController(GetWorld()))
+			{
+				const FVector soundLocation = characterRef->GetActorLocation();
+				UGameplayStatics::PlaySoundAtLocation(GetWorld(), soundEffect, soundLocation, FRotator());
+			}
+		}
 	}
 }
 
@@ -547,7 +622,17 @@ void UWeaponComponent::SendSoundEffect(ACharacter* characterRef, USoundBase* sou
 			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
 	}
 	if (IsValid(characterRef))
-		Multicast_WeaponSoundEffect(characterRef, soundToPlay);
+	{
+		// If client, simply play the sound
+		if (GetNetMode() == NM_Client)
+		{
+			const FVector soundLocation = characterRef->GetActorLocation();
+			UGameplayStatics::PlaySoundAtLocation(GetWorld(), soundToPlay, soundLocation, FRotator());
+		}
+		// If server, send sound to everyone
+		else
+			Multicast_WeaponSoundEffect(characterRef, soundToPlay);
+	}
 }
 
 void UWeaponComponent::DelaySoundEffect(USoundBase* soundToPlay, float soundDelay)

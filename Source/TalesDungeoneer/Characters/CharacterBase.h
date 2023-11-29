@@ -98,6 +98,12 @@ public: // functions
 	virtual void PerformAttack(
 		EWeaponSlots WeaponSlot = EWeaponSlots::PRIMARY);
 	
+	// Blueprint override event. Contains the attack logic.
+	UFUNCTION(BlueprintNativeEvent) void PrimaryAttack();
+	
+	// Blueprint override event. Contains the attack logic.
+	UFUNCTION(BlueprintNativeEvent) void SecondaryAttack();
+	
 	// Called when the UWeaponComponent should start blocking
 	// Does nothing if a shield/torch/etc is not equipped
 	UFUNCTION(BlueprintCallable) void StartBlocking();
@@ -189,12 +195,6 @@ public: // functions
 
 	virtual void LoadSaveData(const FString& SaveName,
 		const int32 UserIndex, USaveGame* SaveData) {};
-	
-	// SERVER-EVENT\nBlueprint override event. Contains the attack logic.
-	UFUNCTION(BlueprintNativeEvent) void PrimaryAttack();
-	
-	// SERVER-EVENT\nBlueprint override event. Contains the attack logic.
-	UFUNCTION(BlueprintNativeEvent) void SecondaryAttack();
 	
 protected: // functions
 	
