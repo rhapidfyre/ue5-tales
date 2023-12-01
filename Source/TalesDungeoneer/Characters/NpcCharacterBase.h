@@ -35,6 +35,8 @@ public: // functions
 	UFUNCTION(BlueprintCallable) void SetNpcAsPatroller(bool NewTruthValue = true);
 
 	UFUNCTION(BlueprintPure) float GetDistanceFromOriginPoint() const;
+
+	UFUNCTION() void DestroyNpc();
 	
 protected:
 	

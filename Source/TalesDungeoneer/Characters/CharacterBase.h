@@ -206,8 +206,6 @@ protected: // functions
 
 	virtual void OnConstruction(const FTransform& Transform) override;
 
-	virtual void PostRegisterAllComponents() override;
-
 	virtual void CharacterRestoredFromSave(const FString SaveSlotName);
 
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
@@ -246,7 +244,8 @@ private: // methods
 	void Client_CharacterRestored(const FString& SaveSlotName);
 	
 	// Called when the equipment slot gets updated in InventoryComponent
-	void UpdateWeapon(EWeaponSlots WeaponSlot = EWeaponSlots::PRIMARY);
+	UFUNCTION()
+	void UpdateWeapon(EEquipmentSlotType EquipmentEnum = EEquipmentSlotType::PRIMARY);
 
 	UFUNCTION()
 	void SpawnDamageText(AActor* DamageInstigator, float DamageTaken);

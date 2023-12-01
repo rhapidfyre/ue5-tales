@@ -5,7 +5,10 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "TalesDungeoneer/lib/enums/WeaponEnums.h"
+
 #include "WeaponComponent.generated.h"
+
+class ACharacterBase;
 
 /**
  * Bridges ACharacterBase class to the AWeaponBase
@@ -87,7 +90,7 @@ public:
 
 	UFUNCTION(BlueprintPure, Category = "Weapon Data Accessors")
 	AWeaponBase* GetWeaponInSlot(
-		EWeaponSlots weaponSlot = EWeaponSlots::PRIMARY) const { return _PrimaryWeapon; }
+		EWeaponSlots weaponSlot = EWeaponSlots::PRIMARY) const { return PrimaryWeapon_; }
 
 	UFUNCTION(BlueprintPure, Category = "Weapon Data Accessors")
 	bool GetIsWeaponReady(EWeaponSlots WeaponSlot = EWeaponSlots::PRIMARY) const;
@@ -97,11 +100,11 @@ public:
 					EWeaponSlots weaponSlot = EWeaponSlots::PRIMARY);
 	
 	UFUNCTION(BlueprintPure)
-	EWeaponTypes GetWeaponStyle() const { return _WeaponStyle; }
+	EWeaponTypes GetWeaponStyle() const { return WeaponStyle_; }
 
-	void SetPrimarySlotNumber(int slotNumber = -1)   { _PrimarySlot = slotNumber;   }
+	void SetPrimarySlotNumber(int slotNumber = -1)   { PrimarySlot_ = slotNumber;   }
 	
-	void SetSecondarySlotNumber(int slotNumber = -1) { _SecondarySlot = slotNumber; }
+	void SetSecondarySlotNumber(int slotNumber = -1) { SecondarySlot_ = slotNumber; }
 	
 	// Where KEY is the weapon type and VALUE is the animation
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon System Settings")
@@ -143,6 +146,9 @@ protected:
 	virtual void OnUnregister() override;
 
 private:
+
+	UFUNCTION()
+	void ResetAttackCooldown();
 	
 	/**
 	 * Spins up a timer to play a sound effect with the given delay. Only useful for delayed sounds.
@@ -158,7 +164,7 @@ private:
 	void SendSoundEffect(ACharacter* characterRef, USoundBase* soundToPlay);
 
 	/**
-	 * Called when the '_TargetActor' private variable has been changed.
+	 * Called when the 'TargetActor_' private variable has been changed.
 	 * Always validate and check for nullptr.
 	 */
 	UFUNCTION(Client, Reliable)
@@ -195,22 +201,27 @@ private:
 	 */
 	float WeaponReadyChanged(EWeaponSlots WeaponSlot = EWeaponSlots::PRIMARY);
 	
-	UPROPERTY(Replicated) AWeaponBase* _PrimaryWeapon;
-	UPROPERTY(Replicated) AWeaponBase* _SecondaryWeapon;	
+	UFUNCTION() void OnRep_PrimaryChanged();
+	UPROPERTY(Replicated, ReplicatedUsing=OnRep_PrimaryChanged)
+	AWeaponBase* PrimaryWeapon_;
+
+	UFUNCTION() void OnRep_SecondaryChanged();
+	UPROPERTY(Replicated, ReplicatedUsing=OnRep_SecondaryChanged)
+	AWeaponBase* SecondaryWeapon_;	
 
 	// Quick ints to save runtime performance later
-	int _PrimarySlot = -1;
-	int _SecondarySlot = -1;
+	int PrimarySlot_ = -1;
+	int SecondarySlot_ = -1;
 
 	// Used for hard-targeting instead of free-targeting
-	UPROPERTY(Replicated, ReplicatedUsing = OnRep_TargetChanged) AActor* _TargetActor;
+	UPROPERTY(Replicated, ReplicatedUsing = OnRep_TargetChanged)
+	AActor* TargetActor_;
 
 	// The currently selected weapon style
-	UPROPERTY(Replicated) EWeaponTypes _WeaponStyle	= EWeaponTypes::NONE;
-	
-	// The GameTimeInSeconds of when the next attack may be requested
-	// This is dependent on the 'delay' value of the weapon in use
-	UPROPERTY() FDateTime _NextAttackTime = FDateTime::UtcNow();
+	UPROPERTY(Replicated) EWeaponTypes WeaponStyle_	= EWeaponTypes::NONE;
+
+	// If this timer is active, draw/sheathe/attack will not work
+	UPROPERTY() FTimerHandle AttackCooldown_;
 	
 	bool bShowDebug		= true;
 	bool bVerboseOutput = true;
@@ -223,4 +234,6 @@ private:
 
 	// TRUE if the player is actively blocking attacks with a shield device
 	bool bBlocking      = true;
+
+	UPROPERTY() ACharacterBase* CharacterBase_ = nullptr;
 };

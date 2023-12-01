@@ -76,10 +76,10 @@ struct FStWeaponData : public FTableRowBase
 	// Deprecated, use HitDetectDelay
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float HitDelay = 0.0f;
 	
-	// The time it takes to employ this weapon
+	// The time it takes to employ this weapon, in seconds
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DelayDrawTime = 1.0f;
 
-	// The time it takes to stow this weapon
+	// The time it takes to stow this weapon, in seconds
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DelayStowTime = 1.0f;
 
 	// The maximum number of targets this weapon can hit in a single attack

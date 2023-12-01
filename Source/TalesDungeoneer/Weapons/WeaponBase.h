@@ -35,7 +35,7 @@ public: // public functions
 	FOnHit OnHit;
 	
 	UFUNCTION(BlueprintCallable)
-	void setWeaponIsArmed(bool setArmed = false);
+	bool setWeaponIsArmed(bool setArmed = false);
 	
 	UFUNCTION(BlueprintPure)
 	bool getIsWeaponArmed() const { return bIsWeaponArmed; };
@@ -184,9 +184,6 @@ private: // private functions
 	
 	FTimerHandle mAttackTimer;
 
-	// Simple boolean for ensuring we don't overlap events/commands
-	bool bIsOperating = false;
-
 	// Simple boolean for ensuring the weapon has initialized
 	bool bWeaponReady = false;
 
@@ -195,8 +192,5 @@ private: // private functions
 
 	// The maximum targets this weapon can hit per attack
 	int MaxTargetsHitAtOnce_ = 1;
-
-	// Server Only
-	FDateTime mNextAttackTime = FDateTime::UtcNow();
 	
 };

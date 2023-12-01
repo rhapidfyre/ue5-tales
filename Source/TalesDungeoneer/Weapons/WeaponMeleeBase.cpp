@@ -66,11 +66,11 @@ bool AWeaponMeleeBase::GetIsAttackValid(AActor* HitActor)
 	{
 		const FStWeaponData WeaponData = getWeaponData();
 		const float DistTo = GetDistanceTo(HitActor);
-		if (WeaponData.MaxReachDistance <= DistTo)
+		if (WeaponData.MaxReachDistance > DistTo)
 		{
 			return true;
 		}
-		UE_LOGFMT(LogTemp, Display, "{EntName}({Auth}): Hit INVALID - Too Far Away! {MaxReach} > {DistTo}",
+		UE_LOGFMT(LogTemp, Display, "{EntName}({Auth}): Hit INVALID - Too Far Away! {MaxReach} < {DistTo}",
 			*GetName(), HasAuthority()?"SERVER":"CLIENT", WeaponData.MaxReachDistance, DistTo);
 		
 	}

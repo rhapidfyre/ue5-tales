@@ -10,6 +10,7 @@
 #include "TalesDungeoneer/Characters/CharacterBase.h"
 #include "Engine/DamageEvents.h"
 #include "Logging/StructuredLog.h"
+#include "TalesDungeoneer/Characters/CombatNpcCharacterBase.h"
 
 AWeaponBase::AWeaponBase()
 {
@@ -89,21 +90,34 @@ void AWeaponBase::setWeaponName(FName weaponName)
 /**
  * Set to true when the weapon should be drawn. False to stow.
  * @param setArmed True for draw, false for stow.
+ * @return True if the change was successful, false otherwise.
  */
-void AWeaponBase::setWeaponIsArmed(bool setArmed)
+bool AWeaponBase::setWeaponIsArmed(bool setArmed)
 {
 	if (bShowDebug)
 	{
 		UE_LOG(LogTemp, Display, TEXT("%s(%s): setWeaponIsArmed(%s)"),
 			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), setArmed?TEXT("TRUE"):TEXT("FALSE"));
 	}
-	if (!HasAuthority()) return;
+	
+	if (!HasAuthority())
+		return false;
+	
+	if (GetWorldTimerManager().IsTimerActive(mAttackTimer))
+		return false;
+
+	UE_LOGFMT(LogTemp, Display, "{WeaponName}({Sv}): Cooldown Started (Readiness Changed)",
+		*GetName(), HasAuthority()?"S":"C");
+	FTimerDelegate AttackDelegate;
+	AttackDelegate.BindUObject(this, &AWeaponBase::cancelAttackTimer);
+	GetWorldTimerManager().SetTimer(mAttackTimer, AttackDelegate,
+		setArmed ?
+		getWeaponData().DelayDrawTime : getWeaponData().DelayStowTime, false);
+	
 	bIsWeaponArmed	= setArmed;
-	bIsOperating	= true;
 	if (bIsWeaponArmed)	startDrawEffects();
 	else				startStowEffects();
-	bIsOperating = false;
-	
+	return true;
 }
 
 /** Called by the client or server to validate the hit & calculate damage
@@ -115,14 +129,6 @@ void AWeaponBase::Server_RequestWeaponHit_Implementation(AActor* HitActor)
 	if (!IsValid(HitActor))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("%s(%s): Server_RequestWeaponHit() - Hit Actor is INVALID"),
-			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
-		return;
-	}
-	
-	const FDateTime nowTime = FDateTime::UtcNow();
-	if (mNextAttackTime > nowTime)
-	{
-		UE_LOG(LogTemp, Display, TEXT("%s(%s): Server_RequestWeaponHit() - Attacks are occuring too quickly"),
 			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
 		return;
 	}
@@ -430,23 +436,36 @@ bool AWeaponBase::CheckForHit(TArray<AActor*>& HitActors)
 
 void AWeaponBase::startAttackTimer()
 {
-	UE_LOGFMT(LogTemp, Display, "{WeaponName}: Started Attack", *GetName());
-	// Invalidate the old attack timer, then recreate it.
-	GetWorld()->GetTimerManager().ClearTimer(mAttackTimer);
-	
+	if (getIsAttacking())
+		return;
+		
 	// Cancel the attack timer after attack completes
 	const FStWeaponData weaponData = getWeaponData();
-	const float killTime = weaponData.HitDetectStop      > weaponData.AttackDelay
-						 ? weaponData.AttackDelay - 0.05 : weaponData.HitDetectStop;
-	
-	GetWorld()->GetTimerManager().SetTimer(mAttackTimer, this,
-			&AWeaponBase::cancelAttackTimer, killTime, false);
+	float killTime = weaponData.HitDetectStop > weaponData.AttackDelay
+	               ? weaponData.HitDetectStop : weaponData.AttackDelay;
+
+	// Add some randomness to NPC attack timers
+	const ACombatNpcCharacterBase* NpcAttacker = Cast<ACombatNpcCharacterBase>( GetOwner() );
+	if (IsValid(NpcAttacker))
+	{
+		killTime += FMath::RandRange(
+			NpcAttacker->TimeBetweenAttacks[0],
+			NpcAttacker->TimeBetweenAttacks[1]);
+	}
+
+	UE_LOGFMT(LogTemp, Display, "{WeaponName}({Sv}): Cooldown Started (Attacking)",
+		*GetName(), HasAuthority()?"S":"C");
+	FTimerDelegate AttackDelegate;
+	AttackDelegate.BindUObject(this, &AWeaponBase::cancelAttackTimer);
+	GetWorld()->GetTimerManager().SetTimer(mAttackTimer,
+					AttackDelegate, killTime, false);
 	
 }
 
 void AWeaponBase::cancelAttackTimer()
 {
-	UE_LOGFMT(LogTemp, Display, "{WeaponName}: Ended Attack", *GetName());
+	UE_LOGFMT(LogTemp, Display, "{WeaponName}({Sv}): Ended Cooldown",
+		*GetName(), HasAuthority()?"S":"C");
 	if (GetWorld()->GetTimerManager().IsTimerActive(mAttackTimer))
 		(GetWorld()->GetTimerManager().ClearTimer(mAttackTimer));
 }
@@ -496,16 +515,16 @@ void AWeaponBase::Multicast_PlayWeaponDraw_Implementation()
 
 void AWeaponBase::stopAttack_Implementation()
 {
-	
+	cancelAttack();
 }
 
 
 bool AWeaponBase::doAttack()
 {
-	if (!bIsWeaponArmed) return false;
+	if (!bIsWeaponArmed)
+		return false;
 
-	// Attack is on cool down
-	if (mNextAttackTime > FDateTime::UtcNow())
+	if (GetWorldTimerManager().IsTimerActive(mAttackTimer))
 		return false;
 	
 	bool WeaponCanDoAttack = false;
@@ -531,6 +550,7 @@ bool AWeaponBase::doAttack()
 	if (WeaponCanDoAttack)
 		Server_PlayWeaponEffect(EWeaponEffectType::ATTACK);
 	
+	startAttackTimer();
 	return WeaponCanDoAttack;
 }
 
@@ -546,8 +566,7 @@ bool AWeaponBase::getIsAttacking()
 
 void AWeaponBase::startAttack_Implementation()
 {
-	if ( doAttack() )
-		startAttackTimer();
+	doAttack();
 }
 
 /**

@@ -8,6 +8,7 @@
 #include "Controllers/CombatAiControllerBase.h"
 #include "Perception/AISense_Sight.h"
 #include "TalesDungeoneer/Gamemode/BaseFiles/TalesGameStateBase.h"
+#include "Components/CapsuleComponent.h"
 
 
 // Sets default values
@@ -33,6 +34,12 @@ void ANpcCharacterBase::SetNpcAsPatroller(bool NewTruthValue)
 float ANpcCharacterBase::GetDistanceFromOriginPoint() const
 {
 	return (GetActorLocation() - _SpawnOrigin).SquaredLength();
+}
+
+void ANpcCharacterBase::DestroyNpc()
+{
+	UnregisterAllComponents(false);
+	Destroy();
 }
 
 void ANpcCharacterBase::BeginPlay()
@@ -237,6 +244,22 @@ void ANpcCharacterBase::OnConstruction(const FTransform& Transform)
 			PickupActor->FinishSpawning(SpawnTransform);
 		}
 	}
-	UnregisterAllComponents(false);
-	Destroy();
+	
+	USkeletalMeshComponent* SkeletalMesh = GetMesh();
+	SkeletalMesh->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
+	SkeletalMesh->SetCollisionResponseToChannel(ECC_PhysicsBody, ECR_Ignore);
+	SkeletalMesh->SetCollisionResponseToChannel(ECC_WorldDynamic, ECR_Ignore);
+	SkeletalMesh->SetCollisionResponseToChannel(ECC_WorldStatic, ECR_Ignore);
+	
+	UCapsuleComponent* CapComponent = GetCapsuleComponent();
+	CapComponent->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
+	CapComponent->SetCollisionResponseToChannel(ECC_PhysicsBody, ECR_Ignore);
+	CapComponent->SetCollisionResponseToChannel(ECC_WorldDynamic, ECR_Ignore);
+	CapComponent->SetCollisionResponseToChannel(ECC_WorldStatic, ECR_Ignore);
+	
+	FTimerHandle DeathDeleteTimer;
+	FTimerDelegate DeathDelegate;
+	DeathDelegate.BindUObject(this, &ANpcCharacterBase::DestroyNpc);
+	GetWorldTimerManager().SetTimer(DeathDeleteTimer, DeathDelegate, 3.f, false);
+	//Destroy();
 }

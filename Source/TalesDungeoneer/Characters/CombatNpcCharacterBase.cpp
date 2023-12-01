@@ -48,6 +48,7 @@ void ACombatNpcCharacterBase::Tick(float DeltaTime)
 
 bool ACombatNpcCharacterBase::NpcCanAttemptAttack()
 {
+	/*
 	if (!_AttackTimer.IsValid())
 	{
 		
@@ -63,6 +64,8 @@ bool ACombatNpcCharacterBase::NpcCanAttemptAttack()
 		
 	}
 	return false;
+	*/
+	return true;
 }
 
 bool ACombatNpcCharacterBase::NpcCanActivateAbility()

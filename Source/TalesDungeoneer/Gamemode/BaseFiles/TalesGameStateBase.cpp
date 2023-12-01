@@ -265,7 +265,7 @@ void ATalesGameStateBase::BeginPlay()
 	Super::BeginPlay();
 
 	// Create the save if it doesn't exist
-	if (!_SaveMetaName.IsEmpty())
+	if ( !_SaveMetaName.IsEmpty() )
 		CreateSaveGameIfNotExists();
 
 	// Load the save game data from the previous session

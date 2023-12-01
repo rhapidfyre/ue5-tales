@@ -28,90 +28,93 @@ void APlayerCharacterBase::LoadSaveData(const FString& SaveName, const int32 Use
 	Super::LoadSaveData(SaveName, UserIndex, SaveData);
 
 	const ENetMode NetMode = GetNetMode();
-	if (NetMode == NM_DedicatedServer) return;
 
+	// Dedicated Servers never have character save data to load
+	if (NetMode == NM_DedicatedServer) return;
+	
+	const bool isControlledByLocalPlayer =
+		GetController() == Cast<AController>(UGameplayStatics::GetPlayerController(GetWorld(),0));
+	
 	// Dissect the save data and pass it to the server, if applicable
 	const USavedCharacter* CharacterData = Cast<USavedCharacter>(SaveData);
 	if (IsValid(CharacterData))
 	{
-		// Set Character Persona Data (Works on client or server)
-		UE_LOG(LogTemp, Display, TEXT("LoadSaveData(%s): %s, Lv. %d %s %s"),
-			GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"),
-			*CharacterData->CharacterName, CharacterData->CharacterLevel,
-			*UEnum::GetValueAsString(CharacterData->CharacterRace),
-			*UEnum::GetValueAsString(CharacterData->CharacterClass));
-		
-		Server_InitializeCharacter(
-			CharacterData->CharacterName,
-			CharacterData->CharacterLevel,
-			CharacterData->CharacterRace,
-			CharacterData->CharacterClass,
-			CharacterData->ExperiencePoints	);
-		
-		// Restore Character Design
-		Server_SetupMeshMerge(CharacterData->MeshesToMerge,
-			CharacterData->MeshSectionMappings,
-			CharacterData->UvTransformsPerMesh);
-
-		// Re-initialize Vitality Component Data
-		if (IsValid(VitalityWelfare))
+		// Only the player who is controlling the character can submit save data
+		// If the player is also the server, this will still work
+		if (isControlledByLocalPlayer)
 		{
-			VitalityWelfare->InitializeHealthSubsystem(
-				CharacterData->UseHealthSubsystem,
-				CharacterData->StartingHealthCurrent,
-				CharacterData->StartingHealthMaximum,
-				CharacterData->PassiveHealthRegen);
+			Server_InitializeCharacter(
+				CharacterData->CharacterName,
+				CharacterData->CharacterLevel,
+				CharacterData->CharacterRace,
+				CharacterData->CharacterClass,
+				CharacterData->ExperiencePoints	);
 			
-			VitalityWelfare->InitializeStaminaSubsystem(
-				CharacterData->UseStaminaSubsystem,
-				CharacterData->StartingStaminaCurrent,
-				CharacterData->StartingStaminaMaximum,
-				CharacterData->PassiveStaminaRegen);
+			// Restore Character Design
+			Server_SetupMeshMerge(CharacterData->MeshesToMerge,
+				CharacterData->MeshSectionMappings,
+				CharacterData->UvTransformsPerMesh);
+	
+			// Re-initialize Vitality Component Data
+			if (IsValid(VitalityWelfare))
+			{
+				VitalityWelfare->InitializeHealthSubsystem(
+					CharacterData->UseHealthSubsystem,
+					CharacterData->StartingHealthCurrent,
+					CharacterData->StartingHealthMaximum,
+					CharacterData->PassiveHealthRegen);
 				
-			VitalityWelfare->InitializeMagicSubsystem(
-				CharacterData->UseMagicSubsystem,
-				CharacterData->StartingMagicCurrent,
-				CharacterData->StartingMagicMaximum,
-				CharacterData->PassiveMagicRegen);
+				VitalityWelfare->InitializeStaminaSubsystem(
+					CharacterData->UseStaminaSubsystem,
+					CharacterData->StartingStaminaCurrent,
+					CharacterData->StartingStaminaMaximum,
+					CharacterData->PassiveStaminaRegen);
 					
-			VitalityWelfare->InitializeSurvivalSubsystem(
-				CharacterData->UseSurvivalSubsystem,
-				CharacterData->StartingHydrationCurrent,
-				CharacterData->StartingHydrationMaximum,
-				CharacterData->PassiveHydrationDrain,
-				CharacterData->StartingHungerCurrent,
-				CharacterData->StartingHungerMaximum,
-				CharacterData->PassiveHungerDrain);
-		}
-		
-		if (IsValid(VitalityStats))
-		{
-			// Restore Natural Stats
-			VitalityStats->InitializeCoreStats(
-				CharacterData->Strength, CharacterData->Agility,
-				CharacterData->Fortitude, CharacterData->Intellect,
-				CharacterData->Astuteness, CharacterData->Charisma);
+				VitalityWelfare->InitializeMagicSubsystem(
+					CharacterData->UseMagicSubsystem,
+					CharacterData->StartingMagicCurrent,
+					CharacterData->StartingMagicMaximum,
+					CharacterData->PassiveMagicRegen);
+						
+				VitalityWelfare->InitializeSurvivalSubsystem(
+					CharacterData->UseSurvivalSubsystem,
+					CharacterData->StartingHydrationCurrent,
+					CharacterData->StartingHydrationMaximum,
+					CharacterData->PassiveHydrationDrain,
+					CharacterData->StartingHungerCurrent,
+					CharacterData->StartingHungerMaximum,
+					CharacterData->PassiveHungerDrain);
+			}
 			
-			// Restore Natural Damage Bonus & Resistance
-			VitalityStats->InitializeNaturalDamageBonuses(CharacterData->BaseStats.DamageBonuses);
-			VitalityStats->InitializeNaturalDamageResists(CharacterData->BaseStats.DamageResistances);
+			if (IsValid(VitalityStats))
+			{
+				// Restore Natural Stats
+				VitalityStats->InitializeCoreStats(
+					CharacterData->Strength, CharacterData->Agility,
+					CharacterData->Fortitude, CharacterData->Intellect,
+					CharacterData->Astuteness, CharacterData->Charisma);
+				
+				// Restore Natural Damage Bonus & Resistance
+				VitalityStats->InitializeNaturalDamageBonuses(CharacterData->BaseStats.DamageBonuses);
+				VitalityStats->InitializeNaturalDamageResists(CharacterData->BaseStats.DamageResistances);
+			}
+	
+			// Restore unlock points
+			if (IsValid(AbilityComponent))
+			{
+				AbilityComponent->InitializePoints(CharacterData->UnlockPointsAvailable);
+			}
+			
+			// Restore Active Effects
+			if (IsValid(VitalityStats))
+			{
+				VitalityEffects->InitializeEffects(CharacterData->SavedEffects);
+			}
+			
+			UE_LOG(LogTemp, Display, TEXT("LoadSaveData(%s): Successfully restored character from Save Slot '%s'"),
+				HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), *SaveName);
+			CharacterRestoredFromSave(SaveName);
 		}
-
-		// Restore unlock points
-		if (IsValid(AbilityComponent))
-		{
-			AbilityComponent->InitializePoints(CharacterData->UnlockPointsAvailable);
-		}
-		
-		// Restore Active Effects
-		if (IsValid(VitalityStats))
-		{
-			VitalityEffects->InitializeEffects(CharacterData->SavedEffects);
-		}
-		
-		UE_LOG(LogTemp, Display, TEXT("LoadSaveData(%s): Successfully restored character from Save Slot '%s'"),
-			HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), *SaveName);
-		CharacterRestoredFromSave(SaveName);
 	}
 	else
 	{
@@ -162,7 +165,7 @@ void APlayerCharacterBase::BeginPlay()
 		const ATalesGameStateBase* TalesGameState = Cast<ATalesGameStateBase>(GameStateBase);
 		if (IsValid(TalesGameState))
 		{
-			// Run async initialization of game state
+			// Run async initialization of game state to reload character data
 			FTimerHandle TimerReference;
 			FTimerDelegate TimerDelegate;
 			TimerDelegate.BindUObject(this, &APlayerCharacterBase::AwaitGameState);

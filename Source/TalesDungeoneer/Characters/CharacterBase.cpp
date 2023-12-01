@@ -21,6 +21,7 @@
 #include "Perception/AISense_Sight.h"
 #include "TalesDungeoneer/Entities/SimpleActors/FloatingTextBase.h"
 #include "TalesDungeoneer/Gamemode/BaseFiles/TalesGameStateBase.h"
+#include "TalesDungeoneer/Weapons/WeaponSystem.h"
 
 
 // Sets default values
@@ -75,14 +76,9 @@ ACharacterBase::ACharacterBase()
 	VitalityWelfare = CreateDefaultSubobject<UVitalityWelfareComponent>(TEXT("VitalityWelfare"));
 	VitalityEffects = CreateDefaultSubobject<UVitalityEffectsComponent>(TEXT("VitalityEffects"));
 	
-	WeaponComponent = CreateDefaultSubobject
-			<UWeaponComponent>(TEXT("WeaponComponent"));
-	
-	AbilityComponent = CreateDefaultSubobject
-		<UAbilityComponent>(TEXT("AbilityComponent"));
-	
-	MeshMergeComponent = CreateDefaultSubobject
-		<UMeshMergeComponent>(TEXT("MeshMergeComponent"));
+	WeaponComponent		= CreateDefaultSubobject<UWeaponComponent>(TEXT("WeaponComponent"));
+	AbilityComponent	= CreateDefaultSubobject<UAbilityComponent>(TEXT("AbilityComponent"));
+	MeshMergeComponent	= CreateDefaultSubobject<UMeshMergeComponent>(TEXT("MeshMergeComponent"));
 
 	// Allow weapon overlap collisions
 	//GetCapsuleComponent()->SetGenerateOverlapEvents(true);
@@ -408,22 +404,6 @@ void ACharacterBase::BeginPlay()
 		}
 	}
 
-	// Reload Character Data
-	ATalesGameStateBase* TalesGameState = Cast<ATalesGameStateBase>(GetWorld()->GetGameState());
-	if (IsValid(TalesGameState))
-	{
-		// Characters are saved on the client
-		if (GetNetMode() == NM_DedicatedServer)
-		{
-			if (! TalesGameState->LoadCharacter(
-				  TalesGameState->GetSelectedCharacterSaveSlotName(), true)
-				)
-			{
-				// If no character exists to load, this is likely an NPC
-			}
-		}
-	}
-
 	const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
 	if (IsValid(LocalPlayer))
 	{
@@ -439,6 +419,33 @@ void ACharacterBase::BeginPlay()
 	if (!AbilityComponent->OnAbilityCastComplete.IsAlreadyBound(this, &ACharacterBase::CheckAbilitySuccess))
 		AbilityComponent->OnAbilityCastComplete.AddDynamic(this, &ACharacterBase::CheckAbilitySuccess);
 
+	// Reload Saved Character Data
+	// Characters are saved on the client
+	ATalesGameStateBase* TalesGameState = Cast<ATalesGameStateBase>(GetWorld()->GetGameState());
+	if (IsValid(TalesGameState))
+	{
+		// If no character exists to load, this is likely an NPC
+		TalesGameState->LoadCharacter(
+			  TalesGameState->GetSelectedCharacterSaveSlotName(), true);
+	}
+	
+	// Server Init (always happens before the client)
+	if (GetNetMode() < NM_Client)
+	{
+		// Initialize the Inventory System
+		// Register the Weapon Component to listen for changes to Equipment
+		if (IsValid(WeaponComponent) && IsValid(InventoryComponent))
+		{
+			// Setup listeners first, then initialize
+			if (!InventoryComponent->OnEquipmentUpdated.IsAlreadyBound(this, &ACharacterBase::UpdateWeapon))
+				InventoryComponent->OnEquipmentUpdated.AddDynamic(this, &ACharacterBase::UpdateWeapon);
+
+			InventoryComponent->InitializeInventory();
+			UpdateWeapon(EEquipmentSlotType::PRIMARY);
+			UpdateWeapon(EEquipmentSlotType::SECONDARY);
+		}
+	}
+	
 }
 
 
@@ -446,11 +453,6 @@ void ACharacterBase::OnConstruction(const FTransform& Transform)
 {
 	Super::OnConstruction(Transform);
 	SetCharacterName(CharacterName);
-}
-
-void ACharacterBase::PostRegisterAllComponents()
-{
-	Super::PostRegisterAllComponents();
 }
 
 void ACharacterBase::CharacterRestoredFromSave(const FString SaveSlotName)
@@ -579,17 +581,6 @@ void ACharacterBase::SetCharacterName(FString ProposedName)
 void ACharacterBase::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
-	if (HasAuthority())
-	{
-		if (IsValid(InventoryComponent))
-		{
-			InventoryComponent->InitializeInventory();
-			
-			// Don gear that is equipped at time of initialization
-			UpdateWeapon(EWeaponSlots::PRIMARY);
-			UpdateWeapon(EWeaponSlots::SECONDARY);
-		}
-	}
 }
 
 void ACharacterBase::Client_CharacterRestored_Implementation(const FString& SaveSlotName)
@@ -597,29 +588,42 @@ void ACharacterBase::Client_CharacterRestored_Implementation(const FString& Save
 	OnCharacterRestored.Broadcast(SaveSlotName);
 }
 
-void ACharacterBase::UpdateWeapon(EWeaponSlots WeaponSlot)
+void ACharacterBase::UpdateWeapon(EEquipmentSlotType EquipmentEnum)
 {
-	EEquipmentSlotType equipmentEnum = EEquipmentSlotType::PRIMARY;
-	switch(WeaponSlot)
+	EWeaponSlots WeaponEnum = EWeaponSlots::NONE;
+	switch(EquipmentEnum)
 	{
-	case EWeaponSlots::SECONDARY:
-		equipmentEnum = EEquipmentSlotType::SECONDARY;
+	case EEquipmentSlotType::PRIMARY:
+		WeaponEnum = EWeaponSlots::PRIMARY;
+		break;
+	case EEquipmentSlotType::SECONDARY:
+		WeaponEnum = EWeaponSlots::SECONDARY;
+		break;
+	// Atomic Update. Update all weapons.
+	case EEquipmentSlotType::NONE:
+		UpdateWeapon(EEquipmentSlotType::PRIMARY);
+		UpdateWeapon(EEquipmentSlotType::SECONDARY);
 		break;
 	default:
-		break;
+		UE_LOG(LogTemp, Error, TEXT("Invalid Equip Slot Received ( UpdateWeapon() )"));
+		return;
 	}
 	
-	const int equipmentSlot   = InventoryComponent->getEquipmentSlotNumber(equipmentEnum);
+	const int equipmentSlot   = InventoryComponent->getEquipmentSlotNumber(EquipmentEnum);
 	const FName equipmentItem = InventoryComponent->getItemNameInSlot(equipmentSlot, true);
 
 	if (UItemSystem::getItemNameIsValid(equipmentItem))
 	{
-		WeaponComponent->SetWeapon(equipmentItem, WeaponSlot);
+		const FStItemData ItemData = UItemSystem::getItemDataFromItemName(equipmentItem);
+		if (ItemData.itemCategory == EItemCategory::WEAPON)
+		{
+			WeaponComponent->SetWeapon(equipmentItem, WeaponEnum);
+			return;
+		}
+		UE_LOG(LogTemp, Warning, TEXT("%s(%s): Equipped Item '%s' was not of type 'WEAPON'"),
+			*GetName(), HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), *equipmentItem.ToString());
 	}
-	else
-	{
-		WeaponComponent->UnsetWeapon(WeaponSlot);	
-	}
+	WeaponComponent->UnsetWeapon(WeaponEnum);
 	
 }
 

@@ -26,8 +26,8 @@ public:
 	// Checks if this NPC can perform an ability, or needs to wait
 	UFUNCTION() bool NpcCanActivateAbility();
 
-	// The absolute time (in approx. sec) between attacks
-	// X: Minimum Time, Y: Maximum Time
+	// Time added to the weapon delay to add variety to NPC attacks
+	// 0: Minimum Time, 1: Maximum Time
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat NPC Settings")
 	TArray<float> TimeBetweenAttacks = {2.f, 3.f};
 
