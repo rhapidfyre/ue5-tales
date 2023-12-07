@@ -8,12 +8,11 @@
 #include "lib/VitalityData.h"
 #include "TalesDungeoneer/lib/enums/GlobalEnums.h"
 #include "TalesDungeoneer/Characters/Components/MeshMergeComponent.h"
+#include "lib/InventorySlot.h"
 
 #include "SavedCharacters.generated.h"
 
-
 struct FStCharacterStats;
-struct FStMeshMergeData;
 
 /**
  * The object used for saving all PLAYER character data
@@ -66,7 +65,7 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Vitality Save Data") bool  UseHealthSubsystem = true;
 	UPROPERTY(VisibleAnywhere, Category = "Vitality Save Data")	bool  UseStaminaSubsystem = true;
 	UPROPERTY(VisibleAnywhere, Category = "Vitality Save Data")	bool  UseMagicSubsystem = true;
-	UPROPERTY(VisibleAnywhere, Category = "Vitality Save Data")	bool  UseSurvivalSubsystem = false;
+	UPROPERTY(VisibleAnywhere, Category = "Vitality Save Data")	bool  UseSurvivalSubsystem = true;
 	
 	UPROPERTY(VisibleAnywhere, Category = "Vitality Save Data")	float StartingHealthCurrent = 0.f;
 	UPROPERTY(VisibleAnywhere, Category = "Vitality Save Data")	float StartingHealthMaximum = 0.f;
@@ -99,7 +98,9 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Vitality Save Data") int Charisma = 0;
 	
 	UPROPERTY(VisibleAnywhere, Category = "Vitality Save Data") int UnlockPointsAvailable = 0;
-	
+
+	UPROPERTY(VisibleAnywhere, Category = "Inventory Save Data") TArray<FStInventorySlot> SavedInventory = {};
+	UPROPERTY(VisibleAnywhere, Category = "Inventory Save Data") TArray<FStInventorySlot> SavedEquipment = {};
 };
 
 /**

@@ -12,6 +12,8 @@
 // Only useful on the owning client. Called when the weapon hits something.
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHit, AActor*, HitActor);
 
+DECLARE_LOG_CATEGORY_EXTERN(LogWeapons, Log, Error);
+
 UENUM()
 enum class EWeaponEffectType : uint8
 {

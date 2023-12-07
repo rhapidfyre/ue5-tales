@@ -21,7 +21,6 @@
 
 #include "CharacterBase.generated.h"
 
-
 class AFloatingTextBase;
 class UFloatingTextWidgetBase;
 
@@ -51,6 +50,15 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCharacterLevelChanged);
 
 // Called when the character has been restored from a save file
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCharacterRestored, FString, SaveSlotName);
+
+USTRUCT()
+struct TALESDUNGEONEER_API FStDefaultStartingItem : public FStStartingItem
+{
+	GENERATED_BODY()
+	UPROPERTY(EditAnywhere,BlueprintReadWrite) TArray<ECharacterRace> AllowedRaces = {ECharacterRace::ANY};
+	UPROPERTY(EditAnywhere,BlueprintReadWrite) TArray<ECharacterClass> AllowedClasses = {ECharacterClass::ANY};
+	UPROPERTY(EditAnywhere,BlueprintReadWrite) FStStartingItem StartingItemRef = {};
+};
 
 /**
  * Character Base is the base C++ class for all logic, methods and members that affect ALL
@@ -259,8 +267,9 @@ private: // methods
 	UFUNCTION()	void CheckAbilitySuccess(FName AbilityName, bool WasSuccessful);
 
 	UFUNCTION(NetMulticast, Reliable) void OnRep_CharacterName();
-public: // members
 	
+public: // members
+		
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Character Settings",
 		ReplicatedUsing=OnRep_CharacterName)
 	FString CharacterName = "Unnamed Character";
@@ -344,10 +353,9 @@ public: // members
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Character Settings")
 	FSlateColor SkinColor;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Character Settings")
-	TArray<FStCharacterParts> BodyData;
-	
 private:
+
+	void ReinitializeSubsystems();
 
 	UPROPERTY(Replicated) ECharacterTeam _CharacterTeam = ECharacterTeam::SPECTATOR;
 	
@@ -370,4 +378,6 @@ private:
 	float _ExperienceWorth = 100.f;
 
 	UPROPERTY(Replicated) bool _IsMale = true;
+
+	bool bCharacterSaveRestored = false;
 };

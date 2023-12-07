@@ -7,6 +7,21 @@
 
 #include "TalesHudBase.generated.h"
 
+USTRUCT(Blueprintable, BlueprintType)
+struct FStHudNotification
+{
+	GENERATED_BODY();
+	FStHudNotification() {};
+	FStHudNotification(FString tMessage) { Message = tMessage; }
+	FStHudNotification(FString tMessageTitle, FString tNewMessage, int tPriority = 2)
+	{
+		Title = tMessageTitle; Message = tNewMessage; Priority = tPriority;
+	};
+	FString Title	= "";
+	FString Message = "No Message Given";
+	int Priority	= 2;
+};
+
 
 UCLASS(Blueprintable, BlueprintType)
 class TALESDUNGEONEER_API ATalesHudBase : public AHUD
@@ -20,4 +35,12 @@ public:
 	virtual void DrawHUD() override;
 
 	virtual void BeginPlay() override;
+
+	UFUNCTION(BlueprintCallable)
+	void NotifyHud(FString MessageTitle, FString NewMessage, int Priority = 2);
+
+private:
+
+	UPROPERTY()
+	TArray<FStHudNotification> NotificationsPending_ = {};
 };

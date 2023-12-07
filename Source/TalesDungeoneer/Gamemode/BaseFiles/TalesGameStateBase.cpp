@@ -7,7 +7,10 @@
 #include "VitalityWelfareComponent.h"
 
 #include "Kismet/GameplayStatics.h"
+#include "Logging/StructuredLog.h"
 #include "Net/UnrealNetwork.h"
+#include "TalesDungeoneer/TalesDungeoneer.h"
+#include "TalesDungeoneer/Gamemode/AdventureMode/TalesHudBase.h"
 
 // Returns TRUE if the game state is any type of server
 bool ATalesGameStateBase::CheckIsServer() const
@@ -18,11 +21,102 @@ bool ATalesGameStateBase::CheckIsServer() const
 // Returns TRUE if the game state is server, but also a client
 bool ATalesGameStateBase::CheckIsPlayableClient() const
 {
-	ENetMode NetMode = GetNetMode();
+	const ENetMode NetMode = GetNetMode();
 	return NetMode == NM_ListenServer || NetMode == NM_Standalone;
 }
 
-FString GetCleanedSaveSlotString(FString UncleanedString)
+const FStCharacterRaces ATalesGameStateBase::GetStartingRaceData(
+	const ECharacterRace CharacterRace) const
+{
+	if (IsValid(DataTableRace))
+	{
+		const FString dtName = DataTableRace->GetName();
+		TArray<FStCharacterRaces*> dtStartingRaces;
+		DataTableRace->GetAllRows<FStCharacterRaces>(*dtName, dtStartingRaces);
+
+		for (const FStCharacterRaces* StartingRace : dtStartingRaces)
+		{
+			if (StartingRace->RaceEnum == CharacterRace
+				|| StartingRace->RaceEnum == ECharacterRace::ANY)
+			{
+				return *StartingRace;
+			}
+		}
+	}
+	return {};
+}
+
+const FStCharacterClasses ATalesGameStateBase::GetStartingClassData(
+	const ECharacterClass CharacterClass) const
+{
+	if (IsValid(DataTableClass))
+	{
+		const FString dtName = DataTableRace->GetName();
+		TArray<FStCharacterClasses*> dtStartingRaces;
+		DataTableRace->GetAllRows<FStCharacterClasses>(*dtName, dtStartingRaces);
+
+		for (const FStCharacterClasses* StartingClass : dtStartingRaces)
+		{
+			if (	StartingClass->ClassEnum == CharacterClass
+				||	StartingClass->ClassEnum == ECharacterClass::ANY)
+			{
+				return *StartingClass;
+			}
+		}
+	}
+	return {};
+}
+
+TArray<FStStartingItem> ATalesGameStateBase::GetStartingInventoryData(
+	const ECharacterRace CharacterRace, const ECharacterClass CharacterClass)
+{
+	TArray<FStStartingItem> StartingItems;
+	if (IsValid(DataTableInventory))
+	{
+		const FString dtName = DataTableInventory->GetName();
+		TArray<FStDefaultStartingItem*> dtStartingItems;
+		DataTableInventory->GetAllRows<FStDefaultStartingItem>(*dtName, dtStartingItems);
+
+		for (const FStDefaultStartingItem* StartingItem : dtStartingItems)
+		{
+			if (	StartingItem->AllowedClasses.Contains(CharacterClass)
+				||	StartingItem->AllowedClasses.Contains(ECharacterClass::ANY))
+			{
+				if (StartingItem->AllowedRaces.Contains(CharacterRace)
+				||	StartingItem->AllowedRaces.Contains(ECharacterRace::ANY))
+				{
+					StartingItems.Add(FStStartingItem(
+						StartingItem->startingItem,
+						StartingItem->quantity,
+						StartingItem->bStartEquipped));
+				}
+			}
+		}
+	}
+	return StartingItems;
+}
+
+TArray<FName> ATalesGameStateBase::GetStartingAbilityData(const ECharacterClass CharacterClass)
+{
+	TArray<FName> StartingAbilities;
+	if (IsValid(DataTableAbilities))
+	{
+		const FString dtName = DataTableAbilities->GetName();
+		TArray<FStAbilityData*> dtStartingAbilities;
+		DataTableAbilities->GetAllRows<FStAbilityData>(*dtName, dtStartingAbilities);
+		
+		for (const FStAbilityData* StartingAbility : dtStartingAbilities)
+		{
+			if (StartingAbility->AllowedClasses.Contains(CharacterClass))
+			{
+				StartingAbilities.Add( StartingAbility->GameName );
+			}
+		}
+	}
+	return StartingAbilities;
+}
+
+FString GetCleanedSaveSlotString(const FString& UncleanedString)
 {
 	return UncleanedString.Replace(TEXT(" "), TEXT(""), ESearchCase::IgnoreCase);	
 }
@@ -51,6 +145,30 @@ FStNpcData ATalesGameStateBase::GetNpcData(FName NpcName)
 		}
 	}
 	return {};
+}
+
+void ATalesGameStateBase::Server_NewNotification_Implementation(
+	const FString& NewTitle, const FString& NewMessage, int NewPriority)
+{
+	Multicast_SendNotification(NewTitle, NewMessage, NewPriority);
+}
+
+void ATalesGameStateBase::LocalNotification(
+			FString NewTitle, FString NewMessage, int NewPriority)
+{
+	const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
+	if (IsValid(LocalPlayer))
+	{
+		const APlayerController* PlayerController = LocalPlayer->GetPlayerController(GetWorld());
+		if (IsValid(PlayerController))
+		{
+			ATalesHudBase* HudBase = Cast<ATalesHudBase>(PlayerController->GetHUD());
+			if (IsValid(HudBase))
+			{
+				HudBase->NotifyHud(NewTitle, NewMessage, NewPriority);
+			}
+		}
+	}
 }
 
 /**
@@ -134,25 +252,34 @@ bool ATalesGameStateBase::SaveCharacterSync(const FString SaveSlotName)
 	// Characters always save on the client
 	if (!CheckIsPlayableClient())
 	{
+		UE_LOGFMT(LogTales, Error, "SaveCharacterSync({sv}) FAILED: Does not execute on Non-Playable Server", HasAuthority()?"S":"C");
 		return false;
 	}
 	const ACharacterBase* CharacterBase = Cast<ACharacterBase>
 			( UGameplayStatics::GetPlayerCharacter(GetWorld(), 0) );
 	
 	if (!IsValid(CharacterBase))
+	{
+		UE_LOGFMT(LogTales, Error, "SaveCharacterSync({sv}) FAILED: Could not retrieve CharacterBase.", HasAuthority()?"S":"C");
 		return false;
+	}
 	
 	if (SaveSlotName.IsEmpty())
+	{
+		UE_LOGFMT(LogTales, Error, "SaveCharacterSync({sv}) FAILED: Invalid SaveSlotName (EMPTY)", HasAuthority()?"S":"C");
 		return false;
+	}
 
 	CreateCharacterSaveIfNotExists();
 	USavedCharacter* SavedCharacter = Cast<USavedCharacter>(GetSavedCharacterData(SaveSlotName));
 	if (!IsValid(SavedCharacter))
 	{
-		UE_LOG(LogTemp, Error, TEXT("SaveCharacterSync() FAILED: Could not retrieve save game object."));
+		UE_LOGFMT(LogTales, Error, "SaveCharacterSync({sv}) FAILED: No Saved Character Data Exists", HasAuthority()?"S":"C");
 		return false;
 	}
 
+	UE_LOGFMT(LogTales, Log, "SaveCharacterSync({sv}): Successfully Saved Character '{CharacterName}'",
+		HasAuthority()?"S":"C", SavedCharacter->CharacterName);
 	Helper_SetCharacterValues(CharacterBase, SavedCharacter);
 	_SavedCharacters.Add(SaveSlotName);
 	return UGameplayStatics::SaveGameToSlot(SavedCharacter, SaveSlotName, 0);
@@ -162,22 +289,31 @@ void ATalesGameStateBase::SaveCharacterAsync(const FString SaveSlotName)
 {
 	if (CheckIsServer() && !CheckIsPlayableClient())
 	{
+		UE_LOGFMT(LogTales, Error, "SaveCharacterSync({sv}) FAILED: Does not execute on Non-Playable Server", HasAuthority()?"S":"C");
 		return;
 	}
 	const ACharacterBase* CharacterBase = Cast<ACharacterBase>
 			( UGameplayStatics::GetPlayerCharacter(GetWorld(), 0) );
 	
 	if (!IsValid(CharacterBase))
+	{
+		UE_LOGFMT(LogTales, Error, "SaveCharacterSync({sv}) FAILED: CharacterBase Invalid/Not Found", HasAuthority()?"S":"C");
 		return;
+	}
 	
 	if (SaveSlotName.IsEmpty())
+	{
+		UE_LOGFMT(LogTales, Error, "SaveCharacterSync({sv}) FAILED: SaveSlotName Invalid (EMPTY)", HasAuthority()?"S":"C");
 		return;
+	}
 
 	CreateCharacterSaveIfNotExists();
 
 	USavedCharacter* SavedCharacter = GetSavedCharacterData(SaveSlotName);
 	if (IsValid(SavedCharacter))
 	{
+		UE_LOGFMT(LogTales, Error, "SaveCharacterSync({sv}) Successfully Saved Character '{CharacterName}' (Async)",
+			HasAuthority()?"S":"C", CharacterBase->CharacterName);
 		FAsyncSaveGameToSlotDelegate SaveDelegate;
 		SaveDelegate.BindUObject(this, &ATalesGameStateBase::SaveCharacterDelegate);
 		Helper_SetCharacterValues(CharacterBase, SavedCharacter);
@@ -186,7 +322,8 @@ void ATalesGameStateBase::SaveCharacterAsync(const FString SaveSlotName)
 	}
 	else
 	{
-		UE_LOG(LogTemp, Error, TEXT("SaveCharacterSync() FAILED: Could not retrieve save game object."));	
+		UE_LOGFMT(LogTales, Error, "SaveCharacterSync({sv}) FAILED: Could not create save file '{SaveName}'",
+			HasAuthority()?"S":"C", SaveSlotName);
 	}
 }
 
@@ -194,6 +331,12 @@ void ATalesGameStateBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& 
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(ATalesGameStateBase, DungeonLevel);
+}
+
+void ATalesGameStateBase::Multicast_SendNotification_Implementation(
+	const FString& NewTitle, const FString& NewMessage, int NewPriority)
+{
+	
 }
 
 USaveGame* ATalesGameStateBase::GetSaveGameMeta() const
@@ -251,6 +394,18 @@ int ATalesGameStateBase::GetSelectedCharacterIndex() const
 	return -1;
 }
 
+bool ATalesGameStateBase::GetDoesCharacterSaveExist() const
+{
+	if (_SavedCharacters.IsValidIndex(_SelectedCharacter))
+	{
+		if (_SavedCharacters[_SelectedCharacter] != "")
+		{
+			return UGameplayStatics::DoesSaveGameExist(_SavedCharacters[_SelectedCharacter], 0);
+		}
+	}
+	return false;
+}
+
 void ATalesGameStateBase::SetSavedCharacterNameList(TArray<FString> RestoredCharacters)
 {
 	if (CheckIsServer() && !CheckIsPlayableClient())
@@ -277,14 +432,15 @@ bool ATalesGameStateBase::SaveCurrentCharacter(FString& SaveResponse, bool RunAs
 {
 	if (CheckIsServer() && !CheckIsPlayableClient())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("SaveTheSaveCurrentCharacterGame() FAILED: Saves are clientside."));
+		UE_LOGFMT(LogTales, Warning, "SaveTheSaveCurrentCharacterGame(S) FAILED: Save Attempted on Server.");
+		SaveResponse = "Server Tried to Save";
 		return false;
 	}
-	SaveResponse = "Saving Character FAILED - Reason Unknown"; 
+	
 	if (!bSaveMetaIsReady)
 	{
 		SaveResponse = "SaveMeta isn't ready yet.";
-		UE_LOG(LogTemp, Warning, TEXT("SaveTheGame() FAILED: SaveMeta isn't ready yet."));
+		UE_LOGFMT(LogTales, Warning, "SaveTheSaveCurrentCharacterGame(S) FAILED: SaveMeta is not ready yet.");
 		return false;
 	}
 	
@@ -327,6 +483,8 @@ bool ATalesGameStateBase::SaveCurrentCharacter(FString& SaveResponse, bool RunAs
 		}
 		SaveResponse = "Synchronous Save FAILED";
 	}
+	else
+		SaveResponse = "SaveCharacterSync returned FALSE"; 
 	
 	return false;
 }
@@ -595,6 +753,7 @@ void ATalesGameStateBase::Helper_SetCharacterValues(
 		if (IsValid(VitalityStats))
 		{
 			// Restore Natural Stats
+			// When the character's gear and effects are loaded, this will recalculate.
 			SavedCharacter->BaseStats = VitalityStats->GetAllNaturalStats();
 		}
 		
@@ -635,6 +794,17 @@ void ATalesGameStateBase::SaveCharacterDelegate(
 	
 	SaveMetaDataAsync(); // Save the metadata, too.
 	OnCharacterSaved.Broadcast(bSuccess);
+}
+
+void ATalesGameStateBase::OnRep_CheatMode(bool OldState)
+{
+	if (CheatMode_ != OldState)
+	{
+		LocalNotification("Cheat Mode",
+			GetIsCheatModeEnabled() ?
+				"Cheat Mode has been ENABLED"
+				: "Cheat Mode has been DISABLED", 1);
+	}
 }
 
 bool ATalesGameStateBase::CreateSaveGameIfNotExists()

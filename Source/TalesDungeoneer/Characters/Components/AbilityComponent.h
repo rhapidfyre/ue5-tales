@@ -120,13 +120,13 @@ public:
 	void ApplyEffect(ACharacterBase* EffectInstigator, FName AbilityName);
 
 	UFUNCTION(BlueprintPure)
-	TMap<UInputAction*, FName> GetAbilityMappings() const { return _AbilityMappings; };
+	TMap<UInputAction*, FName> GetAbilityMappings() const { return AbilityMappings_; };
 	
 	// The tick rate of the Effects Timer
 	// The timer does not run if there are no active effects
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float TimerRate = 0.1;
 
-	UFUNCTION(BlueprintPure) ACharacterBase* GetTargetedActor() const { return _TargetActor; }
+	UFUNCTION(BlueprintPure) ACharacterBase* GetTargetedActor() const { return TargetActor_; }
 
 	UFUNCTION(BlueprintCallable)
 	void SetTargetedActorByHotkey(UInputAction* TargetHotkey);
@@ -139,7 +139,7 @@ public:
 	void RemoveExpiredEffect(UStatusEffect* AbilityEffect, FName AbilityName);
 
 	UFUNCTION(BlueprintPure)
-	TArray<UStatusEffect*> GetActiveEffects() { return _ActiveEffects; }
+	TArray<UStatusEffect*> GetActiveEffects() { return ActiveEffects_; }
 
 	UFUNCTION(BlueprintCallable) int GetNumStacksActive(FName AbilityName);
 
@@ -154,7 +154,7 @@ public:
 	// Returns the total time of all effects in the stack
 	UFUNCTION(BlueprintCallable) float GetTotalEffectStackTimer(FName AbilityName = "None");
 
-	UFUNCTION(BlueprintPure) bool GetIsAbilityOnCooldown(FName AbilityName) const { return _AbilitiesOnCooldown.Contains(AbilityName);}
+	UFUNCTION(BlueprintPure) bool GetIsAbilityOnCooldown(FName AbilityName) const { return AbilitiesOnCooldown_.Contains(AbilityName);}
 	UFUNCTION(BlueprintCallable) void EndAbilityCooldown(FName AbilityName);
 	/**
 	 * @brief Call to stop the casting of any ability.
@@ -162,13 +162,13 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable) void InterruptCasting(bool OnlyFocused = false, bool CanceledIntentionally = false);
 
-	UFUNCTION(BlueprintPure) TSet<FName> GetKnownAbilities() const { return _KnownAbilities; }
+	UFUNCTION(BlueprintPure) TArray<FName> GetKnownAbilities() const { return KnownAbilities_; }
 
 	UFUNCTION(Server, Reliable, BlueprintCallable) void Server_RequestAbilityAdd(FName AbilityName);
 	UFUNCTION(Server, Reliable, BlueprintCallable) void Server_RequestAbilityRemove(FName AbilityName);
 	UFUNCTION(Server, Reliable, BlueprintCallable) void Server_RequestAbilityReset();
 
-	UFUNCTION(BlueprintPure) int GetNumberOfUnlockPoints() const { return _UnlockPoints; }
+	UFUNCTION(BlueprintPure) int GetNumberOfUnlockPoints() const { return UnlockPoints_; }
 	UFUNCTION(BlueprintCallable) void AddUnlockPoints(int NumPoints = 1);
 	UFUNCTION(BlueprintCallable) void RemoveUnlockPoints(int NumPoints = 1);
 
@@ -179,10 +179,19 @@ public:
 	bool StopCasting(FName AbilityName, bool WasSuccessful = true);
 
 	UFUNCTION(BlueprintCallable)
-	bool IsAbilityInProgress(FName AbilityName) const { return _AbilitiesInProgress.Contains(AbilityName); }
+	bool IsAbilityInProgress(FName AbilityName) const { return AbilitiesInProgress_.Contains(AbilityName); }
 
 	UFUNCTION(BlueprintCallable)
 	void SetUnlockPoints(int UnlockPoints = 0);
+	
+	UFUNCTION(BlueprintCallable)
+	void AddKnownAbility(FName AbilityName, int UnlockPoints = 1);
+	
+	UFUNCTION(BlueprintCallable)
+	void RemoveKnownAbility(FName AbilityName);
+	
+	UFUNCTION(BlueprintCallable)
+	void ResetKnownAbilities();
 	
 protected:
 	
@@ -218,10 +227,10 @@ protected:
 	UFUNCTION(Server, Reliable)	void Server_CancelCasting(FName AbilityName);
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TMap<UInputAction*, FName> _AbilityMappings;
+	TMap<UInputAction*, FName> AbilityMappings_;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TMap<UInputAction*, ETargetingOption> _TargetMappings;
+	TMap<UInputAction*, ETargetingOption> TargetMappings_;
 
 	// Overrideable event that fires everytime the Effects Timer ticks
 	UFUNCTION(BlueprintNativeEvent) void OnTickTimer();
@@ -237,8 +246,8 @@ private:
 
 	bool bHasInitialized = false;
 	
-	UFUNCTION(Client, Reliable) void OnRep_UnlockPoints();
-	UPROPERTY(ReplicatedUsing=OnRep_UnlockPoints) int _UnlockPoints = 2;
+	UFUNCTION(Client, Reliable) void OnRep_UnlockPoints(int OldPointsCount);
+	UPROPERTY(ReplicatedUsing=OnRep_UnlockPoints) int UnlockPoints_ = 2;
 
 	USkeleton* GetOwnerSkeleton();
 	
@@ -278,40 +287,37 @@ private:
 	// If true, the player cannot use any other focused abilities
 	UPROPERTY(Replicated) FName FocusedAbility = FName(); 
 
-	UPROPERTY(ReplicatedUsing=OnRep_TargetActor) ACharacterBase* _TargetActor;
+	UPROPERTY(ReplicatedUsing=OnRep_TargetActor) ACharacterBase* TargetActor_;
 	UFUNCTION(Client, Reliable) void OnRep_TargetActor();
 
 	// Fires every time the Effects Timer ticks
 	virtual void TickTimer();
 
 	// Active abilities
-	//TMap< FName, TArray<FStAbilityEffect> > _ActiveEffects;
+	//TMap< FName, TArray<FStAbilityEffect> > ActiveEffects_;
 	UPROPERTY(ReplicatedUsing=OnRep_ActiveEffectsUpdated)
-	TArray<UStatusEffect*> _ActiveEffects;
+	TArray<UStatusEffect*> ActiveEffects_;
 	UFUNCTION(NetMulticast, Reliable) void OnRep_ActiveEffectsUpdated();
 
-	UPROPERTY()	TSet<FName> _KnownAbilities;
-	UFUNCTION(BlueprintCallable) void AddKnownAbility(FName AbilityName, int UnlockPoints = 1);
-	UFUNCTION(BlueprintCallable) void RemoveKnownAbility(FName AbilityName);
-	UFUNCTION(BlueprintCallable) void ResetKnownAbilities();
-	UFUNCTION(Client, Reliable) void Client_AddKnownAbility(FName AbilityName);
-	UFUNCTION(Client, Reliable) void Client_RemoveKnownAbility(FName AbilityName);
-	UFUNCTION(Client, Reliable) void Client_ResetKnownAbilities();
+	UFUNCTION(Client, Reliable)
+	void OnRep_KnownAbilities(const TArray<FName>& OldAbilityList);
+	UPROPERTY(Replicated, ReplicatedUsing=OnRep_KnownAbilities)
+	TArray<FName> KnownAbilities_;
 
 	UFUNCTION(Client, Reliable) void Client_AbilityCooldown(FName AbilityName, bool OnCooldown = true);
 
 	// A simple timer for managing effect expiration
-	UPROPERTY() FTimerHandle _EffectsTimer;
+	UPROPERTY() FTimerHandle EffectsTimer_;
 
-	FRWLock _MutexLock;
+	FRWLock MutexLock_;
 
 	bool bShowDebug = false;
 
-	FVector _OwnerSpeed = FVector(0.f);
-	UPROPERTY() ACharacterBase* _PlayerCharacter;
+	FVector OwnerSpeed_ = FVector(0.f);
+	UPROPERTY() ACharacterBase* PlayerCharacter_;
 
-	UPROPERTY() TSet<FName> _AbilitiesInProgress;
-	UPROPERTY() TSet<FName> _AbilitiesOnCooldown;
+	UPROPERTY() TSet<FName> AbilitiesInProgress_;
+	UPROPERTY() TSet<FName> AbilitiesOnCooldown_;
 	
 	UFUNCTION(Client, Reliable) void Client_StartCasting(FName AbilityName);
 	UFUNCTION(Client, Reliable) void Client_StopCasting(FName AbilityName, bool WasSuccessful = true);

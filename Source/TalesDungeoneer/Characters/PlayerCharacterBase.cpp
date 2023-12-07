@@ -96,7 +96,12 @@ void APlayerCharacterBase::LoadSaveData(const FString& SaveName, const int32 Use
 				
 				// Restore Natural Damage Bonus & Resistance
 				VitalityStats->InitializeNaturalDamageBonuses(CharacterData->BaseStats.DamageBonuses);
-				VitalityStats->InitializeNaturalDamageResists(CharacterData->BaseStats.DamageResistances);
+				VitalityStats->InitializeNaturalDamageResists(CharacterData->BaseStats.DamageResists);
+			}
+
+			if (IsValid(InventoryComponent))
+			{
+				InventoryComponent->RestoreInventory();
 			}
 	
 			// Restore unlock points

@@ -2,4 +2,9 @@
 
 #pragma once
 
+DECLARE_LOG_CATEGORY_EXTERN(LogTales, Log, Error);
+DECLARE_LOG_CATEGORY_EXTERN(LogCharacterBase, Log, Error);
+DECLARE_LOG_CATEGORY_EXTERN(LogCombatSystem, Log, Error);
+DECLARE_LOG_CATEGORY_EXTERN(LogAbilitySystem, Log, Error);
+
 #include "CoreMinimal.h"

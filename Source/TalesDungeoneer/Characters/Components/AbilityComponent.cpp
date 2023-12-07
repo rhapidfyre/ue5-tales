@@ -25,7 +25,7 @@ void UAbilityComponent::InitializePoints(int NumberOfPoints)
 
 void UAbilityComponent::Server_InitializePoints_Implementation(int NumberOfPoints)
 {
-	if (GetOwner()->HasAuthority() && !bHasInitialized)
+	if (!bHasInitialized)
 	{
 		bHasInitialized = true;
 		SetUnlockPoints(NumberOfPoints);
@@ -43,9 +43,9 @@ void UAbilityComponent::AbilityAction(UInputAction* HotkeyAction)
 {
 	if (IsValid(HotkeyAction))
 	{
-		if (_AbilityMappings.Contains(HotkeyAction))
+		if (AbilityMappings_.Contains(HotkeyAction))
 		{
-			const FName AbilityName = _AbilityMappings[HotkeyAction];
+			const FName AbilityName = AbilityMappings_[HotkeyAction];
 			if (UAbilitySystem::GetAbilityNameIsValid(AbilityName))
 			{
 				ActivateAbility(AbilityName, GetTargetedActor());
@@ -53,23 +53,23 @@ void UAbilityComponent::AbilityAction(UInputAction* HotkeyAction)
 			}
 		}
 		
-		else if (_TargetMappings.Contains(HotkeyAction))
+		else if (TargetMappings_.Contains(HotkeyAction))
 		{
 			
 		}
 
 		UE_LOG(LogTemp, Warning, TEXT("%s(%s): Hotkey '%s' Not Found in Ability Actions!"),
-			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), *HotkeyAction->GetName());
+			*GetName(), GetNetMode() < NM_Client?TEXT("SERVER"):TEXT("CLIENT"), *HotkeyAction->GetName());
 	}
 	UE_LOG(LogTemp, Warning, TEXT("%s(%s): Invalid UInputAction given to AbilityAction()"),
-		*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+		*GetName(), GetNetMode() < NM_Client?TEXT("SERVER"):TEXT("CLIENT"));
 }
 
 bool UAbilityComponent::SetAbilityInputAction(FName AbilityName, UInputAction* InputAction)
 {
 	if (IsValid(InputAction))
 	{
-		_AbilityMappings.Add(InputAction, AbilityName);
+		AbilityMappings_.Add(InputAction, AbilityName);
 		OnAbilityHotkeyChanged.Broadcast(InputAction, AbilityName);
 		return true;
 	}
@@ -82,7 +82,7 @@ void UAbilityComponent::ActivateAbility(
 {
 	const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
 	
-	if (GetOwner()->HasAuthority())
+	if (GetNetMode() < NM_Client)
 	{
 		if (UAbilitySystem::GetAbilityNameIsValid(AbilityName))
 		{
@@ -115,7 +115,7 @@ void UAbilityComponent::ActivateAbility(
 			ACharacterBase* EffectInstigator = Cast<ACharacterBase>(GetOwner());
 			if (IsValid(TargetActor))
 			{
-				_TargetActor = Cast<ACharacterBase>( TargetActor );
+				TargetActor_ = Cast<ACharacterBase>( TargetActor );
 			}
 			SpawnEffectsActor(EffectInstigator, AbilityName, ForwardVector);
 		}
@@ -175,18 +175,18 @@ void UAbilityComponent::ApplyEffect(ACharacterBase* EffectInstigator, FName Abil
 			
 			// Lock against reading from the array
 			// Releases lock automatically when scope is lost
-			FRWScopeLock WriteLock(_MutexLock, SLT_Write);
+			FRWScopeLock WriteLock(MutexLock_, SLT_Write);
 
 			// Add the effect to the appropriate key in the active effects map	
-			_ActiveEffects.Add(AbilityEffect);
+			ActiveEffects_.Add(AbilityEffect);
 		}
 
 		// If the timer isn't valid, initiate it (AKA this is the first effect)
-		if (!_EffectsTimer.IsValid())
+		if (!EffectsTimer_.IsValid())
 		{
 			UE_LOG(LogTemp, Warning, TEXT("%s(%s): Starting Effects Timer"),
-				*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
-			GetWorld()->GetTimerManager().SetTimer(_EffectsTimer, this,
+				*GetName(), GetNetMode() < NM_Client?TEXT("SERVER"):TEXT("CLIENT"));
+			GetWorld()->GetTimerManager().SetTimer(EffectsTimer_, this,
 				&UAbilityComponent::OnTickTimer, TimerRate, true);
 		}
 		
@@ -197,7 +197,7 @@ void UAbilityComponent::SetTargetedActorByHotkey(UInputAction* TargetHotkey)
 {
 	if (IsValid(TargetHotkey))
 	{
-		if (_TargetMappings.Contains(TargetHotkey))
+		if (TargetMappings_.Contains(TargetHotkey))
 		{
 			
 			ACharacterBase* SelfActor = Cast<ACharacterBase>(GetOwner());
@@ -207,7 +207,7 @@ void UAbilityComponent::SetTargetedActorByHotkey(UInputAction* TargetHotkey)
 			TArray<AActor*> NearbyActors;
 			ECharacterTeam MatchingTeam = ECharacterTeam::DUNGEONEER;
 			
-			switch(_TargetMappings[TargetHotkey])
+			switch(TargetMappings_[TargetHotkey])
 			{
 			case ETargetingOption::ONE:
 				SetTargetedActor( SelfActor );
@@ -267,9 +267,9 @@ void UAbilityComponent::SetTargetedActorByHotkey(UInputAction* TargetHotkey)
 
 void UAbilityComponent::SetTargetedActor(ACharacterBase* NewTarget)
 {
-	if (GetOwner()->HasAuthority())
+	if (GetNetMode() < NM_Client)
 	{
-		_TargetActor = NewTarget;
+		TargetActor_ = NewTarget;
 		OnNewTargetSet.Broadcast(NewTarget);
 	}
 	else
@@ -285,18 +285,18 @@ void UAbilityComponent::SetTargetedActor(ACharacterBase* NewTarget)
  */
 void UAbilityComponent::RemoveExpiredEffect(UStatusEffect* AbilityEffect, FName AbilityName)
 {
-	if ( IsValid(AbilityEffect) && (_ActiveEffects.Contains(AbilityEffect)) )
+	if ( IsValid(AbilityEffect) && (ActiveEffects_.Contains(AbilityEffect)) )
 	{
 		RemoveReplicatedSubObject(AbilityEffect);
-		_ActiveEffects.RemoveSingle(AbilityEffect);
+		ActiveEffects_.RemoveSingle(AbilityEffect);
 	}
 }
 
 int UAbilityComponent::GetNumStacksActive(FName AbilityName)
 {
 	int NumStacks = 0;
-	FRWScopeLock ReadLock(_MutexLock, SLT_ReadOnly);
-	for (UStatusEffect* AbilityEffect : _ActiveEffects)
+	FRWScopeLock ReadLock(MutexLock_, SLT_ReadOnly);
+	for (UStatusEffect* AbilityEffect : ActiveEffects_)
 	{
 		if (AbilityEffect->GetAbilityName() == AbilityName)
 			NumStacks += 1;
@@ -306,7 +306,7 @@ int UAbilityComponent::GetNumStacksActive(FName AbilityName)
 
 bool UAbilityComponent::GetIsEffectActiveByName(FName AbilityName)
 {
-	for (const UStatusEffect* AbilityEffect : _ActiveEffects)
+	for (const UStatusEffect* AbilityEffect : ActiveEffects_)
 	{
 		if (AbilityEffect->GetAbilityName() == AbilityName)
 			return true;
@@ -324,8 +324,8 @@ UStatusEffect* UAbilityComponent::GetEffectWithLowestTimer(FName AbilityName)
 	UStatusEffect* ReturnPointer = nullptr;
 	float LowestTimeRemaining = -1.f;
 	const bool UseAbilityName = !AbilityName.IsNone();
-	FRWScopeLock ReadLock(_MutexLock, SLT_ReadOnly);
-	for (UStatusEffect* AbilityEffect : _ActiveEffects)
+	FRWScopeLock ReadLock(MutexLock_, SLT_ReadOnly);
+	for (UStatusEffect* AbilityEffect : ActiveEffects_)
 	{
 		// If using ability name, make sure it matches
 		if (IsValid(AbilityEffect))
@@ -353,8 +353,8 @@ UStatusEffect* UAbilityComponent::GetEffectWithGreatestTimer(FName AbilityName)
 	UStatusEffect* ReturnPointer = nullptr;
 	float GreatestTimeRemaining = -1.f;
 	const bool UseAbilityName = !AbilityName.IsNone();
-	FRWScopeLock ReadLock(_MutexLock, SLT_ReadOnly);
-	for (UStatusEffect* AbilityEffect : _ActiveEffects)
+	FRWScopeLock ReadLock(MutexLock_, SLT_ReadOnly);
+	for (UStatusEffect* AbilityEffect : ActiveEffects_)
 	{
 		// If using ability name, make sure it matches
 		if (IsValid(AbilityEffect))
@@ -382,7 +382,7 @@ float UAbilityComponent::GetTotalEffectStackTimer(FName AbilityName)
 	const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
 	float TotalSecondsRemaining = 0.f;
 	const bool UseAbilityName = !AbilityName.IsNone();
-	FRWScopeLock ReadLock(_MutexLock, SLT_ReadOnly);
+	FRWScopeLock ReadLock(MutexLock_, SLT_ReadOnly);
 
 	// If timers run consecutively and not concurrently, return the lowest timer
 	if (UseAbilityName && !AbilityData.bTickIndependently)
@@ -392,9 +392,9 @@ float UAbilityComponent::GetTotalEffectStackTimer(FName AbilityName)
 			return AbilityEffect->GetSecondsRemaining();
 	}
 	
-	for (int i = 1; i < _ActiveEffects.Num() ; i++)
+	for (int i = 1; i < ActiveEffects_.Num() ; i++)
 	{
-		const UStatusEffect* AbilityEffect = _ActiveEffects[i];
+		const UStatusEffect* AbilityEffect = ActiveEffects_[i];
 		
 		// If using ability name, make sure it matches
 		if (IsValid(AbilityEffect))
@@ -412,8 +412,8 @@ float UAbilityComponent::GetTotalEffectStackTimer(FName AbilityName)
 
 void UAbilityComponent::EndAbilityCooldown(FName AbilityName)
 {
-	if (_AbilitiesOnCooldown.Contains(AbilityName))
-		_AbilitiesOnCooldown.Remove(AbilityName);
+	if (AbilitiesOnCooldown_.Contains(AbilityName))
+		AbilitiesOnCooldown_.Remove(AbilityName);
 	
 	OnAbilityReady.Broadcast(AbilityName);
 	
@@ -436,7 +436,7 @@ void UAbilityComponent::InterruptCasting(bool OnlyFocused, bool CanceledIntentio
 		// Caster is focused, OR cancel ALL abilities
 		if (!FocusedAbility.IsNone() || !OnlyFocused)
 		{
-			if (GetOwner()->HasAuthority())
+			if (GetNetMode() < NM_Client)
 			{
 				if (CanceledIntentionally)
 					Client_AbilityCanceled(FocusedAbility, "Canceled by Player");
@@ -453,7 +453,7 @@ void UAbilityComponent::InterruptCasting(bool OnlyFocused, bool CanceledIntentio
 						if (IsValid(EffectBase))
 						{
 							EffectBase->GetAbilityName() == FocusedAbility;
-							_AbilitiesInProgress.Remove(FocusedAbility);
+							AbilitiesInProgress_.Remove(FocusedAbility);
 							EffectBase->Destroy();
 						}
 					}
@@ -469,7 +469,7 @@ void UAbilityComponent::InterruptCasting(bool OnlyFocused, bool CanceledIntentio
 						if (IsValid(EffectBase))
 						{
 							FName AbilityName = EffectBase->GetAbilityName();
-							_AbilitiesInProgress.Remove(AbilityName);
+							AbilitiesInProgress_.Remove(AbilityName);
 							EffectBase->Destroy();
 						}
 					}
@@ -491,7 +491,7 @@ void UAbilityComponent::InterruptCasting(bool OnlyFocused, bool CanceledIntentio
 
 void UAbilityComponent::Server_RequestAbilityAdd_Implementation(FName AbilityName)
 {
-	if (GetOwner()->HasAuthority())
+	if (GetNetMode() < NM_Client)
 	{
 		if (UAbilitySystem::GetAbilityNameIsValid(AbilityName))
 		{
@@ -504,7 +504,7 @@ void UAbilityComponent::Server_RequestAbilityAdd_Implementation(FName AbilityNam
 
 void UAbilityComponent::Server_RequestAbilityRemove_Implementation(FName AbilityName)
 {
-	if (GetOwner()->HasAuthority())
+	if (GetNetMode() < NM_Client)
 	{
 		if (UAbilitySystem::GetAbilityNameIsValid(AbilityName))
 		{
@@ -515,7 +515,7 @@ void UAbilityComponent::Server_RequestAbilityRemove_Implementation(FName Ability
 
 void UAbilityComponent::Server_RequestAbilityReset_Implementation()
 {
-	if (GetOwner()->HasAuthority())
+	if (GetNetMode() < NM_Client)
 	{
 		ResetKnownAbilities();
 	}
@@ -523,20 +523,20 @@ void UAbilityComponent::Server_RequestAbilityReset_Implementation()
 
 void UAbilityComponent::AddUnlockPoints(int NumPoints)
 {
-	if (GetOwner()->HasAuthority())
+	if (GetNetMode() < NM_Client)
 	{
-		_UnlockPoints += abs(NumPoints);
-		OnUnlockPointsChanged.Broadcast(_UnlockPoints);
+		UnlockPoints_ += abs(NumPoints);
+		OnUnlockPointsChanged.Broadcast(UnlockPoints_);
 	}
 }
 
 void UAbilityComponent::RemoveUnlockPoints(int NumPoints)
 {
-	if (GetOwner()->HasAuthority())
+	if (GetNetMode() < NM_Client)
 	{
-		const int NewTotal = _UnlockPoints -= abs(NumPoints);
-		_UnlockPoints = NewTotal > 0 ? NewTotal : 0;
-		OnUnlockPointsChanged.Broadcast(_UnlockPoints);
+		const int NewTotal = UnlockPoints_ -= abs(NumPoints);
+		UnlockPoints_ = NewTotal > 0 ? NewTotal : 0;
+		OnUnlockPointsChanged.Broadcast(UnlockPoints_);
 	}
 }
 
@@ -546,8 +546,8 @@ void UAbilityComponent::BeginPlay()
 	bShowDebug = true;
 #endif
 	Super::BeginPlay();
-	_PlayerCharacter = Cast<ACharacterBase>(GetOwner());
-	if (IsValid(_PlayerCharacter))
+	PlayerCharacter_ = Cast<ACharacterBase>(GetOwner());
+	if (IsValid(PlayerCharacter_))
 	{
 		SetComponentTickEnabled(true);
 	}
@@ -559,7 +559,7 @@ void UAbilityComponent::TickComponent(float DeltaTime, ELevelTick TickType,
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	if (!FocusedAbility.IsNone())
 	{
-		FVector PlayerVelocity = _PlayerCharacter->GetMovementComponent()->Velocity;
+		FVector PlayerVelocity = PlayerCharacter_->GetMovementComponent()->Velocity;
 		if (!PlayerVelocity.Equals(FVector(0.f), 1.f))
 		{
 			InterruptCasting(true, false);
@@ -572,14 +572,14 @@ void UAbilityComponent::DestroyAllEffects()
 	AActor* MyOwner = GetOwner();
 	checkf(IsValid(MyOwner), TEXT("DestroySlot:: Invalid Inventory Owner"));
 	checkf(MyOwner->HasAuthority(), TEXT("DestroySlot:: Called without Authority!"));
-	for (UStatusEffect* AbilityEffect : _ActiveEffects)
+	for (UStatusEffect* AbilityEffect : ActiveEffects_)
 	{
 		if (IsValid(AbilityEffect))
 		{
 			AbilityEffect->ConditionalBeginDestroy();
 		}
 	}
-	_ActiveEffects.Empty();
+	ActiveEffects_.Empty();
 }
 
 void UAbilityComponent::OnUnregister()
@@ -609,7 +609,7 @@ void UAbilityComponent::SpawnEffectsActor(
 	{
 		SetIsCasting(FName());
 
-		if (GetOwner()->HasAuthority())
+		if (GetNetMode() < NM_Client)
 		{
 			if (!IsValid(EffectInstigator))
 				Client_AbilityCanceled(AbilityName, "Invalid Ability Name");
@@ -632,7 +632,7 @@ void UAbilityComponent::SpawnEffectsActor(
 	{
 		if (!IsValid( GetTargetedActor() ))
 		{
-			if (GetOwner()->HasAuthority())
+			if (GetNetMode() < NM_Client)
 				Client_AbilityCanceled(AbilityName, "No Target Selected");
 			else
 				OnAbilityCanceled.Broadcast(AbilityName, "No Target Selected");
@@ -640,9 +640,9 @@ void UAbilityComponent::SpawnEffectsActor(
 		}
 	}
 
-	if (_AbilitiesInProgress.Contains(AbilityName))
+	if (AbilitiesInProgress_.Contains(AbilityName))
 	{
-		if (GetOwner()->HasAuthority())
+		if (GetNetMode() < NM_Client)
 			Client_AbilityCanceled(AbilityName, "Already Casting");
 		else
 			OnAbilityCanceled.Broadcast(AbilityName, "Already in Progress");
@@ -721,16 +721,16 @@ void UAbilityComponent::SpawnEffectsActor(
 		}
 				
 		UE_LOG(LogTemp, Display, TEXT("%s(%s): AbilityEffect->FinishSpawning()"), *GetName(),
-			GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
+			GetNetMode() < NM_Client?TEXT("SERVER"):TEXT("CLIENT"));
 		
 	}
 }
 
 void UAbilityComponent::CancelCasting(FName AbilityName)
 {
-	if (GetOwner()->HasAuthority())
+	if (GetNetMode() < NM_Client)
 	{
-		if (_AbilitiesInProgress.Contains(AbilityName))
+		if (AbilitiesInProgress_.Contains(AbilityName))
 		{
 			StopCasting(AbilityName, false);
 		}
@@ -743,7 +743,7 @@ void UAbilityComponent::CancelCasting(FName AbilityName)
 
 void UAbilityComponent::Server_CancelCasting_Implementation(FName AbilityName)
 {
-	if (GetOwner()->HasAuthority())
+	if (GetNetMode() < NM_Client)
 		CancelCasting(AbilityName);
 }
 
@@ -859,8 +859,8 @@ void UAbilityComponent::SetIsCasting(FName SpellName)
 
 void UAbilityComponent::SetNoLongerCasting(FName AbilityName, bool WasSuccessful)
 {
-	_AbilitiesInProgress.Remove(AbilityName);
-	if (GetOwner()->HasAuthority())
+	AbilitiesInProgress_.Remove(AbilityName);
+	if (GetNetMode() < NM_Client)
 	{
 		
 		bIsCasting = false;
@@ -870,7 +870,7 @@ void UAbilityComponent::SetNoLongerCasting(FName AbilityName, bool WasSuccessful
 		if (AbilityData.bRequiresFocus)
 			FocusedAbility = FName();
 		
-		_AbilitiesOnCooldown.Add(AbilityName);
+		AbilitiesOnCooldown_.Add(AbilityName);
 		
 		// If this instance has authority and the player controller is NOT this controller
 		// then it is a dedicated server, or a client on the server machine.
@@ -914,9 +914,9 @@ void UAbilityComponent::Multicast_CastingAnimation_Implementation(UAnimMontage* 
 	}
 }
 
-void UAbilityComponent::OnRep_UnlockPoints_Implementation()
+void UAbilityComponent::OnRep_UnlockPoints_Implementation(int OldPointsCount)
 {
-	OnUnlockPointsChanged.Broadcast(_UnlockPoints);
+	OnUnlockPointsChanged.Broadcast(UnlockPoints_);
 }
 
 void UAbilityComponent::Server_RequestTarget_Implementation(ACharacterBase* NewTarget)
@@ -938,18 +938,18 @@ void UAbilityComponent::Client_AbilityCanceled_Implementation(FName AbilityName,
 
 void UAbilityComponent::OnRep_TargetActor_Implementation()
 {
-	OnNewTargetSet.Broadcast(_TargetActor);
+	OnNewTargetSet.Broadcast(TargetActor_);
 }
 
 void UAbilityComponent::TickTimer()
 {
 	// Lock against reading from the array
 	// Releases lock automatically when scope is lost
-	FRWScopeLock WriteLock(_MutexLock, SLT_Write);
+	FRWScopeLock WriteLock(MutexLock_, SLT_Write);
 	
 	// Iterate through all active effects
 	TMap<FName, int> AbilitiesRemoved = {}; 
-	for (UStatusEffect* AbilityEffect : _ActiveEffects)
+	for (UStatusEffect* AbilityEffect : ActiveEffects_)
 	{
 		if (AbilityEffect->GetSecondsRemaining() < 0.f)
 		{
@@ -961,7 +961,7 @@ void UAbilityComponent::TickTimer()
 			
 			// Deregister object or garbage collector will null exception
 			RemoveReplicatedSubObject(AbilityEffect);
-			_ActiveEffects.RemoveSingle(AbilityEffect);
+			ActiveEffects_.RemoveSingle(AbilityEffect);
 		}
 	}
 
@@ -972,60 +972,70 @@ void UAbilityComponent::TickTimer()
 	}
 	
 	// Save resources by invalidating the timer, if no effects are active
-	if (_ActiveEffects.Num() < 1 && _EffectsTimer.IsValid())
+	if (ActiveEffects_.Num() < 1 && EffectsTimer_.IsValid())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("%s(%s): No active effects remain."),
-			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
-		_EffectsTimer.Invalidate();
+			*GetName(), GetNetMode() < NM_Client?TEXT("SERVER"):TEXT("CLIENT"));
+		EffectsTimer_.Invalidate();
+	}
+}
+
+void UAbilityComponent::OnRep_KnownAbilities_Implementation(
+		const TArray<FName>& OldAbilityList)
+{
+	for (FName AbilityName : KnownAbilities_)
+	{
+		if (!OldAbilityList.Contains(AbilityName))
+			OnAbilityLearned.Broadcast(AbilityName);
+	}
+	for (FName AbilityName : OldAbilityList)
+	{
+		if (!KnownAbilities_.Contains(AbilityName))
+			OnAbilityForgotten.Broadcast(AbilityName);
 	}
 }
 
 void UAbilityComponent::AddKnownAbility(FName AbilityName, int UnlockPoints)
 {
 	// Allow client to run everything so the UI is smooth and fast
-	if (_UnlockPoints >= UnlockPoints)
+	if (UnlockPoints_ >= UnlockPoints)
 	{
-		bool isAlreadySet = false;
-		_KnownAbilities.Add(AbilityName, &isAlreadySet);
-		if (!isAlreadySet)
+		if (!KnownAbilities_.Contains(AbilityName))
 		{
-			RemoveUnlockPoints(UnlockPoints);
-			
 			// If this executed on the server, send notification to the owning client
-			if (GetOwner()->HasAuthority())
+			if (GetNetMode() < NM_Client)
 			{
+				KnownAbilities_.Add(AbilityName);
+				RemoveUnlockPoints(UnlockPoints);
 				OnAbilityLearned.Broadcast(AbilityName);
-				Client_AddKnownAbility(AbilityName);
 			}
 			
 			// Send request to server to do the actual exchange
 			else
 				Server_RequestAbilityAdd(AbilityName);
-			
 		}
 	}
 }
 
 void UAbilityComponent::RemoveKnownAbility(FName AbilityName)
 {
-	if (GetOwner()->HasAuthority())
+	if (GetNetMode() < NM_Client)
 	{
-		if (_KnownAbilities.Remove(AbilityName) > 0)
+		if (KnownAbilities_.Remove(AbilityName) > 0)
 		{
 			OnAbilityForgotten.Broadcast(AbilityName);
-			Client_RemoveKnownAbility(AbilityName);
 		}
 	}
 }
 
 void UAbilityComponent::ResetKnownAbilities()
 {
-	if (GetOwner()->HasAuthority())
+	if (GetNetMode() < NM_Client)
 	{
-		if (!_KnownAbilities.IsEmpty())
+		if (!KnownAbilities_.IsEmpty())
 		{
+			KnownAbilities_.Empty();
 			OnAbilitiesReset.Broadcast();
-			Client_ResetKnownAbilities();
 		}
 	}
 }
@@ -1033,20 +1043,19 @@ void UAbilityComponent::ResetKnownAbilities()
 void UAbilityComponent::Client_AbilityCooldown_Implementation(FName AbilityName, bool OnCooldown)
 {
 	if (OnCooldown)
-		_AbilitiesOnCooldown.Add(AbilityName);
-	EndAbilityCooldown(AbilityName);
+		AbilitiesOnCooldown_.Add(AbilityName);
+	else
+		EndAbilityCooldown(AbilityName);
 }
 
 void UAbilityComponent::Client_StartCasting_Implementation(FName AbilityName)
 {
-	if (!GetOwner()->HasAuthority())
-		StartCasting(AbilityName);
+	StartCasting(AbilityName);
 }
 
 void UAbilityComponent::Client_StopCasting_Implementation(FName AbilityName, bool WasSuccessful)
 {
-	if (!GetOwner()->HasAuthority())
-		StopCasting(AbilityName, WasSuccessful);
+	StopCasting(AbilityName, WasSuccessful);
 }
 
 /**
@@ -1060,11 +1069,11 @@ bool UAbilityComponent::StartCasting(FName AbilityName)
 	const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
 
 	bool* isAlreadyInProgress = nullptr;
-	_AbilitiesInProgress.Add(AbilityName, isAlreadyInProgress);
+	AbilitiesInProgress_.Add(AbilityName, isAlreadyInProgress);
 	if (isAlreadyInProgress)
 		return false;
 	
-	if (GetOwner()->HasAuthority())
+	if (GetNetMode() < NM_Client)
 	{
 		SetIsCasting(AbilityName);
 		Client_StartCasting(AbilityName);
@@ -1111,15 +1120,15 @@ bool UAbilityComponent::StopCasting(FName AbilityName, bool WasSuccessful)
 {
 	const FStAbilityData AbilityData = UAbilitySystem::GetAbilityDataFromName(AbilityName);
 	
-	const int elementsRemoved = _AbilitiesInProgress.Remove(AbilityName);
+	const int elementsRemoved = AbilitiesInProgress_.Remove(AbilityName);
 	if (elementsRemoved < 1)
 		return false;
 	
-	if (GetOwner()->HasAuthority())
+	if (GetNetMode() < NM_Client)
 	{
 		SetIsCasting(AbilityName);
 		
-		_AbilitiesOnCooldown.Add(AbilityName);
+		AbilitiesOnCooldown_.Add(AbilityName);
 
 		// If this instance has authority and the player controller is NOT this controller
 		// then it is a dedicated server, or a client on the server machine.
@@ -1138,7 +1147,7 @@ bool UAbilityComponent::StopCasting(FName AbilityName, bool WasSuccessful)
 	else
 	{
 		if (WasSuccessful)
-			_AbilitiesOnCooldown.Add(AbilityName);
+			AbilitiesOnCooldown_.Add(AbilityName);
 		OnAbilityCastComplete.Broadcast(AbilityName, WasSuccessful);
 	}
 	return true;
@@ -1146,33 +1155,10 @@ bool UAbilityComponent::StopCasting(FName AbilityName, bool WasSuccessful)
 
 void UAbilityComponent::SetUnlockPoints(int UnlockPoints)
 {
-	if (GetOwner()->HasAuthority())
+	if (GetNetMode() < NM_Client)
 	{
-		_UnlockPoints = abs(UnlockPoints);
-		OnUnlockPointsChanged.Broadcast(_UnlockPoints);
-	}
-}
-
-void UAbilityComponent::Client_AddKnownAbility_Implementation(FName AbilityName)
-{
-	bool isAlreadySet = false;
-	_KnownAbilities.Add(AbilityName, &isAlreadySet);
-	if (!isAlreadySet)
-		OnAbilityLearned.Broadcast(AbilityName);
-}
-
-void UAbilityComponent::Client_RemoveKnownAbility_Implementation(FName AbilityName)
-{
-	if (_KnownAbilities.Remove(AbilityName) > 0)
-		OnAbilityForgotten.Broadcast(AbilityName);
-}
-
-void UAbilityComponent::Client_ResetKnownAbilities_Implementation()
-{
-	if (!_KnownAbilities.IsEmpty())
-	{
-		_KnownAbilities.Empty();
-		OnAbilitiesReset.Broadcast();
+		UnlockPoints_ = abs(UnlockPoints);
+		OnUnlockPointsChanged.Broadcast(UnlockPoints_);
 	}
 }
 
@@ -1189,10 +1175,12 @@ void UAbilityComponent::OnTickTimer_Implementation()
 void UAbilityComponent::Server_RequestAbility_Implementation(
 	FName AbilityName, AActor* TargetActor, FVector ForwardVector)
 {
-	if (GetOwner()->HasAuthority())
+	if (GetNetMode() < NM_Client)
 	{
 		ActivateAbility(AbilityName, TargetActor, ForwardVector);
 	}
+	else
+		Server_RequestAbility(AbilityName, TargetActor, ForwardVector);
 }
 
 
@@ -1205,9 +1193,10 @@ void UAbilityComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
 	
 	DOREPLIFETIME_CONDITION(UAbilityComponent, bIsCasting, COND_OwnerOnly);
 	DOREPLIFETIME_CONDITION(UAbilityComponent, FocusedAbility, COND_OwnerOnly);
-	DOREPLIFETIME_CONDITION(UAbilityComponent, _UnlockPoints, COND_OwnerOnly);
+	DOREPLIFETIME_CONDITION(UAbilityComponent, UnlockPoints_, COND_OwnerOnly);
+	DOREPLIFETIME_CONDITION(UAbilityComponent, KnownAbilities_, COND_OwnerOnly);
 	
-	DOREPLIFETIME(UAbilityComponent, _ActiveEffects);
-	DOREPLIFETIME(UAbilityComponent, _TargetActor);
+	DOREPLIFETIME(UAbilityComponent, ActiveEffects_);
+	DOREPLIFETIME(UAbilityComponent, TargetActor_);
 	
 }

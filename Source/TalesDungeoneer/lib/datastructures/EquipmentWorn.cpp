@@ -106,7 +106,7 @@ FStMeshMergeData UEquipmentSystem::GetDefaultMeshFromTag(FGameplayTag SearchTag,
 
 
 TArray<FStMeshMergeData> Helper_DefaultMeshFinder(
-    const FGameplayTagContainer& TagsToFind, bool IsMale = true, int MatchesForSuccess = 1)
+    const FGameplayTagContainer& TagsToFind, bool UseMaleMesh = true, int MatchesForSuccess = 1)
 {
     TArray<FStMeshMergeData> ReturnArray;
     const FGameplayTag DefaultTag = TAG_Character_Body_Default.GetTag();
@@ -137,11 +137,11 @@ TArray<FStMeshMergeData> Helper_DefaultMeshFinder(
                 // If this item contains a default tag and a valid mesh
                 if (EquipData.BodyPartTags.HasTag(DefaultTag))
                 {
-                    if (    IsMale && IsValid(EquipData.MaleMesh)
-                        || !IsMale && IsValid(EquipData.FemaleMesh)
+                    if (    UseMaleMesh && IsValid(EquipData.MaleMesh)
+                        || !UseMaleMesh && IsValid(EquipData.FemaleMesh)
                         )
                     {
-                        FStMeshMergeData MeshMergeData(RowName, IsMale);
+                        FStMeshMergeData MeshMergeData(RowName, UseMaleMesh);
                         ReturnArray.Add(MeshMergeData);
                     }
                 }
@@ -170,14 +170,14 @@ TArray<FStMeshMergeData> UEquipmentSystem::GetDefaultMeshMergeHeadBody(bool IsSq
 /**
  * @brief Called when the player's upper body type characteristics are changed.
  *        Ensures all upper body parts match the chosen body type.
- * @param IsFlatChested True if flat chested (masculine upper body)
+ * @param IsBusty True if busty (has breast tissue)
  * @return Returns an array of all default upper body parts
  */
-TArray<FStMeshMergeData> UEquipmentSystem::GetDefaultMeshMergeUpperBody(bool IsFlatChested)
+TArray<FStMeshMergeData> UEquipmentSystem::GetDefaultMeshMergeUpperBody(bool IsBusty)
 {
     FGameplayTagContainer TagContainer;
     GetAllUpperBodyTags(TagContainer);
-    return Helper_DefaultMeshFinder(TagContainer, IsFlatChested);
+    return Helper_DefaultMeshFinder(TagContainer, !IsBusty);
 }
 
 
@@ -191,7 +191,7 @@ TArray<FStMeshMergeData> UEquipmentSystem::GetDefaultMeshMergeLowerBody(bool IsW
 {
     FGameplayTagContainer TagContainer;
     GetAllLowerBodyTags(TagContainer);
-    return Helper_DefaultMeshFinder(TagContainer, IsWideHip);
+    return Helper_DefaultMeshFinder(TagContainer, !IsWideHip);
 }
 
 

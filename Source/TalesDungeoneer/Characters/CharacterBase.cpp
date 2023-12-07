@@ -3,26 +3,25 @@
 
 #include "CharacterBase.h"
 
+#include "VitalityMatters/Public/lib/VitalityData.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "TalesDungeoneer/lib/datastructures/GlobalData.h"
+#include "Logging/StructuredLog.h"
 
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "Kismet/GameplayStatics.h"
-#include "Logging/StructuredLog.h"
 
 #include "TalesDungeoneer/Saves/SavedCharacters.h"
 
 #include "Net/UnrealNetwork.h"
-#include "Perception/AISense_Sight.h"
+#include "TalesDungeoneer/TalesDungeoneer.h"
 #include "TalesDungeoneer/Entities/SimpleActors/FloatingTextBase.h"
 #include "TalesDungeoneer/Gamemode/BaseFiles/TalesGameStateBase.h"
 #include "TalesDungeoneer/Weapons/WeaponSystem.h"
-
 
 // Sets default values
 ACharacterBase::ACharacterBase()
@@ -73,7 +72,11 @@ ACharacterBase::ACharacterBase()
 			<UInventoryComponent>(TEXT("InventoryComponent"));
 	
 	VitalityStats   = CreateDefaultSubobject<UVitalityStatComponent>(TEXT("VitalityStats"));
+
+	
 	VitalityWelfare = CreateDefaultSubobject<UVitalityWelfareComponent>(TEXT("VitalityWelfare"));
+	// TODO - Add racial benefits, such as dark vision and levitation
+	
 	VitalityEffects = CreateDefaultSubobject<UVitalityEffectsComponent>(TEXT("VitalityEffects"));
 	
 	WeaponComponent		= CreateDefaultSubobject<UWeaponComponent>(TEXT("WeaponComponent"));
@@ -181,12 +184,20 @@ void ACharacterBase::SetCharacterLevel(int NewLevel)
 
 void ACharacterBase::SetCharacterClass(ECharacterClass NewClass)
 {
-	_CharacterClass = NewClass;
+	if (_CharacterClass != NewClass)
+	{
+		_CharacterClass = NewClass;
+		ReinitializeSubsystems();
+	}
 }
 
 void ACharacterBase::SetCharacterRace(ECharacterRace NewRace)
 {
-	_CharacterRace = NewRace;
+	if (_CharacterRace != NewRace)
+	{
+		_CharacterRace = NewRace;
+		ReinitializeSubsystems();
+	}
 }
 
 void ACharacterBase::SetFactionState(EFaction FactionEnum, EFactionState FactionState)
@@ -419,19 +430,10 @@ void ACharacterBase::BeginPlay()
 	if (!AbilityComponent->OnAbilityCastComplete.IsAlreadyBound(this, &ACharacterBase::CheckAbilitySuccess))
 		AbilityComponent->OnAbilityCastComplete.AddDynamic(this, &ACharacterBase::CheckAbilitySuccess);
 
-	// Reload Saved Character Data
-	// Characters are saved on the client
-	ATalesGameStateBase* TalesGameState = Cast<ATalesGameStateBase>(GetWorld()->GetGameState());
-	if (IsValid(TalesGameState))
-	{
-		// If no character exists to load, this is likely an NPC
-		TalesGameState->LoadCharacter(
-			  TalesGameState->GetSelectedCharacterSaveSlotName(), true);
-	}
-	
 	// Server Init (always happens before the client)
 	if (GetNetMode() < NM_Client)
 	{
+		
 		// Initialize the Inventory System
 		// Register the Weapon Component to listen for changes to Equipment
 		if (IsValid(WeaponComponent) && IsValid(InventoryComponent))
@@ -440,10 +442,42 @@ void ACharacterBase::BeginPlay()
 			if (!InventoryComponent->OnEquipmentUpdated.IsAlreadyBound(this, &ACharacterBase::UpdateWeapon))
 				InventoryComponent->OnEquipmentUpdated.AddDynamic(this, &ACharacterBase::UpdateWeapon);
 
+			ATalesGameStateBase* gState = Cast<ATalesGameStateBase>( GetWorld()->GetGameState() );
+			if (IsValid(gState))
+			{
+				InventoryComponent->StartingItems =
+					gState->GetStartingInventoryData(
+						GetCharacterRace(), GetCharacterClass());
+			}
 			InventoryComponent->InitializeInventory();
+			
 			UpdateWeapon(EEquipmentSlotType::PRIMARY);
 			UpdateWeapon(EEquipmentSlotType::SECONDARY);
 		}
+	}
+
+	// Grant Starting Abilities
+	if (IsValid(AbilityComponent))
+	{
+		ATalesGameStateBase* gState = Cast<ATalesGameStateBase>( GetWorld()->GetGameState() );
+		if (IsValid(gState))
+		{
+			TArray<FName> StartingAbilities = gState->GetStartingAbilityData(GetCharacterClass());
+			for (const FName& AbilityName : StartingAbilities)
+			{
+				AbilityComponent->AddKnownAbility(AbilityName);
+			}
+		}
+	}
+
+	// Reload Saved Character Data
+	// Characters are saved on the client
+	ATalesGameStateBase* TalesGameState = Cast<ATalesGameStateBase>(GetWorld()->GetGameState());
+	if (IsValid(TalesGameState))
+	{
+		// If character fails to load, grant starting/default inventory
+		TalesGameState->LoadCharacter(
+			  TalesGameState->GetSelectedCharacterSaveSlotName(), true);
 	}
 	
 }
@@ -453,10 +487,16 @@ void ACharacterBase::OnConstruction(const FTransform& Transform)
 {
 	Super::OnConstruction(Transform);
 	SetCharacterName(CharacterName);
+
+	SetCharacterClass(_CharacterClass);
+	SetCharacterRace(_CharacterRace);
+
+	ReinitializeSubsystems();
 }
 
 void ACharacterBase::CharacterRestoredFromSave(const FString SaveSlotName)
 {
+	bCharacterSaveRestored = true;
 	OnCharacterRestored.Broadcast(SaveSlotName);
 	if (HasAuthority())
 		Client_CharacterRestored(SaveSlotName);
@@ -585,6 +625,7 @@ void ACharacterBase::PostInitializeComponents()
 
 void ACharacterBase::Client_CharacterRestored_Implementation(const FString& SaveSlotName)
 {
+	bCharacterSaveRestored = true;
 	OnCharacterRestored.Broadcast(SaveSlotName);
 }
 
@@ -698,6 +739,56 @@ void ACharacterBase::CheckAbilitySuccess(FName AbilityName, bool WasSuccessful)
 	}
 }
 
+void ACharacterBase::ReinitializeSubsystems()
+{
+	// Set default starting values - Run on server only
+	if (IsValid(VitalityStats) && GetNetMode() < NM_Client)
+	{
+		// Set the initial value of the stats groups
+		for (int i = 0; i < UVitalitySystem::GetNumberOfCoreStats(); i++)
+			VitalityStats->StartingStats.CoreStats[i] = 100.f;
+		
+		for (int i = 0; i < UVitalitySystem::GetNumberOfDamageTypes(); i++)
+		{
+			VitalityStats->StartingStats.DamageBonuses[i] = 0.f;
+			VitalityStats->StartingStats.DamageResists[i] = 0.f;
+		}
+
+		/* For each for the stat groups, it will convert the key to int and
+		 * set the corresponding stat value by int index, for all modifiers that exist.
+		 */
+		if (IsValid(VitalityStats))
+		{
+			// Set initial values based on race
+			ATalesGameStateBase* gState = Cast<ATalesGameStateBase>( GetWorld()->GetGameState() );
+			if (IsValid(gState))
+			{
+				const FStCharacterRaces StartingRaceData = gState->GetStartingRaceData(GetCharacterRace());
+				for (const TPair<EVitalityStat, float> CoreStat : StartingRaceData.CoreStats)
+					VitalityStats->StartingStats.CoreStats[static_cast<int>(CoreStat.Key)] += CoreStat.Value;
+
+				for (const TPair<EDamageType, float> DamageStat : StartingRaceData.DamageBonuses)
+					VitalityStats->StartingStats.DamageBonuses[static_cast<int>(DamageStat.Key)] += DamageStat.Value;
+
+				for (const TPair<EDamageType, float> DamageStat : StartingRaceData.DamageResists)
+					VitalityStats->StartingStats.DamageResists[static_cast<int>(DamageStat.Key)] += DamageStat.Value;
+	
+				// Add/Subtract additional values based on class
+				const FStCharacterClasses StartingClassData = gState->GetStartingClassData(GetCharacterClass());
+				for (const TPair<EVitalityStat, float> CoreStat : StartingClassData.CoreStats)
+					VitalityStats->StartingStats.CoreStats[static_cast<int>(CoreStat.Key)] += CoreStat.Value;
+
+				for (const TPair<EDamageType, float> DamageStat : StartingClassData.DamageBonuses)
+					VitalityStats->StartingStats.DamageBonuses[static_cast<int>(DamageStat.Key)] += DamageStat.Value;
+
+				for (const TPair<EDamageType, float> DamageStat : StartingClassData.DamageResists)
+					VitalityStats->StartingStats.DamageResists[static_cast<int>(DamageStat.Key)] += DamageStat.Value;
+				
+			}
+		}
+	}
+}
+
 void ACharacterBase::OnRep_CharacterName_Implementation()
 {
 	OnCharacterNameChanged.Broadcast();
@@ -780,7 +871,6 @@ void ACharacterBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 	DOREPLIFETIME(ACharacterBase, _IsMale);
 	
 	DOREPLIFETIME(ACharacterBase, SkinColor);
-	DOREPLIFETIME(ACharacterBase, BodyData);
 	DOREPLIFETIME(ACharacterBase, PronounObjective);
 	DOREPLIFETIME(ACharacterBase, PronounPossessive);
 	DOREPLIFETIME(ACharacterBase, PronounSubject);

@@ -55,10 +55,10 @@ protected:
 public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<ECharacterClass> EligibleClasses = {ECharacterClass::WARRIOR};
+	TArray<ECharacterClass> EligibleClasses = {ECharacterClass::ANY};
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<ECharacterRace> EligibleRaces = {ECharacterRace::ENEMY};
+	TArray<ECharacterRace> EligibleRaces = {ECharacterRace::ANY};
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FStNpcStartingItem> StartingItems = {};

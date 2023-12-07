@@ -347,7 +347,7 @@ void UMeshMergeComponent::SetNewMeshByTag(FName EquipmentName, FGameplayTag Game
 	int ArrayIndex = GetMeshMergeIndexByTag(GameTag);
 	if (ArrayIndex < 0)
 	{
-		ArrayIndex = AddNewMeshToArrayByTag(GameTag, FName());
+		ArrayIndex = AddNewMeshToArrayByTag(GameTag, EquipmentName);
 	}
 	if (ArrayIndex >= 0)
 	{

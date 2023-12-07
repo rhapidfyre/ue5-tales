@@ -35,12 +35,33 @@ public: // methods
 	bool CheckIsServer() const;
 
 	bool CheckIsPlayableClient() const;
+
+	UFUNCTION(BlueprintCallable) const
+		FStCharacterRaces GetStartingRaceData(const ECharacterRace CharacterRace) const;
+	
+	UFUNCTION(BlueprintCallable) const
+	FStCharacterClasses GetStartingClassData(
+		ECharacterClass CharacterClass) const;
+	
+	UFUNCTION(BlueprintCallable)
+	TArray<FStStartingItem> GetStartingInventoryData(
+		const ECharacterRace CharacterRace, const ECharacterClass CharacterClass);
+	
+	UFUNCTION(BlueprintCallable)
+	TArray<FName> GetStartingAbilityData(const ECharacterClass CharacterClass);
 	
 	ATalesGameStateBase();
 	
 	UDataTable* GetNpcDataTable();
 
 	FStNpcData GetNpcData(FName NpcName);
+
+	UFUNCTION(Server, Reliable, BlueprintCallable)
+	void Server_NewNotification(
+		const FString& NewTitle, const FString& NewMessage, int NewPriority = 2);
+
+	UFUNCTION(BlueprintCallable)
+	void LocalNotification(FString NewTitle, FString NewMessage, int NewPriority = 2);
 	
 	/**
 	 * @brief Sets the new save game meta file name,
@@ -49,6 +70,9 @@ public: // methods
 	 */
 	UFUNCTION(BlueprintCallable)
 	void SetSaveGameMetaName(FString SaveSlotName);
+
+	UFUNCTION(BlueprintPure)
+	bool GetIsCheatModeEnabled() const { return CheatMode_; }
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
 	int DungeonLevel = 1;
@@ -129,6 +153,8 @@ public: // methods
 
 	UFUNCTION(BlueprintPure) int GetSelectedCharacterIndex() const;
 	
+	UFUNCTION(BlueprintPure) bool GetDoesCharacterSaveExist() const;
+	
 	UFUNCTION(BlueprintCallable)
 	void SetSavedCharacterNameList(TArray<FString> RestoredCharacters);
 	
@@ -184,6 +210,10 @@ protected: // methods
 		TArray<FLifetimeProperty> &OutLifetimeProps) const override;
 
 private: // methods
+
+	UFUNCTION(NetMulticast, Unreliable)
+	void Multicast_SendNotification(
+		const FString& NewTitle, const FString& NewMessage, int NewPriority = 2);
 	
 	// Sets the values in the save metadata
 	void Helper_SetSaveValues(UGlobalSaveData* SaveMeta) const;
@@ -227,6 +257,26 @@ public: // members
 
 	// Called when a character has been deleted
 	UPROPERTY(BlueprintAssignable)	FOnCharacterDeleted OnCharacterDeleted;
+
+	// If specified, pulls default start values from this data table
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UDataTable* DataTableRace = nullptr;
+	
+	// If specified, pulls default start values from this data table
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UDataTable* DataTableClass = nullptr;
+	
+	// If specified, pulls default start values from this data table
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UDataTable* DataTableVitality = nullptr;
+	
+	// If specified, pulls default start values from this data table
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UDataTable* DataTableInventory = nullptr;
+	
+	// If specified, pulls default start values from this data table
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UDataTable* DataTableAbilities = nullptr;
 	
 private: // members
 
@@ -242,5 +292,9 @@ private: // members
 	// Which character is currently selected, where -1
 	// indicates no character selected, or user is in the creator.
 	UPROPERTY()	int _SelectedCharacter = -1;
+
+	UFUNCTION() void OnRep_CheatMode(bool OldState);
+	UPROPERTY(Replicated, ReplicatedUsing=OnRep_CheatMode)
+	bool CheatMode_ = false;
 	
 };

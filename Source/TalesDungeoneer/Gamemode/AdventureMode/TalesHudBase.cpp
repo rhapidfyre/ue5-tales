@@ -17,3 +17,8 @@ void ATalesHudBase::BeginPlay()
 {
 	Super::BeginPlay();
 }
+
+void ATalesHudBase::NotifyHud(FString MessageTitle, FString NewMessage, int Priority)
+{
+	FStHudNotification NewNotification(MessageTitle, NewMessage, Priority);
+}

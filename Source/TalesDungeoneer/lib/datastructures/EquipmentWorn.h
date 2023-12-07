@@ -68,7 +68,7 @@ public:
 	static TArray<FStMeshMergeData> GetDefaultMeshMergeHeadBody(bool IsSquareFace = false);
 	
 	UFUNCTION(BlueprintCallable, Category = "Equipment System Globals")
-	static TArray<FStMeshMergeData> GetDefaultMeshMergeUpperBody(bool IsFlatChested = false);
+	static TArray<FStMeshMergeData> GetDefaultMeshMergeUpperBody(bool IsBusty = false);
 
 	UFUNCTION(BlueprintCallable, Category = "Equipment System Globals")
 	static TArray<FStMeshMergeData> GetDefaultMeshMergeLowerBody(bool IsWideHip = false);

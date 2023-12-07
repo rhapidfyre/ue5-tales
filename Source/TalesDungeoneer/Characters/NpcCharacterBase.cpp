@@ -121,9 +121,9 @@ void ANpcCharacterBase::SetupEquipment()
 		if (FMath::RandRange(0.f, 1.f) < StartingItem.ChanceToSpawn)
 		{
 			FStStartingItem StartItem;
-			StartItem.quantity		= StartingItem.quantity;
-			StartItem.startingItem	= StartingItem.startingItem;
-			StartItem.equipType		= StartingItem.equipType;
+			StartItem.quantity		 = StartingItem.quantity;
+			StartItem.startingItem	 = StartingItem.startingItem;
+			StartItem.bStartEquipped = StartingItem.bStartEquipped;
 			InventoryStartingItems.Add(StartItem);
 		}
 	}

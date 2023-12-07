@@ -62,8 +62,12 @@ enum class ECharacterRace : uint8
 	HUMAN		UMETA(DisplayName = "Human"),
 	DWARF		UMETA(DisplayName = "Dwarf"),
 	ELF			UMETA(DisplayName = "Elf"),
-	FRIEND		UMETA(DisplayName = "Friendly NPCs"),
-	ENEMY		UMETA(DisplayName = "Enemy NPCs"),
+	GOBLIN		UMETA(DisplayName = "Goblin"),
+	UNDEAD		UMETA(DisplayName = "Undead"),
+	DEMON		UMETA(DisplayName = "Demon"),
+	CONSTRUCT	UMETA(DisplayName = "Construct"),
+	ELEMENTAL	UMETA(DisplayName = "Elemental"),
+	AVIAN		UMETA(DisplayName = "Avian"),
 	// Used for non-selections
 	ANY			UMETA(DisplayName = "Any")
 };
