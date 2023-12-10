@@ -55,9 +55,25 @@ USTRUCT()
 struct TALESDUNGEONEER_API FStDefaultStartingItem : public FStStartingItem
 {
 	GENERATED_BODY()
+	UPROPERTY(EditAnywhere,BlueprintReadWrite) bool bAllowPlayers = true;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite) bool bAllowMerchants = false;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite) bool bAllowGuards = false;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite) bool bAllowEnemies = false;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite) TArray<ECharacterRace> AllowedRaces = {ECharacterRace::ANY};
 	UPROPERTY(EditAnywhere,BlueprintReadWrite) TArray<ECharacterClass> AllowedClasses = {ECharacterClass::ANY};
 	UPROPERTY(EditAnywhere,BlueprintReadWrite) FStStartingItem StartingItemRef = {};
+};
+
+USTRUCT()
+struct TALESDUNGEONEER_API FStDefaultStartingEffects : public FStVitalityEffects
+{
+	GENERATED_BODY()
+	UPROPERTY(EditAnywhere,BlueprintReadWrite) bool bAllowPlayers = true;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite) bool bAllowMerchants = false;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite) bool bAllowGuards = false;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite) bool bAllowEnemies = false;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite) TArray<ECharacterRace> AllowedRaces = {ECharacterRace::ANY};
+	UPROPERTY(EditAnywhere,BlueprintReadWrite) TArray<ECharacterClass> AllowedClasses = {ECharacterClass::ANY};
 };
 
 /**
@@ -203,6 +219,9 @@ public: // functions
 
 	virtual void LoadSaveData(const FString& SaveName,
 		const int32 UserIndex, USaveGame* SaveData) {};
+
+	virtual bool SaveCharacterData();
+	virtual bool LoadCharacterData(const FString SaveSlotName, const int32 UserIndex);
 	
 protected: // functions
 	

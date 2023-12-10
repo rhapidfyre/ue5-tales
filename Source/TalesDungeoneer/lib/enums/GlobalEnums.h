@@ -7,17 +7,18 @@
 UENUM(BlueprintType)
 enum class EFaction : uint8
 {
-	NONE		UMETA(DisplayName = "Neutral"),
 	UNDEAD		UMETA(DisplayName = "All Undead"),
 	DEMON		UMETA(DisplayName = "Demons & Devils"),
 	DRAGON		UMETA(DisplayName = "Dragonkin"),
 	HUMAN		UMETA(DisplayName = "Humankin"),
 	DWARF		UMETA(DisplayName = "Dwarfkin"),
 	ELF			UMETA(DisplayName = "Elfkin"),
-	PLAYER		UMETA(DisplayName = "All Players & Pets"),
-	CREATURE	UMETA(DisplayName = "All Creatures"),
+	PLAYER		UMETA(DisplayName = "All Players"),
+	PET			UMETA(DisplayName = "All Pets"),
+	CREATURE	UMETA(DisplayName = "Combative NPCs"),
 	MERCHANT	UMETA(DisplayName = "Merchant NPCs"),
 	GUARD		UMETA(DisplayName = "Guard NPCs"),
+	ANY			UMETA(Hidden),
 };
 
 UENUM(BlueprintType)

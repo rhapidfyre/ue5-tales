@@ -36,7 +36,7 @@ struct FStFactionDataMap
 		FactionEnum = NewEnum;
 		FactionValue = NewValue;
 	}
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) EFaction FactionEnum = EFaction::NONE;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) EFaction FactionEnum = EFaction::ANY;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float FactionValue = 0.f;
 };
 

@@ -8,7 +8,6 @@
 #include "lib/VitalityData.h"
 #include "TalesDungeoneer/lib/enums/GlobalEnums.h"
 #include "TalesDungeoneer/Characters/Components/MeshMergeComponent.h"
-#include "lib/InventorySlot.h"
 
 #include "SavedCharacters.generated.h"
 
@@ -99,8 +98,8 @@ public:
 	
 	UPROPERTY(VisibleAnywhere, Category = "Vitality Save Data") int UnlockPointsAvailable = 0;
 
-	UPROPERTY(VisibleAnywhere, Category = "Inventory Save Data") TArray<FStInventorySlot> SavedInventory = {};
-	UPROPERTY(VisibleAnywhere, Category = "Inventory Save Data") TArray<FStInventorySlot> SavedEquipment = {};
+	// The name of the inventory save file
+	UPROPERTY(VisibleAnywhere, Category = "Inventory Save Data") FString SavedInventory = "";
 };
 
 /**

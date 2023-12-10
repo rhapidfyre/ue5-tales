@@ -25,6 +25,11 @@ bool ATalesGameStateBase::CheckIsPlayableClient() const
 	return NetMode == NM_ListenServer || NetMode == NM_Standalone;
 }
 
+void ATalesGameStateBase::SetIsCreatingCharacter(bool isCreating)
+{
+	bIsCreating = isCreating;
+}
+
 const FStCharacterRaces ATalesGameStateBase::GetStartingRaceData(
 	const ECharacterRace CharacterRace) const
 {
@@ -51,9 +56,9 @@ const FStCharacterClasses ATalesGameStateBase::GetStartingClassData(
 {
 	if (IsValid(DataTableClass))
 	{
-		const FString dtName = DataTableRace->GetName();
+		const FString dtName = DataTableClass->GetName();
 		TArray<FStCharacterClasses*> dtStartingRaces;
-		DataTableRace->GetAllRows<FStCharacterClasses>(*dtName, dtStartingRaces);
+		DataTableClass->GetAllRows<FStCharacterClasses>(*dtName, dtStartingRaces);
 
 		for (const FStCharacterClasses* StartingClass : dtStartingRaces)
 		{
@@ -114,6 +119,33 @@ TArray<FName> ATalesGameStateBase::GetStartingAbilityData(const ECharacterClass 
 		}
 	}
 	return StartingAbilities;
+}
+
+TArray<FStVitalityEffects> ATalesGameStateBase::GetStartingEffects(
+	const ECharacterRace CharacterRace,
+	const ECharacterClass CharacterClass)
+{
+	TArray<FStVitalityEffects> StartingEffects;
+	if (IsValid(DataTableEffects))
+	{
+		const FString dtName = DataTableEffects->GetName();
+		TArray<FStDefaultStartingEffects*> dtStartingEffects;
+		DataTableEffects->GetAllRows<FStDefaultStartingEffects>(*dtName, dtStartingEffects);
+		
+		for (const FStDefaultStartingEffects* StartingEffect : dtStartingEffects)
+		{
+			if (	StartingEffect->AllowedClasses.Contains(CharacterClass)
+				||	StartingEffect->AllowedClasses.Contains(ECharacterClass::ANY))
+			{
+				if (StartingEffect->AllowedRaces.Contains(CharacterRace)
+				||	StartingEffect->AllowedRaces.Contains(ECharacterRace::ANY))
+				{
+					StartingEffects.Add(FStVitalityEffects(StartingEffect->EffectName));
+				}
+			}
+		}
+	}
+	return StartingEffects;
 }
 
 FString GetCleanedSaveSlotString(const FString& UncleanedString)
@@ -330,6 +362,9 @@ void ATalesGameStateBase::SaveCharacterAsync(const FString SaveSlotName)
 void ATalesGameStateBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	
+	DOREPLIFETIME_CONDITION(ATalesGameStateBase, bIsCreating, COND_OwnerOnly);
+	
 	DOREPLIFETIME(ATalesGameStateBase, DungeonLevel);
 }
 
@@ -382,6 +417,8 @@ USavedCharacter* ATalesGameStateBase::GetSavedCharacterData(FString SaveSlotName
 
 FString ATalesGameStateBase::GetSelectedCharacterSaveSlotName() const
 {
+	if (GetIsCreatingCharacter())
+		return "";
 	if (_SavedCharacters.IsValidIndex(_SelectedCharacter))
 		return _SavedCharacters[_SelectedCharacter];
 	return "";
@@ -389,6 +426,8 @@ FString ATalesGameStateBase::GetSelectedCharacterSaveSlotName() const
 
 int ATalesGameStateBase::GetSelectedCharacterIndex() const
 {
+	if (GetIsCreatingCharacter())
+		return -1;
 	if (_SavedCharacters.IsValidIndex(_SelectedCharacter))
 		return _SelectedCharacter;
 	return -1;
@@ -396,6 +435,8 @@ int ATalesGameStateBase::GetSelectedCharacterIndex() const
 
 bool ATalesGameStateBase::GetDoesCharacterSaveExist() const
 {
+	if (GetIsCreatingCharacter())
+		return false;
 	if (_SavedCharacters.IsValidIndex(_SelectedCharacter))
 	{
 		if (_SavedCharacters[_SelectedCharacter] != "")
@@ -516,6 +557,8 @@ bool ATalesGameStateBase::LoadSaveGameMeta(bool LoadAsync)
  */
 bool ATalesGameStateBase::LoadCharacter(FString SaveSlotName, bool LoadAsync)
 {
+	if (GetIsCreatingCharacter())
+		return false;
 	if (!CheckIsPlayableClient())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("LoadCharacter() FAILED: Saves are clientside."));
@@ -594,6 +637,8 @@ void ATalesGameStateBase::SaveGameMetaLoaded(
 
 void ATalesGameStateBase::SetSelectedCharacter(int CharacterIndex)
 {
+	if (GetIsCreatingCharacter())
+		return;
 	_SelectedCharacter = -1;
 	if (_SavedCharacters.IsValidIndex(CharacterIndex))
 	{
@@ -608,6 +653,8 @@ void ATalesGameStateBase::SetSelectedCharacter(int CharacterIndex)
 
 int ATalesGameStateBase::GetNextCharacterIndex()
 {
+	if (GetIsCreatingCharacter())
+		return -1;
 	// Increment to the next index
 	if (_SavedCharacters.IsValidIndex(_SelectedCharacter + 1))
 	{
@@ -629,6 +676,8 @@ int ATalesGameStateBase::GetNextCharacterIndex()
 
 int ATalesGameStateBase::GetPrevCharacterIndex()
 {
+	if (GetIsCreatingCharacter())
+		return -1;
 	if (_SavedCharacters.IsValidIndex(_SelectedCharacter - 1))
 	{
 		_SelectedCharacter--;
@@ -664,6 +713,8 @@ void ATalesGameStateBase::Helper_SetSaveValues(UGlobalSaveData* SaveMeta) const
 
 void ATalesGameStateBase::Helper_LoadSavedValues(const UGlobalSaveData* SaveMeta)
 {
+	if (GetIsCreatingCharacter())
+		return;
 	if (CheckIsServer() && !CheckIsPlayableClient())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Helper_LoadSavedValues() FAILED: Saves are clientside."));
@@ -683,94 +734,109 @@ void ATalesGameStateBase::Helper_LoadSavedValues(const UGlobalSaveData* SaveMeta
 void ATalesGameStateBase::Helper_SetCharacterValues(
 	const ACharacterBase* CharacterBase, USaveGame* SaveData) const
 {
-	if (!CheckIsPlayableClient()) return;
-	
-	USavedCharacter* SavedCharacter = Cast<USavedCharacter>(SaveData);
-	if (IsValid(SavedCharacter))
+	USavedCharacter* CharacterSave = Cast<USavedCharacter>(SaveData);
+	if (IsValid(CharacterSave))
 	{
 		// Set Character Persona Data
-		SavedCharacter->CharacterName  		= CharacterBase->GetCharacterName();
-		SavedCharacter->CharacterLevel 		= CharacterBase->GetCharacterLevel();
-		SavedCharacter->CharacterRace  		= CharacterBase->GetCharacterRace();
-		SavedCharacter->CharacterClass 		= CharacterBase->GetCharacterClass();
-		SavedCharacter->ExperiencePoints	= CharacterBase->GetExperiencePoints();
+		CharacterSave->CharacterName  		= CharacterBase->GetCharacterName();
+		CharacterSave->CharacterLevel 		= CharacterBase->GetCharacterLevel();
+		CharacterSave->CharacterRace  		= CharacterBase->GetCharacterRace();
+		CharacterSave->CharacterClass 		= CharacterBase->GetCharacterClass();
+		CharacterSave->ExperiencePoints		= CharacterBase->GetExperiencePoints();
 		
 		// Save Mesh Mesh Data
-		SavedCharacter->Skeleton            = CharacterBase->MeshMergeComponent->Skeleton;
-		SavedCharacter->MeshSectionMappings = CharacterBase->MeshMergeComponent->MeshSectionMappings;
-		SavedCharacter->UvTransformsPerMesh = CharacterBase->MeshMergeComponent->UvTransformsPerMesh;
-		SavedCharacter->MeshesToMerge       = CharacterBase->MeshMergeComponent->MeshesToMerge;
+		CharacterSave->Skeleton            = CharacterBase->MeshMergeComponent->Skeleton;
+		CharacterSave->MeshSectionMappings = CharacterBase->MeshMergeComponent->MeshSectionMappings;
+		CharacterSave->UvTransformsPerMesh = CharacterBase->MeshMergeComponent->UvTransformsPerMesh;
+		CharacterSave->MeshesToMerge       = CharacterBase->MeshMergeComponent->MeshesToMerge;
 
 		// Save Vitality Data
 		const UVitalityWelfareComponent* VitalityWelfare = CharacterBase->VitalityWelfare;
 		if (IsValid(VitalityWelfare))
 		{
 			// Set initial values
-			SavedCharacter->UseHealthSubsystem			= VitalityWelfare->UseHealthSubsystem;
-			SavedCharacter->UseStaminaSubsystem			= VitalityWelfare->UseStaminaSubsystem;
-			SavedCharacter->UseMagicSubsystem			= VitalityWelfare->UseMagicSubsystem;
-			SavedCharacter->UseSurvivalSubsystem		= VitalityWelfare->UseSurvivalSubsystem;
+			CharacterSave->UseHealthSubsystem		= VitalityWelfare->UseHealthSubsystem;
+			CharacterSave->UseStaminaSubsystem		= VitalityWelfare->UseStaminaSubsystem;
+			CharacterSave->UseMagicSubsystem		= VitalityWelfare->UseMagicSubsystem;
+			CharacterSave->UseSurvivalSubsystem		= VitalityWelfare->UseSurvivalSubsystem;
 			
 			float CurrentHealth, MaximumHealth;
 			VitalityWelfare->GetCurrentHealth(CurrentHealth, MaximumHealth);
-			SavedCharacter->StartingHealthCurrent		= CurrentHealth;
-			SavedCharacter->StartingHealthMaximum		= MaximumHealth;
-			SavedCharacter->PassiveHealthRegen			= VitalityWelfare->PassiveHealthRegen;
-			SavedCharacter->HealthTimerTickRate			= VitalityWelfare->HealthTimerTickRate;
+			CharacterSave->StartingHealthCurrent	= CurrentHealth;
+			CharacterSave->StartingHealthMaximum	= MaximumHealth;
+			CharacterSave->PassiveHealthRegen		= VitalityWelfare->PassiveHealthRegen;
+			CharacterSave->HealthTimerTickRate		= VitalityWelfare->HealthTimerTickRate;
 			
 			float CurrentStamina, MaximumStamina;
 			VitalityWelfare->GetCurrentStamina(CurrentStamina, MaximumStamina);
-			SavedCharacter->StartingStaminaCurrent		= CurrentStamina;
-			SavedCharacter->StartingStaminaMaximum		= MaximumStamina;
-			SavedCharacter->PassiveStaminaRegen			= VitalityWelfare->PassiveStaminaRegen;
-			SavedCharacter->StaminaTimerTickRate		= VitalityWelfare->StaminaTimerTickRate;
+			CharacterSave->StartingStaminaCurrent	= CurrentStamina;
+			CharacterSave->StartingStaminaMaximum	= MaximumStamina;
+			CharacterSave->PassiveStaminaRegen		= VitalityWelfare->PassiveStaminaRegen;
+			CharacterSave->StaminaTimerTickRate		= VitalityWelfare->StaminaTimerTickRate;
 			
 			float CurrentMagic, MaximumMagic;
 			VitalityWelfare->GetCurrentMagic(CurrentMagic, MaximumMagic);
-			SavedCharacter->StartingMagicCurrent		= CurrentMagic;
-			SavedCharacter->StartingMagicMaximum		= MaximumMagic;
-			SavedCharacter->PassiveMagicRegen			= VitalityWelfare->PassiveMagicRegen;
-			SavedCharacter->MagicTimerTickRate			= VitalityWelfare->MagicTimerTickRate;
+			CharacterSave->StartingMagicCurrent		= CurrentMagic;
+			CharacterSave->StartingMagicMaximum		= MaximumMagic;
+			CharacterSave->PassiveMagicRegen		= VitalityWelfare->PassiveMagicRegen;
+			CharacterSave->MagicTimerTickRate		= VitalityWelfare->MagicTimerTickRate;
 			
 			float CurrentHydration, CurrentCalories, MaximumHydration, MaximumCalories;
 			VitalityWelfare->GetCurrentHydration(CurrentHydration, MaximumHydration);
 			VitalityWelfare->GetCurrentHunger(CurrentCalories, MaximumCalories);
-			SavedCharacter->StartingHydrationCurrent	= CurrentHydration;
-			SavedCharacter->StartingHungerCurrent		= CurrentCalories;
-			SavedCharacter->StartingHydrationMaximum	= MaximumHydration;
-			SavedCharacter->StartingHungerMaximum		= MaximumCalories;
+			CharacterSave->StartingHydrationCurrent	= CurrentHydration;
+			CharacterSave->StartingHungerCurrent	= CurrentCalories;
+			CharacterSave->StartingHydrationMaximum	= MaximumHydration;
+			CharacterSave->StartingHungerMaximum	= MaximumCalories;
 			
-			SavedCharacter->PassiveHydrationDrain		= VitalityWelfare->PassiveHydrationDrain;
-			SavedCharacter->PassiveHungerDrain			= VitalityWelfare->PassiveHungerDrain;
-			SavedCharacter->HydrationTimerTickRate		= VitalityWelfare->HydrationTimerTickRate;
-			SavedCharacter->CaloriesTimerTickRate		= VitalityWelfare->CaloriesTimerTickRate;
+			CharacterSave->PassiveHydrationDrain	= VitalityWelfare->PassiveHydrationDrain;
+			CharacterSave->PassiveHungerDrain		= VitalityWelfare->PassiveHungerDrain;
+			CharacterSave->HydrationTimerTickRate	= VitalityWelfare->HydrationTimerTickRate;
+			CharacterSave->CaloriesTimerTickRate	= VitalityWelfare->CaloriesTimerTickRate;
 		}
 		
 		if (IsValid(CharacterBase->AbilityComponent))
-			SavedCharacter->UnlockPointsAvailable = CharacterBase->AbilityComponent->GetNumberOfUnlockPoints(); 
+			CharacterSave->UnlockPointsAvailable = CharacterBase->AbilityComponent->GetNumberOfUnlockPoints();
+
+		// The inventory component saves internally.
+		// We just need to remember the name of the save file to restore it.
+		if (IsValid(CharacterBase->InventoryComponent))
+		{
+			FString ResponseString		= "";
+			FString InventorySaveName	= CharacterBase->InventoryComponent->SaveInventory(ResponseString);
+			if ( InventorySaveName.IsEmpty() )
+			{
+				UE_LOGFMT(LogTemp, Error,
+					"Failed to Save Inventory for '{Character}'. Reason: {ResponseStr}",
+					CharacterBase->GetCharacterName(), ResponseString);
+			}
+			CharacterSave->SavedInventory = InventorySaveName;
+		}
 		
 		const UVitalityStatComponent* VitalityStats = CharacterBase->VitalityStats;
 		if (IsValid(VitalityStats))
 		{
 			// Restore Natural Stats
 			// When the character's gear and effects are loaded, this will recalculate.
-			SavedCharacter->BaseStats = VitalityStats->GetAllNaturalStats();
+			CharacterSave->BaseStats = VitalityStats->GetAllNaturalStats();
 		}
 		
 		const UVitalityEffectsComponent* VitalityFx = CharacterBase->VitalityEffects;
 		if (IsValid(VitalityFx))
 		{
 			// Restore Natural Stats
-			SavedCharacter->SavedEffects = VitalityFx->GetAllActiveEffects();
+			CharacterSave->SavedEffects = VitalityFx->GetAllActiveEffects();
 		}
 		
 		// Save the version of the game when this character was saved
-		SavedCharacter->SaveVersion    = UGlobalData::GetAppVersion();
+		CharacterSave->SaveVersion    = UGlobalData::GetAppVersion();
 	}
 }
 
 void ATalesGameStateBase::Helper_LoadCharacterValues(const FString SaveSlotName)
 {
+	if (GetIsCreatingCharacter())
+		return;
 	if (!CheckIsPlayableClient()) return;
 	USavedCharacter* SavedCharacter = GetSavedCharacterData(SaveSlotName);
 	if (IsValid(SavedCharacter))
@@ -791,7 +857,8 @@ void ATalesGameStateBase::SaveGameDelegate(
 void ATalesGameStateBase::SaveCharacterDelegate(
 		const FString& SlotName, const int32 UserIndex, bool bSuccess) const
 {
-	
+	if (GetIsCreatingCharacter())
+		return;
 	SaveMetaDataAsync(); // Save the metadata, too.
 	OnCharacterSaved.Broadcast(bSuccess);
 }
@@ -849,6 +916,8 @@ bool ATalesGameStateBase::CreateCharacterSaveIfNotExists()
 
 bool ATalesGameStateBase::LoadCharacterSync(FString SaveSlotName)
 {
+	if (GetIsCreatingCharacter())
+		return false;
 	const USavedCharacter* SavedCharacter = GetSavedCharacterData(SaveSlotName);
 	if (IsValid(SavedCharacter))
 	{
@@ -860,6 +929,8 @@ bool ATalesGameStateBase::LoadCharacterSync(FString SaveSlotName)
 
 void ATalesGameStateBase::LoadCharacterAsync(FString SaveSlotName)
 {
+	if (GetIsCreatingCharacter())
+		return;
 	if (!CheckIsPlayableClient()) return;
 	FAsyncLoadGameFromSlotDelegate LoadedDelegate;
 	LoadedDelegate.BindUObject(this, &ATalesGameStateBase::CharacterSaveLoaded);

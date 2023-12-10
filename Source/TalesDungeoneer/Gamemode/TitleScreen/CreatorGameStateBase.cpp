@@ -3,6 +3,9 @@
 
 #include "CreatorGameStateBase.h"
 
+#include "Kismet/GameplayStatics.h"
+#include "TalesDungeoneer/Characters/PlayerCharacterBase.h"
+
 ACreatorGameStateBase::ACreatorGameStateBase() {}
 
 void ACreatorGameStateBase::BeginPlay()
@@ -18,8 +21,7 @@ void ACreatorGameStateBase::BeginPlay()
  * @return True on success, false on failure
  */
 bool ACreatorGameStateBase::CreateNewCharacter(FString& SaveResponse, bool RunAsync)
-{
-	
+{	
 	if (CreateCharacterSaveIfNotExists())
 	{
 		if (SaveCurrentCharacter(SaveResponse, RunAsync))

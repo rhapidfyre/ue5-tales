@@ -184,19 +184,25 @@ void ACharacterBase::SetCharacterLevel(int NewLevel)
 
 void ACharacterBase::SetCharacterClass(ECharacterClass NewClass)
 {
-	if (_CharacterClass != NewClass)
+	if (GetNetMode() < NM_Client)
 	{
-		_CharacterClass = NewClass;
-		ReinitializeSubsystems();
+		if (_CharacterClass != NewClass)
+		{
+			_CharacterClass = NewClass;
+			ReinitializeSubsystems();
+		}
 	}
 }
 
 void ACharacterBase::SetCharacterRace(ECharacterRace NewRace)
 {
-	if (_CharacterRace != NewRace)
+	if (GetNetMode() < NM_Client)
 	{
-		_CharacterRace = NewRace;
-		ReinitializeSubsystems();
+		if (_CharacterRace != NewRace)
+		{
+			_CharacterRace = NewRace;
+			ReinitializeSubsystems();
+		}
 	}
 }
 
@@ -390,6 +396,12 @@ void ACharacterBase::AwardExperiencePoints(int AwardLevel, float BasePoints)
 }
 
 
+bool ACharacterBase::SaveCharacterData()
+{return true;}
+
+bool ACharacterBase::LoadCharacterData(const FName SaveSlotName, const int32 UserIndex)
+{return true;}
+
 void ACharacterBase::SetCharacterTeam(ECharacterTeam NewTeam)
 {
 	if (HasAuthority())
@@ -432,9 +444,7 @@ void ACharacterBase::BeginPlay()
 
 	// Server Init (always happens before the client)
 	if (GetNetMode() < NM_Client)
-	{
-		
-		// Initialize the Inventory System
+	{		
 		// Register the Weapon Component to listen for changes to Equipment
 		if (IsValid(WeaponComponent) && IsValid(InventoryComponent))
 		{
@@ -442,18 +452,10 @@ void ACharacterBase::BeginPlay()
 			if (!InventoryComponent->OnEquipmentUpdated.IsAlreadyBound(this, &ACharacterBase::UpdateWeapon))
 				InventoryComponent->OnEquipmentUpdated.AddDynamic(this, &ACharacterBase::UpdateWeapon);
 
-			ATalesGameStateBase* gState = Cast<ATalesGameStateBase>( GetWorld()->GetGameState() );
-			if (IsValid(gState))
-			{
-				InventoryComponent->StartingItems =
-					gState->GetStartingInventoryData(
-						GetCharacterRace(), GetCharacterClass());
-			}
-			InventoryComponent->InitializeInventory();
-			
 			UpdateWeapon(EEquipmentSlotType::PRIMARY);
 			UpdateWeapon(EEquipmentSlotType::SECONDARY);
 		}
+		ReinitializeSubsystems();
 	}
 
 	// Grant Starting Abilities
@@ -469,16 +471,6 @@ void ACharacterBase::BeginPlay()
 			}
 		}
 	}
-
-	// Reload Saved Character Data
-	// Characters are saved on the client
-	ATalesGameStateBase* TalesGameState = Cast<ATalesGameStateBase>(GetWorld()->GetGameState());
-	if (IsValid(TalesGameState))
-	{
-		// If character fails to load, grant starting/default inventory
-		TalesGameState->LoadCharacter(
-			  TalesGameState->GetSelectedCharacterSaveSlotName(), true);
-	}
 	
 }
 
@@ -491,7 +483,20 @@ void ACharacterBase::OnConstruction(const FTransform& Transform)
 	SetCharacterClass(_CharacterClass);
 	SetCharacterRace(_CharacterRace);
 
-	ReinitializeSubsystems();
+	InventoryComponent->NumberOfInvSlots = 18;
+	InventoryComponent->EligibleEquipmentSlots = {
+		EEquipmentSlotType::PRIMARY, EEquipmentSlotType::SECONDARY,
+		EEquipmentSlotType::HELMET, EEquipmentSlotType::NECK,
+		EEquipmentSlotType::EARRINGLEFT, EEquipmentSlotType::EARRINGRIGHT,
+		EEquipmentSlotType::FACE, EEquipmentSlotType::SHOULDERS,
+		EEquipmentSlotType::BACK, EEquipmentSlotType::SLEEVES,
+		EEquipmentSlotType::WRISTLEFT, EEquipmentSlotType::WRISTRIGHT,
+		EEquipmentSlotType::HANDS, EEquipmentSlotType::RINGLEFT,
+		EEquipmentSlotType::RINGRIGHT, EEquipmentSlotType::TORSO,
+		EEquipmentSlotType::WAIST, EEquipmentSlotType::LEGS,
+		EEquipmentSlotType::FEET, EEquipmentSlotType::COSMETIC
+	};
+	
 }
 
 void ACharacterBase::CharacterRestoredFromSave(const FString SaveSlotName)
@@ -741,12 +746,15 @@ void ACharacterBase::CheckAbilitySuccess(FName AbilityName, bool WasSuccessful)
 
 void ACharacterBase::ReinitializeSubsystems()
 {
-	// Set default starting values - Run on server only
-	if (IsValid(VitalityStats) && GetNetMode() < NM_Client)
+	UE_LOGFMT(LogTemp, Display, "{cName}({Sv}): ReinitializeSubsystems()", *GetName(), HasAuthority()?"S":"C");
+	// Set default starting values
+	if (IsValid(VitalityStats))
 	{
 		// Set the initial value of the stats groups
 		for (int i = 0; i < UVitalitySystem::GetNumberOfCoreStats(); i++)
+		{
 			VitalityStats->StartingStats.CoreStats[i] = 100.f;
+		}
 		
 		for (int i = 0; i < UVitalitySystem::GetNumberOfDamageTypes(); i++)
 		{
@@ -786,6 +794,9 @@ void ACharacterBase::ReinitializeSubsystems()
 				
 			}
 		}
+
+		VitalityStats->Reinitialize();
+		
 	}
 }
 

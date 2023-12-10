@@ -36,6 +36,9 @@ public: // methods
 
 	bool CheckIsPlayableClient() const;
 
+	UFUNCTION(BlueprintCallable) void SetIsCreatingCharacter(bool isCreating = true);
+	UFUNCTION(BlueprintPure) bool GetIsCreatingCharacter() const { return bIsCreating; }
+
 	UFUNCTION(BlueprintCallable) const
 		FStCharacterRaces GetStartingRaceData(const ECharacterRace CharacterRace) const;
 	
@@ -49,6 +52,11 @@ public: // methods
 	
 	UFUNCTION(BlueprintCallable)
 	TArray<FName> GetStartingAbilityData(const ECharacterClass CharacterClass);
+	
+	UFUNCTION(BlueprintCallable)
+	TArray<FStVitalityEffects> GetStartingEffects(
+		const ECharacterRace CharacterRace,
+		const ECharacterClass CharacterClass);
 	
 	ATalesGameStateBase();
 	
@@ -278,10 +286,33 @@ public: // members
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UDataTable* DataTableAbilities = nullptr;
 	
+	// If specified, pulls default start values from this data table
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UDataTable* DataTableEffects = nullptr;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int DefaultNumOfInventorySlots = 20;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<EEquipmentSlotType> DefaultEquipmentSlots = {
+		EEquipmentSlotType::PRIMARY, EEquipmentSlotType::SECONDARY,
+		EEquipmentSlotType::HELMET, EEquipmentSlotType::NECK,
+		EEquipmentSlotType::EARRINGLEFT, EEquipmentSlotType::EARRINGRIGHT,
+		EEquipmentSlotType::FACE, EEquipmentSlotType::SHOULDERS,
+		EEquipmentSlotType::BACK, EEquipmentSlotType::SLEEVES,
+		EEquipmentSlotType::WRISTLEFT, EEquipmentSlotType::WRISTRIGHT,
+		EEquipmentSlotType::HANDS, EEquipmentSlotType::RINGLEFT,
+		EEquipmentSlotType::RINGRIGHT, EEquipmentSlotType::TORSO,
+		EEquipmentSlotType::WAIST, EEquipmentSlotType::LEGS,
+		EEquipmentSlotType::FEET, EEquipmentSlotType::COSMETIC
+	};
+	
 private: // members
 
 	// The name of the meta file
 	UPROPERTY() FString _SaveMetaName = "metadata";
+
+	UPROPERTY(Replicated) bool bIsCreating = false;
 
 	// Set to true once the meta data file has been loaded or created
 	bool bSaveMetaIsReady = false;

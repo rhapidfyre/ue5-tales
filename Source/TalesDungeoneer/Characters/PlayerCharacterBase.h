@@ -31,13 +31,16 @@ public: // functions
 	virtual void LoadSaveData(const FString& SaveName,
 		const int32 UserIndex, USaveGame* SaveData) override;
 
+	virtual bool SaveCharacterData() override;
+	virtual bool LoadCharacterData(const FString SaveSlotName, const int32 UserIndex) override;
+
 	UFUNCTION() void AwaitGameState();
 
 protected:
+
+	virtual void OnConstruction(const FTransform& Transform) override;
 	
 	virtual void BeginPlay() override;
-
-private:
 
 	// Used to reinitialize the character with client's data
 	UFUNCTION(Server, Reliable)
@@ -51,4 +54,7 @@ private:
 		const TArray<FSkelMeshMergeUVTransformMapping>& UvTransformsPerMesh);
 	
 	bool bHasInitialized = false;
+
+	FString CharacterSaveName = "";
+	int32 CharacterSaveIndex = 0;
 };
