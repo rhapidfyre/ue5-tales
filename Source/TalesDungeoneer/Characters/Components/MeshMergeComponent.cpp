@@ -216,7 +216,7 @@ void UMeshMergeComponent::InitializeMeshMerge(const USavedCharacter* CharacterDa
 				CharacterData->MeshSectionMappings,
 				CharacterData->UvTransformsPerMesh,
 				CharacterData->MeshesToMerge );
-			bHasInitialized = true;
+			bStatsSystemReady = true;
 			*/
 		}
 		return;

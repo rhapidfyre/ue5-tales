@@ -100,6 +100,9 @@ public:
 
 	// The name of the inventory save file
 	UPROPERTY(VisibleAnywhere, Category = "Inventory Save Data") FString SavedInventory = "";
+	UPROPERTY(VisibleAnywhere, Category = "Inventory Save Data") FString SavedVitalityStats = "";
+	UPROPERTY(VisibleAnywhere, Category = "Inventory Save Data") FString SavedVitalityEffects = "";
+	UPROPERTY(VisibleAnywhere, Category = "Inventory Save Data") FString SavedVitalityWelfare = "";
 };
 
 /**

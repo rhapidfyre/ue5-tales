@@ -1,6 +1,3 @@
 [submodule "Plugins/T5GInventorySystem"]
 	path = Plugins/T5GInventorySystem
 	url = https://github.com/rhapidfyre/T5GInventorySystem.git
-[submodule "Plugins/VitalityMatters"]
-	path = Plugins/VitalityMatters
-	url = https://github.com/rhapidfyre/VitalityMatters.git

@@ -44,91 +44,6 @@ void APlayerCharacterBase::LoadSaveData(const FString& SaveName, const int32 Use
 		// If the player is also the server, this will still work
 		if (isControlledByLocalPlayer)
 		{
-			Server_InitializeCharacter(
-				CharacterData->CharacterName,
-				CharacterData->CharacterLevel,
-				CharacterData->CharacterRace,
-				CharacterData->CharacterClass,
-				CharacterData->ExperiencePoints	);
-			
-			// Restore Character Design
-			Server_SetupMeshMerge(CharacterData->MeshesToMerge,
-				CharacterData->MeshSectionMappings,
-				CharacterData->UvTransformsPerMesh);
-	
-			// Re-initialize Vitality Component Data
-			if (IsValid(VitalityWelfare))
-			{
-				VitalityWelfare->InitializeHealthSubsystem(
-					CharacterData->UseHealthSubsystem,
-					CharacterData->StartingHealthCurrent,
-					CharacterData->StartingHealthMaximum,
-					CharacterData->PassiveHealthRegen);
-				
-				VitalityWelfare->InitializeStaminaSubsystem(
-					CharacterData->UseStaminaSubsystem,
-					CharacterData->StartingStaminaCurrent,
-					CharacterData->StartingStaminaMaximum,
-					CharacterData->PassiveStaminaRegen);
-					
-				VitalityWelfare->InitializeMagicSubsystem(
-					CharacterData->UseMagicSubsystem,
-					CharacterData->StartingMagicCurrent,
-					CharacterData->StartingMagicMaximum,
-					CharacterData->PassiveMagicRegen);
-						
-				VitalityWelfare->InitializeSurvivalSubsystem(
-					CharacterData->UseSurvivalSubsystem,
-					CharacterData->StartingHydrationCurrent,
-					CharacterData->StartingHydrationMaximum,
-					CharacterData->PassiveHydrationDrain,
-					CharacterData->StartingHungerCurrent,
-					CharacterData->StartingHungerMaximum,
-					CharacterData->PassiveHungerDrain);
-			}
-			
-			if (IsValid(VitalityStats))
-			{
-				// Restore Natural Stats
-				VitalityStats->InitializeCoreStats(
-					CharacterData->BaseStats.GetCoreStatValue(EVitalityStat::STRENGTH),
-					CharacterData->BaseStats.GetCoreStatValue(EVitalityStat::AGILITY),
-					CharacterData->BaseStats.GetCoreStatValue(EVitalityStat::FORTITUDE),
-					CharacterData->BaseStats.GetCoreStatValue(EVitalityStat::INTELLECT),
-					CharacterData->BaseStats.GetCoreStatValue(EVitalityStat::ASTUTENESS),
-					CharacterData->BaseStats.GetCoreStatValue(EVitalityStat::CHARISMA));
-				
-				// Restore Natural Damage Bonus & Resistance
-				VitalityStats->InitializeNaturalDamageBonuses(CharacterData->BaseStats.DamageBonuses);
-				VitalityStats->InitializeNaturalDamageResists(CharacterData->BaseStats.DamageResists);
-			}
-
-			if (IsValid(InventoryComponent))
-			{
-				FString ResponseString = "";
-				if (!InventoryComponent->LoadInventory(
-					ResponseString,	CharacterData->SavedInventory, true))
-				{
-					UE_LOGFMT(LogTemp, Warning,
-						"Failed to Restore Saved Inventory. Reason: {ResponseStr}", ResponseString);
-				}
-			}
-	
-			// Restore unlock points
-			if (IsValid(AbilityComponent))
-			{
-				AbilityComponent->InitializePoints(CharacterData->UnlockPointsAvailable);
-			}
-			
-			// Restore Active Effects
-			if (IsValid(VitalityStats))
-			{
-				VitalityEffects->InitializeEffects(CharacterData->SavedEffects);
-			}
-			
-			UE_LOG(LogTemp, Display, TEXT("LoadSaveData(%s): Successfully restored character from Save Slot '%s'"),
-				HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), *SaveName);
-			CharacterRestoredFromSave(SaveName);
 		}
 	}
 	else
@@ -274,13 +189,100 @@ bool APlayerCharacterBase::LoadCharacterData(const FString SaveSlotName, const i
 		{
 			if (UGameplayStatics::DoesSaveGameExist(SaveSlotName, UserIndex))
 			{
-				CharacterSaveName = SaveSlotName;
-				CharacterSaveIndex = UserIndex;
+				CharacterSaveName	= SaveSlotName;
+				CharacterSaveIndex	= UserIndex;
 				USaveGame* SaveData =
-					UGameplayStatics::LoadGameFromSlot(CharacterSaveName, CharacterSaveIndex);
-				if (IsValid(SaveData))
+					UGameplayStatics::LoadGameFromSlot(SaveSlotName, UserIndex);
+				USavedCharacter* CharacterData = Cast<USavedCharacter>( SaveData );
+				if (IsValid(CharacterData))
 				{
-				
+					Server_InitializeCharacter(
+						CharacterData->CharacterName,
+						CharacterData->CharacterLevel,
+						CharacterData->CharacterRace,
+						CharacterData->CharacterClass,
+						CharacterData->ExperiencePoints	);
+					
+					// Restore Character Design
+					Server_SetupMeshMerge(CharacterData->MeshesToMerge,
+						CharacterData->MeshSectionMappings,
+						CharacterData->UvTransformsPerMesh);
+			
+					// Re-initialize Vitality Component Data
+					if (IsValid(VitalityWelfare))
+					{
+						VitalityWelfare->InitializeHealthSubsystem(
+							CharacterData->UseHealthSubsystem,
+							CharacterData->StartingHealthCurrent,
+							CharacterData->StartingHealthMaximum,
+							CharacterData->PassiveHealthRegen);
+						
+						VitalityWelfare->InitializeStaminaSubsystem(
+							CharacterData->UseStaminaSubsystem,
+							CharacterData->StartingStaminaCurrent,
+							CharacterData->StartingStaminaMaximum,
+							CharacterData->PassiveStaminaRegen);
+							
+						VitalityWelfare->InitializeMagicSubsystem(
+							CharacterData->UseMagicSubsystem,
+							CharacterData->StartingMagicCurrent,
+							CharacterData->StartingMagicMaximum,
+							CharacterData->PassiveMagicRegen);
+								
+						VitalityWelfare->InitializeSurvivalSubsystem(
+							CharacterData->UseSurvivalSubsystem,
+							CharacterData->StartingHydrationCurrent,
+							CharacterData->StartingHydrationMaximum,
+							CharacterData->PassiveHydrationDrain,
+							CharacterData->StartingHungerCurrent,
+							CharacterData->StartingHungerMaximum,
+							CharacterData->PassiveHungerDrain);
+					}
+					
+					if (IsValid(VitalityStats))
+					{
+						FString ResponseString;
+						VitalityStats->LoadStatsFromSave(ResponseString,FString(),true);
+						// Restore Natural Stats
+						VitalityStats->InitializeCoreStats(
+							CharacterData->BaseStats.GetCoreStatValue(EVitalityStat::STRENGTH),
+							CharacterData->BaseStats.GetCoreStatValue(EVitalityStat::AGILITY),
+							CharacterData->BaseStats.GetCoreStatValue(EVitalityStat::FORTITUDE),
+							CharacterData->BaseStats.GetCoreStatValue(EVitalityStat::INTELLECT),
+							CharacterData->BaseStats.GetCoreStatValue(EVitalityStat::ASTUTENESS),
+							CharacterData->BaseStats.GetCoreStatValue(EVitalityStat::CHARISMA));
+						
+						// Restore Natural Damage Bonus & Resistance
+						VitalityStats->InitializeNaturalDamageBonuses(CharacterData->BaseStats.DamageBonuses);
+						VitalityStats->InitializeNaturalDamageResists(CharacterData->BaseStats.DamageResists);
+					}
+		
+					if (IsValid(InventoryComponent))
+					{
+						FString ResponseString = "";
+						if (!InventoryComponent->LoadInventory(
+							ResponseString,	CharacterData->SavedInventory, true))
+						{
+							UE_LOGFMT(LogTemp, Warning,
+								"Failed to Restore Saved Inventory. Reason: {ResponseStr}", ResponseString);
+						}
+					}
+			
+					// Restore unlock points
+					if (IsValid(AbilityComponent))
+					{
+						AbilityComponent->InitializePoints(CharacterData->UnlockPointsAvailable);
+					}
+					
+					// Restore Active Effects
+					if (IsValid(VitalityStats))
+					{
+						VitalityEffects->InitializeEffects(CharacterData->SavedEffects);
+					}
+					
+					UE_LOGFMT(LogTemp, Display, "LoadSaveData({sv}): Successfully restored character from Save Slot '{slot}'",
+						HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"), *CharacterSaveName);
+					CharacterRestoredFromSave(SaveSlotName);
 				}
 			}
 		}
