@@ -1,13 +1,14 @@
 ﻿// Copyright Take Five Games, LLC 2023 - All Rights Reserved
 
 
-#include "MeshMergeComponent.h"
+#include "Characters/Components/MeshMergeComponent.h"
 
 #include "Engine/SkeletalMeshSocket.h"
 #include "Net/UnrealNetwork.h"
-#include "TalesDungeoneer/Characters/CharacterBase.h"
-#include "TalesDungeoneer/lib/GameplayTags.h"
-#include "TalesDungeoneer/lib/datastructures/EquipmentWorn.h"
+#include "Characters/CharacterBase.h"
+#include "lib/Tags/AttributeTags.h"
+#include "lib/datastructures/EquipmentWorn.h"
+#include "lib/Tags/TalesGlobalTags.h"
 
 
 FStMeshMergeData::FStMeshMergeData(FName DataRowName, bool IsMale)

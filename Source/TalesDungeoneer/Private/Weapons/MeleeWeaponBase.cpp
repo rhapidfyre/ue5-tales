@@ -1,10 +1,9 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "MeleeWeaponBase.h"
+#include "Weapons/MeleeWeaponBase.h"
 
-#include "WeaponSystem.h"
-#include "TalesDungeoneer/Characters/CharacterBase.h"
+#include "Characters/CharacterBase.h"
 
 
 // Sets default values
@@ -95,24 +94,7 @@ void AMeleeWeaponBase::startAttackTimer()
 	ACharacterBase* WeaponOwner = Cast<ACharacterBase>(GetOwner());
 	if (IsValid(WeaponOwner))
 	{
-		ACharacterBase* WeaponTarget = WeaponOwner->AbilityComponent->GetTargetedActor();
-		if (IsValid(WeaponTarget))
-		{
-			// TODO - Line of Sight check
 
-			// If the target is within distance, hit that target.
-			if (WeaponOwner->GetDistanceTo(WeaponTarget) <= getWeaponData().MaxReachDistance)
-			{
-				TargetHitByWeapon(WeaponTarget);
-
-				// End attack if only one target can be hit
-				if (getWeaponData().MaxTargetsHitAtOnce <= 1)
-				{
-					cancelAttackTimer();
-					return;
-				}
-			}
-		}
 	}
 	
 	// Hit anything already within the collision area
@@ -204,10 +186,13 @@ bool AMeleeWeaponBase::doAttack()
 bool AMeleeWeaponBase::CheckForHit(TArray<AActor*>& HitActors)
 {
 	if (!getIsWeaponArmed()) return false;
+	/*
 	// Checks if the melee weapon's collision is overlapping anything
 	const FStWeaponData weaponData = UWeaponSystem::GetWeaponDataFromName( getWeaponName() );
 	if (!UWeaponSystem::GetWeaponIsValid(weaponData)) return false;
 	HitActors = getOverlappingResources();
 	return HitActors.Num() > 0;
+	*/
+	return false;
 }
 

@@ -1,10 +1,9 @@
 ﻿
-#include "RangedWeaponBase.h"
+#include "Weapons/RangedWeaponBase.h"
 
 #include "GameFramework/Character.h"
 #include "Kismet/GameplayStatics.h"
-#include "TalesDungeoneer/Entities/ProjectileBase.h"
-#include "TalesDungeoneer/lib/datastructures/WeaponData.h"
+#include "lib/datastructures/WeaponData.h"
 
 
 ARangedWeaponBase::ARangedWeaponBase()
@@ -61,7 +60,8 @@ void ARangedWeaponBase::SpawnProjectile(FVector fwdVector)
 	const FStWeaponData weaponData = getWeaponData();
 	const FTransform barrelTransform = ProjectileDirection->GetComponentTransform();
 	const FTransform spawnTransform(barrelTransform.GetLocation());
-	
+
+	/*
 	AProjectileBase* bullet = GetWorld()->SpawnActorDeferred<AProjectileBase>(AProjectileBase::StaticClass(), spawnTransform,
 		nullptr, Cast<APawn>(GetOwner()), ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
 
@@ -78,6 +78,7 @@ void ARangedWeaponBase::SpawnProjectile(FVector fwdVector)
 		if (IsValid(soundData.UseSoundWeaponAttack))
 			soundEffectWithDelay(soundData.UseSoundWeaponAttack, soundData.DelaySoundWeaponAttack);
 	}
+	*/
 }
 
 

@@ -4,7 +4,7 @@
 
 #include "NpcCharacterBase.h"
 
-#include "InteractiveNpcCharacterBase.generated.h"
+#include "InteractiveNpcBase.generated.h"
 
 
 /* An interactive NPC is any NPC character who is a non combatant, and will

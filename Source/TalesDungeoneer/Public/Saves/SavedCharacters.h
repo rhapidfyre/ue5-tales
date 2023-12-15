@@ -4,8 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/SaveGame.h"
-#include "TalesDungeoneer/lib/enums/GlobalEnums.h"
-#include "TalesDungeoneer/Characters/Components/MeshMergeComponent.h"
+#include "lib/enums/GlobalEnums.h"
+#include "Characters/Components/MeshMergeComponent.h"
 
 #include "SavedCharacters.generated.h"
 

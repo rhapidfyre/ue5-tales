@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataTable.h"
-#include "TalesDungeoneer/lib/datastructures/WeaponData.h"
+#include "lib/datastructures/WeaponData.h"
 
 #include "WeaponSystem.generated.h"
 

@@ -1,10 +1,10 @@
 ﻿
-#include "WeaponMeleeBase.h"
+#include "Weapons/WeaponMeleeBase.h"
 
 #include "Kismet/BlueprintTypeConversions.h"
 #include "Logging/StructuredLog.h"
 #include "Kismet/KismetSystemLibrary.h"
-#include "TalesDungeoneer/Characters/CharacterBase.h"
+#include "Characters/CharacterBase.h"
 
 
 /** Override of parent method (AWeaponBase)
@@ -127,6 +127,7 @@ void AWeaponMeleeBase::DoAttackTracing()
 {
 	if (TicksDelayed_ < 1)
 	{
+		/*
 		const ACharacterBase* OwnerCharacter = Cast<ACharacterBase>( GetOwner() );
 	
 		ECharacterTeam OwnerTeam = IsValid(OwnerCharacter) ?
@@ -205,6 +206,7 @@ void AWeaponMeleeBase::DoAttackTracing()
 				}
 			}
 		}
+		*/
 	}//ticks delayed
 
 	// Only decrease timer ticks if the timer is no longer delayed

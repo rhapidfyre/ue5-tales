@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "TalesDungeoneer/Gamemode/BaseFiles/TalesGameStateBase.h"
+#include "Gamemode/BaseFiles/TalesGameStateBase.h"
 #include "Delegates/Delegate.h"
 
 #include "CreatorGameStateBase.generated.h"

@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "TalesDungeoneer/Characters/CharacterBase.h"
+#include "Characters/CharacterBase.h"
 
 #include "CreatorGameModeBase.generated.h"
 

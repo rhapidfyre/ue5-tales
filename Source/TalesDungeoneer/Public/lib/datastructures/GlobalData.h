@@ -4,7 +4,7 @@
 #include "lib/EquipmentData.h"
 #include "lib/InventoryData.h"
 #include "GameplayTags.h"
-#include "TalesDungeoneer/lib/enums/GlobalEnums.h"
+#include "lib/enums/GlobalEnums.h"
 
 #include "GlobalData.generated.h"
 

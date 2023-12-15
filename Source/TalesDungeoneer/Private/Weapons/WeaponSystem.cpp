@@ -1,4 +1,4 @@
-﻿#include "WeaponSystem.h"
+﻿#include "Weapons/WeaponSystem.h"
 
 UDataTable* UWeaponSystem::GetWeaponDataTable()
 {

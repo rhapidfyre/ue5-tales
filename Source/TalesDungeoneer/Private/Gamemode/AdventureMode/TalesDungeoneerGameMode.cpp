@@ -1,7 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "TalesDungeoneerGameMode.h"
-#include "TalesDungeoneer/Characters/CharacterBase.h"
+#include "Gamemode/AdventureMode/TalesDungeoneerGameMode.h"
+#include "Characters/CharacterBase.h"
 
 #include "UObject/ConstructorHelpers.h"
 

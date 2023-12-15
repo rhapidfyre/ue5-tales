@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameplayTagContainer.h"
 #include "Engine/DataTable.h"
-#include "TalesDungeoneer/lib/enums/GlobalEnums.h"
+#include "lib/enums/GlobalEnums.h"
 
 #include "EquipmentWorn.generated.h"
 

@@ -4,7 +4,7 @@
 #include "CoreMinimal.h"
 #include "NiagaraSystem.h"
 #include "GameFramework/Actor.h"
-#include "TalesDungeoneer/lib/datastructures/WeaponData.h"
+#include "lib/datastructures/WeaponData.h"
 
 #include "WeaponBase.generated.h"
 

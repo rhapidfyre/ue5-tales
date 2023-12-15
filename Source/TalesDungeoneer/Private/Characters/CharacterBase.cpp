@@ -1,24 +1,23 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "CharacterBase.h"
+#include "Characters/CharacterBase.h"
 
+#include "Net/UnrealNetwork.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
-#include "TalesDungeoneer/lib/datastructures/GlobalData.h"
-#include "Logging/StructuredLog.h"
-
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
-
-#include "TalesDungeoneer/Saves/SavedCharacters.h"
-
-#include "Net/UnrealNetwork.h"
-#include "TalesDungeoneer/Gamemode/BaseFiles/TalesGameStateBase.h"
-#include "TalesDungeoneer/Weapons/WeaponSystem.h"
+#include "lib/datastructures/GlobalData.h"
+#include "Saves/SavedCharacters.h"
+#include "Gamemode/BaseFiles/TalesGameStateBase.h"
+#include "lib/enums/GlobalEnums.h"
+#include "Weapons/WeaponSystem.h"
+#include "Logging/StructuredLog.h"
+#include "Widgets/OverheadDataWidgetBase.h"
 
 // Sets default values
 ACharacterBase::ACharacterBase()
@@ -43,11 +42,11 @@ ACharacterBase::ACharacterBase()
 
 	// Note: For faster iteration times these variables, and many more, can be tweaked in the Character Blueprint
 	// instead of recompiling to adjust them
-	GetCharacterMovement()->JumpZVelocity = 700.f;
-	GetCharacterMovement()->AirControl = 0.35f;
-	GetCharacterMovement()->MaxWalkSpeed = 500.f;
-	GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
-	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
+	GetCharacterMovement()->JumpZVelocity				= 700.f;
+	GetCharacterMovement()->AirControl					= 0.35f;
+	GetCharacterMovement()->MaxWalkSpeed				= 500.f;
+	GetCharacterMovement()->MinAnalogWalkSpeed			= 20.f;
+	GetCharacterMovement()->BrakingDecelerationWalking	= 2000.f;
 
 	// Create a camera boom (pulls in towards the player if there is a collision)
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
@@ -60,66 +59,27 @@ ACharacterBase::ACharacterBase()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
-	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
-	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
+	// Setup listeners for when the inventory changes
+	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
+	if (!InventoryComponent->OnInventoryUpdated.IsAlreadyBound(this, &ACharacterBase::InventoryUpdateDelegate))
+	{
+		InventoryComponent->OnInventoryUpdated.AddDynamic(this, &ACharacterBase::InventoryUpdateDelegate);
+	}
 
-	// Every single character gets an inventory, vitality and weapon system
-	// regardless of whether or not they are a player.
-	InventoryComponent = CreateDefaultSubobject
-			<UInventoryComponent>(TEXT("InventoryComponent"));
-	
-	WeaponComponent		= CreateDefaultSubobject<UWeaponComponent>(TEXT("WeaponComponent"));
-	MeshMergeComponent	= CreateDefaultSubobject<UMeshMergeComponent>(TEXT("MeshMergeComponent"));
+	MeshMergeComponent = CreateDefaultSubobject<UMeshMergeComponent>(TEXT("MeshMergeComponent"));
 
 	// Allow weapon overlap collisions
-	//GetCapsuleComponent()->SetGenerateOverlapEvents(true);
 	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_GameTraceChannel4, ECR_Block);
 }
 
-/** Called to start an attack.
- *  Once started, the attack will continue until finished.
- * @param WeaponSlot The weapon slot to attack with (defaults to Primary)
+/**
+ *  Calculates difficulty of this character if fought by the player characters.
+ *  Takes into account other characters part of this characters group.
+ * @return A percentage - The likelihood of success for this encounter
  */
-void ACharacterBase::DoAttack(EWeaponSlots WeaponSlot)
+float ACharacterBase::GetRiskLevel() const
 {
-	WeaponComponent->PerformAttack(WeaponSlot);
-}
-
-void ACharacterBase::SetCharacterLevel(int NewLevel)
-{
-	const int OldLevel = _CharacterLevel;
-	if (OldLevel != NewLevel)
-	{
-		if (NewLevel > 0)
-		{
-			_CharacterLevel = NewLevel;
-			_ExperiencePoints = 0.f;
-		}
-	}
-}
-
-void ACharacterBase::SetCharacterClass(ECharacterClass NewClass)
-{
-	if (GetNetMode() < NM_Client)
-	{
-		if (_CharacterClass != NewClass)
-		{
-			_CharacterClass = NewClass;
-			ReinitializeSubsystems();
-		}
-	}
-}
-
-void ACharacterBase::SetCharacterRace(ECharacterRace NewRace)
-{
-	if (GetNetMode() < NM_Client)
-	{
-		if (_CharacterRace != NewRace)
-		{
-			_CharacterRace = NewRace;
-			ReinitializeSubsystems();
-		}
-	}
+	return 1.f;
 }
 
 bool ACharacterBase::SaveCharacterData()
@@ -127,9 +87,9 @@ bool ACharacterBase::SaveCharacterData()
 	return true;
 }
 
-bool ACharacterBase::LoadCharacterData(const FString SaveSlotName, const int32 UserIndex)
+void ACharacterBase::LoadCharacterData(
+	const FString& SaveSlotName, const int32 UserIndex, USaveGame* SaveGame)
 {
-	return true;
 }
 
 
@@ -137,34 +97,6 @@ bool ACharacterBase::LoadCharacterData(const FString SaveSlotName, const int32 U
 void ACharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	//Add Input Mapping Context
-	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
-	{
-		if (UEnhancedInputLocalPlayerSubsystem* Subsystem =
-				ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>
-					(PlayerController->GetLocalPlayer()))
-		{
-			Subsystem->AddMappingContext(DefaultMappingContext, 0);
-		}
-	}
-
-	// Server Init (always happens before the client)
-	if (GetNetMode() < NM_Client)
-	{		
-		// Register the Weapon Component to listen for changes to Equipment
-		if (IsValid(WeaponComponent) && IsValid(InventoryComponent))
-		{
-			// Setup listeners first, then initialize
-			if (!InventoryComponent->OnEquipmentUpdated.IsAlreadyBound(this, &ACharacterBase::UpdateWeapon))
-				InventoryComponent->OnEquipmentUpdated.AddDynamic(this, &ACharacterBase::UpdateWeapon);
-
-			UpdateWeapon(EEquipmentSlotType::PRIMARY);
-			UpdateWeapon(EEquipmentSlotType::SECONDARY);
-		}
-		ReinitializeSubsystems();
-	}
-	
 }
 
 
@@ -223,113 +155,66 @@ void ACharacterBase::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-
-//////////////////////////////////////////////////////////////////////////
-// Input
-
-void ACharacterBase::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
+void ACharacterBase::InventoryUpdateDelegate(int SlotNumberUpdated, bool bIsEquipment)
 {
-	// Set up action bindings
-	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent)) {
-
-		//Jumping
-		EnhancedInputComponent->BindAction(JumpInputAction,
-			ETriggerEvent::Triggered, this, &ACharacter::Jump);
-		EnhancedInputComponent->BindAction(JumpInputAction,
-			ETriggerEvent::Completed, this, &ACharacter::StopJumping);
-
-		//Moving
-		EnhancedInputComponent->BindAction(MoveInputAction,
-		ETriggerEvent::Triggered, this, &ACharacterBase::Move);
-
-		//Looking
-		EnhancedInputComponent->BindAction(LookInputAction,
-		ETriggerEvent::Triggered, this, &ACharacterBase::Look);
-
-		//Actions
-		EnhancedInputComponent->BindAction(PrimaryInputAction,
-			ETriggerEvent::Triggered, this, &ACharacterBase::PrimaryAction);
-		EnhancedInputComponent->BindAction(SecondaryInputAction,
-			ETriggerEvent::Triggered, this, &ACharacterBase::SecondaryAction);
-
+	UE_LOGFMT(LogTemp, Log, "{CharName}({Sv}): {SlotType} Update Received (Slot #{SlotNum})",
+		GetName(), HasAuthority()?"SV":"CL", bIsEquipment?"Equipment":"Inventory", SlotNumberUpdated);
+	if (bIsEquipment)
+	{
+		
 	}
-
+	else
+	{
+		
+	}
 }
 
-void ACharacterBase::HotkeyTriggered(UInputAction* HotkeyAction)
+/**
+ * C++ Function for performing a Primary Attack action
+ * Needs to be overridden by child classes or it will always return true
+ * @return True if attack criteria was met successfully
+ */
+bool ACharacterBase::PrimaryAction()
 {
-
+	return true;
 }
 
+/**
+ * C++ Function for performing a Secondary Attack action
+ * Needs to be overridden by child classes or it will always return true
+ * @return True if attack criteria was met successfully
+ */
+bool ACharacterBase::SecondaryAction()
+{
+	return true;
+}
+
+/**
+ * @brief Sets the new name for this character. Typically used during creation/loading.
+ * @param ProposedName The new name string to use for this character
+ */
 void ACharacterBase::SetCharacterName(FString ProposedName)
 {
 	// TODO - Add checks for symbols, special characters, etc
+	
+	UE_LOGFMT(LogTemp, Log, "{CharName}({Sv}): Character Name Changed. {OldName} -> {NewName}",
+		GetName(), HasAuthority()?"SV":"CL", GetCharacterName(), ProposedName);
 	CharacterName = ProposedName;
 }
 
 void ACharacterBase::Client_CharacterRestored_Implementation(const FString& SaveSlotName)
 {
 	bCharacterSaveRestored = true;
+	UE_LOGFMT(LogTemp, Log, "{CharName}({Sv}) REPNOTIFY: Save Game '{SaveName}' Loaded Successfully!",
+		GetName(), HasAuthority()?"SV":"CL", SaveSlotName);
 	OnCharacterRestored.Broadcast(SaveSlotName);
 }
 
-void ACharacterBase::OnRep_CharacterName_Implementation()
+void ACharacterBase::OnRep_CharacterName_Implementation(const FString& OldCharacterName)
 {
+	UE_LOGFMT(LogTemp, Log, "{CharName}({Sv}) REPNOTIFY: Character Name Changed. {OldName} -> {NewName}",
+		GetName(), HasAuthority()?"SV":"CL", OldCharacterName, GetCharacterName());
 	OnCharacterNameChanged.Broadcast();
-}
-
-void ACharacterBase::OnRep_CharacterLevel_Implementation(int OldLevel)
-{
-	const int NewLevel = GetCharacterLevel();
-	if (OldLevel < NewLevel)
-	{
-		OnCharacterLevelUp.Broadcast(NewLevel);
-	}
-	else
-	{
-		OnCharacterLevelChanged.Broadcast();
-	}
-}
-
-void ACharacterBase::OnRep_ExperienceChanged_Implementation(float OldExperience)
-{
-	OnExperienceChanged.Broadcast();
-}
-
-void ACharacterBase::Move(const FInputActionValue& Value)
-{
-	// input is a Vector2D
-	FVector2D MovementVector = Value.Get<FVector2D>();
-
-	if (Controller != nullptr)
-	{
-		// find out which way is forward
-		const FRotator Rotation = Controller->GetControlRotation();
-		const FRotator YawRotation(0, Rotation.Yaw, 0);
-
-		// get forward vector
-		const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-	
-		// get right vector 
-		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-
-		// add movement 
-		AddMovementInput(ForwardDirection, MovementVector.Y);
-		AddMovementInput(RightDirection, MovementVector.X);
-	}
-}
-
-void ACharacterBase::Look(const FInputActionValue& Value)
-{
-	// input is a Vector2D
-	FVector2D LookAxisVector = Value.Get<FVector2D>();
-
-	if (Controller != nullptr)
-	{
-		// add yaw and pitch input to controller
-		AddControllerYawInput(LookAxisVector.X);
-		AddControllerPitchInput(LookAxisVector.Y);
-	}
 }
 
 
@@ -339,15 +224,10 @@ void ACharacterBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	
-	DOREPLIFETIME(ACharacterBase, _CharacterRisk);
 	DOREPLIFETIME(ACharacterBase, CharacterName);
-	DOREPLIFETIME(ACharacterBase, _IsMale);
-	
 	DOREPLIFETIME(ACharacterBase, SkinColor);
+	
 	DOREPLIFETIME(ACharacterBase, PronounObjective);
 	DOREPLIFETIME(ACharacterBase, PronounPossessive);
 	DOREPLIFETIME(ACharacterBase, PronounSubject);
-	
-	DOREPLIFETIME(ACharacterBase, _CharacterLevel);
-	DOREPLIFETIME_CONDITION(ACharacterBase, _ExperiencePoints, COND_OwnerOnly);
 }

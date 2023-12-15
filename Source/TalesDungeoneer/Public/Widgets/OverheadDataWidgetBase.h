@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Characters/CharacterBase.h"
 #include "UObject/Object.h"
 #include "OverheadDataWidgetBase.generated.h"
 

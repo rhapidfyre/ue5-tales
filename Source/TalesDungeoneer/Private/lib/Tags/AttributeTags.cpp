@@ -1,5 +1,3 @@
 ﻿// Copyright Take Five Games, LLC 2023 - All Rights Reserved
 
-#pragma once
-
-#include "NativeGameplayTags.h"
+#include "lib/Tags/AttributeTags.h"

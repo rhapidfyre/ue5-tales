@@ -4,6 +4,8 @@
 #pragma once
 
 #include "CharacterBase.h" // Includes core and actor files
+#include "InputAction.h"
+#include "InputActionValue.h"
 
 #include "PlayerCharacterBase.generated.h"
 
@@ -28,15 +30,54 @@ public: // functions
 	
 	APlayerCharacterBase();
 
-	virtual void LoadSaveData(const FString& SaveName,
-		const int32 UserIndex, USaveGame* SaveData) override;
-
 	virtual bool SaveCharacterData() override;
-	virtual bool LoadCharacterData(const FString SaveSlotName, const int32 UserIndex) override;
+	virtual void LoadCharacterData(
+		const FString& SaveSlotName, const int32 UserIndex, USaveGame* SaveGame) override;
 
 	UFUNCTION() void AwaitGameState();
+	
+	/** MappingContext */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Character Input Settings")
+	UInputMappingContext* DefaultMappingContext = nullptr;
+
+	/** Jump Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Character Input Settings")
+	UInputAction* JumpInputAction = nullptr;
+
+	/** Move Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Character Input Settings")
+	UInputAction* MoveInputAction = nullptr;
+
+	/** Look Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Character Input Settings")
+	UInputAction* LookInputAction = nullptr;
+
+	/** Attack Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Character Input Settings")
+	UInputAction* PrimaryAttackInputAction = nullptr;
+
+	/** Attack Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Character Input Settings")
+	UInputAction* SecondaryAttackInputAction = nullptr;
+
+	/** Attack Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Character Input Settings")
+	UInputAction* PrimaryInputAction = nullptr;
+
+	/** Attack Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Character Input Settings")
+	UInputAction* SecondaryInputAction = nullptr;
 
 protected:
+
+	UFUNCTION()
+	virtual void HotkeyTriggered(UInputAction* HotkeyAction);
+
+	// Called for movement input
+	void Move(const FInputActionValue& Value);
+
+	// Called for looking input
+	void Look(const FInputActionValue& Value);
 
 	virtual void OnConstruction(const FTransform& Transform) override;
 	
@@ -44,8 +85,7 @@ protected:
 
 	// Used to reinitialize the character with client's data
 	UFUNCTION(Server, Reliable)
-	void Server_InitializeCharacter(const FString& NewName, int NewLevel,
-		ECharacterRace NewRace, ECharacterClass NewClass, float NewExperience);
+	void Server_InitializeCharacter(const FString& NewName);
 
 	UFUNCTION(Server, Reliable)
 	void Server_SetupMeshMerge(
@@ -53,8 +93,11 @@ protected:
 		const TArray<FSkelMeshMergeSectionMapping>& MeshSectionMappings,
 		const TArray<FSkelMeshMergeUVTransformMapping>& UvTransformsPerMesh);
 	
-	bool bHasInitialized = false;
+	// APawn interface
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	FString CharacterSaveName = "";
-	int32 CharacterSaveIndex = 0;
+private:
+	bool	bHasInitialized	= false;
+	FString SaveSlotName_	= "";
+	int32	SaveUserIndex_	= 0;
 };

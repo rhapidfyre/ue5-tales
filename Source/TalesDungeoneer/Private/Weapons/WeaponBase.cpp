@@ -1,16 +1,16 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "WeaponBase.h"
+#include "Weapons/WeaponBase.h"
 
-#include "WeaponSystem.h"
+#include "Weapons/WeaponSystem.h"
 #include "lib/ItemData.h"
 #include "Components/AudioComponent.h"
 #include "Net/UnrealNetwork.h"
-#include "TalesDungeoneer/Characters/CharacterBase.h"
+#include "Characters/CharacterBase.h"
 #include "Engine/DamageEvents.h"
 #include "Logging/StructuredLog.h"
-#include "TalesDungeoneer/Characters/CombatNpcCharacterBase.h"
+#include "Characters/CombatNpcCharacterBase.h"
 
 AWeaponBase::AWeaponBase()
 {
@@ -126,6 +126,7 @@ bool AWeaponBase::setWeaponIsArmed(bool setArmed)
  */
 void AWeaponBase::Server_RequestWeaponHit_Implementation(AActor* HitActor)
 {
+	/*
 	if (!IsValid(HitActor))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("%s(%s): Server_RequestWeaponHit() - Hit Actor is INVALID"),
@@ -201,6 +202,7 @@ void AWeaponBase::Server_RequestWeaponHit_Implementation(AActor* HitActor)
 		// Ask the Vitality System to play hit effects
 		HitCharacterBase->VitalityWelfare->HitByWeapon();
 	}
+	*/
 }
 
 /** Used on the client making the attack. Performs sounds, animations and
@@ -272,10 +274,11 @@ void AWeaponBase::startStowEffects(float delayTime)
 	const FStWeaponData weaponData = getWeaponData();
 		
 	// Play draw sound after given delay
+	/*
 	const FStWeaponSoundData soundData = weaponData.WeaponSounds;
 	if (IsValid(soundData.UseSoundStowWeapon))
 		soundEffectWithDelay(soundData.UseSoundStowWeapon, soundData.DelaySoundStowWeapon);
-
+*/
 	// Stop associated particle effects
 	
 }
@@ -290,12 +293,13 @@ void AWeaponBase::startDrawEffects(float delayTime)
 	const FStWeaponData weaponData = getWeaponData();
 		
 	// Play draw sound after given delay
+	/*
 	const FStWeaponSoundData soundData = weaponData.WeaponSounds;
 	if (IsValid(soundData.UseSoundDrawWeapon))
 	{
 		soundEffectWithDelay(soundData.UseSoundDrawWeapon, soundData.DelaySoundDrawWeapon);
 	}
-
+*/
 }
 
 /** Plays the given effect based on the enum requested
@@ -304,6 +308,7 @@ void AWeaponBase::startDrawEffects(float delayTime)
  */
 void AWeaponBase::Server_PlayWeaponEffect_Implementation(const EWeaponEffectType WeaponEffect)
 {
+	/*
 	const FStWeaponData WeaponData = getWeaponData();
 	float WeaponSoundDelay;
 	USoundBase* WeaponSoundBase;
@@ -329,6 +334,7 @@ void AWeaponBase::Server_PlayWeaponEffect_Implementation(const EWeaponEffectType
 		return;
 	}
 	soundEffectWithDelay(WeaponSoundBase, WeaponSoundDelay);
+	*/
 }
 
 
@@ -535,6 +541,7 @@ bool AWeaponBase::doAttack()
 	if (UWeaponSystem::GetWeaponIsValid(weaponData))
 	{
 		// Weapon does damage?
+		/*
 		for (const FStWeaponDamageData iterDamageData : getWeaponData().DamageData)
 		{
 			if (iterDamageData.BaseDamage > 0) 
@@ -544,6 +551,7 @@ bool AWeaponBase::doAttack()
 				WeaponCanDoAttack = true;
 			}
 		}
+		*/
 	}
 
 	// Request weapon attack effect from server for multicast

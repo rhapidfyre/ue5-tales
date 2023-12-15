@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/SaveGame.h"
-#include "TalesDungeoneer/Characters/CharacterBase.h"
+#include "Characters/CharacterBase.h"
 #include "Delegates/Delegate.h"
 
 #include "StaticSaveData.generated.h"

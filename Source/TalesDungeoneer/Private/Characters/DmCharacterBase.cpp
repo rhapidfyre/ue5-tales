@@ -1,7 +1,7 @@
 ﻿// Copyright Take Five Games, LLC 2023 - All Rights Reserved
 
 
-#include "DmCharacterBase.h"
+#include "Characters/DmCharacterBase.h"
 
 
 // Sets default values

@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "TalesDungeoneer/lib/enums/WeaponEnums.h"
+#include "lib/enums/WeaponEnums.h"
 
 #include "WeaponComponent.generated.h"
 

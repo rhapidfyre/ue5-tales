@@ -1,7 +1,7 @@
 ﻿// Copyright Take Five Games, LLC 2023 - All Rights Reserved
 
+#include "Characters/Controllers/CombatAiControllerBase.h"
 
-#include "CombatAiControllerBase.h"
 
 float ACombatAiControllerBase::AddHateTowardsTarget(ACharacterBase* HateTarget, float HatePoints)
 {
@@ -102,57 +102,6 @@ void ACombatAiControllerBase::RememberDamage(AActor* DamagingActor, float Damage
 	}
 }
 
-void ACombatAiControllerBase::CheckCombatState(
-	ECombatState OldCombatState, ECombatState NewCombatState)
-{
-	const bool isHateListEmpty = _HateList.IsEmpty();
-
-	// Special behaviors for when the state makes specific changes
-	switch (OldCombatState)
-	{
-		
-		// NPC was engaged in combat
-		case ECombatState::ENGAGED:
-			break;
-		
-		// NPC was aware of a threat, or ending an engagement
-		case ECombatState::ALERT:
-			break;
-
-		// NPC was incapacitated
-		case ECombatState::INJURED:
-			break;
-		
-		// NPC was recovering from combat or alertness
-		case ECombatState::RECOVERY:
-			break;
-
-		// NPC was relaxed
-		case ECombatState::RELAXED:
-			break;
-		
-	default:
-		break;
-	}
-
-	// If the NPC has restarted combat, keep the damage memory and hate list
-	// If the NPC has returned to a recovery state, wipe memory lists
-	switch (NewCombatState)
-	{
-	case ECombatState::ALERT:
-		__fallthrough;
-	case ECombatState::ENGAGED:
-		return; // do nothing
-
-	default:
-		break; // wipe memory
-	}
-	
-	WipeHateListMemory();
-	_DamageList.Empty();
-	
-}
-
 /**
  * @brief Checks if the supplied target is on this actors hate list
  * @param TargetActor The actor being tested
@@ -186,21 +135,15 @@ void ACombatAiControllerBase::BeginPlay()
 	CharacterReference = Cast<ANpcCharacterBase>(GetPawn());
 	if (IsValid(CharacterReference))
 	{
-		UVitalityWelfareComponent* VitalityWelfare = CharacterReference->VitalityWelfare;
-		if (IsValid(VitalityWelfare))
-		{
-			if (!VitalityWelfare->OnDamageTaken.IsAlreadyBound(this, &ACombatAiControllerBase::RememberDamage))
-				VitalityWelfare->OnDamageTaken.AddDynamic(this, &ACombatAiControllerBase::RememberDamage);
-	
-			if (!VitalityWelfare->OnCombatStateChanged.IsAlreadyBound(this, &ACombatAiControllerBase::CheckCombatState))
-				VitalityWelfare->OnCombatStateChanged.AddDynamic(this, &ACombatAiControllerBase::CheckCombatState);
-		}
+
 	}
 
 	if (IsValid(AiPerception))
 	{
 		if (!AiPerception->OnTargetPerceptionUpdated.IsAlreadyBound(this, &ACombatAiControllerBase::TargetPerception))
-			 AiPerception->OnTargetPerceptionUpdated.AddDynamic(this, &ACombatAiControllerBase::TargetPerception);
+		{
+			AiPerception->OnTargetPerceptionUpdated.AddDynamic(this, &ACombatAiControllerBase::TargetPerception);
+		}
 	}
 }
 

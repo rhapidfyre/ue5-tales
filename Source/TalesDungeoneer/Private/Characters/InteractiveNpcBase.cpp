@@ -1,7 +1,7 @@
 ﻿// Copyright Take Five Games, LLC 2023 - All Rights Reserved
 
 
-#include "InteractiveNpcCharacterBase.h"
+#include "Characters/InteractiveNpcBase.h"
 
 #include "Perception/AISense_Sight.h"
 

@@ -1,9 +1,8 @@
 ﻿// Copyright Take Five Games, LLC 2023 - All Rights Reserved
 
 
-#include "StaticSaveData.h"
-#include "SavedCharacters.h"
-
+#include "Saves/StaticSaveData.h"
+#include "Saves/SavedCharacters.h"
 #include "Kismet/GameplayStatics.h"
 
 
@@ -36,8 +35,10 @@ void UGlobalSaveData::SetSavedCharacterNameList(TArray<FString> RestoredCharacte
 USavedCharacter* UGlobalSaveData::GetSavedCharacterData(FString SaveSlotName)
 {
 	if (SaveSlotName.IsEmpty())
+	{
 		return nullptr;
-	
+	}
+
 	// Loop through saved characters to find the requested save slot
 	for (FString TempSaveName : _CharacterNames)
 	{
@@ -47,7 +48,9 @@ USavedCharacter* UGlobalSaveData::GetSavedCharacterData(FString SaveSlotName)
 		if (IsValid(SaveReference))
 		{
 			if (SaveSlotName == SaveReference->SaveSlotName)
+			{
 				return SaveReference;
+			}
 		}
 		
 	}
@@ -77,7 +80,7 @@ void UGlobalSaveData::GetSavedCharacterDataAsync(FString SaveSlotName,
 		ACharacterBase* PlayerCharacter)
 {
 	FAsyncLoadGameFromSlotDelegate LoadDelegate;
-	LoadDelegate.BindUObject(PlayerCharacter, &ACharacterBase::LoadSaveData);
+	LoadDelegate.BindUObject(PlayerCharacter, &ACharacterBase::LoadCharacterData);
 	UGameplayStatics::AsyncLoadGameFromSlot(SaveSlotName, 0, LoadDelegate);
 }
 

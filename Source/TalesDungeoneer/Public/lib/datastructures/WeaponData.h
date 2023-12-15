@@ -5,7 +5,7 @@
 #include "PickupActorBase.h"
 #include "Engine/DataTable.h"
 #include "Engine/EngineTypes.h"
-#include "TalesDungeoneer/lib/enums/WeaponEnums.h"
+#include "lib/enums/WeaponEnums.h"
 
 #include "WeaponData.generated.h"
 

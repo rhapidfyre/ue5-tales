@@ -1,7 +1,7 @@
 ﻿// Copyright Take Five Games, LLC 2023 - All Rights Reserved
 
+#include "Gamemode/AdventureMode/TalesHudBase.h"
 
-#include "TalesHudBase.h"
 
 ATalesHudBase::ATalesHudBase()
 {

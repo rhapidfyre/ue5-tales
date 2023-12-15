@@ -1,5 +1,5 @@
 ﻿
-#include "GlobalData.h"
+#include "lib/datastructures/GlobalData.h"
 
 FString UGlobalData::GetAppVersion()
 {

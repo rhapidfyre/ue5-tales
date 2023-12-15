@@ -1,6 +1,6 @@
 ﻿// Copyright Take Five Games, LLC 2023 - All Rights Reserved
 
-#include "CreatorGameModeBase.h"
+#include "Gamemode/TitleScreen/CreatorGameModeBase.h"
 
 
 ACreatorGameModeBase::ACreatorGameModeBase()

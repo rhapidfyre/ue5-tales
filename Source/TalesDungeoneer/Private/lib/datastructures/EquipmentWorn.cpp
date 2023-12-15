@@ -1,11 +1,9 @@
 ﻿// Copyright Take Five Games, LLC 2023 - All Rights Reserved
 
+#include "lib/datastructures/EquipmentWorn.h"
 
-#include "EquipmentWorn.h"
-
-#include "lib/ItemData.h"
-#include "TalesDungeoneer/Characters/Components/MeshMergeComponent.h"
-#include "TalesDungeoneer/lib/GameplayTags.h"
+#include "Characters/Components/MeshMergeComponent.h"
+#include "lib/Tags/TalesGlobalTags.h"
 
 
 /**

@@ -1,6 +1,7 @@
 ﻿// Copyright Take Five Games, LLC 2023 - All Rights Reserved
 
-#include "TalesGlobalTags.h"
+#include "lib/Tags/TalesGlobalTags.h"
+
 
 UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race_Human,	"Character.Race.Human")
 UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race_Dwarf,	"Character.Race.Dwarf")

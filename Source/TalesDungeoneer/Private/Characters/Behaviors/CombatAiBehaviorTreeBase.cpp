@@ -1,7 +1,7 @@
 ﻿// Copyright Take Five Games, LLC 2023 - All Rights Reserved
 
+#include "Characters/Behaviors/CombatAiBehaviorTreeBase.h"
 
-#include "CombatAiBehaviorTreeBase.h"
 
 UCombatAiBehaviorTreeBase::UCombatAiBehaviorTreeBase()
 {

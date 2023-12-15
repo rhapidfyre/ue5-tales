@@ -24,8 +24,5 @@ protected:
 
 	virtual void OnConstruction(const FTransform& Transform) override;
 	virtual void BeginPlay() override;
-
-	virtual void LoadSaveData(const FString& SaveName,
-		const int32 UserIndex, USaveGame* SaveData) override;
 	
 };

@@ -1,7 +1,6 @@
 ﻿// Copyright Take Five Games, LLC 2023 - All Rights Reserved
 
-
-#include "CreatorPlayerStateBase.h"
+#include "Gamemode/TitleScreen/CreatorPlayerStateBase.h"
 
 
 //Class Methods

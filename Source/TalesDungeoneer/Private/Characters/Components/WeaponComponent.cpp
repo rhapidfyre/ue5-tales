@@ -1,15 +1,16 @@
 ﻿
 
-#include "WeaponComponent.h"
+#include "Characters/Components/WeaponComponent.h"
 
 #include "Components/AudioComponent.h"
-#include "TalesDungeoneer/Weapons/WeaponSystem.h"
+#include "Weapons/WeaponSystem.h"
 #include "Kismet/GameplayStatics.h"
 #include "Logging/StructuredLog.h"
 #include "GameFramework/Character.h"
-#include "TalesDungeoneer/Characters/CharacterBase.h"
+#include "Characters/CharacterBase.h"
 #include "Net/UnrealNetwork.h"
-#include "TalesDungeoneer/Weapons/WeaponBase.h"
+#include "Weapons/WeaponBase.h"
+
 
 float LocalPlayAnimMontage(ACharacter* characterReference, UAnimMontage* animMontage)
 {

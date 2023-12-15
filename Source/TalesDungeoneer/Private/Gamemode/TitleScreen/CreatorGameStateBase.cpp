@@ -1,10 +1,10 @@
 ﻿// Copyright Take Five Games, LLC 2023 - All Rights Reserved
 
 
-#include "CreatorGameStateBase.h"
+#include "Gamemode/TitleScreen/CreatorGameStateBase.h"
 
+#include "Characters/CharacterBase.h"
 #include "Kismet/GameplayStatics.h"
-#include "TalesDungeoneer/Characters/PlayerCharacterBase.h"
 
 ACreatorGameStateBase::ACreatorGameStateBase() {}
 
@@ -21,17 +21,22 @@ void ACreatorGameStateBase::BeginPlay()
  * @return True on success, false on failure
  */
 bool ACreatorGameStateBase::CreateNewCharacter(FString& SaveResponse, bool RunAsync)
-{	
-	if (CreateCharacterSaveIfNotExists())
+{
+	ACharacterBase* CharacterBase = Cast<ACharacterBase>(
+			UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+	if (IsValid(CharacterBase))
 	{
-		if (SaveCurrentCharacter(SaveResponse, RunAsync))
+		const FString SaveSlotName = CharacterBase->GetSafeCharacterName();
+		if (!UGameplayStatics::DoesSaveGameExist(SaveSlotName, 0))
 		{
-			return true;
+			CharacterBase->SaveCharacterData();
+		}
+		else
+		{
+			SaveResponse = "Name Already in Use";
+			return false;
 		}
 	}
-	else
-	{
-		SaveResponse = "Name Already in Use";
-	}
+	SaveResponse = "Invalid Character Entity";
 	return false;
 }

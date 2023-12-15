@@ -1,5 +1,6 @@
 ﻿
-#include "TalesPlayerHudBase.h"
+#include "Gamemode/AdventureMode/TalesPlayerHudBase.h"
+
 
 ATalesPlayerHudBase::ATalesPlayerHudBase()
 {

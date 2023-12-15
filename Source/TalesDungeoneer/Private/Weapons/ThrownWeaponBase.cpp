@@ -1,5 +1,6 @@
 ﻿
-#include "ThrownWeaponBase.h"
+#include "Weapons/ThrownWeaponBase.h"
+
 
 AThrownWeaponBase::AThrownWeaponBase()
 {

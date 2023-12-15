@@ -1,1 +1,2 @@
-﻿#include "GlobalEnums.h"
+﻿
+#include "lib/enums/GlobalEnums.h"

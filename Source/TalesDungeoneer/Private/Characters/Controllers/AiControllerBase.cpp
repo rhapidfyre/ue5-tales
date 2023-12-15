@@ -1,12 +1,11 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
-
-#include "AiControllerBase.h"
+#include "Characters/Controllers/AiControllerBase.h"
 
 #include "Perception/AISenseConfig.h"
 #include "Perception/AISenseConfig_Sight.h"
 #include "Perception/AISense_Sight.h"
-#include "TalesDungeoneer/Characters/NpcCharacterBase.h"
+#include "Characters/NpcCharacterBase.h"
 
 class ACharacterBase;
 // Sets default values
@@ -23,7 +22,7 @@ void AAiControllerBase::BeginPlay()
 	const ANpcCharacterBase* CharacterBase = Cast<ANpcCharacterBase>( GetCharacter() );
 	if (IsValid(CharacterBase))
 	{
-		 _PatrolArea = CharacterBase->GetNpcIsPatroller();
+
 	}
 }
 

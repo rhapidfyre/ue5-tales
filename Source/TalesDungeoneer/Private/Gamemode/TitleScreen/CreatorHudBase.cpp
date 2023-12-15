@@ -1,7 +1,6 @@
 ﻿// Copyright Take Five Games, LLC 2023 - All Rights Reserved
 
-
-#include "CreatorHudBase.h"
+#include "Gamemode/TitleScreen/CreatorHudBase.h"
 
 
 ACreatorHudBase::ACreatorHudBase()

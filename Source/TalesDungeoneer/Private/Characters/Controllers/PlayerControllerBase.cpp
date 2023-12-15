@@ -1,9 +1,9 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "PlayerControllerBase.h"
+#include "Characters/Controllers/PlayerControllerBase.h"
 
-#include "TalesDungeoneer/Characters/CharacterBase.h"
+#include "Characters/CharacterBase.h"
 
 // Sets default values
 APlayerControllerBase::APlayerControllerBase()
@@ -84,15 +84,7 @@ void APlayerControllerBase::HotkeyTriggered(UInputAction* HotkeyAction)
 		const ACharacterBase* ControlledCharacter = Cast<ACharacterBase>( GetCharacter() );
 		if (IsValid(ControlledCharacter))
 		{
-			if (IsValid(ControlledCharacter->AbilityComponent))
-			{
-				// Send hotkey to ability component for processing
-				ControlledCharacter->AbilityComponent->AbilityAction(HotkeyAction);
 
-				// Allow other scripts to hear the request
-				OnHotkeyTriggered.Broadcast(HotkeyAction);
-				
-			}
 		}
 	}
 }
@@ -104,10 +96,7 @@ void APlayerControllerBase::HotkeyTarget(UInputAction* HotkeyAction)
 		const ACharacterBase* ControlledCharacter = Cast<ACharacterBase>( GetCharacter() );
 		if (IsValid(ControlledCharacter))
 		{
-			if (IsValid(ControlledCharacter->AbilityComponent))
-			{
-				ControlledCharacter->AbilityComponent->SetTargetedActorByHotkey(HotkeyAction);
-			}
+
 		}
 	}
 }

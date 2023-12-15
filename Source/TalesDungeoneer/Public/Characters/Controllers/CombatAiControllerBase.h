@@ -2,9 +2,9 @@
 
 #pragma once
 
-#include "TalesDungeoneer/Characters/NpcCharacterBase.h"
-#include "TalesDungeoneer/Characters/Controllers/AiControllerBase.h"
-#include "TalesDungeoneer/lib/enums/GlobalEnums.h"
+#include "Characters/NpcCharacterBase.h"
+#include "Characters/Controllers/AiControllerBase.h"
+#include "lib/enums/GlobalEnums.h"
 #include "Delegates/Delegate.h"
 
 #include "CombatAiControllerBase.generated.h"

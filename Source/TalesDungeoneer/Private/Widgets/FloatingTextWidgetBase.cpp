@@ -1,13 +1,11 @@
 ﻿// Copyright Take Five Games, LLC 2023 - All Rights Reserved
 
+#include "Widgets/FloatingTextWidgetBase.h"
 
-#include "FloatingTextWidgetBase.h"
 
 void UFloatingTextWidgetBase::NativeConstruct()
 {
 	Super::NativeConstruct();
-	
-		
 }
 
 void UFloatingTextWidgetBase::NativeOnInitialized()

@@ -7,7 +7,7 @@
 #include "GameFramework/GameState.h"
 #include "GameFramework/SaveGame.h"
 #include "Delegates/Delegate.h"
-#include "TalesDungeoneer/Saves/StaticSaveData.h"
+#include "Saves/StaticSaveData.h"
 
 #include "CoreMinimal.h"
 #include "TalesGameStateBase.generated.h"
@@ -36,23 +36,12 @@ public: // methods
 
 	bool CheckIsPlayableClient() const;
 
-	UFUNCTION(BlueprintCallable) void SetIsCreatingCharacter(bool isCreating = true);
-	UFUNCTION(BlueprintPure) bool GetIsCreatingCharacter() const { return bIsCreating; }
+	UFUNCTION(BlueprintCallable)
+	void SetIsCreatingCharacter(bool isCreating = true);
+	
+	UFUNCTION(BlueprintPure)
+	bool GetIsCreatingCharacter() const { return bIsCreating; }
 
-	UFUNCTION(BlueprintCallable) const
-		FStCharacterRaces GetStartingRaceData(const ECharacterRace CharacterRace) const;
-	
-	UFUNCTION(BlueprintCallable) const
-	FStCharacterClasses GetStartingClassData(
-		ECharacterClass CharacterClass) const;
-	
-	UFUNCTION(BlueprintCallable)
-	TArray<FStStartingItem> GetStartingInventoryData(
-		const ECharacterRace CharacterRace, const ECharacterClass CharacterClass);
-	
-	UFUNCTION(BlueprintCallable)
-	TArray<FName> GetStartingAbilityData(const ECharacterClass CharacterClass);
-	
 	ATalesGameStateBase();
 	
 	UDataTable* GetNpcDataTable();
@@ -115,9 +104,6 @@ public: // methods
 
 	UFUNCTION(BlueprintCallable)
 	bool LoadSaveGameMeta(bool LoadAsync = true);
-	
-	UFUNCTION(BlueprintCallable)
-	bool LoadCharacter(FString SaveSlotName = "", bool LoadAsync = true);
 
 	/**
 	 *		OTHER METHODS
@@ -180,14 +166,9 @@ protected: // methods
 	void CharacterSaveLoaded(const FString& SlotName,
 		int32 UserIndex, USaveGame* LoadedGameData);
 
-
 	// Creates the save metadata file if it doesn't exist.
 	// Returns true if created, false otherwise.
 	bool CreateSaveGameIfNotExists();
-
-	// Creates the save data for the current character if it doesn't exist.
-	// Returns true if created, false otherwise.
-	bool CreateCharacterSaveIfNotExists();
 
 	// Performs an sync character data load, returning true on success
 	bool LoadCharacterSync(FString SaveSlotName = "");
@@ -203,11 +184,11 @@ protected: // methods
 
 	// Performs synchronous save of the currently active character
 	// Internally updates the save game meta file
-	bool SaveCharacterSync(const FString SaveSlotName);
+	bool SaveCharacterSync(const FString& SaveSlotName);
 
 	// Performs asynchronous save of the currently active character
 	// Internally updates the save game meta file
-	void SaveCharacterAsync(const FString SaveSlotName);
+	void SaveCharacterAsync(const FString& SaveSlotName);
 	
 	virtual void GetLifetimeReplicatedProps(
 		TArray<FLifetimeProperty> &OutLifetimeProps) const override;
@@ -223,13 +204,6 @@ private: // methods
 
 	// Loads the values from save metadata into memory (this object)
 	void Helper_LoadSavedValues(const UGlobalSaveData* SaveMeta);
-
-	// Sets the character save values from game
-	void Helper_SetCharacterValues(	const ACharacterBase* CharacterBase,
-		USaveGame* SaveData) const;
-
-	// Sets the character save values from game
-	void Helper_LoadCharacterValues(const FString SaveSlotName);
 
 	// Called when an asynchronous save has finished
 	UFUNCTION()	void SaveGameDelegate(const FString& SlotName,
@@ -313,7 +287,7 @@ private: // members
 	bool bSaveMetaIsReady = false;
 
 	// A TArray of SaveSlotName of saved characters
-	UPROPERTY()	TArray<FString> _SavedCharacters;
+	UPROPERTY()	TArray<FString> SavedCharacters_;
 
 	// Which character is currently selected, where -1
 	// indicates no character selected, or user is in the creator.

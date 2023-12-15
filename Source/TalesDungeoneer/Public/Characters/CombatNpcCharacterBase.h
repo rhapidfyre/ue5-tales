@@ -40,12 +40,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat NPC Settings")
 	float SynergyChance = 0.33;
 
-	UFUNCTION(BlueprintCallable)
-	virtual void PerformAttack(EWeaponSlots WeaponSlot) override;
-
 protected:
 
 	virtual void BeginPlay() override;
+
+	virtual void OnConstruction(const FTransform& Transform) override;
 
 	UFUNCTION()	virtual void ProcessPrimaryAttack();
 
