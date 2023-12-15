@@ -2,11 +2,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AbilitySystemComponent.h"
 #include "GameFramework/Character.h"
 #include "Delegates/Delegate.h"
 
 #include "InventoryComponent.h"
-#include "Components/WeaponComponent.h"
 #include "Components/MeshMergeComponent.h"
 
 #include "lib/datastructures/GlobalData.h"
@@ -194,6 +194,10 @@ public: // members
 	// TODO - Deprecate this & move it to Mesh Merge Component
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Character Settings") 
 	FSlateColor SkinColor;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UAbilitySystemComponent* AbilitySystemComponent = nullptr;
+	
 
 	// If true, character saves should only save server-side
 	// If false, character saves to the client who is controlling it

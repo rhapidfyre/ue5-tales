@@ -4,20 +4,14 @@
 #include "Characters/CharacterBase.h"
 
 #include "Net/UnrealNetwork.h"
-#include "EnhancedInputComponent.h"
-#include "EnhancedInputSubsystems.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "lib/datastructures/GlobalData.h"
 #include "Saves/SavedCharacters.h"
 #include "Gamemode/BaseFiles/TalesGameStateBase.h"
-#include "lib/enums/GlobalEnums.h"
-#include "Weapons/WeaponSystem.h"
 #include "Logging/StructuredLog.h"
-#include "Widgets/OverheadDataWidgetBase.h"
 
 // Sets default values
 ACharacterBase::ACharacterBase()
