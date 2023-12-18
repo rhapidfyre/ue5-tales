@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "Characters/CharacterBase.h"
+#include "Characters/CreatorCharacterBase.h"
 
 #include "CreatorGameModeBase.generated.h"
 
@@ -20,7 +20,7 @@ public:
 	ACreatorGameModeBase();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<ACharacterBase> BpCharacter = ACharacterBase::StaticClass();
+	TSubclassOf<ACharacterBase> BpCharacter = ACreatorCharacterBase::StaticClass();
 
 protected:
 	virtual void OnConstruction(const FTransform& Transform) override;

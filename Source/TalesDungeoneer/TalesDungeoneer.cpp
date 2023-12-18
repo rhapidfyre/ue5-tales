@@ -8,5 +8,4 @@ IMPLEMENT_PRIMARY_GAME_MODULE( FDefaultGameModuleImpl, TalesDungeoneer, "TalesDu
 DEFINE_LOG_CATEGORY(LogTales);
 DEFINE_LOG_CATEGORY(LogCharacterBase);
 DEFINE_LOG_CATEGORY(LogCombatSystem);
-DEFINE_LOG_CATEGORY(LogAbilitySystem);
  

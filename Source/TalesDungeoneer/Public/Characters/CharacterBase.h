@@ -9,7 +9,6 @@
 #include "InventoryComponent.h"
 #include "Components/MeshMergeComponent.h"
 
-#include "lib/datastructures/GlobalData.h"
 #include "Saves/SavedCharacters.h"
 
 #include "CharacterBase.generated.h"
@@ -102,6 +101,8 @@ public: // functions
 	UFUNCTION(BlueprintPure)
 	FString GetCharacterName() const { return CharacterName; }
 
+	// A safe character name is one with no spaces or special characters,
+	// useful for things like save file names.
 	UFUNCTION(BlueprintPure)
 	FString GetSafeCharacterName() const
 	{ return CharacterName.Replace(TEXT(" "), TEXT(""), ESearchCase::IgnoreCase); }	
@@ -156,7 +157,7 @@ public: // members
 	// The human-friendly name of the character
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,
 		Category = "Character Settings", ReplicatedUsing=OnRep_CharacterName)
-	FString CharacterName = "Unnamed";
+	FString CharacterName = "";
 
 	// The widget to display over the characters head
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Settings")

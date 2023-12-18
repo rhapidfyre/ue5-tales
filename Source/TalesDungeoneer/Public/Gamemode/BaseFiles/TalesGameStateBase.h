@@ -42,11 +42,13 @@ public: // methods
 	UFUNCTION(BlueprintPure)
 	bool GetIsCreatingCharacter() const { return bIsCreating; }
 
+	// Use for later
+	//UFUNCTION(BlueprintPure)
+	//int32 GetCurrentSaveUserIndex() const { return 0; }
+
 	ATalesGameStateBase();
 	
 	UDataTable* GetNpcDataTable();
-
-	FStNpcData GetNpcData(FName NpcName);
 
 	UFUNCTION(Server, Reliable, BlueprintCallable)
 	void Server_NewNotification(
@@ -111,7 +113,7 @@ public: // methods
 	
 	// Returns the current name of the save game meta file
 	UFUNCTION(BlueprintCallable)
-	FString GetSaveGameMetaName() const { return _SaveMetaName; };
+	FString GetSaveGameMetaName() const { return SaveMetaName_; };
 	
 	// Retrieves a USaveGame object with the current meta
 	UFUNCTION(BlueprintCallable) USaveGame* GetSaveGameMeta() const;
@@ -119,6 +121,9 @@ public: // methods
 	// Returns an array of all known saved character slot names
 	UFUNCTION(BlueprintCallable) TArray<FString> GetSavedCharacterSlotNames() const;
 
+	UFUNCTION(BlueprintPure)
+	int GetIndexOfSavedCharacter(const FString& SaveSlotName, int32 UserSaveIndex) const;
+	
 	/**
 	 * @brief Triggers 'LoadSaveData' delegate if/when a save is located (async)
 	 * @param SaveSlotName The FName of the saved character slot being requested
@@ -176,7 +181,7 @@ protected: // methods
 	// Performs an async character data load, calling CharacterLoaded when done
 	void LoadCharacterAsync(FString SaveSlotName = "");
 
-	// Performs a synch character data load, returning true on success
+	// Performs a sync character data load, returning true on success
 	bool LoadSaveGameMetaSync();
 	
 	// Performs an async metadata load, calling SaveGameMetaLoaded when done
@@ -275,11 +280,14 @@ public: // members
 		EEquipmentSlotType::WAIST, EEquipmentSlotType::LEGS,
 		EEquipmentSlotType::FEET, EEquipmentSlotType::COSMETIC
 	};
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bSavesOnServer = false;
 	
 private: // members
 
 	// The name of the meta file
-	UPROPERTY() FString _SaveMetaName = "metadata";
+	UPROPERTY() FString SaveMetaName_ = "metadata";
 
 	UPROPERTY(Replicated) bool bIsCreating = false;
 
@@ -291,7 +299,7 @@ private: // members
 
 	// Which character is currently selected, where -1
 	// indicates no character selected, or user is in the creator.
-	UPROPERTY()	int _SelectedCharacter = -1;
+	UPROPERTY()	int SelectedCharacter_ = -1;
 
 	UFUNCTION() void OnRep_CheatMode(bool OldState);
 	UPROPERTY(Replicated, ReplicatedUsing=OnRep_CheatMode)

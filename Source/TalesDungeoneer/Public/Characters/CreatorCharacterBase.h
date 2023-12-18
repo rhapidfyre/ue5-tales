@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "CoreMinimal.h"
 #include "PlayerCharacterBase.h" // Includes core and actor files
 
 #include "CreatorCharacterBase.generated.h"
@@ -20,9 +21,14 @@ public: // functions
 	
 	ACreatorCharacterBase();
 
-protected:
+	UFUNCTION(BlueprintCallable)
+	bool FinishCreation() { return CreateCharacter(); }
 
-	virtual void OnConstruction(const FTransform& Transform) override;
-	virtual void BeginPlay() override;
+	virtual bool CreateCharacter();
+
+private:
+
+	FString NewSaveSlotName_ = "";
+	int32  NewSaveUserIndex_ = 0;
 	
 };

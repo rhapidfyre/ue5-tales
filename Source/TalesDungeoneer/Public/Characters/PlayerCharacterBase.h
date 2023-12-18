@@ -3,9 +3,12 @@
 
 #pragma once
 
-#include "CharacterBase.h" // Includes core and actor files
+#include "CoreMinimal.h"
+#include "CharacterBase.h"
 #include "InputAction.h"
 #include "InputActionValue.h"
+
+#include "lib/datastructures/GlobalData.h"
 
 #include "PlayerCharacterBase.generated.h"
 
@@ -33,7 +36,7 @@ public: // functions
 	virtual bool SaveCharacterData() override;
 	virtual void LoadCharacterData(
 		const FString& SaveSlotName, const int32 UserIndex, USaveGame* SaveGame) override;
-
+	
 	UFUNCTION() void AwaitGameState();
 	
 	/** MappingContext */
@@ -68,6 +71,9 @@ public: // functions
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Character Input Settings")
 	UInputAction* SecondaryInputAction = nullptr;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString CharacterSaveFolder = "Characters/";
+	
 protected:
 
 	UFUNCTION()
@@ -78,8 +84,6 @@ protected:
 
 	// Called for looking input
 	void Look(const FInputActionValue& Value);
-
-	virtual void OnConstruction(const FTransform& Transform) override;
 	
 	virtual void BeginPlay() override;
 
@@ -95,7 +99,7 @@ protected:
 	
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
+	
 private:
 	bool	bHasInitialized	= false;
 	FString SaveSlotName_	= "";

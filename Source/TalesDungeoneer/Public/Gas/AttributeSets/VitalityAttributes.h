@@ -154,7 +154,7 @@ public:
 	ATTRIBUTE_ACCESSORS(UVitalityAttributes, LuckyChance);
 
 	UPROPERTY(BlueprintReadOnly, Category = "Damage Attributes",
-		ReplicatedUsing=OnRep_DamageAdd, Meta = (AllowPrivateAccess = true))
+		ReplicatedUsing=OnRep_DamageModifier, Meta = (AllowPrivateAccess = true))
 	FGameplayAttributeData DamageModifier;
 	ATTRIBUTE_ACCESSORS(UVitalityAttributes, DamageModifier);
 

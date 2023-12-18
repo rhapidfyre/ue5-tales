@@ -12,5 +12,7 @@ void ACreatorGameModeBase::OnConstruction(const FTransform& Transform)
 {
 	Super::OnConstruction(Transform);
 	if (IsValid(BpCharacter))
+	{
 		DefaultPawnClass = BpCharacter;
+	}
 }

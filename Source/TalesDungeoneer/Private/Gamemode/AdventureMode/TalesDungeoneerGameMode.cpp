@@ -14,5 +14,7 @@ void ATalesDungeoneerGameMode::OnConstruction(const FTransform& Transform)
 {
 	Super::OnConstruction(Transform);
 	if (IsValid(DefaultCharacter))
+	{
 		DefaultPawnClass = DefaultCharacter;
+	}
 }

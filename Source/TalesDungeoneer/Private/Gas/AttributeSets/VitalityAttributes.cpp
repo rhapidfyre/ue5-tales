@@ -5,6 +5,7 @@
 #include "Gas/Contexts/VitalityEffectContext.h"
 
 #include "Logging/StructuredLog.h"
+#include "Net/UnrealNetwork.h"
 
 
 UE_DEFINE_GAMEPLAY_TAG(TAG_Damage_Flag_IgnoreArmor, "Damage.Flag.IgnoreArmor")
@@ -51,22 +52,29 @@ void UVitalityAttributes::PreAttributeChange(const FGameplayAttribute& Attribute
 void UVitalityAttributes::ClampAttributeOnChange(const FGameplayAttribute& Attribute, float& NewValue) const
 {
 	float maxAttributeValue;
-	switch(Attribute)
+	if (GetCurrentArmorAttribute() == Attribute)
 	{
-	case GetCurrentArmorClassAttribute():
-		maxAttributeValue = GetMaximumArmorClass();
-		break;
-	case GetCurrentArmorAttribute():
 		maxAttributeValue = GetMaximumArmor();
-		break;
-	case GetCurrentHungerAttribute():
+	}
+	else if (GetCurrentArmorClassAttribute() == Attribute)
+	{
+		maxAttributeValue = GetMaximumArmorClass();
+	}
+	else if (GetCurrentHungerAttribute() == Attribute)
+	{
 		maxAttributeValue = GetMaximumHunger();
-		break;
-	case GetCurrentHydrationAttribute():
+	}
+	else if (GetCurrentHydrationAttribute() == Attribute)
+	{
 		maxAttributeValue = GetMaximumHydration();
-		break;
-	default:
-		return; // Do not perform clamping
+	}
+	else if (GetCurrentArmorClassAttribute() == Attribute)
+	{
+		maxAttributeValue = GetMaximumArmor();
+	}
+	else
+	{
+		return;
 	}
 	NewValue = FMath::Clamp(NewValue, 0.f, maxAttributeValue);
 }
@@ -199,7 +207,6 @@ void UVitalityAttributes::PostGameplayEffectExecute(const FGameplayEffectModCall
 ////////////////////////////////////////////////////////////////////////////////
 //	REPLICATION
 ////////////////////////////////////////////////////////////////////////////////
-
 
 void UVitalityAttributes::OnRep_CurrentHealth(const FGameplayAttributeData& OldData)
 {
@@ -430,4 +437,36 @@ void UVitalityAttributes::OnRep_Ammunition(const FGameplayAttributeData& OldData
 		GetName(), GetOwningActor()->HasAuthority()?"SRV":"CLI",
 		oldValue, newValue);
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UVitalityAttributes, Ammunition, OldData);
+}
+
+
+void UVitalityAttributes::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	// Vitality Attributes
+	DOREPLIFETIME_CONDITION_NOTIFY(UVitalityAttributes, CurrentHealth,		COND_None, 		REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UVitalityAttributes, CurrentArmor,		COND_None, 		REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UVitalityAttributes, CurrentArmorClass,	COND_None, 		REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UVitalityAttributes, CurrentMagic,		COND_None, 		REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UVitalityAttributes, CurrentStamina,		COND_None, 		REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UVitalityAttributes, CurrentHunger,		COND_OwnerOnly, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UVitalityAttributes, CurrentHydration,	COND_OwnerOnly, REPNOTIFY_Always);
+
+	// Attribute Maximums
+	DOREPLIFETIME_CONDITION_NOTIFY(UVitalityAttributes, MaximumHealth,		COND_None, 		REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UVitalityAttributes, MaximumArmor,		COND_None, 		REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UVitalityAttributes, MaximumArmorClass,	COND_None, 		REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UVitalityAttributes, MaximumMagic,		COND_None, 		REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UVitalityAttributes, MaximumStamina,		COND_None, 		REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UVitalityAttributes, MaximumHunger,		COND_OwnerOnly, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UVitalityAttributes, MaximumHydration,	COND_OwnerOnly, REPNOTIFY_Always);
+	
+	// Damage Attributes
+	DOREPLIFETIME_CONDITION_NOTIFY(UVitalityAttributes, CriticalChance,		COND_OwnerOnly, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UVitalityAttributes, CriticalMultiplier, COND_OwnerOnly, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UVitalityAttributes, LuckyChance,		COND_OwnerOnly, REPNOTIFY_Always);
+
+	// Ammo Count
+	DOREPLIFETIME_CONDITION_NOTIFY(UVitalityAttributes, Ammunition, COND_None, REPNOTIFY_Always);
 }

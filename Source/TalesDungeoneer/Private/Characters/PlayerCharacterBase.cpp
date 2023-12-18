@@ -26,21 +26,33 @@ APlayerCharacterBase::APlayerCharacterBase()
 bool APlayerCharacterBase::SaveCharacterData()
 {
 	USaveGame* SaveData;
-	if (!UGameplayStatics::DoesSaveGameExist(SaveSlotName_, SaveUserIndex_))
+	if (!UGameplayStatics::DoesSaveGameExist(CharacterSaveFolder + SaveSlotName_, SaveUserIndex_))
 	{
-		// If the save slot is empty, do nothing. Character must be loaded first.
+		// If the character's name is set, then this is a new character being created
+		// If it is not set, then the character is waiting to be loaded or created
+		if (GetSafeCharacterName().IsEmpty())
+		{
+			UE_LOGFMT(LogTemp, Warning,
+				"{CharacterName}({Sv}): Unable to create new character. Character has no name set.",
+				GetName(), HasAuthority()?"SV":"CL");
+			return false;	
+		}
+		
+		
+		SaveSlotName_ = GetSafeCharacterName();
 		if (SaveSlotName_.IsEmpty())
 		{
 			UE_LOGFMT(LogTemp, Warning,
 				"{CharacterName}({Sv}): Unable to save character. Character must be loaded first.",
-				GetName(), HasAuthority()?"SV":"CL", SaveSlotName_, SaveUserIndex_);
+				GetName(), HasAuthority()?"SV":"CL");
 			return false;
 		}
+		
 		SaveData = UGameplayStatics::CreateSaveGameObject( USavedCharacter::StaticClass() );
 	}
 	else
 	{
-		SaveData = UGameplayStatics::LoadGameFromSlot(SaveSlotName_, SaveUserIndex_);
+		SaveData = UGameplayStatics::LoadGameFromSlot(CharacterSaveFolder + SaveSlotName_, SaveUserIndex_);
 	}
 
 	if (!IsValid(SaveData))
@@ -93,7 +105,7 @@ bool APlayerCharacterBase::SaveCharacterData()
 			"{CharacterName}({Sv}): Successfully saved character to '{SaveName}({Index})'",
 			GetName(), HasAuthority()?"SV":"CL", SaveSlotName_, SaveUserIndex_);
 		return UGameplayStatics::SaveGameToSlot(CharacterSave,
-					SaveSlotName_, SaveUserIndex_);
+					CharacterSaveFolder + SaveSlotName_, SaveUserIndex_);
 	}
 	UE_LOGFMT(LogTemp, Warning,
 		"{CharacterName}({Sv}): Save '{SaveName}({Index})' found, but it is not a character save",
@@ -110,12 +122,12 @@ void APlayerCharacterBase::LoadCharacterData(
 {
 	Super::LoadCharacterData(SaveSlotName, UserIndex, SaveGame);
 	const bool isSaveValid = IsValid(SaveGame);
-	if (UGameplayStatics::DoesSaveGameExist(SaveSlotName, UserIndex) || isSaveValid)
+	if (UGameplayStatics::DoesSaveGameExist(CharacterSaveFolder + SaveSlotName, UserIndex) || isSaveValid)
 	{
 		SaveSlotName_	= SaveSlotName;
 		SaveUserIndex_	= UserIndex;
 		USaveGame* SaveData = isSaveValid ? SaveGame :
-			UGameplayStatics::LoadGameFromSlot(SaveSlotName_, SaveUserIndex_);
+			UGameplayStatics::LoadGameFromSlot(CharacterSaveFolder + SaveSlotName_, SaveUserIndex_);
 		
 		const USavedCharacter* CharacterData = Cast<USavedCharacter>( SaveData );
 		if (IsValid(CharacterData))
@@ -171,10 +183,10 @@ void APlayerCharacterBase::AwaitGameState()
 			
 		}
 		const FString SaveSlotName = TalesGameState->GetSelectedCharacterSaveSlotName();
-		if (UGameplayStatics::DoesSaveGameExist(SaveSlotName, 0))
+		if (UGameplayStatics::DoesSaveGameExist(CharacterSaveFolder + SaveSlotName, 0))
 		{
 			USavedCharacter* SavedCharacter = Cast<USavedCharacter>(
-				UGameplayStatics::LoadGameFromSlot(SaveSlotName, 0));
+				UGameplayStatics::LoadGameFromSlot(CharacterSaveFolder + SaveSlotName, 0));
 			if (IsValid(SavedCharacter))
 			{
 				UE_LOGFMT(LogTemp, Display,
@@ -217,11 +229,6 @@ void APlayerCharacterBase::HotkeyTriggered(UInputAction* HotkeyAction)
 		GetName(), HasAuthority()?"SV":"CL", HotkeyAction->GetName());
 }
 
-void APlayerCharacterBase::OnConstruction(const FTransform& Transform)
-{
-	Super::OnConstruction(Transform);
-}
-
 void APlayerCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
@@ -237,40 +244,43 @@ void APlayerCharacterBase::BeginPlay()
 		}
 	}
 	
-	if ((!HasAuthority() && !bSavesOnServer) || (HasAuthority() && bSavesOnServer))
+	if ((HasAuthority() && !bSavesOnServer) || (!HasAuthority() && bSavesOnServer))
 	{
-		const AGameStateBase* GameStateBase = GetWorld()->GetGameState();
-		const ATalesGameStateBase* TalesGameState = Cast<ATalesGameStateBase>(GameStateBase);
-		if (IsValid(TalesGameState))
+		const ENetMode netMode = GetNetMode();
+		if (netMode != NM_ListenServer && netMode != NM_Standalone)
 		{
-			// Run async initialization of game state to reload character data
 			UE_LOGFMT(LogTemp, Display,
-				"{CharacterName}({Sv}): Requesting Async restoration of character data.",
-				GetName(), HasAuthority()?"SV":"CL");
+				"{CharacterName}({Sv}): Character restoration criteria not met. "
+				"({SaveType})", GetName(), HasAuthority()?"SV":"CL",
+				bSavesOnServer ? "Saves Serverside" : "Saves on Client");
+			return;
+		}
+	}
+	
+	const AGameStateBase* GameStateBase = GetWorld()->GetGameState();
+	const ATalesGameStateBase* TalesGameState = Cast<ATalesGameStateBase>(GameStateBase);
+	if (IsValid(TalesGameState))
+	{
+		// Run async initialization of game state to reload character data
+		UE_LOGFMT(LogTemp, Display,
+			"{CharacterName}({Sv}): Requesting Async restoration of character data.",
+			GetName(), HasAuthority()?"SV":"CL");
 
-			SaveSlotName_	= TalesGameState->GetSelectedCharacterSaveSlotName();
-			SaveUserIndex_	= 0;
-			
-			FTimerHandle TimerReference;
-			FTimerDelegate TimerDelegate;
-			TimerDelegate.BindUObject(this, &APlayerCharacterBase::AwaitGameState);
-			GetWorld()->GetTimerManager().SetTimer(TimerReference, TimerDelegate,
-				1, false);
-		}
-		else
-		{
-			UE_LOGFMT(LogTemp, Error,
-				"{CharacterName}({Sv}): Unable to restore character save data. "
-				"GameState is not of type ATalesGameStateBase*",
-				GetName(), HasAuthority()?"SV":"CL");
-		}
+		SaveSlotName_	= TalesGameState->GetSelectedCharacterSaveSlotName();
+		SaveUserIndex_	= 0;
+		
+		FTimerHandle TimerReference;
+		FTimerDelegate TimerDelegate;
+		TimerDelegate.BindUObject(this, &APlayerCharacterBase::AwaitGameState);
+		GetWorld()->GetTimerManager().SetTimer(TimerReference, TimerDelegate,
+			1, false);
 	}
 	else
 	{
-		UE_LOGFMT(LogTemp, Display,
-			"{CharacterName}({Sv}): Character restoration criteria not met. "
-			"({SaveType})", GetName(), HasAuthority()?"SV":"CL",
-			bSavesOnServer ? "Saves Serverside" : "Saves on Client");
+		UE_LOGFMT(LogTemp, Error,
+			"{CharacterName}({Sv}): Unable to restore character save data. "
+			"GameState is not of type ATalesGameStateBase*",
+			GetName(), HasAuthority()?"SV":"CL");
 	}
 	
 	OnPlayerJoined.Broadcast();

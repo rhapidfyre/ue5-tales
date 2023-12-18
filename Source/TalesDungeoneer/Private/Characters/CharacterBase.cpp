@@ -127,19 +127,29 @@ void ACharacterBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	const bool doServerSave =	HasAuthority() &&   bSavesOnServer;
 	const bool doClientSave = ! HasAuthority() && ! bSavesOnServer;
-	if ( doServerSave || doClientSave )
+	
+	if ( !doServerSave || !doClientSave )
 	{
-		if (IsValid(GetWorld()))
+		// Always allow save if this client is the listen server or standalone
+		const ENetMode netMode = GetNetMode();
+		if (netMode != NM_ListenServer && netMode != NM_Standalone)
 		{
-			ATalesGameStateBase* TalesGameState = Cast<ATalesGameStateBase>(GetWorld()->GetGameState());
-			if (IsValid(TalesGameState))
-			{
-				FString SaveResponse;
-				TalesGameState->SaveCurrentCharacter(SaveResponse, false);
-				UE_LOG(LogTemp, Display, TEXT("Character Save: %s"), *SaveResponse);
-			}
+			Super::EndPlay(EndPlayReason);
+			return;
 		}
 	}
+	
+	if (IsValid(GetWorld()))
+	{
+		ATalesGameStateBase* TalesGameState = Cast<ATalesGameStateBase>(GetWorld()->GetGameState());
+		if (IsValid(TalesGameState))
+		{
+			FString SaveResponse;
+			TalesGameState->SaveCurrentCharacter(SaveResponse, false);
+			UE_LOG(LogTemp, Display, TEXT("Character Save: %s"), *SaveResponse);
+		}
+	}
+	
 	Super::EndPlay(EndPlayReason);
 }
 

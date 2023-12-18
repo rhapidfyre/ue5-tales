@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "Characters/CharacterBase.h"
+#include "Characters/PlayerCharacterBase.h"
 
 #include "TalesDungeoneerGameMode.generated.h"
 
@@ -17,7 +17,7 @@ public:
 	ATalesDungeoneerGameMode();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<ACharacterBase> DefaultCharacter = ACharacterBase::StaticClass();
+	TSubclassOf<ACharacterBase> DefaultCharacter = APlayerCharacterBase::StaticClass();
 	
 protected:
 	virtual void OnConstruction(const FTransform& Transform) override;
