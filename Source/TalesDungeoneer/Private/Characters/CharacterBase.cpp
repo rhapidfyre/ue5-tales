@@ -3,6 +3,7 @@
 
 #include "Characters/CharacterBase.h"
 
+#include "AbilitySystemComponent.h"
 #include "Net/UnrealNetwork.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -11,6 +12,8 @@
 #include "lib/datastructures/GlobalData.h"
 #include "Saves/SavedCharacters.h"
 #include "Gamemode/BaseFiles/TalesGameStateBase.h"
+#include "Gas/Abilities/TalesGameplayAbility.h"
+
 #include "Logging/StructuredLog.h"
 
 // Sets default values
@@ -52,6 +55,10 @@ ACharacterBase::ACharacterBase()
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
+
+	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>("AbilitySystemComponent");
+	AbilitySystemComponent->SetIsReplicated(true);
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 
 	// Setup listeners for when the inventory changes
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
@@ -113,6 +120,68 @@ void ACharacterBase::OnConstruction(const FTransform& Transform)
 		EEquipmentSlotType::FEET,			EEquipmentSlotType::COSMETIC
 	};
 	
+}
+
+void ACharacterBase::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+	if (!IsValid(AbilitySystemComponent))
+	{
+		return;
+	}
+	AbilitySystemComponent->InitAbilityActorInfo(this, this);
+	InitializeAbilities();
+	InitializeEffects();
+}
+
+void ACharacterBase::InitializeAbilities()
+{
+	// Only run on server
+	if (!HasAuthority() || !AbilitySystemComponent)
+	{
+		return;
+	}
+
+	for (TSubclassOf<UTalesGameplayAbility>& Ability : DefaultAbilities)
+	{
+		AbilitySystemComponent->GiveAbility(
+			FGameplayAbilitySpec(Ability, 1,
+				static_cast<int32>(Ability.GetDefaultObject()->AbilityInputID), this));
+	}
+}
+
+void ACharacterBase::InitializeEffects()
+{
+	if (!AbilitySystemComponent)
+	{
+		return;
+	}
+
+	FGameplayEffectContextHandle EffectContext = AbilitySystemComponent->MakeEffectContext();
+	EffectContext.AddSourceObject(this);
+
+	for (const TSubclassOf<UGameplayEffect>& DefaultEffect : DefaultEffects)
+	{
+		FGameplayEffectSpecHandle SpecHandle =
+			AbilitySystemComponent->MakeOutgoingSpec(DefaultEffect, 1, EffectContext);
+		
+		if (SpecHandle.IsValid())
+		{
+			FActiveGameplayEffectHandle GEHandle =
+				AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
+		}
+	}
+}
+
+void ACharacterBase::OnRep_PlayerState()
+{
+	Super::OnRep_PlayerState();
+	if (!IsValid(AbilitySystemComponent))
+	{
+		return;
+	}
+	AbilitySystemComponent->InitAbilityActorInfo(this, this);
+	InitializeEffects();
 }
 
 void ACharacterBase::CharacterRestoredFromSave(const FString SaveSlotName)
@@ -204,6 +273,11 @@ void ACharacterBase::SetCharacterName(FString ProposedName)
 	UE_LOGFMT(LogTemp, Log, "{CharName}({Sv}): Character Name Changed. {OldName} -> {NewName}",
 		GetName(), HasAuthority()?"SV":"CL", GetCharacterName(), ProposedName);
 	CharacterName = ProposedName;
+}
+
+UAbilitySystemComponent* ACharacterBase::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
 }
 
 void ACharacterBase::Client_CharacterRestored_Implementation(const FString& SaveSlotName)

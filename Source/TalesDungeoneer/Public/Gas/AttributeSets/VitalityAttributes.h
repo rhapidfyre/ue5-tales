@@ -4,32 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "AttributeSet.h"
-#include "Gas/AttributeHelpers.h"	// Attribute Accessors
 #include "Delegates/Delegate.h"
-#include "NativeGameplayTags.h"
+#include "../AttributeHelpers.h"
 
 #include "VitalityAttributes.generated.h"
-
-
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Damage_Flag_IgnoreArmor)
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Damage_Flag_IgnoreHealth)
-
-
-DECLARE_MULTICAST_DELEGATE_FourParams(FOnAttributeEvent,
-	AActor*,						// Effect Instigator (what called the effect)
-	AActor*,						// Effect Causer (what dun it)
-	const FGameplayEffectSpec&, 	// the effect spec
-	float							// Effect magnitude
-	);
-
-DECLARE_MULTICAST_DELEGATE_SixParams(FOnAttributeDamageEvent,
-	AActor*,						// Effect Instigator (what called the effect)
-	AActor*,						// Effect Causer (what dun it)
-	const FGameplayTagContainer&,	// Tag Container
-	float,							// Effect magnitude
-	bool,							// bIsCriticalHit
-	bool							// bIsLuckyHit
-	);
 
 
 /**
@@ -45,18 +23,8 @@ public:
 	
 	UVitalityAttributes();
 
-	mutable FOnAttributeEvent OnHealthDepleted;		// Called when health hits zero
-	mutable FOnAttributeEvent OnArmorDepleted;  	// Called when armor hits zero
-	mutable FOnAttributeDamageEvent OnDamageTaken;	// Called whenever damage is dealt
-
-	UFUNCTION(BlueprintCallable)
-	bool GetIsDead() const { return bDead; }
-
 	UFUNCTION(BlueprintPure)
-	float GetDeathHealthValue() const { return GetMaximumHealth()*(DeathPercentage); }
-	
-	UFUNCTION(BlueprintCallable)
-	bool GetIsUnconscious() const { return bHealthDepleted && !bDead; }
+	float GetDeathHealthValue() const { return GetMaximumHealth() * DeathPercentage; }
 	
 	// If health falls this far below zero (Percentage of Max Health)
 	// then the attribute system flags itself as 'bDead'
@@ -132,36 +100,6 @@ public:
 		ReplicatedUsing=OnRep_MaximumHydration, Meta = (AllowPrivateAccess = true))
 	FGameplayAttributeData MaximumHydration;
 	ATTRIBUTE_ACCESSORS(UVitalityAttributes, MaximumHydration);
-	
-	UPROPERTY(BlueprintReadOnly, Category = "Damage Attributes",
-		ReplicatedUsing=OnRep_IncomingDamage, Meta = (AllowPrivateAccess = true))
-	FGameplayAttributeData IncomingDamage;
-	ATTRIBUTE_ACCESSORS(UVitalityAttributes, IncomingDamage);
-	
-	UPROPERTY(BlueprintReadOnly, Category = "Damage Attributes",
-		ReplicatedUsing=OnRep_CriticalChance, Meta = (AllowPrivateAccess = true))
-	FGameplayAttributeData CriticalChance;
-	ATTRIBUTE_ACCESSORS(UVitalityAttributes, CriticalChance);
-	
-	UPROPERTY(BlueprintReadOnly, Category = "Damage Attributes",
-		ReplicatedUsing=OnRep_CriticalMultiplier, Meta = (AllowPrivateAccess = true))
-	FGameplayAttributeData CriticalMultiplier;
-	ATTRIBUTE_ACCESSORS(UVitalityAttributes, CriticalMultiplier);
-	
-	UPROPERTY(BlueprintReadOnly, Category = "Damage Attributes",
-		ReplicatedUsing=OnRep_LuckyChance, Meta = (AllowPrivateAccess = true))
-	FGameplayAttributeData LuckyChance;
-	ATTRIBUTE_ACCESSORS(UVitalityAttributes, LuckyChance);
-
-	UPROPERTY(BlueprintReadOnly, Category = "Damage Attributes",
-		ReplicatedUsing=OnRep_DamageModifier, Meta = (AllowPrivateAccess = true))
-	FGameplayAttributeData DamageModifier;
-	ATTRIBUTE_ACCESSORS(UVitalityAttributes, DamageModifier);
-
-	UPROPERTY(BlueprintReadOnly, Category = "Damage Attributes",
-		ReplicatedUsing=OnRep_DamageMultiplier, Meta = (AllowPrivateAccess = true))
-	FGameplayAttributeData DamageMultiplier;
-	ATTRIBUTE_ACCESSORS(UVitalityAttributes, DamageMultiplier);
 
 	UPROPERTY(BlueprintReadOnly, Category = "Damage Attributes",
 		ReplicatedUsing=OnRep_Ammunition, Meta = (AllowPrivateAccess = true))
@@ -178,9 +116,6 @@ protected:
 
 	virtual void ClampAttributeOnChange(
 		const FGameplayAttribute& Attribute, float& NewValue) const;
-
-	virtual void PostGameplayEffectExecute(
-		const FGameplayEffectModCallbackData& Data) override;
 
 	UFUNCTION()
 	virtual void OnRep_CurrentHealth(const FGameplayAttributeData& OldData);
@@ -225,31 +160,5 @@ protected:
 	virtual void OnRep_MaximumHydration(const FGameplayAttributeData& OldData);
 
 	UFUNCTION()
-	virtual void OnRep_IncomingDamage(const FGameplayAttributeData& OldData);
-
-	UFUNCTION()
-	virtual void OnRep_CriticalChance(const FGameplayAttributeData& OldData);
-
-	UFUNCTION()
-	virtual void OnRep_CriticalMultiplier(const FGameplayAttributeData& OldData);
-
-	UFUNCTION()
-	virtual void OnRep_LuckyChance(const FGameplayAttributeData& OldData);
-
-	UFUNCTION()
-	virtual void OnRep_DamageModifier(const FGameplayAttributeData& OldData);
-
-	UFUNCTION()
-	virtual void OnRep_DamageMultiplier(const FGameplayAttributeData& OldData);
-
-	UFUNCTION()
 	virtual void OnRep_Ammunition(const FGameplayAttributeData& OldData);
-
-private:
-
-	bool bDead			 = false;
-	bool bHealthDepleted = false;
-	bool bArmorDepleted  = false;
-	bool bStarving       = false;
-	bool bDehydrated     = false;
 };

@@ -8,8 +8,6 @@
 #include "InputAction.h"
 #include "InputActionValue.h"
 
-#include "lib/datastructures/GlobalData.h"
-
 #include "PlayerCharacterBase.generated.h"
 
 
@@ -86,6 +84,8 @@ protected:
 	void Look(const FInputActionValue& Value);
 	
 	virtual void BeginPlay() override;
+
+	virtual void BindInput();
 
 	// Used to reinitialize the character with client's data
 	UFUNCTION(Server, Reliable)

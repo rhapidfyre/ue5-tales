@@ -3,12 +3,15 @@
 
 #include "Characters/PlayerCharacterBase.h"
 
+#include "AbilitySystemComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "Kismet/GameplayStatics.h"
 #include "Logging/StructuredLog.h"
 #include "Gamemode/BaseFiles/TalesGameStateBase.h"
+#include "lib/datastructures/GlobalData.h"
 #include "Saves/SavedCharacters.h"
+#include "TalesDungeoneer/TalesDungeoneer.h"
 
 
 // Sets default values
@@ -286,6 +289,26 @@ void APlayerCharacterBase::BeginPlay()
 	OnPlayerJoined.Broadcast();
 }
 
+void APlayerCharacterBase::BindInput()
+{
+	if (bIsInputBound || !IsValid(AbilitySystemComponent) || !IsValid(InputComponent))
+	{
+		return;
+	}
+
+	FTopLevelAssetPath EnumAssetPath = FTopLevelAssetPath(
+		FName("/Script/TalesDungeoneer"), FName("EAbilityInputID"));
+	
+	GetAbilitySystemComponent()->BindAbilityActivationToInputComponent(InputComponent,
+		FGameplayAbilityInputBinds(
+			FString("Confirm"),
+			FString("Cancel"),
+			EnumAssetPath,
+		static_cast<int32>(EAbilityInputID::Confirm),
+		static_cast<int32>(EAbilityInputID::Cancel)));
+	bIsInputBound = true;
+}
+
 void APlayerCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
@@ -307,6 +330,9 @@ void APlayerCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInpu
 		ETriggerEvent::Triggered, this, &APlayerCharacterBase::Look);
 
 	}
+	
+	// Call the function that handles ability system bindings
+	BindInput();
 }
 
 void APlayerCharacterBase::Move(const FInputActionValue& Value)

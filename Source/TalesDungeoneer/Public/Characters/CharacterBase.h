@@ -2,9 +2,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "AbilitySystemComponent.h"
+#include "AbilitySystemInterface.h"
 #include "GameFramework/Character.h"
 #include "Delegates/Delegate.h"
+#include "Gas/Abilities/TalesGameplayAbility.h"
 
 #include "InventoryComponent.h"
 #include "Components/MeshMergeComponent.h"
@@ -52,7 +53,7 @@ class UOverheadDataWidgetBase;
  * ALL CHARACTERS need controls, as the Dungeon Master will be able to possess them.
  */
 UCLASS(Blueprintable, BlueprintType)
-class TALESDUNGEONEER_API ACharacterBase : public ACharacter
+class TALESDUNGEONEER_API ACharacterBase : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -110,6 +111,9 @@ public: // functions
 	UFUNCTION(BlueprintCallable)
 	void SetCharacterName(FString ProposedName);
 
+	// Returns the AbilitySystemComponent so it can be made private
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+
 	virtual bool SaveCharacterData();
 	
 	virtual void LoadCharacterData(
@@ -120,6 +124,14 @@ protected: // functions
 	virtual void BeginPlay() override;
 
 	virtual void OnConstruction(const FTransform& Transform) override;
+
+	virtual void PossessedBy(AController* NewController) override;
+
+	virtual void InitializeAbilities(); // Sets up default abilities
+	
+	virtual void InitializeEffects();	// Sets up default effects
+
+	virtual void OnRep_PlayerState() override;
 
 	virtual void CharacterRestoredFromSave(const FString SaveSlotName);
 
@@ -197,12 +209,30 @@ public: // members
 	FSlateColor SkinColor;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	UAbilitySystemComponent* AbilitySystemComponent = nullptr;
+	class UAbilitySystemComponent* AbilitySystemComponent;
+
+	// The set of attributes to be used by this actor
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Gameplay Ability System", meta = (AllowPrivateAccess = "true"))
+	class UTalesAttributes* AttributeSet;
+
+	// An array of default abilities on spawn, set within blueprint
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Gameplay Ability System", meta = (AllowPrivateAccess = "true"))
+	TArray<TSubclassOf <class UTalesGameplayAbility> > DefaultAbilities;
+
+	// An array of default effects on spawn, set within blueprint
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Gameplay Ability System", meta = (AllowPrivateAccess = "true"))
+	TArray<TSubclassOf <class UGameplayEffect> > DefaultEffects;
 	
 
 	// If true, character saves should only save server-side
 	// If false, character saves to the client who is controlling it
 	bool bSavesOnServer = false;
+
+protected:
+	
+	// True when the inputs have been bound for the AbilitySystemComponent
+	// False indicates the input for abilities has not initialized
+	bool bIsInputBound = false;
 	
 private:
 
