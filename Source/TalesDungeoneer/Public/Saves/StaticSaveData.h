@@ -4,11 +4,20 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/SaveGame.h"
-#include "Characters/CharacterBase.h"
 #include "Delegates/Delegate.h"
 
 #include "StaticSaveData.generated.h"
 
+
+USTRUCT(BlueprintType)
+struct FSaveMeta
+{
+	GENERATED_BODY();
+	FSaveMeta() : SaveName(FString()), SaveIndex(0) {};
+	FSaveMeta(FString NewName, int32 NewIndex) {SaveName=NewName;SaveIndex=NewIndex;}
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FString SaveName;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) int32 SaveIndex;
+};
 
 UCLASS(BlueprintType, Blueprintable)
 class TALESDUNGEONEER_API UGlobalSaveData : public USaveGame
@@ -19,39 +28,23 @@ public:
 	
 	UGlobalSaveData();
 
-	UGlobalSaveData(TArray<FString> RestoredCharacters);
+	UGlobalSaveData(const TArray<FSaveMeta>& RestoredCharacters,
+					const int& SelectedCharacter = -1);
 
-	/**
-	 * @brief Returns an array of all slot names of existing characters
-	 * @return An array of all save slot names available
-	 */
-	UFUNCTION(BlueprintCallable)
-	TArray<FString> GetAllCharacterSaves() const { return _CharacterNames; }
+	TArray<FSaveMeta> GetAllCharacterSaves() const { return CharacterData_; }
 
-	UFUNCTION(BlueprintCallable)
-	USavedCharacter* GetSavedCharacterData(FString SaveSlotName);
-
-	UFUNCTION(BlueprintCallable)
 	void SetSelectedCharacter(int CharacterIndex = -1);
 	
-	UFUNCTION(BlueprintCallable)
-	FString GetSelectedCharacterSaveSlotName() const;
-	
-	UFUNCTION(BlueprintCallable)
-	void SetSavedCharacterNameList(TArray<FString> RestoredCharacters);
-	
-	UFUNCTION(BlueprintCallable)
-	void GetSavedCharacterDataAsync(
-			FString SaveSlotName, ACharacterBase* PlayerCharacter);
+	void SetSavedCharacterNameList(TArray<FSaveMeta> RestoredCharacters);
 
-	// Return the index of the selected character
-	UFUNCTION(BlueprintPure) int GetSelectedCharacterIndex() const;
+	int GetSelectedCharacterIndex() const { return SelectedCharacter_; };
 
 	
 private:
 
-	UPROPERTY()	TArray<FString> _CharacterNames;
+	TArray<FSaveMeta> CharacterData_;
 	
-	UPROPERTY()	int _SelectedCharacter = -1;
+	int		SelectedCharacter_;
+	FString SaveVersion_ = "x";
 	
 };

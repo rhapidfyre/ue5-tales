@@ -11,6 +11,20 @@
 
 struct FStCharacterStats;
 
+USTRUCT()
+struct TALESDUNGEONEER_API FCharacterData
+{
+	GENERATED_BODY()
+	
+	FString CharacterName			= "";
+	int		CharacterLevel			= 1;
+	float	ExperiencePoints		= 0.f;
+	
+	ECharacterClass CharacterClass	= ECharacterClass::ANY;
+	ECharacterRace  CharacterRace   = ECharacterRace::ANY;
+	
+};
+
 /**
  * The object used for saving all PLAYER character data
  */
@@ -28,21 +42,9 @@ public:
 	
 	UPROPERTY(VisibleAnywhere, Category = "Character Save Data")
 	FString SaveSlotName = TEXT("QuickName");
-	
+
 	UPROPERTY(VisibleAnywhere, Category = "Character Save Data")
-	FString CharacterName = "Invalid Character";
-	
-	UPROPERTY(VisibleAnywhere, Category = "Character Save Data")
-	int CharacterLevel = 1;
-	
-	UPROPERTY(VisibleAnywhere, Category = "Character Save Data")
-	float ExperiencePoints = 0;
-	
-	UPROPERTY(VisibleAnywhere, Category = "Character Save Data")
-	ECharacterClass CharacterClass = ECharacterClass::ANY;
-	
-	UPROPERTY(VisibleAnywhere, Category = "Character Save Data")
-	ECharacterRace CharacterRace = ECharacterRace::ANY;
+	FCharacterData CharacterData = {};
 
 	UPROPERTY(VisibleAnywhere, Category = "Character Save Data")
 	uint32 UserIndex = 0;

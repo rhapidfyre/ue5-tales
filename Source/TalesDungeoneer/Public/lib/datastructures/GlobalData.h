@@ -131,18 +131,39 @@ struct FStNpcData : public FTableRowBase
 	 
 };
 
+USTRUCT(BlueprintType)
+struct FTalesVersion
+{
+	GENERATED_BODY()
+	FTalesVersion() : VersionMajor(0), VersionMinor(0), VersionPatch(0), VersionBranch("x") {};
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere) int VersionMajor;
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere) int VersionMinor;
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere) int VersionPatch;
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere) FString VersionBranch;
+	FString ToString(const bool bShowBranch = false, const bool bSafeString = false) const;
+};
+
 UCLASS()
 class UGlobalData : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 public:
 	
-	UFUNCTION(BlueprintCallable, meta = (DisplayName = "GetAppVersion"), Category = "Game Config")
-		static FString GetAppVersion();
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Get Project Version"), Category = "Game Config")
+		static FString GetAppVersion(bool bShowBranch = false, bool bSafeString = false);
+	
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Get Full Project Version"), Category = "Game Config")
+		static FTalesVersion GetFullAppVersion();
 
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Maximum Character Level"), Category = "Game Config")
 		static int GetGameMaxCharacterLevel();
 
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "GetAppVersion"), Category = "Game Config")
+		static FString CharacterSaveFolder() { return "Characters/"; }
+
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "GetAppVersion"), Category = "Game Config")
+		static FString InventorySaveFolder() { return "Inventories/"; }
+	
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Debug Build"), Category = "Game Config")
 		static bool GetGameIsInDebugMode()
 	{

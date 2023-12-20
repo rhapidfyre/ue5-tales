@@ -198,27 +198,24 @@ void UMeshMergeComponent::InitializeMeshMerge(const USavedCharacter* CharacterDa
 		return;
 	}
 
-	if (IsValid(CharacterData))
+	if (IsValid(CharacterData) && !bMeshSaveRestored)
 	{
-		if (GetOwner()->HasAuthority())
+		// Initialize local client data first
+		bHasInitialized = true;
+		Skeleton				= CharacterData->Skeleton;			
+		MeshSectionMappings		= CharacterData->MeshSectionMappings; 
+		UvTransformsPerMesh		= CharacterData->UvTransformsPerMesh; 
+		MeshesToMerge			= CharacterData->MeshesToMerge;
+		PerformMeshMerge();
+
+		// If not the server, send update to server
+		if (!GetOwner()->HasAuthority())
 		{
-			bHasInitialized = true;
-			Skeleton				= CharacterData->Skeleton;			
-			MeshSectionMappings		= CharacterData->MeshSectionMappings; 
-			UvTransformsPerMesh		= CharacterData->UvTransformsPerMesh; 
-			MeshesToMerge			= CharacterData->MeshesToMerge;
-			PerformMeshMerge();
-		}
-		else
-		{
-			/*
 			Server_InitializeMeshMerge(
 				CharacterData->Skeleton,
 				CharacterData->MeshSectionMappings,
 				CharacterData->UvTransformsPerMesh,
 				CharacterData->MeshesToMerge );
-			bStatsSystemReady = true;
-			*/
 		}
 		return;
 	}

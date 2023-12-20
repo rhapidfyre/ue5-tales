@@ -10,6 +10,8 @@
 #include "Characters/CharacterBase.h"
 #include "Characters/PlayerCharacterBase.h"
 #include "Gamemode/AdventureMode/TalesHudBase.h"
+#include "lib/datastructures/GlobalData.h"
+
 
 // Returns TRUE if the game state is any type of server
 bool ATalesGameStateBase::CheckIsServer() const
@@ -24,20 +26,27 @@ bool ATalesGameStateBase::CheckIsPlayableClient() const
 	return NetMode == NM_ListenServer || NetMode == NM_Standalone;
 }
 
+FString ATalesGameStateBase::GenerateAlphanumeric(FString OptionalPath) const
+{
+	FString NewSaveSlotName = "";
+	for (int i = 0; i < 18; i++)
+	{
+		TArray<int> RandValues = {
+			FMath::RandRange(48,57), // Numbers 0-9
+			FMath::RandRange(65,90) // Uppercase A-Z
+		};
+		const char RandChar = static_cast<char>(RandValues[FMath::RandRange(0,RandValues.Num()-1)]);
+		NewSaveSlotName.AppendChar(RandChar);
+	}
+	return OptionalPath + NewSaveSlotName;
+}
+
 void ATalesGameStateBase::SetIsCreatingCharacter(bool isCreating)
 {
 	bIsCreating = isCreating;
 }
 
 ATalesGameStateBase::ATalesGameStateBase() {}
-
-UDataTable* ATalesGameStateBase::GetNpcDataTable()
-{
-	UDataTable* dataTable = NpcDataTable;
-	if (IsValid(dataTable))
-		return dataTable;
-	return nullptr;
-}
 
 void ATalesGameStateBase::Server_NewNotification_Implementation(
 	const FString& NewTitle, const FString& NewMessage, int NewPriority)
@@ -63,21 +72,9 @@ void ATalesGameStateBase::LocalNotification(
 	}
 }
 
-/**
- * @brief Sets the new save game meta file name,
- *			creating it if it does not exist.
- * @param SaveSlotName The name of the new save meta file
- */
-void ATalesGameStateBase::SetSaveGameMetaName(FString SaveSlotName)
-{
-	SaveMetaName_ = SaveSlotName;
-	CreateSaveGameIfNotExists();
-}
-
-
 bool ATalesGameStateBase::SaveMetaData()
 {
-	if (!bSaveMetaIsReady)
+	if (!GetIsSaveMetaReady())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("SaveTheGame() FAILED: SaveMeta isn't ready yet."));
 		return false;
@@ -95,7 +92,7 @@ bool ATalesGameStateBase::SaveMetaData()
 	// Update save file with new data
 	Helper_SetSaveValues(SaveMeta);
 	
-	return UGameplayStatics::SaveGameToSlot(SaveMeta, SaveMetaName_, 0);
+	return UGameplayStatics::SaveGameToSlot(SaveMeta, GetMetaDataSaveName(), 0);
 }
 
 void ATalesGameStateBase::SaveMetaDataAsync() const
@@ -103,12 +100,14 @@ void ATalesGameStateBase::SaveMetaDataAsync() const
 	UGlobalSaveData* SavedMeta = Cast<UGlobalSaveData>(GetSaveGameMeta());
 	if (!IsValid(SavedMeta))
 	{
-		if (!UGameplayStatics::DoesSaveGameExist(SaveMetaName_, 0))
+		if (!UGameplayStatics::DoesSaveGameExist(GetMetaDataSaveName(), 0))
 		{
 			SavedMeta = Cast<UGlobalSaveData>(
 				UGameplayStatics::CreateSaveGameObject(UGlobalSaveData::StaticClass()));
 			if (!IsValid(SavedMeta))
+			{
 				return;
+			}
 		}
 	}
 	if (IsValid(SavedMeta))
@@ -116,17 +115,20 @@ void ATalesGameStateBase::SaveMetaDataAsync() const
 		FAsyncSaveGameToSlotDelegate SaveDelegate;
 		SaveDelegate.BindUObject(this, &ATalesGameStateBase::SaveGameDelegate);
 		Helper_SetSaveValues(SavedMeta);
-		UGameplayStatics::AsyncSaveGameToSlot(SavedMeta, SaveMetaName_, 0, SaveDelegate);
+		UGameplayStatics::AsyncSaveGameToSlot(SavedMeta, GetMetaDataSaveName(), 0, SaveDelegate);
 	}
 }
 
 void ATalesGameStateBase::RemoveSelectedCharacter()
 {
-	if (!CheckIsPlayableClient()) return;
-	
-	if (SavedCharacters_.IsValidIndex( GetSelectedCharacterIndex() ))
+	if (!CheckIsPlayableClient())
 	{
-		const FString SaveSlotName = GetSelectedCharacterSaveSlotName();
+		return;
+	}
+
+	if (SavedCharacters_.IsValidIndex( GetSelectedCharacter() ))
+	{
+		const FString SaveSlotName = GetCharacterSlotName();
 		if (UGameplayStatics::DoesSaveGameExist(SaveSlotName, 0))
 		{
 			const int DeleteIndex = SelectedCharacter_;
@@ -139,15 +141,12 @@ void ATalesGameStateBase::RemoveSelectedCharacter()
 	}
 }
 
-bool ATalesGameStateBase::SaveCharacterSync(const FString& SaveSlotName)
-{	
-	if (SaveSlotName.IsEmpty())
-	{
-		UE_LOGFMT(LogTales, Error, "SaveCharacter({sv}) FAILED: Invalid SaveSlotName (EMPTY)", HasAuthority()?"S":"C");
-		return false;
-	}
+// Performs save of the currently active character - Updates the save meta.
+// Calls 'OnCharacterSaved' when finished
+bool ATalesGameStateBase::SaveCharacterSync()
+{
 	
-	ACharacterBase* CharacterBase = Cast<ACharacterBase>
+	APlayerCharacterBase* CharacterBase = Cast<APlayerCharacterBase>
 			( UGameplayStatics::GetPlayerCharacter(GetWorld(), 0) );
 	
 	if (!IsValid(CharacterBase))
@@ -155,21 +154,32 @@ bool ATalesGameStateBase::SaveCharacterSync(const FString& SaveSlotName)
 		UE_LOGFMT(LogTales, Error, "SaveCharacter({sv}) FAILED: Could not retrieve CharacterBase.", HasAuthority()?"S":"C");
 		return false;
 	}
-
-	UE_LOGFMT(LogTales, Log, "SaveCharacter({sv}): Saving Character '{CharacterName}'",
-		HasAuthority()?"S":"C", CharacterBase->GetCharacterName());
 	
-	if (!SavedCharacters_.Contains(SaveSlotName))
+	const USavedCharacter* SaveObject = Cast<USavedCharacter>( CharacterBase->SaveCharacter() );
+	if (IsValid(SaveObject))
 	{
-		SavedCharacters_.Add(SaveSlotName);
+		if (GetIsCreatingCharacter())
+		{
+			// Create the new character
+			const FString SaveSlotName = SaveObject->SaveSlotName;
+			const int32 SaveUserIndex  = SaveObject->UserIndex;
+			const int NewIndex = SavedCharacters_.Add( FSaveMeta(SaveSlotName,SaveUserIndex) );
+			SetIsCreatingCharacter(false);
+			SetSelectedCharacter(NewIndex);
+		}
+		return true;
 	}
-	
-	return CharacterBase->SaveCharacterData();
+	return false;
 }
 
-void ATalesGameStateBase::SaveCharacterAsync(const FString& SaveSlotName)
+void ATalesGameStateBase::ResetCharacter()
 {
-	SaveCharacterSync(SaveSlotName);
+	// TODO
+}
+
+void ATalesGameStateBase::SaveCharacterAsync()
+{
+	SaveCharacterSync();
 }
 
 void ATalesGameStateBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -195,24 +205,27 @@ USaveGame* ATalesGameStateBase::GetSaveGameMeta() const
 		return nullptr;
 	}
 	USaveGame* SavedMeta = Cast<USaveGame>(
-			UGameplayStatics::LoadGameFromSlot(SaveMetaName_,0));
+			UGameplayStatics::LoadGameFromSlot(GetMetaDataSaveName(),0));
 	if (IsValid(SavedMeta))
+	{
 		return SavedMeta;
+	}
 	return nullptr;
 }
 
-TArray<FString> ATalesGameStateBase::GetSavedCharacterSlotNames() const
+TArray<FSaveMeta> ATalesGameStateBase::GetSavedCharacterSlotNames() const
 {
 	return SavedCharacters_;
 }
 
-int ATalesGameStateBase::GetIndexOfSavedCharacter(const FString& SaveSlotName, int32 UserSaveIndex) const
+int ATalesGameStateBase::GetIndexOfSavedCharacter(const FString& SlotName, const int32& UserIndex) const
 {
-	if (UGameplayStatics::DoesSaveGameExist(SaveSlotName, UserSaveIndex))
+	if (!SlotName.IsEmpty())
 	{
 		for (int i = 0; i < SavedCharacters_.Num(); i++)
 		{
-			if (SavedCharacters_[i] == SaveSlotName)
+			if (   SavedCharacters_[i].SaveName  == SlotName
+				&& SavedCharacters_[i].SaveIndex == UserIndex )
 			{
 				return i;
 			}
@@ -221,20 +234,12 @@ int ATalesGameStateBase::GetIndexOfSavedCharacter(const FString& SaveSlotName, i
 	return -1;
 }
 
-void ATalesGameStateBase::GetSavedCharacterDataAsync(FString SaveSlotName, ACharacterBase* PlayerCharacter)
-{
-	if (CheckIsServer() && !CheckIsPlayableClient())
-	{
-		return;
-	}
-	FAsyncLoadGameFromSlotDelegate LoadDelegate;
-	LoadDelegate.BindUObject(PlayerCharacter, &ACharacterBase::LoadCharacterData);
-	UGameplayStatics::AsyncLoadGameFromSlot(SaveSlotName, 0, LoadDelegate);
-}
-
 USavedCharacter* ATalesGameStateBase::GetSavedCharacterData(FString SaveSlotName)
 {
-	if (!CheckIsPlayableClient()) return nullptr;
+	if (!CheckIsPlayableClient())
+	{
+		return nullptr;
+	}
 	if (!SaveSlotName.IsEmpty())
 	{
 		USaveGame* SaveGame = UGameplayStatics::LoadGameFromSlot(SaveSlotName, 0);
@@ -244,55 +249,45 @@ USavedCharacter* ATalesGameStateBase::GetSavedCharacterData(FString SaveSlotName
 	return nullptr;
 }
 
-FString ATalesGameStateBase::GetSelectedCharacterSaveSlotName() const
+FString ATalesGameStateBase::GetCharacterSlotName() const
 {
-	if (GetIsCreatingCharacter())
-	{
-		return "";
-	}
 	if (SavedCharacters_.IsValidIndex(SelectedCharacter_))
 	{
-		return SavedCharacters_[SelectedCharacter_];
+		return SavedCharacters_[SelectedCharacter_].SaveName;
 	}
 	return "";
 }
 
-int ATalesGameStateBase::GetSelectedCharacterIndex() const
+int ATalesGameStateBase::GetCharacterUserIndex() const
 {
 	if (GetIsCreatingCharacter())
 	{
-		return -1;
+		return 0;
 	}
 	if (SavedCharacters_.IsValidIndex(SelectedCharacter_))
 	{
-		return SelectedCharacter_;
+		return SavedCharacters_[SelectedCharacter_].SaveIndex;
 	}
-	return -1;
+	return 0;
+}
+
+bool ATalesGameStateBase::GetIsValidCharacterSelected() const
+{
+	if (GetIsCreatingCharacter()) { return false; }
+	return SavedCharacters_.IsValidIndex(GetSelectedCharacter());
 }
 
 bool ATalesGameStateBase::GetDoesCharacterSaveExist() const
 {
-	if (GetIsCreatingCharacter())
+	if ( GetIsValidCharacterSelected() )
 	{
-		return false;
-	}
-	if (SavedCharacters_.IsValidIndex(SelectedCharacter_))
-	{
-		if (SavedCharacters_[SelectedCharacter_] != "")
+		if ( !GetCharacterSlotName().IsEmpty() )
 		{
-			return UGameplayStatics::DoesSaveGameExist(SavedCharacters_[SelectedCharacter_], 0);
+			return UGameplayStatics::DoesSaveGameExist(
+				GetCharacterSlotName(), GetCharacterUserIndex());
 		}
 	}
 	return false;
-}
-
-void ATalesGameStateBase::SetSavedCharacterNameList(TArray<FString> RestoredCharacters)
-{
-	if (CheckIsServer() && !CheckIsPlayableClient())
-	{
-		return;
-	}
-	SavedCharacters_ = RestoredCharacters;
 }
 
 void ATalesGameStateBase::BeginPlay()
@@ -300,11 +295,10 @@ void ATalesGameStateBase::BeginPlay()
 	Super::BeginPlay();
 
 	// Create the save if it doesn't exist
-	if ( !SaveMetaName_.IsEmpty() )
-	{
-		CreateSaveGameIfNotExists();
-	}
-
+	SaveMetaName_ = UGlobalData::GetAppVersion(true, true);
+	if ( GetMetaDataSaveName().IsEmpty() ) {SaveMetaName_ = "SaveMeta"; }
+	CreateSaveGameIfNotExists();
+	
 	// Load the save game data from the previous session
 	LoadSaveGameMeta( HasAuthority() );
 	OnSaveGameObjectReady.Broadcast();
@@ -323,7 +317,7 @@ bool ATalesGameStateBase::SaveCurrentCharacter(FString& SaveResponse, bool RunAs
 		}
 	}
 	
-	if (!bSaveMetaIsReady)
+	if (!GetIsSaveMetaReady())
 	{
 		SaveResponse = "SaveMeta isn't ready yet.";
 		UE_LOGFMT(LogTales, Warning, "SaveTheSaveCurrentCharacterGame(S) FAILED: SaveMeta is not ready yet.");
@@ -331,7 +325,7 @@ bool ATalesGameStateBase::SaveCurrentCharacter(FString& SaveResponse, bool RunAs
 	}
 	
 	FString SaveSlotName;
-	const ACharacterBase* CharacterBase = Cast<ACharacterBase>(
+	const APlayerCharacterBase* CharacterBase = Cast<APlayerCharacterBase>(
 			UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 
 	// Determine the name of the save slot
@@ -343,7 +337,6 @@ bool ATalesGameStateBase::SaveCurrentCharacter(FString& SaveResponse, bool RunAs
 			SaveResponse = "Character Name Invalid";
 			return false;
 		}
-		SaveSlotName = CharacterBase->GetSafeCharacterName();
 	}
 	else
 	{
@@ -354,13 +347,12 @@ bool ATalesGameStateBase::SaveCurrentCharacter(FString& SaveResponse, bool RunAs
 	// Save asynchronously
 	if (RunAsync)
 	{
-		SaveCharacterAsync(SaveSlotName);
+		SaveCharacterAsync();
 		SaveResponse = "Saving Character Asynchronously";
 		return true;
 	}
-
-	// If not running async, or async fails, run sync
-	if (SaveCharacterSync(SaveSlotName))
+	
+	if (SaveCharacterSync())
 	{
 		if (SaveMetaData())
 		{
@@ -384,7 +376,7 @@ bool ATalesGameStateBase::SaveCurrentCharacter(FString& SaveResponse, bool RunAs
  */
 bool ATalesGameStateBase::LoadSaveGameMeta(bool LoadAsync)
 {
-	if (SaveMetaName_.IsEmpty())
+	if (GetMetaDataSaveName().IsEmpty())
 	{
 		return false;
 	}
@@ -404,7 +396,8 @@ void ATalesGameStateBase::CharacterSaveLoaded(
 			( UGameplayStatics::GetPlayerCharacter(GetWorld(), 0) );
 	if (IsValid(CharacterBase))
 	{
-		CharacterBase->LoadCharacterData(SlotName, UserIndex, LoadedGameData);
+		CharacterBase->LoadCharacter(
+			GetCharacterSlotName(), GetCharacterUserIndex(), LoadedGameData);
 	}
 }
 
@@ -412,22 +405,45 @@ void ATalesGameStateBase::SaveGameMetaLoaded(
 		const FString& SlotName, const int32 UserIndex, USaveGame* LoadedGameData)
 {
 	const UGlobalSaveData* SaveMeta = Cast<UGlobalSaveData>( LoadedGameData );
-	if (!IsValid(LoadedGameData))
+	if (!IsValid(SaveMeta))
 	{
-		UE_LOG(LogTemp, Display, TEXT("SaveGameMetaLoaded(): Save Slot '%s' Not found. Creating..."),
-									*SlotName);
 		CreateSaveGameIfNotExists();
 		SaveMeta = Cast<UGlobalSaveData>( GetSaveGameMeta() );
 	}
 		
 	bSaveMetaIsReady = IsValid(SaveMeta);
-	if (bSaveMetaIsReady)
+	if (GetIsSaveMetaReady())
 	{
+		SelectedCharacter_	= SaveMeta->GetSelectedCharacterIndex();
+		SavedCharacters_	= SaveMeta->GetAllCharacterSaves();
+		
 		OnSaveGameObjectReady.Broadcast();
-		return;
+
+		// If a valid character is selected, attempt to load it
+		if (GetIsValidCharacterSelected() && GetNetMode() != NM_DedicatedServer)
+		{
+			UE_LOGFMT(LogGameState, Display, "Attempting to restore Character "
+				"from save game '{SaveSlot} ({SlotIndex})", GetCharacterSlotName(), GetCharacterUserIndex());
+			
+			APlayerCharacterBase* PlayerCharacter = Cast<APlayerCharacterBase>
+					( UGameplayStatics::GetPlayerCharacter(GetWorld(), 0) );
+			
+			if (IsValid(PlayerCharacter))
+				{ PlayerCharacter->LoadCharacter(); }
+		}
+		
+		else
+		{
+			if (GetIsValidCharacterSelected())
+			{
+				UE_LOGFMT(LogGameState, Display, "Executable is a Dedicated Server.");
+			}
+			else
+			{
+				UE_LOGFMT(LogGameState, Display, "No Character Exists to Restore");
+			}
+		}
 	}
-	UE_LOG(LogTemp, Error, TEXT("SaveGameMetaLoaded(): Save Slot '%s' Not found."),
-								*SlotName);
 }
 
 void ATalesGameStateBase::SetSelectedCharacter(int CharacterIndex)
@@ -437,48 +453,48 @@ void ATalesGameStateBase::SetSelectedCharacter(int CharacterIndex)
 		return;
 	}
 	
-	ACharacter* PlayerCharacter = UGameplayStatics::GetPlayerCharacter( GetWorld(), 0);
-	
 	if (SavedCharacters_.IsValidIndex(CharacterIndex))
 	{
 		SelectedCharacter_ = CharacterIndex;
-		LoadCharacterAsync( GetSelectedCharacterSaveSlotName() );
+		if (!LoadCharacterSync( GetCharacterSlotName() ))
+		{
+			SelectedCharacter_ = -1;
+		}
 	}
 	else
 	{
 		SelectedCharacter_ = -1;
+		ResetCharacter();
 	}
 	
 	SaveMetaData();
-	OnCharacterSelected.Broadcast(
-		GetSelectedCharacterSaveSlotName(),
-		GetSelectedCharacterIndex());
+	OnCharacterSelected.Broadcast(SelectedCharacter_);
+}
+
+int ATalesGameStateBase::GetSelectedCharacter() const
+{
+	return SelectedCharacter_;
 }
 
 int ATalesGameStateBase::GetNextCharacterIndex()
 {
-	if (GetIsCreatingCharacter())
+	if (GetIsCreatingCharacter()) { return -1; }
+	
+	int nextIndex = SelectedCharacter_ + 1;
+	if (!SavedCharacters_.IsValidIndex(nextIndex))
 	{
-		return -1;
+		// If the first character is valid, set index to it
+		if (SavedCharacters_.IsValidIndex(0)) { nextIndex = 0; }
+		
+		// Otherwise, there are no characters to select
+		else { nextIndex = -1; }
 	}
 	
-	// Increment to the next index
-	if (SavedCharacters_.IsValidIndex(SelectedCharacter_ + 1))
+	if (nextIndex != GetSelectedCharacter())
 	{
-		++SelectedCharacter_;
-		SetSelectedCharacter(SelectedCharacter_);
-		return SelectedCharacter_;
+		SetSelectedCharacter(nextIndex);
 	}
-	
-	// Get first index
-	if (SavedCharacters_.Num() > 0)
-	{
-		SetSelectedCharacter(0);
-		return SelectedCharacter_;
-	}
-
-	// Return Invalid
-	return -1;
+	return GetSelectedCharacter();
 }
 
 int ATalesGameStateBase::GetPrevCharacterIndex()
@@ -487,18 +503,19 @@ int ATalesGameStateBase::GetPrevCharacterIndex()
 	{
 		return -1;
 	}
-	if (SavedCharacters_.IsValidIndex(SelectedCharacter_ - 1))
+	int lastIndex = SelectedCharacter_ - 1;
+	if (!SavedCharacters_.IsValidIndex(lastIndex))
 	{
-		SelectedCharacter_--;
-		SetSelectedCharacter(SelectedCharacter_);
-		return SelectedCharacter_;
+		lastIndex = SavedCharacters_.Num() - 1;
+		// If the last index isn't valid, there are no characters to select
+		if (!SavedCharacters_.IsValidIndex(lastIndex)) { lastIndex = -1; }
 	}
-	if (SavedCharacters_.Num() > 0)
+	
+	if (lastIndex != GetSelectedCharacter())
 	{
-		SetSelectedCharacter( GetLastCharacterIndex() );
-		return SelectedCharacter_;
+		SetSelectedCharacter(lastIndex);
 	}
-	return -1;
+	return GetSelectedCharacter();
 }
 
 int ATalesGameStateBase::GetLastCharacterIndex() const
@@ -526,9 +543,7 @@ void ATalesGameStateBase::Helper_LoadSavedValues(const UGlobalSaveData* SaveMeta
 	{
 		SavedCharacters_	= SaveMeta->GetAllCharacterSaves();
 		SelectedCharacter_	= SaveMeta->GetSelectedCharacterIndex();
-		OnCharacterSelected.Broadcast(
-			GetSelectedCharacterSaveSlotName(),
-			GetSelectedCharacterIndex());
+		OnCharacterSelected.Broadcast(SelectedCharacter_);
 	}
 }
 
@@ -538,18 +553,12 @@ void ATalesGameStateBase::SaveGameDelegate(
 	OnGameSaved.Broadcast(bSuccess);
 }
 
-void ATalesGameStateBase::SaveCharacterDelegate(
-		const FString& SlotName, const int32 UserIndex, bool bSuccess) const
+void ATalesGameStateBase::OnRep_SelectedCharacter_Implementation(const int OldSelection)
 {
-	if (GetIsCreatingCharacter())
-	{
-		return;
-	}
-	SaveMetaDataAsync(); // Save the metadata, too.
-	OnCharacterSaved.Broadcast(bSuccess);
+	OnCharacterSelected.Broadcast(SelectedCharacter_);
 }
 
-void ATalesGameStateBase::OnRep_CheatMode(bool OldState)
+void ATalesGameStateBase::OnRep_CheatMode_Implementation(bool OldState)
 {
 	if (CheatMode_ != OldState)
 	{
@@ -562,43 +571,53 @@ void ATalesGameStateBase::OnRep_CheatMode(bool OldState)
 
 bool ATalesGameStateBase::CreateSaveGameIfNotExists()
 {
-	if (!UGameplayStatics::DoesSaveGameExist(SaveMetaName_, 0))
+	if (SaveMetaName_.IsEmpty()) { SaveMetaName_ = "SaveMeta"; }
+	if (!UGameplayStatics::DoesSaveGameExist(GetMetaDataSaveName(), GetMetaDataSaveIndex()))
 	{
 		UGlobalSaveData* NewSave = Cast<UGlobalSaveData>(
 			UGameplayStatics::CreateSaveGameObject(UGlobalSaveData::StaticClass()));
+		
 		if (!IsValid(NewSave))
 		{
-			UE_LOG(LogTemp, Fatal, TEXT("Could not create new save game meta object."));
+			UE_LOGFMT(LogGameState, Fatal, "Failed to create metadata");
 			return false;
 		}
-		bSaveMetaIsReady = UGameplayStatics::SaveGameToSlot(NewSave, SaveMetaName_, 0);
-		return bSaveMetaIsReady;
+		
+		bSaveMetaIsReady = UGameplayStatics::SaveGameToSlot(
+			NewSave, GetMetaDataSaveName(), GetMetaDataSaveIndex());
+		
+		UE_LOGFMT(LogGameState, Display, "Created MetaData");
+		return GetIsSaveMetaReady();
 	}
 	// Already Exists
 	return false;
 }
 
-bool ATalesGameStateBase::LoadCharacterSync(FString SaveSlotName)
+bool ATalesGameStateBase::LoadCharacterSync(const FString& SaveSlotName)
 {
 	if (GetIsCreatingCharacter())
 	{
 		return false;
 	}
-	const USavedCharacter* SavedCharacter = GetSavedCharacterData(SaveSlotName);
+	
+	USavedCharacter* SavedCharacter = GetSavedCharacterData(SaveSlotName);
 	if (IsValid(SavedCharacter))
 	{
+		// Get the player character entity for *this* player
 		ACharacterBase* CharacterBase = Cast<ACharacterBase>
 				( UGameplayStatics::GetPlayerCharacter(GetWorld(), 0) );
+		
 		if (IsValid(CharacterBase))
 		{
-			CharacterBase->LoadCharacterData(SaveSlotName, 0, nullptr);
-			return true;
+			return CharacterBase->LoadCharacter(GetCharacterSlotName(),
+												GetCharacterUserIndex(),
+												SavedCharacter);
 		}
 	}
 	return false;
 }
 
-void ATalesGameStateBase::LoadCharacterAsync(FString SaveSlotName)
+void ATalesGameStateBase::LoadCharacterAsync(const FString& SaveSlotName)
 {
 	FAsyncLoadGameFromSlotDelegate LoadedDelegate;
 	LoadedDelegate.BindUObject(this, &ATalesGameStateBase::CharacterSaveLoaded);
@@ -607,13 +626,13 @@ void ATalesGameStateBase::LoadCharacterAsync(FString SaveSlotName)
 
 bool ATalesGameStateBase::LoadSaveGameMetaSync()
 {
-	USaveGame* SaveGame = UGameplayStatics::LoadGameFromSlot(SaveMetaName_, 0);
+	USaveGame* SaveGame = UGameplayStatics::LoadGameFromSlot(GetMetaDataSaveName(), 0);
 	if (IsValid(SaveGame))
 	{
 		const UGlobalSaveData* SaveMeta = Cast<UGlobalSaveData>(SaveGame);
 		if (IsValid(SaveMeta))
 		{
-			SaveGameMetaLoaded(SaveMetaName_, 0, SaveGame);
+			SaveGameMetaLoaded(GetMetaDataSaveName(), 0, SaveGame);
 			return true;
 		}
 	}
@@ -624,5 +643,5 @@ void ATalesGameStateBase::LoadSaveGameMetaAsync()
 {
 	FAsyncLoadGameFromSlotDelegate LoadedDelegate;
 	LoadedDelegate.BindUObject(this, &ATalesGameStateBase::SaveGameMetaLoaded);
-	UGameplayStatics::AsyncLoadGameFromSlot(SaveMetaName_, 0, LoadedDelegate);
+	UGameplayStatics::AsyncLoadGameFromSlot(GetMetaDataSaveName(), 0, LoadedDelegate);
 }

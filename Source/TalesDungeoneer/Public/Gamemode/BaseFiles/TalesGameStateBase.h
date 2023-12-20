@@ -15,11 +15,8 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSaveGameObjectReady);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnGameSaved, bool, bSuccess);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCharacterSaved, bool, bSuccess);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnCharacterSelected,
-	FString, SaveSlotName, int, SelectedIndex);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnCharacterDeleted,
-	FString, SaveSlotName, int, DeletedIndex);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCharacterSelected, int, SelectedIndex);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnCharacterDeleted, FString, SaveSlotName, int, DeletedIndex);
 
 
 /* The tales game state base holds all of the logic for operations that
@@ -37,6 +34,15 @@ public: // methods
 	bool CheckIsPlayableClient() const;
 
 	UFUNCTION(BlueprintCallable)
+	FString GenerateAlphanumeric(FString OptionalPath = "") const;
+	
+	UFUNCTION(BlueprintPure)
+	FString GetMetaDataSaveName() const { return SaveMetaName_; }
+	
+	UFUNCTION(BlueprintPure)
+	static int32 GetMetaDataSaveIndex() { return 0; }
+
+	UFUNCTION(BlueprintCallable)
 	void SetIsCreatingCharacter(bool isCreating = true);
 	
 	UFUNCTION(BlueprintPure)
@@ -48,7 +54,10 @@ public: // methods
 
 	ATalesGameStateBase();
 	
-	UDataTable* GetNpcDataTable();
+	UPROPERTY(BlueprintAssignable)	FOnSaveGameObjectReady	OnSaveGameObjectReady;
+	UPROPERTY(BlueprintAssignable)	FOnGameSaved			OnGameSaved;
+	UPROPERTY(BlueprintAssignable)	FOnCharacterSelected	OnCharacterSelected;
+	UPROPERTY(BlueprintAssignable)	FOnCharacterDeleted		OnCharacterDeleted;
 
 	UFUNCTION(Server, Reliable, BlueprintCallable)
 	void Server_NewNotification(
@@ -57,14 +66,6 @@ public: // methods
 	UFUNCTION(BlueprintCallable)
 	void LocalNotification(FString NewTitle, FString NewMessage, int NewPriority = 2);
 	
-	/**
-	 * @brief Sets the new save game meta file name,
-	 *			   creating it if it does not exist.
-	 * @param SaveSlotName The name of the new save meta file
-	 */
-	UFUNCTION(BlueprintCallable)
-	void SetSaveGameMetaName(FString SaveSlotName);
-
 	UFUNCTION(BlueprintPure)
 	bool GetIsCheatModeEnabled() const { return CheatMode_; }
 
@@ -119,19 +120,11 @@ public: // methods
 	UFUNCTION(BlueprintCallable) USaveGame* GetSaveGameMeta() const;
 	
 	// Returns an array of all known saved character slot names
-	UFUNCTION(BlueprintCallable) TArray<FString> GetSavedCharacterSlotNames() const;
+	UFUNCTION(BlueprintCallable)
+	TArray<FSaveMeta> GetSavedCharacterSlotNames() const;
 
 	UFUNCTION(BlueprintPure)
-	int GetIndexOfSavedCharacter(const FString& SaveSlotName, int32 UserSaveIndex) const;
-	
-	/**
-	 * @brief Triggers 'LoadSaveData' delegate if/when a save is located (async)
-	 * @param SaveSlotName The FName of the saved character slot being requested
-	 * @param PlayerCharacter Reference to the character being saved
-	 */
-	UFUNCTION(BlueprintCallable)
-	void GetSavedCharacterDataAsync(FString SaveSlotName,
-			ACharacterBase* PlayerCharacter);
+	int GetIndexOfSavedCharacter(const FString& SlotName, const int32& UserIndex) const;
 
 	/**
 	 * @brief Returns the save data for the requested character slot. Return requires validation.
@@ -141,23 +134,32 @@ public: // methods
 	UFUNCTION(BlueprintCallable)
 	USavedCharacter* GetSavedCharacterData(FString SaveSlotName = "");
 	
-	// Return the string of the '_CharacterNames' for the selected
-	// character slot index. Returns empty string if no character selected.
-	UFUNCTION(BlueprintPure) FString GetSelectedCharacterSaveSlotName() const;
-
-	UFUNCTION(BlueprintPure) int GetSelectedCharacterIndex() const;
+	UFUNCTION(BlueprintPure)
+	FString GetCharacterSlotName() const;
 	
-	UFUNCTION(BlueprintPure) bool GetDoesCharacterSaveExist() const;
+	UFUNCTION(BlueprintPure)
+	int GetCharacterUserIndex() const;
+	
+	UFUNCTION(BlueprintPure)
+	bool GetIsValidCharacterSelected() const;
+	
+	UFUNCTION(BlueprintPure)
+	bool GetDoesCharacterSaveExist() const;
+	
+	UFUNCTION(BlueprintPure)
+	int GetSelectedCharacter() const;
 	
 	UFUNCTION(BlueprintCallable)
-	void SetSavedCharacterNameList(TArray<FString> RestoredCharacters);
-	
-	// Sets which character is currently selected
-	UFUNCTION(BlueprintCallable) void SetSelectedCharacter(int CharacterIndex);
+	void SetSelectedCharacter(int CharacterIndex);
 
-	UFUNCTION(BlueprintCallable) int GetNextCharacterIndex();
-	UFUNCTION(BlueprintCallable) int GetPrevCharacterIndex();
-	UFUNCTION(BlueprintCallable) int GetLastCharacterIndex() const;
+	UFUNCTION(BlueprintCallable)
+	int GetNextCharacterIndex();
+	
+	UFUNCTION(BlueprintCallable)
+	int GetPrevCharacterIndex();
+	
+	UFUNCTION(BlueprintCallable)
+	int GetLastCharacterIndex() const;
 	
 protected: // methods
 	
@@ -176,10 +178,10 @@ protected: // methods
 	bool CreateSaveGameIfNotExists();
 
 	// Performs an sync character data load, returning true on success
-	bool LoadCharacterSync(FString SaveSlotName = "");
+	bool LoadCharacterSync(const FString& SaveSlotName = "");
 
 	// Performs an async character data load, calling CharacterLoaded when done
-	void LoadCharacterAsync(FString SaveSlotName = "");
+	void LoadCharacterAsync(const FString& SaveSlotName = "");
 
 	// Performs a sync character data load, returning true on success
 	bool LoadSaveGameMetaSync();
@@ -187,19 +189,19 @@ protected: // methods
 	// Performs an async metadata load, calling SaveGameMetaLoaded when done
 	void LoadSaveGameMetaAsync();
 
-	// Performs synchronous save of the currently active character
-	// Internally updates the save game meta file
-	bool SaveCharacterSync(const FString& SaveSlotName);
+	bool SaveCharacterSync();
+
+	void ResetCharacter();
 
 	// Performs asynchronous save of the currently active character
 	// Internally updates the save game meta file
-	void SaveCharacterAsync(const FString& SaveSlotName);
+	void SaveCharacterAsync();
 	
 	virtual void GetLifetimeReplicatedProps(
 		TArray<FLifetimeProperty> &OutLifetimeProps) const override;
 
 private: // methods
-
+	
 	UFUNCTION(NetMulticast, Unreliable)
 	void Multicast_SendNotification(
 		const FString& NewTitle, const FString& NewMessage, int NewPriority = 2);
@@ -213,9 +215,6 @@ private: // methods
 	// Called when an asynchronous save has finished
 	UFUNCTION()	void SaveGameDelegate(const FString& SlotName,
 		const int32 UserIndex, bool bSuccess) const;
-
-	UFUNCTION(BlueprintCallable) void SaveCharacterDelegate(const FString& SlotName,
-		const int32 UserIndex, bool bSuccess) const;
 	
 public: // members
 
@@ -224,21 +223,6 @@ public: // members
 
 	// The data table containing all items in the game
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)	UDataTable* ItemLookupTable = nullptr;
-
-	// Called when the save object is successfully loaded or created
-	UPROPERTY(BlueprintAssignable)	FOnSaveGameObjectReady	OnSaveGameObjectReady;
-
-	// Called when the game state saves the save meta object
-	UPROPERTY(BlueprintAssignable)	FOnGameSaved			OnGameSaved;
-	
-	// Called when a character has been saved
-	UPROPERTY(BlueprintAssignable)	FOnCharacterSaved		OnCharacterSaved;
-	
-	// Called when a character has been selected
-	UPROPERTY(BlueprintAssignable)	FOnCharacterSelected	OnCharacterSelected;
-
-	// Called when a character has been deleted
-	UPROPERTY(BlueprintAssignable)	FOnCharacterDeleted OnCharacterDeleted;
 
 	// If specified, pulls default start values from this data table
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -265,43 +249,27 @@ public: // members
 	UDataTable* DataTableEffects = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int DefaultNumOfInventorySlots = 20;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<EEquipmentSlotType> DefaultEquipmentSlots = {
-		EEquipmentSlotType::PRIMARY, EEquipmentSlotType::SECONDARY,
-		EEquipmentSlotType::HELMET, EEquipmentSlotType::NECK,
-		EEquipmentSlotType::EARRINGLEFT, EEquipmentSlotType::EARRINGRIGHT,
-		EEquipmentSlotType::FACE, EEquipmentSlotType::SHOULDERS,
-		EEquipmentSlotType::BACK, EEquipmentSlotType::SLEEVES,
-		EEquipmentSlotType::WRISTLEFT, EEquipmentSlotType::WRISTRIGHT,
-		EEquipmentSlotType::HANDS, EEquipmentSlotType::RINGLEFT,
-		EEquipmentSlotType::RINGRIGHT, EEquipmentSlotType::TORSO,
-		EEquipmentSlotType::WAIST, EEquipmentSlotType::LEGS,
-		EEquipmentSlotType::FEET, EEquipmentSlotType::COSMETIC
-	};
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bSavesOnServer = false;
 	
 private: // members
 
 	// The name of the meta file
-	UPROPERTY() FString SaveMetaName_ = "metadata";
+	UPROPERTY() FString SaveMetaName_ = "";
 
 	UPROPERTY(Replicated) bool bIsCreating = false;
 
 	// Set to true once the meta data file has been loaded or created
 	bool bSaveMetaIsReady = false;
 
-	// A TArray of SaveSlotName of saved characters
-	UPROPERTY()	TArray<FString> SavedCharacters_;
+	// A TArray of saved characters
+	UPROPERTY() TArray<FSaveMeta> SavedCharacters_;
 
 	// Which character is currently selected, where -1
 	// indicates no character selected, or user is in the creator.
-	UPROPERTY()	int SelectedCharacter_ = -1;
+	UPROPERTY(ReplicatedUsing=OnRep_SelectedCharacter) int SelectedCharacter_ = -1;
+	UFUNCTION(Client, Reliable) void OnRep_SelectedCharacter(const int OldSelection);
 
-	UFUNCTION() void OnRep_CheatMode(bool OldState);
+	UFUNCTION(NetMulticast, Reliable) void OnRep_CheatMode(bool OldState);
 	UPROPERTY(Replicated, ReplicatedUsing=OnRep_CheatMode)
 	bool CheatMode_ = false;
 	

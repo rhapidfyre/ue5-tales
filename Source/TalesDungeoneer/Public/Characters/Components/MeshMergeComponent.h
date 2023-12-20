@@ -124,5 +124,7 @@ private:
 	
 	// This way the initial setups on OnConstruction only run once
 	bool bHasInitialized = false;
+
+	bool bMeshSaveRestored = false;
 	
 };

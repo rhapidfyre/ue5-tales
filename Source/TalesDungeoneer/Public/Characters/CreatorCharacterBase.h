@@ -21,6 +21,7 @@ public: // functions
 	
 	ACreatorCharacterBase();
 
+
 	UFUNCTION(BlueprintCallable)
 	bool FinishCreation() { return CreateCharacter(); }
 

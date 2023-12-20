@@ -22,20 +22,17 @@ void ACreatorGameStateBase::BeginPlay()
  */
 bool ACreatorGameStateBase::CreateNewCharacter(FString& SaveResponse, bool RunAsync)
 {
-	ACharacterBase* CharacterBase = Cast<ACharacterBase>(
-			UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+	ACharacter* PlayerCharacter = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
+	ACharacterBase* CharacterBase = Cast<ACharacterBase>(PlayerCharacter);
 	if (IsValid(CharacterBase))
 	{
-		const FString SaveSlotName = CharacterBase->GetSafeCharacterName();
+		const FString SaveSlotName = CharacterBase->GetCharacterSafeName();
 		if (!UGameplayStatics::DoesSaveGameExist(SaveSlotName, 0))
 		{
-			CharacterBase->SaveCharacterData();
+			return SaveCurrentCharacter(SaveResponse, RunAsync);
 		}
-		else
-		{
-			SaveResponse = "Name Already in Use";
-			return false;
-		}
+		SaveResponse = "Name Already in Use";
+		return false;
 	}
 	SaveResponse = "Invalid Character Entity";
 	return false;

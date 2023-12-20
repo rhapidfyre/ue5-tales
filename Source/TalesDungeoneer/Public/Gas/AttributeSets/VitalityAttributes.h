@@ -37,6 +37,11 @@ public:
 	ATTRIBUTE_ACCESSORS(UVitalityAttributes, CurrentHealth);
 	
 	UPROPERTY(BlueprintReadOnly, Category = "Status Attributes",
+		ReplicatedUsing=OnRep_CurrentMagic, Meta = (AllowPrivateAccess = true))
+	FGameplayAttributeData CurrentStamina;
+	ATTRIBUTE_ACCESSORS(UVitalityAttributes, CurrentStamina);
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Status Attributes",
 		ReplicatedUsing=OnRep_CurrentArmorClass, Meta = (AllowPrivateAccess = true))
 	FGameplayAttributeData CurrentArmorClass;
 	ATTRIBUTE_ACCESSORS(UVitalityAttributes, CurrentArmorClass);
@@ -50,11 +55,6 @@ public:
 		ReplicatedUsing=OnRep_CurrentMagic, Meta = (AllowPrivateAccess = true))
 	FGameplayAttributeData CurrentMagic;
 	ATTRIBUTE_ACCESSORS(UVitalityAttributes, CurrentMagic);
-	
-	UPROPERTY(BlueprintReadOnly, Category = "Status Attributes",
-		ReplicatedUsing=OnRep_CurrentMagic, Meta = (AllowPrivateAccess = true))
-	FGameplayAttributeData CurrentStamina;
-	ATTRIBUTE_ACCESSORS(UVitalityAttributes, CurrentStamina);
 	
 	UPROPERTY(BlueprintReadOnly, Category = "Status Attributes",
 		ReplicatedUsing=OnRep_CurrentHunger, Meta = (AllowPrivateAccess = true))
@@ -100,6 +100,31 @@ public:
 		ReplicatedUsing=OnRep_MaximumHydration, Meta = (AllowPrivateAccess = true))
 	FGameplayAttributeData MaximumHydration;
 	ATTRIBUTE_ACCESSORS(UVitalityAttributes, MaximumHydration);
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Status Attributes",
+		ReplicatedUsing=OnRep_PassiveHealthRegen, Meta = (AllowPrivateAccess = true))
+	FGameplayAttributeData PassiveHealthRegen;
+	ATTRIBUTE_ACCESSORS(UVitalityAttributes, PassiveHealthRegen);
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Status Attributes",
+		ReplicatedUsing=OnRep_PassiveMagicRegen, Meta = (AllowPrivateAccess = true))
+	FGameplayAttributeData PassiveMagicRegen;
+	ATTRIBUTE_ACCESSORS(UVitalityAttributes, PassiveMagicRegen);
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Status Attributes",
+		ReplicatedUsing=OnRep_PassiveStaminaRegen, Meta = (AllowPrivateAccess = true))
+	FGameplayAttributeData PassiveStaminaRegen;
+	ATTRIBUTE_ACCESSORS(UVitalityAttributes, PassiveStaminaRegen);
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Status Attributes",
+		ReplicatedUsing=OnRep_PassiveHungerDrain, Meta = (AllowPrivateAccess = true))
+	FGameplayAttributeData PassiveHungerDrain;
+	ATTRIBUTE_ACCESSORS(UVitalityAttributes, PassiveHungerDrain);
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Status Attributes",
+		ReplicatedUsing=OnRep_PassiveHydroDrain, Meta = (AllowPrivateAccess = true))
+	FGameplayAttributeData PassiveHydroDrain;
+	ATTRIBUTE_ACCESSORS(UVitalityAttributes, PassiveHydroDrain);
 
 	UPROPERTY(BlueprintReadOnly, Category = "Damage Attributes",
 		ReplicatedUsing=OnRep_Ammunition, Meta = (AllowPrivateAccess = true))
@@ -137,6 +162,21 @@ protected:
 	
 	UFUNCTION()
 	virtual void OnRep_CurrentHydration(const FGameplayAttributeData& OldData);
+
+	UFUNCTION()
+	virtual void OnRep_PassiveHealthRegen(const FGameplayAttributeData& OldData);
+
+	UFUNCTION()
+	virtual void OnRep_PassiveStaminaRegen(const FGameplayAttributeData& OldData);
+
+	UFUNCTION()
+	virtual void OnRep_PassiveMagicRegen(const FGameplayAttributeData& OldData);
+
+	UFUNCTION()
+	virtual void OnRep_PassiveHungerDrain(const FGameplayAttributeData& OldData);
+
+	UFUNCTION()
+	virtual void OnRep_PassiveHydroDrain(const FGameplayAttributeData& OldData);
 
 	UFUNCTION()
 	virtual void OnRep_MaximumHealth(const FGameplayAttributeData& OldData);

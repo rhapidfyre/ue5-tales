@@ -3,6 +3,7 @@
 #include "Characters/CreatorCharacterBase.h"
 
 #include "Gamemode/BaseFiles/TalesGameStateBase.h"
+#include "Gamemode/TitleScreen/CreatorGameStateBase.h"
 #include "Kismet/GameplayStatics.h"
 #include "Logging/StructuredLog.h"
 
@@ -15,8 +16,8 @@ ACreatorCharacterBase::ACreatorCharacterBase()
 
 bool ACreatorCharacterBase::CreateCharacter()
 {
-	ATalesGameStateBase* TalesGameState =
-			Cast<ATalesGameStateBase>(GetWorld()->GetGameState());
+	ACreatorGameStateBase* TalesGameState =
+			Cast<ACreatorGameStateBase>(GetWorld()->GetGameState());
 	
 	if (IsValid(TalesGameState))
 	{
@@ -26,7 +27,7 @@ bool ACreatorCharacterBase::CreateCharacter()
 			return false;
 		}
 		
-		NewSaveSlotName_	= GetSafeCharacterName();
+		NewSaveSlotName_	= GetCharacterSafeName();
 		NewSaveUserIndex_	= 0; //TalesGameState->GetCurrentSaveUserIndex();
 	
 		// Allow creation as long as this character doesn't already exist
@@ -39,22 +40,14 @@ bool ACreatorCharacterBase::CreateCharacter()
 		}
 
 		// Do Initial Character Setup
-		UE_LOGFMT(LogTemp, Warning, "Attempting to create new character "
+		UE_LOGFMT(LogTemp, Display, "Attempting to create new character "
 			"'{CharacterName}' in Save Slot: '{SaveName}, {UserIndex}'",
 			GetCharacterName(), NewSaveSlotName_, NewSaveUserIndex_);
 
-		// If the new save is successful, set it as the selected character
 		FString SaveResponse = "";
-		if (TalesGameState->SaveCurrentCharacter(SaveResponse, false))
-		{
-			const int saveIndex = TalesGameState->GetIndexOfSavedCharacter(NewSaveSlotName_, NewSaveUserIndex_);
-			if (saveIndex >= 0)
-			{
-				TalesGameState->SetSelectedCharacter(saveIndex);
-			}
-			return true;
-		}
-		UE_LOGFMT(LogTemp, Error, "Creation of Character {NewName} FAILED - Reason: {SaveResponse}", SaveResponse);
+		const bool saveSuccess = TalesGameState->CreateNewCharacter(SaveResponse, false);
+		UE_LOGFMT(LogTemp, Display, "Creation of Character {NewName} Response: {SaveResponse}", GetCharacterName(), SaveResponse);
+		return saveSuccess;
 	}
 	return false;
 }

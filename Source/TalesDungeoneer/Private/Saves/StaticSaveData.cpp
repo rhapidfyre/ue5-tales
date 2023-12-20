@@ -4,87 +4,41 @@
 #include "Saves/StaticSaveData.h"
 #include "Saves/SavedCharacters.h"
 #include "Kismet/GameplayStatics.h"
+#include "lib/datastructures/GlobalData.h"
 
 
-UGlobalSaveData::UGlobalSaveData() {}
-
-UGlobalSaveData::UGlobalSaveData(TArray<FString> RestoredCharacters)
+UGlobalSaveData::UGlobalSaveData() :
+	CharacterData_({}), SelectedCharacter_(-1)
 {
-	if (RestoredCharacters.Num() > 0)
-	{
-		_CharacterNames = RestoredCharacters;
-	}
+	SaveVersion_ = UGlobalData::GetAppVersion();
+}
+
+UGlobalSaveData::UGlobalSaveData(
+	const TArray<FSaveMeta>& RestoredCharacters, const int& SelectedCharacter) :
+	CharacterData_(RestoredCharacters), SelectedCharacter_(SelectedCharacter)
+{
+	SaveVersion_ = UGlobalData::GetAppVersion();
 }
 
 /**
  * @brief Sets the character names of the save game object.
  * @param RestoredCharacters The list of character names saved
  */
-void UGlobalSaveData::SetSavedCharacterNameList(TArray<FString> RestoredCharacters)
+// ReSharper disable once CppPassValueParameterByConstReference
+void UGlobalSaveData::SetSavedCharacterNameList(TArray<FSaveMeta> RestoredCharacters)
 {
-	_CharacterNames = RestoredCharacters;
-}
-
-/**
- * @brief Returns a pointer to the USavedCharacter data requested.
- *			Return requires validation before use.
- *			For threading, use 'GetSavedCharacterDataAsync'
- * @param SaveSlotName The FString of the saved character slot being requested
- * @return Nullptr on failure
- */
-USavedCharacter* UGlobalSaveData::GetSavedCharacterData(FString SaveSlotName)
-{
-	if (SaveSlotName.IsEmpty())
+	CharacterData_.Empty();
+	if (RestoredCharacters.Num() > 0)
 	{
-		return nullptr;
+		CharacterData_ = RestoredCharacters;
 	}
-
-	// Loop through saved characters to find the requested save slot
-	for (FString TempSaveName : _CharacterNames)
-	{
-		USavedCharacter* SaveReference = Cast<USavedCharacter>(
-			UGameplayStatics::LoadGameFromSlot(SaveSlotName, 0));
-		
-		if (IsValid(SaveReference))
-		{
-			if (SaveSlotName == SaveReference->SaveSlotName)
-			{
-				return SaveReference;
-			}
-		}
-		
-	}
-	return nullptr;
 }
 
 void UGlobalSaveData::SetSelectedCharacter(int CharacterIndex)
 {
-	_SelectedCharacter = -1;
-	if (_CharacterNames.IsValidIndex(CharacterIndex))
-		_SelectedCharacter = CharacterIndex;
-}
-
-FString UGlobalSaveData::GetSelectedCharacterSaveSlotName() const
-{
-	if (_CharacterNames.IsValidIndex(_SelectedCharacter))
-		return _CharacterNames[_SelectedCharacter];
-	return "";
-}
-
-/**
- * @brief Triggers 'LoadSaveData' delegate if/when a save is located (async)
- * @param SaveSlotName The FName of the saved character slot being requested
- * @param PlayerCharacter Reference to the character being saved
- */
-void UGlobalSaveData::GetSavedCharacterDataAsync(FString SaveSlotName,
-		ACharacterBase* PlayerCharacter)
-{
-	FAsyncLoadGameFromSlotDelegate LoadDelegate;
-	LoadDelegate.BindUObject(PlayerCharacter, &ACharacterBase::LoadCharacterData);
-	UGameplayStatics::AsyncLoadGameFromSlot(SaveSlotName, 0, LoadDelegate);
-}
-
-int UGlobalSaveData::GetSelectedCharacterIndex() const
-{
-	return _SelectedCharacter;
+	SelectedCharacter_ = -1;
+	if (CharacterData_.IsValidIndex(CharacterIndex))
+	{
+		SelectedCharacter_ = CharacterIndex;
+	}
 }
