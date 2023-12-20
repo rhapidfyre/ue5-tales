@@ -6,11 +6,8 @@
 #include "AbilitySystemComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-#include "Kismet/GameplayStatics.h"
 #include "Logging/StructuredLog.h"
-#include "Gamemode/BaseFiles/TalesGameStateBase.h"
 #include "Gas/AttributeSets/TalesAttributes.h"
-#include "lib/datastructures/GlobalData.h"
 #include "Saves/SavedCharacters.h"
 #include "TalesDungeoneer/TalesDungeoneer.h"
 

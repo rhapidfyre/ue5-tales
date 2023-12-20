@@ -155,6 +155,7 @@ USaveGame* ACharacterBase::SaveCharacter(USaveGame* SaveObject, bool bRunAsync)
 	SavedCharacter->SaveVersion			= UGlobalData::GetAppVersion();
 	
 	SavedCharacter->CharacterData.CharacterName = GetCharacterName();
+	SavedCharacter->AnimBlueprint		= (GetMesh()->GetAnimClass())->GetClass();
 	
 	SavedCharacter->Skeleton			= MeshMergeComponent->Skeleton;
 	SavedCharacter->MeshesToMerge		= MeshMergeComponent->MeshesToMerge;
@@ -279,10 +280,10 @@ bool ACharacterBase::LoadCharacter(const FString& SlotName, const int32 UserInde
 
 		FString InventoryResponse = "";
 		InventoryComponent->LoadInventory(InventoryResponse,
-			SavedCharacter->SaveSlotName, true);
+			SavedCharacter->SavedInventory, true);
 		
 		MeshMergeComponent->InitializeMeshMerge(SavedCharacter);
-		
+		GetMesh()->SetAnimClass(SavedCharacter->AnimBlueprint);
 		bWasSuccess = true;
 	}
 	
@@ -303,7 +304,10 @@ void ACharacterBase::BeginPlay()
 void ACharacterBase::OnConstruction(const FTransform& Transform)
 {
 	Super::OnConstruction(Transform);
-	SetCharacterName(CharacterName);
+	if (!CharacterName.IsEmpty())
+	{
+		SetCharacterName(CharacterName);
+	}
 
 	InventoryComponent->NumberOfInvSlots = 18;
 	InventoryComponent->EligibleEquipmentSlots = {
@@ -385,7 +389,7 @@ void ACharacterBase::OnRep_PlayerState()
 
 void ACharacterBase::CharacterRestoredFromSave(const bool bWasSuccess)
 {
-	bCharacterSaveRestored = bWasSuccess;
+	//bCharacterSaveRestored = bWasSuccess;
 	OnCharacterRestored.Broadcast(bWasSuccess);
 	if (HasAuthority() && bWasSuccess)
 	{
@@ -498,7 +502,7 @@ void ACharacterBase::RestoreCharacter(const FCharacterData& RestoreData)
 		SetCharacterName(RestoreData.CharacterName);
 
 		// Update restored flags to prevent cheating
-		bCharacterSaveRestored = true;
+		//bCharacterSaveRestored = true;
 		OnCharacterRestored.Broadcast(true);
 		Client_CharacterRestored(true);
 	}
@@ -517,7 +521,7 @@ void ACharacterBase::Server_RestoreCharacter_Implementation(const FCharacterData
 		// If saves are server side, deny the restore request and find it ourselves
 		if (bSavesOnServer)
 		{
-			bCharacterSaveRestored = true;
+			//bCharacterSaveRestored = true;
 			OnCharacterRestored.Broadcast(true);
 			Client_CharacterRestored(true);
 		}
@@ -531,10 +535,10 @@ void ACharacterBase::Server_RestoreCharacter_Implementation(const FCharacterData
 
 void ACharacterBase::Client_CharacterRestored_Implementation(const bool bWasSuccess)
 {
-	bCharacterSaveRestored = bWasSuccess;
+	//bCharacterSaveRestored = bWasSuccess;
 	UE_LOGFMT(LogTemp, Log, "{CharName}({Sv}) REPNOTIFY: Save Game {PassOrFail}",
 		GetName(), HasAuthority()?"SV":"CL",
-		bWasSuccess ? "Failed to Restore" : "Restored Successfully");
+		bWasSuccess ? "Restored Successfully" : "Failed to Restore");
 	OnCharacterRestored.Broadcast(bWasSuccess);
 }
 

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AttributeSet.h"
 #include "UObject/Object.h"
 #include "EffectAttributes.generated.h"
 
@@ -11,7 +12,7 @@
  * such as being chilled, speed boosts, etc.
  */
 UCLASS()
-class TALESDUNGEONEER_API UEffectAttributes : public UObject
+class TALESDUNGEONEER_API UEffectAttributes : public UAttributeSet
 {
 	GENERATED_BODY()
 };

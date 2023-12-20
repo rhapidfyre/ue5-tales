@@ -96,7 +96,7 @@ public:
 	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite, ReplicatedUsing=OnRep_MeshesToMerge)
 	TArray < FStMeshMergeData > MeshesToMerge = {};
 
-	TArray < FStMeshMergeData > DefaultMeshes= {} ;
+	TArray < FStMeshMergeData > DefaultMeshes = {} ;
 	
 	// The number of high LODs to remove from input meshes
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

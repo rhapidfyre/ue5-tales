@@ -34,7 +34,6 @@ UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Damage_Magic_Generic)
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Damage_Magic_Holy)
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Damage_Magic_DarkMagic)
 
-
 /**
  *
  */

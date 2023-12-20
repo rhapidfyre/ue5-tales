@@ -16,12 +16,12 @@ struct TALESDUNGEONEER_API FCharacterData
 {
 	GENERATED_BODY()
 	
-	FString CharacterName			= "";
-	int		CharacterLevel			= 1;
-	float	ExperiencePoints		= 0.f;
+	UPROPERTY(SaveGame) FString CharacterName			= "";
+	UPROPERTY(SaveGame) int		CharacterLevel			= 1;
+	UPROPERTY(SaveGame) float	ExperiencePoints		= 0.f;
 	
-	ECharacterClass CharacterClass	= ECharacterClass::ANY;
-	ECharacterRace  CharacterRace   = ECharacterRace::ANY;
+	UPROPERTY(SaveGame) ECharacterClass CharacterClass	= ECharacterClass::ANY;
+	UPROPERTY(SaveGame) ECharacterRace  CharacterRace   = ECharacterRace::ANY;
 	
 };
 
@@ -37,32 +37,36 @@ public:
 
 	USavedCharacter() {};
 	
-	UPROPERTY(VisibleAnywhere, Category = "Character Save Data")
+	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Character Save Data")
 	FString SaveVersion = "v?";
 	
-	UPROPERTY(VisibleAnywhere, Category = "Character Save Data")
+	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Character Save Data")
 	FString SaveSlotName = TEXT("QuickName");
 
-	UPROPERTY(VisibleAnywhere, Category = "Character Save Data")
+	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Character Save Data")
 	FCharacterData CharacterData = {};
 
-	UPROPERTY(VisibleAnywhere, Category = "Character Save Data")
+	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Character Save Data")
 	uint32 UserIndex = 0;
 
-	UPROPERTY(VisibleAnywhere, Category = "Mesh Merge Save Data")
+	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Mesh Merge Save Data")
+	TSubclassOf<UAnimBlueprint> AnimBlueprint = UAnimBlueprint::StaticClass();
+
+	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Mesh Merge Save Data")
 	USkeleton* Skeleton = nullptr;
 
-	UPROPERTY(VisibleAnywhere, Category = "Mesh Merge Save Data")
+	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Mesh Merge Save Data")
 	TArray < FStMeshMergeData > MeshesToMerge = {};
 	
-	UPROPERTY(VisibleAnywhere, Category = "Mesh Merge Save Data")
+	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Mesh Merge Save Data")
 	TArray < FSkelMeshMergeSectionMapping > MeshSectionMappings = {};
 	
-	UPROPERTY(VisibleAnywhere, Category = "Mesh Merge Save Data")
+	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Mesh Merge Save Data")
 	TArray < FSkelMeshMergeUVTransformMapping > UvTransformsPerMesh = {};
 
 	// The name of the inventory save file
-	UPROPERTY(VisibleAnywhere, Category = "Inventory Save Data") FString SavedInventory = "";
+	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Inventory Save Data")
+	FString SavedInventory = "";
 };
 
 /**
@@ -77,19 +81,19 @@ public:
 
 	USavedDmCharacter() {}
 	
-	UPROPERTY(VisibleAnywhere, Category = "Character Save Data")
+	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Character Save Data")
 	FString SaveVersion = "v?";
 	
-	UPROPERTY(VisibleAnywhere, Category = "Character Save Data")
+	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Character Save Data")
 	FString SaveSlotName = TEXT("QuickName");
 	
-	UPROPERTY(VisibleAnywhere, Category = "Character Save Data")
+	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Character Save Data")
 	int EngineeringLevel = 1;
 	
-	UPROPERTY(VisibleAnywhere, Category = "Character Save Data")
+	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Character Save Data")
 	float ExperiencePoints = 0;
 
-	UPROPERTY(VisibleAnywhere, Category = "Character Save Data")
+	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Character Save Data")
 	uint32 UserIndex = 0;
 	
 };

@@ -9,7 +9,6 @@
 
 #include "VitalityAttributes.generated.h"
 
-
 /**
  * Vitality Attributes are any attributes related to the characters well-being,
  * such as health, hunger, hydration, magic. It also includes damage factors

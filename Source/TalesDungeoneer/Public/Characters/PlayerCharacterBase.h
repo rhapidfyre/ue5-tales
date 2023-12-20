@@ -75,9 +75,6 @@ public: // functions
 	/** Attack Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Character Input Settings")
 	UInputAction* SecondaryInputAction = nullptr;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FString CharacterSaveFolder = "Characters/";
 	
 protected:
 

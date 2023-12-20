@@ -6,12 +6,13 @@
 #include "Net/UnrealNetwork.h"
 
 UVitalityAttributes::UVitalityAttributes() :
-	CurrentHealth(40.f), CurrentStamina(0.f), CurrentMagic(0.f),
-	CurrentArmorClass(100.f), CurrentHydration(1000.f), CurrentHunger(1000.f),
-	MaximumHealth(100.f), MaximumArmor(100.f), MaximumHunger(1000.f), MaximumHydration(1000.f),
-	MaximumMagic(100.f), MaximumStamina(100.f), MaximumArmorClass(100),
+	CurrentHealth(40.f), CurrentStamina(0.f), CurrentArmorClass(0.f),
+	CurrentArmor(100.f), CurrentMagic(0.f), CurrentHunger(1000.f),
+	CurrentHydration(1000.f), MaximumHealth(100.f), MaximumArmorClass(100.f),
+	MaximumArmor(100.f), MaximumMagic(100.f), MaximumStamina(100.f),
+	MaximumHunger(1000.f), MaximumHydration(1000.f),
 	PassiveHealthRegen(1.f), PassiveMagicRegen(0.25), PassiveStaminaRegen(2.f),
-	PassiveHydroDrain(0.035), PassiveHungerDrain(0.016), Ammunition(0.f)
+	PassiveHungerDrain(0.016), PassiveHydroDrain(0.035), Ammunition(0.f)
 {
 	
 }

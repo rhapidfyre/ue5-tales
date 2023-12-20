@@ -47,7 +47,7 @@ UDamageAttributes::UDamageAttributes() :
 	AcidBonus(0.f), ShockBonus(0.f), RadioBonus(0.f),
 	SonicBonus(0.f), HolyBonus(0.f), DarkBonus(0.f)
 {
-	
+
 }
 
 

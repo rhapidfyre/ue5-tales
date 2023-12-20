@@ -36,8 +36,8 @@ public:
 
 	int GetSelectedCharacterIndex() const { return SelectedCharacter_; };
 
+private:
 	UPROPERTY(SaveGame) TArray<FSaveMeta> CharacterData_ = {};
-	
 	UPROPERTY(SaveGame) int		SelectedCharacter_ = -1;
 	UPROPERTY(SaveGame) FString SaveVersion_ = "x";
 	

@@ -6,7 +6,6 @@
 #include "Engine/SkeletalMeshSocket.h"
 #include "Net/UnrealNetwork.h"
 #include "Characters/CharacterBase.h"
-#include "lib/Tags/AttributeTags.h"
 #include "lib/datastructures/EquipmentWorn.h"
 #include "lib/Tags/TalesGlobalTags.h"
 
@@ -50,7 +49,7 @@ bool UMeshMergeComponent::PerformMeshMerge()
 {
 	UE_LOG(LogTemp, Warning, TEXT("%s(%s): PerformMeshMerge()"), *GetName(),
 		GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
-	const ENetMode NetMode = GetNetMode();
+	
 	if (MeshesToMerge.IsEmpty())
 	{
 		if (DefaultMeshes.IsEmpty())
@@ -69,7 +68,7 @@ bool UMeshMergeComponent::PerformMeshMerge()
 	
 	// Removes all invalid skeletal meshes from the array copy
 	// Invalid mesh assets will return TRUE, which removes it from the array.
-	MeshesToMerge.RemoveAll([](FStMeshMergeData InternalMeshMergeData)
+	MeshesToMerge.RemoveAll([](const FStMeshMergeData& InternalMeshMergeData)
 	{
 		// Returns within the lambda
 		return (!IsValid(InternalMeshMergeData.MeshAsset));  
@@ -83,10 +82,10 @@ bool UMeshMergeComponent::PerformMeshMerge()
 		return nullptr;
 	}
 
-	EMeshBufferAccess BufferAccess = bNeedsCpuAccess ?
-		EMeshBufferAccess::ForceCPUAndGPU : EMeshBufferAccess::Default;
-	
-	TArray<FSkelMeshMergeSectionMapping> SectionMappingsCopy = MeshSectionMappings;
+	const EMeshBufferAccess BufferAccess = bNeedsCpuAccess ?
+		                                       EMeshBufferAccess::ForceCPUAndGPU : EMeshBufferAccess::Default;
+
+	const TArray<FSkelMeshMergeSectionMapping> SectionMappingsCopy = MeshSectionMappings;
 	TArray<FSkelMeshMergeUVTransformMapping> UvTransformsCopy = UvTransformsPerMesh;
 
 	bool bRunDuplicateCheck = false;
@@ -95,7 +94,7 @@ bool UMeshMergeComponent::PerformMeshMerge()
 	{
 		BaseMesh->SetSkeleton(Skeleton);
 		bRunDuplicateCheck = true;
-		for (USkeletalMeshSocket* Socket : BaseMesh->GetMeshOnlySocketList())
+		for (const USkeletalMeshSocket* Socket : BaseMesh->GetMeshOnlySocketList())
 		{
 			if (IsValid(Socket))
 			{
@@ -103,7 +102,7 @@ bool UMeshMergeComponent::PerformMeshMerge()
 					*(Socket->SocketName.ToString()) );
 			}
 		}
-		for (USkeletalMeshSocket* Socket : BaseMesh->GetSkeleton()->Sockets)
+		for (const USkeletalMeshSocket* Socket : BaseMesh->GetSkeleton()->Sockets)
 		{
 			if (IsValid(Socket))
 			{
@@ -139,35 +138,35 @@ bool UMeshMergeComponent::PerformMeshMerge()
 	}
 	if (bRunDuplicateCheck)
 	{
-		TArray<FName> SkelMeshSockets;
-		TArray<FName> SkelSockets;
+		TArray<FName> SkeletonMeshSockets;
+		TArray<FName> SkeletonSockets;
 		
-		for (USkeletalMeshSocket* Socket : BaseMesh->GetMeshOnlySocketList())
+		for (const USkeletalMeshSocket* Socket : BaseMesh->GetMeshOnlySocketList())
 		{
 			if (Socket)
 			{
-				SkelMeshSockets.Add(Socket->GetFName());
+				SkeletonMeshSockets.Add(Socket->GetFName());
 				UE_LOG(LogTemp, Warning, TEXT("SkelMeshSocket: %s"), *(Socket->SocketName.ToString()));
 			}
 		}
 		
-		for (USkeletalMeshSocket* Socket : BaseMesh->GetSkeleton()->Sockets)
+		for (const USkeletalMeshSocket* Socket : BaseMesh->GetSkeleton()->Sockets)
 		{
 			if (Socket)
 			{
-				SkelSockets.Add(Socket->GetFName());
+				SkeletonSockets.Add(Socket->GetFName());
 				UE_LOG(LogTemp, Warning, TEXT("SkelSocket: %s"), *(Socket->SocketName.ToString()));
 			}
 		}
 		
-		TSet<FName> UniqueSkelMeshSockets;
-		TSet<FName> UniqueSkelSockets;
-		UniqueSkelMeshSockets.Append(SkelMeshSockets);
-		UniqueSkelSockets.Append(SkelSockets);
-		int32 Total = SkelSockets.Num() + SkelMeshSockets.Num();
-		int32 UniqueTotal = UniqueSkelMeshSockets.Num() + UniqueSkelSockets.Num();
-		UE_LOG(LogTemp, Warning, TEXT("SkelMeshSocketCount: %d | SkelSocketCount: %d | Combined: %d"), SkelMeshSockets.Num(), SkelSockets.Num(), Total);
-		UE_LOG(LogTemp, Warning, TEXT("SkelMeshSocketCount: %d | SkelSocketCount: %d | Combined: %d"), UniqueSkelMeshSockets.Num(), UniqueSkelSockets.Num(), UniqueTotal);
+		TSet<FName> UniqueSkeletonMeshSockets;
+		TSet<FName> UniqueSkeletonSockets;
+		UniqueSkeletonMeshSockets.Append(SkeletonMeshSockets);
+		UniqueSkeletonSockets.Append(SkeletonSockets);
+		const int32 Total = SkeletonSockets.Num() + SkeletonMeshSockets.Num();
+		const int32 UniqueTotal = UniqueSkeletonMeshSockets.Num() + UniqueSkeletonSockets.Num();
+		UE_LOG(LogTemp, Warning, TEXT("SkelMeshSocketCount: %d | SkelSocketCount: %d | Combined: %d"), SkeletonMeshSockets.Num(), SkeletonSockets.Num(), Total);
+		UE_LOG(LogTemp, Warning, TEXT("SkelMeshSocketCount: %d | SkelSocketCount: %d | Combined: %d"), UniqueSkeletonMeshSockets.Num(), UniqueSkeletonSockets.Num(), UniqueTotal);
 		UE_LOG(LogTemp, Warning, TEXT("Found Duplicates: %s"), *((Total != UniqueTotal) ? FString("True") : FString("False")));
 	}
 	
@@ -198,36 +197,19 @@ void UMeshMergeComponent::InitializeMeshMerge(const USavedCharacter* CharacterDa
 		return;
 	}
 
-	if (IsValid(CharacterData) && !bMeshSaveRestored)
+	if (IsValid(CharacterData))
 	{
 		// Initialize local client data first
-		bHasInitialized = true;
-		Skeleton				= CharacterData->Skeleton;			
-		MeshSectionMappings		= CharacterData->MeshSectionMappings; 
-		UvTransformsPerMesh		= CharacterData->UvTransformsPerMesh; 
+		Skeleton				= CharacterData->Skeleton;
+		MeshSectionMappings		= CharacterData->MeshSectionMappings;
+		UvTransformsPerMesh		= CharacterData->UvTransformsPerMesh;
 		MeshesToMerge			= CharacterData->MeshesToMerge;
-		PerformMeshMerge();
-
-		// If not the server, send update to server
-		if (!GetOwner()->HasAuthority())
+		
+		if (GetNetMode() == NM_Client)
 		{
 			Server_InitializeMeshMerge(
-				CharacterData->Skeleton,
-				CharacterData->MeshSectionMappings,
-				CharacterData->UvTransformsPerMesh,
-				CharacterData->MeshesToMerge );
+				Skeleton, MeshSectionMappings, UvTransformsPerMesh, MeshesToMerge);
 		}
-		return;
-	}
-	
-	// If save data isn't valid, use the defaults
-	if (!GetOwner()->HasAuthority())
-	{
-		/*
-		Server_InitializeMeshMerge(Skeleton,
-			MeshSectionMappings, UvTransformsPerMesh, MeshesToMerge);
-		*/
-		return;
 	}
 	
 	// if the mesh merge array is empty by default, setup the default base
@@ -237,6 +219,11 @@ void UMeshMergeComponent::InitializeMeshMerge(const USavedCharacter* CharacterDa
 		{
 			MeshesToMerge.Add(MeshMergeData);
 		}
+		bHasInitialized = true;
+		PerformMeshMerge();
+	}
+	else
+	{
 		bHasInitialized = true;
 		PerformMeshMerge();
 	}
@@ -270,7 +257,9 @@ int UMeshMergeComponent::GetMeshMergeIndexByTag(FGameplayTag SearchTag) const
 	{
 		const FStMeshMergeData MergeData = MeshesToMerge[i];
 		if (MergeData.AssociatedBodyPart.MatchesTag(SearchTag))
+		{
 			return i;
+		}
 	}
 	return -1;
 }
@@ -286,12 +275,16 @@ int UMeshMergeComponent::GetMeshMergeIndexByTag(FGameplayTag SearchTag) const
 int UMeshMergeComponent::AddNewMeshToArrayByTag(FGameplayTag GameTag, FName EquipmentName, bool IsMale)
 {
 	if (EquipmentName.IsNone())
+	{
 		return -1;
-	
+	}
+
 	const int ExistingIndex = GetMeshMergeIndexByTag(GameTag);
 	if (ExistingIndex >= 0)
+	{
 		return ExistingIndex;
-	
+	}
+
 	// If we still haven't returned, the game tag doesn't exist. Add it.
 	const FStMeshMergeData NewMeshData(EquipmentName);
 	return MeshesToMerge.Add( NewMeshData );
@@ -313,13 +306,15 @@ void UMeshMergeComponent::SetNewMeshByIndex(FName EquipmentName, int ArrayIndex,
 		// Use the mesh given
 		USkeletalMesh* UsingMesh = IsMale ? EquipData.MaleMesh : EquipData.FemaleMesh;
 		if (IsValid(UsingMesh))
+		{
 			MeshesToMerge[ArrayIndex].MeshAsset = UsingMesh;
+		}
 
 		else
 		{
 			// Get the default mesh for this slot
-			FGameplayTag BodyTag = MeshesToMerge[ArrayIndex].AssociatedBodyPart;
-			FStMeshMergeData MeshMergeData = UEquipmentSystem::GetDefaultMeshFromTag(BodyTag, IsMale);
+			const FGameplayTag BodyTag = MeshesToMerge[ArrayIndex].AssociatedBodyPart;
+			const FStMeshMergeData MeshMergeData = UEquipmentSystem::GetDefaultMeshFromTag(BodyTag, IsMale);
 			
 			if (IsValid(MeshMergeData.MeshAsset))
 			{
@@ -328,7 +323,9 @@ void UMeshMergeComponent::SetNewMeshByIndex(FName EquipmentName, int ArrayIndex,
 		}
 		
 		if (MergeNow)
+		{
 			PerformMeshMerge();
+		}
 	}
 }
 
@@ -384,19 +381,25 @@ void UMeshMergeComponent::InitializeDefaultMeshes()
 void UMeshMergeComponent::OnRep_MeshesToMerge_Implementation()
 {
 	if (GetNetMode() >= NM_Client)
+	{
 		PerformMeshMerge();
+	}
 }
 
 void UMeshMergeComponent::OnRep_UvTransformsPerMesh_Implementation()
 {
 	if (GetNetMode() >= NM_Client)
+	{
 		PerformMeshMerge();
+	}
 }
 
 void UMeshMergeComponent::OnRep_MeshSectionMappings_Implementation()
 {
 	if (GetNetMode() >= NM_Client)
+	{
 		PerformMeshMerge();
+	}
 }
 
 void UMeshMergeComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
