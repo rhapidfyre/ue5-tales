@@ -7,15 +7,7 @@
 #include "lib/datastructures/GlobalData.h"
 
 
-UGlobalSaveData::UGlobalSaveData() :
-	CharacterData_({}), SelectedCharacter_(-1)
-{
-	SaveVersion_ = UGlobalData::GetAppVersion();
-}
-
-UGlobalSaveData::UGlobalSaveData(
-	const TArray<FSaveMeta>& RestoredCharacters, const int& SelectedCharacter) :
-	CharacterData_(RestoredCharacters), SelectedCharacter_(SelectedCharacter)
+UGlobalSaveData::UGlobalSaveData()
 {
 	SaveVersion_ = UGlobalData::GetAppVersion();
 }
@@ -24,8 +16,7 @@ UGlobalSaveData::UGlobalSaveData(
  * @brief Sets the character names of the save game object.
  * @param RestoredCharacters The list of character names saved
  */
-// ReSharper disable once CppPassValueParameterByConstReference
-void UGlobalSaveData::SetSavedCharacterNameList(TArray<FSaveMeta> RestoredCharacters)
+void UGlobalSaveData::SetSavedCharacterNameList(const TArray<FSaveMeta>& RestoredCharacters)
 {
 	CharacterData_.Empty();
 	if (RestoredCharacters.Num() > 0)

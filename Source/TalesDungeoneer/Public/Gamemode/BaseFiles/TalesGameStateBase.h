@@ -82,7 +82,7 @@ public: // methods
 
 	// Forces an asynchronous save of the save game meta file
 	UFUNCTION(BlueprintCallable)
-	void SaveMetaDataAsync() const;
+	void SaveMetaDataAsync();
 
 	UFUNCTION(BlueprintPure)
 	bool GetIsSaveMetaReady() const { return bSaveMetaIsReady; }
@@ -173,10 +173,6 @@ protected: // methods
 	void CharacterSaveLoaded(const FString& SlotName,
 		int32 UserIndex, USaveGame* LoadedGameData);
 
-	// Creates the save metadata file if it doesn't exist.
-	// Returns true if created, false otherwise.
-	bool CreateSaveGameIfNotExists();
-
 	// Performs an sync character data load, returning true on success
 	bool LoadCharacterSync(const FString& SaveSlotName = "");
 
@@ -207,10 +203,10 @@ private: // methods
 		const FString& NewTitle, const FString& NewMessage, int NewPriority = 2);
 	
 	// Sets the values in the save metadata
-	void Helper_SetSaveValues(UGlobalSaveData* SaveMeta) const;
+	USaveGame* Helper_SetSaveValues();
 
 	// Loads the values from save metadata into memory (this object)
-	void Helper_LoadSavedValues(const UGlobalSaveData* SaveMeta);
+	void Helper_LoadSavedValues(const USaveGame* SaveMeta);
 
 	// Called when an asynchronous save has finished
 	UFUNCTION()	void SaveGameDelegate(const FString& SlotName,
@@ -256,10 +252,12 @@ private: // members
 	// The name of the meta file
 	UPROPERTY() FString SaveMetaName_ = "";
 
-	UPROPERTY(Replicated) bool bIsCreating = false;
+	UPROPERTY(ReplicatedUsing=OnRep_IsCreating) bool bIsCreating = false;
+	UFUNCTION(Client, Reliable) void OnRep_IsCreating();
 
 	// Set to true once the meta data file has been loaded or created
-	bool bSaveMetaIsReady = false;
+	UPROPERTY(ReplicatedUsing=OnRep_SaveMetaReady) bool bSaveMetaIsReady = false;
+	UFUNCTION(Client, Reliable) void OnRep_SaveMetaReady();
 
 	// A TArray of saved characters
 	UPROPERTY() TArray<FSaveMeta> SavedCharacters_;

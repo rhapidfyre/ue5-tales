@@ -15,8 +15,8 @@ struct FSaveMeta
 	GENERATED_BODY();
 	FSaveMeta() : SaveName(FString()), SaveIndex(0) {};
 	FSaveMeta(FString NewName, int32 NewIndex) {SaveName=NewName;SaveIndex=NewIndex;}
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FString SaveName;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) int32 SaveIndex;
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintReadWrite) FString SaveName;
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintReadWrite) int32 SaveIndex;
 };
 
 UCLASS(BlueprintType, Blueprintable)
@@ -28,23 +28,17 @@ public:
 	
 	UGlobalSaveData();
 
-	UGlobalSaveData(const TArray<FSaveMeta>& RestoredCharacters,
-					const int& SelectedCharacter = -1);
-
 	TArray<FSaveMeta> GetAllCharacterSaves() const { return CharacterData_; }
 
 	void SetSelectedCharacter(int CharacterIndex = -1);
 	
-	void SetSavedCharacterNameList(TArray<FSaveMeta> RestoredCharacters);
+	void SetSavedCharacterNameList(const TArray<FSaveMeta>& RestoredCharacters);
 
 	int GetSelectedCharacterIndex() const { return SelectedCharacter_; };
 
+	UPROPERTY(SaveGame) TArray<FSaveMeta> CharacterData_ = {};
 	
-private:
-
-	TArray<FSaveMeta> CharacterData_;
-	
-	int		SelectedCharacter_;
-	FString SaveVersion_ = "x";
+	UPROPERTY(SaveGame) int		SelectedCharacter_ = -1;
+	UPROPERTY(SaveGame) FString SaveVersion_ = "x";
 	
 };
