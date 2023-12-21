@@ -45,6 +45,17 @@ void ATalesGameStateBase::SetIsCreatingCharacter(bool isCreating)
 {
 	bIsCreating = isCreating;
 	OnCharacterSelected.Broadcast(bIsCreating ? -1 : GetSelectedCharacter());
+
+	ACharacterBase* CreatorCharacter = Cast<ACharacterBase>(
+		UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+	if (IsValid(CreatorCharacter))
+	{
+		// Hide the character if not creating and an invalid character is selected
+		// Otherwise, always show character
+		CreatorCharacter->MeshMergeComponent->
+					SetMeshIsHidden(bIsCreating ? false : GetSelectedCharacter() < 0);
+	}
+	
 }
 
 ATalesGameStateBase::ATalesGameStateBase() {}
@@ -435,6 +446,18 @@ void ATalesGameStateBase::SaveGameMetaLoaded(
 		
 	}// If it was not loaded, there is no save to restore
 	bSaveMetaIsReady = true;
+
+	// If no character is selected, hide the character mesh
+	// If we call 'SetSelectedCharacter', it creates a save meta, so just do it manually.
+	if (GetSelectedCharacter() < 0)
+	{
+		ACharacterBase* CharacterBase = Cast<ACharacterBase>(
+			UGameplayStatics::GetPlayerCharacter(GetWorld(),0));
+		if (IsValid(CharacterBase))
+		{
+			CharacterBase->MeshMergeComponent->SetMeshIsHidden(true);
+		}
+	}
 }
 
 void ATalesGameStateBase::SetSelectedCharacter(int CharacterIndex)
@@ -455,6 +478,14 @@ void ATalesGameStateBase::SetSelectedCharacter(int CharacterIndex)
 		// Will either be -1, or a valid index
 		SelectedCharacter_ = SavedCharacters_.Num() - 1;
 		ResetCharacter();
+	}
+	
+	ACharacterBase* CreatorCharacter = Cast<ACharacterBase>(
+		UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+	if (IsValid(CreatorCharacter))
+	{
+		CreatorCharacter->MeshMergeComponent->
+					SetMeshIsHidden(GetSelectedCharacter() < 0);
 	}
 
 	// Must save the metadata whenever the selection changes
@@ -538,7 +569,8 @@ void ATalesGameStateBase::Helper_LoadSavedValues(const USaveGame* SaveMeta)
 void ATalesGameStateBase::SaveGameDelegate(
 		const FString& SlotName, const int32 UserIndex, bool bSuccess) const
 {
-	UGlobalSaveData* SaveData = Cast<UGlobalSaveData>(UGameplayStatics::LoadGameFromSlot(SlotName,UserIndex));
+	UGlobalSaveData* SaveData = Cast<UGlobalSaveData>(
+			UGameplayStatics::LoadGameFromSlot(SlotName,UserIndex));
 	OnGameSaved.Broadcast(bSuccess);
 }
 

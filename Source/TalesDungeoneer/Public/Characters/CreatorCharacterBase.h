@@ -21,11 +21,14 @@ public: // functions
 	
 	ACreatorCharacterBase();
 
-
 	UFUNCTION(BlueprintCallable)
 	bool FinishCreation() { return CreateCharacter(); }
 
 	virtual bool CreateCharacter();
+
+protected:
+
+	virtual void BeginPlay() override;
 
 private:
 

@@ -155,7 +155,7 @@ USaveGame* ACharacterBase::SaveCharacter(USaveGame* SaveObject, bool bRunAsync)
 	SavedCharacter->SaveVersion			= UGlobalData::GetAppVersion();
 	
 	SavedCharacter->CharacterData.CharacterName = GetCharacterName();
-	SavedCharacter->AnimBlueprint		= (GetMesh()->GetAnimClass())->GetClass();
+	SavedCharacter->AnimBlueprint		= GetMesh()->AnimClass;
 	
 	SavedCharacter->Skeleton			= MeshMergeComponent->Skeleton;
 	SavedCharacter->MeshesToMerge		= MeshMergeComponent->MeshesToMerge;
@@ -284,6 +284,7 @@ bool ACharacterBase::LoadCharacter(const FString& SlotName, const int32 UserInde
 		
 		MeshMergeComponent->InitializeMeshMerge(SavedCharacter);
 		GetMesh()->SetAnimClass(SavedCharacter->AnimBlueprint);
+		
 		bWasSuccess = true;
 	}
 	
@@ -296,6 +297,7 @@ bool ACharacterBase::LoadCharacter(const FString& SlotName, const int32 UserInde
 void ACharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
+	MeshMergeComponent->PerformMeshMerge();
 	BindListeners();
 	bCharacterReady = true;
 }

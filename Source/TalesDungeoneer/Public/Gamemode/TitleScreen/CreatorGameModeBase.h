@@ -22,6 +22,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<ACharacterBase> BpCharacter = ACreatorCharacterBase::StaticClass();
 
+	
 protected:
 	virtual void OnConstruction(const FTransform& Transform) override;
 };

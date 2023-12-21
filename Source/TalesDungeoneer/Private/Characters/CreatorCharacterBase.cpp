@@ -51,3 +51,8 @@ bool ACreatorCharacterBase::CreateCharacter()
 	}
 	return false;
 }
+
+void ACreatorCharacterBase::BeginPlay()
+{
+	Super::BeginPlay();
+}

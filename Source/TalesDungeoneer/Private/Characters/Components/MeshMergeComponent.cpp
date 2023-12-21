@@ -47,6 +47,8 @@ UMeshMergeComponent::UMeshMergeComponent()
 
 bool UMeshMergeComponent::PerformMeshMerge()
 {
+	const bool bWasHiddenToStart = bHideMesh;
+	SetMeshIsHidden(true);
 	UE_LOG(LogTemp, Warning, TEXT("%s(%s): PerformMeshMerge()"), *GetName(),
 		GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
 	
@@ -173,6 +175,8 @@ bool UMeshMergeComponent::PerformMeshMerge()
 	if (IsValid(BaseMesh))
 	{
 		CharacterBase->GetMesh()->SetSkeletalMesh(BaseMesh);
+		// Restore mesh hidden state
+		SetMeshIsHidden(bWasHiddenToStart);
 		return true;
 	}
 	
@@ -230,10 +234,20 @@ void UMeshMergeComponent::InitializeMeshMerge(const USavedCharacter* CharacterDa
 	
 }
 
+void UMeshMergeComponent::SetMeshIsHidden(bool bIsHidden)
+{
+	bHideMesh = bIsHidden;
+	ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
+	if (IsValid(CharacterBase))
+	{
+		CharacterBase->GetMesh()->SetVisibility(!bIsHidden);
+	}
+}
+
 void UMeshMergeComponent::Server_InitializeMeshMerge_Implementation(USkeleton* NewSkeleton,
-	const TArray<FSkelMeshMergeSectionMapping>& NewMeshMaps,
-	const TArray<FSkelMeshMergeUVTransformMapping>& NewUvTransforms,
-	const TArray<FStMeshMergeData>& NewMeshes)
+                                                                    const TArray<FSkelMeshMergeSectionMapping>& NewMeshMaps,
+                                                                    const TArray<FSkelMeshMergeUVTransformMapping>& NewUvTransforms,
+                                                                    const TArray<FStMeshMergeData>& NewMeshes)
 {
 	// The client can only initialize once
 	if (!bHasInitialized)
@@ -378,6 +392,16 @@ void UMeshMergeComponent::InitializeDefaultMeshes()
 	}
 }
 
+void UMeshMergeComponent::OnRep_HideMesh_Implementation()
+{
+	const ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
+	if (IsValid(CharacterBase))
+	{
+		USkeletalMeshComponent* skeletalMeshComponent = CharacterBase->GetMesh();
+		skeletalMeshComponent->SetVisibility(!bHideMesh);
+	}
+}
+
 void UMeshMergeComponent::OnRep_MeshesToMerge_Implementation()
 {
 	if (GetNetMode() >= NM_Client)
@@ -405,6 +429,7 @@ void UMeshMergeComponent::OnRep_MeshSectionMappings_Implementation()
 void UMeshMergeComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(UMeshMergeComponent, bHideMesh);
 	DOREPLIFETIME(UMeshMergeComponent, Skeleton);
 	DOREPLIFETIME(UMeshMergeComponent, MeshesToMerge);
 	DOREPLIFETIME(UMeshMergeComponent, MeshSectionMappings);

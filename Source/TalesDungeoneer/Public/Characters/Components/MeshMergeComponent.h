@@ -46,6 +46,9 @@ public:
 
 	void InitializeMeshMerge(const USavedCharacter* CharacterData = nullptr);
 
+	UFUNCTION(BlueprintCallable)
+	void SetMeshIsHidden(bool bIsHidden);
+
 	UFUNCTION(Server, Reliable)
 	void Server_InitializeMeshMerge(USkeleton* NewSkeleton,
 		const TArray<FSkelMeshMergeSectionMapping>& NewMeshMaps,
@@ -121,6 +124,10 @@ public:
 	TSubclassOf<UAnimInstance> AnimBlueprint = nullptr;
 
 private:
+
+	// Start hidden by default
+	UPROPERTY(ReplicatedUsing=OnRep_HideMesh) bool bHideMesh = true;
+	UFUNCTION(NetMulticast, Reliable) void OnRep_HideMesh();
 	
 	// This way the initial setups on OnConstruction only run once
 	bool bHasInitialized = false;
