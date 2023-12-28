@@ -50,7 +50,7 @@ public:
 	uint32 UserIndex = 0;
 
 	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Mesh Merge Save Data")
-	TSubclassOf<UAnimBlueprint> AnimBlueprint = UAnimBlueprint::StaticClass();
+	TSubclassOf<UAnimInstance> AnimBlueprint = nullptr;
 
 	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Mesh Merge Save Data")
 	USkeleton* Skeleton = nullptr;

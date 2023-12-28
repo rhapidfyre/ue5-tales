@@ -22,9 +22,6 @@ protected:
 	virtual void BeginPlay() override;
 	virtual void OnConstruction(const FTransform& Transform) override;
 	virtual void UpdateWeapon() override;
-	virtual bool CheckForHit(TArray<AActor*>& HitActors) override;
-	virtual void startAttackTimer() override;
-	virtual void cancelAttackTimer() override;
 
 	/** Deducts one item from the thrown weapon slot (primary/secondary), and on success,
 	 * it will spawn a projectile of the same mesh, in it's fully activated state, and

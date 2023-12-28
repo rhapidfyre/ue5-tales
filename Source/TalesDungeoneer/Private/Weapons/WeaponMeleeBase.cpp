@@ -25,54 +25,14 @@ bool AWeaponMeleeBase::doAttack()
 // Performs the attack logic by setting up the line trace and looping (if applicable)
 void AWeaponMeleeBase::InitiateAttack()
 {
-	HitTargets_.Empty(); // Empty array for new attack
-	
-	const FStWeaponData WeaponData = getWeaponData();
-		
-	// Is the end of the attack on a delay, and is it after the attack starts?
-	// If so, we need to do more than one hit trace
-	UE_LOGFMT(LogTemp, Display, "{WeaponName}: Beginning Attack Tracing", *GetName());
-	bool doMultiTrace = WeaponData.HitDetectDelay > 0.f && (WeaponData.HitDetectStop > WeaponData.HitDetectDelay);
 
-	// Add the delays
-	const float attackTimerStart = WeaponData.HitDetectDelay > 0.f ? WeaponData.HitDetectDelay : 0.f;
-	float attackTimerStop  = WeaponData.HitDetectStop  > 0.f ? WeaponData.HitDetectStop  : 0.f;
-
-	// If stop time is before start time, add 1/10th a second from start time
-	if (attackTimerStop <= attackTimerStart)
-		attackTimerStop = attackTimerStart + 0.1;
-	
-	TicksDelayed_ = attackTimerStart / AttackTimerTickRate_;
-	
-	if (doMultiTrace || attackTimerStart > 0.f)
-	{
-		TimerTicksRemaining_ = (attackTimerStop - attackTimerStart) / AttackTimerTickRate_;
-		FTimerDelegate startAttackDelegate;
-		startAttackDelegate.BindUObject(this, &AWeaponMeleeBase::DoAttackTracing);
-		GetWorldTimerManager().SetTimer(
-			AttackTimer_, startAttackDelegate, AttackTimerTickRate_, true);
-	}
-	// Single Trace Only
-	else
-	{
-		TimerTicksRemaining_ = 1;
-		DoAttackTracing();
-	}
 }
 
 bool AWeaponMeleeBase::GetIsAttackValid(AActor* HitActor)
 {
 	if (IsValid(HitActor))
 	{
-		const FStWeaponData WeaponData = getWeaponData();
-		const float DistTo = GetDistanceTo(HitActor);
-		if (WeaponData.MaxReachDistance > DistTo)
-		{
-			return true;
-		}
-		UE_LOGFMT(LogTemp, Display, "{EntName}({Auth}): Hit INVALID - Too Far Away! {MaxReach} < {DistTo}",
-			*GetName(), HasAuthority()?"SERVER":"CLIENT", WeaponData.MaxReachDistance, DistTo);
-		
+
 	}
 	return false;
 }
@@ -112,11 +72,6 @@ void AWeaponMeleeBase::BeginPlay()
 		UE_LOG(LogTemp, Error, TEXT("%s Failed to Validate. Mesh does not have '%s' and '%s' sockets!!"),
 			*GetName(), *SocketStartName.ToString(), *SocketEndName.ToString());
 	}
-}
-
-bool AWeaponMeleeBase::CheckForHit(TArray<AActor*>& HitActors)
-{
-	return Super::CheckForHit(HitActors);
 }
 
 void AWeaponMeleeBase::TargetHitByWeapon(AActor* HitActor)

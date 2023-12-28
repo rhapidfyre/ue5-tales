@@ -33,9 +33,6 @@ protected:
 	virtual void OnConstruction(const FTransform& Transform) override;
 
 	virtual void UpdateWeapon() override;
-	virtual bool CheckForHit(TArray<AActor*>& HitActors) override;
-	virtual void startAttackTimer() override;
-	virtual void cancelAttackTimer() override;
 
 	virtual void SpawnProjectile(FVector fwdVector);
 

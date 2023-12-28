@@ -130,18 +130,33 @@ void ATalesGameStateBase::RemoveSelectedCharacter()
 		}
 	}
 	
-	if (SavedCharacters_.IsValidIndex( GetSelectedCharacter() ))
+	const int DeleteIndex = GetSelectedCharacter();
+	if (SavedCharacters_.IsValidIndex(DeleteIndex))
 	{
 		const FString SaveSlotName = GetCharacterSlotName();
-		if (UGameplayStatics::DoesSaveGameExist(SaveSlotName, 0))
+		const int32 SaveUserIndex  = GetCharacterUserIndex();
+		if (UGameplayStatics::DoesSaveGameExist(SaveSlotName, SaveUserIndex))
 		{
 			// Disallow operations while the saves are being manipulated
 			const bool metaWasReady = GetIsSaveMetaReady();
 			bSaveMetaIsReady = false;
-			const int DeleteIndex = SelectedCharacter_;
+
+			const USavedCharacter* SavedCharacter = Cast<USavedCharacter> (
+				UGameplayStatics::LoadGameFromSlot(SaveSlotName, SaveUserIndex) );
+			
+			if (IsValid(SavedCharacter))
+			{
+				// Delete subservient save games (inventory, abilities, etc)
+				if (UGameplayStatics::DoesSaveGameExist(SavedCharacter->SavedInventory,0))
+				{
+					UGameplayStatics::DeleteGameInSlot(SavedCharacter->SavedInventory, 0);
+				}
+			}
+
+			// Delete the actual save game
+			UGameplayStatics::DeleteGameInSlot(SaveSlotName, SaveUserIndex);
+			
 			SavedCharacters_.RemoveAt(DeleteIndex);
-			UGameplayStatics::DeleteGameInSlot(GetCharacterSlotName(),
-											   GetCharacterUserIndex());
 			OnCharacterDeleted.Broadcast(SaveSlotName, DeleteIndex);
 			bSaveMetaIsReady = metaWasReady;
 			
@@ -304,7 +319,7 @@ void ATalesGameStateBase::BeginPlay()
 	if ( GetMetaDataSaveName().IsEmpty() ) {SaveMetaName_ = "SaveMeta"; }
 	
 	// Load the save game data from the previous session
-	LoadSaveGameMeta(false);
+	LoadSaveGameMeta(true);
 	
 	OnSaveGameObjectReady.Broadcast();
 }
@@ -415,7 +430,8 @@ void ATalesGameStateBase::SaveGameMetaLoaded(
 	if (IsValid(SaveMeta))
 	{
 		Helper_LoadSavedValues(SaveMeta);
-
+		
+/* MOVED TO CharacterBase::BeginPlay()
 		// If a valid character is selected, attempt to load it
 		if (GetIsValidCharacterSelected() && GetNetMode() != NM_DedicatedServer)
 		{
@@ -443,8 +459,10 @@ void ATalesGameStateBase::SaveGameMetaLoaded(
 				UE_LOGFMT(LogGameState, Display, "No Character Exists to Restore");
 			}
 		}
+*/
 		
 	}// If it was not loaded, there is no save to restore
+	
 	bSaveMetaIsReady = true;
 
 	// If no character is selected, hide the character mesh
@@ -467,11 +485,6 @@ void ATalesGameStateBase::SetSelectedCharacter(int CharacterIndex)
 	if (SavedCharacters_.IsValidIndex(CharacterIndex))
 	{
 		SelectedCharacter_ = CharacterIndex;
-		// If the newly selected character fails to load, deselect.
-		if (!LoadCharacterSync( GetCharacterSlotName() ))
-		{
-			SelectedCharacter_ = -1;
-		}
 	}
 	else
 	{
@@ -480,8 +493,16 @@ void ATalesGameStateBase::SetSelectedCharacter(int CharacterIndex)
 		ResetCharacter();
 	}
 	
+	// If the newly selected character fails to load, deselect.
+	if (!LoadCharacterSync( GetCharacterSlotName(), GetCharacterUserIndex() ))
+	{
+		SelectedCharacter_ = -1;
+		ResetCharacter();
+	}
+	
 	ACharacterBase* CreatorCharacter = Cast<ACharacterBase>(
 		UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+	
 	if (IsValid(CreatorCharacter))
 	{
 		CreatorCharacter->MeshMergeComponent->
@@ -600,7 +621,7 @@ void ATalesGameStateBase::OnRep_CheatMode_Implementation(bool OldState)
 	}
 }
 
-bool ATalesGameStateBase::LoadCharacterSync(const FString& SaveSlotName)
+bool ATalesGameStateBase::LoadCharacterSync(const FString& SaveSlotName, const uint32 SaveUserIndex)
 {
 	if (GetIsCreatingCharacter())
 	{
@@ -624,7 +645,7 @@ bool ATalesGameStateBase::LoadCharacterSync(const FString& SaveSlotName)
 	return false;
 }
 
-void ATalesGameStateBase::LoadCharacterAsync(const FString& SaveSlotName)
+void ATalesGameStateBase::LoadCharacterAsync(const FString& SaveSlotName, const uint32 SaveUserIndex)
 {
 	FAsyncLoadGameFromSlotDelegate LoadedDelegate;
 	LoadedDelegate.BindUObject(this, &ATalesGameStateBase::CharacterSaveLoaded);

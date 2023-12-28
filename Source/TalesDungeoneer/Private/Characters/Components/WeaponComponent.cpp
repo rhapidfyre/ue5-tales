@@ -95,22 +95,6 @@ void UWeaponComponent::SetToggleWeapon(EWeaponSlots WeaponSlot, bool MakeReady)
 	// Use timer
 	if (changeTime > 0.f)
 	{
-		UE_LOG(LogTemp, Display, TEXT("%s(%s): COOLDOWN INVOKED - Weapon Readiness Changed (%f)"),
-			*GetName(), GetOwner()->HasAuthority()?TEXT("S"):TEXT("C"),
-			MakeReady
-					? selectedWeapon->getWeaponData().DelayDrawTime
-					: selectedWeapon->getWeaponData().DelayStowTime);
-		
-		// If the change was allowed, set the cooldown timer
-		FTimerDelegate AttackDelegate;
-		AttackDelegate.BindUObject(this, &UWeaponComponent::ResetAttackCooldown);
-		GetWorld()->GetTimerManager().SetTimer(AttackCooldown_, AttackDelegate,
-			MakeReady
-					? selectedWeapon->getWeaponData().DelayDrawTime
-					: selectedWeapon->getWeaponData().DelayStowTime,
-			false);
-
-		
 		FTimerHandle TempTimer; // Will self destruct after firing if loop is false
 		FTimerDelegate TempArgs;
 
@@ -127,39 +111,6 @@ void UWeaponComponent::SetToggleWeapon(EWeaponSlots WeaponSlot, bool MakeReady)
 
 void UWeaponComponent::AdjustWeaponAttachment(EWeaponSlots weaponSlot)
 {
-	//if (!GetOwner()->HasAuthority()) return;
-	if (bShowDebug)
-	{
-		UE_LOG(LogTemp, Display, TEXT("%s(%s): AdjustWeaponAttachment()"),
-			*GetName(), GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
-	}
-	if (!IsValid(CharacterBase_))
-		return;
-
-	AWeaponBase* tempWeapon = PrimaryWeapon_;
-	switch (weaponSlot)
-	{
-	case EWeaponSlots::SECONDARY:
-		tempWeapon = SecondaryWeapon_;
-		break;
-	default:
-		break;
-	}
-	
-	if (!IsValid(tempWeapon))
-		return; // prevent invalid memory access
-	
-	const bool isWeaponReady = tempWeapon->getIsWeaponArmed();
-	
-	const FStWeaponData weaponData = tempWeapon->getWeaponData();
-	const FVector locationOffset = isWeaponReady ? weaponData.ActorHeldOffset	: weaponData.ActorHolsterOffset;
-	const FRotator rotateOffset	 = isWeaponReady ? weaponData.ActorHeldRotation	: weaponData.ActorHolsterRotation;
-	const FName socketName		 = isWeaponReady ? weaponData.ActorHeldBone		: weaponData.ActorHolsterBone;
-	
-	tempWeapon->AttachToComponent(CharacterBase_->GetMesh(),
-		FAttachmentTransformRules::SnapToTargetNotIncludingScale, socketName);
-	tempWeapon->AddActorLocalOffset(locationOffset, false);
-	tempWeapon->AddActorLocalRotation(rotateOffset, false);
 }
 
 void UWeaponComponent::Server_ToggleWeapon_Implementation(EWeaponSlots weaponType, bool makeReady)
@@ -213,90 +164,12 @@ bool UWeaponComponent::PerformAttack(EWeaponSlots weaponType)
 
 		// Check if the weapon is ready for an attack action
 		const ENetMode NetMode = GetNetMode();
-		const FStWeaponData HitWeaponData = hitWeapon->getWeaponData();
 		if (hitWeapon->getIsWeaponArmed())
 		{
-			// Let the attacker animate
-			if (NetMode == NM_Client)
-			{
-				if (hitWeapon->doAttack())
-				{
-					const EWeaponTypes animWeaponType = HitWeaponData.WeaponType;
-					if (AttackAnimations.Contains(animWeaponType))
-					{
-						UAnimMontage* animMontage = AttackAnimations[animWeaponType];
-						if (IsValid(animMontage))
-						{
-							LocalPlayAnimMontage(CharacterBase_, animMontage);
-						}
-					}
-				
-					if (AttackSounds.Num() > 0)
-					{
-						TArray<USoundBase*> SoundKeys;
-						AttackSounds.GetKeys(SoundKeys);
-						float getSoundNumber = FMath::RandRange(0, AttackSounds.Num() - 1);
-						USoundBase* animSound = SoundKeys[getSoundNumber];
-						float* soundDelay = AttackSounds.Find(animSound);
-						if (IsValid(animSound))
-						{
-							DelaySoundEffect(animSound, soundDelay == nullptr? 0.f : *soundDelay);
-						}
-					}
-				}
-			}
-			
-			// Cooldown timer only needs to run on client.
-			// The server's RPC will create a timer on the server.
-			if (NetMode == NM_Client)
-			{
-				UE_LOG(LogTemp, Display, TEXT("%s(%s): COOLDOWN INVOKED - Weapon Attacking!"),
-					*GetName(), GetOwner()->HasAuthority()?TEXT("S"):TEXT("C"));
-				
-				FTimerDelegate AttackDelegate;
-				AttackDelegate.BindUObject(this, &UWeaponComponent::ResetAttackCooldown);
-				GetWorld()->GetTimerManager().SetTimer(AttackCooldown_,
-					AttackDelegate, HitWeaponData.AttackDelay + 0.01, false);
-			}
-			
-			// Whether or not it worked client side, always send a request to
-			//    server for attack authorization, and let it handle the request.
 			Server_RequestAttack(weaponType);
-			
 		}
 		else
 		{
-			const EWeaponTypes animWeaponType = HitWeaponData.WeaponType;
-			if (DrawAnimations.Contains(animWeaponType))
-			{
-				UAnimMontage* animMontage = DrawAnimations[animWeaponType];
-				if (IsValid(animMontage))
-				{
-					LocalPlayAnimMontage(CharacterBase_, animMontage);
-				}
-			}
-
-			if (DrawSounds.Num() > 0)
-			{
-				USoundBase* animSound = DrawSounds[ FMath::RandRange(0, DrawSounds.Num() - 1) ];
-				if (IsValid(animSound))
-				{
-					DelaySoundEffect(animSound);
-				}
-			}
-			
-			// Cooldown timer only needs to run on client.
-			// The server's RPC will create a timer on the server.
-			if (GetNetMode() == NM_Client)
-			{
-				UE_LOG(LogTemp, Display, TEXT("%s(%s): COOLDOWN INVOKED - Weapon Attacking!"),
-					*GetName(), GetOwner()->HasAuthority()?TEXT("S"):TEXT("C"));
-				FTimerDelegate AttackDelegate;
-				AttackDelegate.BindUObject(this, &UWeaponComponent::ResetAttackCooldown);
-				GetWorld()->GetTimerManager().SetTimer(AttackCooldown_,
-					AttackDelegate, HitWeaponData.DelayDrawTime + 0.01, false);
-			}
-			
 			// Whether or not it worked client side, always send a request to
 			//    server for weapon toggle, and let it handle the request.
 			Server_ToggleWeapon(weaponType, true);
@@ -404,44 +277,7 @@ void UWeaponComponent::SetWeapon(FName weaponName, EWeaponSlots weaponSlot)
 	const FStWeaponData weaponData = UWeaponSystem::GetWeaponDataFromName(weaponName);
 	if (UWeaponSystem::GetWeaponIsValid(weaponData))
 	{
-		if (UItemSystem::getItemNameIsValid(weaponName))
-		{
-			const TSubclassOf<AWeaponBase> weaponClass = weaponData.SpawnClass;
-			
-			FActorSpawnParameters spawnParams;
-			spawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
-			// Spawn the actor and wait for us to set up it's data
-			AWeaponBase* tempWeapon = GetWorld()->SpawnActorDeferred<AWeaponBase>(
-						weaponClass, CharacterBase_->GetActorTransform(), CharacterBase_,
-						nullptr, ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
-			
-			if (IsValid(tempWeapon))
-			{
-				tempWeapon->setWeaponName(weaponName);
-				
-				FTransform newTransform;
-				tempWeapon->FinishSpawning(newTransform);
-				tempWeapon->SetOwner(CharacterBase_);
-
-				switch(weaponSlot)
-				{
-				case EWeaponSlots::PRIMARY:
-					PrimaryWeapon_ = tempWeapon;
-					break;
-				case EWeaponSlots::SECONDARY:
-					SecondaryWeapon_ = tempWeapon;
-					break;
-				default:
-					tempWeapon->Destroy();
-					break;
-				}
-				
-				AdjustWeaponAttachment(weaponSlot);
-				
-			}
-			
-		}
+		
 	}
 	
 }
@@ -539,41 +375,6 @@ float UWeaponComponent::WeaponReadyChanged(EWeaponSlots weaponSlot)
 	
 	if (IsValid(GetOwner()))
 	{
-		// If the montage is invalid
-		const EWeaponTypes WeaponType = hitWeapon->getWeaponData().WeaponType;
-		if (StowAnimations.Contains(WeaponType))
-		{
-			UAnimMontage* animMontage = StowAnimations[WeaponType];
-			if (hitWeapon->getIsWeaponArmed())
-			{
-				if (DrawAnimations.Contains(WeaponType))
-					animMontage = DrawAnimations[WeaponType];
-				else
-					animMontage = nullptr;
-			}
-			
-			if (IsValid(animMontage))
-			{
-				if (GetOwner()->HasAuthority())
-				{
-					Multicast_SendAnimation(CharacterBase_, animMontage);
-				}
-				else
-				{
-					const float animLength = LocalPlayAnimMontage(CharacterBase_, animMontage);
-					if (animLength <= 0.f)
-					{
-						UE_LOG(LogTemp, Warning, TEXT("Failed to play Anim Montage '%s'"), *animMontage->GetPathName());
-					}
-				}
-			}
-		}
-		if (IsValid(hitWeapon))
-		{
-			return hitWeapon->getIsWeaponArmed() ?
-				     hitWeapon->getWeaponData().DelayDrawTime
-				   : hitWeapon->getWeaponData().DelayStowTime;
-		}
 	}
 	return 0.f;
 }
@@ -712,29 +513,11 @@ void UWeaponComponent::Server_RequestAttack_Implementation(EWeaponSlots weaponTy
 			return;
 		}
 		
-		const FStWeaponData weaponData = weaponInUse->getWeaponData();
 		
 		// Is the weapon able to attack?
 		bool attackSuccess = weaponInUse->doAttack();
 		if (attackSuccess)
 		{
-			// Authorize Attack
-			UE_LOG(LogTemp, Display, TEXT("%s(%s): COOLDOWN INVOKED! Weapon is ATTACKING!"), *GetName(), GetOwner()->HasAuthority()?TEXT("SRV"):TEXT("CLI"));
-
-			// Process the attack animations
-			const EWeaponTypes animWeaponType = weaponInUse->getWeaponData().WeaponType;
-			if (AttackAnimations.Contains(animWeaponType))
-			{
-				UAnimMontage* animMontage = AttackAnimations[animWeaponType];
-				if ( IsValid(animMontage) )
-					Multicast_SendAnimation(CharacterBase_, animMontage);
-			}
-			
-			// If the attack was allowed, set the cooldown timer
-			FTimerDelegate AttackDelegate;
-			AttackDelegate.BindUObject(this, &UWeaponComponent::ResetAttackCooldown);
-			GetWorld()->GetTimerManager().SetTimer(AttackCooldown_,
-				AttackDelegate, weaponData.AttackDelay, false);
 			
 		}
 	}

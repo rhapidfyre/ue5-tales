@@ -7,6 +7,7 @@
 #include "Net/UnrealNetwork.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "DataAssets/CharacterDefaults.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "lib/datastructures/GlobalData.h"
@@ -15,6 +16,8 @@
 #include "Gas/Abilities/TalesGameplayAbility.h"
 #include "Gas/AttributeSets/TalesAttributes.h"
 #include "Kismet/GameplayStatics.h"
+#include "DataAssets/CharacterDefaults.h"
+#include "lib/Tags/TalesGlobalTags.h"
 
 #include "Logging/StructuredLog.h"
 
@@ -90,6 +93,26 @@ float ACharacterBase::GetRiskLevel() const
 	return 1.f;
 }
 
+void ACharacterBase::SetCharacterRace(const FGameplayTag& NewRaceTag)
+{
+	if (NewRaceTag.GetGameplayTagParents().HasTag(TAG_Character_Race))
+	{
+		const FGameplayTag OldClassTag = GetCharacterRace();
+		CharacterRace_ = NewRaceTag;
+		OnCharacterClassChanged.Broadcast(OldClassTag, NewRaceTag);
+	}
+}
+
+void ACharacterBase::SetCharacterClass(const FGameplayTag& NewClassTag)
+{
+	if (NewClassTag.GetGameplayTagParents().HasTag(TAG_Character_Class))
+	{
+		const FGameplayTag OldClassTag = GetCharacterClass();
+		CharacterClass_ = NewClassTag;
+		OnCharacterClassChanged.Broadcast(OldClassTag, NewClassTag);
+	}
+}
+
 FString ACharacterBase::GetCharacterSafeName() const
 {
 	if (CharacterName.IsEmpty()) { return ""; }
@@ -152,10 +175,12 @@ USaveGame* ACharacterBase::SaveCharacter(USaveGame* SaveObject, bool bRunAsync)
 
 	// Write ACharacterBase* specific data to SaveObject ( SavedCharacter )
 	
-	SavedCharacter->SaveVersion			= UGlobalData::GetAppVersion();
-	
 	SavedCharacter->CharacterData.CharacterName = GetCharacterName();
-	SavedCharacter->AnimBlueprint		= GetMesh()->AnimClass;
+
+	if (IsValid(GetMesh()))
+	{
+		SavedCharacter->AnimBlueprint = GetMesh()->AnimClass;
+	}
 	
 	SavedCharacter->Skeleton			= MeshMergeComponent->Skeleton;
 	SavedCharacter->MeshesToMerge		= MeshMergeComponent->MeshesToMerge;
@@ -212,12 +237,14 @@ USaveGame* ACharacterBase::SaveCharacter(USaveGame* SaveObject, bool bRunAsync)
 bool ACharacterBase::LoadCharacter(const FString& SlotName, const int32 UserIndex, USaveGame* SaveGame)
 {
 	bool bWasSuccess = false;
+
+	// Prevents the character from loading a save until the defaults have initialized
 	if (!bCharacterReady)
 	{
 		UE_LOGFMT(LogCharacterBase, Error, "{Character}({Sv}): "
-			"Cannot load character until initialization has completed.",
+			"LoadCharacter() Requested before character was ready. Delaying...",
 			GetName(), HasAuthority()?"SRV":"CLI");
-		OnCharacterRestored.Broadcast(false);
+		OnCharacterRestored.Broadcast(bWasSuccess);
 		return false;
 	}
 
@@ -232,6 +259,14 @@ bool ACharacterBase::LoadCharacter(const FString& SlotName, const int32 UserInde
 		// If the game state is valid, we can attempt to get the selected character
 		if (IsValid(TalesGameState))
 		{
+			if (!TalesGameState->GetIsSaveMetaReady())
+			{
+				UE_LOGFMT(LogCharacterBase, Warning, "{Character}({Sv}): "
+					"LoadCharacter() Failed - GameState not ready. Delaying...",
+					GetName(), HasAuthority()?"SRV":"CLI");
+				return false;
+			}
+			
 			// No saved data and creator open means this is a new character
 			if (TalesGameState->GetIsCreatingCharacter())
 			{
@@ -283,8 +318,13 @@ bool ACharacterBase::LoadCharacter(const FString& SlotName, const int32 UserInde
 			SavedCharacter->SavedInventory, true);
 		
 		MeshMergeComponent->InitializeMeshMerge(SavedCharacter);
-		GetMesh()->SetAnimClass(SavedCharacter->AnimBlueprint);
-		
+
+		if (SavedCharacter->AnimBlueprint != nullptr)
+		{
+			GetMesh()->SetAnimInstanceClass(SavedCharacter->AnimBlueprint);
+		}
+
+		MeshMergeComponent->SetMeshIsHidden(false);
 		bWasSuccess = true;
 	}
 	
@@ -296,34 +336,45 @@ bool ACharacterBase::LoadCharacter(const FString& SlotName, const int32 UserInde
 // Called when the game starts or when spawned
 void ACharacterBase::BeginPlay()
 {
-	Super::BeginPlay();
-	MeshMergeComponent->PerformMeshMerge();
 	BindListeners();
+	Super::BeginPlay();
+	
+	// If the character data asset exists, use it
+	if (IsValid(CharacterData))
+	{
+		FSkeletonOptionsData skeletonOptionsData = CharacterData->GetCharacterSkeleton();
+		
+		if (IsValid(skeletonOptionsData.Skeleton))
+			{MeshMergeComponent->Skeleton = skeletonOptionsData.Skeleton;}
+		
+		if (IsValid(skeletonOptionsData.AnimInstance))
+			{GetMesh()->SetAnimInstanceClass(skeletonOptionsData.AnimInstance);}
+
+		for (const TSubclassOf<UTalesGameplayAbility>& DefaultAbility : CharacterData->GetAbilities())
+			{DefaultAbilities.Add(DefaultAbility);}
+		
+		for (const TSubclassOf<UGameplayEffect>& DefaultEffect : CharacterData->GetEffects())
+			{DefaultEffects.Add(DefaultEffect);}
+	}
+
+	// Setup the initial default mesh
+	MeshMergeComponent->PerformMeshMerge();
+	
 	bCharacterReady = true;
+	LoadCharacter(); // Attempt to call the game state to load this character
 }
 
 
 void ACharacterBase::OnConstruction(const FTransform& Transform)
 {
 	Super::OnConstruction(Transform);
+	
 	if (!CharacterName.IsEmpty())
 	{
 		SetCharacterName(CharacterName);
+		SetCharacterRace(CharacterRace_);
+		SetCharacterClass(CharacterClass_);
 	}
-
-	InventoryComponent->NumberOfInvSlots = 18;
-	InventoryComponent->EligibleEquipmentSlots = {
-		EEquipmentSlotType::PRIMARY,		EEquipmentSlotType::SECONDARY,
-		EEquipmentSlotType::HELMET,			EEquipmentSlotType::NECK,
-		EEquipmentSlotType::EARRINGLEFT,	EEquipmentSlotType::EARRINGRIGHT,
-		EEquipmentSlotType::FACE, 			EEquipmentSlotType::SHOULDERS,
-		EEquipmentSlotType::BACK, 			EEquipmentSlotType::SLEEVES,
-		EEquipmentSlotType::WRISTLEFT,		EEquipmentSlotType::WRISTRIGHT,
-		EEquipmentSlotType::HANDS,			EEquipmentSlotType::RINGLEFT,
-		EEquipmentSlotType::RINGRIGHT,		EEquipmentSlotType::TORSO,
-		EEquipmentSlotType::WAIST,			EEquipmentSlotType::LEGS,
-		EEquipmentSlotType::FEET,			EEquipmentSlotType::COSMETIC
-	};
 	
 }
 
@@ -440,18 +491,9 @@ void ACharacterBase::SaveGameDelegate(const FString& SlotName, const int32 UserI
 	OnCharacterSaved.Broadcast(SlotName, UserIndex, bSaved);
 }
 
-void ACharacterBase::InventoryUpdateDelegate(int SlotNumberUpdated, bool bIsEquipment)
+void ACharacterBase::InventoryUpdateDelegate(int SlotNumberUpdated)
 {
-	UE_LOGFMT(LogTemp, Log, "{CharName}({Sv}): {SlotType} Update Received (Slot #{SlotNum})",
-		GetName(), HasAuthority()?"SV":"CL", bIsEquipment?"Equipment":"Inventory", SlotNumberUpdated);
-	if (bIsEquipment)
-	{
-		
-	}
-	else
-	{
-		
-	}
+	
 }
 
 void ACharacterBase::OnVitalityAttributeChanged(const FOnAttributeChangeData& Data)
@@ -487,6 +529,16 @@ void ACharacterBase::OnCoreStatsChanged(const FOnAttributeChangeData& Data)
 void ACharacterBase::OnDamageStatsChanged(const FOnAttributeChangeData& Data)
 {
 	OnAttributeUpdated.Broadcast(Data.Attribute, Data.NewValue);
+}
+
+void ACharacterBase::OnRep_CharacterRace_Implementation(const FGameplayTag& OldRace)
+{
+	OnCharacterRaceChanged.Broadcast(OldRace, GetCharacterRace());
+}
+
+void ACharacterBase::OnRep_CharacterClass_Implementation(const FGameplayTag& OldClass)
+{
+	OnCharacterClassChanged.Broadcast(OldClass, GetCharacterClass());
 }
 
 void ACharacterBase::RestoreCharacter(const FCharacterData& RestoreData)

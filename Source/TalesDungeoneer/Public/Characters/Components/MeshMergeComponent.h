@@ -12,6 +12,7 @@
 //FWD DECLARE
 class USavedCharacter;
 
+
 USTRUCT(BlueprintType)
 struct TALESDUNGEONEER_API FStMeshMergeData
 {

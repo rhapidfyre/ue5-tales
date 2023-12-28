@@ -3,10 +3,12 @@
 #include "lib/Tags/TalesGlobalTags.h"
 
 
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race,			"Character.Race")
 UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race_Human,	"Character.Race.Human")
 UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race_Dwarf,	"Character.Race.Dwarf")
 UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race_Elf,		"Character.Race.Elf")
 
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class,				"Character.Class")
 UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class_Assassin,	"Character.Class.Assassin")
 UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class_Cleric,		"Character.Class.Cleric")
 UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class_Deviant,		"Character.Class.Deviant")
@@ -16,6 +18,8 @@ UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class_Necro,		"Character.Class.Necro")
 UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class_Ranger,		"Character.Class.Ranger")
 UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class_Warrior,		"Character.Class.Warrior")
 UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class_Wizard,		"Character.Class.Wizard")
+
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body, 					 "Character.Body")
 
 // Used to specify the default body part for the character model
 // It will be applied and made visible when the actor component is initialized

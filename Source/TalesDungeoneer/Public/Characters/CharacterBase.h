@@ -10,6 +10,7 @@
 
 #include "InventoryComponent.h"
 #include "Components/MeshMergeComponent.h"
+#include "lib/Tags/TalesGlobalTags.h"
 
 #include "Saves/SavedCharacters.h"
 
@@ -29,22 +30,28 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAttributeUpdated,
 	const FGameplayAttribute&, AttributeData, const float, NewValue);
 	
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAttributeHealthUpdated,
-const float&, OldValue, const float&, NewValue);
+	const float&, OldValue, const float&, NewValue);
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAttributeStaminaUpdated,
-const float&, OldValue, const float&, NewValue);
+	const float&, OldValue, const float&, NewValue);
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAttributeMagicUpdated,
-const float&, OldValue, const float&, NewValue);
+	const float&, OldValue, const float&, NewValue);
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAttributeArmorUpdated,
-const float&, OldValue, const float&, NewValue);
+	const float&, OldValue, const float&, NewValue);
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAttributeHungerUpdated,
-const float&, OldValue, const float&, NewValue);
+	const float&, OldValue, const float&, NewValue);
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAttributeHydrationUpdated,
 	const float&, OldValue, const float&, NewValue);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnCharacterRaceChanged,
+	const FGameplayTag&, OldRace, const FGameplayTag&, NewRace);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnCharacterClassChanged,
+	const FGameplayTag&, OldRace, const FGameplayTag&, NewRace);
 
 class UOverheadDataWidgetBase;
 
@@ -75,6 +82,8 @@ public: // functions
 	UPROPERTY(BlueprintAssignable) FOnAttributeArmorUpdated OnAttributeArmorUpdated;
 	UPROPERTY(BlueprintAssignable) FOnAttributeHungerUpdated OnAttributeHungerUpdated;
 	UPROPERTY(BlueprintAssignable) FOnAttributeHydrationUpdated OnAttributeHydrationUpdated;
+	UPROPERTY(BlueprintAssignable) FOnCharacterRaceChanged OnCharacterRaceChanged;
+	UPROPERTY(BlueprintAssignable) FOnCharacterClassChanged OnCharacterClassChanged;
 	
 	// Returns CameraBoom sub object
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
@@ -87,6 +96,12 @@ public: // functions
 
 	// Gets the character's role-play-friendly name
 	UFUNCTION(BlueprintPure) FString GetCharacterName() const { return CharacterName; }
+	
+	UFUNCTION(BlueprintCallable) void SetCharacterRace(const FGameplayTag& NewRaceTag);
+	UFUNCTION(BlueprintCallable) void SetCharacterClass(const FGameplayTag& NewClassTag);
+	
+	UFUNCTION(BlueprintPure) FGameplayTag GetCharacterRace() const { return CharacterRace_; }
+	UFUNCTION(BlueprintPure) FGameplayTag GetCharacterClass() const { return CharacterClass_; }
 
 	// A safe character name is one with no spaces or special characters,
 	// useful for things like save file names.
@@ -128,7 +143,7 @@ protected: // functions
 	virtual void SaveGameDelegate(const FString& SlotName, const int32 UserIndex, bool bSaved);
 
 	UFUNCTION()
-	void InventoryUpdateDelegate(int SlotNumberUpdated, bool bIsEquipment);
+	void InventoryUpdateDelegate(int SlotNumberUpdated);
 
 	virtual void OnVitalityAttributeChanged(const FOnAttributeChangeData& Data);
 	virtual void OnCoreStatsChanged(const FOnAttributeChangeData& Data);
@@ -149,6 +164,12 @@ private: // methods
 	UFUNCTION(NetMulticast, Reliable)
 	void OnRep_CharacterName(const FString& OldCharacterName);
 
+	UFUNCTION(NetMulticast, Reliable)
+	void OnRep_CharacterRace(const FGameplayTag& OldRace);
+
+	UFUNCTION(NetMulticast, Reliable)
+	void OnRep_CharacterClass(const FGameplayTag& OldClass);
+
 	UFUNCTION(Server, Reliable)
 	void Server_RestoreCharacter(const FCharacterData& RestoreData);
 
@@ -160,6 +181,10 @@ public: // members
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,
 		Category = "Character Settings", ReplicatedUsing=OnRep_CharacterName)
 	FString CharacterName = "";
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite,
+		Category = "Data Initialization", meta = (AllowPrivateAccess = "true"))
+	class UPrimaryCharacterData* CharacterData = nullptr;
 
 	// The widget to display over the characters head
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Settings")
@@ -199,7 +224,7 @@ public: // members
 	FSlateColor SkinColor;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	class UAbilitySystemComponent* AbilitySystemComponent;
+	UAbilitySystemComponent* AbilitySystemComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly,
 		Category = "Gameplay Ability System", meta = (AllowPrivateAccess = "true"))
@@ -215,11 +240,11 @@ public: // members
 
 	// An array of default abilities on spawn, set within blueprint
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Gameplay Ability System", meta = (AllowPrivateAccess = "true"))
-	TArray<TSubclassOf <class UTalesGameplayAbility> > DefaultAbilities;
+	TArray<TSubclassOf <UTalesGameplayAbility> > DefaultAbilities;
 
 	// An array of default effects on spawn, set within blueprint
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Gameplay Ability System", meta = (AllowPrivateAccess = "true"))
-	TArray<TSubclassOf <class UGameplayEffect> > DefaultEffects;
+	TArray<TSubclassOf <UGameplayEffect> > DefaultEffects;
 	
 	// If true, character saves should only save server-side
 	// If false, character saves to the client who is controlling it
@@ -232,6 +257,12 @@ protected:
 	bool bIsInputBound = false;
 	
 private:
+	
+	UPROPERTY(ReplicatedUsing=OnRep_CharacterRace)
+	FGameplayTag CharacterRace_	 = TAG_Character_Race_Human;
+	
+	UPROPERTY(ReplicatedUsing=OnRep_CharacterClass)
+	FGameplayTag CharacterClass_ = TAG_Character_Class_Warrior;
 
 	// Sets true once the character save has been restored. Never returns to false.
 	bool bCharacterSaveRestored = false;

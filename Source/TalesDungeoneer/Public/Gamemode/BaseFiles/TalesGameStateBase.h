@@ -174,10 +174,10 @@ protected: // methods
 		int32 UserIndex, USaveGame* LoadedGameData);
 
 	// Performs an sync character data load, returning true on success
-	bool LoadCharacterSync(const FString& SaveSlotName = "");
+	bool LoadCharacterSync(const FString& SaveSlotName = "", const uint32 SaveUserIndex = 0);
 
 	// Performs an async character data load, calling CharacterLoaded when done
-	void LoadCharacterAsync(const FString& SaveSlotName = "");
+	void LoadCharacterAsync(const FString& SaveSlotName = "", const uint32 SaveUserIndex = 0);
 
 	// Performs a sync character data load, returning true on success
 	bool LoadSaveGameMetaSync();

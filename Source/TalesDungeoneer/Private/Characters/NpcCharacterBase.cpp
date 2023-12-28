@@ -25,9 +25,6 @@ ANpcCharacterBase::ANpcCharacterBase()
 		AiStimuli->bAutoRegister = true;
 	}
 	
-	// Disallow NPCs from picking up pick-up actors
-	InventoryComponent->bCanPickUpItems = false;
-	
 }
 
 float ANpcCharacterBase::GetDistanceFromOriginPoint() const
@@ -56,13 +53,6 @@ void ANpcCharacterBase::InitializeStartingItems()
 		return;
 	}
 
-	TArray<FStStartingItem> InventoryStartingItems = {};
-
-	// TODO - Add NPC Starting Items using Data Assets
-	
-	UE_LOGFMT(LogTemp, Log, "{CharName}({Sv}): Spawning with {NumStartItems} items",
-		GetName(), HasAuthority()?"SV":"CL", InventoryStartingItems.Num());
-	
 	InventoryComponent->IssueStartingItems();
 }
 
@@ -84,69 +74,7 @@ void ANpcCharacterBase::OnConstruction(const FTransform& Transform)
  * @param MyKiller Unused in this call
  */
  void ANpcCharacterBase::DropLootTable(AActor* MyKiller)
-{
-
-	// Award the Experience
-	/*
-	const int NpcLevel = GetCharacterLevel();
-	const float ExperienceWorth = GetExperienceWorth();
-	const ACombatAiControllerBase* AiController = Cast<ACombatAiControllerBase>(GetController());
-	if (IsValid(AiController))
-	{
-		for (const TPair<ACharacterBase*, float> HatedActor : AiController->GetHateList())
-		{
-			if (IsValid(HatedActor.Key))
-			{
-				HatedActor.Key->AwardExperiencePoints(NpcLevel, ExperienceWorth);
-			}
-		}
-	}
-	*/
-	
-	// Disperse the Loot
-	const TArray<FStInventorySlot> InventorySlots = InventoryComponent->GetCopyOfAllSlots(true);
-
-	// Determine what items and how many of each are dropped
-	TArray<FStNpcLootItem> ItemsToDrop = {};
-	for (const FStInventorySlot& SlotCopy : InventorySlots)
-	{
-		if (!SlotCopy.IsSlotEmpty())
-		{
-			if (SlotCopy.GetMaxStackAllowance() > 1)
-			{
-				// Add to existing item if it exists
-				for (int i = 0; i < ItemsToDrop.Num(); i++)
-				{
-					ItemsToDrop[i].Quantity += SlotCopy.SlotQuantity;
-				}
-			}
-			// Not Stackable; Add whole new item.
-			else
-			{
-				ItemsToDrop.Add(FStNpcLootItem(SlotCopy.ItemName, SlotCopy.SlotQuantity));
-			}
-		}
-	}
-
-	// Spawn the pick up actors
-	for (const FStNpcLootItem LootItem : ItemsToDrop)
-	{
-		FTransform SpawnTransform( GetActorLocation() );
-		SpawnTransform.SetRotation(FQuat(FMath::RandRange(0.f,359.9f),
-										 FMath::RandRange(0.f,359.9f),
-										 FMath::RandRange(0.f,359.9f), 0.f));
-		
-		APickupActorBase* PickupActor = GetWorld()->SpawnActorDeferred<APickupActorBase>(
-			APickupActorBase::StaticClass(),SpawnTransform);
-
-		if (IsValid(PickupActor))
-		{
-			PickupActor->SpawnQuantity = LootItem.Quantity;
-			PickupActor->SetupItemFromName(LootItem.ItemName);
-			PickupActor->FinishSpawning(SpawnTransform);
-		}
-	}
-
+{	
 	// Destroy the NPC after the loot has dropped
 	FTimerHandle DeathDeleteTimer;
 	FTimerDelegate DeathDelegate;

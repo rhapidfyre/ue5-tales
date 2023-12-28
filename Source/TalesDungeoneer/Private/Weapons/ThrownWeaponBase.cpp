@@ -26,21 +26,6 @@ void AThrownWeaponBase::UpdateWeapon()
 	Super::UpdateWeapon();
 }
 
-bool AThrownWeaponBase::CheckForHit(TArray<AActor*>& HitActors)
-{
-	return Super::CheckForHit(HitActors);
-}
-
-void AThrownWeaponBase::startAttackTimer()
-{
-	Super::startAttackTimer();
-}
-
-void AThrownWeaponBase::cancelAttackTimer()
-{
-	Super::cancelAttackTimer();
-}
-
 void AThrownWeaponBase::SpawnProjectile(FVector fwdVector)
 {
 	

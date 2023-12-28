@@ -126,8 +126,6 @@ struct FStNpcData : public FTableRowBase
 	
 	// Faction states for this NPC
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStFactionData FactionData = FStFactionData();
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStStartingItem> StartingItems;
 	 
 };
 

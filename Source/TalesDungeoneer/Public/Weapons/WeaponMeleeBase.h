@@ -22,7 +22,6 @@ public:
 protected:
 	virtual void UpdateWeapon() override;
 	virtual void BeginPlay() override;
-	virtual bool CheckForHit(TArray<AActor*>& HitActors) override;
 	virtual void TargetHitByWeapon(AActor* HitActor);
 	virtual void InitiateAttack();
 

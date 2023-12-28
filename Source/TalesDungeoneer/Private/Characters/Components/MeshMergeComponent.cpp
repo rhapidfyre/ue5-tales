@@ -257,6 +257,7 @@ void UMeshMergeComponent::Server_InitializeMeshMerge_Implementation(USkeleton* N
 		UvTransformsPerMesh		= NewUvTransforms; 
 		MeshesToMerge			= NewMeshes;
 		InitializeMeshMerge();
+		SetMeshIsHidden(false);
 	}
 }
 
