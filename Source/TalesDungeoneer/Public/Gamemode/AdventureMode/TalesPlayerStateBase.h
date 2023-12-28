@@ -3,10 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
 #include "GameFramework/PlayerState.h"
 #include "Delegates/Delegate.h"
 
 #include "TalesPlayerStateBase.generated.h"
+
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPlayerNameUpdated);
 
@@ -16,9 +18,24 @@ class TALESDUNGEONEER_API ATalesPlayerStateBase : public APlayerState
 {
 	GENERATED_BODY()
 
+	ATalesPlayerStateBase();
+
 	UPROPERTY(BlueprintAssignable) FOnPlayerNameUpdated OnPlayerNameUpdated;
 	
 	// Called whenever the player's name is changed to update all delegates
 	UFUNCTION(BlueprintCallable) void UpdatePlayerName();
+
+	// Returns the data asset for the current character class.
+	// Check for nullptr before accessing result
+	UFUNCTION(BlueprintCallable) UDataAsset* GetClassDataAsset() const;
+	
+	// Returns the data asset for the current character race.
+	// Check for nullptr before accessing result
+	UFUNCTION(BlueprintCallable) UDataAsset* GetRaceDataAsset() const;
+
+private:
+
+	UPROPERTY() TMap<FGameplayTag, UDataAsset*> RaceTagsMapped  = {};
+	UPROPERTY() TMap<FGameplayTag, UDataAsset*> ClassTagsMapped = {};
 	
 };
