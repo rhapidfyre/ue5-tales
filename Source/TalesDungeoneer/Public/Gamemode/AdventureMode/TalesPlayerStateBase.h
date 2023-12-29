@@ -17,7 +17,9 @@ UCLASS(BlueprintType, Blueprintable)
 class TALESDUNGEONEER_API ATalesPlayerStateBase : public APlayerState
 {
 	GENERATED_BODY()
-
+	
+public:
+	
 	ATalesPlayerStateBase();
 
 	UPROPERTY(BlueprintAssignable) FOnPlayerNameUpdated OnPlayerNameUpdated;
@@ -27,15 +29,16 @@ class TALESDUNGEONEER_API ATalesPlayerStateBase : public APlayerState
 
 	// Returns the data asset for the current character class.
 	// Check for nullptr before accessing result
-	UFUNCTION(BlueprintCallable) UDataAsset* GetClassDataAsset() const;
+	UFUNCTION(BlueprintPure) UDataAsset* GetClassDataAsset(const FGameplayTag& ClassTag) const;
+	UFUNCTION(BlueprintPure) TArray<FGameplayTag> GetAllCharacterClasses() const;
 	
 	// Returns the data asset for the current character race.
 	// Check for nullptr before accessing result
-	UFUNCTION(BlueprintCallable) UDataAsset* GetRaceDataAsset() const;
+	UFUNCTION(BlueprintPure) UDataAsset* GetRaceDataAsset(const FGameplayTag& RaceTag) const;
+	UFUNCTION(BlueprintPure) TArray<FGameplayTag> GetAllCharacterRaces() const;
 
-private:
-
-	UPROPERTY() TMap<FGameplayTag, UDataAsset*> RaceTagsMapped  = {};
-	UPROPERTY() TMap<FGameplayTag, UDataAsset*> ClassTagsMapped = {};
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TMap<FGameplayTag, UDataAsset*> RaceTagsMapped  = {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TMap<FGameplayTag, UDataAsset*> ClassTagsMapped = {};
 	
 };

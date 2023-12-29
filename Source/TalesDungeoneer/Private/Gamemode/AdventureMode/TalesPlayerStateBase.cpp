@@ -19,6 +19,7 @@ ATalesPlayerStateBase::ATalesPlayerStateBase()
 	ClassTagsMapped.Add(TAG_Character_Class_Merc, nullptr);
 	ClassTagsMapped.Add(TAG_Character_Class_Necro, nullptr);
 	ClassTagsMapped.Add(TAG_Character_Class_Knight, nullptr);
+	ClassTagsMapped.Add(TAG_Character_Class_Ranger, nullptr);
 	ClassTagsMapped.Add(TAG_Character_Class_Warrior, nullptr);
 	ClassTagsMapped.Add(TAG_Character_Class_Wizard, nullptr);
 	
@@ -29,32 +30,62 @@ void ATalesPlayerStateBase::UpdatePlayerName()
 	OnPlayerNameUpdated.Broadcast();
 }
 
-UDataAsset* ATalesPlayerStateBase::GetClassDataAsset() const
+UDataAsset* ATalesPlayerStateBase::GetClassDataAsset(const FGameplayTag& ClassTag) const
 {
-	FGameplayTag ClassTag = TAG_Character_Class_Warrior;
+	// Use the tag provided, if it exists
+	if (ClassTag.GetGameplayTagParents().HasTag(TAG_Character_Class.GetTag()))
+	{
+		if (ClassTagsMapped.Contains(ClassTag))
+		{
+			return *ClassTagsMapped.Find(ClassTag);
+		}
+	}
+	// Otherwise use the existing player character
 	const APlayerController* PlayerController = GetPlayerController();
 	if (IsValid(PlayerController))
 	{
 		const ACharacterBase* CharacterBase = Cast<ACharacterBase>( PlayerController->GetPawn() );
 		if (IsValid(CharacterBase))
 		{
-			ClassTag = CharacterBase->GetCharacterClass();
+			return *ClassTagsMapped.Find( CharacterBase->GetCharacterClass() );
 		}
 	}
-	return *ClassTagsMapped.Find(ClassTag);
+	return nullptr;
 }
 
-UDataAsset* ATalesPlayerStateBase::GetRaceDataAsset() const
+TArray<FGameplayTag> ATalesPlayerStateBase::GetAllCharacterClasses() const
 {
-	FGameplayTag RaceTag = TAG_Character_Race_Human;
+	TArray<FGameplayTag> allClassTags;
+	ClassTagsMapped.GetKeys(allClassTags);
+	return allClassTags;
+}
+
+UDataAsset* ATalesPlayerStateBase::GetRaceDataAsset(const FGameplayTag& RaceTag) const
+{
+	// Use the tag provided, if it exists
+	if (RaceTag.GetGameplayTagParents().HasTag(TAG_Character_Race.GetTag()))
+	{
+		if (RaceTagsMapped.Contains(RaceTag))
+		{
+			return *RaceTagsMapped.Find(RaceTag);
+		}
+	}
+	// Otherwise use the existing player character
 	const APlayerController* PlayerController = GetPlayerController();
 	if (IsValid(PlayerController))
 	{
 		const ACharacterBase* CharacterBase = Cast<ACharacterBase>( PlayerController->GetPawn() );
 		if (IsValid(CharacterBase))
 		{
-			RaceTag = CharacterBase->GetCharacterRace();
+			return *RaceTagsMapped.Find( CharacterBase->GetCharacterRace() );
 		}
 	}
-	return *RaceTagsMapped.Find(RaceTag);
+	return nullptr;
+}
+
+TArray<FGameplayTag> ATalesPlayerStateBase::GetAllCharacterRaces() const
+{
+	TArray<FGameplayTag> allRaceTags;
+	RaceTagsMapped.GetKeys(allRaceTags);
+	return allRaceTags;
 }
