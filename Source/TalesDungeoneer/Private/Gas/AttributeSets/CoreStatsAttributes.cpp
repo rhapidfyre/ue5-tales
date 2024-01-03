@@ -16,13 +16,20 @@ UE_DEFINE_GAMEPLAY_TAG(TAG_Stats_Charisma,		"Stats.Charisma")
 
 
 UCoreStatsAttributes::UCoreStatsAttributes() :
-	Strength(100.f), Dexterity(100.f),
+	Strength(100.f),  Dexterity(100.f),
 	Fortitude(100.f), Astuteness(100.f),
 	Intellect(100.f), Charisma(100.f)
 {
 	
 }
 
+TArray<FGameplayAttribute> UCoreStatsAttributes::GetAllCoreStatAttributes() const
+{
+	return {
+		GetStrengthAttribute(), GetDexterityAttribute(), GetFortitudeAttribute(),
+		GetAstutenessAttribute(), GetIntellectAttribute(), GetCharismaAttribute()
+	};
+}
 
 void UCoreStatsAttributes::PreAttributeBaseChange(const FGameplayAttribute& Attribute, float& NewValue) const
 {

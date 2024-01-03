@@ -3,26 +3,22 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AttributeSet.h"
 #include "GameplayTagContainer.h"
+#include "Characters/Components/MeshMergeComponent.h"
 #include "Engine/DataAsset.h"
 #include "lib/Tags/TalesGlobalTags.h"
-//#include "Characters/Components/MeshMergeComponent.h"
 
 #include "CharacterDefaults.generated.h"
 
-USTRUCT(BlueprintType)
-struct FMeshOptionsData
-{
-	GENERATED_BODY();
-	
-	// If this mesh should be an option for masculine presentation
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bIsMasculine = true;
-	
-	// If this mesh should be an option for feminine presentation
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bIsFeminine = false;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) USkeletalMesh* SkeletalMesh = nullptr;
-};
+
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Sex_Female);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Sex_Male);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Sex_Nonbinary);
+
+
+struct FGameplayAttributeData;
+
 
 USTRUCT(BlueprintType)
 struct FSkeletonOptionsData
@@ -31,17 +27,10 @@ struct FSkeletonOptionsData
 
 	FSkeletonOptionsData() {};
 	~FSkeletonOptionsData() {};
-	
-	// If this these options should be available to masculine presentations
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bIsMasculine = false;
-	
-	// If this these options should be available to feminine presentations
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bIsFeminine = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FGameplayTagContainer OptionTags;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) USkeleton* Skeleton = nullptr;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FGameplayTagContainer BodyPartTags = {};
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) TSubclassOf<UAnimInstance> AnimInstance = nullptr;
 
@@ -72,6 +61,15 @@ public:
 	// The name of this character or entity
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString DisplayName = "";
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TMap<FGameplayAttribute, int> CoreStatsModifiers = {};
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TMap<FGameplayAttribute, int> DamageResistModifiers = {};
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TMap<FGameplayAttribute, int> DamageBonusModifiers = {};
 
 	// Abilities specific to this race (such as racial powers)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -108,17 +106,19 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FSkeletonOptionsData> SkeletonOptions = {};
 
+	// The default, no-equipment mesh options for this race
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<FSkeletonOptionsData> DefaultMeshes = {};
+	TArray<FBodyPartData> DefaultMeshes = {};
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FLinearColor> SkinColorOptions = {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FLinearColor> SkinColorOptions = {FLinearColor(255, 206, 180)};
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshOptionsData> MeshOptionsForHead = {};
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshOptionsData> MeshOptionsForHairstyle = {};
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshOptionsData> MeshOptionsForFacialHair = {};
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshOptionsData> MeshOptionsForUpperBody = {};
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshOptionsData> MeshOptionsForLowerBody = {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshMergeMappings> MeshOptionsForHairstyle	= {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshMergeMappings> MeshOptionsForHead		= {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshMergeMappings> MeshOptionsForEyebrows	= {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshMergeMappings> MeshOptionsForEyes		= {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshMergeMappings> MeshOptionsForFacialHair = {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshMergeMappings> MeshOptionsForTorso		= {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshMergeMappings> MeshOptionsForLegs		= {};
 	
 };
 

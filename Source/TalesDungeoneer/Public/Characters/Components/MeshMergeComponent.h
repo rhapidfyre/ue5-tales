@@ -6,31 +6,91 @@
 #include "GameplayTagContainer.h"
 #include "SkeletalMeshMerge.h"
 #include "Components/ActorComponent.h"
+#include "lib/EquipmentData.h"
 
 #include "MeshMergeComponent.generated.h"
 
-//FWD DECLARE
-class USavedCharacter;
+UENUM(BlueprintType)
+enum class ECharacterSex : uint8
+{
+	NONBINARY = 0	UMETA(DisplayName = "Non-Binary"),
+	MASCULINE		UMETA(DisplayName = "Masculine"),
+	FEMININE		UMETA(DisplayName = "Feminine"),
+	MAX				UMETA(Hidden)
+};
+
+USTRUCT(BlueprintType)
+struct FMeshMergeMappings
+{
+	GENERATED_BODY()
+	FMeshMergeMappings() : DataAsset(nullptr), SkeletalMesh(nullptr) {};
+	FMeshMergeMappings(const UEquipmentItemData* NewAsset, bool isFeminine) : DataAsset(NewAsset)
+	{
+		if (IsValid(NewAsset))
+		{
+			USkeletalMesh* UsingMesh = NewAsset->MeshMasculine;
+			if (isFeminine && IsValid(NewAsset->MeshFeminine))
+			{
+				UsingMesh = NewAsset->MeshFeminine;
+			}
+			SkeletalMesh = UsingMesh;
+		}
+	};
+
+	// Gameplay tags that apply to this mesh merge
+	UPROPERTY(EditAnywhere) FGameplayTagContainer GameplayTags = {};
+
+	// Which equipment slot this mesh occupies
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)	FGameplayTag EquipSlotTag;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)	const UEquipmentItemData* DataAsset;
+	
+	// The mesh to be used by this option
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)	USkeletalMesh* SkeletalMesh;
+	
+	// A map section from the source mesh to merged section entry
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<FSkelMeshMergeSectionMapping> SectionMappings = {};
+	
+	// A transform for the UVs in mesh
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<FSkelMeshMergeUVTransformMapping> MeshUvTransforms = {};
+	
+};
 
 
 USTRUCT(BlueprintType)
-struct TALESDUNGEONEER_API FStMeshMergeData
+struct FBodyPartData
 {
 	GENERATED_BODY()
-
-	FStMeshMergeData() {};
-	FStMeshMergeData(FName DataRowName, bool IsMale = true);
 	
-	// The item name associated with this mesh
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FName ItemName = FName();
-	// What body part this mesh is associated with
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FGameplayTag AssociatedBodyPart = {};
-	// Which part parts will be hidden if this mesh is equipped
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FGameplayTagContainer HidesBodyParts = {};
-	// The mesh to be used
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) USkeletalMesh* MeshAsset = nullptr;
+	// The mesh to be used by this option
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	USkeletalMesh*			SkeletalMesh	= nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FLinearColor			SkinColor		= FLinearColor(255, 206, 180);
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FGameplayTag			BodyPartTag		= {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FGameplayTagContainer	BodyTags		= {};
+	
 };
 
+
+USTRUCT(BlueprintType)
+struct FMeshBodyMappings
+{
+	GENERATED_BODY()
+	FMeshBodyMappings() : SkeletalMesh(nullptr) {};
+	FMeshBodyMappings(USkeletalMesh* UsingMesh,
+		const FGameplayTag& BodyTag, const FGameplayTagContainer& OptionTags);
+	
+	// The mesh to be used by this option
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) USkeletalMesh* SkeletalMesh;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FGameplayTag BodyPartTag;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bIsFeminine  = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bIsMasculine = false;
+};
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class TALESDUNGEONEER_API UMeshMergeComponent : public UActorComponent
@@ -38,35 +98,50 @@ class TALESDUNGEONEER_API UMeshMergeComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:
+	
 	UMeshMergeComponent();
+	
+	UFUNCTION(BlueprintCallable)
+	bool PerformMeshMerge();
 
-	UFUNCTION(BlueprintCallable) bool PerformMeshMerge();
+	void SetupDefaultMeshes(TArray<FBodyPartData> BodyPartDatum);
 
 	UFUNCTION(BlueprintPure)
 	bool GetIsMeshMergeSystemReady() const { return bHasInitialized; }
 
-	void InitializeMeshMerge(const USavedCharacter* CharacterData = nullptr);
+	// Used for restoring from a save game
+	void InitializeMeshMerge(
+		USkeleton* NewSkeleton, TSubclassOf<UAnimInstance> NewAnimInstance,
+		const TArray<FMeshMergeMappings>& MergeMappings = {});
 
 	UFUNCTION(BlueprintCallable)
 	void SetMeshIsHidden(bool bIsHidden);
+	
+	UFUNCTION(BlueprintCallable)
+	bool GetMeshIsHidden() const { return bHideMesh; }
 
 	UFUNCTION(Server, Reliable)
-	void Server_InitializeMeshMerge(USkeleton* NewSkeleton,
-		const TArray<FSkelMeshMergeSectionMapping>& NewMeshMaps,
-		const TArray<FSkelMeshMergeUVTransformMapping>& NewUvTransforms,
-		const TArray<FStMeshMergeData>& NewMeshes);
+	void Server_InitializeMeshMerge(
+		USkeleton* NewSkeleton, TSubclassOf<UAnimInstance> NewAnimInstance,
+		const TArray<FMeshMergeMappings>& MergeMappings = {});
 
-	UFUNCTION(BlueprintPure)
-	int GetMeshMergeIndexByTag(FGameplayTag SearchTag) const;
+	int FindIndexOfMeshByTag(const FGameplayTag& SearchTag);
+
+	TArray<FMeshMergeMappings> GetAllMeshMergeMappings() const { return MeshMergeData; }
+	
+	UFUNCTION(BlueprintCallable)
+	FMeshMergeMappings CreateMeshMapping(const UEquipmentItemData* NewAsset,
+		const FGameplayTag& EquipmentTag, const bool useFeminineMesh = false);
+	
+	UFUNCTION(BlueprintCallable)
+	FMeshBodyMappings CreateBodyMapping(USkeletalMesh* UsingMesh,
+		const FGameplayTag& BodyTag, FGameplayTagContainer BodyOptionTags);
 
 	UFUNCTION(BlueprintCallable)
-	int AddNewMeshToArrayByTag(FGameplayTag GameTag, FName EquipmentName, bool IsMale = true);
+	void AddMeshToMerge(const FMeshMergeMappings& NewMapping);
 
 	UFUNCTION(BlueprintCallable)
-	void SetNewMeshByIndex(FName EquipmentName, int ArrayIndex = -1, bool IsMale = true, bool MergeNow = false);
-
-	UFUNCTION(BlueprintCallable)
-	void SetNewMeshByTag(FName EquipmentName, FGameplayTag GameTag, bool IsMale = true, bool MergeNow = false);
+	void RemoveMeshFromMerge(const UEquipmentItemData* NewAsset, const FGameplayTag& EquipmentTag);
 
 protected:
 	
@@ -79,28 +154,11 @@ protected:
 	virtual void GetLifetimeReplicatedProps(
 		TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
-private:
-
-	void InitializeDefaultMeshes();
-
 public:
-	
-	// An optional array to map sections from the source meshes to merged section entries
-	UFUNCTION(NetMulticast, Reliable) void OnRep_MeshSectionMappings();
-	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite, ReplicatedUsing=OnRep_MeshSectionMappings)
-	TArray < FSkelMeshMergeSectionMapping > MeshSectionMappings = {};
-	
-	// An optional array to transform the UVs in each mesh
-	UFUNCTION(NetMulticast, Reliable) void OnRep_UvTransformsPerMesh();
-	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite, ReplicatedUsing=OnRep_UvTransformsPerMesh)
-	TArray < FSkelMeshMergeUVTransformMapping > UvTransformsPerMesh = {};
-	
-	// The list of skeletal meshes to merge.
-	UFUNCTION(NetMulticast, Reliable) void OnRep_MeshesToMerge();
-	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite, ReplicatedUsing=OnRep_MeshesToMerge)
-	TArray < FStMeshMergeData > MeshesToMerge = {};
 
-	TArray < FStMeshMergeData > DefaultMeshes = {} ;
+	// The skeleton to use (Male/Female)
+	// Non-Binary: Randomizes Male/Female
+	UPROPERTY(EditAnywhere)	ECharacterSex SexSkeleton;
 	
 	// The number of high LODs to remove from input meshes
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -124,15 +182,25 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TSubclassOf<UAnimInstance> AnimBlueprint = nullptr;
 
+	// The default body meshes used in every single mesh merge
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TArray<FMeshBodyMappings> MeshBodyData = {};
+
 private:
 
+	UFUNCTION(NetMulticast, Reliable) void OnRep_MeshMergeData();
+	
+	// These are the "optional" overlaid meshes in addition to the MeshBodyData
+	UPROPERTY(ReplicatedUsing=OnRep_MeshMergeData)
+	TArray<FMeshMergeMappings> MeshMergeData = {};
+
 	// Start hidden by default
-	UPROPERTY(ReplicatedUsing=OnRep_HideMesh) bool bHideMesh = true;
 	UFUNCTION(NetMulticast, Reliable) void OnRep_HideMesh();
+	UPROPERTY(ReplicatedUsing=OnRep_HideMesh) bool bHideMesh = true;
 	
 	// This way the initial setups on OnConstruction only run once
-	bool bHasInitialized = false;
-
-	bool bMeshSaveRestored = false;
+	bool bHasInitialized	= false;
+	
+	bool bMeshSaveRestored	= false;
 	
 };

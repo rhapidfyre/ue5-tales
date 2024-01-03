@@ -10,14 +10,6 @@
 
 struct FStMeshMergeData;
 
-// Combines both the InventorySystem and VitalitySystem
-USTRUCT(BlueprintType)
-struct FStEquipmentItem
-{
-	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStEquipmentData EquipmentData = {};
-};
-
 USTRUCT(BlueprintType)
 struct FStFactionDataMap
 {
@@ -54,79 +46,6 @@ struct FStFactionData
 		if (FactionValue  < 500.f) return EFactionState::LIKE;
 		return EFactionState::ALLY;
 	}
-};
-
-USTRUCT(BlueprintType)
-struct FStBodyPartSettings
-{
-	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FGameplayTag BodyPartName = {};
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FText BodyPartDisplayName = FText();
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) UTexture2D* BodyPartIcon = nullptr;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) USkeletalMesh* BodyPartMesh = nullptr;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) int NumVariations = 0;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) int CurrentSelection = 0;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FSlateColor BodyPartColor;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FString OptionalDescription = "";
-};
-
-USTRUCT(BlueprintType)
-struct FStCharacterRaces : public FTableRowBase
-{
-	GENERATED_BODY()
-	
-	// The enum display name is the GameSafeName / Proper Name (i.e. "Human")
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) ECharacterRace RaceEnum = ECharacterRace::HUMAN;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FText DisplayName		= {};
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) UTexture2D* RaceIcon	= nullptr;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FString Description		= "None";
-	
-	// Starting Faction Considerations (<-100 = HATE, < 0 = NONE, < 100 = LIKE, >= 500 = ALLY)
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStFactionData StartingRelations = {};
-	// The body parts used by this model
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStBodyPartSettings> BodyParts = {};
-};
-
-USTRUCT(BlueprintType)
-struct FStCharacterClasses : public FTableRowBase
-{
-	GENERATED_BODY()
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) ECharacterClass ClassEnum = ECharacterClass::WARRIOR;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FText DisplayName		= {};
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) UTexture2D* ClassIcon	= nullptr;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FString Description		= {};
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bSinglePlayerOnly	= false;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStFactionData StartingRelations = {};
-};
-
-
-USTRUCT(BlueprintType)
-struct FStNpcData : public FTableRowBase
-{
-	GENERATED_BODY()
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) ECharacterRace CharacterRace = ECharacterRace::HUMAN;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) ECharacterClass CharacterClass	= ECharacterClass::WARRIOR;
-	
-	// The name of the NPC
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FString CharacterName = "";
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) USkeleton* MaleSkeleton = nullptr;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) TSubclassOf<UAnimInstance> MaleAnimationBp = nullptr;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStMeshMergeData> MaleMeshes = {};
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) USkeleton* FemaleSkeleton = nullptr;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) TSubclassOf<UAnimInstance> FemaleAnimationBp = nullptr;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStMeshMergeData> FemaleMeshes = {};
-
-	// Factions that this NPC is a member of
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<EFaction> FactionMemberships = {};
-	
-	// Faction states for this NPC
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FStFactionData FactionData = FStFactionData();
-	 
 };
 
 USTRUCT(BlueprintType)

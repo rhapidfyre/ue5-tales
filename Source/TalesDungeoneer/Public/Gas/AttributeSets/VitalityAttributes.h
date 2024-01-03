@@ -130,6 +130,8 @@ public:
 	FGameplayAttributeData Ammunition;
 	ATTRIBUTE_ACCESSORS(UVitalityAttributes, Ammunition);
 
+	TArray<FGameplayAttribute> GetAllVitalityAttributes() const;
+
 protected:
 
 	virtual void PreAttributeBaseChange(

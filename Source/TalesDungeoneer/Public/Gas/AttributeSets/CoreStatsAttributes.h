@@ -30,6 +30,8 @@ class TALESDUNGEONEER_API UCoreStatsAttributes : public UAttributeSet
 public:
 	
 	UCoreStatsAttributes();
+
+	TMulticastDelegate<void(const FOnAttributeChangeData& Attribute)> OnAttributeUpdated;
 	
 	UPROPERTY(BlueprintReadOnly, Category = "Core Stat Attributes",
 		ReplicatedUsing=OnRep_Strength, Meta = (AllowPrivateAccess = true))
@@ -61,6 +63,8 @@ public:
 	FGameplayAttributeData Charisma;
 	ATTRIBUTE_ACCESSORS(UCoreStatsAttributes, Charisma);
 
+	TArray<FGameplayAttribute> GetAllCoreStatAttributes() const;
+
 protected:
 
 	virtual void PreAttributeBaseChange(
@@ -89,4 +93,5 @@ protected:
 	
 	UFUNCTION()
 	virtual void OnRep_Charisma(const FGameplayAttributeData& OldData);
+	
 };

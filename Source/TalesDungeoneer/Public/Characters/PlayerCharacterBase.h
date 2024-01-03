@@ -98,17 +98,10 @@ protected:
 	virtual void OnCoreStatsChanged(const FOnAttributeChangeData& Data) override;
 	
 	virtual void OnDamageStatsChanged(const FOnAttributeChangeData& Data) override;
-
-	UFUNCTION(Server, Reliable)
-	void Server_SetupMeshMerge(
-		const TArray<FStMeshMergeData>& MeshesToMerge,
-		const TArray<FSkelMeshMergeSectionMapping>& MeshSectionMappings,
-		const TArray<FSkelMeshMergeUVTransformMapping>& UvTransformsPerMesh);
 	
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
-	UFUNCTION(BlueprintImplementableEvent)
-	void EventArmorClassChanged(float OldValue, float NewValue);
+	UFUNCTION(BlueprintImplementableEvent) void EventArmorClassChanged(float OldValue, float NewValue);
 	
 };

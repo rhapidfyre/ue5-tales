@@ -17,6 +17,7 @@
 #include "Gas/AttributeSets/TalesAttributes.h"
 #include "Kismet/GameplayStatics.h"
 #include "DataAssets/CharacterDefaults.h"
+#include "Gamemode/AdventureMode/TalesPlayerStateBase.h"
 #include "lib/Tags/TalesGlobalTags.h"
 
 #include "Logging/StructuredLog.h"
@@ -61,13 +62,14 @@ ACharacterBase::ACharacterBase()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
-	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>("AbilitySystemComponent");
+	AbilitySystemComponent = CreateDefaultSubobject<UTalesAbilityComponent>("AbilitySystemComponent");
 	AbilitySystemComponent->SetIsReplicated(true);
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 
 	AttributeVitalitySet	= CreateDefaultSubobject<UVitalityAttributes>("AttributeVitalitySet");
 	AttributeCoreStatsSet	= CreateDefaultSubobject<UCoreStatsAttributes>("AttributeCoreStatsSet");
 	AttributeDamageSet		= CreateDefaultSubobject<UDamageAttributes>("AttributeDamageSet");
+	AttributeEffectSet		= CreateDefaultSubobject<UEffectAttributes>("AttributeEffectSet");
 
 	// Setup listeners for when the inventory changes
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
@@ -99,6 +101,11 @@ void ACharacterBase::SetCharacterRace(const FGameplayTag& NewRaceTag)
 	{
 		const FGameplayTag OldClassTag = GetCharacterRace();
 		CharacterRace_ = NewRaceTag;
+		UTalesAbilityComponent* AbilitySystem = GetAbilitySystemComponent();
+		if (IsValid(AbilitySystem))
+		{
+			AbilitySystem->PerformTotalRecalculation();
+		}
 		OnCharacterClassChanged.Broadcast(OldClassTag, NewRaceTag);
 	}
 }
@@ -109,6 +116,11 @@ void ACharacterBase::SetCharacterClass(const FGameplayTag& NewClassTag)
 	{
 		const FGameplayTag OldClassTag = GetCharacterClass();
 		CharacterClass_ = NewClassTag;
+		UTalesAbilityComponent* AbilitySystem = GetAbilitySystemComponent();
+		if (IsValid(AbilitySystem))
+		{
+			AbilitySystem->PerformTotalRecalculation();
+		}
 		OnCharacterClassChanged.Broadcast(OldClassTag, NewClassTag);
 	}
 }
@@ -174,35 +186,36 @@ USaveGame* ACharacterBase::SaveCharacter(USaveGame* SaveObject, bool bRunAsync)
 	}
 
 	// Write ACharacterBase* specific data to SaveObject ( SavedCharacter )
-	
 	SavedCharacter->CharacterData.CharacterName = GetCharacterName();
 
+	// Save the current animation instance as the saved animation to restore
 	if (IsValid(GetMesh()))
 	{
 		SavedCharacter->AnimBlueprint = GetMesh()->AnimClass;
 	}
-	
-	SavedCharacter->Skeleton			= MeshMergeComponent->Skeleton;
-	SavedCharacter->MeshesToMerge		= MeshMergeComponent->MeshesToMerge;
-	SavedCharacter->MeshSectionMappings = MeshMergeComponent->MeshSectionMappings;
-	SavedCharacter->UvTransformsPerMesh = MeshMergeComponent->UvTransformsPerMesh;
 
-	// If the inventory save does not exist, this is a new inventory
-	FString InventoryResponse = "";
-	if (InventoryComponent->GetInventorySaveName().IsEmpty())
+	// Save the Mesh Merge data
+	SavedCharacter->Skeleton			= MeshMergeComponent->Skeleton;
+	SavedCharacter->MeshMergeMappings   = MeshMergeComponent->GetAllMeshMergeMappings();
+
+	// If the inventory save does not exist, then this is a new inventory
+	// Existing inventories will have a save name
 	{
-		// Issue starting items and save
-		UE_LOGFMT(LogCharacterBase, Display, "{Character}({Sv}): Attempting to issue "
-			"starting items and create new inventory save...", GetName(), HasAuthority()?"SRV":"CLI");
-		
-		InventoryComponent->IssueStartingItems();
-		SavedCharacter->SavedInventory = InventoryComponent->SaveInventory(InventoryResponse, false);
-	}
+		FString InventoryResponse = "";
+		if (InventoryComponent->GetInventorySaveName().IsEmpty())
+		{
+			// Issue starting items and save
+			InventoryComponent->IssueStartingItems();
+			SavedCharacter->SavedInventory = InventoryComponent->SaveInventory(InventoryResponse, false);
+		}
 	
-	// If the inventory does exist, save it asynchronously
-	else
-	{
-		InventoryComponent->SaveInventory(InventoryResponse, true);
+		// If the inventory does exist, save it asynchronously
+		else
+		{
+			InventoryComponent->SaveInventory(InventoryResponse, true);
+		}
+		UE_LOGFMT(LogTemp, Log, "{InvName}({Authority}): Inventory Save Response: {Response}",
+			InventoryComponent->GetName(), HasAuthority()?"SRV":"CLI", InventoryResponse);
 	}
 	
 	if (bRunAsync)
@@ -312,19 +325,23 @@ bool ACharacterBase::LoadCharacter(const FString& SlotName, const int32 UserInde
 	{
 		// Send Character Data to server for restoration
 		Server_RestoreCharacter(SavedCharacter->CharacterData);
-
+		
+		// Restore Stats/Attributes
+		
+		
+		// Restore Inventory Data
 		FString InventoryResponse = "";
 		InventoryComponent->LoadInventory(InventoryResponse,
 			SavedCharacter->SavedInventory, true);
-		
-		MeshMergeComponent->InitializeMeshMerge(SavedCharacter);
 
-		if (SavedCharacter->AnimBlueprint != nullptr)
-		{
-			GetMesh()->SetAnimInstanceClass(SavedCharacter->AnimBlueprint);
-		}
-
+		// Restore Mesh Merge Data
+		MeshMergeComponent->InitializeMeshMerge(
+			SavedCharacter->Skeleton, SavedCharacter->AnimBlueprint, SavedCharacter->MeshMergeMappings);
 		MeshMergeComponent->SetMeshIsHidden(false);
+
+		// Restore Abilities & Effects
+		
+		
 		bWasSuccess = true;
 	}
 	
@@ -342,14 +359,17 @@ void ACharacterBase::BeginPlay()
 	// If the character data asset exists, use it
 	if (IsValid(CharacterData))
 	{
-		FSkeletonOptionsData skeletonOptionsData = CharacterData->GetCharacterSkeleton();
+		// Determine Skeleton & Anim BP
+		const bool bForceMasc = MeshMergeComponent->SexSkeleton == ECharacterSex::MASCULINE;
+		const bool bForceFem  = MeshMergeComponent->SexSkeleton == ECharacterSex::FEMININE;
 		
-		if (IsValid(skeletonOptionsData.Skeleton))
-			{MeshMergeComponent->Skeleton = skeletonOptionsData.Skeleton;}
+		const FSkeletonOptionsData randomSkeleton =
+			CharacterData->GetCharacterSkeleton(bForceMasc,bForceFem);
 		
-		if (IsValid(skeletonOptionsData.AnimInstance))
-			{GetMesh()->SetAnimInstanceClass(skeletonOptionsData.AnimInstance);}
+		MeshMergeComponent->SetupDefaultMeshes( CharacterData->CharacterRaceData->DefaultMeshes );
+		MeshMergeComponent->InitializeMeshMerge(randomSkeleton.Skeleton, randomSkeleton.AnimInstance);
 
+		// Setup Default Abilities & Effects
 		for (const TSubclassOf<UTalesGameplayAbility>& DefaultAbility : CharacterData->GetAbilities())
 			{DefaultAbilities.Add(DefaultAbility);}
 		
@@ -600,14 +620,8 @@ void ACharacterBase::BindListeners()
 {
 	// Everyone should always listen to all character's vitality stats
 	//	so we run this on the CharacterBase on all clients
-	TArray VitalityAttributes = {
-		AttributeVitalitySet->GetCurrentHealthAttribute(),
-		AttributeVitalitySet->GetCurrentArmorAttribute(),
-		AttributeVitalitySet->GetCurrentStaminaAttribute(),
-		AttributeVitalitySet->GetCurrentMagicAttribute(),
-		AttributeVitalitySet->GetCurrentHungerAttribute(),
-		AttributeVitalitySet->GetCurrentHydrationAttribute()
-	};
+	TArray VitalityAttributes = AttributeVitalitySet->GetAllVitalityAttributes();
+	TArray CoreStatAttributes = AttributeCoreStatsSet->GetAllCoreStatAttributes();
 
 	// Bind listeners to vitality stat changes
 	for (const FGameplayAttribute& vAttribute : VitalityAttributes)
@@ -617,6 +631,16 @@ void ACharacterBase::BindListeners()
 		UE_LOGFMT(LogTemp, Display, "{CharacterName}({Sv}): "
 			"Successfully initialized delegate for Vitality Attribute '{vAttribute}'",
 			GetCharacterName(), HasAuthority()?"SRV":"CLI", vAttribute.AttributeName);
+	}
+
+	
+	for (const FGameplayAttribute& CoreStat : CoreStatAttributes)
+	{
+		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
+			CoreStat).AddUObject(this, &ACharacterBase::OnCoreStatsChanged);
+		UE_LOGFMT(LogTemp, Display, "{CharacterName}({Sv}): "
+			"Successfully initialized delegate for Vitality Attribute '{vAttribute}'",
+			GetCharacterName(), HasAuthority()?"SRV":"CLI", CoreStat.AttributeName);
 	}
 	
 };
@@ -633,7 +657,7 @@ void ACharacterBase::SetCharacterName(FString ProposedName)
 	CharacterName = ProposedName;
 }
 
-UAbilitySystemComponent* ACharacterBase::GetAbilitySystemComponent() const
+UTalesAbilityComponent* ACharacterBase::GetAbilitySystemComponent() const
 {
 	return AbilitySystemComponent;
 }

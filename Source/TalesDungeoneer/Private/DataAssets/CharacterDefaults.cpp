@@ -6,6 +6,12 @@
 #include "GameplayAbilities/Public/GameplayEffect.h"
 #include "Logging/StructuredLog.h"
 
+
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Sex_Female,	"Character.Sex.Female");
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Sex_Male,		"Character.Sex.Male");
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Sex_Nonbinary, "Character.Sex.Nonbinary");
+
+
 UPrimaryCharacterData::UPrimaryCharacterData()
 	: CharacterDataAsset(nullptr), CharacterRaceData(nullptr), CharacterClassData(nullptr) 
 {
@@ -64,11 +70,13 @@ FSkeletonOptionsData UPrimaryCharacterData::GetCharacterSkeleton(
 			if (bIsAgender) {SkeletonOptions.Add(SkeletonOption);}
 			else
 			{
-				const bool allowMasculine = bForceMasculine && SkeletonOption.bIsMasculine;
-				const bool allowFeminine  = bForceFeminine  && SkeletonOption.bIsFeminine;
-				if (allowMasculine || allowFeminine || bIsAgender)
+				if (SkeletonOption.OptionTags.HasTag(TAG_Character_Sex_Female))
 				{
-					SkeletonOptions.Add(SkeletonOption);
+					if (bForceFeminine) { SkeletonOptions.Add(SkeletonOption); }
+				}
+				else
+				{
+					if (!bForceFeminine) { SkeletonOptions.Add(SkeletonOption); }
 				}
 			}
 		}

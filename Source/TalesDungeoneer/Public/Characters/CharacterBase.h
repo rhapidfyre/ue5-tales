@@ -10,6 +10,7 @@
 
 #include "InventoryComponent.h"
 #include "Components/MeshMergeComponent.h"
+#include "Components/TalesAbilityComponent.h"
 #include "lib/Tags/TalesGlobalTags.h"
 
 #include "Saves/SavedCharacters.h"
@@ -113,7 +114,7 @@ public: // functions
 	void SetCharacterName(FString ProposedName);
 
 	// Returns the AbilitySystemComponent so it can be made private
-	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	virtual UTalesAbilityComponent* GetAbilitySystemComponent() const override;
 
 	virtual USaveGame* SaveCharacter(USaveGame* SaveObject = nullptr, bool bRunAsync = false);
 	virtual bool LoadCharacter(const FString& SlotName = "", const int32 UserIndex = 0, USaveGame* SaveGame = nullptr);
@@ -224,7 +225,7 @@ public: // members
 	FSlateColor SkinColor;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	UAbilitySystemComponent* AbilitySystemComponent;
+	UTalesAbilityComponent* AbilitySystemComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly,
 		Category = "Gameplay Ability System", meta = (AllowPrivateAccess = "true"))
@@ -237,6 +238,10 @@ public: // members
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly,
 		Category = "Gameplay Ability System", meta = (AllowPrivateAccess = "true"))
 	class UDamageAttributes* AttributeDamageSet;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly,
+		Category = "Gameplay Ability System", meta = (AllowPrivateAccess = "true"))
+	class UEffectAttributes* AttributeEffectSet;
 
 	// An array of default abilities on spawn, set within blueprint
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Gameplay Ability System", meta = (AllowPrivateAccess = "true"))

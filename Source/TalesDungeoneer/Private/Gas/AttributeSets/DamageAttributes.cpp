@@ -50,6 +50,29 @@ UDamageAttributes::UDamageAttributes() :
 
 }
 
+TArray<FGameplayAttributeData> UDamageAttributes::GetAllDamageResistAttributes()
+{
+	TArray AllResistances = {
+		BluntResistance, SlashResistance, PierceResistance,
+		BiteResistance, KickResistance, ClawResistance,
+		StingResistance,FireResistance, FrostResistance,
+		AcidResistance, ShockResistance, RadioResistance,
+		SonicResistance, HolyResistance, DarkResistance,
+	};
+	return AllResistances;
+}
+
+TArray<FGameplayAttributeData> UDamageAttributes::GetAllDamageBonusAttributes()
+{
+	TArray AllBonuses = {
+		BluntBonus, SlashBonus, PierceBonus,
+		BiteBonus, KickBonus, ClawBonus,
+		StingBonus,FireBonus, FrostBonus,
+		AcidBonus, ShockBonus, RadioBonus,
+		SonicBonus, HolyBonus, DarkBonus,
+	};
+	return AllBonuses;
+}
 
 void UDamageAttributes::PreAttributeBaseChange(const FGameplayAttribute& Attribute, float& NewValue) const
 {

@@ -6,60 +6,34 @@
 #include "Engine/SkeletalMeshSocket.h"
 #include "Net/UnrealNetwork.h"
 #include "Characters/CharacterBase.h"
-#include "lib/datastructures/EquipmentWorn.h"
-#include "lib/Tags/TalesGlobalTags.h"
+#include "DataAssets/CharacterDefaults.h"
+#include "Logging/StructuredLog.h"
 
 
-FStMeshMergeData::FStMeshMergeData(FName DataRowName, bool IsMale)
-{
-	const FStEquipmentWorn EquipmentData = UEquipmentSystem::GetEquipmentWornData(DataRowName);
-	if (UEquipmentSystem::GetEquipmentWornDataIsValid(EquipmentData))
-	{
-		// Set Static Data
-		ItemName			= DataRowName;
-		MeshAsset			= IsMale ? EquipmentData.MaleMesh : EquipmentData.FemaleMesh;
-		
-		// Set this equipment mesh to the appropriate slot
-		const FGameplayTag DefaultTag = TAG_Character_Body_Default.GetTag();
-		for (FGameplayTag BodyPartTag : EquipmentData.BodyPartTags)
-		{
-			// Ignore the default tag
-			if (!BodyPartTag.MatchesTag(DefaultTag))
-			{
-				AssociatedBodyPart = BodyPartTag;
-				break;
-			}
-		}
-		
-		// Remember what parts should be hidden
-		for (FGameplayTag HiddenBodyPart : EquipmentData.HideBodyParts)
-		{
-			HidesBodyParts.AddTag(HiddenBodyPart);
-		}
-	}
-}
-
-UMeshMergeComponent::UMeshMergeComponent()
+UMeshMergeComponent::UMeshMergeComponent() 
+		: StripTopLODS(0), bNeedsCpuAccess(false), bSkeletonBefore(false)
 {
 	PrimaryComponentTick.bCanEverTick = false;
 	SetIsReplicatedByDefault(true);
+	SexSkeleton	 = static_cast<ECharacterSex>(FMath::RandRange(0,2) );
 }
+FMeshBodyMappings::FMeshBodyMappings(USkeletalMesh* UsingMesh,
+	const FGameplayTag& BodyTag, const FGameplayTagContainer& OptionTags)
+{
+	if (IsValid(UsingMesh))
+		{ SkeletalMesh = UsingMesh; }
+	BodyPartTag  = BodyTag;
+	bIsFeminine  = OptionTags.HasTag(TAG_Character_Sex_Female);
+	bIsMasculine = OptionTags.HasTag(TAG_Character_Sex_Male);
+};
 
 bool UMeshMergeComponent::PerformMeshMerge()
 {
-	const bool bWasHiddenToStart = bHideMesh;
+	const bool bWasHiddenToStart = GetMeshIsHidden();
 	SetMeshIsHidden(true);
+	
 	UE_LOG(LogTemp, Warning, TEXT("%s(%s): PerformMeshMerge()"), *GetName(),
 		GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
-	
-	if (MeshesToMerge.IsEmpty())
-	{
-		if (DefaultMeshes.IsEmpty())
-		{
-			InitializeDefaultMeshes();
-		}
-		MeshesToMerge = DefaultMeshes;
-	}
 	
 	const ACharacterBase* CharacterBase = Cast<ACharacterBase>(GetOwner());
 	if (!IsValid(CharacterBase))
@@ -70,25 +44,23 @@ bool UMeshMergeComponent::PerformMeshMerge()
 	
 	// Removes all invalid skeletal meshes from the array copy
 	// Invalid mesh assets will return TRUE, which removes it from the array.
-	MeshesToMerge.RemoveAll([](const FStMeshMergeData& InternalMeshMergeData)
+	MeshMergeData.RemoveAll([](const FMeshMergeMappings& InternalMeshMergeData)
 	{
 		// Returns within the lambda
-		return (!IsValid(InternalMeshMergeData.MeshAsset));  
+		return (!IsValid(InternalMeshMergeData.SkeletalMesh));  
 	});
 
 	// Checks for empty array
-	if (MeshesToMerge.IsEmpty())
+	if (MeshMergeData.IsEmpty())
 	{
-		UE_LOG(LogTemp, Warning,
-			TEXT("Must provide multiple valid Skeletal Meshes in order to perform a merge."));
-		return nullptr;
+		UE_LOGFMT(LogTemp, Error, "{Name}({Authority}): PerformMeshMerge FAILED - "
+			"No valid meshes assigned. Character will be invisible or buggy.", GetName(),
+			GetOwner()->HasAuthority()?"SERVER":"CLIENT");
+		return false;
 	}
 
 	const EMeshBufferAccess BufferAccess = bNeedsCpuAccess ?
-		                                       EMeshBufferAccess::ForceCPUAndGPU : EMeshBufferAccess::Default;
-
-	const TArray<FSkelMeshMergeSectionMapping> SectionMappingsCopy = MeshSectionMappings;
-	TArray<FSkelMeshMergeUVTransformMapping> UvTransformsCopy = UvTransformsPerMesh;
+			EMeshBufferAccess::ForceCPUAndGPU : EMeshBufferAccess::Default;
 
 	bool bRunDuplicateCheck = false;
 	USkeletalMesh* BaseMesh = NewObject<USkeletalMesh>();
@@ -115,10 +87,23 @@ bool UMeshMergeComponent::PerformMeshMerge()
 		
 	}
 
+	TArray<FSkelMeshMergeSectionMapping> SectionMappingsCopy;
+	TArray<FSkelMeshMergeUVTransformMapping> UvTransformsCopy;
 	TArray<USkeletalMesh*> FinalMeshList;
-	for (FStMeshMergeData& MeshMergeData : MeshesToMerge)
+
+	for (FMeshMergeMappings& meshMergeData : MeshMergeData)
 	{
-		FinalMeshList.Add(MeshMergeData.MeshAsset);
+		FinalMeshList.Add(meshMergeData.SkeletalMesh);
+		
+		auto arr = meshMergeData.SectionMappings;
+		for (FSkelMeshMergeSectionMapping& sMapping : meshMergeData.SectionMappings)
+		{
+			SectionMappingsCopy.Add(sMapping);
+		}
+		for (FSkelMeshMergeUVTransformMapping& uvTransform : meshMergeData.MeshUvTransforms)
+		{
+			UvTransformsCopy.Add(uvTransform);
+		}
 	}
 	
 	FSkeletalMeshMerge MeshMerger(BaseMesh, FinalMeshList, SectionMappingsCopy,
@@ -133,11 +118,12 @@ bool UMeshMergeComponent::PerformMeshMerge()
 	{
 		BaseMesh->SetSkeleton(Skeleton);
 	}
+	
 	if (IsValid(AnimBlueprint))
 	{
-		//CharacterBase->GetMesh()->SetAnimationMode(EAnimationMode::AnimationBlueprint);
 		CharacterBase->GetMesh()->SetAnimInstanceClass(AnimBlueprint);
 	}
+	
 	if (bRunDuplicateCheck)
 	{
 		TArray<FName> SkeletonMeshSockets;
@@ -184,54 +170,34 @@ bool UMeshMergeComponent::PerformMeshMerge()
 	return false;
 }
 
-
-void UMeshMergeComponent::InitializeMeshMerge(const USavedCharacter* CharacterData)
+void UMeshMergeComponent::SetupDefaultMeshes(TArray<FBodyPartData> BodyPartDatum)
 {
-	InitializeDefaultMeshes();
-
-	if (bHasInitialized)
+	for (const FBodyPartData& BodyPartData : BodyPartDatum)
 	{
-		if (!IsValid(CharacterData))
-		{
-			UE_LOG(LogTemp, Warning, TEXT("InitializeMeshMerge(%s): Already Initialized!"),
-				GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
-			return;
-		}
-		PerformMeshMerge();
+		const FMeshBodyMappings BodyMapping = CreateBodyMapping(
+			BodyPartData.SkeletalMesh, BodyPartData.BodyPartTag, BodyPartData.BodyTags);
+		MeshBodyData.Add(BodyMapping);
+	}
+}
+
+/**
+ * Performs initialization such as restoring saved mesh data, then calls
+ * PerformMeshMerge() internally upon success. Does nothing if the save is invalid.
+ * @param NewSkeleton The skeleton to use
+ * @param NewAnimInstance The anim instance to use
+ * @param MergeMappings The merge data (optional)
+ */
+void UMeshMergeComponent::InitializeMeshMerge(
+	USkeleton* NewSkeleton, TSubclassOf<UAnimInstance> NewAnimInstance,
+	const TArray<FMeshMergeMappings>& MergeMappings)
+{
+	if (!GetOwner()->HasAuthority())
+	{
+		Server_InitializeMeshMerge(NewSkeleton, NewAnimInstance, MergeMappings);
 		return;
 	}
-
-	if (IsValid(CharacterData))
-	{
-		// Initialize local client data first
-		Skeleton				= CharacterData->Skeleton;
-		MeshSectionMappings		= CharacterData->MeshSectionMappings;
-		UvTransformsPerMesh		= CharacterData->UvTransformsPerMesh;
-		MeshesToMerge			= CharacterData->MeshesToMerge;
-		
-		if (GetNetMode() == NM_Client)
-		{
-			Server_InitializeMeshMerge(
-				Skeleton, MeshSectionMappings, UvTransformsPerMesh, MeshesToMerge);
-		}
-	}
-	
-	// if the mesh merge array is empty by default, setup the default base
-	if (MeshesToMerge.Num() < 1)
-	{
-		for (FStMeshMergeData MeshMergeData : DefaultMeshes)
-		{
-			MeshesToMerge.Add(MeshMergeData);
-		}
-		bHasInitialized = true;
-		PerformMeshMerge();
-	}
-	else
-	{
-		bHasInitialized = true;
-		PerformMeshMerge();
-	}
-	
+	bHasInitialized = true;
+	PerformMeshMerge();
 }
 
 void UMeshMergeComponent::SetMeshIsHidden(bool bIsHidden)
@@ -244,124 +210,81 @@ void UMeshMergeComponent::SetMeshIsHidden(bool bIsHidden)
 	}
 }
 
-void UMeshMergeComponent::Server_InitializeMeshMerge_Implementation(USkeleton* NewSkeleton,
-                                                                    const TArray<FSkelMeshMergeSectionMapping>& NewMeshMaps,
-                                                                    const TArray<FSkelMeshMergeUVTransformMapping>& NewUvTransforms,
-                                                                    const TArray<FStMeshMergeData>& NewMeshes)
+int UMeshMergeComponent::FindIndexOfMeshByTag(const FGameplayTag& SearchTag)
 {
-	// The client can only initialize once
-	if (!bHasInitialized)
+	if (SearchTag.IsValid())
 	{
-		Skeleton				= NewSkeleton;			
-		MeshSectionMappings		= NewMeshMaps; 
-		UvTransformsPerMesh		= NewUvTransforms; 
-		MeshesToMerge			= NewMeshes;
-		InitializeMeshMerge();
-		SetMeshIsHidden(false);
-	}
-}
-
-/**
- * @brief Returns the index of the Mesh Merge array for the given tag, if found.
- * @param SearchTag The FGameplayTag to find in the mesh merge array
- * @return -1 on Failure, otherwise, the array index where tag was found
- */
-int UMeshMergeComponent::GetMeshMergeIndexByTag(FGameplayTag SearchTag) const
-{
-	for (int i = 0; i < MeshesToMerge.Num(); i++)
-	{
-		const FStMeshMergeData MergeData = MeshesToMerge[i];
-		if (MergeData.AssociatedBodyPart.MatchesTag(SearchTag))
+		for (int i = 0; i < MeshMergeData.Num(); i++)
 		{
-			return i;
+			const FMeshMergeMappings& meshMapping = MeshMergeData[i];
+			if (meshMapping.EquipSlotTag == SearchTag)
+			{
+				return i;
+			}
 		}
 	}
 	return -1;
 }
 
-/**
- * @brief Inserts a new entry into the array, returning the index where it was added to.
- *        Does nothing, and returns the index if the game tag already exists in the array.
- * @param GameTag The new tag to add (Character.Body.Torso, etc)
- * @param EquipmentName The equipment to slot into the merge.
- * @param IsMale False if the mesh is female specific. Otherwise, true.
- * @return Returns the index the new data was emplaced at. Negative indicates failure.
+/** Creates a new mesh merge mapping.
+ * Does not add it to the mappings. Developer
+ * must modify the new mapping accordingly (uv transforms, etc) and then add
+ * it to the mapping using 'AddToMeshMapping'.
  */
-int UMeshMergeComponent::AddNewMeshToArrayByTag(FGameplayTag GameTag, FName EquipmentName, bool IsMale)
+FMeshMergeMappings UMeshMergeComponent::CreateMeshMapping(
+	const UEquipmentItemData* NewAsset, const FGameplayTag& EquipmentTag, const bool useFeminineMesh)
 {
-	if (EquipmentName.IsNone())
-	{
-		return -1;
-	}
-
-	const int ExistingIndex = GetMeshMergeIndexByTag(GameTag);
-	if (ExistingIndex >= 0)
-	{
-		return ExistingIndex;
-	}
-
-	// If we still haven't returned, the game tag doesn't exist. Add it.
-	const FStMeshMergeData NewMeshData(EquipmentName);
-	return MeshesToMerge.Add( NewMeshData );
+	// Create a new mesh merge mapping
+	FMeshMergeMappings NewMapping(NewAsset, useFeminineMesh);
+	NewMapping.EquipSlotTag = EquipmentTag;
+	return NewMapping;
 }
 
-/**
- * @brief Replaces the merge at the given array index with the new mesh
- * @param EquipmentName The new mesh to use. Invalid FName results in default mesh use.
- * @param ArrayIndex The array index to modify
- * @param IsMale False if female body, otherwise true.
- * @param MergeNow If true, performs a mesh merge as soon as the array updates
- */
-void UMeshMergeComponent::SetNewMeshByIndex(FName EquipmentName, int ArrayIndex, bool IsMale, bool MergeNow)
+FMeshBodyMappings UMeshMergeComponent::CreateBodyMapping(USkeletalMesh* UsingMesh,
+	const FGameplayTag& BodyTag, FGameplayTagContainer BodyOptionTags)
 {
-	const FStEquipmentWorn EquipData = UEquipmentSystem::GetEquipmentWornData(EquipmentName);
-		
-	if (MeshesToMerge.IsValidIndex(ArrayIndex))
-	{
-		// Use the mesh given
-		USkeletalMesh* UsingMesh = IsMale ? EquipData.MaleMesh : EquipData.FemaleMesh;
-		if (IsValid(UsingMesh))
-		{
-			MeshesToMerge[ArrayIndex].MeshAsset = UsingMesh;
-		}
+	return FMeshBodyMappings(UsingMesh, BodyTag, BodyOptionTags);
+}
 
-		else
+void UMeshMergeComponent::AddMeshToMerge(const FMeshMergeMappings& NewMapping)
+{
+	if (NewMapping.EquipSlotTag.IsValid() && IsValid(NewMapping.DataAsset))
+	{
+		RemoveMeshFromMerge(NewMapping.DataAsset, NewMapping.EquipSlotTag);
+		MeshMergeData.Add(NewMapping);
+	}
+}
+
+void UMeshMergeComponent::RemoveMeshFromMerge(
+	const UEquipmentItemData* NewAsset, const FGameplayTag& EquipmentTag)
+{
+	// Always prefer the tag if it is valid. There's only one slot for this tag.
+	if (EquipmentTag.IsValid())
+	{
+		const int idx = FindIndexOfMeshByTag(EquipmentTag);
+		if (idx >= 0) { MeshMergeData.RemoveAt(idx); }
+	}
+	// If the tag isn't valid, remove the equipment that matches
+	else
+	{
+		for (int i = 0; i < MeshMergeData.Num(); i++)
 		{
-			// Get the default mesh for this slot
-			const FGameplayTag BodyTag = MeshesToMerge[ArrayIndex].AssociatedBodyPart;
-			const FStMeshMergeData MeshMergeData = UEquipmentSystem::GetDefaultMeshFromTag(BodyTag, IsMale);
-			
-			if (IsValid(MeshMergeData.MeshAsset))
+			if (MeshMergeData[i].DataAsset == NewAsset)
 			{
-				MeshesToMerge[ArrayIndex].MeshAsset = MeshMergeData.MeshAsset;
+				MeshMergeData.RemoveAt(i);
+				return;
 			}
 		}
-		
-		if (MergeNow)
-		{
-			PerformMeshMerge();
-		}
 	}
 }
 
-/**
- * @brief Replaces the merge at the given array index with the new mesh.
- *        If no mesh merge exists for the given tag, internally runs AddNewMeshToArrayByTag.
- * @param EquipmentName The new mesh to use. Invalid FName results in default mesh being used.
- * @param GameTag The body part tag to look for when replacing the mesh.
- * @param IsMale False if female body, otherwise true.
- * @param MergeNow If true, performs a mesh merge as soon as the array updates
- */
-void UMeshMergeComponent::SetNewMeshByTag(FName EquipmentName, FGameplayTag GameTag, bool IsMale, bool MergeNow)
+void UMeshMergeComponent::Server_InitializeMeshMerge_Implementation(
+		USkeleton* NewSkeleton, TSubclassOf<UAnimInstance> NewAnimInstance,
+		const TArray<FMeshMergeMappings>& MergeMappings)
 {
-	int ArrayIndex = GetMeshMergeIndexByTag(GameTag);
-	if (ArrayIndex < 0)
+	if (GetOwner()->HasAuthority())
 	{
-		ArrayIndex = AddNewMeshToArrayByTag(GameTag, EquipmentName);
-	}
-	if (ArrayIndex >= 0)
-	{
-		SetNewMeshByIndex(EquipmentName, ArrayIndex, IsMale, MergeNow);
+		InitializeMeshMerge(NewSkeleton, NewAnimInstance, MergeMappings);
 	}
 }
 
@@ -381,18 +304,6 @@ void UMeshMergeComponent::InitializeComponent()
 	Super::InitializeComponent();
 }
 
-void UMeshMergeComponent::InitializeDefaultMeshes()
-{
-	if (DefaultMeshes.Num() < 1)
-	{
-		const ACharacterBase* CharacterBase = Cast<ACharacterBase>(GetOwner());
-		if (IsValid(CharacterBase))
-		{
-			DefaultMeshes = UEquipmentSystem::GetAllDefaultMeshes();
-		}
-	}
-}
-
 void UMeshMergeComponent::OnRep_HideMesh_Implementation()
 {
 	const ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
@@ -403,36 +314,22 @@ void UMeshMergeComponent::OnRep_HideMesh_Implementation()
 	}
 }
 
-void UMeshMergeComponent::OnRep_MeshesToMerge_Implementation()
+/**
+ * Performs a mesh merge when the authority sends the updated mesh data
+ */
+void UMeshMergeComponent::OnRep_MeshMergeData_Implementation()
 {
-	if (GetNetMode() >= NM_Client)
+	if (!GetOwner()->HasAuthority())
 	{
 		PerformMeshMerge();
 	}
 }
 
-void UMeshMergeComponent::OnRep_UvTransformsPerMesh_Implementation()
-{
-	if (GetNetMode() >= NM_Client)
-	{
-		PerformMeshMerge();
-	}
-}
-
-void UMeshMergeComponent::OnRep_MeshSectionMappings_Implementation()
-{
-	if (GetNetMode() >= NM_Client)
-	{
-		PerformMeshMerge();
-	}
-}
 
 void UMeshMergeComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(UMeshMergeComponent, bHideMesh);
 	DOREPLIFETIME(UMeshMergeComponent, Skeleton);
-	DOREPLIFETIME(UMeshMergeComponent, MeshesToMerge);
-	DOREPLIFETIME(UMeshMergeComponent, MeshSectionMappings);
-	DOREPLIFETIME(UMeshMergeComponent, UvTransformsPerMesh);
+	DOREPLIFETIME(UMeshMergeComponent, MeshMergeData);
 }

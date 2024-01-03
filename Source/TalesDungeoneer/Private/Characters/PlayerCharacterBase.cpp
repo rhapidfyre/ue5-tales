@@ -226,18 +226,3 @@ void APlayerCharacterBase::Look(const FInputActionValue& Value)
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
 }
-
-void APlayerCharacterBase::Server_SetupMeshMerge_Implementation(
-	const TArray<FStMeshMergeData>& MeshesToMerge,
-	const TArray<FSkelMeshMergeSectionMapping>& MeshSectionMappings,
-	const TArray<FSkelMeshMergeUVTransformMapping>& UvTransformsPerMesh)
-{
-	if (IsValid(MeshMergeComponent))
-	{
-		MeshMergeComponent->MeshesToMerge		= MeshesToMerge;
-		MeshMergeComponent->MeshSectionMappings = MeshSectionMappings;
-		MeshMergeComponent->UvTransformsPerMesh = UvTransformsPerMesh;
-		MeshMergeComponent->PerformMeshMerge();
-	}
-}
-	

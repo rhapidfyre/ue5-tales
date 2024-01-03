@@ -17,6 +17,18 @@ UVitalityAttributes::UVitalityAttributes() :
 	
 }
 
+TArray<FGameplayAttribute> UVitalityAttributes::GetAllVitalityAttributes() const
+{
+	return {
+		GetCurrentHealthAttribute(),	GetMaximumHealthAttribute(),
+		GetCurrentArmorAttribute(),		GetMaximumArmorAttribute(),
+		GetCurrentStaminaAttribute(),	GetMaximumStaminaAttribute(),
+		GetCurrentMagicAttribute(),		GetMaximumMagicAttribute(),
+		GetCurrentHungerAttribute(),	GetMaximumHungerAttribute(),
+		GetCurrentHydrationAttribute(),	GetMaximumHydrationAttribute()
+	};
+}
+
 void UVitalityAttributes::PreAttributeBaseChange(const FGameplayAttribute& Attribute, float& NewValue) const
 {
 	Super::PreAttributeBaseChange(Attribute, NewValue);

@@ -13,7 +13,7 @@ public class TalesDungeoneer : ModuleRules
 			"Core", "CoreUObject", "Engine", "InputCore",
 			"UMG", "Slate", "SlateCore", "AIModule",
 			"T5GInventorySystem", "GameplayAbilities", "GameplayTags",
-			"Niagara", "EnhancedInput"
+			"Niagara", "EnhancedInput", "GameplayTasks"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[]

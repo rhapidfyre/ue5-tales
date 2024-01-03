@@ -56,13 +56,7 @@ public:
 	USkeleton* Skeleton = nullptr;
 
 	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Mesh Merge Save Data")
-	TArray < FStMeshMergeData > MeshesToMerge = {};
-	
-	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Mesh Merge Save Data")
-	TArray < FSkelMeshMergeSectionMapping > MeshSectionMappings = {};
-	
-	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Mesh Merge Save Data")
-	TArray < FSkelMeshMergeUVTransformMapping > UvTransformsPerMesh = {};
+	TArray <FMeshMergeMappings> MeshMergeMappings = {};
 
 	// The name of the inventory save file
 	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Inventory Save Data")

@@ -151,6 +151,9 @@ public:
 		ReplicatedUsing=OnRep_DarkResistance, Meta = (AllowPrivateAccess = true))
 	FGameplayAttributeData DarkResistance;
 	ATTRIBUTE_ACCESSORS(UDamageAttributes, DarkResistance);
+	
+	UFUNCTION(BlueprintCallable)
+	TArray<FGameplayAttributeData> GetAllDamageResistAttributes();
 
 	
 	/**
@@ -228,7 +231,9 @@ public:
 	FGameplayAttributeData DarkBonus;
 	ATTRIBUTE_ACCESSORS(UDamageAttributes, DarkBonus);
 	
-
+	UFUNCTION(BlueprintCallable)
+	TArray<FGameplayAttributeData> GetAllDamageBonusAttributes();
+	
 	/**
 	 * Protected Methods/Members & Replication
 	 */
