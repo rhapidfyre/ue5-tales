@@ -61,6 +61,12 @@ public:
 	// The name of the inventory save file
 	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Inventory Save Data")
 	FString SavedInventory = "";
+
+	// The name of the inventory save file
+	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Inventory Save Data")
+	FLinearColor SkinColor = FLinearColor(0,0,0,0);
+
+	
 };
 
 /**

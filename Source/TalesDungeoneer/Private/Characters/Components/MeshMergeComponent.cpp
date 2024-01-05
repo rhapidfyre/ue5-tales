@@ -26,6 +26,77 @@ FMeshBodyMappings::FMeshBodyMappings(USkeletalMesh* UsingMesh,
 	OptionTags		= NewOptions;
 };
 
+/**
+ * Sets the anim instance used by this component's actor WITHOUT performing the mesh merge.
+ * Passing the optional anim instance argument will overwrite AnimBlueprint variable.
+ * Replicates to clients if ran on the server.
+ * @param NewAnimInstance Optional anim instance
+ */
+void UMeshMergeComponent::SetAnimBlueprint(TSubclassOf<UAnimInstance> NewAnimInstance)
+{
+	const ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
+	if (IsValid(CharacterBase))
+	{
+		const TSubclassOf<UAnimInstance> UsingAnimInstance = IsValid(NewAnimInstance)
+										 ? NewAnimInstance : AnimBlueprint;
+		if (IsValid(UsingAnimInstance))
+		{
+			CharacterBase->GetMesh()->SetAnimInstanceClass(NewAnimInstance);
+			AnimBlueprint = NewAnimInstance;
+		}
+	}
+}
+
+/**
+ * Sets the owner actor's skin color WITHOUT performing the mesh merge.
+ * If executed on the server, it will be replicated to all clients internally.
+ * @param OptionalColor Optional skin color. If unset, will be ignored.
+ */
+void UMeshMergeComponent::UpdateSkinMaterial(const FLinearColor OptionalColor)
+{
+	const ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
+	if (IsValid(CharacterBase))
+	{
+		USkeletalMeshComponent* CharacterMesh = CharacterBase->GetMesh();
+		if (IsValid(CharacterMesh))
+		{
+			const FLinearColor BaseColor = FLinearColor();
+			
+			// If optional color or current skin color is not valid, generate one
+			if (OptionalColor == BaseColor || SkinColor_ == BaseColor)
+			{
+				if (SkinColor_ == BaseColor)
+				{
+					TArray<FLinearColor> SkinColors		= CharacterBase->GetCharacterRaceData()->SkinColorOptions;
+					const int 			 lastSkinIndex 	= SkinColors.Num() - 1;
+					const int 			 idx    		= lastSkinIndex < 0 ? -1 : FMath::RandRange(0,lastSkinIndex);
+					SkinColor_ = SkinColors.IsValidIndex(idx) ? SkinColors[idx] : FLinearColor(0,0,0,0);
+				}
+			}
+
+			// If optional color has been provided, use it
+			else { SkinColor_ = OptionalColor; }
+			
+			// Create dynamic instance
+			UMaterialInstanceDynamic* dynMaterial =
+				UMaterialInstanceDynamic::Create(SkinMaterial, this);
+
+			if (IsValid(dynMaterial))
+			{
+				// Set Color Parameter
+				dynMaterial->SetVectorParameterValue("Param", SkinColor_);
+				CharacterMesh->SetMaterial(0, dynMaterial);
+			}
+		}
+	}
+}
+
+/**
+ * Performs a merge of all supplied meshes and transforms, combining them into
+ * one single skeletal mesh on the owning actor. Also updates the skin color
+ * and animation instance internally on success.
+ * @return True on success
+ */
 bool UMeshMergeComponent::PerformMeshMerge()
 {
 	SetMeshIsHidden(true);
@@ -123,11 +194,6 @@ bool UMeshMergeComponent::PerformMeshMerge()
 		BaseMesh->SetSkeleton(Skeleton);
 	}
 	
-	if (IsValid(AnimBlueprint))
-	{
-		CharacterBase->GetMesh()->SetAnimInstanceClass(AnimBlueprint);
-	}
-	
 	if (bRunDuplicateCheck)
 	{
 		TArray<FName> SkeletonMeshSockets;
@@ -165,13 +231,18 @@ bool UMeshMergeComponent::PerformMeshMerge()
 	if (IsValid(BaseMesh))
 	{
 		CharacterBase->GetMesh()->SetSkeletalMesh(BaseMesh);
+		UpdateSkinMaterial(SkinColor_);
+		SetAnimBlueprint(AnimBlueprint);
 		SetMeshIsHidden(false);
+		
+		OnMeshMergeCompleted.Broadcast();
 		return true;
 	}
 	
 	UE_LOG(LogTemp, Warning, TEXT("PerformMeshMerge() failed!"));
 	return false;
 }
+
 
 void UMeshMergeComponent::SetupDefaultMeshes(TArray<FBodyPartData> BodyPartDatum)
 {
@@ -188,18 +259,25 @@ void UMeshMergeComponent::SetupDefaultMeshes(TArray<FBodyPartData> BodyPartDatum
  * PerformMeshMerge() internally upon success. Does nothing if the save is invalid.
  * @param NewSkeleton The skeleton to use
  * @param NewAnimInstance The anim instance to use
- * @param MergeMappings The merge data (optional)
+ * @param NewSkinColor The skin color to be used
+ * @param MergeMappings The merge data
  */
 void UMeshMergeComponent::InitializeMeshMerge(
 	USkeleton* NewSkeleton, TSubclassOf<UAnimInstance> NewAnimInstance,
-	const TArray<FMeshMergeMappings>& MergeMappings)
+	FLinearColor NewSkinColor, const TArray<FMeshMergeMappings>& MergeMappings)
 {
 	if (!GetOwner()->HasAuthority())
 	{
-		Server_InitializeMeshMerge(NewSkeleton, NewAnimInstance, MergeMappings);
+		Server_InitializeMeshMerge(NewSkeleton, NewAnimInstance, NewSkinColor, MergeMappings);
 		return;
 	}
 	bHasInitialized = true;
+	
+	Skeleton      	= NewSkeleton;
+	AnimBlueprint	= NewAnimInstance;
+	SkinColor_		= NewSkinColor;
+	MeshMergeData 	= MergeMappings;
+	
 	PerformMeshMerge();
 }
 
@@ -249,6 +327,12 @@ FMeshBodyMappings UMeshMergeComponent::CreateBodyMapping(USkeletalMesh* UsingMes
 	return FMeshBodyMappings(UsingMesh, BodyTag, BodyOptionTags);
 }
 
+
+/**
+ * Adds the given mesh with the specified mappings.
+ * Internally removes the old mesh mapping before adding the new one.
+ * @param NewMapping The new mesh merge mapping to be added
+ */
 void UMeshMergeComponent::AddMeshToMerge(const FMeshMergeMappings& NewMapping)
 {
 	if (IsValid(NewMapping.DataAsset) || NewMapping.EquipSlotTag.IsValid())
@@ -259,6 +343,12 @@ void UMeshMergeComponent::AddMeshToMerge(const FMeshMergeMappings& NewMapping)
 	}
 }
 
+/**
+ * Removes the given mesh by tag (priority) or data asset.
+ * This function needs to be executed on the server.
+ * @param NewAsset Pulls the meshes specified in this asset. Optional.
+ * @param EquipmentTag Required. The equipment or body slot tag to use.
+ */
 void UMeshMergeComponent::RemoveMeshFromMerge(
 	const UEquipmentItemData* NewAsset, const FGameplayTag& EquipmentTag)
 {
@@ -282,13 +372,20 @@ void UMeshMergeComponent::RemoveMeshFromMerge(
 	}
 }
 
+/**
+ * Called by the owning client when restoring data from USavedCharacter
+ * @param NewSkeleton		The skeleton restored from save
+ * @param NewAnimInstance	The anim blueprint restored from save
+ * @param NewSkinColor		The skin color restored from save
+ * @param MergeMappings		The mesh merge mappings restored from save
+ */
 void UMeshMergeComponent::Server_InitializeMeshMerge_Implementation(
 		USkeleton* NewSkeleton, TSubclassOf<UAnimInstance> NewAnimInstance,
-		const TArray<FMeshMergeMappings>& MergeMappings)
+		FLinearColor NewSkinColor, const TArray<FMeshMergeMappings>& MergeMappings)
 {
 	if (GetOwner()->HasAuthority())
 	{
-		InitializeMeshMerge(NewSkeleton, NewAnimInstance, MergeMappings);
+		InitializeMeshMerge(NewSkeleton, NewAnimInstance, NewSkinColor, MergeMappings);
 	}
 }
 
@@ -318,22 +415,44 @@ void UMeshMergeComponent::OnRep_HideMesh_Implementation()
 	}
 }
 
+void UMeshMergeComponent::Server_SetAnimBlueprint_Implementation(TSubclassOf<UAnimInstance> NewAnimInstance)
+{
+	if (GetOwner()->HasAuthority()) { SetAnimBlueprint(AnimBlueprint); }
+}
+
 /**
  * Performs a mesh merge when the authority sends the updated mesh data
  */
 void UMeshMergeComponent::OnRep_MeshMergeData_Implementation()
 {
-	if (!GetOwner()->HasAuthority())
-	{
-		PerformMeshMerge();
-	}
+	if (!GetOwner()->HasAuthority()) { PerformMeshMerge(); }
+}
+
+void UMeshMergeComponent::OnRep_SkinColor_Implementation()
+{
+	if (!GetOwner()->HasAuthority()) { UpdateSkinMaterial(SkinColor_); }
+}
+
+void UMeshMergeComponent::OnRep_MeshBodyData_Implementation()
+{
+	if (!GetOwner()->HasAuthority()) { PerformMeshMerge(); }
+}
+
+void UMeshMergeComponent::OnRep_AnimInstance_Implementation()
+{
+	if (!GetOwner()->HasAuthority()) { SetAnimBlueprint(nullptr); }
 }
 
 
 void UMeshMergeComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	
+	// Vars replicated to all clients
 	DOREPLIFETIME(UMeshMergeComponent, bHideMesh);
 	DOREPLIFETIME(UMeshMergeComponent, Skeleton);
 	DOREPLIFETIME(UMeshMergeComponent, MeshMergeData);
+	DOREPLIFETIME(UMeshMergeComponent, SkinColor_);
+	DOREPLIFETIME(UMeshMergeComponent, AnimBlueprint);
+	
 }

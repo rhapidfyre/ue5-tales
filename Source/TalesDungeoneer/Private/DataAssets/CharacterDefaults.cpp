@@ -12,6 +12,20 @@ UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Sex_Male,		"Character.Sex.Male");
 UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Sex_Nonbinary, "Character.Sex.Nonbinary");
 
 
+/**
+ * Gets a random skin color if argument is < 0
+ * @param SkinColorIndex Optional index of the requested skin color
+ * @return The FLinearColor for the skin material
+ */
+FLinearColor UCharacterRaceData::GetSkinColor(int SkinColorIndex) const
+{
+	if (SkinColorOptions.IsValidIndex(SkinColorIndex))
+	{
+		return SkinColorOptions[SkinColorIndex];
+	}
+	return SkinColorOptions[ FMath::RandRange(0, SkinColorOptions.Num()-1) ];
+}
+
 UPrimaryCharacterData::UPrimaryCharacterData()
 	: CharacterDataAsset(nullptr), CharacterRaceData(nullptr), CharacterClassData(nullptr) 
 {
@@ -155,10 +169,101 @@ FGameplayTag UPrimaryCharacterData::GetCharacterRace() const
 }
 
 /**
+ * Returns a TMap of all core stats and their values.
+ * @return The TMap, either empty or populated with valid core stats.
+ */
+TMap<FGameplayAttribute, float> UPrimaryCharacterData::GetDefaultCoreStats() const
+{
+	TMap<FGameplayAttribute, float> DamageBonusMappings = {};
+	// Loops through CharacterData, Race & Class assets for all damage resistances
+	TArray<UCharacterCommonData*> LoopAssets = {CharacterDataAsset, CharacterRaceData, CharacterClassData};
+	for (const UCharacterCommonData* DataAsset : LoopAssets)
+	{
+		if (IsValid(DataAsset))
+		{
+			for (auto const& [CoreStatKey, CoreStatValue] : DataAsset->CoreStatsModifiers)
+			{
+				UE_LOGFMT(LogAssetData, Display,
+					"Found Default '{BaseAbility} = {BaseValue}' in Data Asset '{DataAsset}'",
+						CoreStatKey.GetName(), CoreStatValue, DataAsset->GetName());
+				if (!DamageBonusMappings.Contains(CoreStatKey))
+				{
+					DamageBonusMappings.Add(CoreStatKey, CoreStatValue);
+				}
+				DamageBonusMappings[CoreStatKey] += CoreStatValue;
+			}
+		}
+	}
+	return DamageBonusMappings;
+}
+
+/**
+ * Returns a TMap of all damage bonuses across class, race and common data.
+ * @return The TMap, either empty or populated with valid damage bonuses.
+ */
+TMap<FGameplayAttribute, float> UPrimaryCharacterData::GetDefaultDamageBonus() const
+{
+	TMap<FGameplayAttribute, float> DamageBonusMappings = {};
+	// Loops through CharacterData, Race & Class assets for all damage resistances
+	TArray<UCharacterCommonData*> LoopAssets = {CharacterDataAsset, CharacterRaceData, CharacterClassData};
+	for (const UCharacterCommonData* DataAsset : LoopAssets)
+	{
+		if (IsValid(DataAsset))
+		{
+			for (auto const& [DamageKey, DamageValue] : DataAsset->DamageBonusModifiers)
+			{
+				UE_LOGFMT(LogAssetData, Display,
+					"Found Default Damage Bonus '{BaseAbility} = {BaseValue}' in Data Asset '{DataAsset}'",
+						DamageKey.GetName(), DamageValue, DataAsset->GetName());
+				if (!DamageBonusMappings.Contains(DamageKey))
+				{
+					DamageBonusMappings.Add(DamageKey, DamageValue);
+				}
+				DamageBonusMappings[DamageKey] += DamageValue;
+			}
+		}
+	}
+	return DamageBonusMappings;
+}
+
+/**
+ * Returns a TMap of all damage resistances across class, race and common data.
+ * @return The TMap, either empty or populated with valid damage resistances.
+ */
+TMap<FGameplayAttribute, float> UPrimaryCharacterData::GetDefaultDamageResist() const
+{
+	TMap<FGameplayAttribute, float> DamageResistMappings = {};
+	// Loops through CharacterData, Race & Class assets for all damage resistances
+	TArray<UCharacterCommonData*> LoopAssets = {CharacterDataAsset, CharacterRaceData, CharacterClassData};
+	for (const UCharacterCommonData* DataAsset : LoopAssets)
+	{
+		if (IsValid(DataAsset))
+		{
+			for (const TPair<FGameplayAttribute, float> DamagePair : DataAsset->DamageResistModifiers)
+			{
+				for (auto const& [DamageKey, DamageValue] : DataAsset->DamageBonusModifiers)
+			
+				{
+					UE_LOGFMT(LogAssetData, Display,
+						"Found Default Damage Resist '{BaseAbility} = {BaseValue}' in Data Asset '{DataAsset}'",
+							DamageKey.GetName(), DamageValue, DataAsset->GetName());
+					if (!DamageResistMappings.Contains(DamageKey))
+					{
+						DamageResistMappings.Add(DamageKey, DamageValue);
+					}
+					DamageResistMappings[DamageKey] += DamageValue;
+				}
+			}
+		}
+	}
+	return DamageResistMappings;
+}
+
+/**
  * Returns an array of all the ability classes that this character should start with.
  * @return The array of abilities
  */
-TArray<TSubclassOf<UTalesGameplayAbility>> UPrimaryCharacterData::GetAbilities() const
+TArray<TSubclassOf<UTalesGameplayAbility>> UPrimaryCharacterData::GetDefaultAbilities() const
 {
 	TSet< TSubclassOf<UTalesGameplayAbility> > ReturnArray = {};
 
@@ -179,7 +284,7 @@ TArray<TSubclassOf<UTalesGameplayAbility>> UPrimaryCharacterData::GetAbilities()
 	}
 	
 	UE_LOGFMT(LogAssetData, Display,
-		"GetAbilities(): Returning an array with {NumOptions} options.", ReturnArray.Num());
+		"GetDefaultAbilities(): Returning an array with {NumOptions} options.", ReturnArray.Num());
 	return ReturnArray.Array();
 }
 
@@ -188,7 +293,7 @@ TArray<TSubclassOf<UTalesGameplayAbility>> UPrimaryCharacterData::GetAbilities()
  * Returns an array of all the effect classes that this character should start with.
  * @return The array of effects
  */
-TArray<TSubclassOf<UGameplayEffect>> UPrimaryCharacterData::GetEffects() const
+TArray<TSubclassOf<UGameplayEffect>> UPrimaryCharacterData::GetDefaultEffects() const
 {
 	TSet< TSubclassOf<UGameplayEffect> > ReturnArray = {};
 
@@ -209,6 +314,6 @@ TArray<TSubclassOf<UGameplayEffect>> UPrimaryCharacterData::GetEffects() const
 	}
 	
 	UE_LOGFMT(LogAssetData, Display,
-		"GetAbilities(): Returning an array with {NumOptions} options.", ReturnArray.Num());
+		"GetDefaultAbilities(): Returning an array with {NumOptions} options.", ReturnArray.Num());
 	return ReturnArray.Array();
 }

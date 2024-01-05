@@ -7,8 +7,12 @@
 #include "SkeletalMeshMerge.h"
 #include "Components/ActorComponent.h"
 #include "lib/EquipmentData.h"
+#include "Delegates/Delegate.h"
 
 #include "MeshMergeComponent.generated.h"
+
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnMeshMergeCompleted);
 
 
 UENUM(BlueprintType)
@@ -129,9 +133,17 @@ class TALESDUNGEONEER_API UMeshMergeComponent : public UActorComponent
 public:
 	
 	UMeshMergeComponent();
-	
+
+	UPROPERTY(BlueprintAssignable)
+	FOnMeshMergeCompleted OnMeshMergeCompleted;
+
 	UFUNCTION(BlueprintCallable)
-	bool PerformMeshMerge();
+	void SetAnimBlueprint(TSubclassOf<UAnimInstance> NewAnimInstance);
+
+	UFUNCTION(BlueprintCallable)
+	void UpdateSkinMaterial(const FLinearColor OptionalColor);
+	
+	UFUNCTION(BlueprintCallable) bool PerformMeshMerge();
 
 	void SetupDefaultMeshes(TArray<FBodyPartData> BodyPartDatum);
 
@@ -141,7 +153,7 @@ public:
 	// Used for restoring from a save game
 	void InitializeMeshMerge(
 		USkeleton* NewSkeleton, TSubclassOf<UAnimInstance> NewAnimInstance,
-		const TArray<FMeshMergeMappings>& MergeMappings = {});
+		FLinearColor NewSkinColor, const TArray<FMeshMergeMappings>& MergeMappings = {});
 
 	UFUNCTION(BlueprintCallable)
 	void SetMeshIsHidden(bool bIsHidden);
@@ -152,11 +164,9 @@ public:
 	UFUNCTION(Server, Reliable)
 	void Server_InitializeMeshMerge(
 		USkeleton* NewSkeleton, TSubclassOf<UAnimInstance> NewAnimInstance,
-		const TArray<FMeshMergeMappings>& MergeMappings = {});
+		FLinearColor NewSkinColor, const TArray<FMeshMergeMappings>& MergeMappings);
 
 	int FindIndexOfMeshByTag(const FGameplayTag& SearchTag);
-
-	TArray<FMeshMergeMappings> GetAllMeshMergeMappings() const { return MeshMergeData; }
 	
 	UFUNCTION(BlueprintCallable)
 	FMeshMergeMappings CreateMeshMapping(const UEquipmentItemData* NewAsset,
@@ -172,6 +182,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void RemoveMeshFromMerge(const UEquipmentItemData* NewAsset, const FGameplayTag& EquipmentTag);
 
+	// Private Member Accessors
+	TArray<FMeshMergeMappings>	GetAllMeshMergeMappings() const { return MeshMergeData; }
+	FLinearColor 				GetSkinColor() const			{ return SkinColor_; }
+	USkeleton*	 				GetSkeleton() const				{ return Skeleton; }
+	TSubclassOf<UAnimInstance>	GetAnimBlueprint() const		{ return AnimBlueprint; }
+
 protected:
 	
 	virtual void BeginPlay() override;
@@ -181,7 +197,10 @@ protected:
 	virtual void InitializeComponent() override;
 	
 	virtual void GetLifetimeReplicatedProps(
-		TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
+	UFUNCTION(Server, Reliable)
+	void Server_SetAnimBlueprint(TSubclassOf<UAnimInstance> NewAnimInstance);
 
 public:
 
@@ -204,32 +223,42 @@ public:
 	
 	// Skeleton that will be used for the merged mesh.
 	// Leave empty if the generated skeleton is OK.
-	UPROPERTY(Replicated, EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite)
 	USkeleton* Skeleton = nullptr;
 	
 	// The animation blueprint that will be used
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(ReplicatedUsing=OnRep_AnimInstance, EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<UAnimInstance> AnimBlueprint = nullptr;
 
 	// The default body meshes used in every single mesh merge
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(ReplicatedUsing=OnRep_MeshBodyData, EditAnywhere, BlueprintReadOnly)
 	TArray<FMeshBodyMappings> MeshBodyData = {};
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UMaterialInstance* SkinMaterial = nullptr;
 
 private:
 
+	UFUNCTION(NetMulticast, Reliable) void OnRep_SkinColor();
 	UFUNCTION(NetMulticast, Reliable) void OnRep_MeshMergeData();
+	UFUNCTION(NetMulticast, Reliable) void OnRep_HideMesh();
+	UFUNCTION(NetMulticast, Reliable) void OnRep_AnimInstance();
+	UFUNCTION(NetMulticast, Reliable) void OnRep_MeshBodyData();
+	
+	UPROPERTY(ReplicatedUsing=OnRep_SkinColor)
+	FLinearColor SkinColor_ = FLinearColor(0,0,0,0);
 	
 	// These are the "optional" overlaid meshes in addition to the MeshBodyData
 	UPROPERTY(ReplicatedUsing=OnRep_MeshMergeData)
 	TArray<FMeshMergeMappings> MeshMergeData = {};
 
 	// Start hidden by default
-	UFUNCTION(NetMulticast, Reliable) void OnRep_HideMesh();
 	UPROPERTY(ReplicatedUsing=OnRep_HideMesh) bool bHideMesh = true;
 	
 	// This way the initial setups on OnConstruction only run once
 	bool bHasInitialized	= false;
 	
 	bool bMeshSaveRestored	= false;
+
 	
 };

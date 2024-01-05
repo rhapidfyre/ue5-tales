@@ -88,6 +88,10 @@ public:
 	
 	UCharacterRaceData() {};
 
+	UFUNCTION(BlueprintPure)
+	FLinearColor GetSkinColor(int SkinColorIndex = -1) const;
+		
+
 	// The gameplay tag that denotes this class (equipment, abilities, etc)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FGameplayTag GameplayTag = TAG_Character_Class_Warrior;
@@ -111,7 +115,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FBodyPartData> DefaultMeshes = {};
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FLinearColor> SkinColorOptions = {FLinearColor(255, 206, 180)};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<FLinearColor> SkinColorOptions = {FLinearColor(255, 206, 180)};
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<FLinearColor> HairColorOptions = {FColor::FromHex("0xC0946F").ReinterpretAsLinear()};
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshMergeMappings> MeshOptionsForArms		= {};
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshMergeMappings> MeshOptionsForHairstyle	= {};
@@ -190,9 +198,12 @@ public:
 
 	UFUNCTION(BlueprintPure) FGameplayTag 	GetCharacterClass() const;
 	UFUNCTION(BlueprintPure) FGameplayTag 	GetCharacterRace() const;
-	
-	UFUNCTION(BlueprintPure) TArray<TSubclassOf <class UTalesGameplayAbility> > GetAbilities() const;
-	UFUNCTION(BlueprintPure) TArray<TSubclassOf <class UGameplayEffect> > GetEffects() const;
+
+	UFUNCTION(BlueprintPure) TMap<FGameplayAttribute, float>					GetDefaultCoreStats() const;
+	UFUNCTION(BlueprintPure) TMap<FGameplayAttribute, float>					GetDefaultDamageBonus() const;
+	UFUNCTION(BlueprintPure) TMap<FGameplayAttribute, float>					GetDefaultDamageResist() const;
+	UFUNCTION(BlueprintPure) TArray<TSubclassOf <class UTalesGameplayAbility> > GetDefaultAbilities() const;
+	UFUNCTION(BlueprintPure) TArray<TSubclassOf <class UGameplayEffect> >		GetDefaultEffects() const;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) UCharacterDataAsset* CharacterDataAsset;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) UCharacterRaceData*  CharacterRaceData;

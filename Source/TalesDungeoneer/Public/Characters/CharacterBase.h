@@ -103,6 +103,9 @@ public: // functions
 	
 	UFUNCTION(BlueprintPure) FGameplayTag GetCharacterRace() const { return CharacterRace_; }
 	UFUNCTION(BlueprintPure) FGameplayTag GetCharacterClass() const { return CharacterClass_; }
+	
+	UFUNCTION(BlueprintPure) UCharacterRaceData*  GetCharacterRaceData() const;
+	UFUNCTION(BlueprintPure) UCharacterClassData* GetCharacterClassData() const;
 
 	// A safe character name is one with no spaces or special characters,
 	// useful for things like save file names.
