@@ -10,6 +10,7 @@
 
 #include "MeshMergeComponent.generated.h"
 
+
 UENUM(BlueprintType)
 enum class ECharacterSex : uint8
 {
@@ -37,24 +38,33 @@ struct FMeshMergeMappings
 		}
 	};
 
-	// Gameplay tags that apply to this mesh merge
-	UPROPERTY(EditAnywhere) FGameplayTagContainer GameplayTags = {};
+	// Optional gameplay tags that describe this mesh (underwear, male, etc)
+	UPROPERTY(EditAnywhere)
+	FGameplayTagContainer		GameplayTags = {};
 
-	// Which equipment slot this mesh occupies
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)	FGameplayTag EquipSlotTag;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)	const UEquipmentItemData* DataAsset;
+	// Which equipment or body slot this mesh occupies
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FGameplayTag				EquipSlotTag;
+
+	// Is this used? Obsolete?
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	const UEquipmentItemData*	DataAsset;
 	
 	// The mesh to be used by this option
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)	USkeletalMesh* SkeletalMesh;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	USkeletalMesh*				SkeletalMesh;
+
+	// Additional meshes that must accompany this mesh, if visible
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<USkeletalMesh*>		AccompaniedMeshes = {};
 	
 	// A map section from the source mesh to merged section entry
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<FSkelMeshMergeSectionMapping> SectionMappings = {};
+	TArray<FSkelMeshMergeSectionMapping>		SectionMappings		= {};
 	
 	// A transform for the UVs in mesh
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<FSkelMeshMergeUVTransformMapping> MeshUvTransforms = {};
+	TArray<FSkelMeshMergeUVTransformMapping>	MeshUvTransforms	= {};
 	
 };
 
@@ -66,14 +76,22 @@ struct FBodyPartData
 	
 	// The mesh to be used by this option
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	USkeletalMesh*			SkeletalMesh	= nullptr;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FLinearColor			SkinColor		= FLinearColor(255, 206, 180);
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FGameplayTag			BodyPartTag		= {};
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FGameplayTagContainer	BodyTags		= {};
+	USkeletalMesh*			SkeletalMesh		= nullptr;
 	
+	// Additional meshes that must accompany this mesh, if visible
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<USkeletalMesh*>	AdditionalMeshes	= {};
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FLinearColor			SkinColor			= FLinearColor(255, 206, 180);
+	
+	// The primary body tag for this body part mesh
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FGameplayTag			BodyPartTag			= {};
+	
+	// Optional tags that describe this body part (male, female, etc)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FGameplayTagContainer	BodyTags			= {};
 };
 
 
@@ -87,10 +105,21 @@ struct FMeshBodyMappings
 	
 	// The mesh to be used by this option
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) USkeletalMesh* SkeletalMesh;
+	
+	// The primary tag for this body part (body.arms, body.torso, etc)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FGameplayTag BodyPartTag;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bIsFeminine  = false;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bIsMasculine = false;
+	
+	// Optional tags that describe this mesh
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FGameplayTagContainer OptionTags;
+	
+	// If this mesh is used, any mesh with any of these tags must be used
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FGameplayTagContainer RequiresTags;
+	
+	// If this mesh is used, any mesh with any of these tags will be hidden.
+	// Overrides RequiresTags
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FGameplayTagContainer BlocksTags;
 };
+
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class TALESDUNGEONEER_API UMeshMergeComponent : public UActorComponent

@@ -38,6 +38,7 @@ UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Armor_Footwear,	 "Character.Body.Armor
 
 UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Head, 			"Character.Body.Head")
 UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Head_Ears, 		"Character.Body.Head.Ears")
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Head_FacialHair, 	"Character.Body.Head.FacialHair")
 UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Head_Hair, 		"Character.Body.Head.Hair")
 UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Head_Head, 		"Character.Body.Head.Head")
 UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Head_Eyes, 		"Character.Body.Head.Eyes")

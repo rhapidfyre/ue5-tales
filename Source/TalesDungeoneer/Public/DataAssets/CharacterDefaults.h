@@ -106,19 +106,24 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FSkeletonOptionsData> SkeletonOptions = {};
 
-	// The default, no-equipment mesh options for this race
+	// The default, no-equipment mesh options for this race. These meshes are always used,
+	// regardless of the mesh options chosen, unless toggled by gameplay tags.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FBodyPartData> DefaultMeshes = {};
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FLinearColor> SkinColorOptions = {FLinearColor(255, 206, 180)};
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshMergeMappings> MeshOptionsForArms		= {};
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshMergeMappings> MeshOptionsForHairstyle	= {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshMergeMappings> MeshOptionsForHands		= {};
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshMergeMappings> MeshOptionsForHead		= {};
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshMergeMappings> MeshOptionsForEyebrows	= {};
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshMergeMappings> MeshOptionsForEyes		= {};
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshMergeMappings> MeshOptionsForFacialHair = {};
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshMergeMappings> MeshOptionsForTorso		= {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshMergeMappings> MeshOptionsForFeet		= {};
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshMergeMappings> MeshOptionsForLegs		= {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshMergeMappings> MeshOptionsForNeck		= {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshMergeMappings> MeshOptionsForTorso		= {};
 	
 };
 

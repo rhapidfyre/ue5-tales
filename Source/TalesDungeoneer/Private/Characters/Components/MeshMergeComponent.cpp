@@ -18,18 +18,16 @@ UMeshMergeComponent::UMeshMergeComponent()
 	SexSkeleton	 = static_cast<ECharacterSex>(FMath::RandRange(0,2) );
 }
 FMeshBodyMappings::FMeshBodyMappings(USkeletalMesh* UsingMesh,
-	const FGameplayTag& BodyTag, const FGameplayTagContainer& OptionTags)
+	const FGameplayTag& BodyTag, const FGameplayTagContainer& NewOptions)
 {
 	if (IsValid(UsingMesh))
 		{ SkeletalMesh = UsingMesh; }
-	BodyPartTag  = BodyTag;
-	bIsFeminine  = OptionTags.HasTag(TAG_Character_Sex_Female);
-	bIsMasculine = OptionTags.HasTag(TAG_Character_Sex_Male);
+	BodyPartTag		= BodyTag;
+	OptionTags		= NewOptions;
 };
 
 bool UMeshMergeComponent::PerformMeshMerge()
 {
-	const bool bWasHiddenToStart = GetMeshIsHidden();
 	SetMeshIsHidden(true);
 	
 	UE_LOG(LogTemp, Warning, TEXT("%s(%s): PerformMeshMerge()"), *GetName(),
@@ -93,8 +91,14 @@ bool UMeshMergeComponent::PerformMeshMerge()
 
 	for (FMeshMergeMappings& meshMergeData : MeshMergeData)
 	{
+		// Add the primary skeletal mesh and any accompanying meshes
 		FinalMeshList.Add(meshMergeData.SkeletalMesh);
-		
+		for (int i = 0; i < meshMergeData.AccompaniedMeshes.Num(); i++)
+		{
+			FinalMeshList.Add(meshMergeData.AccompaniedMeshes[i]);
+		}
+
+		// Add the section mappings and Uv Transforms
 		auto arr = meshMergeData.SectionMappings;
 		for (FSkelMeshMergeSectionMapping& sMapping : meshMergeData.SectionMappings)
 		{
@@ -161,8 +165,7 @@ bool UMeshMergeComponent::PerformMeshMerge()
 	if (IsValid(BaseMesh))
 	{
 		CharacterBase->GetMesh()->SetSkeletalMesh(BaseMesh);
-		// Restore mesh hidden state
-		SetMeshIsHidden(bWasHiddenToStart);
+		SetMeshIsHidden(false);
 		return true;
 	}
 	
@@ -248,8 +251,9 @@ FMeshBodyMappings UMeshMergeComponent::CreateBodyMapping(USkeletalMesh* UsingMes
 
 void UMeshMergeComponent::AddMeshToMerge(const FMeshMergeMappings& NewMapping)
 {
-	if (NewMapping.EquipSlotTag.IsValid() && IsValid(NewMapping.DataAsset))
+	if (IsValid(NewMapping.DataAsset) || NewMapping.EquipSlotTag.IsValid())
 	{
+		// Remove the existing mesh
 		RemoveMeshFromMerge(NewMapping.DataAsset, NewMapping.EquipSlotTag);
 		MeshMergeData.Add(NewMapping);
 	}
