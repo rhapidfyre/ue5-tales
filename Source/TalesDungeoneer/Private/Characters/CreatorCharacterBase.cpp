@@ -2,6 +2,7 @@
 
 #include "Characters/CreatorCharacterBase.h"
 
+#include "DataAssets/CharacterDefaults.h"
 #include "Gamemode/BaseFiles/TalesGameStateBase.h"
 #include "Gamemode/TitleScreen/CreatorGameStateBase.h"
 #include "Kismet/GameplayStatics.h"
@@ -12,6 +13,21 @@
 ACreatorCharacterBase::ACreatorCharacterBase()
 {
 	PrimaryActorTick.bCanEverTick = true;
+	
+	// Each mesh must be declared individually or Blueprint can't differentiate between array indices
+	MeshPartHair		= InitMeshPart("MeshPartHair");
+	MeshPartEyebrows	= InitMeshPart("MeshPartEyebrows");
+	MeshPartEyes		= InitMeshPart("MeshPartEyes");
+	MeshPartBeard		= InitMeshPart("MeshPartBeard");
+	MeshPartHead		= InitMeshPart("MeshPartHead");
+	MeshPartNeck		= InitMeshPart("MeshPartNeck");
+	MeshPartChest		= InitMeshPart("MeshPartChest");
+	//MeshPartBra			= InitMeshPart("MeshPartBra");
+	MeshPartArms		= InitMeshPart("MeshPartArms");
+	MeshPartHands		= InitMeshPart("MeshPartHands");
+	//MeshPartUnderwear	= InitMeshPart("MeshPartUnderwear");
+	MeshPartLegs		= InitMeshPart("MeshPartLegs");
+	MeshPartFeet		= InitMeshPart("MeshPartFeet");
 }
 
 bool ACreatorCharacterBase::CreateCharacter()
@@ -28,7 +44,7 @@ bool ACreatorCharacterBase::CreateCharacter()
 		}
 		
 		NewSaveSlotName_	= GetCharacterSafeName();
-		NewSaveUserIndex_	= 0; //TalesGameState->GetCurrentSaveUserIndex();
+		NewSaveUserIndex_	= TalesGameState->GetCharacterUserIndex();
 	
 		// Allow creation as long as this character doesn't already exist
 		if (UGameplayStatics::DoesSaveGameExist(NewSaveSlotName_, NewSaveUserIndex_))
@@ -52,7 +68,57 @@ bool ACreatorCharacterBase::CreateCharacter()
 	return false;
 }
 
+void ACreatorCharacterBase::GetAllBodyPartMeshes(TArray<USkeletalMeshComponent*>& BodyPartMeshes)
+{
+	BodyPartMeshes = {
+		MeshPartHair,		MeshPartEyebrows,	MeshPartEyes,		MeshPartBeard,
+		MeshPartHead,		MeshPartChest,		MeshPartArms,
+		MeshPartHands,		MeshPartLegs,		MeshPartFeet,
+		MeshPartNeck
+	};
+}
+
+void ACreatorCharacterBase::ClearChildrenOfMesh(USkeletalMeshComponent* ReferenceMesh)
+{
+	if (IsValid(ReferenceMesh))
+	{
+		TArray<USkeletalMeshComponent*> BodyPartMeshes;
+		GetAllBodyPartMeshes(BodyPartMeshes);
+		if (BodyPartMeshes.Contains(ReferenceMesh))
+		{
+			TArray<USceneComponent*> MeshChildren;
+			ReferenceMesh->GetChildrenComponents(true, MeshChildren);
+			for (USceneComponent* MeshChild : MeshChildren)
+			{
+				MeshChild->DestroyComponent(false);
+			}
+		}
+	}
+}
+
 void ACreatorCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+void ACreatorCharacterBase::OnConstruction(const FTransform& Transform)
+{
+	Super::OnConstruction(Transform);
+	
+	USkinnedMeshComponent* SkinnedMesh = GetMesh();
+
+	TArray<USkeletalMeshComponent*> BodyPartMeshes;
+	GetAllBodyPartMeshes(BodyPartMeshes);
+	for (USkeletalMeshComponent* meshComponent : BodyPartMeshes)
+	{
+		meshComponent->SetLeaderPoseComponent(SkinnedMesh);
+	}
+	
+}
+
+USkeletalMeshComponent* ACreatorCharacterBase::InitMeshPart(FName MeshName)
+{
+	USkeletalMeshComponent* BodyPartMesh = CreateDefaultSubobject<USkeletalMeshComponent>(MeshName);
+	if (IsValid(BodyPartMesh)) { BodyPartMesh->SetupAttachment( GetMesh() ); }
+	return BodyPartMesh;
 }

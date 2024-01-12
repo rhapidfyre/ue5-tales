@@ -17,6 +17,7 @@ UMeshMergeComponent::UMeshMergeComponent()
 	SetIsReplicatedByDefault(true);
 	SexSkeleton	 = static_cast<ECharacterSex>(FMath::RandRange(0,2) );
 }
+
 FMeshBodyMappings::FMeshBodyMappings(USkeletalMesh* UsingMesh,
 	const FGameplayTag& BodyTag, const FGameplayTagContainer& NewOptions)
 {
@@ -25,6 +26,56 @@ FMeshBodyMappings::FMeshBodyMappings(USkeletalMesh* UsingMesh,
 	BodyPartTag		= BodyTag;
 	OptionTags		= NewOptions;
 };
+
+
+/**
+ * Called after setting one (or all) of the hair/beard/skin/etc mesh materials.
+ * Does NOT perform a Mesh Merge. This is called after the mesh merge has been performed.
+ * @param SpecificMaterial  Optional.
+ *							If provided, updates the specific material instead of all of them.
+ */
+void UMeshMergeComponent::UpdateMeshMaterials(
+	const FGameplayTag& BodyPartTag, UMaterialInstance* SpecificMaterial, FLinearColor MaterialColor)
+{
+	const ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
+	if (!IsValid(CharacterBase)) { return; }
+	
+	USkeletalMeshComponent* CharacterMesh = CharacterBase->GetMesh();
+	if (!IsValid(CharacterMesh)) { return; }
+	
+	TArray<UMaterialInterface*> meshMats = CharacterMesh->GetMaterials();
+	
+	for (UMaterialInterface* meshMaterial : meshMats)
+	{
+		if (!IsValid(meshMaterial)) {continue;}
+		
+		int matIndex = -1;
+		for (int i = 0; i < meshMats.Num(); i++)
+		{
+			UMaterialInterface* matInterface	 = meshMats[i];
+			const UMaterialInstance* matInstance = Cast<UMaterialInstance>(matInterface);
+			UMaterialInterface* matParent		 = Cast<UMaterialInterface>(matInstance->Parent);
+			if (matParent == meshMaterial || matInterface == meshMaterial)
+			{
+				matIndex = i;
+				break;
+			}
+		}
+		if (matIndex < 0) { continue; }
+
+		FLinearColor meshColor = FLinearColor();
+		
+		// Use the existing dynamic material, or create a new one
+		UMaterialInstanceDynamic* dynMaterial = Cast<UMaterialInstanceDynamic>( CharacterMesh->GetMaterial(matIndex) );
+		if (!IsValid(dynMaterial)) { dynMaterial = UMaterialInstanceDynamic::Create(meshMaterial, this); }
+		if (IsValid(dynMaterial))
+		{
+			dynMaterial->SetVectorParameterValue("Param", meshColor);
+			CharacterMesh->SetMaterial(matIndex, dynMaterial);
+			return;
+		}
+	}
+}
 
 /**
  * Sets the anim instance used by this component's actor WITHOUT performing the mesh merge.
@@ -36,13 +87,21 @@ void UMeshMergeComponent::SetAnimBlueprint(TSubclassOf<UAnimInstance> NewAnimIns
 {
 	const ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
 	if (IsValid(CharacterBase))
-	{
+	{		
 		const TSubclassOf<UAnimInstance> UsingAnimInstance = IsValid(NewAnimInstance)
 										 ? NewAnimInstance : AnimBlueprint;
 		if (IsValid(UsingAnimInstance))
 		{
-			CharacterBase->GetMesh()->SetAnimInstanceClass(NewAnimInstance);
-			AnimBlueprint = NewAnimInstance;
+			// Only update if the new animation is not the old one
+			if (NewAnimInstance != AnimBlueprint)
+			{
+				USkeletalMeshComponent* BaseSkeleton = CharacterBase->GetMesh();
+				if (BaseSkeleton->GetAnimClass() != NewAnimInstance)
+				{
+					BaseSkeleton->SetAnimInstanceClass(NewAnimInstance);
+					AnimBlueprint = NewAnimInstance;
+				}
+			}
 		}
 	}
 }
@@ -52,56 +111,103 @@ void UMeshMergeComponent::SetAnimBlueprint(TSubclassOf<UAnimInstance> NewAnimIns
  * If executed on the server, it will be replicated to all clients internally.
  * @param OptionalColor Optional skin color. If unset, will be ignored.
  */
-void UMeshMergeComponent::UpdateSkinMaterial(const FLinearColor OptionalColor)
+void UMeshMergeComponent::SetSkinMaterial(const FLinearColor OptionalColor)
 {
 	const ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
-	if (IsValid(CharacterBase))
+	if (!IsValid(CharacterBase)) { return; }
+	USkeletalMeshComponent* CharacterMesh = CharacterBase->GetMesh();
+	if (!IsValid(CharacterMesh)) { return; }
+	const FLinearColor BaseColor = FLinearColor();
+			
+	// If optional color or current skin color is not valid, generate one
+	if (OptionalColor == BaseColor)
 	{
-		USkeletalMeshComponent* CharacterMesh = CharacterBase->GetMesh();
-		if (IsValid(CharacterMesh))
-		{
-			const FLinearColor BaseColor = FLinearColor();
-			
-			// If optional color or current skin color is not valid, generate one
-			if (OptionalColor == BaseColor || SkinColor_ == BaseColor)
-			{
-				if (SkinColor_ == BaseColor)
-				{
-					TArray<FLinearColor> SkinColors		= CharacterBase->GetCharacterRaceData()->SkinColorOptions;
-					const int 			 lastSkinIndex 	= SkinColors.Num() - 1;
-					const int 			 idx    		= lastSkinIndex < 0 ? -1 : FMath::RandRange(0,lastSkinIndex);
-					SkinColor_ = SkinColors.IsValidIndex(idx) ? SkinColors[idx] : FLinearColor(0,0,0,0);
-				}
-			}
-
-			// If optional color has been provided, use it
-			else { SkinColor_ = OptionalColor; }
-			
-			// Create dynamic instance
-			UMaterialInstanceDynamic* dynMaterial =
-				UMaterialInstanceDynamic::Create(SkinMaterial, this);
-
-			if (IsValid(dynMaterial))
-			{
-				// Set Color Parameter
-				dynMaterial->SetVectorParameterValue("Param", SkinColor_);
-				CharacterMesh->SetMaterial(0, dynMaterial);
-			}
-		}
+		TArray<FLinearColor> SkinColors		= CharacterBase->GetCharacterRaceData()->SkinColorOptions;
+		const int 			 lastSkinIndex 	= SkinColors.Num() - 1;
+		const int 			 idx    		= lastSkinIndex < 0 ? -1 : FMath::RandRange(0,lastSkinIndex);
+		SkinColor_ = SkinColors.IsValidIndex(idx) ? SkinColors[idx] : FLinearColor(242, 239, 238, 255);
 	}
+
+	// If optional color has been provided, use it
+}
+
+/**
+ * Sets the owner actor's hair color WITHOUT performing the mesh merge.
+ * If executed on the server, it will be replicated to all clients internally.
+ * @param OptionalColor Optional hair color. If unset, will be ignored.
+ */
+void UMeshMergeComponent::SetHairMaterial(const FLinearColor OptionalColor)
+{
+	const ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
+	if (!IsValid(CharacterBase)) { return; }
+	USkeletalMeshComponent* CharacterMesh = CharacterBase->GetMesh();
+	if (!IsValid(CharacterMesh)) { return; }
+	const FLinearColor BaseColor = FLinearColor();
+	if (OptionalColor == BaseColor)
+	{
+		TArray<FLinearColor> HairColors		= CharacterBase->GetCharacterRaceData()->HairColorOptions;
+		const int 			 lastSkinIndex 	= HairColors.Num() - 1;
+		const int 			 idx    		= lastSkinIndex < 0 ? -1 : FMath::RandRange(0,lastSkinIndex);
+		HairColor_ = HairColors.IsValidIndex(idx) ? HairColors[idx] : FLinearColor(0, 0, 0, 255);
+	}
+
+	else { HairColor_ = OptionalColor; }
+}
+
+/**
+ * Sets the owner actor's beard color WITHOUT performing the mesh merge.
+ * If executed on the server, it will be replicated to all clients internally.
+ * @param OptionalColor Optional beard color. If unset, will be ignored.
+ */
+void UMeshMergeComponent::SetBeardMaterial(const FLinearColor OptionalColor)
+{
+	const ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
+	if (!IsValid(CharacterBase)) { return; }
+	USkeletalMeshComponent* CharacterMesh = CharacterBase->GetMesh();
+	if (!IsValid(CharacterMesh)) { return; }
+	const FLinearColor BaseColor = FLinearColor();
+	if (OptionalColor == BaseColor)
+	{
+		TArray<FLinearColor> BeardColors	= CharacterBase->GetCharacterRaceData()->BeardColorOptions;
+		if (BeardColors.Num() < 1)
+		{
+			BeardColors = CharacterBase->GetCharacterRaceData()->HairColorOptions;
+		}
+		const int 			 lastSkinIndex 	= BeardColors.Num() - 1;
+		const int 			 idx    		= lastSkinIndex < 0 ? -1 : FMath::RandRange(0,lastSkinIndex);
+		BeardColor_ = BeardColors.IsValidIndex(idx) ? BeardColors[idx] : FLinearColor(0, 0, 0, 255);
+	}
+	else { BeardColor_ = OptionalColor; }
+}
+
+void UMeshMergeComponent::SetEyeMaterial(const FLinearColor OptionalColor)
+{
+	const ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
+	if (!IsValid(CharacterBase)) { return; }
+	USkeletalMeshComponent* CharacterMesh = CharacterBase->GetMesh();
+	if (!IsValid(CharacterMesh)) { return; }
+	const FLinearColor BaseColor = FLinearColor();
+	if (OptionalColor == BaseColor)
+	{
+		TArray<FLinearColor> EyeColors		= CharacterBase->GetCharacterRaceData()->EyeColorOptions;
+		const int 			 lastSkinIndex 	= EyeColors.Num() - 1;
+		const int 			 idx    		= lastSkinIndex < 0 ? -1 : FMath::RandRange(0,lastSkinIndex);
+		EyeColor_ = EyeColors.IsValidIndex(idx) ? EyeColors[idx] : FLinearColor(0, 0, 0, 255);
+	}
+
+	else { EyeColor_ = OptionalColor; }
 }
 
 /**
  * Performs a merge of all supplied meshes and transforms, combining them into
  * one single skeletal mesh on the owning actor. Also updates the skin color
  * and animation instance internally on success.
+ * @param bMergeMeshesOnly If true, no material or animation updates will occur.
  * @return True on success
  */
-bool UMeshMergeComponent::PerformMeshMerge()
+bool UMeshMergeComponent::PerformMeshMerge(bool bMergeMeshesOnly)
 {
-	SetMeshIsHidden(true);
-	
-	UE_LOG(LogTemp, Warning, TEXT("%s(%s): PerformMeshMerge()"), *GetName(),
+	UE_LOG(LogTemp, Display, TEXT("%s(%s): PerformMeshMerge()"), *GetName(),
 		GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
 	
 	const ACharacterBase* CharacterBase = Cast<ACharacterBase>(GetOwner());
@@ -231,64 +337,17 @@ bool UMeshMergeComponent::PerformMeshMerge()
 	if (IsValid(BaseMesh))
 	{
 		CharacterBase->GetMesh()->SetSkeletalMesh(BaseMesh);
-		UpdateSkinMaterial(SkinColor_);
-		SetAnimBlueprint(AnimBlueprint);
-		SetMeshIsHidden(false);
-		
+		if (!bMergeMeshesOnly)
+		{
+			SetAnimBlueprint(AnimBlueprint);
+		}
+		//UpdateMeshMaterials();
 		OnMeshMergeCompleted.Broadcast();
 		return true;
 	}
 	
 	UE_LOG(LogTemp, Warning, TEXT("PerformMeshMerge() failed!"));
 	return false;
-}
-
-
-void UMeshMergeComponent::SetupDefaultMeshes(TArray<FBodyPartData> BodyPartDatum)
-{
-	for (const FBodyPartData& BodyPartData : BodyPartDatum)
-	{
-		const FMeshBodyMappings BodyMapping = CreateBodyMapping(
-			BodyPartData.SkeletalMesh, BodyPartData.BodyPartTag, BodyPartData.BodyTags);
-		MeshBodyData.Add(BodyMapping);
-	}
-}
-
-/**
- * Performs initialization such as restoring saved mesh data, then calls
- * PerformMeshMerge() internally upon success. Does nothing if the save is invalid.
- * @param NewSkeleton The skeleton to use
- * @param NewAnimInstance The anim instance to use
- * @param NewSkinColor The skin color to be used
- * @param MergeMappings The merge data
- */
-void UMeshMergeComponent::InitializeMeshMerge(
-	USkeleton* NewSkeleton, TSubclassOf<UAnimInstance> NewAnimInstance,
-	FLinearColor NewSkinColor, const TArray<FMeshMergeMappings>& MergeMappings)
-{
-	if (!GetOwner()->HasAuthority())
-	{
-		Server_InitializeMeshMerge(NewSkeleton, NewAnimInstance, NewSkinColor, MergeMappings);
-		return;
-	}
-	bHasInitialized = true;
-	
-	Skeleton      	= NewSkeleton;
-	AnimBlueprint	= NewAnimInstance;
-	SkinColor_		= NewSkinColor;
-	MeshMergeData 	= MergeMappings;
-	
-	PerformMeshMerge();
-}
-
-void UMeshMergeComponent::SetMeshIsHidden(bool bIsHidden)
-{
-	bHideMesh = bIsHidden;
-	ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
-	if (IsValid(CharacterBase))
-	{
-		CharacterBase->GetMesh()->SetVisibility(!bIsHidden);
-	}
 }
 
 int UMeshMergeComponent::FindIndexOfMeshByTag(const FGameplayTag& SearchTag)
@@ -372,25 +431,10 @@ void UMeshMergeComponent::RemoveMeshFromMerge(
 	}
 }
 
-/**
- * Called by the owning client when restoring data from USavedCharacter
- * @param NewSkeleton		The skeleton restored from save
- * @param NewAnimInstance	The anim blueprint restored from save
- * @param NewSkinColor		The skin color restored from save
- * @param MergeMappings		The mesh merge mappings restored from save
- */
-void UMeshMergeComponent::Server_InitializeMeshMerge_Implementation(
-		USkeleton* NewSkeleton, TSubclassOf<UAnimInstance> NewAnimInstance,
-		FLinearColor NewSkinColor, const TArray<FMeshMergeMappings>& MergeMappings)
-{
-	if (GetOwner()->HasAuthority())
-	{
-		InitializeMeshMerge(NewSkeleton, NewAnimInstance, NewSkinColor, MergeMappings);
-	}
-}
-
 void UMeshMergeComponent::BeginPlay()
 {
+	ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
+	CharacterBase_ = CharacterBase;
 	Super::BeginPlay();
 }
 
@@ -405,19 +449,12 @@ void UMeshMergeComponent::InitializeComponent()
 	Super::InitializeComponent();
 }
 
-void UMeshMergeComponent::OnRep_HideMesh_Implementation()
-{
-	const ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
-	if (IsValid(CharacterBase))
-	{
-		USkeletalMeshComponent* skeletalMeshComponent = CharacterBase->GetMesh();
-		skeletalMeshComponent->SetVisibility(!bHideMesh);
-	}
-}
-
 void UMeshMergeComponent::Server_SetAnimBlueprint_Implementation(TSubclassOf<UAnimInstance> NewAnimInstance)
 {
-	if (GetOwner()->HasAuthority()) { SetAnimBlueprint(AnimBlueprint); }
+	if (GetOwner()->HasAuthority())
+	{
+		SetAnimBlueprint(AnimBlueprint);
+	}
 }
 
 /**
@@ -425,22 +462,40 @@ void UMeshMergeComponent::Server_SetAnimBlueprint_Implementation(TSubclassOf<UAn
  */
 void UMeshMergeComponent::OnRep_MeshMergeData_Implementation()
 {
-	if (!GetOwner()->HasAuthority()) { PerformMeshMerge(); }
+	if (!GetOwner()->HasAuthority())
+	{
+		PerformMeshMerge(true);
+	}
 }
 
 void UMeshMergeComponent::OnRep_SkinColor_Implementation()
 {
-	if (!GetOwner()->HasAuthority()) { UpdateSkinMaterial(SkinColor_); }
+	//if (!GetOwner()->HasAuthority()) { UpdateMeshMaterials(SkinMaterial); }
+}
+
+void UMeshMergeComponent::OnRep_BeardColor_Implementation()
+{
+	//if (!GetOwner()->HasAuthority()) { UpdateMeshMaterials(BeardMaterial); }
+}
+
+void UMeshMergeComponent::OnRep_HairColor_Implementation()
+{
+	//if (!GetOwner()->HasAuthority()) { UpdateMeshMaterials(HairMaterial); }
+}
+
+void UMeshMergeComponent::OnRep_EyeColor_Implementation()
+{
+	//if (!GetOwner()->HasAuthority()) { UpdateMeshMaterials(EyeMaterial); }
 }
 
 void UMeshMergeComponent::OnRep_MeshBodyData_Implementation()
 {
-	if (!GetOwner()->HasAuthority()) { PerformMeshMerge(); }
+	//if (!GetOwner()->HasAuthority()) { PerformMeshMerge(true); }
 }
 
 void UMeshMergeComponent::OnRep_AnimInstance_Implementation()
 {
-	if (!GetOwner()->HasAuthority()) { SetAnimBlueprint(nullptr); }
+	//if (!GetOwner()->HasAuthority()) { SetAnimBlueprint(nullptr); }
 }
 
 
@@ -449,10 +504,12 @@ void UMeshMergeComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& 
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	
 	// Vars replicated to all clients
-	DOREPLIFETIME(UMeshMergeComponent, bHideMesh);
 	DOREPLIFETIME(UMeshMergeComponent, Skeleton);
 	DOREPLIFETIME(UMeshMergeComponent, MeshMergeData);
+	DOREPLIFETIME(UMeshMergeComponent, MeshBodyData);
+	DOREPLIFETIME(UMeshMergeComponent, EyeColor_);
 	DOREPLIFETIME(UMeshMergeComponent, SkinColor_);
+	DOREPLIFETIME(UMeshMergeComponent, HairColor_);
+	DOREPLIFETIME(UMeshMergeComponent, BeardColor_);
 	DOREPLIFETIME(UMeshMergeComponent, AnimBlueprint);
-	
 }

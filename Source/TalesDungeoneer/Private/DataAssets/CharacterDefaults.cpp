@@ -13,6 +13,19 @@ UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Sex_Nonbinary, "Character.Sex.Nonbinary");
 
 
 /**
+ * Gets a random eye color if argument is < 0
+ * @param EyeColorIndex Optional index of the requested eye color
+ * @return The FLinearColor for the eye material
+ */
+FLinearColor UCharacterRaceData::GetEyeColor(int EyeColorIndex) const
+{
+	if (EyeColorOptions.IsValidIndex(EyeColorIndex))
+	{
+		return EyeColorOptions[EyeColorIndex];
+	}
+	return EyeColorOptions[ FMath::RandRange(0, EyeColorOptions.Num()-1) ];
+}
+/**
  * Gets a random skin color if argument is < 0
  * @param SkinColorIndex Optional index of the requested skin color
  * @return The FLinearColor for the skin material
@@ -24,6 +37,32 @@ FLinearColor UCharacterRaceData::GetSkinColor(int SkinColorIndex) const
 		return SkinColorOptions[SkinColorIndex];
 	}
 	return SkinColorOptions[ FMath::RandRange(0, SkinColorOptions.Num()-1) ];
+}
+/**
+ * Gets a random hair color if argument is < 0
+ * @param HairColorIndex Optional index of the requested hair color
+ * @return The FLinearColor for the hair material
+ */
+FLinearColor UCharacterRaceData::GetHairColor(int HairColorIndex) const
+{
+	if (HairColorOptions.IsValidIndex(HairColorIndex))
+	{
+		return HairColorOptions[HairColorIndex];
+	}
+	return HairColorOptions[ FMath::RandRange(0, HairColorOptions.Num()-1) ];
+}
+/**
+ * Gets a random beard color if argument is < 0
+ * @param BeardColorIndex Optional index of the requested beard color
+ * @return The FLinearColor for the beard material
+ */
+FLinearColor UCharacterRaceData::GetBeardColor(int BeardColorIndex) const
+{
+	if (BeardColorOptions.IsValidIndex(BeardColorIndex))
+	{
+		return BeardColorOptions[BeardColorIndex];
+	}
+	return BeardColorOptions[ FMath::RandRange(0, BeardColorOptions.Num()-1) ];
 }
 
 UPrimaryCharacterData::UPrimaryCharacterData()

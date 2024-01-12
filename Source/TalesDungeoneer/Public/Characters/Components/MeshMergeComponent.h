@@ -60,7 +60,11 @@ struct FMeshMergeMappings
 
 	// Additional meshes that must accompany this mesh, if visible
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<USkeletalMesh*>		AccompaniedMeshes = {};
+	TArray<USkeletalMesh*>		AccompaniedMeshes		= {};
+
+	// Any element modifications before merge
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<UMaterialInstanceDynamic*> MaterialInstance	= {};
 	
 	// A map section from the source mesh to merged section entry
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -70,32 +74,6 @@ struct FMeshMergeMappings
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FSkelMeshMergeUVTransformMapping>	MeshUvTransforms	= {};
 	
-};
-
-
-USTRUCT(BlueprintType)
-struct FBodyPartData
-{
-	GENERATED_BODY()
-	
-	// The mesh to be used by this option
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	USkeletalMesh*			SkeletalMesh		= nullptr;
-	
-	// Additional meshes that must accompany this mesh, if visible
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<USkeletalMesh*>	AdditionalMeshes	= {};
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FLinearColor			SkinColor			= FLinearColor(255, 206, 180);
-	
-	// The primary body tag for this body part mesh
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FGameplayTag			BodyPartTag			= {};
-	
-	// Optional tags that describe this body part (male, female, etc)
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FGameplayTagContainer	BodyTags			= {};
 };
 
 
@@ -112,16 +90,19 @@ struct FMeshBodyMappings
 	
 	// The primary tag for this body part (body.arms, body.torso, etc)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FGameplayTag BodyPartTag;
+
+	// The color for this specific mesh material with matching element index
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FLinearColor> ColorAtElementIndex;
 	
 	// Optional tags that describe this mesh
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FGameplayTagContainer OptionTags;
 	
-	// If this mesh is used, any mesh with any of these tags must be used
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FGameplayTagContainer RequiresTags;
+	// Any mesh in the merge with any of these tags will be visible if this mesh is visible 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FGameplayTagContainer RequiresMeshesWithTags;
 	
-	// If this mesh is used, any mesh with any of these tags will be hidden.
-	// Overrides RequiresTags
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FGameplayTagContainer BlocksTags;
+	// Any mesh in the merge with any of these tags will be hidden if this mesh is visible
+	// Does not hide any mesh that is marked as required by any other mesh
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FGameplayTagContainer HidesMeshesWithTags;
 };
 
 
@@ -137,34 +118,30 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FOnMeshMergeCompleted OnMeshMergeCompleted;
 
+	UFUNCTION()
+	void UpdateMeshMaterials(const FGameplayTag& BodyPartTag,
+		UMaterialInstance* SpecificMaterial, FLinearColor MaterialColor = FLinearColor());
+	
 	UFUNCTION(BlueprintCallable)
 	void SetAnimBlueprint(TSubclassOf<UAnimInstance> NewAnimInstance);
 
 	UFUNCTION(BlueprintCallable)
-	void UpdateSkinMaterial(const FLinearColor OptionalColor);
+	void SetEyeMaterial(const FLinearColor OptionalColor);
 	
-	UFUNCTION(BlueprintCallable) bool PerformMeshMerge();
+	UFUNCTION(BlueprintCallable)
+	void SetSkinMaterial(const FLinearColor OptionalColor);
 
-	void SetupDefaultMeshes(TArray<FBodyPartData> BodyPartDatum);
+	UFUNCTION(BlueprintCallable)
+	void SetHairMaterial(const FLinearColor OptionalColor);
+
+	UFUNCTION(BlueprintCallable)
+	void SetBeardMaterial(const FLinearColor OptionalColor);
+	
+	UFUNCTION(BlueprintCallable)
+	bool PerformMeshMerge(bool bMergeMeshesOnly = false);
 
 	UFUNCTION(BlueprintPure)
 	bool GetIsMeshMergeSystemReady() const { return bHasInitialized; }
-
-	// Used for restoring from a save game
-	void InitializeMeshMerge(
-		USkeleton* NewSkeleton, TSubclassOf<UAnimInstance> NewAnimInstance,
-		FLinearColor NewSkinColor, const TArray<FMeshMergeMappings>& MergeMappings = {});
-
-	UFUNCTION(BlueprintCallable)
-	void SetMeshIsHidden(bool bIsHidden);
-	
-	UFUNCTION(BlueprintCallable)
-	bool GetMeshIsHidden() const { return bHideMesh; }
-
-	UFUNCTION(Server, Reliable)
-	void Server_InitializeMeshMerge(
-		USkeleton* NewSkeleton, TSubclassOf<UAnimInstance> NewAnimInstance,
-		FLinearColor NewSkinColor, const TArray<FMeshMergeMappings>& MergeMappings);
 
 	int FindIndexOfMeshByTag(const FGameplayTag& SearchTag);
 	
@@ -180,12 +157,16 @@ public:
 	void AddMeshToMerge(const FMeshMergeMappings& NewMapping);
 
 	UFUNCTION(BlueprintCallable)
-	void RemoveMeshFromMerge(const UEquipmentItemData* NewAsset, const FGameplayTag& EquipmentTag);
+	void RemoveMeshFromMerge(const UEquipmentItemData* NewAsset,
+		const FGameplayTag& EquipmentTag);
 
 	// Private Member Accessors
 	TArray<FMeshMergeMappings>	GetAllMeshMergeMappings() const { return MeshMergeData; }
-	FLinearColor 				GetSkinColor() const			{ return SkinColor_; }
-	USkeleton*	 				GetSkeleton() const				{ return Skeleton; }
+	FLinearColor 				GetEyeColor() const				{ return EyeColor_;     }
+	FLinearColor 				GetSkinColor() const			{ return SkinColor_;    }
+	FLinearColor 				GetHairColor() const			{ return HairColor_;    }
+	FLinearColor 				GetBeardColor() const			{ return BeardColor_;   }
+	USkeleton*	 				GetSkeleton() const				{ return Skeleton;      }
 	TSubclassOf<UAnimInstance>	GetAnimBlueprint() const		{ return AnimBlueprint; }
 
 protected:
@@ -235,25 +216,39 @@ public:
 	TArray<FMeshBodyMappings> MeshBodyData = {};
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	UMaterialInstance* SkinMaterial = nullptr;
+	UMaterialInstance* UseSkinMaterial  = nullptr;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FLinearColor UseSkinColor = FLinearColor(242, 239, 238, 255);
 
 private:
 
+	UFUNCTION(NetMulticast, Reliable) void OnRep_EyeColor();
 	UFUNCTION(NetMulticast, Reliable) void OnRep_SkinColor();
+	UFUNCTION(NetMulticast, Reliable) void OnRep_HairColor();
+	UFUNCTION(NetMulticast, Reliable) void OnRep_BeardColor();
 	UFUNCTION(NetMulticast, Reliable) void OnRep_MeshMergeData();
-	UFUNCTION(NetMulticast, Reliable) void OnRep_HideMesh();
 	UFUNCTION(NetMulticast, Reliable) void OnRep_AnimInstance();
 	UFUNCTION(NetMulticast, Reliable) void OnRep_MeshBodyData();
-	
+
+	UPROPERTY(ReplicatedUsing=OnRep_EyeColor)
+	FLinearColor EyeColor_   = FLinearColor(0.1, 0.1, 0.1, 255);
+
 	UPROPERTY(ReplicatedUsing=OnRep_SkinColor)
-	FLinearColor SkinColor_ = FLinearColor(0,0,0,0);
-	
+	FLinearColor SkinColor_  = FLinearColor(242, 239, 238, 255);
+
+	UPROPERTY(ReplicatedUsing=OnRep_HairColor)
+	FLinearColor HairColor_  = FLinearColor(0.02, 0.02, 0.02, 255);
+
+	UPROPERTY(ReplicatedUsing=OnRep_BeardColor)
+	FLinearColor BeardColor_ = FLinearColor(0.02, 0.02, 0.02, 255);
+
 	// These are the "optional" overlaid meshes in addition to the MeshBodyData
 	UPROPERTY(ReplicatedUsing=OnRep_MeshMergeData)
 	TArray<FMeshMergeMappings> MeshMergeData = {};
 
-	// Start hidden by default
-	UPROPERTY(ReplicatedUsing=OnRep_HideMesh) bool bHideMesh = true;
+	UPROPERTY()
+	class ACharacterBase* CharacterBase_ = nullptr;
 	
 	// This way the initial setups on OnConstruction only run once
 	bool bHasInitialized	= false;

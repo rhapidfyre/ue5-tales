@@ -59,12 +59,40 @@ public:
 	TArray <FMeshMergeMappings> MeshMergeMappings = {};
 
 	// The name of the inventory save file
+	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Mesh Merge Save Data")
+	UMaterialInstance* EyeMaterial = nullptr;
+
+	// The name of the inventory save file
+	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Mesh Merge Save Data")
+	UMaterialInstance* SkinMaterial = nullptr;
+
+	// The name of the inventory save file
+	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Mesh Merge Save Data")
+	UMaterialInstance* HairMaterial = nullptr;
+
+	// The name of the inventory save file
+	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Mesh Merge Save Data")
+	UMaterialInstance* BeardMaterial = nullptr;
+
+	// The name of the inventory save file
 	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Inventory Save Data")
 	FString SavedInventory = "";
 
 	// The name of the inventory save file
-	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Inventory Save Data")
+	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Mesh Merge Save Data")
 	FLinearColor SkinColor = FLinearColor(0,0,0,0);
+
+	// The name of the inventory save file
+	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Mesh Merge Save Data")
+	FLinearColor EyeColor = FLinearColor(0,0,0,0);
+
+	// The name of the inventory save file
+	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Mesh Merge Save Data")
+	FLinearColor HairColor = FLinearColor(0,0,0,0);
+
+	// The name of the inventory save file
+	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Mesh Merge Save Data")
+	FLinearColor BeardColor = FLinearColor(0,0,0,0);
 
 	
 };

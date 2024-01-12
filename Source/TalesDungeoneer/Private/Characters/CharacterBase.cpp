@@ -106,7 +106,7 @@ void ACharacterBase::SetCharacterRace(const FGameplayTag& NewRaceTag)
 		{
 			AbilitySystem->PerformTotalRecalculation();
 		}
-		OnCharacterClassChanged.Broadcast(OldClassTag, NewRaceTag);
+		OnCharacterRaceChanged.Broadcast(OldClassTag, NewRaceTag);
 	}
 }
 
@@ -202,7 +202,16 @@ USaveGame* ACharacterBase::SaveCharacter(USaveGame* SaveObject, bool bRunAsync)
 	SavedCharacter->Skeleton			= MeshMergeComponent->GetSkeleton();
 	SavedCharacter->AnimBlueprint		= MeshMergeComponent->GetAnimBlueprint();
 	SavedCharacter->MeshMergeMappings   = MeshMergeComponent->GetAllMeshMergeMappings();
-	SavedCharacter->SkinColor			= MeshMergeComponent->GetSkinColor();
+	
+	//SavedCharacter->EyeColor			= MeshMergeComponent->GetEyeColor();
+	//SavedCharacter->SkinColor			= MeshMergeComponent->GetSkinColor();
+	//SavedCharacter->HairColor			= MeshMergeComponent->GetHairColor();
+	//SavedCharacter->BeardColor			= MeshMergeComponent->GetBeardColor();
+	
+	//SavedCharacter->EyeMaterial		= MeshMergeComponent->EyeMaterial;
+	//SavedCharacter->SkinMaterial		= MeshMergeComponent->SkinMaterial;
+	//SavedCharacter->HairMaterial		= MeshMergeComponent->HairMaterial;
+	//SavedCharacter->BeardMaterial		= MeshMergeComponent->BeardMaterial;
 
 	// If the inventory save does not exist, then this is a new inventory
 	// Existing inventories will have a save name
@@ -340,12 +349,6 @@ bool ACharacterBase::LoadCharacter(const FString& SlotName, const int32 UserInde
 		InventoryComponent->LoadInventory(InventoryResponse,
 			SavedCharacter->SavedInventory, true);
 
-		// Restore Mesh Merge Data
-		MeshMergeComponent->InitializeMeshMerge(
-			SavedCharacter->Skeleton, SavedCharacter->AnimBlueprint,
-			SavedCharacter->SkinColor, SavedCharacter->MeshMergeMappings);
-		MeshMergeComponent->SetMeshIsHidden(false);
-
 		// Restore Abilities & Effects
 		
 		
@@ -362,22 +365,17 @@ void ACharacterBase::BeginPlay()
 {
 	BindListeners();
 	Super::BeginPlay();
+
+	// Start the character completely invisible until setup has completed
+	USkeletalMeshComponent* CharacterMesh = GetMesh();
+	if (IsValid(CharacterMesh))
+	{
+		CharacterMesh->SetVisibility(false, true);
+	}
 	
 	// If the character data asset exists, use it
 	if (IsValid(CharacterData))
 	{
-		// Determine Skeleton & Anim BP
-		const bool bForceMasc = MeshMergeComponent->SexSkeleton == ECharacterSex::MASCULINE;
-		const bool bForceFem  = MeshMergeComponent->SexSkeleton == ECharacterSex::FEMININE;
-		const FSkeletonOptionsData randomSkeleton =
-			CharacterData->GetCharacterSkeleton(bForceMasc,bForceFem);
-
-		// Setup Default Mesh Merge Component Values
-		MeshMergeComponent->SetupDefaultMeshes( CharacterData->CharacterRaceData->DefaultMeshes );
-		MeshMergeComponent->InitializeMeshMerge(
-			randomSkeleton.Skeleton, randomSkeleton.AnimInstance,
-			MeshMergeComponent->GetSkinColor(), {});
-
 		// Setup Default Abilities & Effects
 		for (const TSubclassOf<UTalesGameplayAbility>& DefaultAbility : CharacterData->GetDefaultAbilities())
 			{DefaultAbilities.Add(DefaultAbility);}
@@ -385,9 +383,6 @@ void ACharacterBase::BeginPlay()
 		for (const TSubclassOf<UGameplayEffect>& DefaultEffect : CharacterData->GetDefaultEffects())
 			{DefaultEffects.Add(DefaultEffect);}
 	}
-
-	// Setup the initial default mesh
-	MeshMergeComponent->PerformMeshMerge();
 	
 	bCharacterReady = true;
 	LoadCharacter(); // Attempt to call the game state to load this character

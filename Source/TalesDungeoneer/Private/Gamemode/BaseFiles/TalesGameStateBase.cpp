@@ -52,8 +52,7 @@ void ATalesGameStateBase::SetIsCreatingCharacter(bool isCreating)
 	{
 		// Hide the character if not creating and an invalid character is selected
 		// Otherwise, always show character
-		CreatorCharacter->MeshMergeComponent->
-					SetMeshIsHidden(bIsCreating ? false : GetSelectedCharacter() < 0);
+		//CreatorCharacter->MeshMergeComponent->SetMeshIsHidden(bIsCreating ? false : GetSelectedCharacter() < 0);
 	}
 	
 }
@@ -430,51 +429,15 @@ void ATalesGameStateBase::SaveGameMetaLoaded(
 	if (IsValid(SaveMeta))
 	{
 		Helper_LoadSavedValues(SaveMeta);
-		
-/* MOVED TO CharacterBase::BeginPlay()
-		// If a valid character is selected, attempt to load it
-		if (GetIsValidCharacterSelected() && GetNetMode() != NM_DedicatedServer)
-		{
-			UE_LOGFMT(LogGameState, Display, "Attempting to restore Character "
-				"from save game '{SaveSlot} ({SlotIndex})", GetCharacterSlotName(), GetCharacterUserIndex());
-			
-			APlayerCharacterBase* PlayerCharacter = Cast<APlayerCharacterBase>
-					( UGameplayStatics::GetPlayerCharacter(GetWorld(), 0) );
-			
-			if (IsValid(PlayerCharacter))
-				{ PlayerCharacter->LoadCharacter(); }
-			else
-				{ UE_LOGFMT(LogGameState, Display, "No Valid APlayerCharacterBase* Found."); }
-		}
-		
-		// No valid character selected, or game is running on a dedicated server
-		else
-		{
-			if (GetIsValidCharacterSelected())
-			{
-				UE_LOGFMT(LogGameState, Display, "Executable is a Dedicated Server.");
-			}
-			else
-			{
-				UE_LOGFMT(LogGameState, Display, "No Character Exists to Restore");
-			}
-		}
-*/
-		
 	}// If it was not loaded, there is no save to restore
 	
 	bSaveMetaIsReady = true;
 
-	// If no character is selected, hide the character mesh
-	// If we call 'SetSelectedCharacter', it creates a save meta, so just do it manually.
-	if (GetSelectedCharacter() < 0)
+	ACharacterBase* CharacterBase = Cast<ACharacterBase>(
+		UGameplayStatics::GetPlayerCharacter(GetWorld(),0));
+	if (IsValid(CharacterBase))
 	{
-		ACharacterBase* CharacterBase = Cast<ACharacterBase>(
-			UGameplayStatics::GetPlayerCharacter(GetWorld(),0));
-		if (IsValid(CharacterBase))
-		{
-			CharacterBase->MeshMergeComponent->SetMeshIsHidden(true);
-		}
+		//CharacterBase->MeshMergeComponent->SetMeshIsHidden( GetSelectedCharacter() < 0 );
 	}
 }
 
@@ -505,8 +468,7 @@ void ATalesGameStateBase::SetSelectedCharacter(int CharacterIndex)
 	
 	if (IsValid(CreatorCharacter))
 	{
-		CreatorCharacter->MeshMergeComponent->
-					SetMeshIsHidden(GetSelectedCharacter() < 0);
+		//CreatorCharacter->MeshMergeComponent->SetMeshIsHidden(GetSelectedCharacter() < 0);
 	}
 
 	// Must save the metadata whenever the selection changes

@@ -88,8 +88,10 @@ public:
 	
 	UCharacterRaceData() {};
 
-	UFUNCTION(BlueprintPure)
-	FLinearColor GetSkinColor(int SkinColorIndex = -1) const;
+	UFUNCTION(BlueprintPure) FLinearColor GetEyeColor(int EyeColorIndex = -1) const;
+	UFUNCTION(BlueprintPure) FLinearColor GetSkinColor(int SkinColorIndex = -1) const;
+	UFUNCTION(BlueprintPure) FLinearColor GetHairColor(int HairColorIndex = -1) const;
+	UFUNCTION(BlueprintPure) FLinearColor GetBeardColor(int BeardColorIndex = -1) const;
 		
 
 	// The gameplay tag that denotes this class (equipment, abilities, etc)
@@ -109,17 +111,27 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FSkeletonOptionsData> SkeletonOptions = {};
-
-	// The default, no-equipment mesh options for this race. These meshes are always used,
-	// regardless of the mesh options chosen, unless toggled by gameplay tags.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<FBodyPartData> DefaultMeshes = {};
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) UMaterialInstance* SkinMaterial  = nullptr;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<FLinearColor> SkinColorOptions = {FLinearColor(255, 206, 180)};
+	TArray<FLinearColor> SkinColorOptions = {FLinearColor(242, 239, 238, 255)};
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UMaterialInstance* HairMaterial  = nullptr;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<FLinearColor> BeardColorOptions = {FColor::FromHex("0xC0946F").ReinterpretAsLinear()};
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) UMaterialInstance* BeardMaterial = nullptr;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FLinearColor> HairColorOptions = {FColor::FromHex("0xC0946F").ReinterpretAsLinear()};
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) UMaterialInstance* EyeMaterial   = nullptr;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<FLinearColor> EyeColorOptions = {FColor::FromHex("0x020202").ReinterpretAsLinear()};
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshMergeMappings> MeshOptionsForArms		= {};
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)	TArray<FMeshMergeMappings> MeshOptionsForHairstyle	= {};

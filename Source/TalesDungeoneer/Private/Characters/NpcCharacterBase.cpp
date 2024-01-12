@@ -62,11 +62,6 @@ void ANpcCharacterBase::OnConstruction(const FTransform& Transform)
 	
 	AiStimuli->RegisterForSense(UAISense_Sight::StaticClass());
 	AiStimuli->RegisterWithPerceptionSystem();
-	
-	if (IsValid(MeshMergeComponent))
-	{
-		MeshMergeComponent->PerformMeshMerge();
-	}
 }
 
 /**
