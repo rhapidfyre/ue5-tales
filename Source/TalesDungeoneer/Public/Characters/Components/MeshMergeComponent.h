@@ -8,11 +8,14 @@
 #include "Components/ActorComponent.h"
 #include "lib/EquipmentData.h"
 #include "Delegates/Delegate.h"
+#include "GameFramework/SaveGame.h"
 
 #include "MeshMergeComponent.generated.h"
 
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnMeshMergeCompleted);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMeshMergeRestored, const bool, bSuccess);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMeshMergeSaved, const bool, bSuccess);
 
 
 UENUM(BlueprintType)
@@ -42,8 +45,11 @@ struct FMeshMergeMappings
 		}
 	};
 
+	// The number of meshes holding this mesh as hidden
+	int numSuperiorMeshes = 0;
+
 	// Optional gameplay tags that describe this mesh (underwear, male, etc)
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FGameplayTagContainer		GameplayTags = {};
 
 	// Which equipment or body slot this mesh occupies
@@ -60,19 +66,15 @@ struct FMeshMergeMappings
 
 	// Additional meshes that must accompany this mesh, if visible
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<USkeletalMesh*>		AccompaniedMeshes		= {};
-
-	// Any element modifications before merge
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<UMaterialInstanceDynamic*> MaterialInstance	= {};
+	TArray<USkeletalMesh*>		AccompaniedMeshes = {};
 	
 	// A map section from the source mesh to merged section entry
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<FSkelMeshMergeSectionMapping>		SectionMappings		= {};
+	TArray<FSkelMeshMergeSectionMapping>	 SectionMappings	= {};
 	
 	// A transform for the UVs in mesh
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<FSkelMeshMergeUVTransformMapping>	MeshUvTransforms	= {};
+	TArray<FSkelMeshMergeUVTransformMapping> MeshUvTransforms	= {};
 	
 };
 
@@ -91,8 +93,9 @@ struct FMeshBodyMappings
 	// The primary tag for this body part (body.arms, body.torso, etc)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FGameplayTag BodyPartTag;
 
-	// The color for this specific mesh material with matching element index
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FLinearColor> ColorAtElementIndex;
+	// Optional material instance corrections (Skin Color, Hair Color, etc)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TMap<UMaterialInstance*, FLinearColor>	 MaterialInstances	= {};
 	
 	// Optional tags that describe this mesh
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FGameplayTagContainer OptionTags;
@@ -115,33 +118,15 @@ public:
 	
 	UMeshMergeComponent();
 
-	UPROPERTY(BlueprintAssignable)
-	FOnMeshMergeCompleted OnMeshMergeCompleted;
-
-	UFUNCTION()
-	void UpdateMeshMaterials(const FGameplayTag& BodyPartTag,
-		UMaterialInstance* SpecificMaterial, FLinearColor MaterialColor = FLinearColor());
-	
-	UFUNCTION(BlueprintCallable)
-	void SetAnimBlueprint(TSubclassOf<UAnimInstance> NewAnimInstance);
-
-	UFUNCTION(BlueprintCallable)
-	void SetEyeMaterial(const FLinearColor OptionalColor);
-	
-	UFUNCTION(BlueprintCallable)
-	void SetSkinMaterial(const FLinearColor OptionalColor);
-
-	UFUNCTION(BlueprintCallable)
-	void SetHairMaterial(const FLinearColor OptionalColor);
-
-	UFUNCTION(BlueprintCallable)
-	void SetBeardMaterial(const FLinearColor OptionalColor);
+	UPROPERTY(BlueprintAssignable) FOnMeshMergeCompleted OnMeshMergeCompleted;
+	UPROPERTY(BlueprintAssignable) FOnMeshMergeRestored  OnMeshMergeRestored;
+	UPROPERTY(BlueprintAssignable) FOnMeshMergeSaved     OnMeshMergeSaved;
 	
 	UFUNCTION(BlueprintCallable)
 	bool PerformMeshMerge(bool bMergeMeshesOnly = false);
 
 	UFUNCTION(BlueprintPure)
-	bool GetIsMeshMergeSystemReady() const { return bHasInitialized; }
+	bool GetIsMeshMergeSystemReady() const { return bMeshMergeReady; }
 
 	int FindIndexOfMeshByTag(const FGameplayTag& SearchTag);
 	
@@ -158,7 +143,13 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void RemoveMeshFromMerge(const UEquipmentItemData* NewAsset,
-		const FGameplayTag& EquipmentTag);
+							 const FGameplayTag& EquipmentTag);
+
+	int FindMeshMappingByTag(const FGameplayTag& searchTag);
+	FMeshMergeMappings GetMeshMappingFromIndex(int index = -1);
+
+	UFUNCTION(BlueprintPure)
+	FGameplayTag GetBodyPartFromEquipmentSlot(const FGameplayTag& EquipmentSlotTag);
 
 	// Private Member Accessors
 	TArray<FMeshMergeMappings>	GetAllMeshMergeMappings() const { return MeshMergeData; }
@@ -169,6 +160,20 @@ public:
 	USkeleton*	 				GetSkeleton() const				{ return Skeleton;      }
 	TSubclassOf<UAnimInstance>	GetAnimBlueprint() const		{ return AnimBlueprint; }
 
+	UFUNCTION(BlueprintCallable) void SetEyeColor(const FLinearColor NewColor);
+	UFUNCTION(BlueprintCallable) void SetSkinColor(const FLinearColor NewColor);
+	UFUNCTION(BlueprintCallable) void SetHairColor(const FLinearColor NewColor);
+	UFUNCTION(BlueprintCallable) void SetBeardColor(const FLinearColor NewColor);
+
+	void LoadMeshMerge(FString& LoadResponse, FString& SaveSlotName,
+			int32 SaveUserIndex = 0, bool bIsAsync = true);
+
+	FString SaveMeshMerge(FString& responseStr, bool isAsync = true);
+
+	UFUNCTION(BlueprintPure) FString GetMeshMergeSaveName() const { return SaveSlotName_; }
+
+	bool HasAuthority() const;
+	
 protected:
 	
 	virtual void BeginPlay() override;
@@ -180,14 +185,15 @@ protected:
 	virtual void GetLifetimeReplicatedProps(
 	TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
-	UFUNCTION(Server, Reliable)
-	void Server_SetAnimBlueprint(TSubclassOf<UAnimInstance> NewAnimInstance);
-
 public:
 
-	// The skeleton to use (Male/Female)
-	// Non-Binary: Randomizes Male/Female
-	UPROPERTY(EditAnywhere)	ECharacterSex SexSkeleton;
+	// Set false if the owner actor uses a full body mesh that doesn't need to be merged
+	// This is for things such as skeletons that are not modular, or spectres that always look the same
+	// Defaults to TRUE
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bUseMeshMerge = true;
+	
+	// Override to force all-masculine or feminine options, or both (Non-Binary)
+	UPROPERTY(EditAnywhere)	ECharacterSex SexSkeleton = ECharacterSex::NONBINARY;
 	
 	// The number of high LODs to remove from input meshes
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -214,14 +220,10 @@ public:
 	// The default body meshes used in every single mesh merge
 	UPROPERTY(ReplicatedUsing=OnRep_MeshBodyData, EditAnywhere, BlueprintReadOnly)
 	TArray<FMeshBodyMappings> MeshBodyData = {};
-	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	UMaterialInstance* UseSkinMaterial  = nullptr;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	FLinearColor UseSkinColor = FLinearColor(242, 239, 238, 255);
 
 private:
+
+	void ValidateMeshMergeMappings(const FMeshMergeMappings& MapReference, bool bWasRemoved = false);
 
 	UFUNCTION(NetMulticast, Reliable) void OnRep_EyeColor();
 	UFUNCTION(NetMulticast, Reliable) void OnRep_SkinColor();
@@ -231,11 +233,32 @@ private:
 	UFUNCTION(NetMulticast, Reliable) void OnRep_AnimInstance();
 	UFUNCTION(NetMulticast, Reliable) void OnRep_MeshBodyData();
 
+	void UpdateMeshMaterials(const UMaterialInterface* MaterialInterface = nullptr);
+
+	UFUNCTION() void LoadDataDelegate(const FString& SaveName, const int32 UserIndex, USaveGame* LoadGameData);
+	UFUNCTION() void SaveDataDelegate(const FString& SaveName, int UserIndex, bool bSuccess = false);
+	
+	UFUNCTION(Server, Reliable)
+	void Server_RestoreSkeleton(USkeleton* NewSkeleton, TSubclassOf<UAnimInstance> NewAnimInstance);
+	void RestoreSkeleton(USkeleton* NewSkeleton, TSubclassOf<UAnimInstance> NewAnimInstance);
+	
+	UFUNCTION(Server, Reliable)
+	void Server_RestoreMappings(const TArray<FMeshMergeMappings>& NewMeshMappings,
+								const TArray<FMeshBodyMappings>&  NewBodyMappings);
+	void RestoreMappings(const TArray<FMeshMergeMappings>& NewMeshMappings,
+						 const TArray<FMeshBodyMappings>&  NewBodyMappings);
+	
+	UFUNCTION(Server, Reliable)
+	void Server_RestoreMaterials(FLinearColor NewEyeColor, FLinearColor NewSkinColor,
+								 FLinearColor NewHairColor, FLinearColor NewBeardColor);
+	void RestoreMaterials(FLinearColor NewEyeColor, FLinearColor NewSkinColor,
+						  FLinearColor NewHairColor, FLinearColor NewBeardColor);
+
 	UPROPERTY(ReplicatedUsing=OnRep_EyeColor)
 	FLinearColor EyeColor_   = FLinearColor(0.1, 0.1, 0.1, 255);
 
 	UPROPERTY(ReplicatedUsing=OnRep_SkinColor)
-	FLinearColor SkinColor_  = FLinearColor(242, 239, 238, 255);
+	FLinearColor SkinColor_  = FLinearColor(0.949, 0.937, 0.933, 255);
 
 	UPROPERTY(ReplicatedUsing=OnRep_HairColor)
 	FLinearColor HairColor_  = FLinearColor(0.02, 0.02, 0.02, 255);
@@ -249,11 +272,20 @@ private:
 
 	UPROPERTY()
 	class ACharacterBase* CharacterBase_ = nullptr;
+
+	FString SaveSlotName_  = "";
+	int32   SaveUserIndex_ = 0;
 	
 	// This way the initial setups on OnConstruction only run once
-	bool bHasInitialized	= false;
+	bool bMeshMergeReady	= false;
+
+	bool bRestoredFromSave  = false;
+
+	bool bSavesOnServer     = false;
 	
 	bool bMeshSaveRestored	= false;
+
+	FString SaveFolder = "MeshMerge/";
 
 	
 };

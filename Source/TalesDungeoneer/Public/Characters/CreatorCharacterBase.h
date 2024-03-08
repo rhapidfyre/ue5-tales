@@ -24,12 +24,24 @@ public: // functions
 	UFUNCTION(BlueprintCallable)
 	bool FinishCreation() { return CreateCharacter(); }
 
+	UFUNCTION(BlueprintCallable)
+	void SetIsBeingCreated(bool bIsBeingCreated = true);
+
+	UFUNCTION(BlueprintPure)
+	bool GetIsBeingCreated() const { return bIsCreating; }
+	
 	virtual bool CreateCharacter();
 
 	void GetAllBodyPartMeshes(TArray<USkeletalMeshComponent*>& BodyPartMeshes);
 
 	UFUNCTION(BlueprintCallable)
+	void ResetMeshSelections();
+	
+	UFUNCTION(BlueprintCallable)
 	void ClearChildrenOfMesh(USkeletalMeshComponent* ReferenceMesh);
+
+	virtual bool LoadCharacter(const FString& SlotName, const int32 UserIndex, USaveGame* SaveGame) override;
+	virtual USaveGame* SaveCharacter(USaveGame* SaveObject, bool bRunAsync) override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite) USkeletalMeshComponent* MeshPartHair		 = nullptr;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite) USkeletalMeshComponent* MeshPartEyebrows  = nullptr;
@@ -57,5 +69,7 @@ private:
 
 	FString NewSaveSlotName_ = "";
 	int32  NewSaveUserIndex_ = 0;
+
+	bool bIsCreating = false;
 	
 };

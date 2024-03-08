@@ -76,10 +76,13 @@ public:
 		static int GetGameMaxCharacterLevel();
 
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "GetAppVersion"), Category = "Game Config")
-		static FString CharacterSaveFolder() { return "Characters/"; }
+	static FString CharacterSaveFolder() { return "Characters/"; }
 
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "GetAppVersion"), Category = "Game Config")
-		static FString InventorySaveFolder() { return "Inventories/"; }
+	static FString InventorySaveFolder() { return "Inventory/"; }
+
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "GetAppVersion"), Category = "Game Config")
+	static FString MeshMergeSaveFolder() { return "MeshMerge/"; }
 	
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Debug Build"), Category = "Game Config")
 		static bool GetGameIsInDebugMode()

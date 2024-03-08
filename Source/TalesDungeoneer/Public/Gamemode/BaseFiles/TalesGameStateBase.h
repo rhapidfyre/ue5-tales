@@ -10,6 +10,7 @@
 #include "Saves/StaticSaveData.h"
 
 #include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
 #include "TalesGameStateBase.generated.h"
 
 
@@ -28,7 +29,17 @@ class TALESDUNGEONEER_API ATalesGameStateBase : public AGameStateBase
 	GENERATED_BODY()
 	
 public: // methods
+	
+	ATalesGameStateBase();
+	
+	UPROPERTY(BlueprintAssignable)	FOnSaveGameObjectReady	OnSaveGameObjectReady;
+	UPROPERTY(BlueprintAssignable)	FOnGameSaved			OnGameSaved;
+	UPROPERTY(BlueprintAssignable)	FOnCharacterSelected	OnCharacterSelected;
+	UPROPERTY(BlueprintAssignable)	FOnCharacterDeleted		OnCharacterDeleted;
 
+	UFUNCTION(BlueprintPure)
+	UTexture2D* GetEquipmentIcon(const FGameplayTag& EquipmentTag) const;
+	
 	bool CheckIsServer() const;
 
 	bool CheckIsPlayableClient() const;
@@ -42,22 +53,9 @@ public: // methods
 	UFUNCTION(BlueprintPure)
 	static int32 GetMetaDataSaveIndex() { return 0; }
 
-	UFUNCTION(BlueprintCallable)
-	void SetIsCreatingCharacter(bool isCreating = true);
-	
-	UFUNCTION(BlueprintPure)
-	bool GetIsCreatingCharacter() const { return bIsCreating; }
-
 	// Use for later
 	//UFUNCTION(BlueprintPure)
 	//int32 GetCurrentSaveUserIndex() const { return 0; }
-
-	ATalesGameStateBase();
-	
-	UPROPERTY(BlueprintAssignable)	FOnSaveGameObjectReady	OnSaveGameObjectReady;
-	UPROPERTY(BlueprintAssignable)	FOnGameSaved			OnGameSaved;
-	UPROPERTY(BlueprintAssignable)	FOnCharacterSelected	OnCharacterSelected;
-	UPROPERTY(BlueprintAssignable)	FOnCharacterDeleted		OnCharacterDeleted;
 
 	UFUNCTION(Server, Reliable, BlueprintCallable)
 	void Server_NewNotification(
@@ -165,6 +163,8 @@ protected: // methods
 	
 	virtual void BeginPlay() override;
 
+	virtual void AddOrUpdateSavedCharacter(USaveGame* SaveGame);
+
 	// Called when LoadSaveGameMetaAsync executes
 	void SaveGameMetaLoaded(const FString& SlotName,
 		const int32 UserIndex, USaveGame* LoadedGameData);
@@ -185,7 +185,7 @@ protected: // methods
 	// Performs an async metadata load, calling SaveGameMetaLoaded when done
 	void LoadSaveGameMetaAsync();
 
-	bool SaveCharacterSync();
+	virtual bool SaveCharacterSync(USaveGame*& SaveGame);
 
 	void ResetCharacter();
 
@@ -246,14 +246,14 @@ public: // members
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bSavesOnServer = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TMap<FGameplayTag, UTexture2D*> EquipmentSlotIcons = {};
 	
 private: // members
 
 	// The name of the meta file
 	UPROPERTY() FString SaveMetaName_ = "";
-
-	UPROPERTY(ReplicatedUsing=OnRep_IsCreating) bool bIsCreating = false;
-	UFUNCTION(Client, Reliable) void OnRep_IsCreating();
 
 	// Set to true once the meta data file has been loaded or created
 	UPROPERTY(ReplicatedUsing=OnRep_SaveMetaReady) bool bSaveMetaIsReady = false;

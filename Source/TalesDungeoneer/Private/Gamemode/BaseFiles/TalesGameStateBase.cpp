@@ -12,6 +12,33 @@
 #include "Gamemode/AdventureMode/TalesHudBase.h"
 #include "lib/datastructures/GlobalData.h"
 
+ACharacter* FindPlayerCharacter(const UWorld* WorldContext)
+{
+	if (WorldContext == nullptr)
+	{
+		return nullptr;
+	}
+
+	for (FConstPlayerControllerIterator It = WorldContext->GetPlayerControllerIterator(); It; ++It)
+	{
+		APlayerController* PC = It->Get();
+		if (PC && PC->IsLocalController())
+		{
+			return Cast<ACharacter>(PC->GetPawn());
+		}
+	}
+
+	return nullptr;
+}
+
+UTexture2D* ATalesGameStateBase::GetEquipmentIcon(const FGameplayTag& EquipmentTag) const
+{
+	if (EquipmentSlotIcons.Contains(EquipmentTag))
+	{
+		return *EquipmentSlotIcons.Find(EquipmentTag);
+	}
+	return nullptr;
+}
 
 // Returns TRUE if the game state is any type of server
 bool ATalesGameStateBase::CheckIsServer() const
@@ -39,22 +66,6 @@ FString ATalesGameStateBase::GenerateAlphanumeric(FString OptionalPath) const
 		NewSaveSlotName.AppendChar(RandChar);
 	}
 	return OptionalPath + NewSaveSlotName;
-}
-
-void ATalesGameStateBase::SetIsCreatingCharacter(bool isCreating)
-{
-	bIsCreating = isCreating;
-	OnCharacterSelected.Broadcast(bIsCreating ? -1 : GetSelectedCharacter());
-
-	ACharacterBase* CreatorCharacter = Cast<ACharacterBase>(
-		UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
-	if (IsValid(CreatorCharacter))
-	{
-		// Hide the character if not creating and an invalid character is selected
-		// Otherwise, always show character
-		//CreatorCharacter->MeshMergeComponent->SetMeshIsHidden(bIsCreating ? false : GetSelectedCharacter() < 0);
-	}
-	
 }
 
 ATalesGameStateBase::ATalesGameStateBase() {}
@@ -146,10 +157,11 @@ void ATalesGameStateBase::RemoveSelectedCharacter()
 			if (IsValid(SavedCharacter))
 			{
 				// Delete subservient save games (inventory, abilities, etc)
-				if (UGameplayStatics::DoesSaveGameExist(SavedCharacter->SavedInventory,0))
-				{
-					UGameplayStatics::DeleteGameInSlot(SavedCharacter->SavedInventory, 0);
-				}
+				const FString InventorySave = UGlobalData::InventorySaveFolder() + SavedCharacter->SavedInventory;
+				const FString MeshMergeSave = UGlobalData::MeshMergeSaveFolder() + SavedCharacter->SavedMeshMerge;
+				
+				UGameplayStatics::DeleteGameInSlot(InventorySave, GetCharacterUserIndex());
+				UGameplayStatics::DeleteGameInSlot(MeshMergeSave, GetCharacterUserIndex());
 			}
 
 			// Delete the actual save game
@@ -167,7 +179,7 @@ void ATalesGameStateBase::RemoveSelectedCharacter()
 
 // Performs save of the currently active character - Updates the save meta.
 // Calls 'OnCharacterSaved' when finished
-bool ATalesGameStateBase::SaveCharacterSync()
+bool ATalesGameStateBase::SaveCharacterSync(USaveGame*& SaveGame)
 {
 	APlayerCharacterBase* CharacterBase = Cast<APlayerCharacterBase>
 			( UGameplayStatics::GetPlayerCharacter(GetWorld(), 0) );
@@ -177,23 +189,9 @@ bool ATalesGameStateBase::SaveCharacterSync()
 		UE_LOGFMT(LogTales, Error, "SaveCharacter({sv}) FAILED: Could not retrieve CharacterBase.", HasAuthority()?"S":"C");
 		return false;
 	}
-	
-	const USavedCharacter* SaveObject = Cast<USavedCharacter>( CharacterBase->SaveCharacter() );
-	if (IsValid(SaveObject))
-	{
-		if (GetIsCreatingCharacter())
-		{
-			// Create the new character
-			const FString SaveSlotName = SaveObject->SaveSlotName;
-			const int32 SaveUserIndex  = SaveObject->UserIndex;
-			const int NewIndex = SavedCharacters_.Add( FSaveMeta(SaveSlotName,SaveUserIndex) );
-			SetIsCreatingCharacter(false);
-			SetSelectedCharacter(NewIndex); // Internally calls SaveMetaData
-		}
-		// If not creating, we don't need to save the metadata
-		return true;
-	}
-	return false;
+
+	SaveGame = CharacterBase->SaveCharacter();
+	return (IsValid(SaveGame));
 }
 
 void ATalesGameStateBase::ResetCharacter()
@@ -203,14 +201,15 @@ void ATalesGameStateBase::ResetCharacter()
 
 void ATalesGameStateBase::SaveCharacterAsync()
 {
-	SaveCharacterSync();
+	USaveGame* SaveGame = nullptr;
+	SaveCharacterSync(SaveGame);
+	AddOrUpdateSavedCharacter(SaveGame);
 }
 
 void ATalesGameStateBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	
-	DOREPLIFETIME_CONDITION(ATalesGameStateBase, bIsCreating,			COND_OwnerOnly);
 	DOREPLIFETIME_CONDITION(ATalesGameStateBase, CheatMode_,			COND_OwnerOnly);
 	DOREPLIFETIME_CONDITION(ATalesGameStateBase, bSaveMetaIsReady,		COND_OwnerOnly);
 	DOREPLIFETIME_CONDITION(ATalesGameStateBase, SelectedCharacter_,	COND_OwnerOnly);
@@ -279,10 +278,6 @@ FString ATalesGameStateBase::GetCharacterSlotName() const
 
 int ATalesGameStateBase::GetCharacterUserIndex() const
 {
-	if (GetIsCreatingCharacter())
-	{
-		return 0;
-	}
 	if (SavedCharacters_.IsValidIndex(SelectedCharacter_))
 	{
 		return SavedCharacters_[SelectedCharacter_].SaveIndex;
@@ -292,7 +287,6 @@ int ATalesGameStateBase::GetCharacterUserIndex() const
 
 bool ATalesGameStateBase::GetIsValidCharacterSelected() const
 {
-	if (GetIsCreatingCharacter()) { return false; }
 	return SavedCharacters_.IsValidIndex(GetSelectedCharacter());
 }
 
@@ -318,9 +312,40 @@ void ATalesGameStateBase::BeginPlay()
 	if ( GetMetaDataSaveName().IsEmpty() ) {SaveMetaName_ = "SaveMeta"; }
 	
 	// Load the save game data from the previous session
-	LoadSaveGameMeta(true);
+	LoadSaveGameMeta(false);
 	
 	OnSaveGameObjectReady.Broadcast();
+
+	// Attempt to load the selected character
+	if (GetDoesCharacterSaveExist())
+	{
+		ACharacterBase* CharacterBase = Cast<ACharacterBase>
+				( UGameplayStatics::GetPlayerCharacter(GetWorld(), 0) );
+		if (IsValid(CharacterBase))
+		{
+			CharacterBase->LoadCharacter(GetCharacterSlotName(), GetCharacterUserIndex());
+		}
+	}
+}
+
+void ATalesGameStateBase::AddOrUpdateSavedCharacter(USaveGame* SaveGame)
+{
+	const USavedCharacter* savedCharacter = Cast<USavedCharacter>(SaveGame);
+	if (IsValid(savedCharacter))
+	{
+		for (const FSaveMeta& character : SavedCharacters_)
+		{
+			if (character.SaveName == savedCharacter->SaveSlotName && character.SaveIndex == savedCharacter->UserIndex)
+			{
+				// Character already exists
+				return;
+			}
+		}
+
+		// Adds the new character save to the list of new characters
+		const int NewIndex = SavedCharacters_.Add(FSaveMeta(savedCharacter->SaveSlotName, savedCharacter->UserIndex));
+		SetSelectedCharacter(NewIndex); // Internally calls SaveMetaData
+	}
 }
 
 bool ATalesGameStateBase::SaveCurrentCharacter(FString& SaveResponse, bool RunAsync)
@@ -373,8 +398,10 @@ bool ATalesGameStateBase::SaveCurrentCharacter(FString& SaveResponse, bool RunAs
 		return true;
 	}
 	
-	if (SaveCharacterSync())
+	USaveGame* SaveGame = nullptr;
+	if (SaveCharacterSync(SaveGame))
 	{
+		AddOrUpdateSavedCharacter(SaveGame);
 		SaveResponse = "Synchronous Save Successful";
 		return true;
 	}
@@ -432,19 +459,10 @@ void ATalesGameStateBase::SaveGameMetaLoaded(
 	}// If it was not loaded, there is no save to restore
 	
 	bSaveMetaIsReady = true;
-
-	ACharacterBase* CharacterBase = Cast<ACharacterBase>(
-		UGameplayStatics::GetPlayerCharacter(GetWorld(),0));
-	if (IsValid(CharacterBase))
-	{
-		//CharacterBase->MeshMergeComponent->SetMeshIsHidden( GetSelectedCharacter() < 0 );
-	}
 }
 
 void ATalesGameStateBase::SetSelectedCharacter(int CharacterIndex)
 {
-	if (GetIsCreatingCharacter()) { return; }
-	
 	if (SavedCharacters_.IsValidIndex(CharacterIndex))
 	{
 		SelectedCharacter_ = CharacterIndex;
@@ -483,8 +501,6 @@ int ATalesGameStateBase::GetSelectedCharacter() const
 
 int ATalesGameStateBase::GetNextCharacterIndex()
 {
-	if (GetIsCreatingCharacter()) { return -1; }
-	
 	int nextIndex = SelectedCharacter_ + 1;
 	if (!SavedCharacters_.IsValidIndex(nextIndex))
 	{
@@ -504,10 +520,6 @@ int ATalesGameStateBase::GetNextCharacterIndex()
 
 int ATalesGameStateBase::GetPrevCharacterIndex()
 {
-	if (GetIsCreatingCharacter())
-	{
-		return -1;
-	}
 	int lastIndex = SelectedCharacter_ - 1;
 	if (!SavedCharacters_.IsValidIndex(lastIndex))
 	{
@@ -557,11 +569,6 @@ void ATalesGameStateBase::SaveGameDelegate(
 	OnGameSaved.Broadcast(bSuccess);
 }
 
-void ATalesGameStateBase::OnRep_IsCreating_Implementation()
-{
-	OnCharacterSelected.Broadcast(bIsCreating ? -1 : GetSelectedCharacter());
-}
-
 void ATalesGameStateBase::OnRep_SaveMetaReady_Implementation()
 {
 	OnSaveGameObjectReady.Broadcast();
@@ -585,11 +592,6 @@ void ATalesGameStateBase::OnRep_CheatMode_Implementation(bool OldState)
 
 bool ATalesGameStateBase::LoadCharacterSync(const FString& SaveSlotName, const uint32 SaveUserIndex)
 {
-	if (GetIsCreatingCharacter())
-	{
-		return false;
-	}
-	
 	USavedCharacter* SavedCharacter = GetSavedCharacterData(SaveSlotName);
 	if (IsValid(SavedCharacter))
 	{

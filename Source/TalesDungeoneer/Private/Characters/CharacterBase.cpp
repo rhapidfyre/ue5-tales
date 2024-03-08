@@ -6,6 +6,7 @@
 #include "AbilitySystemComponent.h"
 #include "Net/UnrealNetwork.h"
 #include "Camera/CameraComponent.h"
+#include "Characters/Components/EquipmentComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "DataAssets/CharacterDefaults.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -71,13 +72,21 @@ ACharacterBase::ACharacterBase()
 	AttributeDamageSet		= CreateDefaultSubobject<UDamageAttributes>("AttributeDamageSet");
 	AttributeEffectSet		= CreateDefaultSubobject<UEffectAttributes>("AttributeEffectSet");
 
+	
 	// Setup listeners for when the inventory changes
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
+	InventoryComponent->SaveFolder = UGlobalData::InventorySaveFolder();
 	if (!InventoryComponent->OnInventoryUpdated.IsAlreadyBound(this, &ACharacterBase::InventoryUpdateDelegate))
 	{
 		InventoryComponent->OnInventoryUpdated.AddDynamic(this, &ACharacterBase::InventoryUpdateDelegate);
 	}
 
+	EquipmentComponent = CreateDefaultSubobject<UEquipmentComponent>(TEXT("EquipmentComponent"));
+    if (!EquipmentComponent->OnEquipmentSlotToggled.IsAlreadyBound(this, &ACharacterBase::EquipmentUpdateDelegate))
+	{
+		EquipmentComponent->OnEquipmentSlotToggled.AddDynamic(this, &ACharacterBase::EquipmentUpdateDelegate);
+	}
+	
 	MeshMergeComponent = CreateDefaultSubobject<UMeshMergeComponent>(TEXT("MeshMergeComponent"));
 
 	// Allow weapon overlap collisions
@@ -154,7 +163,7 @@ USaveGame* ACharacterBase::SaveCharacter(USaveGame* SaveObject, bool bRunAsync)
 {
 	if (!bCharacterReady)
 	{
-		UE_LOGFMT(LogCharacterBase, Warning,
+		UE_LOGFMT(LogTemp, Warning,
 			"{Name}({Sv}): Failed to Save Character - ACharacterBase has not"
 			" finished initialization.", GetName(), HasAuthority()?"SRV":"CLI");
 		return nullptr;
@@ -171,18 +180,9 @@ USaveGame* ACharacterBase::SaveCharacter(USaveGame* SaveObject, bool bRunAsync)
 		// Validate the game state
 		if (!IsValid(TalesGameState))
 		{
-			UE_LOGFMT(LogCharacterBase, Error,
+			UE_LOGFMT(LogTemp, Error,
 				"{Name}({Sv}): Failed to Save Character - GameState "
 				"is not a Tales-type GameState Object", GetName(), HasAuthority()?"SRV":"CLI");
-			return nullptr;
-		}
-
-		// We can only create a new save if we're in the character creator
-		if (!TalesGameState->GetIsCreatingCharacter())
-		{
-			UE_LOGFMT(LogCharacterBase, Log,
-				"{Name}({Sv}): Cannot create new character save - "
-				"Character Creator not in use.", GetName(), HasAuthority()?"SRV":"CLI");
 			return nullptr;
 		}
 
@@ -196,41 +196,32 @@ USaveGame* ACharacterBase::SaveCharacter(USaveGame* SaveObject, bool bRunAsync)
 	}
 
 	// Write ACharacterBase* specific data to SaveObject ( SavedCharacter )
-	SavedCharacter->CharacterData.CharacterName = GetCharacterName();
-
-	// Save the Mesh Merge data
-	SavedCharacter->Skeleton			= MeshMergeComponent->GetSkeleton();
-	SavedCharacter->AnimBlueprint		= MeshMergeComponent->GetAnimBlueprint();
-	SavedCharacter->MeshMergeMappings   = MeshMergeComponent->GetAllMeshMergeMappings();
-	
-	//SavedCharacter->EyeColor			= MeshMergeComponent->GetEyeColor();
-	//SavedCharacter->SkinColor			= MeshMergeComponent->GetSkinColor();
-	//SavedCharacter->HairColor			= MeshMergeComponent->GetHairColor();
-	//SavedCharacter->BeardColor			= MeshMergeComponent->GetBeardColor();
-	
-	//SavedCharacter->EyeMaterial		= MeshMergeComponent->EyeMaterial;
-	//SavedCharacter->SkinMaterial		= MeshMergeComponent->SkinMaterial;
-	//SavedCharacter->HairMaterial		= MeshMergeComponent->HairMaterial;
-	//SavedCharacter->BeardMaterial		= MeshMergeComponent->BeardMaterial;
+	SavedCharacter->CharacterData.CharacterName    = GetCharacterName();
+	SavedCharacter->CharacterData.CharacterClass   = GetCharacterClass();
+	SavedCharacter->CharacterData.CharacterRace    = GetCharacterRace();
+	SavedCharacter->CharacterData.ExperiencePoints = 0.f;
+	SavedCharacter->CharacterData.CharacterLevel   = 1;
 
 	// If the inventory save does not exist, then this is a new inventory
 	// Existing inventories will have a save name
 	{
 		FString InventoryResponse = "";
-		if (InventoryComponent->GetInventorySaveName().IsEmpty())
+		const bool inventorySaveExists = !InventoryComponent->GetInventorySaveName().IsEmpty();
+		if (inventorySaveExists)
 		{
 			// Issue starting items and save
 			InventoryComponent->IssueStartingItems();
-			SavedCharacter->SavedInventory = InventoryComponent->SaveInventory(InventoryResponse, false);
 		}
+		SavedCharacter->SavedInventory = InventoryComponent->SaveInventory(InventoryResponse, inventorySaveExists);
+	}
 	
-		// If the inventory does exist, save it asynchronously
-		else
-		{
-			InventoryComponent->SaveInventory(InventoryResponse, true);
-		}
-		UE_LOGFMT(LogTemp, Log, "{InvName}({Authority}): Inventory Save Response: {Response}",
-			InventoryComponent->GetName(), HasAuthority()?"SRV":"CLI", InventoryResponse);
+	// Save the Mesh Merge data
+	{
+		// Runs async if the save already exists
+		FString MeshMergeResponse = "";
+		FString newSaveName = MeshMergeComponent->SaveMeshMerge(
+			MeshMergeResponse, !MeshMergeComponent->GetMeshMergeSaveName().IsEmpty());
+		SavedCharacter->SavedMeshMerge = newSaveName;
 	}
 	
 	if (bRunAsync)
@@ -244,7 +235,10 @@ USaveGame* ACharacterBase::SaveCharacter(USaveGame* SaveObject, bool bRunAsync)
 
 	const bool bSaved = UGameplayStatics::SaveGameToSlot(SavedCharacter,
 			SavedCharacter->SaveSlotName, SavedCharacter->UserIndex);
-	OnCharacterSaved.Broadcast(SavedCharacter->SaveSlotName, SavedCharacter->UserIndex, bSaved);
+	if (OnCharacterSaved.IsBound())
+	{
+		OnCharacterSaved.Broadcast(SavedCharacter->SaveSlotName, SavedCharacter->UserIndex, bSaved);
+	}
 	if (bSaved)
 	{
 		return SavedCharacter;
@@ -269,10 +263,10 @@ bool ACharacterBase::LoadCharacter(const FString& SlotName, const int32 UserInde
 	// Prevents the character from loading a save until the defaults have initialized
 	if (!bCharacterReady)
 	{
-		UE_LOGFMT(LogCharacterBase, Error, "{Character}({Sv}): "
+		UE_LOGFMT(LogTemp, Error, "{Character}({Sv}): "
 			"LoadCharacter() Requested before character was ready. Delaying...",
 			GetName(), HasAuthority()?"SRV":"CLI");
-		OnCharacterRestored.Broadcast(bWasSuccess);
+		if (OnCharacterRestored.IsBound()) { OnCharacterRestored.Broadcast(bWasSuccess); }
 		return false;
 	}
 
@@ -289,47 +283,37 @@ bool ACharacterBase::LoadCharacter(const FString& SlotName, const int32 UserInde
 		{
 			if (!TalesGameState->GetIsSaveMetaReady())
 			{
-				UE_LOGFMT(LogCharacterBase, Warning, "{Character}({Sv}): "
+				UE_LOGFMT(LogTemp, Warning, "{Character}({Sv}): "
 					"LoadCharacter() Failed - GameState not ready. Delaying...",
 					GetName(), HasAuthority()?"SRV":"CLI");
 				return false;
 			}
 			
-			// No saved data and creator open means this is a new character
-			if (TalesGameState->GetIsCreatingCharacter())
+			// If the selected character has an associated save, we are good to go
+			if (UGameplayStatics::DoesSaveGameExist(
+				TalesGameState->GetCharacterSlotName(),
+				TalesGameState->GetCharacterUserIndex()))
 			{
-				UE_LOGFMT(LogCharacterBase, Warning, "{Character}({Sv}): "
-					"Cannot Load Character while Character Creator is open.",
-					GetName(), HasAuthority()?"SRV":"CLI");
+				SavedCharacter = Cast<USavedCharacter>(
+						UGameplayStatics::LoadGameFromSlot(
+							TalesGameState->GetCharacterSlotName(),
+							TalesGameState->GetCharacterUserIndex()) );
 			}
+			// Otherwise, there is no saved character to be loaded
 			else
 			{
-				// If the selected character has an associated save, we are good to go
-				if (UGameplayStatics::DoesSaveGameExist(
+				UE_LOGFMT(LogTemp, Warning, "{Character}({Sv}): "
+					"Character Save '{SlotName} ({UserIndex})' does not exist, "
+					"or Player is in the Character Creator.",
+					GetName(), HasAuthority()?"SRV":"CLI",
 					TalesGameState->GetCharacterSlotName(),
-					TalesGameState->GetCharacterUserIndex()))
-				{
-					SavedCharacter = Cast<USavedCharacter>(
-							UGameplayStatics::LoadGameFromSlot(
-								TalesGameState->GetCharacterSlotName(),
-								TalesGameState->GetCharacterUserIndex()) );
-				}
-				// Otherwise, there is no saved character to be loaded
-				else
-				{
-					UE_LOGFMT(LogCharacterBase, Warning, "{Character}({Sv}): "
-						"Character Save '{SlotName} ({UserIndex})' does not exist, "
-						"or Player is in the Character Creator.",
-						GetName(), HasAuthority()?"SRV":"CLI",
-						TalesGameState->GetCharacterSlotName(),
-						TalesGameState->GetCharacterUserIndex());
-				}
+					TalesGameState->GetCharacterUserIndex());
 			}
 		}
 		// Game State is not valid or ready
 		else
 		{
-			UE_LOGFMT(LogCharacterBase, Error, "{Character}({Sv}): "
+			UE_LOGFMT(LogTemp, Error, "{Character}({Sv}): "
 				"Cannot load character - TalesGameState is not ready, or invalid.",
 				GetName(), HasAuthority()?"SRV":"CLI");
 		}
@@ -339,23 +323,21 @@ bool ACharacterBase::LoadCharacter(const FString& SlotName, const int32 UserInde
 	if (IsValid(SavedCharacter))
 	{
 		// Send Character Data to server for restoration
-		Server_RestoreCharacter(SavedCharacter->CharacterData);
-		
-		// Restore Stats/Attributes
-		
+		RestoreCharacter(SavedCharacter->CharacterData);
+		//Server_RestoreCharacter(SavedCharacter->CharacterData);
 		
 		// Restore Inventory Data
-		FString InventoryResponse = "";
+		FString InventoryResponse = "", MeshMergeResponse = "";
 		InventoryComponent->LoadInventory(InventoryResponse,
-			SavedCharacter->SavedInventory, true);
+			SavedCharacter->SavedInventory, SavedCharacter->UserIndex, true);
 
-		// Restore Abilities & Effects
-		
+		MeshMergeComponent->LoadMeshMerge(MeshMergeResponse,
+			SavedCharacter->SavedMeshMerge, SavedCharacter->UserIndex);
 		
 		bWasSuccess = true;
 	}
 	
-	OnCharacterRestored.Broadcast(bWasSuccess);
+	if (OnCharacterRestored.IsBound()) { OnCharacterRestored.Broadcast(bWasSuccess); }
 	return bWasSuccess;
 }
 
@@ -365,13 +347,6 @@ void ACharacterBase::BeginPlay()
 {
 	BindListeners();
 	Super::BeginPlay();
-
-	// Start the character completely invisible until setup has completed
-	USkeletalMeshComponent* CharacterMesh = GetMesh();
-	if (IsValid(CharacterMesh))
-	{
-		CharacterMesh->SetVisibility(false, true);
-	}
 	
 	// If the character data asset exists, use it
 	if (IsValid(CharacterData))
@@ -467,7 +442,7 @@ void ACharacterBase::OnRep_PlayerState()
 void ACharacterBase::CharacterRestoredFromSave(const bool bWasSuccess)
 {
 	//bCharacterSaveRestored = bWasSuccess;
-	OnCharacterRestored.Broadcast(bWasSuccess);
+	if (OnCharacterRestored.IsBound()) { OnCharacterRestored.Broadcast(bWasSuccess); }
 	if (HasAuthority() && bWasSuccess)
 	{
 		Client_CharacterRestored(bWasSuccess);
@@ -517,7 +492,23 @@ void ACharacterBase::SaveGameDelegate(const FString& SlotName, const int32 UserI
 
 void ACharacterBase::InventoryUpdateDelegate(int SlotNumberUpdated)
 {
-	
+	// If equipment updated, send update to equipment component
+	if (InventoryComponent->IsValidEquipmentSlot(SlotNumberUpdated))
+	{
+		if (IsValid(EquipmentComponent))
+		{
+			EquipmentComponent->InitEquipmentItem(SlotNumberUpdated);
+			if (EquipmentComponent->GetIsReady(SlotNumberUpdated))
+			{
+				EquipmentComponent->AdjustAttachment(SlotNumberUpdated);
+			}
+		}
+	}
+}
+
+void ACharacterBase::EquipmentUpdateDelegate(int SlotNumberUpdated, bool bIsEnabled)
+{
+	MeshMergeComponent->PerformMeshMerge();
 }
 
 void ACharacterBase::OnVitalityAttributeChanged(const FOnAttributeChangeData& Data)
@@ -566,22 +557,17 @@ void ACharacterBase::OnRep_CharacterClass_Implementation(const FGameplayTag& Old
 }
 
 void ACharacterBase::RestoreCharacter(const FCharacterData& RestoreData)
-{
-	if (bCharacterSaveRestored)
-	{
-		UE_LOGFMT(LogTemp, Warning, "{CharName}({Sv}): Restore Denied - "
-			"Character Already Restored.", GetName(), HasAuthority()?"SV":"CL");
-		return;	
-	}
-	
+{	
 	// If we are the authority, authorize the restoration
 	if (HasAuthority())
 	{
 		SetCharacterName(RestoreData.CharacterName);
+		CharacterRace_ = RestoreData.CharacterRace;		// Set race without triggering logic
+		SetCharacterClass(RestoreData.CharacterClass);
 
 		// Update restored flags to prevent cheating
-		//bCharacterSaveRestored = true;
-		OnCharacterRestored.Broadcast(true);
+		bCharacterSaveRestored = true;
+		if (OnCharacterRestored.IsBound()) { OnCharacterRestored.Broadcast(true); }
 		Client_CharacterRestored(true);
 	}
 	
@@ -594,30 +580,26 @@ void ACharacterBase::RestoreCharacter(const FCharacterData& RestoreData)
 
 void ACharacterBase::Server_RestoreCharacter_Implementation(const FCharacterData& RestoreData)
 {
-	if (!bCharacterSaveRestored)
+	// If saves are server side, deny the restore request and find it ourselves
+	if (bSavesOnServer)
 	{
-		// If saves are server side, deny the restore request and find it ourselves
-		if (bSavesOnServer)
-		{
-			//bCharacterSaveRestored = true;
-			OnCharacterRestored.Broadcast(true);
-			Client_CharacterRestored(true);
-		}
-		// Allow restore if saves are client-side
-		else
-		{
-			RestoreCharacter(RestoreData);
-		}
+		if (OnCharacterRestored.IsBound()) { OnCharacterRestored.Broadcast(true); }
+		Client_CharacterRestored(true);
+	}
+	// Allow restore if saves are client-side
+	else
+	{
+		RestoreCharacter(RestoreData);
 	}
 }
 
 void ACharacterBase::Client_CharacterRestored_Implementation(const bool bWasSuccess)
 {
-	//bCharacterSaveRestored = bWasSuccess;
+	bCharacterSaveRestored = bWasSuccess;
 	UE_LOGFMT(LogTemp, Log, "{CharName}({Sv}) REPNOTIFY: Save Game {PassOrFail}",
 		GetName(), HasAuthority()?"SV":"CL",
 		bWasSuccess ? "Restored Successfully" : "Failed to Restore");
-	OnCharacterRestored.Broadcast(bWasSuccess);
+	if (OnCharacterRestored.IsBound()) { OnCharacterRestored.Broadcast(bWasSuccess); }
 }
 
 void ACharacterBase::BindListeners()
@@ -656,8 +638,9 @@ void ACharacterBase::BindListeners()
 void ACharacterBase::SetCharacterName(FString ProposedName)
 {
 	// TODO - Add checks for symbols, special characters, etc
+	const FString oldName = GetCharacterName();
 	UE_LOGFMT(LogTemp, Log, "{CharName}({Sv}): Character Name Changed. {OldName} -> {NewName}",
-		GetName(), HasAuthority()?"SV":"CL", GetCharacterName(), ProposedName);
+		GetName(), HasAuthority()?"SV":"CL", oldName, ProposedName);
 	CharacterName = ProposedName;
 }
 
@@ -670,7 +653,7 @@ void ACharacterBase::OnRep_CharacterName_Implementation(const FString& OldCharac
 {
 	UE_LOGFMT(LogTemp, Log, "{CharName}({Sv}) REPNOTIFY: Character Name Changed. {OldName} -> {NewName}",
 		GetName(), HasAuthority()?"SV":"CL", OldCharacterName, GetCharacterName());
-	OnCharacterNameChanged.Broadcast();
+	if (OnCharacterNameChanged.IsBound()) { OnCharacterNameChanged.Broadcast(); }
 }
 
 

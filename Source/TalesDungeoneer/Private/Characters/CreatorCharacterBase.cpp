@@ -22,12 +22,20 @@ ACreatorCharacterBase::ACreatorCharacterBase()
 	MeshPartHead		= InitMeshPart("MeshPartHead");
 	MeshPartNeck		= InitMeshPart("MeshPartNeck");
 	MeshPartChest		= InitMeshPart("MeshPartChest");
-	//MeshPartBra			= InitMeshPart("MeshPartBra");
+	//MeshPartBra		= InitMeshPart("MeshPartBra");
 	MeshPartArms		= InitMeshPart("MeshPartArms");
 	MeshPartHands		= InitMeshPart("MeshPartHands");
 	//MeshPartUnderwear	= InitMeshPart("MeshPartUnderwear");
 	MeshPartLegs		= InitMeshPart("MeshPartLegs");
 	MeshPartFeet		= InitMeshPart("MeshPartFeet");
+}
+
+void ACreatorCharacterBase::SetIsBeingCreated(bool bIsBeingCreated)
+{
+	//GetMesh()->SetSkeletalMeshAsset(nullptr);
+	ResetMeshSelections();
+	GetMesh()->SetVisibility(bIsBeingCreated);
+	bIsCreating = bIsBeingCreated;
 }
 
 bool ACreatorCharacterBase::CreateCharacter()
@@ -78,6 +86,27 @@ void ACreatorCharacterBase::GetAllBodyPartMeshes(TArray<USkeletalMeshComponent*>
 	};
 }
 
+/**
+ * Resets all of the mesh parts to clear/none, and destroys each of their children
+ */
+void ACreatorCharacterBase::ResetMeshSelections()
+{
+	TArray<USkeletalMeshComponent*> BodyPartMeshes;
+	GetAllBodyPartMeshes(BodyPartMeshes);
+	for (USkeletalMeshComponent* MeshPart : BodyPartMeshes)
+	{
+		if (IsValid(MeshPart))
+		{
+			ClearChildrenOfMesh(MeshPart);
+		}
+		MeshPart->SetSkeletalMeshAsset(nullptr);
+	}
+}
+
+/**
+ * Destroys all of the child components of the given mesh part
+ * @param ReferenceMesh The mesh part to reference
+ */
 void ACreatorCharacterBase::ClearChildrenOfMesh(USkeletalMeshComponent* ReferenceMesh)
 {
 	if (IsValid(ReferenceMesh))
@@ -96,8 +125,24 @@ void ACreatorCharacterBase::ClearChildrenOfMesh(USkeletalMeshComponent* Referenc
 	}
 }
 
+bool ACreatorCharacterBase::LoadCharacter(const FString& SlotName, const int32 UserIndex, USaveGame* SaveGame)
+{
+	if (GetIsBeingCreated()) { return false; }
+	return Super::LoadCharacter(SlotName, UserIndex, SaveGame);
+}
+
+USaveGame* ACreatorCharacterBase::SaveCharacter(USaveGame* SaveObject, bool bRunAsync)
+{
+	return Super::SaveCharacter(SaveObject, bRunAsync);
+}
+
 void ACreatorCharacterBase::BeginPlay()
 {
+	USkeletalMeshComponent* SkeletalMesh = GetMesh();
+	if (IsValid(SkeletalMesh))
+	{
+		SkeletalMesh->SetVisibility(false);
+	}
 	Super::BeginPlay();
 }
 
@@ -105,7 +150,7 @@ void ACreatorCharacterBase::OnConstruction(const FTransform& Transform)
 {
 	Super::OnConstruction(Transform);
 	
-	USkinnedMeshComponent* SkinnedMesh = GetMesh();
+	USkeletalMeshComponent* SkinnedMesh = GetMesh();
 
 	TArray<USkeletalMeshComponent*> BodyPartMeshes;
 	GetAllBodyPartMeshes(BodyPartMeshes);
@@ -113,7 +158,8 @@ void ACreatorCharacterBase::OnConstruction(const FTransform& Transform)
 	{
 		meshComponent->SetLeaderPoseComponent(SkinnedMesh);
 	}
-	
+	SkinnedMesh->VisibilityBasedAnimTickOption = EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
+	//SkinnedMesh->SetAnimInstanceClass(MeshMergeComponent->AnimBlueprint);
 }
 
 USkeletalMeshComponent* ACreatorCharacterBase::InitMeshPart(FName MeshName)

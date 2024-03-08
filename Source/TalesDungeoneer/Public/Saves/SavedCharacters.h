@@ -6,6 +6,7 @@
 #include "GameFramework/SaveGame.h"
 #include "lib/enums/GlobalEnums.h"
 #include "Characters/Components/MeshMergeComponent.h"
+#include "lib/Tags/TalesGlobalTags.h"
 
 #include "SavedCharacters.generated.h"
 
@@ -20,8 +21,8 @@ struct TALESDUNGEONEER_API FCharacterData
 	UPROPERTY(SaveGame) int		CharacterLevel			= 1;
 	UPROPERTY(SaveGame) float	ExperiencePoints		= 0.f;
 	
-	UPROPERTY(SaveGame) ECharacterClass CharacterClass	= ECharacterClass::ANY;
-	UPROPERTY(SaveGame) ECharacterRace  CharacterRace   = ECharacterRace::ANY;
+	UPROPERTY(SaveGame) FGameplayTag CharacterClass	= TAG_Character_Class_Warrior;
+	UPROPERTY(SaveGame) FGameplayTag CharacterRace  = TAG_Character_Race_Human;
 	
 };
 
@@ -59,40 +60,14 @@ public:
 	TArray <FMeshMergeMappings> MeshMergeMappings = {};
 
 	// The name of the inventory save file
-	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Mesh Merge Save Data")
-	UMaterialInstance* EyeMaterial = nullptr;
-
-	// The name of the inventory save file
-	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Mesh Merge Save Data")
-	UMaterialInstance* SkinMaterial = nullptr;
-
-	// The name of the inventory save file
-	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Mesh Merge Save Data")
-	UMaterialInstance* HairMaterial = nullptr;
-
-	// The name of the inventory save file
-	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Mesh Merge Save Data")
-	UMaterialInstance* BeardMaterial = nullptr;
-
-	// The name of the inventory save file
 	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Inventory Save Data")
 	FString SavedInventory = "";
-
-	// The name of the inventory save file
+	
+	// The name of the mesh merge save file
 	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Mesh Merge Save Data")
-	FLinearColor SkinColor = FLinearColor(0,0,0,0);
+	FString SavedMeshMerge = "";
 
-	// The name of the inventory save file
-	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Mesh Merge Save Data")
-	FLinearColor EyeColor = FLinearColor(0,0,0,0);
-
-	// The name of the inventory save file
-	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Mesh Merge Save Data")
-	FLinearColor HairColor = FLinearColor(0,0,0,0);
-
-	// The name of the inventory save file
-	UPROPERTY(SaveGame, VisibleAnywhere, Category = "Mesh Merge Save Data")
-	FLinearColor BeardColor = FLinearColor(0,0,0,0);
+	
 
 	
 };

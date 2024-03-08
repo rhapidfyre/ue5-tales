@@ -11,6 +11,7 @@
 #include "InventoryComponent.h"
 #include "Components/MeshMergeComponent.h"
 #include "Components/TalesAbilityComponent.h"
+#include "Components/EquipmentComponent.h"
 #include "lib/Tags/TalesGlobalTags.h"
 
 #include "Saves/SavedCharacters.h"
@@ -120,6 +121,7 @@ public: // functions
 	virtual UTalesAbilityComponent* GetAbilitySystemComponent() const override;
 
 	virtual USaveGame* SaveCharacter(USaveGame* SaveObject = nullptr, bool bRunAsync = false);
+
 	virtual bool LoadCharacter(const FString& SlotName = "", const int32 UserIndex = 0, USaveGame* SaveGame = nullptr);
 	
 protected: // functions
@@ -146,8 +148,8 @@ protected: // functions
 	
 	virtual void SaveGameDelegate(const FString& SlotName, const int32 UserIndex, bool bSaved);
 
-	UFUNCTION()
-	void InventoryUpdateDelegate(int SlotNumberUpdated);
+	UFUNCTION()	void InventoryUpdateDelegate(int SlotNumberUpdated);
+	UFUNCTION() void EquipmentUpdateDelegate(int SlotNumberUpdated, bool bIsEnabled);
 
 	virtual void OnVitalityAttributeChanged(const FOnAttributeChangeData& Data);
 	virtual void OnCoreStatsChanged(const FOnAttributeChangeData& Data);
@@ -209,6 +211,10 @@ public: // members
 	// Collects fragmented body/equipment parts and merges them into one mesh
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UMeshMergeComponent*  MeshMergeComponent;
+	
+	// Manages equipment don/off, visuals, and behaviors
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UEquipmentComponent* EquipmentComponent;
 
 	// TODO - Deprecate this - Move it to GAS
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Settings")

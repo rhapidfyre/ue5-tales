@@ -22,9 +22,25 @@ public:
 	
 	virtual void BeginPlay() override;
 
+	UFUNCTION(BlueprintCallable)
+	void SetIsCreatingCharacter(bool isCreating = true);
+
 	UPROPERTY(BlueprintAssignable) FOnCharacterCreated OnCharacterCreated;
 	
 	UFUNCTION(BlueprintCallable)
 	bool CreateNewCharacter(FString& SaveResponse, bool RunAsync = false);
+
+	virtual bool SaveCharacterSync(USaveGame*& SaveGame) override;
+	
+	UFUNCTION(BlueprintPure)
+	bool GetIsCreatingCharacter() const { return bIsCreating; }
+
+private:
+	
+	UFUNCTION(Client, Reliable)
+	void OnRep_IsCreating();
+
+	UPROPERTY(ReplicatedUsing=OnRep_IsCreating)
+	bool bIsCreating = false;
 	
 };
