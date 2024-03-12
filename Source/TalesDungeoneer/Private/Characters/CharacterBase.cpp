@@ -324,7 +324,8 @@ bool ACharacterBase::LoadCharacter(const FString& SlotName, const int32 UserInde
 	{
 		// Send Character Data to server for restoration
 		RestoreCharacter(SavedCharacter->CharacterData);
-		//Server_RestoreCharacter(SavedCharacter->CharacterData);
+
+		
 		
 		// Restore Inventory Data
 		FString InventoryResponse = "", MeshMergeResponse = "";
@@ -508,6 +509,18 @@ void ACharacterBase::InventoryUpdateDelegate(int SlotNumberUpdated)
 
 void ACharacterBase::EquipmentUpdateDelegate(int SlotNumberUpdated, bool bIsEnabled)
 {
+	const FStItemData itemData = InventoryComponent->GetItemInSlot(SlotNumberUpdated);
+
+	if (bIsEnabled)
+	{
+		// Enable the equipments effects
+	}
+	else
+	{
+		// Disable the equipments effects
+	}
+	
+	// Perform the mesh merge
 	MeshMergeComponent->PerformMeshMerge();
 }
 

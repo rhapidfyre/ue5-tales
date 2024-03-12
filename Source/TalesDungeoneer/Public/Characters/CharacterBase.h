@@ -234,7 +234,7 @@ public: // members
 	FSlateColor SkinColor;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	UTalesAbilityComponent* AbilitySystemComponent;
+	class UTalesAbilityComponent* AbilitySystemComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly,
 		Category = "Gameplay Ability System", meta = (AllowPrivateAccess = "true"))

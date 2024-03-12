@@ -6,31 +6,6 @@
 #include "Net/UnrealNetwork.h"
 
 
-UE_DEFINE_GAMEPLAY_TAG(TAG_Damage_SetByCaller,			"Damage.SetByCaller")
-UE_DEFINE_GAMEPLAY_TAG(TAG_Damage_World,				"Damage.World")
-
-UE_DEFINE_GAMEPLAY_TAG(TAG_Damage_Physical_Generic,		"Damage.Physical.Generic")
-UE_DEFINE_GAMEPLAY_TAG(TAG_Damage_Physical_Blunt, 		"Damage.Physical.Blunt")
-UE_DEFINE_GAMEPLAY_TAG(TAG_Damage_Physical_Slash, 		"Damage.Physical.Slash")
-UE_DEFINE_GAMEPLAY_TAG(TAG_Damage_Physical_Pierce,		"Damage.Physical.Pierce")
-UE_DEFINE_GAMEPLAY_TAG(TAG_Damage_Physical_Bite, 		"Damage.Physical.Bite")
-UE_DEFINE_GAMEPLAY_TAG(TAG_Damage_Physical_Kick, 		"Damage.Physical.Kick")
-UE_DEFINE_GAMEPLAY_TAG(TAG_Damage_Physical_Claw, 		"Damage.Physical.Claw")
-UE_DEFINE_GAMEPLAY_TAG(TAG_Damage_Physical_Sting, 		"Damage.Physical.Sting")
-
-UE_DEFINE_GAMEPLAY_TAG(TAG_Damage_Elemental_Generic,		"Damage.Elemental.Generic")
-UE_DEFINE_GAMEPLAY_TAG(TAG_Damage_Elemental_Fire,			"Damage.Elemental.Fire")
-UE_DEFINE_GAMEPLAY_TAG(TAG_Damage_Elemental_Frost,			"Damage.Elemental.Frost")
-UE_DEFINE_GAMEPLAY_TAG(TAG_Damage_Elemental_Acid,			"Damage.Elemental.Acid")
-UE_DEFINE_GAMEPLAY_TAG(TAG_Damage_Elemental_Shock,			"Damage.Elemental.Shock")
-UE_DEFINE_GAMEPLAY_TAG(TAG_Damage_Elemental_Radioactive,	"Damage.Elemental.Radioactive")
-UE_DEFINE_GAMEPLAY_TAG(TAG_Damage_Elemental_Sonic,			"Damage.Elemental.Sonic")
-
-UE_DEFINE_GAMEPLAY_TAG(TAG_Damage_Magic_Generic,		"Damage.Magic.Generic")
-UE_DEFINE_GAMEPLAY_TAG(TAG_Damage_Magic_Holy,			"Damage.Magic.Holy")
-UE_DEFINE_GAMEPLAY_TAG(TAG_Damage_Magic_Dark,			"Damage.Magic.Dark")
-
-
 UDamageAttributes::UDamageAttributes() :
 	IncomingDamage(0.f), CriticalChance(0.f), CriticalMultiplier(1.f),
 	LuckyChance(0.f), DamageModifier(0.f), DamageMultiplier(1.f),
@@ -160,6 +135,10 @@ void UDamageAttributes::OnRep_DamageMultiplier(const FGameplayAttributeData& Old
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDamageAttributes, DamageMultiplier, OldData);
 }
 
+void UDamageAttributes::OnRep_NaturalResistance(const FGameplayAttributeData& OldData)
+{
+}
+
 
 void UDamageAttributes::OnRep_BluntResistance(const FGameplayAttributeData& OldData)
 {
@@ -269,6 +248,16 @@ void UDamageAttributes::OnRep_DarkResistance(const FGameplayAttributeData& OldDa
 		"Dark Resistance Updated. Was {OldValue}, Now {NewValue}", GetName(),
 		GetOwningActor()->HasAuthority()?"SRV":"CLI", oldValue, newValue);
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDamageAttributes, DarkResistance, OldData);
+}
+
+void UDamageAttributes::OnRep_NaturalBonus(const FGameplayAttributeData& OldData)
+{
+	float oldValue = OldData.GetCurrentValue();
+	float newValue = GetNaturalBonus();
+	UE_LOGFMT(LogAbilitySystemComponent, VeryVerbose,  "{Name}({Authority}) REPNOTIFY: "
+		"Blunt Bonus Updated. Was {OldValue}, Now {NewValue}", GetName(),
+		GetOwningActor()->HasAuthority()?"SRV":"CLI", oldValue, newValue);
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDamageAttributes, NaturalBonus, OldData);
 }
 
 

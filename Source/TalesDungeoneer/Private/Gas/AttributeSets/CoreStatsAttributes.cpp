@@ -7,6 +7,7 @@
 #include "Net/UnrealNetwork.h"
 
 
+UE_DEFINE_GAMEPLAY_TAG(TAG_Stats,				"Stats")
 UE_DEFINE_GAMEPLAY_TAG(TAG_Stats_Strength,		"Stats.Strength")
 UE_DEFINE_GAMEPLAY_TAG(TAG_Stats_Dexterity,		"Stats.Dexterity")
 UE_DEFINE_GAMEPLAY_TAG(TAG_Stats_Fortitude,		"Stats.Fortitude")
@@ -16,9 +17,9 @@ UE_DEFINE_GAMEPLAY_TAG(TAG_Stats_Charisma,		"Stats.Charisma")
 
 
 UCoreStatsAttributes::UCoreStatsAttributes() :
-	Strength(100.f),  Dexterity(100.f),
-	Fortitude(100.f), Astuteness(100.f),
-	Intellect(100.f), Charisma(100.f)
+	Strength(STAT_DEFAULT),  Dexterity(STAT_DEFAULT),
+	Fortitude(STAT_DEFAULT), Astuteness(STAT_DEFAULT),
+	Intellect(STAT_DEFAULT), Charisma(STAT_DEFAULT)
 {
 	
 }
@@ -48,15 +49,12 @@ void UCoreStatsAttributes::ClampAttributeOnChange(const FGameplayAttribute& Attr
 	// Allow some stats to go below zero
 	float minAttributeValue = 0.f;
 	if (GetDexterityAttribute() == Attribute)
-	{
-		minAttributeValue = -1000.f;
-	}
+		{ minAttributeValue = STAT_MIN; }
 	else if (GetCharismaAttribute() == Attribute)
-	{
-		minAttributeValue = -1000.f;
-	}
+		{ minAttributeValue = STAT_MIN; }
+	
 	// Cap all core stats at 1,000
-	NewValue = FMath::Clamp(NewValue, minAttributeValue, 1000);
+	NewValue = FMath::Clamp(NewValue, minAttributeValue, STAT_MAX);
 }
 
 void UCoreStatsAttributes::OnRep_Strength(const FGameplayAttributeData& OldData)

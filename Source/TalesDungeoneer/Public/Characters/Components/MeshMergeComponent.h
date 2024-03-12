@@ -32,7 +32,7 @@ struct FMeshMergeMappings
 {
 	GENERATED_BODY()
 	FMeshMergeMappings() : DataAsset(nullptr), SkeletalMesh(nullptr) {};
-	FMeshMergeMappings(const UEquipmentItemData* NewAsset, bool isFeminine) : DataAsset(NewAsset)
+	FMeshMergeMappings(const UEquipmentDataAsset* NewAsset, bool isFeminine) : DataAsset(NewAsset)
 	{
 		if (IsValid(NewAsset))
 		{
@@ -58,7 +58,7 @@ struct FMeshMergeMappings
 
 	// Is this used? Obsolete?
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	const UEquipmentItemData*	DataAsset;
+	const UEquipmentDataAsset*	DataAsset;
 	
 	// The mesh to be used by this option
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -131,7 +131,7 @@ public:
 	int FindIndexOfMeshByTag(const FGameplayTag& SearchTag);
 	
 	UFUNCTION(BlueprintCallable)
-	FMeshMergeMappings CreateMeshMapping(const UEquipmentItemData* NewAsset,
+	FMeshMergeMappings CreateMeshMapping(const UEquipmentDataAsset* NewAsset,
 		const FGameplayTag& EquipmentTag, const bool useFeminineMesh = false);
 	
 	UFUNCTION(BlueprintCallable)
@@ -142,7 +142,7 @@ public:
 	void AddMeshToMerge(const FMeshMergeMappings& NewMapping);
 
 	UFUNCTION(BlueprintCallable)
-	void RemoveMeshFromMerge(const UEquipmentItemData* NewAsset,
+	void RemoveMeshFromMerge(const UEquipmentDataAsset* NewAsset,
 							 const FGameplayTag& EquipmentTag);
 
 	int FindMeshMappingByTag(const FGameplayTag& searchTag);

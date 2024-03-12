@@ -40,7 +40,7 @@ void UEquipmentComponent::InitEquipmentItem(int SlotNumber)
 
 	// Get the item that is currently in the equipment slot
 	const FStItemData itemInSlot = InventoryReference->GetItemInSlot(SlotNumber);
-	const UEquipmentItemData* EquipmentItem = Cast<UEquipmentItemData>(itemInSlot.Data);
+	const UEquipmentDataAsset* EquipmentItem = Cast<UEquipmentDataAsset>(itemInSlot.Data);
 	if (IsValid(EquipmentItem))
 	{
 		if (EquipmentItem->bStartEquipped)
@@ -78,7 +78,7 @@ void UEquipmentComponent::SetEquipmentEnabled(int SlotNumber)
 	{
 		// Get the item that is currently in the equipment slot
 		const FStItemData itemInSlot = InventoryReference->GetItemInSlot(SlotNumber);
-		const UEquipmentItemData* equipmentItemData = Cast<UEquipmentItemData>(itemInSlot.Data);
+		const UEquipmentDataAsset* equipmentItemData = Cast<UEquipmentDataAsset>(itemInSlot.Data);
 		if (IsValid(equipmentItemData))
 		{
 			const FGameplayTag slotTag = InventoryReference->GetSlotEquipmentTag(SlotNumber);
@@ -97,7 +97,6 @@ void UEquipmentComponent::SetEquipmentEnabled(int SlotNumber)
 			MeshMergeReference->PerformMeshMerge();
 			NotifySlotToggled(SlotNumber);
 		}
-		
 	}
 }
 
@@ -144,7 +143,7 @@ void UEquipmentComponent::AdjustAttachment(int SlotNumber,
 		if (slotReference.GetIsEquipmentSlot())
 		{
 			const FStItemData ItemData = InventoryReference->GetItemInSlot(SlotNumber);
-			const UEquipmentItemData* equipmentData = Cast<UEquipmentItemData>(ItemData.Data);
+			const UEquipmentDataAsset* equipmentData = Cast<UEquipmentDataAsset>(ItemData.Data);
 			if (IsValid(equipmentData))
 			{
 				for (auto& MeshMergeMap : MeshMergeReference->GetAllMeshMergeMappings())
@@ -168,6 +167,11 @@ void UEquipmentComponent::AdjustAttachment(int SlotNumber,
 bool UEquipmentComponent::PerformAttack(int SlotNumber)
 {
 	return false;
+}
+
+TMap<int, bool> UEquipmentComponent::GetAllEquipment() const
+{
+	return EquipmentSlots;
 }
 
 bool UEquipmentComponent::GetIsReady(int SlotNumber) const

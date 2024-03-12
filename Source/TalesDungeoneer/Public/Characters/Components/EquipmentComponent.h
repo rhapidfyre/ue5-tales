@@ -58,6 +58,8 @@ public: //public events
 	UFUNCTION(Server, Reliable)
 	void Server_PerformAttack(int SlotNumber);
 
+	UFUNCTION(BlueprintPure)		TMap<int, bool> GetAllEquipment() const;
+
 	UFUNCTION(BlueprintPure)		bool GetIsReady(int SlotNumber) const;
 	UFUNCTION(BlueprintPure)		bool GetIsArmed() const { return bBlocking; }
 	UFUNCTION(BlueprintPure)		bool GetIsBlocking() const { return bBlocking; }

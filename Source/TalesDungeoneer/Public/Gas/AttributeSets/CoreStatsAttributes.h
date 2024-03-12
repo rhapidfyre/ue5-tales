@@ -10,6 +10,11 @@
 
 #include "CoreStatsAttributes.generated.h"
 
+#define STAT_DEFAULT	100.f
+#define STAT_MAX		1000.f
+#define STAT_MIN		-1000.f
+
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Stats)
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Stats_Strength)
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Stats_Dexterity)
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Stats_Fortitude)
@@ -32,6 +37,7 @@ public:
 	UCoreStatsAttributes();
 
 	TMulticastDelegate<void(const FOnAttributeChangeData& Attribute)> OnAttributeUpdated;
+	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "Core Stat Attributes",
 		ReplicatedUsing=OnRep_Strength, Meta = (AllowPrivateAccess = true))

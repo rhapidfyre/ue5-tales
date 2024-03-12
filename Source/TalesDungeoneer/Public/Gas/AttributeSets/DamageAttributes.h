@@ -10,30 +10,6 @@
 
 #include "DamageAttributes.generated.h"
 
-
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Damage_SetByCaller)
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Damage_World)
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Damage_Physical_Generic)
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Damage_Physical_Blunt)
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Damage_Physical_Slash)
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Damage_Physical_Pierce)
-
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Damage_Physical_Bite)
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Damage_Physical_Kick)
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Damage_Physical_Claw)
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Damage_Physical_Sting)
-
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Damage_Elemental_Generic)
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Damage_Elemental_Fire)
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Damage_Elemental_Frost)
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Damage_Elemental_Acid)
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Damage_Elemental_Shock)
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Damage_Elemental_Radioactive)
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Damage_Elemental_Sonic)
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Damage_Magic_Generic)
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Damage_Magic_Holy)
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Damage_Magic_DarkMagic)
-
 /**
  *
  */
@@ -79,7 +55,12 @@ public:
 	
 	/**
 	 * Damage Resistances
-	 */
+	*/
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Resistance Attributes",
+		ReplicatedUsing=OnRep_NaturalResistance, Meta = (AllowPrivateAccess = true))
+	FGameplayAttributeData NaturalResistance;
+	ATTRIBUTE_ACCESSORS(UDamageAttributes, NaturalResistance);
 	
 	UPROPERTY(BlueprintReadOnly, Category = "Resistance Attributes",
 		ReplicatedUsing=OnRep_BluntResistance, Meta = (AllowPrivateAccess = true))
@@ -158,7 +139,12 @@ public:
 	
 	/**
 	 * Damage Bonuses
-	 */
+	*/
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Bonus Attributes",
+		ReplicatedUsing=OnRep_NaturalBonus, Meta = (AllowPrivateAccess = true))
+	FGameplayAttributeData NaturalBonus;
+	ATTRIBUTE_ACCESSORS(UDamageAttributes, NaturalBonus);
 	
 	UPROPERTY(BlueprintReadOnly, Category = "Bonus Attributes",
 		ReplicatedUsing=OnRep_BluntBonus, Meta = (AllowPrivateAccess = true))
@@ -256,6 +242,7 @@ protected:
 	UFUNCTION() virtual void OnRep_DamageModifier(const FGameplayAttributeData& OldData);
 	UFUNCTION() virtual void OnRep_DamageMultiplier(const FGameplayAttributeData& OldData);
 	
+	UFUNCTION() virtual void OnRep_NaturalResistance(const FGameplayAttributeData& OldData);
 	UFUNCTION() virtual void OnRep_BluntResistance(const FGameplayAttributeData& OldData);
 	UFUNCTION() virtual void OnRep_SlashResistance(const FGameplayAttributeData& OldData);
 	UFUNCTION() virtual void OnRep_PierceResistance(const FGameplayAttributeData& OldData);
@@ -268,6 +255,7 @@ protected:
 	UFUNCTION() virtual void OnRep_HolyResistance(const FGameplayAttributeData& OldData);
 	UFUNCTION() virtual void OnRep_DarkResistance(const FGameplayAttributeData& OldData);
 	
+	UFUNCTION() virtual void OnRep_NaturalBonus(const FGameplayAttributeData& OldData);
 	UFUNCTION() virtual void OnRep_BluntBonus(const FGameplayAttributeData& OldData);
 	UFUNCTION() virtual void OnRep_SlashBonus(const FGameplayAttributeData& OldData);
 	UFUNCTION() virtual void OnRep_PierceBonus(const FGameplayAttributeData& OldData);

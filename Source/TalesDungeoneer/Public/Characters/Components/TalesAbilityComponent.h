@@ -18,9 +18,16 @@ public:
 	// Sets default values for this component's properties
 	UTalesAbilityComponent();
 
+	UFUNCTION(BlueprintCallable) void EnableStatCalculation(bool bCalculateNow = true);
+	UFUNCTION(BlueprintCallable) void DisableStatCalculation();
+
 	UFUNCTION(BlueprintPure) FGameplayTag GetCharacterRace() const;
 	UFUNCTION(BlueprintPure) FGameplayTag GetCharacterClass() const;
 
+	UFUNCTION(BlueprintPure) float GetCoreStatByTag(const FGameplayTag& StatTag) const;
+	UFUNCTION(BlueprintPure) float GetDamageResistanceByTag(const FGameplayTag& DamageTag) const;
+	UFUNCTION(BlueprintPure) float GetDamageBonusByTag(const FGameplayTag& DamageTag) const;
+	
 	UFUNCTION(BlueprintCallable) void PerformTotalRecalculation();
 	UFUNCTION(BlueprintCallable) void RecalculateCoreStats();
 	UFUNCTION(BlueprintCallable) void RecalculateDamageResists();
@@ -31,4 +38,7 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float BonusModifier = 5.f; // +This is added/removed for every +/- BonusMultiple
+
+private:
+	bool bAllowCalculation = false;
 };

@@ -8,11 +8,27 @@
 #include "Gamemode/AdventureMode/TalesPlayerStateBase.h"
 #include "Gas/AttributeSets/CoreStatsAttributes.h"
 #include "Gas/AttributeSets/DamageAttributes.h"
-#include "Gas/AttributeSets/EffectAttributes.h"
+#include "lib/Damage/TalesDamageTypes.h"
+
 
 UTalesAbilityComponent::UTalesAbilityComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
+}
+
+/**
+ * Re-enables the ability system to perform calculations.
+ */
+void UTalesAbilityComponent::EnableStatCalculation(bool bCalculateNow)
+{
+	bAllowCalculation = true;
+	if (bCalculateNow)
+		{ PerformTotalRecalculation(); }
+}
+
+void UTalesAbilityComponent::DisableStatCalculation()
+{
+	bAllowCalculation = false;
 }
 
 FGameplayTag UTalesAbilityComponent::GetCharacterRace() const
@@ -28,6 +44,100 @@ FGameplayTag UTalesAbilityComponent::GetCharacterClass() const
 	if (IsValid(CharacterBase))	{ return CharacterBase->GetCharacterClass(); }
 	return TAG_Character_Class_Warrior.GetTag();
 }
+
+float UTalesAbilityComponent::GetCoreStatByTag(const FGameplayTag& StatTag) const
+{
+	const ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
+	if (IsValid(CharacterBase)) { return 0.f; }
+	
+	const UCoreStatsAttributes* CoreStats = CharacterBase->AttributeCoreStatsSet;
+
+	// Get the initial value of the Core Stat
+	float statValue = 0.f;
+	if (StatTag == TAG_Stats_Strength)        { statValue = CoreStats->GetStrength();   }
+	else if (StatTag == TAG_Stats_Dexterity)  { statValue = CoreStats->GetDexterity();  }
+	else if (StatTag == TAG_Stats_Fortitude)  { statValue = CoreStats->GetFortitude();  }
+	else if (StatTag == TAG_Stats_Astuteness) { statValue = CoreStats->GetAstuteness(); }
+	else if (StatTag == TAG_Stats_Intellect)  { statValue = CoreStats->GetIntellect();  }
+	else if (StatTag == TAG_Stats_Charisma)   { statValue = CoreStats->GetCharisma();   }
+
+	// Return the total value of the stat
+	return statValue;
+}
+
+
+/**
+ * Gets the character's total damage resistance from all factors,
+ * in real time, as it is when the method is called.
+ * @param DamageTag The TAG_Damage to look for
+ * @return The total value of the base damage, effects damage, and equipment damage value
+ */
+float UTalesAbilityComponent::GetDamageResistanceByTag(const FGameplayTag& DamageTag) const
+{
+	const ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
+	if (IsValid(CharacterBase)) { return 0.f; }
+	
+	const UDamageAttributes* DamageSet = CharacterBase->AttributeDamageSet;
+	float damageResistance = 0.f;
+
+	     if (DamageTag == TAG_Damage_Physical_Generic)		{ damageResistance = DamageSet->GetNaturalResistance();}
+	else if (DamageTag == TAG_Damage_Physical_Blunt) 		{ damageResistance = DamageSet->GetBluntResistance();}
+	else if (DamageTag == TAG_Damage_Physical_Slash) 		{ damageResistance = DamageSet->GetSlashResistance();}
+	else if (DamageTag == TAG_Damage_Physical_Pierce)		{ damageResistance = DamageSet->GetPierceResistance();}
+	else if (DamageTag == TAG_Damage_Physical_Bite) 		{ damageResistance = DamageSet->GetBiteResistance();}
+	else if (DamageTag == TAG_Damage_Physical_Kick) 		{ damageResistance = DamageSet->GetKickResistance();}
+	else if (DamageTag == TAG_Damage_Physical_Claw) 		{ damageResistance = DamageSet->GetClawResistance();}
+	else if (DamageTag == TAG_Damage_Physical_Sting)		{ damageResistance = DamageSet->GetStingResistance();}
+	else if (DamageTag == TAG_Damage_Elemental_Generic) 	{ damageResistance = DamageSet->GetNaturalResistance();}
+	else if (DamageTag == TAG_Damage_Elemental_Fire)		{ damageResistance = DamageSet->GetFireResistance();}
+	else if (DamageTag == TAG_Damage_Elemental_Frost)		{ damageResistance = DamageSet->GetFrostResistance();}
+	else if (DamageTag == TAG_Damage_Elemental_Acid)		{ damageResistance = DamageSet->GetAcidResistance();}
+	else if (DamageTag == TAG_Damage_Elemental_Shock)		{ damageResistance = DamageSet->GetShockResistance();}
+	else if (DamageTag == TAG_Damage_Elemental_Radioactive) { damageResistance = DamageSet->GetRadioResistance();}
+	else if (DamageTag == TAG_Damage_Elemental_Sonic)		{ damageResistance = DamageSet->GetSonicResistance();}
+	else if (DamageTag == TAG_Damage_Magic_Generic)			{ damageResistance = DamageSet->GetNaturalResistance();}
+	else if (DamageTag == TAG_Damage_Magic_Holy) 			{ damageResistance = DamageSet->GetHolyResistance();}
+	else if (DamageTag == TAG_Damage_Magic_DarkMagic) 		{ damageResistance = DamageSet->GetDarkResistance();}
+
+	return damageResistance;
+}
+
+/**
+ * Gets the character's total damage bonus from all factors,
+ * in real time, as it is when the method is called.
+ * @param DamageTag The TAG_Damage to look for
+ * @return The total value of the base damage, effects damage, and equipment damage value
+ */
+float UTalesAbilityComponent::GetDamageBonusByTag(const FGameplayTag& DamageTag) const
+{
+	const ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
+	if (IsValid(CharacterBase)) { return 0.f; }
+	
+	const UDamageAttributes* DamageSet = CharacterBase->AttributeDamageSet;
+	float damageBonus = 0.f;
+
+	     if (DamageTag == TAG_Damage_Physical_Generic)		{ damageBonus = DamageSet->GetNaturalBonus();}
+	else if (DamageTag == TAG_Damage_Physical_Blunt) 		{ damageBonus = DamageSet->GetBluntBonus();}
+	else if (DamageTag == TAG_Damage_Physical_Slash) 		{ damageBonus = DamageSet->GetSlashBonus();}
+	else if (DamageTag == TAG_Damage_Physical_Pierce)		{ damageBonus = DamageSet->GetPierceBonus();}
+	else if (DamageTag == TAG_Damage_Physical_Bite) 		{ damageBonus = DamageSet->GetBiteBonus();}
+	else if (DamageTag == TAG_Damage_Physical_Kick) 		{ damageBonus = DamageSet->GetKickBonus();}
+	else if (DamageTag == TAG_Damage_Physical_Claw) 		{ damageBonus = DamageSet->GetClawBonus();}
+	else if (DamageTag == TAG_Damage_Physical_Sting)		{ damageBonus = DamageSet->GetStingBonus();}
+	else if (DamageTag == TAG_Damage_Elemental_Generic) 	{ damageBonus = DamageSet->GetNaturalBonus();}
+	else if (DamageTag == TAG_Damage_Elemental_Fire)		{ damageBonus = DamageSet->GetFireBonus();}
+	else if (DamageTag == TAG_Damage_Elemental_Frost)		{ damageBonus = DamageSet->GetFrostBonus();}
+	else if (DamageTag == TAG_Damage_Elemental_Acid)		{ damageBonus = DamageSet->GetAcidBonus();}
+	else if (DamageTag == TAG_Damage_Elemental_Shock)		{ damageBonus = DamageSet->GetShockBonus();}
+	else if (DamageTag == TAG_Damage_Elemental_Radioactive) { damageBonus = DamageSet->GetRadioBonus();}
+	else if (DamageTag == TAG_Damage_Elemental_Sonic)		{ damageBonus = DamageSet->GetSonicBonus();}
+	else if (DamageTag == TAG_Damage_Magic_Generic)			{ damageBonus = DamageSet->GetNaturalBonus();}
+	else if (DamageTag == TAG_Damage_Magic_Holy) 			{ damageBonus = DamageSet->GetHolyBonus();}
+	else if (DamageTag == TAG_Damage_Magic_DarkMagic) 		{ damageBonus = DamageSet->GetDarkBonus();}
+
+	return damageBonus;
+}
+
 
 /**
  * Recalculates all of the core stats, damage resists, and damage bonuses
@@ -64,12 +174,10 @@ void UTalesAbilityComponent::RecalculateCoreStats()
 	if (!IsValid(RaceData)) { return; }
 
 	// Calculate as we go, so we only set it a single time and notify delegates once
-	float NewStrength   = 100.f, NewDexterity = 100.f, NewFortitude = 100.f;
-	float NewAstuteness = 100.f, NewIntellect = 100.f, NewCharisma  = 100.f;
+	float NewStrength   = STAT_DEFAULT, NewDexterity = STAT_DEFAULT, NewFortitude = STAT_DEFAULT;
+	float NewAstuteness = STAT_DEFAULT, NewIntellect = STAT_DEFAULT, NewCharisma  = STAT_DEFAULT;
 	
 	UCoreStatsAttributes* CoreStats		= CharacterBase->AttributeCoreStatsSet;
-	//UDamageAttributes* DamageStats		= CharacterBase->AttributeDamageSet;
-	//UVitalityAttributes* VitalityStats	= CharacterBase->AttributeVitalitySet;
 	
 	for (const TPair<FGameplayAttribute,int>& dataModifier : ClassData->CoreStatsModifiers)
 	{
