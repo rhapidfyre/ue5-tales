@@ -509,7 +509,7 @@ void ACharacterBase::InventoryUpdateDelegate(int SlotNumberUpdated)
 
 void ACharacterBase::EquipmentUpdateDelegate(int SlotNumberUpdated, bool bIsEnabled)
 {
-	const FStItemData itemData = InventoryComponent->GetItemInSlot(SlotNumberUpdated);
+	const FItemStatics& itemData = InventoryComponent->GetSlotNumberItem(SlotNumberUpdated);
 
 	if (bIsEnabled)
 	{

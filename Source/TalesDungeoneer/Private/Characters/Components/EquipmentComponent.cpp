@@ -39,7 +39,7 @@ void UEquipmentComponent::InitEquipmentItem(int SlotNumber)
 	SetEquipmentDisabled(SlotNumber);
 
 	// Get the item that is currently in the equipment slot
-	const FStItemData itemInSlot = InventoryReference->GetItemInSlot(SlotNumber);
+	const FStItemData itemInSlot = InventoryReference->GetSlotNumberItem(SlotNumber);
 	const UEquipmentDataAsset* EquipmentItem = Cast<UEquipmentDataAsset>(itemInSlot.Data);
 	if (IsValid(EquipmentItem))
 	{
@@ -77,7 +77,7 @@ void UEquipmentComponent::SetEquipmentEnabled(int SlotNumber)
 	if (EquipmentSlots.Contains(SlotNumber))
 	{
 		// Get the item that is currently in the equipment slot
-		const FStItemData itemInSlot = InventoryReference->GetItemInSlot(SlotNumber);
+		const FStItemData itemInSlot = InventoryReference->GetSlotNumberItem(SlotNumber);
 		const UEquipmentDataAsset* equipmentItemData = Cast<UEquipmentDataAsset>(itemInSlot.Data);
 		if (IsValid(equipmentItemData))
 		{
@@ -139,10 +139,10 @@ void UEquipmentComponent::AdjustAttachment(int SlotNumber,
 	
 	if (IsValid(MeshMergeReference) && IsValid(InventoryReference))
 	{
-		const FStInventorySlot slotReference = InventoryReference->GetCopyOfSlotNumber(SlotNumber);
+		const FStInventorySlot slotReference = InventoryReference->GetSafeReferenceToSlot(SlotNumber);
 		if (slotReference.GetIsEquipmentSlot())
 		{
-			const FStItemData ItemData = InventoryReference->GetItemInSlot(SlotNumber);
+			const FStItemData ItemData = InventoryReference->GetSlotNumberItem(SlotNumber);
 			const UEquipmentDataAsset* equipmentData = Cast<UEquipmentDataAsset>(ItemData.Data);
 			if (IsValid(equipmentData))
 			{

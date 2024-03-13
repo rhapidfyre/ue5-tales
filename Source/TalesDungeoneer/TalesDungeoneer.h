@@ -24,7 +24,7 @@ enum class EAbilityInputID : uint8
 	Cancel		UMETA(DisplayName = "Cancel Activation"),
 
 	// Begins the activation of certain abilities
-	Activate	UMETA(DisplayName = "Activate"),
+	Activate	UMETA(DisplayName = "ActivateSlot"),
 
 	// Not used; For iteration/tracking purposes
 	MAX			UMETA(Hidden)
