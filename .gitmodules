@@ -1,3 +1,6 @@
 [submodule "Plugins/T5GInventorySystem"]
 	path = Plugins/T5GInventorySystem
 	url = https://github.com/rhapidfyre/T5GInventorySystem.git
+[submodule "Plugins/RealmsForge"]
+	path = Plugins/RealmsForge
+	url = git@github.com:rhapidfyre/ue5-RealmsForge.git
