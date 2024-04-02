@@ -1,18 +1,16 @@
 ﻿// Copyright Take Five Games, LLC 2023 - All Rights Reserved
 
-
 #include "Characters/Components/MeshMergeComponent.h"
 
-#include "Engine/SkeletalMeshSocket.h"
-#include "Net/UnrealNetwork.h"
 #include "Characters/CharacterBase.h"
 #include "DataAssets/CharacterDefaults.h"
+#include "Engine/SkeletalMeshSocket.h"
 #include "Gamemode/BaseFiles/TalesGameStateBase.h"
 #include "Kismet/GameplayStatics.h"
+#include "lib/ItemData.h"
 #include "Logging/StructuredLog.h"						// for UE_LOGFMT
+#include "Net/UnrealNetwork.h"
 #include "Saves/MeshMergeSaveData.h"			// For loading/saving mesh merges
-
-#include "lib/InventorySlot.h"  //for TAG_Equipment references
 
 UE_DEFINE_GAMEPLAY_TAG(TAG_Equipment,					"Equipment");
 UE_DEFINE_GAMEPLAY_TAG(TAG_Equipment_Slot,				"Equipment.SlotType");
@@ -46,8 +44,24 @@ UMeshMergeComponent::UMeshMergeComponent()
 	SexSkeleton	 = static_cast<ECharacterSex>(FMath::RandRange(0,2) );
 }
 
+
+FMeshMergeMappings::FMeshMergeMappings(const UEquipmentDataAsset* NewAsset, bool isFeminine)
+	: DataAsset(NewAsset)
+{
+	if (IsValid(NewAsset))
+	{
+		USkeletalMesh* UsingMesh = NewAsset->MeshMasculine;
+		if (isFeminine && IsValid(NewAsset->MeshFeminine))
+		{
+			UsingMesh = NewAsset->MeshFeminine;
+		}
+		SkeletalMesh = UsingMesh;
+	}
+};
+
+
 FMeshBodyMappings::FMeshBodyMappings(USkeletalMesh* UsingMesh,
-	const FGameplayTag& BodyTag, const FGameplayTagContainer& NewOptions)
+									 const FGameplayTag& BodyTag, const FGameplayTagContainer& NewOptions)
 {
 	if (IsValid(UsingMesh))
 		{ SkeletalMesh = UsingMesh; }
@@ -204,7 +218,6 @@ bool UMeshMergeComponent::PerformMeshMerge(bool bMergeMeshesOnly)
 	{
 		USkeletalMeshComponent* CharacterMesh = CharacterBase->GetMesh();
 		CharacterMesh->SetSkeletalMesh(BaseMesh);
-		CharacterMesh = CharacterBase->GetMesh();
 		
 		UpdateMeshMaterials();
 		CharacterBase->GetMesh()->SetHiddenInGame(false);

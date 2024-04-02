@@ -13,6 +13,8 @@
 #include "MeshMergeComponent.generated.h"
 
 
+class UEquipmentDataAsset;
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnMeshMergeCompleted);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMeshMergeRestored, const bool, bSuccess);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMeshMergeSaved, const bool, bSuccess);
@@ -32,18 +34,7 @@ struct FMeshMergeMappings
 {
 	GENERATED_BODY()
 	FMeshMergeMappings() : DataAsset(nullptr), SkeletalMesh(nullptr) {};
-	FMeshMergeMappings(const UEquipmentDataAsset* NewAsset, bool isFeminine) : DataAsset(NewAsset)
-	{
-		if (IsValid(NewAsset))
-		{
-			USkeletalMesh* UsingMesh = NewAsset->MeshMasculine;
-			if (isFeminine && IsValid(NewAsset->MeshFeminine))
-			{
-				UsingMesh = NewAsset->MeshFeminine;
-			}
-			SkeletalMesh = UsingMesh;
-		}
-	};
+	FMeshMergeMappings(const UEquipmentDataAsset* NewAsset, bool isFeminine);
 
 	// The number of meshes holding this mesh as hidden
 	int numSuperiorMeshes = 0;

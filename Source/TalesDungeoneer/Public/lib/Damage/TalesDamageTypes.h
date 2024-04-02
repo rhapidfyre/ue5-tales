@@ -16,17 +16,20 @@ UCLASS(Blueprintable, BlueprintType)
 class TALESDUNGEONEER_API UTalesDamageBase : public UDamageType
 {
 	GENERATED_BODY()
-	UTalesDamageBase() {};
+	
+public:
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DamageValue = 1.f;
+	UTalesDamageBase();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DamageValue;
 
 	// Tick rate, representing hits-per-second... <= 0 means one-time-only.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DamageRate = 0.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float DamageRate;
 
 	// The most appropriate damage tag that describes this damage type at the deepest level
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FGameplayTag DamageTypeTag = TAG_Damage.GetTag();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FGameplayTag DamageTypeTag;
 
 	// Gameplay tags that describe this damage
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FGameplayTagContainer DamageTags = {};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FGameplayTagContainer DamageTags;
 	
 };

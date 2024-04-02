@@ -19,6 +19,10 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnGameSaved, bool, bSuccess);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCharacterSelected, int, SelectedIndex);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnCharacterDeleted, FString, SaveSlotName, int, DeletedIndex);
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnDataAssetLoaded
+	, const UDataAsset*, DataAsset
+	, bool			   , bWasSuccessful);
+
 
 /* The tales game state base holds all of the logic for operations that
  * are independent of what mode the player is playing (adventure, title screen, etc)
@@ -36,6 +40,18 @@ public: // methods
 	UPROPERTY(BlueprintAssignable)	FOnGameSaved			OnGameSaved;
 	UPROPERTY(BlueprintAssignable)	FOnCharacterSelected	OnCharacterSelected;
 	UPROPERTY(BlueprintAssignable)	FOnCharacterDeleted		OnCharacterDeleted;
+
+	
+	UPROPERTY(BlueprintAssignable)
+	FOnDataAssetLoaded OnDataAssetLoaded;
+
+	virtual bool LoadDataAsset(const FName& AssetName);
+	
+	virtual bool LoadDataAsset(const FPrimaryAssetId& AssetId);
+
+	UFUNCTION()
+	virtual void LoadDataAssetDelegate(const FPrimaryAssetId AssetId);
+	
 
 	UFUNCTION(BlueprintPure)
 	UTexture2D* GetEquipmentIcon(const FGameplayTag& EquipmentTag) const;

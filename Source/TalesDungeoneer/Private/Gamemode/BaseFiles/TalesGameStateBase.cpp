@@ -9,6 +9,8 @@
 #include "../TalesDungeoneer.h"
 #include "Characters/CharacterBase.h"
 #include "Characters/PlayerCharacterBase.h"
+#include "Engine/AssetManager.h"
+#include "Engine/StreamableManager.h"
 #include "Gamemode/AdventureMode/TalesHudBase.h"
 #include "lib/datastructures/GlobalData.h"
 
@@ -29,6 +31,48 @@ ACharacter* FindPlayerCharacter(const UWorld* WorldContext)
 	}
 
 	return nullptr;
+}
+
+
+bool ATalesGameStateBase::LoadDataAsset(const FName& AssetName)
+{
+	const FPrimaryAssetType AssetType = UDataAsset::StaticClass()->GetFName();
+	const auto				AssetId   = FPrimaryAssetId(AssetType, AssetName);
+	return LoadDataAsset(AssetId);
+}
+
+bool ATalesGameStateBase::LoadDataAsset(const FPrimaryAssetId& AssetId)
+{
+	if (!AssetId.IsValid()) { return false; }
+
+	auto& AssetManager = UAssetManager::Get();
+	const UDataAsset* DataAsset = Cast<UDataAsset>( AssetManager.GetPrimaryAssetObject(AssetId) );
+
+	// The asset is already loaded
+	if (IsValid(DataAsset))
+	{
+		LoadDataAssetDelegate(AssetId);
+		return true;
+	}
+
+	const TArray<FName>       AssetBundle    = {};
+	const FStreamableDelegate StreamDelegate = FStreamableDelegate::CreateUObject(
+		this, &ATalesGameStateBase::LoadDataAssetDelegate, AssetId);
+
+	AssetManager.LoadPrimaryAsset(AssetId, AssetBundle, StreamDelegate);
+	return true;
+}
+
+
+void ATalesGameStateBase::LoadDataAssetDelegate(const FPrimaryAssetId AssetId)
+{
+	const auto&			AssetManager	= UAssetManager::Get();
+	const UDataAsset*	DataAsset		= Cast<UDataAsset>( AssetManager.GetPrimaryAssetObject(AssetId) );
+	
+	if (IsValid(DataAsset) && OnDataAssetLoaded.IsBound())
+	{
+		OnDataAssetLoaded.Broadcast(DataAsset, true);
+	}
 }
 
 UTexture2D* ATalesGameStateBase::GetEquipmentIcon(const FGameplayTag& EquipmentTag) const
@@ -453,12 +497,16 @@ void ATalesGameStateBase::SaveGameMetaLoaded(
 	}
 
 	// If the save meta was loaded successfully, then we can restore the save state
-	if (IsValid(SaveMeta))
+	const bool bSaveValid = IsValid(SaveMeta);
+	if (bSaveValid)
 	{
 		Helper_LoadSavedValues(SaveMeta);
 	}// If it was not loaded, there is no save to restore
 	
 	bSaveMetaIsReady = true;
+	
+	if (OnGameSaved.IsBound())
+		{ OnGameSaved.Broadcast(bSaveValid); }
 }
 
 void ATalesGameStateBase::SetSelectedCharacter(int CharacterIndex)
@@ -479,14 +527,6 @@ void ATalesGameStateBase::SetSelectedCharacter(int CharacterIndex)
 	{
 		SelectedCharacter_ = -1;
 		ResetCharacter();
-	}
-	
-	ACharacterBase* CreatorCharacter = Cast<ACharacterBase>(
-		UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
-	
-	if (IsValid(CreatorCharacter))
-	{
-		//CreatorCharacter->MeshMergeComponent->SetMeshIsHidden(GetSelectedCharacter() < 0);
 	}
 
 	// Must save the metadata whenever the selection changes
@@ -566,7 +606,8 @@ void ATalesGameStateBase::SaveGameDelegate(
 {
 	UGlobalSaveData* SaveData = Cast<UGlobalSaveData>(
 			UGameplayStatics::LoadGameFromSlot(SlotName,UserIndex));
-	OnGameSaved.Broadcast(bSuccess);
+	if (OnGameSaved.IsBound())
+		{ OnGameSaved.Broadcast(bSuccess); }
 }
 
 void ATalesGameStateBase::OnRep_SaveMetaReady_Implementation()

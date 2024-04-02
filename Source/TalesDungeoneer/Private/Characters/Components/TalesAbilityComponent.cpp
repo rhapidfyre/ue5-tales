@@ -80,7 +80,7 @@ float UTalesAbilityComponent::GetDamageResistanceByTag(const FGameplayTag& Damag
 	const UDamageAttributes* DamageSet = CharacterBase->AttributeDamageSet;
 	float damageResistance = 0.f;
 
-	     if (DamageTag == TAG_Damage_Physical_Generic)		{ damageResistance = DamageSet->GetNaturalResistance();}
+	     if (DamageTag == TAG_Damage_Physical)				{ damageResistance = DamageSet->GetNaturalResistance();}
 	else if (DamageTag == TAG_Damage_Physical_Blunt) 		{ damageResistance = DamageSet->GetBluntResistance();}
 	else if (DamageTag == TAG_Damage_Physical_Slash) 		{ damageResistance = DamageSet->GetSlashResistance();}
 	else if (DamageTag == TAG_Damage_Physical_Pierce)		{ damageResistance = DamageSet->GetPierceResistance();}
@@ -88,14 +88,14 @@ float UTalesAbilityComponent::GetDamageResistanceByTag(const FGameplayTag& Damag
 	else if (DamageTag == TAG_Damage_Physical_Kick) 		{ damageResistance = DamageSet->GetKickResistance();}
 	else if (DamageTag == TAG_Damage_Physical_Claw) 		{ damageResistance = DamageSet->GetClawResistance();}
 	else if (DamageTag == TAG_Damage_Physical_Sting)		{ damageResistance = DamageSet->GetStingResistance();}
-	else if (DamageTag == TAG_Damage_Elemental_Generic) 	{ damageResistance = DamageSet->GetNaturalResistance();}
+	else if (DamageTag == TAG_Damage_Elemental) 			{ damageResistance = DamageSet->GetNaturalResistance();}
 	else if (DamageTag == TAG_Damage_Elemental_Fire)		{ damageResistance = DamageSet->GetFireResistance();}
 	else if (DamageTag == TAG_Damage_Elemental_Frost)		{ damageResistance = DamageSet->GetFrostResistance();}
 	else if (DamageTag == TAG_Damage_Elemental_Acid)		{ damageResistance = DamageSet->GetAcidResistance();}
 	else if (DamageTag == TAG_Damage_Elemental_Shock)		{ damageResistance = DamageSet->GetShockResistance();}
 	else if (DamageTag == TAG_Damage_Elemental_Radioactive) { damageResistance = DamageSet->GetRadioResistance();}
 	else if (DamageTag == TAG_Damage_Elemental_Sonic)		{ damageResistance = DamageSet->GetSonicResistance();}
-	else if (DamageTag == TAG_Damage_Magic_Generic)			{ damageResistance = DamageSet->GetNaturalResistance();}
+	else if (DamageTag == TAG_Damage_Magic)					{ damageResistance = DamageSet->GetNaturalResistance();}
 	else if (DamageTag == TAG_Damage_Magic_Holy) 			{ damageResistance = DamageSet->GetHolyResistance();}
 	else if (DamageTag == TAG_Damage_Magic_DarkMagic) 		{ damageResistance = DamageSet->GetDarkResistance();}
 
@@ -116,7 +116,7 @@ float UTalesAbilityComponent::GetDamageBonusByTag(const FGameplayTag& DamageTag)
 	const UDamageAttributes* DamageSet = CharacterBase->AttributeDamageSet;
 	float damageBonus = 0.f;
 
-	     if (DamageTag == TAG_Damage_Physical_Generic)		{ damageBonus = DamageSet->GetNaturalBonus();}
+	     if (DamageTag == TAG_Damage_Physical)				{ damageBonus = DamageSet->GetNaturalBonus();}
 	else if (DamageTag == TAG_Damage_Physical_Blunt) 		{ damageBonus = DamageSet->GetBluntBonus();}
 	else if (DamageTag == TAG_Damage_Physical_Slash) 		{ damageBonus = DamageSet->GetSlashBonus();}
 	else if (DamageTag == TAG_Damage_Physical_Pierce)		{ damageBonus = DamageSet->GetPierceBonus();}
@@ -124,14 +124,14 @@ float UTalesAbilityComponent::GetDamageBonusByTag(const FGameplayTag& DamageTag)
 	else if (DamageTag == TAG_Damage_Physical_Kick) 		{ damageBonus = DamageSet->GetKickBonus();}
 	else if (DamageTag == TAG_Damage_Physical_Claw) 		{ damageBonus = DamageSet->GetClawBonus();}
 	else if (DamageTag == TAG_Damage_Physical_Sting)		{ damageBonus = DamageSet->GetStingBonus();}
-	else if (DamageTag == TAG_Damage_Elemental_Generic) 	{ damageBonus = DamageSet->GetNaturalBonus();}
+	else if (DamageTag == TAG_Damage_Elemental) 			{ damageBonus = DamageSet->GetNaturalBonus();}
 	else if (DamageTag == TAG_Damage_Elemental_Fire)		{ damageBonus = DamageSet->GetFireBonus();}
 	else if (DamageTag == TAG_Damage_Elemental_Frost)		{ damageBonus = DamageSet->GetFrostBonus();}
 	else if (DamageTag == TAG_Damage_Elemental_Acid)		{ damageBonus = DamageSet->GetAcidBonus();}
 	else if (DamageTag == TAG_Damage_Elemental_Shock)		{ damageBonus = DamageSet->GetShockBonus();}
 	else if (DamageTag == TAG_Damage_Elemental_Radioactive) { damageBonus = DamageSet->GetRadioBonus();}
 	else if (DamageTag == TAG_Damage_Elemental_Sonic)		{ damageBonus = DamageSet->GetSonicBonus();}
-	else if (DamageTag == TAG_Damage_Magic_Generic)			{ damageBonus = DamageSet->GetNaturalBonus();}
+	else if (DamageTag == TAG_Damage_Magic)					{ damageBonus = DamageSet->GetNaturalBonus();}
 	else if (DamageTag == TAG_Damage_Magic_Holy) 			{ damageBonus = DamageSet->GetHolyBonus();}
 	else if (DamageTag == TAG_Damage_Magic_DarkMagic) 		{ damageBonus = DamageSet->GetDarkBonus();}
 
