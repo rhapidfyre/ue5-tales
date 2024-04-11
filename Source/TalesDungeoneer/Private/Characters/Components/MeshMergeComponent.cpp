@@ -165,8 +165,6 @@ bool UMeshMergeComponent::PerformMeshMerge(bool bMergeMeshesOnly)
 		}
 	}
 
-	// For
-	
 	FSkeletalMeshMerge MeshMerger(BaseMesh, FinalMeshList, SectionMappingsCopy,
 			StripTopLODS, BufferAccess, UvTransformsCopy.GetData());
 	
@@ -259,7 +257,7 @@ FMeshMergeMappings UMeshMergeComponent::CreateMeshMapping(
 	NewMapping.EquipSlotTag = EquipmentTag;
 	NewMapping.DataAsset	= NewAsset;
 	NewMapping.SkeletalMesh = useFeminineMesh ? NewAsset->MeshFeminine : NewAsset->MeshMasculine;
-	NewMapping.AccompaniedMeshes;
+	//NewMapping.AccompaniedMeshes;
 	return NewMapping;
 }
 

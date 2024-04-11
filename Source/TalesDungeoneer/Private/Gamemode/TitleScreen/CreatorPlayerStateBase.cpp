@@ -3,8 +3,6 @@
 #include "Gamemode/TitleScreen/CreatorPlayerStateBase.h"
 
 
-//Class Methods
-
 ACreatorPlayerStateBase::ACreatorPlayerStateBase()
 {
 	

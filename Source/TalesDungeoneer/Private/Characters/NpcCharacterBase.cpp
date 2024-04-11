@@ -3,12 +3,8 @@
 
 #include "Characters/NpcCharacterBase.h"
 
-#include "lib/datastructures/LootData.h"
-#include "PickupActorBase.h"
 #include "Characters/Controllers/CombatAiControllerBase.h"
 #include "Perception/AISense_Sight.h"
-#include "Gamemode/BaseFiles/TalesGameStateBase.h"
-#include "Components/CapsuleComponent.h"
 #include "Logging/StructuredLog.h"
 
 

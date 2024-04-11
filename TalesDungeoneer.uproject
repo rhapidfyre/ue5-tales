@@ -15,23 +15,27 @@
 	],
 	"Plugins": [
 		{
+			"Name": "GameplayAbilities",
+			"Enabled": true
+		},
+		{
 			"Name": "ModelingToolsEditorMode",
-			"Enabled": true,
-			"TargetAllowList": [
-				"Editor"
-			]
+			"Enabled": true
+		},
+		{
+			"Name": "StaticMeshEditorModeling",
+			"Enabled": true
+		},
+		{
+			"Name": "TargetingSystem",
+			"Enabled": true
 		},
 		{
 			"Name": "CascadeToNiagaraConverter",
 			"Enabled": true
 		},
 		{
-			"Name": "MixamoAnimationRetargeting",
-			"Enabled": true,
-			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/c684998124da4e2583b314dc95403a80"
-		},
-		{
-			"Name": "GameplayAbilities",
+			"Name": "Water",
 			"Enabled": true
 		}
 	]

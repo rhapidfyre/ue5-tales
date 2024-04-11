@@ -74,18 +74,18 @@ public: // functions
 	
 	ACharacterBase();
 	
-	UPROPERTY(BlueprintAssignable) FOnCharacterSaved OnCharacterSaved;
-	UPROPERTY(BlueprintAssignable) FOnCharacterRestored OnCharacterRestored;
-	UPROPERTY(BlueprintAssignable) FOnCharacterNameChanged OnCharacterNameChanged;
-	UPROPERTY(BlueprintAssignable) FOnAttributeUpdated OnAttributeUpdated;
-	UPROPERTY(BlueprintAssignable) FOnAttributeHealthUpdated OnAttributeHealthUpdated;
-	UPROPERTY(BlueprintAssignable) FOnAttributeStaminaUpdated OnAttributeStaminaUpdated;
-	UPROPERTY(BlueprintAssignable) FOnAttributeMagicUpdated OnAttributeMagicUpdated;
-	UPROPERTY(BlueprintAssignable) FOnAttributeArmorUpdated OnAttributeArmorUpdated;
-	UPROPERTY(BlueprintAssignable) FOnAttributeHungerUpdated OnAttributeHungerUpdated;
+	UPROPERTY(BlueprintAssignable) FOnCharacterSaved		  	OnCharacterSaved;
+	UPROPERTY(BlueprintAssignable) FOnCharacterRestored		  	OnCharacterRestored;
+	UPROPERTY(BlueprintAssignable) FOnCharacterNameChanged	  	OnCharacterNameChanged;
+	UPROPERTY(BlueprintAssignable) FOnAttributeUpdated		  	OnAttributeUpdated;
+	UPROPERTY(BlueprintAssignable) FOnAttributeHealthUpdated  	OnAttributeHealthUpdated;
+	UPROPERTY(BlueprintAssignable) FOnAttributeStaminaUpdated 	OnAttributeStaminaUpdated;
+	UPROPERTY(BlueprintAssignable) FOnAttributeMagicUpdated		OnAttributeMagicUpdated;
+	UPROPERTY(BlueprintAssignable) FOnAttributeArmorUpdated		OnAttributeArmorUpdated;
+	UPROPERTY(BlueprintAssignable) FOnAttributeHungerUpdated	OnAttributeHungerUpdated;
 	UPROPERTY(BlueprintAssignable) FOnAttributeHydrationUpdated OnAttributeHydrationUpdated;
-	UPROPERTY(BlueprintAssignable) FOnCharacterRaceChanged OnCharacterRaceChanged;
-	UPROPERTY(BlueprintAssignable) FOnCharacterClassChanged OnCharacterClassChanged;
+	UPROPERTY(BlueprintAssignable) FOnCharacterRaceChanged		OnCharacterRaceChanged;
+	UPROPERTY(BlueprintAssignable) FOnCharacterClassChanged		OnCharacterClassChanged;
 	
 	// Returns CameraBoom sub object
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }

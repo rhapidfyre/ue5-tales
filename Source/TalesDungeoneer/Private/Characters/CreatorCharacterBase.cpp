@@ -3,7 +3,6 @@
 #include "Characters/CreatorCharacterBase.h"
 
 #include "DataAssets/CharacterDefaults.h"
-#include "Gamemode/BaseFiles/TalesGameStateBase.h"
 #include "Gamemode/TitleScreen/CreatorGameStateBase.h"
 #include "Kismet/GameplayStatics.h"
 #include "Logging/StructuredLog.h"

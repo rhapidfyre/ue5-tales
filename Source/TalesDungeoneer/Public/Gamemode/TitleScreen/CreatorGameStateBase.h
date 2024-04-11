@@ -3,10 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Gamemode/BaseFiles/TalesGameStateBase.h"
+
 #include "Delegates/Delegate.h"
+#include "Gamemode/BaseFiles/TalesGameStateBase.h"
 
 #include "CreatorGameStateBase.generated.h"
+
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCharacterCreated, FName, SaveSlotName);
 
