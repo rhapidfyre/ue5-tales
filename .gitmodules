@@ -4,3 +4,9 @@
 [submodule "Plugins/RealmsForge"]
 	path = Plugins/RealmsForge
 	url = git@github.com:rhapidfyre/ue5-RealmsForge.git
+[submodule "Plugins/StarcacheLibs"]
+	path = Plugins/StarcacheLibs
+	url = git@github.com:rhapidfyre/ue5-starcache-libs.git
+[submodule "Plugins/RoleStats"]
+	path = Plugins/RoleStats
+	url = git@github.com:rhapidfyre/ue5-rolestats.git
