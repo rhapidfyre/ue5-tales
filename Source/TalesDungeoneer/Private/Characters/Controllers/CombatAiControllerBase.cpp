@@ -103,9 +103,9 @@ void ACombatAiControllerBase::RememberDamage(AActor* DamagingActor, float Damage
 }
 
 /**
- * @brief Checks if the supplied target is on this actors hate list
- * @param TargetActor The actor being tested
- * @return True if the target is on the hate list (has aggro)
+ * \brief Checks if the supplied target is on this actors hate list
+ * \param TargetActor The actor being tested
+ * \return True if the target is on the hate list (has aggro)
  */
 bool ACombatAiControllerBase::IsTargetOnHateList(AActor* TargetActor)
 {
@@ -116,9 +116,9 @@ bool ACombatAiControllerBase::IsTargetOnHateList(AActor* TargetActor)
 }
 
 /**
- * @brief Checks if the supplied target is being perceived by this ai
- * @param TargetActor The actor being tested
- * @return True if the target is currently being detected by this ai
+ * \brief Checks if the supplied target is being perceived by this ai
+ * \param TargetActor The actor being tested
+ * \return True if the target is currently being detected by this ai
  */
 bool ACombatAiControllerBase::IsTargetValid(AActor* TargetActor)
 {

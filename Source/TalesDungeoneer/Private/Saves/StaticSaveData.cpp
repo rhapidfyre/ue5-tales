@@ -13,8 +13,8 @@ UGlobalSaveData::UGlobalSaveData()
 }
 
 /**
- * @brief Sets the character names of the save game object.
- * @param RestoredCharacters The list of character names saved
+ * \brief Sets the character names of the save game object.
+ * \param RestoredCharacters The list of character names saved
  */
 void UGlobalSaveData::SetSavedCharacterNameList(const TArray<FSaveMeta>& RestoredCharacters)
 {

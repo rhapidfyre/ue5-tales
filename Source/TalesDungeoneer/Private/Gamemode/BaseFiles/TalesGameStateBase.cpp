@@ -457,9 +457,9 @@ bool ATalesGameStateBase::SaveCurrentCharacter(FString& SaveResponse, bool RunAs
 }
 
 /**
- * @brief Loads the save game meta file into memory
- * @param LoadAsync True if loading can be run asynchronously
- * @return Returns true if ran async or file was loaded successfully.
+ * \brief Loads the save game meta file into memory
+ * \param LoadAsync True if loading can be run asynchronously
+ * \return Returns true if ran async or file was loaded successfully.
  */
 bool ATalesGameStateBase::LoadSaveGameMeta(bool LoadAsync)
 {

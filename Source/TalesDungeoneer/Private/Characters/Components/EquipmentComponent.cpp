@@ -16,7 +16,7 @@ UEquipmentComponent::UEquipmentComponent()
 /**
  * Enables and disables the equipment functionality and visuals for
  * the specified equipment slot in the InventoryComponent.
- * @param SlotNumber The InventoryComponent equipment slot
+ * \param SlotNumber The InventoryComponent equipment slot
  */
 void UEquipmentComponent::InitEquipmentItem(int SlotNumber)
 {
@@ -53,8 +53,8 @@ void UEquipmentComponent::InitEquipmentItem(int SlotNumber)
 
 /**
  * Toggles the equipment slot state, or forces the equipment to be enabled.
- * @param SlotNumber The InventoryComponent equipment slot
- * @param bMakeReady True forces equipment to enable. False alternates current state.
+ * \param SlotNumber The InventoryComponent equipment slot
+ * \param bMakeReady True forces equipment to enable. False alternates current state.
  */
 void UEquipmentComponent::ToggleEquipment(int SlotNumber, bool bMakeReady)
 {
@@ -72,7 +72,7 @@ void UEquipmentComponent::ToggleEquipment(int SlotNumber, bool bMakeReady)
 
 /**
  * Sets the equivalent equipment slot to be enabled/in-use/armed
- * @param SlotNumber The InventoryComponent equipment slot
+ * \param SlotNumber The InventoryComponent equipment slot
  */
 void UEquipmentComponent::SetEquipmentEnabled(int SlotNumber)
 {
@@ -105,7 +105,7 @@ void UEquipmentComponent::SetEquipmentEnabled(int SlotNumber)
 
 /**
  * Sets the equivalent equipment slot to be disabled/unused/unarmed
- * @param SlotNumber The InventoryComponent equipment slot
+ * \param SlotNumber The InventoryComponent equipment slot
  */
 void UEquipmentComponent::SetEquipmentDisabled(int SlotNumber)
 {
@@ -122,10 +122,10 @@ void UEquipmentComponent::SetEquipmentDisabled(int SlotNumber)
 
 /**
  * Adjusts the mesh of the equipment in relation to the character mesh
- * @param SlotNumber The InventoryComponent equipment slot
- * @param AttachParent The parent to attach to (opt)
- * @param AttachmentBone The name of the bone to attach to (opt)
- * @param AdjustmentTransform The transform adjustment to the equipment mesh (opt)
+ * \param SlotNumber The InventoryComponent equipment slot
+ * \param AttachParent The parent to attach to (opt)
+ * \param AttachmentBone The name of the bone to attach to (opt)
+ * \param AdjustmentTransform The transform adjustment to the equipment mesh (opt)
  */
 void UEquipmentComponent::AdjustAttachment(int SlotNumber,
 	AActor* AttachParent, FName AttachmentBone, FTransform AdjustmentTransform)
@@ -163,8 +163,8 @@ void UEquipmentComponent::AdjustAttachment(int SlotNumber,
 
 /**
  * Attempts to perform an attack with the specified slot number.
- * @param SlotNumber The InventoryComponent equipment slot. -1 attacks with all weapons.
- * @return True if the attack was successful, false otherwise.
+ * \param SlotNumber The InventoryComponent equipment slot. -1 attacks with all weapons.
+ * \return True if the attack was successful, false otherwise.
  */
 bool UEquipmentComponent::PerformAttack(int SlotNumber)
 {
@@ -185,7 +185,7 @@ bool UEquipmentComponent::GetIsReady(int SlotNumber) const
 
 /**
  * Disables blocking if blocking, enables if not blocking.
- * @return True if blocking is enabled, false otherwise.
+ * \return True if blocking is enabled, false otherwise.
  */
 bool UEquipmentComponent::ToggleBlocking()
 {
@@ -194,7 +194,7 @@ bool UEquipmentComponent::ToggleBlocking()
 
 /**
  * Sets blocking to active, if possible.
- * @return True if blocking is active
+ * \return True if blocking is active
  */
 bool UEquipmentComponent::StartBlocking()
 {
@@ -203,7 +203,7 @@ bool UEquipmentComponent::StartBlocking()
 
 /**
  * Sets blocking to inactive, if possible.
- * @return True if not blocking
+ * \return True if not blocking
  */
 bool UEquipmentComponent::StopBlocking()
 {
@@ -232,9 +232,9 @@ void UEquipmentComponent::Server_StopBlocking_Implementation()
 
 /**
  * Checks if the weapon in the specified slot is ready for an attack action
- * @param SlotNumber The InventoryComponent equipment slot
+ * \param SlotNumber The InventoryComponent equipment slot
  *					 If -1 (default), returns TRUE if any weapon is ready
- * @return True if weapon is armed/ready/in-use
+ * \return True if weapon is armed/ready/in-use
  */
 bool UEquipmentComponent::GetIsWeaponReady(int SlotNumber) const
 {

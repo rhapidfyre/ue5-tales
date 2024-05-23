@@ -61,8 +61,8 @@ void ANpcCharacterBase::OnConstruction(const FTransform& Transform)
 }
 
 /**
- * @brief Called when the NPC dies, spawning the loot table on the ground
- * @param MyKiller Unused in this call
+ * \brief Called when the NPC dies, spawning the loot table on the ground
+ * \param MyKiller Unused in this call
  */
  void ANpcCharacterBase::DropLootTable(AActor* MyKiller)
 {	

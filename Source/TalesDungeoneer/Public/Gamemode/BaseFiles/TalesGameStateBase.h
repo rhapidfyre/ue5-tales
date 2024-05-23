@@ -19,7 +19,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnGameSaved, bool, bSuccess);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCharacterSelected, int, SelectedIndex);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnCharacterDeleted, FString, SaveSlotName, int, DeletedIndex);
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnDataAssetLoaded
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnDataAssetReady
 	, const UDataAsset*, DataAsset
 	, bool			   , bWasSuccessful);
 
@@ -43,7 +43,7 @@ public: // methods
 
 	
 	UPROPERTY(BlueprintAssignable)
-	FOnDataAssetLoaded OnDataAssetLoaded;
+	FOnDataAssetReady OnDataAssetLoaded;
 
 	virtual bool LoadDataAsset(const FName& AssetName);
 	
@@ -106,10 +106,10 @@ public: // methods
 	void RemoveSelectedCharacter();
 
 	/**
-	 * @brief Saves the character
-	 * @param SaveResponse Response from the save attempt, whether successful or failure
-	 * @param RunAsync If true, runs the save async and ignores the response
-	 * @return True if ran async, or sync-save is successful. False otherwise.
+	 * \brief Saves the character
+	 * \param SaveResponse Response from the save attempt, whether successful or failure
+	 * \param RunAsync If true, runs the save async and ignores the response
+	 * \return True if ran async, or sync-save is successful. False otherwise.
 	 */
 	UFUNCTION(BlueprintCallable)
 	bool SaveCurrentCharacter(FString& SaveResponse, bool RunAsync = true);
@@ -141,9 +141,9 @@ public: // methods
 	int GetIndexOfSavedCharacter(const FString& SlotName, const int32& UserIndex) const;
 
 	/**
-	 * @brief Returns the save data for the requested character slot. Return requires validation.
-	 * @param SaveSlotName Optional. If empty string, will get the currently selected character.
-	 * @return Saved data on success. Nullptr on failure.
+	 * \brief Returns the save data for the requested character slot. Return requires validation.
+	 * \param SaveSlotName Optional. If empty string, will get the currently selected character.
+	 * \return Saved data on success. Nullptr on failure.
 	 */
 	UFUNCTION(BlueprintCallable)
 	USavedCharacter* GetSavedCharacterData(FString SaveSlotName = "");

@@ -95,7 +95,7 @@ ACharacterBase::ACharacterBase()
 /**
  *  Calculates difficulty of this character if fought by the player characters.
  *  Takes into account other characters part of this characters group.
- * @return A percentage - The likelihood of success for this encounter
+ * \return A percentage - The likelihood of success for this encounter
  */
 float ACharacterBase::GetRiskLevel() const
 {
@@ -153,9 +153,9 @@ FString ACharacterBase::GetCharacterSafeName() const
  * Saves the character to file. If being saved asynchronously, the returned
  * save object will be the updated object as it is right before the save writes to file.
  * Triggers 'OnCharacterSaved' upon completion (async or not).
- * @param SaveObject The save data being carried between child/parent
- * @param bRunAsync True if the save should run asynchronously
- * @return The USavedCharacter SaveGame object for this character.
+ * \param SaveObject The save data being carried between child/parent
+ * \param bRunAsync True if the save should run asynchronously
+ * \return The USavedCharacter SaveGame object for this character.
  */
 USaveGame* ACharacterBase::SaveCharacter(USaveGame* SaveObject, bool bRunAsync)
 {
@@ -250,9 +250,9 @@ USaveGame* ACharacterBase::SaveCharacter(USaveGame* SaveObject, bool bRunAsync)
  * calls 'OnCharacterRestored' after load data has been processed. The SlotName and UserIndex
  * is only used by the async delegate. If LoadCharacter is called manually, these values will not be
  * * used and are obtained from the ATalesGameState.
- * @param SlotName The save name to be restored. Only set in async call. Ignored if called manually.
- * @param UserIndex The user index for the character. Only set in async call. Ignored if called manually.
- * @param SaveGame When used as an async load delegate, this is the save object loaded.
+ * \param SlotName The save name to be restored. Only set in async call. Ignored if called manually.
+ * \param UserIndex The user index for the character. Only set in async call. Ignored if called manually.
+ * \param SaveGame When used as an async load delegate, this is the save object loaded.
  */
 bool ACharacterBase::LoadCharacter(const FString& SlotName, const int32 UserIndex, USaveGame* SaveGame)
 {
@@ -643,8 +643,8 @@ void ACharacterBase::BindListeners()
 };
 
 /**
- * @brief Sets the new name for this character. Typically used during creation/loading.
- * @param ProposedName The new name string to use for this character
+ * \brief Sets the new name for this character. Typically used during creation/loading.
+ * \param ProposedName The new name string to use for this character
  */
 void ACharacterBase::SetCharacterName(FString ProposedName)
 {

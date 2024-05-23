@@ -104,7 +104,7 @@ void ACreatorCharacterBase::ResetMeshSelections()
 
 /**
  * Destroys all of the child components of the given mesh part
- * @param ReferenceMesh The mesh part to reference
+ * \param ReferenceMesh The mesh part to reference
  */
 void ACreatorCharacterBase::ClearChildrenOfMesh(USkeletalMeshComponent* ReferenceMesh)
 {

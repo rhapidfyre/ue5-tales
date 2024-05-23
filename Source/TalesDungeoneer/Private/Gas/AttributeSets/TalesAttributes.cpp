@@ -24,7 +24,7 @@ UTalesAttributes::UTalesAttributes()
 /**
  *  Called just before a GameplayEffect is executed to modify the base value
  *  of an attribute. No more changes can be made.
- * @param Data Contains the data from the effect post execution
+ * \param Data Contains the data from the effect post execution
  */
 void UTalesAttributes::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
 {

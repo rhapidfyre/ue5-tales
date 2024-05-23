@@ -9,7 +9,7 @@
 
 /** Override of parent method (AWeaponBase)
  * If the parent succeeds, sets up for a melee attack with timers.
- * @return True if the attack preparations were successful. False otherwise.
+ * \return True if the attack preparations were successful. False otherwise.
  */
 bool AWeaponMeleeBase::doAttack()
 {

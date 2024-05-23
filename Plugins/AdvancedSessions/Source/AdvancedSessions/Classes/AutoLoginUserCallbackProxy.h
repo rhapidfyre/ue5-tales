@@ -26,7 +26,7 @@ class UAutoLoginUserCallbackProxy : public UOnlineBlueprintCallProxyBase
 	 * are missing, the function returns false and doesn't start the login
 	 * process
 	 *
-	 * @param LocalUserNum the controller number of the associated user
+	 * \param LocalUserNum the controller number of the associated user
 	 *
 	 */
 	UFUNCTION(BlueprintCallable, meta=(BlueprintInternalUseOnly = "true", WorldContext="WorldContextObject"), Category = "Online|AdvancedIdentity")

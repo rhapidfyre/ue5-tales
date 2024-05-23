@@ -71,7 +71,7 @@ PACKAGE_SCOPE:
 	/**
 	* Copy Constructor
 	*
-	* @param Src the id to copy
+	* \param Src the id to copy
 	*/
 	explicit FUniqueNetIdSteam2(const FUniqueNetIdSteam2& Src) :
 		UniqueNetId(Src.UniqueNetId)
@@ -82,7 +82,7 @@ public:
 	/**
 	* Constructs this object with the specified net id
 	*
-	* @param InUniqueNetId the id to set ours to
+	* \param InUniqueNetId the id to set ours to
 	*/
 	explicit FUniqueNetIdSteam2(uint64 InUniqueNetId) :
 		UniqueNetId(InUniqueNetId)
@@ -92,7 +92,7 @@ public:
 	/**
 	* Constructs this object with the steam id
 	*
-	* @param InUniqueNetId the id to set ours to
+	* \param InUniqueNetId the id to set ours to
 	*/
 	explicit FUniqueNetIdSteam2(CSteamID InSteamId) :
 		UniqueNetId(InSteamId.ConvertToUint64())
@@ -102,7 +102,7 @@ public:
 	/**
 	* Constructs this object with the specified net id
 	*
-	* @param String textual representation of an id
+	* \param String textual representation of an id
 	*/
 	explicit FUniqueNetIdSteam2(const FString& Str) :
 		UniqueNetId(FCString::Atoi64(*Str))
@@ -113,7 +113,7 @@ public:
 	/**
 	* Constructs this object with the specified net id
 	*
-	* @param InUniqueNetId the id to set ours to (assumed to be FUniqueNetIdSteam in fact)
+	* \param InUniqueNetId the id to set ours to (assumed to be FUniqueNetIdSteam in fact)
 	*/
 	explicit FUniqueNetIdSteam2(const FUniqueNetId& InUniqueNetId) :
 		UniqueNetId(*(uint64*)InUniqueNetId.GetBytes())
@@ -129,7 +129,7 @@ public:
 	* Get the raw byte representation of this net id
 	* This data is platform dependent and shouldn't be manipulated directly
 	*
-	* @return byte array of size GetSize()
+	* \return byte array of size GetSize()
 	*/
 	virtual const uint8* GetBytes() const override
 	{
@@ -139,7 +139,7 @@ public:
 	/**
 	* Get the size of the id
 	*
-	* @return size in bytes of the id representation
+	* \return size in bytes of the id representation
 	*/
 	virtual int32 GetSize() const override
 	{
@@ -149,7 +149,7 @@ public:
 	/**
 	* Check the validity of the id
 	*
-	* @return true if this is a well formed ID, false otherwise
+	* \return true if this is a well formed ID, false otherwise
 	*/
 	virtual bool IsValid() const override
 	{
@@ -159,7 +159,7 @@ public:
 	/**
 	* Platform specific conversion to string representation of data
 	*
-	* @return data in string form
+	* \return data in string form
 	*/
 	virtual FString ToString() const override
 	{
@@ -170,7 +170,7 @@ public:
 	* Get a human readable representation of the net id
 	* Shouldn't be used for anything other than logging/debugging
 	*
-	* @return id in string form
+	* \return id in string form
 	*/
 	virtual FString ToDebugString() const override
 	{

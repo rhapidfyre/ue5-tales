@@ -72,8 +72,8 @@ void AWeaponBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
 
 /**
  * Set to true when the weapon should be drawn. False to stow.
- * @param setArmed True for draw, false for stow.
- * @return Whether the weapon is now armed (true) or unarmed (false)
+ * \param setArmed True for draw, false for stow.
+ * \return Whether the weapon is now armed (true) or unarmed (false)
  */
 bool AWeaponBase::setWeaponIsArmed(bool setArmed)
 {
@@ -130,8 +130,8 @@ void AWeaponBase::UpdateWeapon()
 /** Allows child classes to deny or allow the attack.
  * ex: Melee weapon checks distance - Invalid distance is found, then
  * the attack check could return false and indicate failure.
- * @param HitActor The actor to run the validation against (hit target)
- * @return True by default. Children should set true or false accordingly.
+ * \param HitActor The actor to run the validation against (hit target)
+ * \return True by default. Children should set true or false accordingly.
  */
 bool AWeaponBase::GetIsAttackValid(AActor* HitActor)
 {
@@ -141,8 +141,8 @@ bool AWeaponBase::GetIsAttackValid(AActor* HitActor)
 /** Allows BLUEPRINT child classes to deny or allow the attack.
  * ex: Melee weapon checks distance - Invalid distance is found, then
  * the attack check could return false and indicate failure.
- * @param HitActor The actor to run the validation against (hit target)
- * @return True by default. Children should set true or false accordingly.
+ * \param HitActor The actor to run the validation against (hit target)
+ * \return True by default. Children should set true or false accordingly.
  */
 bool AWeaponBase::IsAttackValid_Implementation(AActor* HitActor)
 {

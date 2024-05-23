@@ -73,8 +73,8 @@ FMeshBodyMappings::FMeshBodyMappings(USkeletalMesh* UsingMesh,
  * Performs a merge of all supplied meshes and transforms, combining them into
  * one single skeletal mesh on the owning actor. Also updates the skin color
  * and animation instance internally on success.
- * @param bMergeMeshesOnly If true, no material or animation updates will occur.
- * @return True on success
+ * \param bMergeMeshesOnly If true, no material or animation updates will occur.
+ * \return True on success
  */
 bool UMeshMergeComponent::PerformMeshMerge(bool bMergeMeshesOnly)
 {
@@ -271,7 +271,7 @@ FMeshBodyMappings UMeshMergeComponent::CreateBodyMapping(USkeletalMesh* UsingMes
 /**
  * Adds the given mesh with the specified mappings.
  * Internally removes the old mesh mapping before adding the new one.
- * @param NewMapping The new mesh merge mapping to be added
+ * \param NewMapping The new mesh merge mapping to be added
  */
 void UMeshMergeComponent::AddMeshToMerge(const FMeshMergeMappings& NewMapping)
 {
@@ -289,8 +289,8 @@ void UMeshMergeComponent::AddMeshToMerge(const FMeshMergeMappings& NewMapping)
 /**
  * Removes the given mesh by tag (priority) or data asset.
  * This function needs to be executed on the server.
- * @param NewAsset Pulls the meshes specified in this asset. Optional.
- * @param EquipmentTag Required. The equipment or body slot tag to use.
+ * \param NewAsset Pulls the meshes specified in this asset. Optional.
+ * \param EquipmentTag Required. The equipment or body slot tag to use.
  */
 void UMeshMergeComponent::RemoveMeshFromMerge(
 	const UEquipmentDataAsset* NewAsset, const FGameplayTag& EquipmentTag)
@@ -332,8 +332,8 @@ void UMeshMergeComponent::RemoveMeshFromMerge(
 }
 
 /**
- * @param searchTag The equipment slot tag to search for
- * @return The index of MeshMergeData where the mesh tag was found. -1 on failure.
+ * \param searchTag The equipment slot tag to search for
+ * \return The index of MeshMergeData where the mesh tag was found. -1 on failure.
  */
 int UMeshMergeComponent::FindMeshMappingByTag(const FGameplayTag& searchTag)
 {
@@ -633,8 +633,8 @@ void UMeshMergeComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& 
 
 /**
  * Goes through the meshes, hiding meshes and showing meshes as appropriate.
- * @param MapReference The mesh mapping data
- * @param bWasRemoved True flips the hide/show mutators
+ * \param MapReference The mesh mapping data
+ * \param bWasRemoved True flips the hide/show mutators
  */
 void UMeshMergeComponent::ValidateMeshMergeMappings(
 		const FMeshMergeMappings& MapReference, bool bWasRemoved)

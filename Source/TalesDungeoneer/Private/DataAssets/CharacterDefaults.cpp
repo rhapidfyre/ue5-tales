@@ -14,8 +14,8 @@ UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Sex_Nonbinary, "Character.Sex.Nonbinary");
 
 /**
  * Gets a random eye color if argument is < 0
- * @param EyeColorIndex Optional index of the requested eye color
- * @return The FLinearColor for the eye material
+ * \param EyeColorIndex Optional index of the requested eye color
+ * \return The FLinearColor for the eye material
  */
 FLinearColor UCharacterRaceData::GetEyeColor(int EyeColorIndex) const
 {
@@ -27,8 +27,8 @@ FLinearColor UCharacterRaceData::GetEyeColor(int EyeColorIndex) const
 }
 /**
  * Gets a random skin color if argument is < 0
- * @param SkinColorIndex Optional index of the requested skin color
- * @return The FLinearColor for the skin material
+ * \param SkinColorIndex Optional index of the requested skin color
+ * \return The FLinearColor for the skin material
  */
 FLinearColor UCharacterRaceData::GetSkinColor(int SkinColorIndex) const
 {
@@ -40,8 +40,8 @@ FLinearColor UCharacterRaceData::GetSkinColor(int SkinColorIndex) const
 }
 /**
  * Gets a random hair color if argument is < 0
- * @param HairColorIndex Optional index of the requested hair color
- * @return The FLinearColor for the hair material
+ * \param HairColorIndex Optional index of the requested hair color
+ * \return The FLinearColor for the hair material
  */
 FLinearColor UCharacterRaceData::GetHairColor(int HairColorIndex) const
 {
@@ -53,8 +53,8 @@ FLinearColor UCharacterRaceData::GetHairColor(int HairColorIndex) const
 }
 /**
  * Gets a random beard color if argument is < 0
- * @param BeardColorIndex Optional index of the requested beard color
- * @return The FLinearColor for the beard material
+ * \param BeardColorIndex Optional index of the requested beard color
+ * \return The FLinearColor for the beard material
  */
 FLinearColor UCharacterRaceData::GetBeardColor(int BeardColorIndex) const
 {
@@ -73,7 +73,7 @@ UPrimaryCharacterData::UPrimaryCharacterData()
 
 /**
  * Returns a random skin color from the racial skin color options
- * @return The chosen skin color
+ * \return The chosen skin color
  */
 FLinearColor UPrimaryCharacterData::GetCharacterSkinColor() const
 {
@@ -104,9 +104,9 @@ FLinearColor UPrimaryCharacterData::GetCharacterSkinColor() const
  * Returns a random skeleton & animation instance from the skeleton options.
  * Will return a feminine or masculine skeleton if one boolean is true.
  * Will disregard sex is both booleans are true or both false.
- * @param bForceMasculine If TRUE, only masculine options will be considered
- * @param bForceFeminine If TRUE, only feminine options will be considered
- * @return The mesh and anim instance being used by this character
+ * \param bForceMasculine If TRUE, only masculine options will be considered
+ * \param bForceFeminine If TRUE, only feminine options will be considered
+ * \return The mesh and anim instance being used by this character
  */
 FSkeletonOptionsData UPrimaryCharacterData::GetCharacterSkeleton(
 		const bool bForceMasculine, const bool bForceFeminine) const
@@ -154,7 +154,7 @@ FSkeletonOptionsData UPrimaryCharacterData::GetCharacterSkeleton(
 /**
  * Returns one of the EligibleClass tags in CharacterClassData
  * If the array is empty, it will return Warrior as the default.
- * @return One of the eligible class tags, or Character.Class.Warrior
+ * \return One of the eligible class tags, or Character.Class.Warrior
  */
 FGameplayTag UPrimaryCharacterData::GetCharacterClass() const
 {
@@ -183,7 +183,7 @@ FGameplayTag UPrimaryCharacterData::GetCharacterClass() const
 /**
  * Returns one of the EligibleRace tags in CharacterRaceData
  * If the array is empty, it will return Warrior as the default.
- * @return One of the eligible race tags, or Character.Race.Human
+ * \return One of the eligible race tags, or Character.Race.Human
  */
 FGameplayTag UPrimaryCharacterData::GetCharacterRace() const
 {
@@ -209,7 +209,7 @@ FGameplayTag UPrimaryCharacterData::GetCharacterRace() const
 
 /**
  * Returns a TMap of all core stats and their values.
- * @return The TMap, either empty or populated with valid core stats.
+ * \return The TMap, either empty or populated with valid core stats.
  */
 TMap<FGameplayAttribute, float> UPrimaryCharacterData::GetDefaultCoreStats() const
 {
@@ -238,7 +238,7 @@ TMap<FGameplayAttribute, float> UPrimaryCharacterData::GetDefaultCoreStats() con
 
 /**
  * Returns a TMap of all damage bonuses across class, race and common data.
- * @return The TMap, either empty or populated with valid damage bonuses.
+ * \return The TMap, either empty or populated with valid damage bonuses.
  */
 TMap<FGameplayAttribute, float> UPrimaryCharacterData::GetDefaultDamageBonus() const
 {
@@ -267,7 +267,7 @@ TMap<FGameplayAttribute, float> UPrimaryCharacterData::GetDefaultDamageBonus() c
 
 /**
  * Returns a TMap of all damage resistances across class, race and common data.
- * @return The TMap, either empty or populated with valid damage resistances.
+ * \return The TMap, either empty or populated with valid damage resistances.
  */
 TMap<FGameplayAttribute, float> UPrimaryCharacterData::GetDefaultDamageResist() const
 {
@@ -300,7 +300,7 @@ TMap<FGameplayAttribute, float> UPrimaryCharacterData::GetDefaultDamageResist() 
 
 /**
  * Returns an array of all the ability classes that this character should start with.
- * @return The array of abilities
+ * \return The array of abilities
  */
 TArray<TSubclassOf<UTalesGameplayAbility>> UPrimaryCharacterData::GetDefaultAbilities() const
 {
@@ -330,7 +330,7 @@ TArray<TSubclassOf<UTalesGameplayAbility>> UPrimaryCharacterData::GetDefaultAbil
 
 /**
  * Returns an array of all the effect classes that this character should start with.
- * @return The array of effects
+ * \return The array of effects
  */
 TArray<TSubclassOf<UGameplayEffect>> UPrimaryCharacterData::GetDefaultEffects() const
 {

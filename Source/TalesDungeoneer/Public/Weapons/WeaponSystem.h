@@ -35,8 +35,8 @@ public:
 
 	/**
 	 * Checks if the given FName is a valid weapon name.
-	 * @param weaponName The FName for the weapon to challenge
-	 * @param performLookup If true, will check validity in the weapon data table
+	 * \param weaponName The FName for the weapon to challenge
+	 * \param performLookup If true, will check validity in the weapon data table
 	 */
 	UFUNCTION(BlueprintPure, Category = "Weapon System Globals")
 	static bool GetWeaponNameIsValid(FName WeaponName);

@@ -69,8 +69,8 @@ float UTalesAbilityComponent::GetCoreStatByTag(const FGameplayTag& StatTag) cons
 /**
  * Gets the character's total damage resistance from all factors,
  * in real time, as it is when the method is called.
- * @param DamageTag The TAG_Damage to look for
- * @return The total value of the base damage, effects damage, and equipment damage value
+ * \param DamageTag The TAG_Damage to look for
+ * \return The total value of the base damage, effects damage, and equipment damage value
  */
 float UTalesAbilityComponent::GetDamageResistanceByTag(const FGameplayTag& DamageTag) const
 {
@@ -105,8 +105,8 @@ float UTalesAbilityComponent::GetDamageResistanceByTag(const FGameplayTag& Damag
 /**
  * Gets the character's total damage bonus from all factors,
  * in real time, as it is when the method is called.
- * @param DamageTag The TAG_Damage to look for
- * @return The total value of the base damage, effects damage, and equipment damage value
+ * \param DamageTag The TAG_Damage to look for
+ * \return The total value of the base damage, effects damage, and equipment damage value
  */
 float UTalesAbilityComponent::GetDamageBonusByTag(const FGameplayTag& DamageTag) const
 {
