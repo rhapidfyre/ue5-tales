@@ -37,6 +37,10 @@
 		{
 			"Name": "Water",
 			"Enabled": true
+		},
+		{
+			"Name": "NpcsAtYourService",
+			"Enabled": true
 		}
 	]
 }

@@ -10,3 +10,6 @@
 [submodule "Plugins/RoleStats"]
 	path = Plugins/RoleStats
 	url = git@github.com:rhapidfyre/ue5-rolestats.git
+[submodule "Plugins/NpcsAtYourService"]
+	path = Plugins/NpcsAtYourService
+	url = https://github.com/rhapidfyre/ue5-npc-services
