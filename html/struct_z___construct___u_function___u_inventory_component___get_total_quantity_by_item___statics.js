@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_inventory_component___get_total_quantity_by_item___statics =
-[
-    [ "InventoryComponent_eventGetTotalQuantityByItem_Parms", "struct_z___construct___u_function___u_inventory_component___get_total_quantity_by_item___statics68c6819ee8daae8ea9e7e9a2c71d66f0.html", null ]
-];

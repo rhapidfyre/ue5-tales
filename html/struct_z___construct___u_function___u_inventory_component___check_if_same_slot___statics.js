@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_inventory_component___check_if_same_slot___statics =
-[
-    [ "InventoryComponent_eventCheckIfSameSlot_Parms", "struct_z___construct___u_function___u_inventory_component___check_if_same_slot___statics_1_1_invff92d6d9af7385876d2e11a034ecb82a.html", null ]
-];

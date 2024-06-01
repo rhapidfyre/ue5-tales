@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_primary_item_data_asset___get_item_static_mesh___statics =
-[
-    [ "PrimaryItemDataAsset_eventGetItemStaticMesh_Parms", "struct_z___construct___u_function___u_primary_item_data_asset___get_item_static_mesh___statics_1740c0d2c3544e4edc36b4d934fd0de96.html", null ]
-];

@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_inventory_slot___contains_item___statics =
-[
-    [ "InventorySlot_eventContainsItem_Parms", "struct_z___construct___u_function___u_inventory_slot___contains_item___statics_1_1_inventory_slot__event_contains_item___parms.html", null ]
-];

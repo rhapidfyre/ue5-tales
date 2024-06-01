@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_advanced_friends_library___is_a_friend___statics =
-[
-    [ "AdvancedFriendsLibrary_eventIsAFriend_Parms", "struct_z___construct___u_function___u_advanced_friends_library___is_a_friend___statics_1_1_advane590f33eea52d1e24eff4dc71391faba.html", null ]
-];

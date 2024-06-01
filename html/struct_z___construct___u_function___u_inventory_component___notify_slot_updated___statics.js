@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_inventory_component___notify_slot_updated___statics =
-[
-    [ "InventoryComponent_eventNotifySlotUpdated_Parms", "struct_z___construct___u_function___u_inventory_component___notify_slot_updated___statics_1_1_inae62793676d1cf22375de045b7cba65b.html", null ]
-];

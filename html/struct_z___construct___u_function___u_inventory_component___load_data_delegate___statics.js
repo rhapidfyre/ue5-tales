@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_inventory_component___load_data_delegate___statics =
-[
-    [ "InventoryComponent_eventLoadDataDelegate_Parms", "struct_z___construct___u_function___u_inventory_component___load_data_delegate___statics_1_1_inv3a95714717606e93d7a4731565e3908f.html", null ]
-];

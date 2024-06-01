@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_inventory_component___get_inventory_save_name___statics =
-[
-    [ "InventoryComponent_eventGetInventorySaveName_Parms", "struct_z___construct___u_function___u_inventory_component___get_inventory_save_name___statics_1_16152294c2a5958e3dbd3ffbb28845e4.html", null ]
-];

@@ -25,38 +25,32 @@
 var NAVTREE =
 [
   [ "TalesDungeoneer", "index.html", [
-    [ "README", "md__plugins_2_role_stats_2_r_e_a_d_m_e.html", null ],
-    [ "ue5-starcache-libs", "md__plugins_2_starcache_libs_2_r_e_a_d_m_e.html", null ],
-    [ "ue5-inv-system", "md__plugins_2_t5_g_inventory_system_2_r_e_a_d_m_e.html", null ],
-    [ "Tales of the Dungeoneer", "md__r_e_a_d_m_e.html", [
-      [ "Description", "md__r_e_a_d_m_e.html#autotoc_md3", null ],
-      [ "Licensing", "md__r_e_a_d_m_e.html#autotoc_md4", null ]
-    ] ],
+    [ "README", "a03247.html", null ],
+    [ "ue5-starcache-libs", "a03248.html", null ],
+    [ "ue5-inv-system", "a03249.html", null ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Functions", "functions_func.html", null ],
-        [ "Variables", "functions_vars.html", null ]
+        [ "All", "functions.html", "functions_dup" ],
+        [ "Functions", "functions_func.html", "functions_func" ],
+        [ "Variables", "functions_vars.html", "functions_vars" ],
+        [ "Enumerator", "functions_eval.html", null ],
+        [ "Related Symbols", "functions_rela.html", null ]
       ] ]
-    ] ],
-    [ "Files", "files.html", [
-      [ "File List", "files.html", "files_dup" ]
     ] ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"_actor_realms_forge_base_8cpp_source.html",
-"_placement_system_8gen_8cpp_source.html",
-"class_u_saved_character.html",
-"struct_t_is_u_enum_class_3_01_e_b_p_user_privileges_01_4.html",
-"struct_z___construct___u_function___u_advanced_external_u_i_library___show_web_u_r_l_u_i___statid5267c762a88a359fdafae8fdd2ffc10.html",
-"struct_z___construct___u_function___u_fuel_component__get_output_inventory___statics_1_1_fuel_cod624850393960be47c793421c847e6ce.html",
-"struct_z___construct___u_script_struct___f_b_p_steam_workshop_item_details___statics.html"
+"a00862.html",
+"a02794.html#a63769d1d7fa15cbe9813c750b8e116fa",
+"a02866.html#a887c148e9fb4f57356b9b0a5bbfa1379",
+"a02934.html#a3931803992201829d958803ac20f9efb",
+"a03002.html#a59320c7e0765ea64d2b57cbfb255037c",
+"a03062.html#af4c618f61c74994a4820c83d4c551d34"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_advanced_identity_library___get_player_nickname___statics =
-[
-    [ "AdvancedIdentityLibrary_eventGetPlayerNickname_Parms", "struct_z___construct___u_function___u_advanced_identity_library___get_player_nickname___statics_5ecb335f386607e3253dc47ed62bef69.html", null ]
-];

@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_advanced_identity_library___get_user_account_real_name___statics =
-[
-    [ "AdvancedIdentityLibrary_eventGetUserAccountRealName_Parms", "struct_z___construct___u_function___u_advanced_identity_library___get_user_account_real_name___s77e5de6cbc3154cdc8ac77887d980050.html", null ]
-];

@@ -1,4 +1,0 @@
-var struct_z___construct___u_delegate_function___starcache_libs___on_data_asset_loaded_____delegate_signature___statics =
-[
-    [ "_Script_StarcacheLibs_eventOnDataAssetLoaded_Parms", "struct_z___construct___u_delegate_function___starcache_libs___on_data_asset_loaded_____delegate_68cdf5a9087467bcc8151fea1489b102.html", null ]
-];

@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_advanced_friends_library___send_session_invite_to_friends___statics =
-[
-    [ "AdvancedFriendsLibrary_eventSendSessionInviteToFriends_Parms", "struct_z___construct___u_function___u_advanced_friends_library___send_session_invite_to_friends_a7315b519c4718d7459054ac8f8c5ce2.html", null ]
-];

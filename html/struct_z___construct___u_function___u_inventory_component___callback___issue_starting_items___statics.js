@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_inventory_component___callback___issue_starting_items___statics =
-[
-    [ "InventoryComponent_eventCallback_IssueStartingItems_Parms", "struct_z___construct___u_function___u_inventory_component___callback___issue_starting_items___st3cb9e2d25f5631a0c25314c06dc00343.html", null ]
-];

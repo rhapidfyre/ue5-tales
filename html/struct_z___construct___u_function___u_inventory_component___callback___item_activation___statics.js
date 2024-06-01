@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_inventory_component___callback___item_activation___statics =
-[
-    [ "InventoryComponent_eventCallback_ItemActivation_Parms", "struct_z___construct___u_function___u_inventory_component___callback___item_activation___staticsdfbbbfca0e71f3a3a78446cca15814d5.html", null ]
-];

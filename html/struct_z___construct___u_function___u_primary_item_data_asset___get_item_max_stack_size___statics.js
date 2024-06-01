@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_primary_item_data_asset___get_item_max_stack_size___statics =
-[
-    [ "PrimaryItemDataAsset_eventGetItemMaxStackSize_Parms", "struct_z___construct___u_function___u_primary_item_data_asset___get_item_max_stack_size___static5c5e5d1a5620616d05e8e90fb4fcc977.html", null ]
-];

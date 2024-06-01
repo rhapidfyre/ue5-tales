@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_build_component___set_selected_buildable___statics =
-[
-    [ "BuildComponent_eventSetSelectedBuildable_Parms", "struct_z___construct___u_function___u_build_component___set_selected_buildable___statics_1_1_bui979145441df8f6ba199fd398f44df8ee.html", null ]
-];

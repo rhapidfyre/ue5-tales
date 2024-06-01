@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_advanced_friends_library___get_stored_recent_players_list___statics =
-[
-    [ "AdvancedFriendsLibrary_eventGetStoredRecentPlayersList_Parms", "struct_z___construct___u_function___u_advanced_friends_library___get_stored_recent_players_list_38b8b5820ed97282db5a727f7a056c70.html", null ]
-];

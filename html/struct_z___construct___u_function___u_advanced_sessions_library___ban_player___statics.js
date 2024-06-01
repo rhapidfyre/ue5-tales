@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_advanced_sessions_library___ban_player___statics =
-[
-    [ "AdvancedSessionsLibrary_eventBanPlayer_Parms", "struct_z___construct___u_function___u_advanced_sessions_library___ban_player___statics_1_1_advanf6d1203aa2270756154483cf19230d53.html", null ]
-];

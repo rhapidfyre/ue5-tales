@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_advanced_steam_friends_library___get_steam_groups___statics =
-[
-    [ "AdvancedSteamFriendsLibrary_eventGetSteamGroups_Parms", "struct_z___construct___u_function___u_advanced_steam_friends_library___get_steam_groups___static6d87eb8158b840b8487a92316a701b94.html", null ]
-];

@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_crafting_component___set_input_inventory___statics =
-[
-    [ "CraftingComponent_eventSetInputInventory_Parms", "struct_z___construct___u_function___u_crafting_component___set_input_inventory___statics_1_1_craf6a980cd9da91d06d852e91195261f75.html", null ]
-];

@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___a_game_state_realms_forge___get_buildable_data___statics =
-[
-    [ "GameStateRealmsForge_eventGetBuildableData_Parms", "struct_z___construct___u_function___a_game_state_realms_forge___get_buildable_data___statics_1_1f31b292bd68f5eceb217e908621b986b.html", null ]
-];

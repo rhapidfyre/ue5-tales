@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_fuel_component___get_current_fuel_item___statics =
-[
-    [ "FuelComponent_eventGetCurrentFuelItem_Parms", "struct_z___construct___u_function___u_fuel_component___get_current_fuel_item___statics_1_1_fuel_5439cf44eb4ed3a096b9e8a3929e78e5.html", null ]
-];

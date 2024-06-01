@@ -1,4 +1,0 @@
-var struct_z___construct___u_delegate_function___realms_forge___on_hud_message_displayed_____delegate_signature___statics =
-[
-    [ "_Script_RealmsForge_eventOnHudMessageDisplayed_Parms", "struct_z___construct___u_delegate_function___realms_forge___on_hud_message_displayed_____delegat73d5d68841e0a1d6919d17c8f2a088ff.html", null ]
-];

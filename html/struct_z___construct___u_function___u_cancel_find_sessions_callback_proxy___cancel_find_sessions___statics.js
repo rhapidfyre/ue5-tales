@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_cancel_find_sessions_callback_proxy___cancel_find_sessions___statics =
-[
-    [ "CancelFindSessionsCallbackProxy_eventCancelFindSessions_Parms", "struct_z___construct___u_function___u_cancel_find_sessions_callback_proxy___cancel_find_sessions3eec685202a212d6054cca1c6248775e.html", null ]
-];

@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_advanced_voice_library___is_headset_present___statics =
-[
-    [ "AdvancedVoiceLibrary_eventIsHeadsetPresent_Parms", "struct_z___construct___u_function___u_advanced_voice_library___is_headset_present___statics_1_1_3b7c843f3190f32e4f24a05a9ac2ccec.html", null ]
-];

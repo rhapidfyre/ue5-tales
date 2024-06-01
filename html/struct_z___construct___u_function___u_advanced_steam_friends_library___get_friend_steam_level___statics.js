@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_advanced_steam_friends_library___get_friend_steam_level___statics =
-[
-    [ "AdvancedSteamFriendsLibrary_eventGetFriendSteamLevel_Parms", "struct_z___construct___u_function___u_advanced_steam_friends_library___get_friend_steam_level___5b6969223ff2f9bceb8cab52bbd97bae.html", null ]
-];

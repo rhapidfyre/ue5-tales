@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_advanced_steam_friends_library___create_steam_i_d_from_string___statics =
-[
-    [ "AdvancedSteamFriendsLibrary_eventCreateSteamIDFromString_Parms", "struct_z___construct___u_function___u_advanced_steam_friends_library___create_steam_i_d_from_str4e955bf26cfaa86041daa5dfd012c328.html", null ]
-];

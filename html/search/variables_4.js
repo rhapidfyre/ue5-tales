@@ -1,4 +1,27 @@
 var searchData=
 [
-  ['moveinputaction_0',['MoveInputAction',['../class_a_player_character_base.html#aa1b5e5ece7808b1268908d2561972ffe',1,'APlayerCharacterBase']]]
+  ['damagebonusmodifiers_0',['DamageBonusModifiers',['../a02930.html#ac1ed158282121326386968765ee72617',1,'UCharacterCommonData']]],
+  ['damageresistmodifiers_1',['DamageResistModifiers',['../a02930.html#a99170dbd6f888e6c477f25d2293dfb9e',1,'UCharacterCommonData']]],
+  ['damagevalue_2',['DamageValue',['../a02886.html#a56ca50f4aa232112536c07ce00aee7a2',1,'ACombatAiControllerBase']]],
+  ['dataasset_3',['DataAsset',['../a02874.html#ad374538d3461fc8accbeb317dd4d1c2a',1,'FMeshMergeMappings']]],
+  ['dataasset_5f_4',['DataAsset_',['../a02810.html#aa9e77ac4d6945936465a713a047c941b',1,'UInventorySlot']]],
+  ['datatableabilities_5',['DataTableAbilities',['../a02974.html#a67061c22f9c2691f78835b6f6b4e57f3',1,'ATalesGameStateBase']]],
+  ['datatableclass_6',['DataTableClass',['../a02974.html#a5c9cde6214796727e596498e77a6f824',1,'ATalesGameStateBase']]],
+  ['datatableeffects_7',['DataTableEffects',['../a02974.html#a4b9ca9b467aa049d37036cee0b5ec692',1,'ATalesGameStateBase']]],
+  ['datatableinventory_8',['DataTableInventory',['../a02974.html#a437e44fb53878c6a36a920aa109b4e23',1,'ATalesGameStateBase']]],
+  ['datatablerace_9',['DataTableRace',['../a02974.html#a8b19f8bc583fd0f261a2e1d37bdedc6d',1,'ATalesGameStateBase']]],
+  ['datatablevitality_10',['DataTableVitality',['../a02974.html#a7ad4518b874383c4d5783fc294990557',1,'ATalesGameStateBase']]],
+  ['deathpercentage_11',['DeathPercentage',['../a03014.html#aa9807f71f3d3d7ceebb6db3ade830357',1,'UVitalityAttributes']]],
+  ['defaultabilities_12',['DefaultAbilities',['../a02866.html#a9782daa786016454e8d057b211c39b84',1,'ACharacterBase']]],
+  ['defaultcharacter_13',['DefaultCharacter',['../a02954.html#a9bd44fcabe7bf36111d3f41a34bfef35',1,'ATalesDungeoneerGameMode']]],
+  ['defaulteffects_14',['DefaultEffects',['../a02866.html#ad9e4319f63cec7687f17d3b847f433c9',1,'ACharacterBase']]],
+  ['defaultmappingcontext_15',['DefaultMappingContext',['../a02918.html#a9a571d97abfd792fb9ab1f01b6077d97',1,'APlayerCharacterBase']]],
+  ['descriptiontext_16',['DescriptionText',['../a02934.html#afc6c5973e312ee9c9c349d71e5f1f949',1,'UCharacterRaceData::DescriptionText'],['../a02938.html#a3272554ef68e66e844bedfddd1562bcc',1,'UCharacterClassData::DescriptionText']]],
+  ['displaycolor_17',['DisplayColor',['../a01270.html#a86ab3f62993e60df522df937d84de991',1,'FHudMessageData']]],
+  ['displayicon_18',['DisplayIcon',['../a01250.html#af00277f996f17575a149b31b7add0d42',1,'FDungeonTileData']]],
+  ['displayname_19',['DisplayName',['../a01250.html#a1c5a9fc33da46272718bb317d6134c4a',1,'FDungeonTileData::DisplayName'],['../a02930.html#ac69b7a2e5df7332d1a6a56670119a782',1,'UCharacterCommonData::DisplayName']]],
+  ['dungeonlevel_20',['DungeonLevel',['../a02974.html#a5060f32520bf85e34804cdd8f3724fe6',1,'ATalesGameStateBase']]],
+  ['dungeontile_21',['DungeonTile',['../a01222.html#a72cbf849bfe37a63c5bf58db30ad76df',1,'APlaceableRealmsForgeBase']]],
+  ['durability_22',['Durability',['../a02754.html#aad4373528edca9fa628f9085261895ac',1,'FItemStatics']]],
+  ['dynamicmaterialmap_23',['DynamicMaterialMap',['../a01262.html#ad56ac2354cf9571d819ab6ad90854b3c',1,'AGameStateRealmsForge']]]
 ];

@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_advanced_steam_friends_library___get_local_steam_i_d_from_steam___statics =
-[
-    [ "AdvancedSteamFriendsLibrary_eventGetLocalSteamIDFromSteam_Parms", "struct_z___construct___u_function___u_advanced_steam_friends_library___get_local_steam_i_d_from_60071c9963ba2bb7e7b4e0ba8db3127c.html", null ]
-];

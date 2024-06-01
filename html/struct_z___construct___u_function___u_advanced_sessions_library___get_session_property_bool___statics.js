@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_advanced_sessions_library___get_session_property_bool___statics =
-[
-    [ "AdvancedSessionsLibrary_eventGetSessionPropertyBool_Parms", "struct_z___construct___u_function___u_advanced_sessions_library___get_session_property_bool___st5b384574da0eb5cfd4c92dd997533d2b.html", null ]
-];

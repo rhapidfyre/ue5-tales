@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_get_recent_players_callback_proxy___get_and_store_recent_players_list___statics =
-[
-    [ "GetRecentPlayersCallbackProxy_eventGetAndStoreRecentPlayersList_Parms", "struct_z___construct___u_function___u_get_recent_players_callback_proxy___get_and_store_recent_pf7b0bd313048dd50cbf025cbc3f77c26.html", null ]
-];

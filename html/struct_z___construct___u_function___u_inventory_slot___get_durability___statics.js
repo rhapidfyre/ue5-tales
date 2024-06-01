@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_inventory_slot___get_durability___statics =
-[
-    [ "InventorySlot_eventGetDurability_Parms", "struct_z___construct___u_function___u_inventory_slot___get_durability___statics_1_1_inventory_sl8dafdf8207d1ff3953234aaf06a7fd5d.html", null ]
-];

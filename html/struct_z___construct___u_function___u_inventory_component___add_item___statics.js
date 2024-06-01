@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_inventory_component___add_item___statics =
-[
-    [ "InventoryComponent_eventAddItem_Parms", "struct_z___construct___u_function___u_inventory_component___add_item___statics_1_1_inventory_component__event_add_item___parms.html", null ]
-];

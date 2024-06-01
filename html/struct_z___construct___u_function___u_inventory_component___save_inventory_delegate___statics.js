@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_inventory_component___save_inventory_delegate___statics =
-[
-    [ "InventoryComponent_eventSaveInventoryDelegate_Parms", "struct_z___construct___u_function___u_inventory_component___save_inventory_delegate___statics_1_a44f533b17608b6e07c71551fbad82ac.html", null ]
-];

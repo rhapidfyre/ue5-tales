@@ -1,4 +1,0 @@
-var struct_z___construct___u_delegate_function___realms_forge___on_dynamic_material_ready_____delegate_signature___statics =
-[
-    [ "_Script_RealmsForge_eventOnDynamicMaterialReady_Parms", "struct_z___construct___u_delegate_function___realms_forge___on_dynamic_material_ready_____delega848321e632e5a8f7d28d13b02ba67cb6.html", null ]
-];

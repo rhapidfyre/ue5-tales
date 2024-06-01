@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_inventory_component___remove_item_from_slot___statics =
-[
-    [ "InventoryComponent_eventRemoveItemFromSlot_Parms", "struct_z___construct___u_function___u_inventory_component___remove_item_from_slot___statics_1_1_2289ad2ed4c17181103782ff8c40966e.html", null ]
-];

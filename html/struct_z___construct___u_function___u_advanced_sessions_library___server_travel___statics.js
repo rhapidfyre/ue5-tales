@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_advanced_sessions_library___server_travel___statics =
-[
-    [ "AdvancedSessionsLibrary_eventServerTravel_Parms", "struct_z___construct___u_function___u_advanced_sessions_library___server_travel___statics_1_1_ad19178bc932923ac7e7d42178a0a55463.html", null ]
-];

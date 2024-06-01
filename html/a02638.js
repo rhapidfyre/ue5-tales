@@ -1,0 +1,28 @@
+var a02638 =
+[
+    [ "NewProp_bConsumeOnUse_SetBit", "a02638.html#aa998125b44798dcc771847833cb2d60a", null ],
+    [ "NewProp_bFragile_SetBit", "a02638.html#a40c4cb470726f933461852f71e7fb832", null ],
+    [ "NewProp_bNoDrop_SetBit", "a02638.html#ad6091637663f7edbfc1960dfbe202b58", null ],
+    [ "ClassParams", "a02638.html#a4377bb9585d194546dc09a5e9a4cda7e", null ],
+    [ "DependentSingletons", "a02638.html#ab07137cfc6fd07353c3e1b847a9d0b76", null ],
+    [ "FuncInfo", "a02638.html#a24a873cb91bed2149b4e5ddc8d166322", null ],
+    [ "NewProp_bConsumeOnUse", "a02638.html#af556e3ffd4cb3ba9f13a35a65e589cda", null ],
+    [ "NewProp_bFragile", "a02638.html#a1c76700eb8c2d0857cbb6a26e1fb47a7", null ],
+    [ "NewProp_bNoDrop", "a02638.html#af4cc37dbbfe7f8b5c1bbbb9ebbf03030", null ],
+    [ "NewProp_CarryWeight", "a02638.html#a78b630d4a9c0b171285a465afec91d5a", null ],
+    [ "NewProp_DisplayName", "a02638.html#a9173dbaf1d81dd8f776b72ae2cc02476", null ],
+    [ "NewProp_ItemCategories", "a02638.html#a229c2d5a464403e62592ec605e6e4307", null ],
+    [ "NewProp_ItemDescription", "a02638.html#aac6919405a74755d4061a207ec20e176", null ],
+    [ "NewProp_ItemPrice", "a02638.html#acbb7dfb9455c4af7fac30126503e9f24", null ],
+    [ "NewProp_ItemRarity", "a02638.html#a7e51ea4ef1dda44516e05f8e8f53e949", null ],
+    [ "NewProp_ItemThumbnail", "a02638.html#a2be2801c2d50c686171c74daef9fe039", null ],
+    [ "NewProp_ItemType", "a02638.html#aee7da61111608b8d133ef8af5a8bd9df", null ],
+    [ "NewProp_MaxDurability", "a02638.html#a0b64b48e0225ffe6dcf7a8b323d70733", null ],
+    [ "NewProp_MaxStackSize", "a02638.html#ae3234449320de3dcc774371d8f3260fa", null ],
+    [ "NewProp_Mesh", "a02638.html#a68019fad5047283fa2e87b6739fa19bb", null ],
+    [ "NewProp_OriginAdjustment", "a02638.html#a9e1b34084733404d04e53e8b5d0c28d0", null ],
+    [ "NewProp_OriginRotate", "a02638.html#ac21fdbbb9c4858e96529465cb58e6a34", null ],
+    [ "NewProp_OriginScale", "a02638.html#ad650b23aa301ad7d14c3ab49dda073db", null ],
+    [ "PropPointers", "a02638.html#a7fe874841b81c368359afb9950d2c6b8", null ],
+    [ "StaticCppClassTypeInfo", "a02638.html#aaf49fbe12ea219c05755173483f37184", null ]
+];

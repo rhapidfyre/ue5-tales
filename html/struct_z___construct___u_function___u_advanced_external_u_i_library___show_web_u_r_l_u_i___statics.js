@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_advanced_external_u_i_library___show_web_u_r_l_u_i___statics =
-[
-    [ "AdvancedExternalUILibrary_eventShowWebURLUI_Parms", "struct_z___construct___u_function___u_advanced_external_u_i_library___show_web_u_r_l_u_i___statid5267c762a88a359fdafae8fdd2ffc10.html", null ]
-];

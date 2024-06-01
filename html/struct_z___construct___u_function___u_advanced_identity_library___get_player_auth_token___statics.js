@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_advanced_identity_library___get_player_auth_token___statics =
-[
-    [ "AdvancedIdentityLibrary_eventGetPlayerAuthToken_Parms", "struct_z___construct___u_function___u_advanced_identity_library___get_player_auth_token___static714bf1c87a4f5a2fcd621f272432e3b8.html", null ]
-];

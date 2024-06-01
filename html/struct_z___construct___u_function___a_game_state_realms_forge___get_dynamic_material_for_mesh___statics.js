@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___a_game_state_realms_forge___get_dynamic_material_for_mesh___statics =
-[
-    [ "GameStateRealmsForge_eventGetDynamicMaterialForMesh_Parms", "struct_z___construct___u_function___a_game_state_realms_forge___get_dynamic_material_for_mesh___6abd664a525657ad81f1ad4528e284c8.html", null ]
-];

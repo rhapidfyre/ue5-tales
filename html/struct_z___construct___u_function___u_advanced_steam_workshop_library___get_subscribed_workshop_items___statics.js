@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_advanced_steam_workshop_library___get_subscribed_workshop_items___statics =
-[
-    [ "AdvancedSteamWorkshopLibrary_eventGetSubscribedWorkshopItems_Parms", "struct_z___construct___u_function___u_advanced_steam_workshop_library___get_subscribed_workshop_865ce0e055cb63a400c68fbe9e2fc034.html", null ]
-];

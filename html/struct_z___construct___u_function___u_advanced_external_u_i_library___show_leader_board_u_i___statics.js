@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_advanced_external_u_i_library___show_leader_board_u_i___statics =
-[
-    [ "AdvancedExternalUILibrary_eventShowLeaderBoardUI_Parms", "struct_z___construct___u_function___u_advanced_external_u_i_library___show_leader_board_u_i___st1adfa04faea5796a368dafe3a1273ca5.html", null ]
-];

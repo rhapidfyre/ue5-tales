@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_fuel_component___get_total_fuel_time_available___statics =
-[
-    [ "FuelComponent_eventGetTotalFuelTimeAvailable_Parms", "struct_z___construct___u_function___u_fuel_component___get_total_fuel_time_available___statics_1d0cf46d28108f773530706d356f8191f.html", null ]
-];

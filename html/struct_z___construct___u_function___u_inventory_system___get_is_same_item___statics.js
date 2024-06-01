@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_inventory_system___get_is_same_item___statics =
-[
-    [ "InventorySystem_eventGetIsSameItem_Parms", "struct_z___construct___u_function___u_inventory_system___get_is_same_item___statics_1_1_inventorfe332987a21b537345240b22dfafcb03.html", null ]
-];

@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_inventory_component___does_inventory_save_exist___statics =
-[
-    [ "InventoryComponent_eventDoesInventorySaveExist_Parms", "struct_z___construct___u_function___u_inventory_component___does_inventory_save_exist___statics_d4442c35fb3176f97282c363cdd13849.html", null ]
-];

@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_inventory_component___get_all_equipment_slots___statics =
-[
-    [ "InventoryComponent_eventGetAllEquipmentSlots_Parms", "struct_z___construct___u_function___u_inventory_component___get_all_equipment_slots___statics_1_6709f77236ee9fcedd59a38a4c931591.html", null ]
-];

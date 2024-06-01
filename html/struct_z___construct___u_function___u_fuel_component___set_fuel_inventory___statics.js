@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_fuel_component___set_fuel_inventory___statics =
-[
-    [ "FuelComponent_eventSetFuelInventory_Parms", "struct_z___construct___u_function___u_fuel_component___set_fuel_inventory___statics_1_1_fuel_com1232c152a4c3ead209f5bd3a327f6f4b.html", null ]
-];

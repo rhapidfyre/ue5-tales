@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_inventory_component___get_is_withdraw_only___statics =
-[
-    [ "InventoryComponent_eventGetIsWithdrawOnly_Parms", "struct_z___construct___u_function___u_inventory_component___get_is_withdraw_only___statics_1_1_id23a74502e00e5a21a737b938da771aa.html", null ]
-];

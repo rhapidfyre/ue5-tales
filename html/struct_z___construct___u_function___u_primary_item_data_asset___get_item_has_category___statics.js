@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_primary_item_data_asset___get_item_has_category___statics =
-[
-    [ "PrimaryItemDataAsset_eventGetItemHasCategory_Parms", "struct_z___construct___u_function___u_primary_item_data_asset___get_item_has_category___statics_9fa806e501d746e688468f873c61225e.html", null ]
-];

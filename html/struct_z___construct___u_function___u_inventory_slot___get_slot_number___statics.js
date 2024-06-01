@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_inventory_slot___get_slot_number___statics =
-[
-    [ "InventorySlot_eventGetSlotNumber_Parms", "struct_z___construct___u_function___u_inventory_slot___get_slot_number___statics_1_1_inventory_s773a915385f6732398f9c737ad5053b2.html", null ]
-];

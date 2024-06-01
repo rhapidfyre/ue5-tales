@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___a_preview_actor_realms_forge___set_static_mesh_preview___statics =
-[
-    [ "PreviewActorRealmsForge_eventSetStaticMeshPreview_Parms", "struct_z___construct___u_function___a_preview_actor_realms_forge___set_static_mesh_preview___sta2f1bc9eaf5ecd84c970a832fbb9cb020.html", null ]
-];

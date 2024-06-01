@@ -1,4 +1,0 @@
-var struct_z___construct___u_delegate_function___realms_forge___on_render_target_ready_____delegate_signature___statics =
-[
-    [ "_Script_RealmsForge_eventOnRenderTargetReady_Parms", "struct_z___construct___u_delegate_function___realms_forge___on_render_target_ready_____delegate_1dd9c09caa6115e2369877279ec6166e.html", null ]
-];

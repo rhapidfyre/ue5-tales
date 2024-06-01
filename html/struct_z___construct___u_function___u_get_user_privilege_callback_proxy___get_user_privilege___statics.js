@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_get_user_privilege_callback_proxy___get_user_privilege___statics =
-[
-    [ "GetUserPrivilegeCallbackProxy_eventGetUserPrivilege_Parms", "struct_z___construct___u_function___u_get_user_privilege_callback_proxy___get_user_privilege___s30f6e76e190dd4c44469ef3e74cf2532.html", null ]
-];

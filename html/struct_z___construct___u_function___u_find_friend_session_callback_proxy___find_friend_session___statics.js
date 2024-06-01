@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_find_friend_session_callback_proxy___find_friend_session___statics =
-[
-    [ "FindFriendSessionCallbackProxy_eventFindFriendSession_Parms", "struct_z___construct___u_function___u_find_friend_session_callback_proxy___find_friend_session__e2ff197825c0c0279cb20a2aefa9934e.html", null ]
-];

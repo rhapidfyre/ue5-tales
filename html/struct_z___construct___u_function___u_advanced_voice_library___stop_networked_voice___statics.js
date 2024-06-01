@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_advanced_voice_library___stop_networked_voice___statics =
-[
-    [ "AdvancedVoiceLibrary_eventStopNetworkedVoice_Parms", "struct_z___construct___u_function___u_advanced_voice_library___stop_networked_voice___statics_1_e6bb05bcea7f05c7a1cad953ee44dd38.html", null ]
-];

@@ -1,4 +1,0 @@
-var struct_z___construct___u_delegate_function___advanced_steam_sessions___blueprint_workshop_detail1c5b357e3443e56a9268db6661cac9a9 =
-[
-    [ "_Script_AdvancedSteamSessions_eventBlueprintWorkshopDetailsDelegate_Parms", "struct_z___construct___u_delegate_function___advanced_steam_sessions___blueprint_workshop_detailb9817a9a3b9928ab7bced0a48ea28daa.html", null ]
-];

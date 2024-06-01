@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_inventory_component___queued_asset_ready___statics =
-[
-    [ "InventoryComponent_eventQueuedAssetReady_Parms", "struct_z___construct___u_function___u_inventory_component___queued_asset_ready___statics_1_1_invc507225dd69eb4daedc6329313e92795.html", null ]
-];

@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___a_player_controller_realms_forge___modify_mapping_contexts___statics =
-[
-    [ "PlayerControllerRealmsForge_eventModifyMappingContexts_Parms", "struct_z___construct___u_function___a_player_controller_realms_forge___modify_mapping_contexts__9eb4220dc0dd9a2cfc087eff92ec5ea3.html", null ]
-];

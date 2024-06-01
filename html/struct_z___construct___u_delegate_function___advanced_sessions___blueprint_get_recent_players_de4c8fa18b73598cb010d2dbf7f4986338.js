@@ -1,4 +1,0 @@
-var struct_z___construct___u_delegate_function___advanced_sessions___blueprint_get_recent_players_de4c8fa18b73598cb010d2dbf7f4986338 =
-[
-    [ "_Script_AdvancedSessions_eventBlueprintGetRecentPlayersDelegate_Parms", "struct_z___construct___u_delegate_function___advanced_sessions___blueprint_get_recent_players_debcd527d875bc9613d283ecfd0b92c3ed.html", null ]
-];

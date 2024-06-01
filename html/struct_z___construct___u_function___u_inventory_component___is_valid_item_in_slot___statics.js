@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_inventory_component___is_valid_item_in_slot___statics =
-[
-    [ "InventoryComponent_eventIsValidItemInSlot_Parms", "struct_z___construct___u_function___u_inventory_component___is_valid_item_in_slot___statics_1_1_a9bc10cbfdde17725afc839fb47c3acd.html", null ]
-];

@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_primary_item_data_asset___get_item_can_stack___statics =
-[
-    [ "PrimaryItemDataAsset_eventGetItemCanStack_Parms", "struct_z___construct___u_function___u_primary_item_data_asset___get_item_can_stack___statics_1_15c93d4649e93f320bf15a3d3009030c7.html", null ]
-];

@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_inventory_component___get_weight_of_slot_number___statics =
-[
-    [ "InventoryComponent_eventGetWeightOfSlotNumber_Parms", "struct_z___construct___u_function___u_inventory_component___get_weight_of_slot_number___statics_e59e9952dd6e8f46168223b3c7750b87.html", null ]
-];

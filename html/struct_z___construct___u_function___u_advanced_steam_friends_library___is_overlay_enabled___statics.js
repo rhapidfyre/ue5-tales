@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_advanced_steam_friends_library___is_overlay_enabled___statics =
-[
-    [ "AdvancedSteamFriendsLibrary_eventIsOverlayEnabled_Parms", "struct_z___construct___u_function___u_advanced_steam_friends_library___is_overlay_enabled___stat97dac145ddc48b2a309b9afb9bbbdb62.html", null ]
-];

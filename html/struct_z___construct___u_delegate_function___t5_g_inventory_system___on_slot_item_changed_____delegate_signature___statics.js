@@ -1,4 +1,0 @@
-var struct_z___construct___u_delegate_function___t5_g_inventory_system___on_slot_item_changed_____delegate_signature___statics =
-[
-    [ "_Script_T5GInventorySystem_eventOnSlotItemChanged_Parms", "struct_z___construct___u_delegate_function___t5_g_inventory_system___on_slot_item_changed_____de9a5c531f4ac45428d5a93ce015188ef7.html", null ]
-];

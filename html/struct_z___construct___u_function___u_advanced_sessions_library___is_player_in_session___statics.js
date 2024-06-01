@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_advanced_sessions_library___is_player_in_session___statics =
-[
-    [ "AdvancedSessionsLibrary_eventIsPlayerInSession_Parms", "struct_z___construct___u_function___u_advanced_sessions_library___is_player_in_session___statics206b3903517988dc8f95895a8e2f4d6e.html", null ]
-];

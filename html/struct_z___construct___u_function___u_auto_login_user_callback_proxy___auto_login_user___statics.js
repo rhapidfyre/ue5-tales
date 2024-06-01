@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_auto_login_user_callback_proxy___auto_login_user___statics =
-[
-    [ "AutoLoginUserCallbackProxy_eventAutoLoginUser_Parms", "struct_z___construct___u_function___u_auto_login_user_callback_proxy___auto_login_user___statics3352e1a49b036f234bdbf197a2a85135.html", null ]
-];

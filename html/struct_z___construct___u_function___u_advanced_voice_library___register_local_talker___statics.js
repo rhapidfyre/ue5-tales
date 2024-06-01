@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_advanced_voice_library___register_local_talker___statics =
-[
-    [ "AdvancedVoiceLibrary_eventRegisterLocalTalker_Parms", "struct_z___construct___u_function___u_advanced_voice_library___register_local_talker___statics_123586c8a6d83e584e3cd09ac0f97b9ff.html", null ]
-];

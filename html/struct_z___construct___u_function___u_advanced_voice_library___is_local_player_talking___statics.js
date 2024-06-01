@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_advanced_voice_library___is_local_player_talking___statics =
-[
-    [ "AdvancedVoiceLibrary_eventIsLocalPlayerTalking_Parms", "struct_z___construct___u_function___u_advanced_voice_library___is_local_player_talking___statics77fed7331a60c012b632dd0dafa7c5dc.html", null ]
-];

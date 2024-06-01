@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_inventory_component___transfer_item_between_slots___statics =
-[
-    [ "InventoryComponent_eventTransferItemBetweenSlots_Parms", "struct_z___construct___u_function___u_inventory_component___transfer_item_between_slots___static10747eddfdc5d262163ed5725c02de41.html", null ]
-];

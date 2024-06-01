@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___a_pickup_actor_base___get_item_data_asset___statics =
-[
-    [ "PickupActorBase_eventGetItemDataAsset_Parms", "struct_z___construct___u_function___a_pickup_actor_base___get_item_data_asset___statics_1_1_pickf3073aa0e0586d6fed2ccc2414031404.html", null ]
-];

@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_primary_item_data_asset___get_item_carry_weight___statics =
-[
-    [ "PrimaryItemDataAsset_eventGetItemCarryWeight_Parms", "struct_z___construct___u_function___u_primary_item_data_asset___get_item_carry_weight___statics_38b836034206bbe39f8b8d2d00e5ecf2.html", null ]
-];

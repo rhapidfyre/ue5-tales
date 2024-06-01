@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___a_pickup_actor_base___process_pick_up_request___statics =
-[
-    [ "PickupActorBase_eventProcessPickUpRequest_Parms", "struct_z___construct___u_function___a_pickup_actor_base___process_pick_up_request___statics_1_1_09249da51663f000657089ed7430a718.html", null ]
-];

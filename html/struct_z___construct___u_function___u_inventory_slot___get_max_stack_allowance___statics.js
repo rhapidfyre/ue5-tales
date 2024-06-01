@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_inventory_slot___get_max_stack_allowance___statics =
-[
-    [ "InventorySlot_eventGetMaxStackAllowance_Parms", "struct_z___construct___u_function___u_inventory_slot___get_max_stack_allowance___statics_1_1_invaf1aa418a6b198db7ded7d97c628b33d.html", null ]
-];

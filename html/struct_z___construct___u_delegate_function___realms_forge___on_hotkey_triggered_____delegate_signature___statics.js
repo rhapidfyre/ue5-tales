@@ -1,4 +1,0 @@
-var struct_z___construct___u_delegate_function___realms_forge___on_hotkey_triggered_____delegate_signature___statics =
-[
-    [ "_Script_RealmsForge_eventOnHotkeyTriggered_Parms", "struct_z___construct___u_delegate_function___realms_forge___on_hotkey_triggered_____delegate_sig99a2e0aaf288149186f95f2ef4d393ef.html", null ]
-];

@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_primary_item_data_asset___get_item_display_name___statics =
-[
-    [ "PrimaryItemDataAsset_eventGetItemDisplayName_Parms", "struct_z___construct___u_function___u_primary_item_data_asset___get_item_display_name___statics_8a88e28d83919231554e82bac81cf312.html", null ]
-];

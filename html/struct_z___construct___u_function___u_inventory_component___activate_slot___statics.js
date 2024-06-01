@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_inventory_component___activate_slot___statics =
-[
-    [ "InventoryComponent_eventActivateSlot_Parms", "struct_z___construct___u_function___u_inventory_component___activate_slot___statics_1_1_inventor028946c2ddd131a27bbc9fc2b419156e.html", null ]
-];

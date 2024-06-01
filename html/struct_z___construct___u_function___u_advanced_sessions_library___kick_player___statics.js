@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_advanced_sessions_library___kick_player___statics =
-[
-    [ "AdvancedSessionsLibrary_eventKickPlayer_Parms", "struct_z___construct___u_function___u_advanced_sessions_library___kick_player___statics_1_1_adva19529e3d396ef2581756bea10dde85d1.html", null ]
-];

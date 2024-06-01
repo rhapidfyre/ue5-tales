@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_advanced_steam_friends_library___init_text_filtering___statics =
-[
-    [ "AdvancedSteamFriendsLibrary_eventInitTextFiltering_Parms", "struct_z___construct___u_function___u_advanced_steam_friends_library___init_text_filtering___sta11ba696beef4dad2c3ef5eab76e6dc01.html", null ]
-];

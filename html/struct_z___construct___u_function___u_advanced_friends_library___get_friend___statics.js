@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_advanced_friends_library___get_friend___statics =
-[
-    [ "AdvancedFriendsLibrary_eventGetFriend_Parms", "struct_z___construct___u_function___u_advanced_friends_library___get_friend___statics_1_1_advanc028fa801924cddbb060192c2628e2e38.html", null ]
-];

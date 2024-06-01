@@ -1,4 +1,0 @@
-var struct_z___construct___u_delegate_function___advanced_sessions___blueprint_get_friends_list_dele1895a4f4272a30eec7b5461d9eed0866 =
-[
-    [ "_Script_AdvancedSessions_eventBlueprintGetFriendsListDelegate_Parms", "struct_z___construct___u_delegate_function___advanced_sessions___blueprint_get_friends_list_dele21a9f0a922569671b5598dcc927149d0.html", null ]
-];

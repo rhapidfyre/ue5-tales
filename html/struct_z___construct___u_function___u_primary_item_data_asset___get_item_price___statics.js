@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_primary_item_data_asset___get_item_price___statics =
-[
-    [ "PrimaryItemDataAsset_eventGetItemPrice_Parms", "struct_z___construct___u_function___u_primary_item_data_asset___get_item_price___statics_1_1_pri7e9d737fd9360405e57d44686cc70dc5.html", null ]
-];

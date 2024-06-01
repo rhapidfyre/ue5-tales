@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___a_player_controller_realms_forge___get_selected_buildable___statics =
-[
-    [ "PlayerControllerRealmsForge_eventGetSelectedBuildable_Parms", "struct_z___construct___u_function___a_player_controller_realms_forge___get_selected_buildable___3dfc5d1b854aac1aed5f6bdbede39fad.html", null ]
-];

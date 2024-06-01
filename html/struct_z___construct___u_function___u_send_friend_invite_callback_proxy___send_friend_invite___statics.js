@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_send_friend_invite_callback_proxy___send_friend_invite___statics =
-[
-    [ "SendFriendInviteCallbackProxy_eventSendFriendInvite_Parms", "struct_z___construct___u_function___u_send_friend_invite_callback_proxy___send_friend_invite___s0a68895de46ca19f0f0c1a625eae64b7.html", null ]
-];

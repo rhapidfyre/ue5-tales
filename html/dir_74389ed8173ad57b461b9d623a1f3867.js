@@ -1,4 +1,0 @@
-var dir_74389ed8173ad57b461b9d623a1f3867 =
-[
-    [ "TalesDungeoneer", "dir_18a24518c61291f285824497c1e62157.html", "dir_18a24518c61291f285824497c1e62157" ]
-];

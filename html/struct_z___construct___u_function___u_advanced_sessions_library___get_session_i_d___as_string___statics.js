@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_advanced_sessions_library___get_session_i_d___as_string___statics =
-[
-    [ "AdvancedSessionsLibrary_eventGetSessionID_AsString_Parms", "struct_z___construct___u_function___u_advanced_sessions_library___get_session_i_d___as_string___25f8e8b4194ff036af2ce597da3e51b6.html", null ]
-];

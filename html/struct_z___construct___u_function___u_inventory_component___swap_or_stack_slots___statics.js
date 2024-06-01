@@ -1,4 +1,0 @@
-var struct_z___construct___u_function___u_inventory_component___swap_or_stack_slots___statics =
-[
-    [ "InventoryComponent_eventSwapOrStackSlots_Parms", "struct_z___construct___u_function___u_inventory_component___swap_or_stack_slots___statics_1_1_in07efcb6b07d963969a1e6e7b06299363.html", null ]
-];

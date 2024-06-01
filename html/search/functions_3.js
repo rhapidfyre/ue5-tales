@@ -1,18 +1,12 @@
 var searchData=
 [
-  ['getcharacterskeleton_0',['GetCharacterSkeleton',['../class_u_primary_character_data.html#a8cb8b50d2436ef57c075abb8778543a0',1,'UPrimaryCharacterData']]],
-  ['getdefaultcorestats_1',['GetDefaultCoreStats',['../class_u_primary_character_data.html#affbbd29c99db262449ac4d514c251574',1,'UPrimaryCharacterData']]],
-  ['getdefaultdamagebonus_2',['GetDefaultDamageBonus',['../class_u_primary_character_data.html#a4c6bfc62e34311edb9af8124e731e8bc',1,'UPrimaryCharacterData']]],
-  ['getdefaultdamageresist_3',['GetDefaultDamageResist',['../class_u_primary_character_data.html#ad59c6dbc4c16187daf4397ebf7cc7991',1,'UPrimaryCharacterData']]],
-  ['getequipmentslottag_4',['GetEquipmentSlotTag',['../class_u_inventory_slot.html#ab1808e5075d23981b76f869fd8a6d611',1,'UInventorySlot']]],
-  ['getisattackvalid_5',['GetIsAttackValid',['../class_a_weapon_base.html#a5225407dc657bc3045c023bbcc8115ea',1,'AWeaponBase::GetIsAttackValid()'],['../class_a_weapon_melee_base.html#a8770f64d290f4bbb72a8279549206e04',1,'AWeaponMeleeBase::GetIsAttackValid()']]],
-  ['getissameexactitem_6',['GetIsSameExactItem',['../class_u_inventory_system.html#a3854085f996801c89223f611df2feea9',1,'UInventorySystem']]],
-  ['getissameitem_7',['GetIsSameItem',['../class_u_inventory_system.html#ae0477c03490ddc28af65a35beeb16e4c',1,'UInventorySystem']]],
-  ['getitemtagoptions_8',['GetItemTagOptions',['../class_u_item_data_asset.html#a77e2f3cf8e77afd8a2582f0a94ec2664',1,'UItemDataAsset::GetItemTagOptions()'],['../class_u_equipment_data_asset.html#a865307e5ae5d9692803ba1d581eab2b6',1,'UEquipmentDataAsset::GetItemTagOptions()']]],
-  ['getrisklevel_9',['GetRiskLevel',['../class_a_character_base.html#a48e6c6cef789c8f200aceb2c351e0d00',1,'ACharacterBase']]],
-  ['getsavedcharacterdata_10',['GetSavedCharacterData',['../class_a_tales_game_state_base.html#a1c4fe66aa9f79a843bb59f76f29c319d',1,'ATalesGameStateBase']]],
-  ['getsavegamemetaname_11',['GetSaveGameMetaName',['../class_a_tales_game_state_base.html#aabdf4f6da36305bfa6aaf4e904a22ed7',1,'ATalesGameStateBase']]],
-  ['getsessionpropertybyte_12',['GetSessionPropertyByte',['../class_u_advanced_sessions_library.html#a13bc424194f5e5e73b8b2d48b0295617',1,'UAdvancedSessionsLibrary']]],
-  ['getstartingitems_13',['GetStartingItems',['../class_u_inventory_data_asset.html#a5bb5271f67f870802eaeed6ad3293874',1,'UInventoryDataAsset']]],
-  ['getweaponnameisvalid_14',['GetWeaponNameIsValid',['../class_u_weapon_system.html#a87f32447ffe484a196111e1583af9a99',1,'UWeaponSystem']]]
+  ['damagedurability_0',['DamageDurability',['../a02810.html#a6af3a856934cf1f4a013baaabc89ce81',1,'UInventorySlot']]],
+  ['declare_5fattribute_5fcapturedef_1',['DECLARE_ATTRIBUTE_CAPTUREDEF',['../a02850.html#adfe4a40d195bfcea6244d18e76f6007a',1,'FDamageStatics::DECLARE_ATTRIBUTE_CAPTUREDEF(IncomingDamage)'],['../a02850.html#ab08594398545f451c4869b1e638807bd',1,'FDamageStatics::DECLARE_ATTRIBUTE_CAPTUREDEF(CriticalChance)'],['../a02850.html#ad26c3bb296c2e4af5de2dd2f076ab34d',1,'FDamageStatics::DECLARE_ATTRIBUTE_CAPTUREDEF(CriticalMultiplier)'],['../a02850.html#af53f0a5aef37051be961adc835c424a8',1,'FDamageStatics::DECLARE_ATTRIBUTE_CAPTUREDEF(LuckyChance)']]],
+  ['decreasequantity_2',['DecreaseQuantity',['../a02810.html#a0f19225c9a6424dab623adc13281dff2',1,'UInventorySlot']]],
+  ['doattack_3',['doAttack',['../a03086.html#aab9a31db4eafc8cba3211b377d7ea89b',1,'AMeleeWeaponBase::doAttack()'],['../a03090.html#aea28c2dbec609d22f1d50ff3f0265a24',1,'ARangedWeaponBase::doAttack()'],['../a03094.html#a7f81a1c3ccc7d190ca71b6ec4d38fce6',1,'AThrownWeaponBase::doAttack()'],['../a03098.html#a0c8e0e3616932105f3107e67ac469ddd',1,'AWeaponBase::doAttack()'],['../a03102.html#a52df3b1f6556b263b344f7623962679e',1,'AWeaponMeleeBase::doAttack()']]],
+  ['dolookaround_4',['DoLookAround',['../a01246.html#ad62facad4d00b14cccaabbdae9e6412d',1,'APlayerControllerRealmsForge']]],
+  ['domovementvector_5',['DoMovementVector',['../a01246.html#a5fa369346c576807c88c46452e3790e9',1,'APlayerControllerRealmsForge']]],
+  ['drawhud_6',['DrawHUD',['../a02950.html#a294a04e423c90659a82ce631bb93fabf',1,'ATalesDmHudBase::DrawHUD()'],['../a02962.html#ad58291067010d3fa50b95eb42842b507',1,'ATalesHudBase::DrawHUD()'],['../a02966.html#ad715ea86ba714d837bfa490ae45be93b',1,'ATalesPlayerHudBase::DrawHUD()'],['../a02986.html#a82493d5f43fa9d29626edfef153444ef',1,'ACreatorHudBase::DrawHUD()']]],
+  ['droploottable_7',['DropLootTable',['../a02914.html#a9c8fae0c014dca92cd1c986996abab80',1,'ANpcCharacterBase']]],
+  ['duplicate_8',['Duplicate',['../a03018.html#a5debb36ff2f70cb7ab7c071b3ec12911',1,'FVitalityEffectContext']]]
 ];
