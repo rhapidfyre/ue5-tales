@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___a_pickup_actor_base___callback___data_asset_loaded___statics =
+[
+    [ "PickupActorBase_eventCallback_DataAssetLoaded_Parms", "struct_z___construct___u_function___a_pickup_actor_base___callback___data_asset_loaded___staticsc6282ad3fa180472f707e3e94d775ed0.html", null ]
+];

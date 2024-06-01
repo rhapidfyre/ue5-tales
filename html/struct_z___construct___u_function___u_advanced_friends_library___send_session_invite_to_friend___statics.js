@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_advanced_friends_library___send_session_invite_to_friend___statics =
+[
+    [ "AdvancedFriendsLibrary_eventSendSessionInviteToFriend_Parms", "struct_z___construct___u_function___u_advanced_friends_library___send_session_invite_to_friend__e0a69b2f3b72c911959ff2406b53f987.html", null ]
+];

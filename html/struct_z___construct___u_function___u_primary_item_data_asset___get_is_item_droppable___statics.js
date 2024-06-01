@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_primary_item_data_asset___get_is_item_droppable___statics =
+[
+    [ "PrimaryItemDataAsset_eventGetIsItemDroppable_Parms", "struct_z___construct___u_function___u_primary_item_data_asset___get_is_item_droppable___statics_d13946f25f5a818381b7b6f2084b12e1.html", null ]
+];

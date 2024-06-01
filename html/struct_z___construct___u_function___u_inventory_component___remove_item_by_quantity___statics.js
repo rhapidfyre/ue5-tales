@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_inventory_component___remove_item_by_quantity___statics =
+[
+    [ "InventoryComponent_eventRemoveItemByQuantity_Parms", "struct_z___construct___u_function___u_inventory_component___remove_item_by_quantity___statics_1_7281feea8bbeb21f0a5b9f093357fcfd.html", null ]
+];

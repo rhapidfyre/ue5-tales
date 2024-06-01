@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_build_component___set_buildable_hotkey___statics =
+[
+    [ "BuildComponent_eventSetBuildableHotkey_Parms", "struct_z___construct___u_function___u_build_component___set_buildable_hotkey___statics_1_1_build63d6e19caa2564369208415e905ed165.html", null ]
+];

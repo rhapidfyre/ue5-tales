@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_crafting_component___cancel_crafting___statics =
+[
+    [ "CraftingComponent_eventCancelCrafting_Parms", "struct_z___construct___u_function___u_crafting_component___cancel_crafting___statics_1_1_craftinfb1b0641d3c7758423c1c6df64a43c6f.html", null ]
+];

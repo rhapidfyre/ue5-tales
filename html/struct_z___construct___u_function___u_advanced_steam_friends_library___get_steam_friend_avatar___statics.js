@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_advanced_steam_friends_library___get_steam_friend_avatar___statics =
+[
+    [ "AdvancedSteamFriendsLibrary_eventGetSteamFriendAvatar_Parms", "struct_z___construct___u_function___u_advanced_steam_friends_library___get_steam_friend_avatar__ad1dcf826df63fa2498307abdaa9ba88.html", null ]
+];

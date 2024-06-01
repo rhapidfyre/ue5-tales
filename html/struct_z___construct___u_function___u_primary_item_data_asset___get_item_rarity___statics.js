@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_primary_item_data_asset___get_item_rarity___statics =
+[
+    [ "PrimaryItemDataAsset_eventGetItemRarity_Parms", "struct_z___construct___u_function___u_primary_item_data_asset___get_item_rarity___statics_1_1_pr16f13e451d086894017d9593df1fa32d.html", null ]
+];

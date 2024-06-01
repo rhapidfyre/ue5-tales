@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_advanced_identity_library___get_login_status___statics =
+[
+    [ "AdvancedIdentityLibrary_eventGetLoginStatus_Parms", "struct_z___construct___u_function___u_advanced_identity_library___get_login_status___statics_1_1cce06980a16cf1ec565fd4013baed7eb.html", null ]
+];

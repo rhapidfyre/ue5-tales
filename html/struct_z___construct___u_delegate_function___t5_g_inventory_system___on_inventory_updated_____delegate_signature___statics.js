@@ -1,0 +1,4 @@
+var struct_z___construct___u_delegate_function___t5_g_inventory_system___on_inventory_updated_____delegate_signature___statics =
+[
+    [ "_Script_T5GInventorySystem_eventOnInventoryUpdated_Parms", "struct_z___construct___u_delegate_function___t5_g_inventory_system___on_inventory_updated_____de6b443332b2d1ce6778850da320258215.html", null ]
+];

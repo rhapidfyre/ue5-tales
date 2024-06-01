@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___a_player_controller_realms_forge___get_key_mapping___statics =
+[
+    [ "PlayerControllerRealmsForge_eventGetKeyMapping_Parms", "struct_z___construct___u_function___a_player_controller_realms_forge___get_key_mapping___statics548c32799a8878c8778a558b43994325.html", null ]
+];

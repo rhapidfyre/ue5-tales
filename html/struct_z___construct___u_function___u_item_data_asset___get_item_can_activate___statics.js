@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_item_data_asset___get_item_can_activate___statics =
+[
+    [ "ItemDataAsset_eventGetItemCanActivate_Parms", "struct_z___construct___u_function___u_item_data_asset___get_item_can_activate___statics_1_1_iteme1f10a02c68c1e84978c905c10932c1e.html", null ]
+];

@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_inventory_slot___get_slot_tags___statics =
+[
+    [ "InventorySlot_eventGetSlotTags_Parms", "struct_z___construct___u_function___u_inventory_slot___get_slot_tags___statics_1_1_inventory_slot__event_get_slot_tags___parms.html", null ]
+];

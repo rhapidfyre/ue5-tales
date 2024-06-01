@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_item_data_asset___copy_asset___statics =
+[
+    [ "ItemDataAsset_eventCopyAsset_Parms", "struct_z___construct___u_function___u_item_data_asset___copy_asset___statics_1_1_item_data_asset__event_copy_asset___parms.html", null ]
+];

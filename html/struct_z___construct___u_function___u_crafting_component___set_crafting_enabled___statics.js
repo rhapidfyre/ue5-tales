@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_crafting_component___set_crafting_enabled___statics =
+[
+    [ "CraftingComponent_eventSetCraftingEnabled_Parms", "struct_z___construct___u_function___u_crafting_component___set_crafting_enabled___statics_1_1_cr4c41bd28fe1155c43f288cd8f4311259.html", null ]
+];

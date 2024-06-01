@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_advanced_steam_friends_library___get_steam_friend_game_played___statics =
+[
+    [ "AdvancedSteamFriendsLibrary_eventGetSteamFriendGamePlayed_Parms", "struct_z___construct___u_function___u_advanced_steam_friends_library___get_steam_friend_game_plad377897024d7819b7096d5a33b3649bd.html", null ]
+];

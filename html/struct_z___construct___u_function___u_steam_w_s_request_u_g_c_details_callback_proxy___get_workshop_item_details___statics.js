@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_steam_w_s_request_u_g_c_details_callback_proxy___get_workshop_item_details___statics =
+[
+    [ "SteamWSRequestUGCDetailsCallbackProxy_eventGetWorkshopItemDetails_Parms", "struct_z___construct___u_function___u_steam_w_s_request_u_g_c_details_callback_proxy___get_works99a7dea9dc7eaaa94c9e0742096d3ce1.html", null ]
+];

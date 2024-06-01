@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_inventory_component___get_first_empty_slot_number___statics =
+[
+    [ "InventoryComponent_eventGetFirstEmptySlotNumber_Parms", "struct_z___construct___u_function___u_inventory_component___get_first_empty_slot_number___static0d1dc2092d25d19c41814e63f08594c4.html", null ]
+];

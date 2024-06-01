@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_primary_item_data_asset___get_item_description___statics =
+[
+    [ "PrimaryItemDataAsset_eventGetItemDescription_Parms", "struct_z___construct___u_function___u_primary_item_data_asset___get_item_description___statics_158a1f7faf6d121a4b749be1b3429628e.html", null ]
+];

@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_inventory_component___decrease_slot_quantity___statics =
+[
+    [ "InventoryComponent_eventDecreaseSlotQuantity_Parms", "struct_z___construct___u_function___u_inventory_component___decrease_slot_quantity___statics_1_193c0aa1771ef9bf2a5ab97e268198e26.html", null ]
+];

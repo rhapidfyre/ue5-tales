@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_primary_item_data_asset___get_is_item_fragile___statics =
+[
+    [ "PrimaryItemDataAsset_eventGetIsItemFragile_Parms", "struct_z___construct___u_function___u_primary_item_data_asset___get_is_item_fragile___statics_1_238b3c374d29d84882f15945151be961.html", null ]
+];

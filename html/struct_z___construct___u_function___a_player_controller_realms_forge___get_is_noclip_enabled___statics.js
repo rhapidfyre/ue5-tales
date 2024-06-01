@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___a_player_controller_realms_forge___get_is_noclip_enabled___statics =
+[
+    [ "PlayerControllerRealmsForge_eventGetIsNoclipEnabled_Parms", "struct_z___construct___u_function___a_player_controller_realms_forge___get_is_noclip_enabled___s82a63f9168bcbe70cdb6d996767f9ae5.html", null ]
+];

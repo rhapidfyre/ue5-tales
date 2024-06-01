@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_inventory_slot___get_is_equipment_slot___statics =
+[
+    [ "InventorySlot_eventGetIsEquipmentSlot_Parms", "struct_z___construct___u_function___u_inventory_slot___get_is_equipment_slot___statics_1_1_invena17852dc8f4cc51dfc72a0749c7ef9d1.html", null ]
+];

@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_primary_item_data_asset___get_is_item_consumed_on_use___statics =
+[
+    [ "PrimaryItemDataAsset_eventGetIsItemConsumedOnUse_Parms", "struct_z___construct___u_function___u_primary_item_data_asset___get_is_item_consumed_on_use___st733a9044eaacc2725524f6778a549e73.html", null ]
+];

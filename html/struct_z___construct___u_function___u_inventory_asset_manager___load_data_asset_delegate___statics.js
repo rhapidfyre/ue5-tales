@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_inventory_asset_manager___load_data_asset_delegate___statics =
+[
+    [ "InventoryAssetManager_eventLoadDataAssetDelegate_Parms", "struct_z___construct___u_function___u_inventory_asset_manager___load_data_asset_delegate___stati84ddac408372fe722b3acb4e80109e9a.html", null ]
+];

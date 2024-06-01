@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_primary_item_data_asset___get_item_categories___statics =
+[
+    [ "PrimaryItemDataAsset_eventGetItemCategories_Parms", "struct_z___construct___u_function___u_primary_item_data_asset___get_item_categories___statics_1_3ae13bee08ff482251a22cec57114001.html", null ]
+];

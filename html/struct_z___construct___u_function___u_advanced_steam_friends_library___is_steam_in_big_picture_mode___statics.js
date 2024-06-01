@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_advanced_steam_friends_library___is_steam_in_big_picture_mode___statics =
+[
+    [ "AdvancedSteamFriendsLibrary_eventIsSteamInBigPictureMode_Parms", "struct_z___construct___u_function___u_advanced_steam_friends_library___is_steam_in_big_picture_m1cbd1a09b30eed5718814e08b46671ef.html", null ]
+];

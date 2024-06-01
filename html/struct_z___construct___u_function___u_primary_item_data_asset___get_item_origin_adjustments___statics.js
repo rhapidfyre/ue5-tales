@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_primary_item_data_asset___get_item_origin_adjustments___statics =
+[
+    [ "PrimaryItemDataAsset_eventGetItemOriginAdjustments_Parms", "struct_z___construct___u_function___u_primary_item_data_asset___get_item_origin_adjustments___std66bee1b9bca7d39badd0b32d85199b7.html", null ]
+];

@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_inventory_data_asset___get_starting_items___statics =
+[
+    [ "InventoryDataAsset_eventGetStartingItems_Parms", "struct_z___construct___u_function___u_inventory_data_asset___get_starting_items___statics_1_1_in1f95c1613c9d4a198fa593f516725f91.html", null ]
+];

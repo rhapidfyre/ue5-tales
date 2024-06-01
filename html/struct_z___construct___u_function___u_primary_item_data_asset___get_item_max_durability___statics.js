@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_primary_item_data_asset___get_item_max_durability___statics =
+[
+    [ "PrimaryItemDataAsset_eventGetItemMaxDurability_Parms", "struct_z___construct___u_function___u_primary_item_data_asset___get_item_max_durability___static834ace087470d7dd356e7937370e067c.html", null ]
+];

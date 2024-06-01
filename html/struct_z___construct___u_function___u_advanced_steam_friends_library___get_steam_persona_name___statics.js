@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_advanced_steam_friends_library___get_steam_persona_name___statics =
+[
+    [ "AdvancedSteamFriendsLibrary_eventGetSteamPersonaName_Parms", "struct_z___construct___u_function___u_advanced_steam_friends_library___get_steam_persona_name___3ad8f061d4043d4b85afdf083e8a636c.html", null ]
+];

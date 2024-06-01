@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_advanced_steam_friends_library___open_steam_user_overlay___statics =
+[
+    [ "AdvancedSteamFriendsLibrary_eventOpenSteamUserOverlay_Parms", "struct_z___construct___u_function___u_advanced_steam_friends_library___open_steam_user_overlay__b521a70e025c8f04d47e3fb5476d9947.html", null ]
+];

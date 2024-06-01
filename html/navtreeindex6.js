@@ -1,0 +1,20 @@
+var NAVTREEINDEX6 =
+{
+"struct_z___construct___u_script_struct___f_b_p_steam_workshop_item_details___statics.html":[4,0,651],
+"struct_z___construct___u_script_struct___f_b_p_unique_net_id___statics.html":[4,0,652],
+"struct_z___construct___u_script_struct___f_b_p_user_online_account___statics.html":[4,0,653],
+"struct_z___construct___u_script_struct___f_crafting_recipe___statics.html":[4,0,654],
+"struct_z___construct___u_script_struct___f_dungeon_tile_data___statics.html":[4,0,655],
+"struct_z___construct___u_script_struct___f_hud_message_data___statics.html":[4,0,656],
+"struct_z___construct___u_script_struct___f_inventory_save_data___statics.html":[4,0,657],
+"struct_z___construct___u_script_struct___f_inventory_slot_data___statics.html":[4,0,658],
+"struct_z___construct___u_script_struct___f_inventory_slot_save_data___statics.html":[4,0,659],
+"struct_z___construct___u_script_struct___f_item_statics___statics.html":[4,0,660],
+"struct_z___construct___u_script_struct___f_mapping_context_data___statics.html":[4,0,661],
+"struct_z___construct___u_script_struct___f_session_property_key_pair___statics.html":[4,0,662],
+"struct_z___construct___u_script_struct___f_sessions_search_setting___statics.html":[4,0,663],
+"struct_z___construct___u_script_struct___f_st_craft_recycle_data___statics.html":[4,0,666],
+"struct_z___construct___u_script_struct___f_st_crafter_data___statics.html":[4,0,665],
+"struct_z___construct___u_script_struct___f_st_inventory_notify___statics.html":[4,0,667],
+"struct_z___construct___u_script_struct___f_starting_item___statics.html":[4,0,664]
+};

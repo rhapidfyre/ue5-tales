@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_inventory_component___get_is_inventory_system_ready___statics =
+[
+    [ "InventoryComponent_eventGetIsInventorySystemReady_Parms", "struct_z___construct___u_function___u_inventory_component___get_is_inventory_system_ready___stataed5c1429938b35e20114dc04441f147.html", null ]
+];

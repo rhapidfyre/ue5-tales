@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_fuel_component___get_total_fuel_items_available___statics =
+[
+    [ "FuelComponent_eventGetTotalFuelItemsAvailable_Parms", "struct_z___construct___u_function___u_fuel_component___get_total_fuel_items_available___statics_e66114fc8949d90cf93e02c8f8c5684d.html", null ]
+];

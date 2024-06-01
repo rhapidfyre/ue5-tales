@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_advanced_steam_friends_library___filter_text___statics =
+[
+    [ "AdvancedSteamFriendsLibrary_eventFilterText_Parms", "struct_z___construct___u_function___u_advanced_steam_friends_library___filter_text___statics_1_12c2a94013011214177c35f35c469cb84.html", null ]
+];

@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_equipment_data_asset___get_can_equip_in_slot___statics =
+[
+    [ "EquipmentDataAsset_eventGetCanEquipInSlot_Parms", "struct_z___construct___u_function___u_equipment_data_asset___get_can_equip_in_slot___statics_1_1b8c8cda3578644031c4488abe39358fc.html", null ]
+];

@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_inventory_component___get_slot_number_by_tag___statics =
+[
+    [ "InventoryComponent_eventGetSlotNumberByTag_Parms", "struct_z___construct___u_function___u_inventory_component___get_slot_number_by_tag___statics_1_1d03fc57069459912c63c4afbce102b72.html", null ]
+];

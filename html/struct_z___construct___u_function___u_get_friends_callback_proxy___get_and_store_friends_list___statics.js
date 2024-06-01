@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_get_friends_callback_proxy___get_and_store_friends_list___statics =
+[
+    [ "GetFriendsCallbackProxy_eventGetAndStoreFriendsList_Parms", "struct_z___construct___u_function___u_get_friends_callback_proxy___get_and_store_friends_list___c7f0652765232c408abc34f1deca1ec5.html", null ]
+];

@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___a_game_state_realms_forge___get_buildable_static_mesh___statics =
+[
+    [ "GameStateRealmsForge_eventGetBuildableStaticMesh_Parms", "struct_z___construct___u_function___a_game_state_realms_forge___get_buildable_static_mesh___stat55b98ee00f281a70d470199e78e12288.html", null ]
+];

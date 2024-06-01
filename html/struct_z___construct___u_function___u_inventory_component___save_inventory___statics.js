@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_inventory_component___save_inventory___statics =
+[
+    [ "InventoryComponent_eventSaveInventory_Parms", "struct_z___construct___u_function___u_inventory_component___save_inventory___statics_1_1_inventoae4424669593a972f851dd282b746e07.html", null ]
+];

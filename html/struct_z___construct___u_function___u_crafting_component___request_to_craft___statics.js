@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_crafting_component___request_to_craft___statics =
+[
+    [ "CraftingComponent_eventRequestToCraft_Parms", "struct_z___construct___u_function___u_crafting_component___request_to_craft___statics_1_1_craftifc1630ea548f281ab7550182c8818135.html", null ]
+];

@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_login_user_callback_proxy___login_user___statics =
+[
+    [ "LoginUserCallbackProxy_eventLoginUser_Parms", "struct_z___construct___u_function___u_login_user_callback_proxy___login_user___statics_1_1_logindd399824bb2c0899e1f126ef6961a829.html", null ]
+];

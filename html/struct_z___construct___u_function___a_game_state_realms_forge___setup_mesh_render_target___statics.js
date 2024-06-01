@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___a_game_state_realms_forge___setup_mesh_render_target___statics =
+[
+    [ "GameStateRealmsForge_eventSetupMeshRenderTarget_Parms", "struct_z___construct___u_function___a_game_state_realms_forge___setup_mesh_render_target___stati4ae878ff673a1dc750df792bf7244b37.html", null ]
+];

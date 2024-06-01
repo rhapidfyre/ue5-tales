@@ -1,0 +1,4 @@
+var struct_z___construct___u_delegate_function___advanced_steam_sessions___blueprint_group_officer_da2a7b67900f09d4a092720dcf0543353 =
+[
+    [ "_Script_AdvancedSteamSessions_eventBlueprintGroupOfficerDetailsDelegate_Parms", "struct_z___construct___u_delegate_function___advanced_steam_sessions___blueprint_group_officer_da2f6c6ed0983a3773571d76088e61765.html", null ]
+];

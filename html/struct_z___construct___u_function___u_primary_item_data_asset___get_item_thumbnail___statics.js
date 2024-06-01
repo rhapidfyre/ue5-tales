@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_primary_item_data_asset___get_item_thumbnail___statics =
+[
+    [ "PrimaryItemDataAsset_eventGetItemThumbnail_Parms", "struct_z___construct___u_function___u_primary_item_data_asset___get_item_thumbnail___statics_1_115f41d69b348c01287c403cb07151eae.html", null ]
+];

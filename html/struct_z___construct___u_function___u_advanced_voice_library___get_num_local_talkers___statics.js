@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_advanced_voice_library___get_num_local_talkers___statics =
+[
+    [ "AdvancedVoiceLibrary_eventGetNumLocalTalkers_Parms", "struct_z___construct___u_function___u_advanced_voice_library___get_num_local_talkers___statics_115d1d26f2eebfc92a7936b266c900690.html", null ]
+];

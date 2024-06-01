@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_steam_request_group_officers_callback_proxy___get_steam_group_officer_list___statics =
+[
+    [ "SteamRequestGroupOfficersCallbackProxy_eventGetSteamGroupOfficerList_Parms", "struct_z___construct___u_function___u_steam_request_group_officers_callback_proxy___get_steam_gr9dc29f2de832e3eb8c2ba486fae38c91.html", null ]
+];

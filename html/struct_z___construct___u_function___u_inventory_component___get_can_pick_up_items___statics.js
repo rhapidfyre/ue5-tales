@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_inventory_component___get_can_pick_up_items___statics =
+[
+    [ "InventoryComponent_eventGetCanPickUpItems_Parms", "struct_z___construct___u_function___u_inventory_component___get_can_pick_up_items___statics_1_1_99254f8066580e95153aa6498b48d74a.html", null ]
+];

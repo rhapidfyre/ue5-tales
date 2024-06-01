@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_fuel_component__get_fuel_inventory___statics =
+[
+    [ "FuelComponent_eventgetFuelInventory_Parms", "struct_z___construct___u_function___u_fuel_component__get_fuel_inventory___statics_1_1_fuel_comp4b810d56ea9f6ac0619815244dd47860.html", null ]
+];

@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_advanced_sessions_library___get_session_settings___statics =
+[
+    [ "AdvancedSessionsLibrary_eventGetSessionSettings_Parms", "struct_z___construct___u_function___u_advanced_sessions_library___get_session_settings___statics81d715525ca410dfc9a94a476af43cc0.html", null ]
+];

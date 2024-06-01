@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_advanced_voice_library___is_remote_player_talking___statics =
+[
+    [ "AdvancedVoiceLibrary_eventIsRemotePlayerTalking_Parms", "struct_z___construct___u_function___u_advanced_voice_library___is_remote_player_talking___static37b46fb031990a148241a6e4d26eaf0d.html", null ]
+];

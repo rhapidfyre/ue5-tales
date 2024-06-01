@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_inventory_slot___get_carry_weight___statics =
+[
+    [ "InventorySlot_eventGetCarryWeight_Parms", "struct_z___construct___u_function___u_inventory_slot___get_carry_weight___statics_1_1_inventory_8b38aff056a9f94f30b4924b4949c73d.html", null ]
+];

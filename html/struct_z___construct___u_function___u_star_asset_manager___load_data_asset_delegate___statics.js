@@ -1,0 +1,4 @@
+var struct_z___construct___u_function___u_star_asset_manager___load_data_asset_delegate___statics =
+[
+    [ "StarAssetManager_eventLoadDataAssetDelegate_Parms", "struct_z___construct___u_function___u_star_asset_manager___load_data_asset_delegate___statics_1_19ce55bbf1107801556fcf0d6dacdbb9.html", null ]
+];
