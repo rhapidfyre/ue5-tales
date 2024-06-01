@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_a_creator_hud_base" kind="class" language="C++" prot="public">
+    <compoundname>ACreatorHudBase</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">AHUD</basecompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_a_creator_hud_base_1a2e546d618491d6e40ade6bd6e1537dff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACreatorHudBase::ACreatorHudBase</definition>
+        <argsstring>()</argsstring>
+        <name>ACreatorHudBase</name>
+        <qualifiedname>ACreatorHudBase::ACreatorHudBase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorHudBase.h" line="17" column="1" bodyfile="Source/TalesDungeoneer/Private/Gamemode/TitleScreen/CreatorHudBase.cpp" bodystart="6" bodyend="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_hud_base_1a82493d5f43fa9d29626edfef153444ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ACreatorHudBase::DrawHUD</definition>
+        <argsstring>() override</argsstring>
+        <name>DrawHUD</name>
+        <qualifiedname>ACreatorHudBase::DrawHUD</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Primary draw call for the HUD </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorHudBase.h" line="20" column="14" bodyfile="Source/TalesDungeoneer/Private/Gamemode/TitleScreen/CreatorHudBase.cpp" bodystart="11" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_hud_base_1a74e08c9c6e64a2956961aea4d9badb1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ACreatorHudBase::BeginPlay</definition>
+        <argsstring>() override</argsstring>
+        <name>BeginPlay</name>
+        <qualifiedname>ACreatorHudBase::BeginPlay</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorHudBase.h" line="22" column="14" bodyfile="Source/TalesDungeoneer/Private/Gamemode/TitleScreen/CreatorHudBase.cpp" bodystart="16" bodyend="19"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>ACreatorHudBase</label>
+        <link refid="class_a_creator_hud_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>AHUD</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>ACreatorHudBase</label>
+        <link refid="class_a_creator_hud_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>AHUD</label>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorHudBase.h" line="12" column="1" bodyfile="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorHudBase.h" bodystart="13" bodyend="23"/>
+    <listofallmembers>
+      <member refid="class_a_creator_hud_base_1a2e546d618491d6e40ade6bd6e1537dff" prot="public" virt="non-virtual"><scope>ACreatorHudBase</scope><name>ACreatorHudBase</name></member>
+      <member refid="class_a_creator_hud_base_1a74e08c9c6e64a2956961aea4d9badb1e" prot="public" virt="virtual"><scope>ACreatorHudBase</scope><name>BeginPlay</name></member>
+      <member refid="class_a_creator_hud_base_1a82493d5f43fa9d29626edfef153444ef" prot="public" virt="virtual"><scope>ACreatorHudBase</scope><name>DrawHUD</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

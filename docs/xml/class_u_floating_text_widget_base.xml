@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_u_floating_text_widget_base" kind="class" language="C++" prot="public">
+    <compoundname>UFloatingTextWidgetBase</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">UUserWidget</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_u_floating_text_widget_base_1aa7ae539d1108aed7bd92beac8293a26f" prot="public" static="no" mutable="no">
+        <type>FString</type>
+        <definition>FString UFloatingTextWidgetBase::TextShown</definition>
+        <argsstring></argsstring>
+        <name>TextShown</name>
+        <qualifiedname>UFloatingTextWidgetBase::TextShown</qualifiedname>
+        <initializer>= &quot;EmptyString&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Widgets/FloatingTextWidgetBase.h" line="22" column="9" bodyfile="Source/TalesDungeoneer/Public/Widgets/FloatingTextWidgetBase.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_floating_text_widget_base_1a081d87c210dd625071636e9810ea0f07" prot="public" static="no" mutable="no">
+        <type>FSlateColor</type>
+        <definition>FSlateColor UFloatingTextWidgetBase::TextColor</definition>
+        <argsstring></argsstring>
+        <name>TextColor</name>
+        <qualifiedname>UFloatingTextWidgetBase::TextColor</qualifiedname>
+        <initializer>= FLinearColor::White</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Widgets/FloatingTextWidgetBase.h" line="25" column="13" bodyfile="Source/TalesDungeoneer/Public/Widgets/FloatingTextWidgetBase.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_floating_text_widget_base_1a29b507133d43fd581dc80721587a9842" prot="public" static="no" mutable="no">
+        <type>UWidgetAnimation *</type>
+        <definition>UWidgetAnimation* UFloatingTextWidgetBase::SpawnAnimation</definition>
+        <argsstring></argsstring>
+        <name>SpawnAnimation</name>
+        <qualifiedname>UFloatingTextWidgetBase::SpawnAnimation</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Widgets/FloatingTextWidgetBase.h" line="28" column="18" bodyfile="Source/TalesDungeoneer/Public/Widgets/FloatingTextWidgetBase.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_u_floating_text_widget_base_1a21d37a53c1c033ebe4edd838161dc508" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UFloatingTextWidgetBase::UpdateWidgetText</definition>
+        <argsstring>()</argsstring>
+        <name>UpdateWidgetText</name>
+        <qualifiedname>UFloatingTextWidgetBase::UpdateWidgetText</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Widgets/FloatingTextWidgetBase.h" line="30" column="14" bodyfile="Source/TalesDungeoneer/Private/Widgets/FloatingTextWidgetBase.cpp" bodystart="16" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_floating_text_widget_base_1af0246017e6239943709869eda4876887" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UFloatingTextWidgetBase::UFUNCTION</definition>
+        <argsstring>(BlueprintNativeEvent) void UpdateWidget()</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>UFloatingTextWidgetBase::UFUNCTION</qualifiedname>
+        <param>
+          <type>BlueprintNativeEvent</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Widgets/FloatingTextWidgetBase.h" line="32" column="1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_u_floating_text_widget_base_1a8988be9ab22f86c54a59e71fc3aae602" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UFloatingTextWidgetBase::NativeConstruct</definition>
+        <argsstring>() override</argsstring>
+        <name>NativeConstruct</name>
+        <qualifiedname>UFloatingTextWidgetBase::NativeConstruct</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Widgets/FloatingTextWidgetBase.h" line="36" column="14" bodyfile="Source/TalesDungeoneer/Private/Widgets/FloatingTextWidgetBase.cpp" bodystart="6" bodyend="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_floating_text_widget_base_1af8029086b89f21aa2016b3c865fffc0b" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UFloatingTextWidgetBase::NativeOnInitialized</definition>
+        <argsstring>() override</argsstring>
+        <name>NativeOnInitialized</name>
+        <qualifiedname>UFloatingTextWidgetBase::NativeOnInitialized</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Widgets/FloatingTextWidgetBase.h" line="38" column="14" bodyfile="Source/TalesDungeoneer/Private/Widgets/FloatingTextWidgetBase.cpp" bodystart="11" bodyend="14"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>UFloatingTextWidgetBase</label>
+        <link refid="class_u_floating_text_widget_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>UUserWidget</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>UFloatingTextWidgetBase</label>
+        <link refid="class_u_floating_text_widget_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>UUserWidget</label>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Widgets/FloatingTextWidgetBase.h" line="15" column="1" bodyfile="Source/TalesDungeoneer/Public/Widgets/FloatingTextWidgetBase.h" bodystart="16" bodyend="40"/>
+    <listofallmembers>
+      <member refid="class_u_floating_text_widget_base_1a8988be9ab22f86c54a59e71fc3aae602" prot="protected" virt="virtual"><scope>UFloatingTextWidgetBase</scope><name>NativeConstruct</name></member>
+      <member refid="class_u_floating_text_widget_base_1af8029086b89f21aa2016b3c865fffc0b" prot="protected" virt="virtual"><scope>UFloatingTextWidgetBase</scope><name>NativeOnInitialized</name></member>
+      <member refid="class_u_floating_text_widget_base_1a29b507133d43fd581dc80721587a9842" prot="public" virt="non-virtual"><scope>UFloatingTextWidgetBase</scope><name>SpawnAnimation</name></member>
+      <member refid="class_u_floating_text_widget_base_1a081d87c210dd625071636e9810ea0f07" prot="public" virt="non-virtual"><scope>UFloatingTextWidgetBase</scope><name>TextColor</name></member>
+      <member refid="class_u_floating_text_widget_base_1aa7ae539d1108aed7bd92beac8293a26f" prot="public" virt="non-virtual"><scope>UFloatingTextWidgetBase</scope><name>TextShown</name></member>
+      <member refid="class_u_floating_text_widget_base_1af0246017e6239943709869eda4876887" prot="public" virt="non-virtual"><scope>UFloatingTextWidgetBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_u_floating_text_widget_base_1a21d37a53c1c033ebe4edd838161dc508" prot="public" virt="virtual"><scope>UFloatingTextWidgetBase</scope><name>UpdateWidgetText</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

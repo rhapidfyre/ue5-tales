@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="dir_1f3d3e5e40c48c50ce95c5e80da0def5" kind="dir">
+    <compoundname>Source/TalesDungeoneer/Public/lib/enums</compoundname>
+    <innerfile refid="_global_enums_8h">GlobalEnums.h</innerfile>
+    <innerfile refid="_weapon_enums_8h">WeaponEnums.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Public/lib/enums/"/>
+  </compounddef>
+</doxygen>

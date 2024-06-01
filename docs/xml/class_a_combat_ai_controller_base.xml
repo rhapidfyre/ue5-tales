@@ -1,0 +1,496 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_a_combat_ai_controller_base" kind="class" language="C++" prot="public">
+    <compoundname>ACombatAiControllerBase</compoundname>
+    <basecompoundref refid="class_a_ai_controller_base" prot="public" virt="non-virtual">AAiControllerBase</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_a_combat_ai_controller_base_1a4838c2d856b1d99867ff9223bc721601" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float ACombatAiControllerBase::HatePoints</definition>
+        <argsstring></argsstring>
+        <name>HatePoints</name>
+        <qualifiedname>ACombatAiControllerBase::HatePoints</qualifiedname>
+        <initializer>= 1.f)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" line="31" column="9" bodyfile="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_combat_ai_controller_base_1a56ca50f4aa232112536c07ce00aee7a2" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float ACombatAiControllerBase::DamageValue</definition>
+        <argsstring></argsstring>
+        <name>DamageValue</name>
+        <qualifiedname>ACombatAiControllerBase::DamageValue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" line="45" column="20" bodyfile="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_combat_ai_controller_base_1afb66b2ad0bf35b2b2692c435ab9d086a" prot="public" static="no" mutable="no">
+        <type>ECharacterTeam</type>
+        <definition>ECharacterTeam ACombatAiControllerBase::AiTeam</definition>
+        <argsstring></argsstring>
+        <name>AiTeam</name>
+        <qualifiedname>ACombatAiControllerBase::AiTeam</qualifiedname>
+        <initializer>= ECharacterTeam::ENEMY</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" line="66" column="16" bodyfile="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_a_combat_ai_controller_base_1a2d3b1581e6ca552030e7fcbccc33f7a1" prot="protected" static="no" mutable="no">
+        <type>FAIStimulus</type>
+        <definition>FAIStimulus ACombatAiControllerBase::StimulusData</definition>
+        <argsstring></argsstring>
+        <name>StimulusData</name>
+        <qualifiedname>ACombatAiControllerBase::StimulusData</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" line="57" column="26" bodyfile="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_a_combat_ai_controller_base_1ad6690d7d190294bc4b01d4a0e845716a" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float ACombatAiControllerBase::_HateList</definition>
+        <argsstring></argsstring>
+        <name>_HateList</name>
+        <qualifiedname>ACombatAiControllerBase::_HateList</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" line="75" column="18" bodyfile="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_combat_ai_controller_base_1a45242c2b95fc5f44117e16e59921cbb1" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float ACombatAiControllerBase::_DamageList</definition>
+        <argsstring></argsstring>
+        <name>_DamageList</name>
+        <qualifiedname>ACombatAiControllerBase::_DamageList</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" line="78" column="18" bodyfile="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_a_combat_ai_controller_base_1a28f41d504a090640b97e557f13724c11" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ACombatAiControllerBase::ACombatAiControllerBase</definition>
+        <argsstring>()</argsstring>
+        <name>ACombatAiControllerBase</name>
+        <qualifiedname>ACombatAiControllerBase::ACombatAiControllerBase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" line="24" column="1" bodyfile="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" bodystart="24" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_combat_ai_controller_base_1ade1f85bc0dc34ec92bb5f9fb4b5449ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACombatAiControllerBase::UPROPERTY</definition>
+        <argsstring>(BlueprintAssignable) FOnHateListUpdated OnHateListUpdated</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ACombatAiControllerBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintAssignable</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" line="26" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_combat_ai_controller_base_1ae56b38cdabe574407cdfa9460558f373" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACombatAiControllerBase::UFUNCTION</definition>
+        <argsstring>(BlueprintCallable) float AddHateTowardsTarget(ACharacterBase *HateTarget</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>ACombatAiControllerBase::UFUNCTION</qualifiedname>
+        <param>
+          <type>BlueprintCallable</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" line="30" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_combat_ai_controller_base_1ab24621045391d1456a28db69dcf23daa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACombatAiControllerBase::UFUNCTION</definition>
+        <argsstring>(BlueprintCallable) float RemoveHateFromTarget(ACharacterBase *HateTarget</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>ACombatAiControllerBase::UFUNCTION</qualifiedname>
+        <param>
+          <type>BlueprintCallable</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" line="33" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_combat_ai_controller_base_1a10e3dd3b93a5a8cc09d535786adeb71d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACombatAiControllerBase::UFUNCTION</definition>
+        <argsstring>(BlueprintCallable) bool ClearTargetFromHateList(ACharacterBase *HateTarget)</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>ACombatAiControllerBase::UFUNCTION</qualifiedname>
+        <param>
+          <type>BlueprintCallable</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" line="36" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_combat_ai_controller_base_1a41f6ed5d3333a25406e2d6a007d47aee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACombatAiControllerBase::UFUNCTION</definition>
+        <argsstring>(BlueprintCallable) bool WipeHateListMemory()</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>ACombatAiControllerBase::UFUNCTION</qualifiedname>
+        <param>
+          <type>BlueprintCallable</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" line="39" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_combat_ai_controller_base_1a28561c897708c4f2d128cfa59586081e" prot="public" static="no" const="yes" explicit="no" inline="no" refqual="lvalue" virt="non-virtual">
+        <type></type>
+        <definition>ACombatAiControllerBase::UFUNCTION</definition>
+        <argsstring>(BlueprintPure) ACharacterBase *GetMostHatedTarget(float &amp;HatePoints) const</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>ACombatAiControllerBase::UFUNCTION</qualifiedname>
+        <param>
+          <type>BlueprintPure</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" line="41" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_combat_ai_controller_base_1ade9c9278789c8dfdb8046ab89501dec4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACombatAiControllerBase::UFUNCTION</definition>
+        <argsstring>(BlueprintPure) TMap&lt; ACharacterBase *</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>ACombatAiControllerBase::UFUNCTION</qualifiedname>
+        <param>
+          <type>BlueprintPure</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" line="43" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_combat_ai_controller_base_1ae46f93b5a505a9918719571c172f7bc4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float ACombatAiControllerBase::GetHateList</definition>
+        <argsstring>() const</argsstring>
+        <name>GetHateList</name>
+        <qualifiedname>ACombatAiControllerBase::GetHateList</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" line="43" column="18" bodyfile="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" bodystart="43" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_combat_ai_controller_base_1aea0d7684368248c623e78749436bc6ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACombatAiControllerBase::UFUNCTION</definition>
+        <argsstring>(BlueprintCallable) void RememberDamage(AActor *DamagingActor</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>ACombatAiControllerBase::UFUNCTION</qualifiedname>
+        <param>
+          <type>BlueprintCallable</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" line="45" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_combat_ai_controller_base_1a02588bed7e0670967b3fee77dfff11fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACombatAiControllerBase::UFUNCTION</definition>
+        <argsstring>(BlueprintPure) bool IsTargetOnHateList(AActor *TargetActor)</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>ACombatAiControllerBase::UFUNCTION</qualifiedname>
+        <param>
+          <type>BlueprintPure</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" line="47" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_combat_ai_controller_base_1a9de4b3a58baa6daaefb3cfd4e9f2b742" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACombatAiControllerBase::UFUNCTION</definition>
+        <argsstring>(BlueprintPure) bool IsTargetValid(AActor *TargetActor)</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>ACombatAiControllerBase::UFUNCTION</qualifiedname>
+        <param>
+          <type>BlueprintPure</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" line="49" column="1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_a_combat_ai_controller_base_1ae366a506e99022431d5d043d8a54a02d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ACombatAiControllerBase::BeginPlay</definition>
+        <argsstring>() override</argsstring>
+        <name>BeginPlay</name>
+        <qualifiedname>ACombatAiControllerBase::BeginPlay</qualifiedname>
+        <reimplements refid="class_a_ai_controller_base_1a49f1eeeaed6c48ac5cc914a0c7e54eeb">BeginPlay</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" line="53" column="14" bodyfile="Source/TalesDungeoneer/Private/Characters/Controllers/CombatAiControllerBase.cpp" bodystart="131" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_combat_ai_controller_base_1a2b908358b12dd94b25c793a63d5253c6" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ACombatAiControllerBase::Tick</definition>
+        <argsstring>(float DeltaSeconds) override</argsstring>
+        <name>Tick</name>
+        <qualifiedname>ACombatAiControllerBase::Tick</qualifiedname>
+        <reimplements refid="class_a_ai_controller_base_1a44fd946dd8d5411fe5c0415777d7c2b6">Tick</reimplements>
+        <param>
+          <type>float</type>
+          <declname>DeltaSeconds</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" line="55" column="14" bodyfile="Source/TalesDungeoneer/Private/Characters/Controllers/CombatAiControllerBase.cpp" bodystart="150" bodyend="153"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_combat_ai_controller_base_1a6a50abec827b3f1b785bcc3bb1d7f77c" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACombatAiControllerBase::UFUNCTION</definition>
+        <argsstring>() void TargetPerception(AActor *StimulusActor</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>ACombatAiControllerBase::UFUNCTION</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" line="57" column="1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_a_combat_ai_controller_base_1ab7633672dc74e8801512f2a647dbfa1e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ACombatAiControllerBase::SortHateList</definition>
+        <argsstring>()</argsstring>
+        <name>SortHateList</name>
+        <qualifiedname>ACombatAiControllerBase::SortHateList</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" line="61" column="6" bodyfile="Source/TalesDungeoneer/Private/Characters/Controllers/CombatAiControllerBase.cpp" bodystart="24" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_combat_ai_controller_base_1ac1ebdec874fc892efcd650fdff8fe803" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACombatAiControllerBase::UPROPERTY</definition>
+        <argsstring>() TSet&lt; ACharacterBase * &gt; _ValidTargets</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ACombatAiControllerBase::UPROPERTY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" line="71" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_combat_ai_controller_base_1a14c17f3a81d875d4d8137ea39d6c0547" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACombatAiControllerBase::UPROPERTY</definition>
+        <argsstring>() TMap&lt; ACharacterBase *</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ACombatAiControllerBase::UPROPERTY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" line="75" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_combat_ai_controller_base_1a14c17f3a81d875d4d8137ea39d6c0547" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACombatAiControllerBase::UPROPERTY</definition>
+        <argsstring>() TMap&lt; ACharacterBase *</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ACombatAiControllerBase::UPROPERTY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" line="78" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_combat_ai_controller_base_1a07387aa5683d6b546d3f5c238e244c1a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACombatAiControllerBase::UPROPERTY</definition>
+        <argsstring>() ANpcCharacterBase *CharacterReference</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ACombatAiControllerBase::UPROPERTY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" line="80" column="1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>AAIController</label>
+      </node>
+      <node id="2">
+        <label>AAiControllerBase</label>
+        <link refid="class_a_ai_controller_base"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>ACombatAiControllerBase</label>
+        <link refid="class_a_combat_ai_controller_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>AAIController</label>
+      </node>
+      <node id="2">
+        <label>AAiControllerBase</label>
+        <link refid="class_a_ai_controller_base"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>ACombatAiControllerBase</label>
+        <link refid="class_a_combat_ai_controller_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" line="18" column="1" bodyfile="Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h" bodystart="19" bodyend="82"/>
+    <listofallmembers>
+      <member refid="class_a_combat_ai_controller_base_1a45242c2b95fc5f44117e16e59921cbb1" prot="private" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>_DamageList</name></member>
+      <member refid="class_a_combat_ai_controller_base_1ad6690d7d190294bc4b01d4a0e845716a" prot="private" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>_HateList</name></member>
+      <member refid="class_a_ai_controller_base_1a24509ebec165661f7a1d5ad3032ae7fb" prot="public" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>AAiControllerBase</name></member>
+      <member refid="class_a_combat_ai_controller_base_1a28f41d504a090640b97e557f13724c11" prot="public" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>ACombatAiControllerBase</name></member>
+      <member refid="class_a_ai_controller_base_1a27ae1bd0f533edc996266112e4fc8d70" prot="public" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>AiPerception</name></member>
+      <member refid="class_a_combat_ai_controller_base_1afb66b2ad0bf35b2b2692c435ab9d086a" prot="public" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>AiTeam</name></member>
+      <member refid="class_a_combat_ai_controller_base_1ae366a506e99022431d5d043d8a54a02d" prot="protected" virt="virtual"><scope>ACombatAiControllerBase</scope><name>BeginPlay</name></member>
+      <member refid="class_a_ai_controller_base_1aefb7ec98957db9a3bfc183501828614a" prot="public" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>BehaviorTree</name></member>
+      <member refid="class_a_combat_ai_controller_base_1a56ca50f4aa232112536c07ce00aee7a2" prot="public" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>DamageValue</name></member>
+      <member refid="class_a_ai_controller_base_1a82fd5e159c757f4df720be6454718511" prot="public" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>GainSightRadius</name></member>
+      <member refid="class_a_combat_ai_controller_base_1ae46f93b5a505a9918719571c172f7bc4" prot="public" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>GetHateList</name></member>
+      <member refid="class_a_combat_ai_controller_base_1a4838c2d856b1d99867ff9223bc721601" prot="public" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>HatePoints</name></member>
+      <member refid="class_a_ai_controller_base_1aca78b1048a7e427eb004c0646ee18a4e" prot="public" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>LoseSightRadius</name></member>
+      <member refid="class_a_ai_controller_base_1a4d7f4c5a91807c234a79c1f9be959d91" prot="protected" virt="virtual"><scope>ACombatAiControllerBase</scope><name>OnConstruction</name></member>
+      <member refid="class_a_ai_controller_base_1a738fc3a8b93ea1278aca8ad1460dc949" prot="protected" virt="virtual"><scope>ACombatAiControllerBase</scope><name>PostInitializeComponents</name></member>
+      <member refid="class_a_combat_ai_controller_base_1ab7633672dc74e8801512f2a647dbfa1e" prot="private" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>SortHateList</name></member>
+      <member refid="class_a_combat_ai_controller_base_1a2d3b1581e6ca552030e7fcbccc33f7a1" prot="protected" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>StimulusData</name></member>
+      <member refid="class_a_combat_ai_controller_base_1a2b908358b12dd94b25c793a63d5253c6" prot="protected" virt="virtual"><scope>ACombatAiControllerBase</scope><name>Tick</name></member>
+      <member refid="class_a_combat_ai_controller_base_1ae56b38cdabe574407cdfa9460558f373" prot="public" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_combat_ai_controller_base_1ab24621045391d1456a28db69dcf23daa" prot="public" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_combat_ai_controller_base_1a10e3dd3b93a5a8cc09d535786adeb71d" prot="public" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_combat_ai_controller_base_1a41f6ed5d3333a25406e2d6a007d47aee" prot="public" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_combat_ai_controller_base_1a28561c897708c4f2d128cfa59586081e" prot="public" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_combat_ai_controller_base_1ade9c9278789c8dfdb8046ab89501dec4" prot="public" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_combat_ai_controller_base_1aea0d7684368248c623e78749436bc6ae" prot="public" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_combat_ai_controller_base_1a02588bed7e0670967b3fee77dfff11fd" prot="public" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_combat_ai_controller_base_1a9de4b3a58baa6daaefb3cfd4e9f2b742" prot="public" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_combat_ai_controller_base_1a6a50abec827b3f1b785bcc3bb1d7f77c" prot="protected" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_ai_controller_base_1ad4449a2a39488eabb765147c969c76e7" prot="public" virt="non-virtual" ambiguityscope="AAiControllerBase::"><scope>ACombatAiControllerBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_combat_ai_controller_base_1ade1f85bc0dc34ec92bb5f9fb4b5449ae" prot="public" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_combat_ai_controller_base_1ac1ebdec874fc892efcd650fdff8fe803" prot="private" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_combat_ai_controller_base_1a14c17f3a81d875d4d8137ea39d6c0547" prot="private" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_combat_ai_controller_base_1a14c17f3a81d875d4d8137ea39d6c0547" prot="private" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_combat_ai_controller_base_1a07387aa5683d6b546d3f5c238e244c1a" prot="private" virt="non-virtual"><scope>ACombatAiControllerBase</scope><name>UPROPERTY</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

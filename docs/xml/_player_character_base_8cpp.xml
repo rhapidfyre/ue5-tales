@@ -1,0 +1,609 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_player_character_base_8cpp" kind="file" language="C++">
+    <compoundname>PlayerCharacterBase.cpp</compoundname>
+    <includes refid="_player_character_base_8h" local="yes">Characters/PlayerCharacterBase.h</includes>
+    <includes local="yes">AbilitySystemComponent.h</includes>
+    <includes local="yes">EnhancedInputComponent.h</includes>
+    <includes local="yes">EnhancedInputSubsystems.h</includes>
+    <includes local="yes">Logging/StructuredLog.h</includes>
+    <includes refid="_tales_attributes_8h" local="yes">Gas/AttributeSets/TalesAttributes.h</includes>
+    <includes refid="_saved_characters_8h" local="yes">Saves/SavedCharacters.h</includes>
+    <includes refid="_tales_dungeoneer_8h" local="yes">TalesDungeoneer/TalesDungeoneer.h</includes>
+    <incdepgraph>
+      <node id="9">
+        <label>Abilities/GameplayAbility.h</label>
+      </node>
+      <node id="23">
+        <label>AbilitySystemComponent.h</label>
+      </node>
+      <node id="5">
+        <label>AbilitySystemInterface.h</label>
+      </node>
+      <node id="42">
+        <label>AttributeSet.h</label>
+      </node>
+      <node id="33">
+        <label>CharacterBase.generated.h</label>
+      </node>
+      <node id="17">
+        <label>Components/ActorComponent.h</label>
+      </node>
+      <node id="3">
+        <label>CoreMinimal.h</label>
+      </node>
+      <node id="50">
+        <label>CoreStatsAttributes.generated.h</label>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Private/Characters/PlayerCharacterBase.cpp</label>
+        <link refid="_player_character_base_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>CharacterBase.h</label>
+        <link refid="_character_base_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>Components/EquipmentComponent.h</label>
+        <link refid="_equipment_component_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>Components/MeshMergeComponent.h</label>
+        <link refid="_mesh_merge_component_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>Components/TalesAbilityComponent.h</label>
+        <link refid="_tales_ability_component_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Characters/PlayerCharacterBase.h</label>
+        <link refid="_player_character_base_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>Gas/Abilities/TalesGameplayAbility.h</label>
+        <link refid="_tales_gameplay_ability_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>../AttributeHelpers.h</label>
+        <link refid="_attribute_helpers_8h_source"/>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>CoreStatsAttributes.h</label>
+        <link refid="_core_stats_attributes_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>DamageAttributes.h</label>
+        <link refid="_damage_attributes_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>EffectAttributes.h</label>
+        <link refid="_effect_attributes_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>Gas/AttributeSets/TalesAttributes.h</label>
+        <link refid="_tales_attributes_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>VitalityAttributes.h</label>
+        <link refid="_vitality_attributes_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>Saves/SavedCharacters.h</label>
+        <link refid="_saved_characters_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>lib/Tags/TalesGlobalTags.h</label>
+        <link refid="_tales_global_tags_8h_source"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>lib/enums/GlobalEnums.h</label>
+        <link refid="_global_enums_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>TalesDungeoneer/TalesDungeoneer.h</label>
+        <link refid="_tales_dungeoneer_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>DamageAttributes.generated.h</label>
+      </node>
+      <node id="7">
+        <label>Delegates/Delegate.h</label>
+      </node>
+      <node id="45">
+        <label>EffectAttributes.generated.h</label>
+      </node>
+      <node id="38">
+        <label>EnhancedInputComponent.h</label>
+      </node>
+      <node id="39">
+        <label>EnhancedInputSubsystems.h</label>
+      </node>
+      <node id="26">
+        <label>EquipmentComponent.generated.h</label>
+      </node>
+      <node id="6">
+        <label>GameFramework/Character.h</label>
+      </node>
+      <node id="19">
+        <label>GameFramework/SaveGame.h</label>
+      </node>
+      <node id="12">
+        <label>GameplayEffectTypes.h</label>
+      </node>
+      <node id="15">
+        <label>GameplayTagContainer.h</label>
+      </node>
+      <node id="22">
+        <label>GameplayTags/Public/GameplayTags.h</label>
+      </node>
+      <node id="31">
+        <label>GlobalEnums.generated.h</label>
+      </node>
+      <node id="34">
+        <label>InputAction.h</label>
+      </node>
+      <node id="35">
+        <label>InputActionValue.h</label>
+      </node>
+      <node id="36">
+        <label>InputMappingContext.h</label>
+      </node>
+      <node id="13">
+        <label>InventoryComponent.h</label>
+      </node>
+      <node id="40">
+        <label>Logging/StructuredLog.h</label>
+      </node>
+      <node id="20">
+        <label>MeshMergeComponent.generated.h</label>
+      </node>
+      <node id="28">
+        <label>NativeGameplayTags.h</label>
+      </node>
+      <node id="37">
+        <label>PlayerCharacterBase.generated.h</label>
+      </node>
+      <node id="32">
+        <label>SavedCharacters.generated.h</label>
+      </node>
+      <node id="16">
+        <label>SkeletalMeshMerge.h</label>
+      </node>
+      <node id="24">
+        <label>TalesAbilityComponent.generated.h</label>
+      </node>
+      <node id="53">
+        <label>TalesAttributes.generated.h</label>
+      </node>
+      <node id="11">
+        <label>TalesGameplayAbility.generated.h</label>
+      </node>
+      <node id="44">
+        <label>UObject/Object.h</label>
+      </node>
+      <node id="48">
+        <label>VitalityAttributes.generated.h</label>
+      </node>
+      <node id="18">
+        <label>lib/EquipmentData.h</label>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>Take<sp/>Five<sp/>Games,<sp/>LLC<sp/>2023<sp/>-<sp/>All<sp/>rights<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Characters/PlayerCharacterBase.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;AbilitySystemComponent.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;EnhancedInputComponent.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;EnhancedInputSubsystems.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Logging/StructuredLog.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Gas/AttributeSets/TalesAttributes.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Saves/SavedCharacters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;TalesDungeoneer/TalesDungeoneer.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Sets<sp/>default<sp/>values</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal">APlayerCharacterBase::APlayerCharacterBase()</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Set<sp/>this<sp/>actor<sp/>to<sp/>call<sp/>Tick()<sp/>every<sp/>frame.<sp/><sp/>You<sp/>can<sp/>turn<sp/>this<sp/>off<sp/>to<sp/>improve<sp/>performance<sp/>if<sp/>you<sp/>don&apos;t<sp/>need<sp/>it.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>PrimaryActorTick.bCanEverTick<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="21"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>APlayerCharacterBase::HotkeyTriggered(UInputAction*<sp/>HotkeyAction)</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>UE_LOGFMT(LogTemp,<sp/>Display,</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;{CharacterName}({Sv}):<sp/>Hotkey<sp/>&apos;{KeyName}&apos;<sp/>Triggered&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GetName(),<sp/>HasAuthority()?</highlight><highlight class="stringliteral">&quot;SV&quot;</highlight><highlight class="normal">:</highlight><highlight class="stringliteral">&quot;CL&quot;</highlight><highlight class="normal">,<sp/>HotkeyAction-&gt;GetName());</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>APlayerCharacterBase::BeginPlay()</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>Super::BeginPlay();</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Add<sp/>Input<sp/>Mapping<sp/>Context</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(APlayerController*<sp/>PlayerController<sp/>=<sp/>Cast&lt;APlayerController&gt;(Controller))</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(UEnhancedInputLocalPlayerSubsystem*<sp/>Subsystem<sp/>=</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ULocalPlayer::GetSubsystem&lt;UEnhancedInputLocalPlayerSubsystem&gt;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PlayerController-&gt;GetLocalPlayer()))</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Subsystem-&gt;AddMappingContext(<ref refid="class_a_player_character_base_1a9a571d97abfd792fb9ab1f01b6077d97" kindref="member">DefaultMappingContext</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="45"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>APlayerCharacterBase::BindListeners()</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Setup<sp/>Vitality<sp/>Listeners</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>Super::BindListeners();</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>We<sp/>only<sp/>need<sp/>to<sp/>know<sp/>the<sp/>rest<sp/>of<sp/>the<sp/>attributes<sp/>if<sp/>they<sp/>belong<sp/>to</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>the<sp/>person<sp/>playing<sp/>this<sp/>character.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!IsValid(GetController()))</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(GetController()-&gt;IsLocalPlayerController())</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TArray<sp/>CoreStatAttributes<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AttributeCoreStatsSet-&gt;GetStrengthAttribute(),</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AttributeCoreStatsSet-&gt;GetDexterityAttribute(),</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AttributeCoreStatsSet-&gt;GetFortitudeAttribute(),</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AttributeCoreStatsSet-&gt;GetAstutenessAttribute(),</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AttributeCoreStatsSet-&gt;GetIntellectAttribute(),</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AttributeCoreStatsSet-&gt;GetCharismaAttribute()</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>bind<sp/>to<sp/>core<sp/>stat<sp/>changes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttribute&amp;<sp/>coreAttribute<sp/>:<sp/>CoreStatAttributes)</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AbilitySystemComponent-&gt;GetGameplayAttributeValueChangeDelegate(</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>coreAttribute).AddUObject(</highlight><highlight class="keyword">this</highlight><highlight class="normal">,<sp/>&amp;APlayerCharacterBase::OnCoreStatsChanged);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UE_LOGFMT(LogTemp,<sp/>Display,<sp/></highlight><highlight class="stringliteral">&quot;{CharacterName}({Sv}):<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Successfully<sp/>initialized<sp/>delegate<sp/>for<sp/>CoreStat<sp/>Attribute<sp/>&apos;{vAttribute}&apos;&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GetCharacterName(),<sp/>HasAuthority()?</highlight><highlight class="stringliteral">&quot;SRV&quot;</highlight><highlight class="normal">:</highlight><highlight class="stringliteral">&quot;CLI&quot;</highlight><highlight class="normal">,<sp/>coreAttribute.AttributeName);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TArray<sp/>DamageAttributes<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AttributeDamageSet-&gt;GetBluntBonusAttribute(),<sp/><sp/><sp/>AttributeDamageSet-&gt;GetBluntResistanceAttribute(),</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AttributeDamageSet-&gt;GetSlashBonusAttribute(),<sp/><sp/><sp/>AttributeDamageSet-&gt;GetSlashResistanceAttribute(),</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AttributeDamageSet-&gt;GetPierceBonusAttribute(),<sp/><sp/>AttributeDamageSet-&gt;GetPierceResistanceAttribute(),</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AttributeDamageSet-&gt;GetBiteBonusAttribute(),<sp/><sp/><sp/><sp/>AttributeDamageSet-&gt;GetBiteResistanceAttribute(),</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AttributeDamageSet-&gt;GetClawBonusAttribute(),<sp/><sp/><sp/><sp/>AttributeDamageSet-&gt;GetClawResistanceAttribute(),</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AttributeDamageSet-&gt;GetKickBonusAttribute(),<sp/><sp/><sp/><sp/>AttributeDamageSet-&gt;GetKickResistanceAttribute(),</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AttributeDamageSet-&gt;GetStingBonusAttribute(),<sp/><sp/><sp/>AttributeDamageSet-&gt;GetStingResistanceAttribute(),</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AttributeDamageSet-&gt;GetFireBonusAttribute(),<sp/><sp/><sp/><sp/>AttributeDamageSet-&gt;GetFireResistanceAttribute(),</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AttributeDamageSet-&gt;GetFrostBonusAttribute(),<sp/><sp/><sp/>AttributeDamageSet-&gt;GetFrostResistanceAttribute(),</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AttributeDamageSet-&gt;GetAcidBonusAttribute(),<sp/><sp/><sp/><sp/>AttributeDamageSet-&gt;GetAcidResistanceAttribute(),</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AttributeDamageSet-&gt;GetShockBonusAttribute(),<sp/><sp/><sp/>AttributeDamageSet-&gt;GetShockResistanceAttribute(),</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AttributeDamageSet-&gt;GetRadioBonusAttribute(),<sp/><sp/><sp/>AttributeDamageSet-&gt;GetRadioResistanceAttribute(),</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AttributeDamageSet-&gt;GetSonicBonusAttribute(),<sp/><sp/><sp/>AttributeDamageSet-&gt;GetSonicResistanceAttribute(),</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AttributeDamageSet-&gt;GetHolyBonusAttribute(),<sp/><sp/><sp/><sp/>AttributeDamageSet-&gt;GetHolyResistanceAttribute(),</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AttributeDamageSet-&gt;GetDarkBonusAttribute(),<sp/><sp/><sp/><sp/>AttributeDamageSet-&gt;GetDarkResistanceAttribute(),</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>bind<sp/>to<sp/>damage<sp/>resistance/bonus<sp/>changes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttribute&amp;<sp/>damageAttribute<sp/>:<sp/>DamageAttributes)</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AbilitySystemComponent-&gt;GetGameplayAttributeValueChangeDelegate(</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>damageAttribute).AddUObject(</highlight><highlight class="keyword">this</highlight><highlight class="normal">,<sp/>&amp;APlayerCharacterBase::OnDamageStatsChanged);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UE_LOGFMT(LogTemp,<sp/>Display,<sp/></highlight><highlight class="stringliteral">&quot;{CharacterName}({Sv}):<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Successfully<sp/>initialized<sp/>delegate<sp/>for<sp/>Damage<sp/>Attribute<sp/>&apos;{vAttribute}&apos;&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GetCharacterName(),<sp/>HasAuthority()?</highlight><highlight class="stringliteral">&quot;SRV&quot;</highlight><highlight class="normal">:</highlight><highlight class="stringliteral">&quot;CLI&quot;</highlight><highlight class="normal">,<sp/>damageAttribute.AttributeName);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="108"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>APlayerCharacterBase::BindInput()</highlight></codeline>
+<codeline lineno="111"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(bIsInputBound<sp/>||<sp/>!IsValid(AbilitySystemComponent)<sp/>||<sp/>!IsValid(InputComponent))</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/>FTopLevelAssetPath<sp/>EnumAssetPath<sp/>=<sp/>FTopLevelAssetPath(</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FName(</highlight><highlight class="stringliteral">&quot;/Script/TalesDungeoneer&quot;</highlight><highlight class="normal">),<sp/>FName(</highlight><highlight class="stringliteral">&quot;EAbilityInputID&quot;</highlight><highlight class="normal">));</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>GetAbilitySystemComponent()-&gt;BindAbilityActivationToInputComponent(InputComponent,</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FGameplayAbilityInputBinds(</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FString(</highlight><highlight class="stringliteral">&quot;Confirm&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FString(</highlight><highlight class="stringliteral">&quot;Cancel&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EnumAssetPath,</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">int32</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(EAbilityInputID::Confirm),</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">int32</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(EAbilityInputID::Cancel)));</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/>bIsInputBound<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>APlayerCharacterBase::OnCoreStatsChanged(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FOnAttributeChangeData&amp;<sp/>Data)</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/>Super::OnCoreStatsChanged(Data);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/>OnCoreStatsUpdated.Broadcast(Data.Attribute,<sp/>Data.NewValue);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>APlayerCharacterBase::OnDamageStatsChanged(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FOnAttributeChangeData&amp;<sp/>Data)</highlight></codeline>
+<codeline lineno="137"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/>Super::OnDamageStatsChanged(Data);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/>OnDamageStatsUpdated.Broadcast(Data.Attribute,<sp/>Data.NewValue);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>APlayerCharacterBase::OnVitalityAttributeChanged(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FOnAttributeChangeData&amp;<sp/>Data)</highlight></codeline>
+<codeline lineno="143"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data.Attribute<sp/>==<sp/>AttributeVitalitySet-&gt;GetCurrentHungerAttribute())</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OnAttributeUpdated.Broadcast(Data.Attribute,<sp/>Data.NewValue);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OnAttributeHungerUpdated.Broadcast(Data.OldValue,<sp/>Data.NewValue);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EventHungerChanged(Data.OldValue,<sp/>Data.NewValue);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data.Attribute<sp/>==<sp/>AttributeVitalitySet-&gt;GetCurrentHydrationAttribute())</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OnAttributeHydrationUpdated.Broadcast(Data.OldValue,<sp/>Data.NewValue);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EventHydration(Data.OldValue,<sp/>Data.NewValue);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data.Attribute<sp/>==<sp/>AttributeVitalitySet-&gt;GetCurrentArmorClassAttribute())</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OnAttributeArmorClassUpdated.Broadcast(Data.OldValue,<sp/>Data.NewValue);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EventArmorClassChanged(Data.OldValue,<sp/>Data.NewValue);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Super::OnVitalityAttributeChanged(Data);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/>OnAttributeUpdated.Broadcast(Data.Attribute,<sp/>Data.NewValue);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>APlayerCharacterBase::SetupPlayerInputComponent(UInputComponent*<sp/>PlayerInputComponent)</highlight></codeline>
+<codeline lineno="169"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/>Super::SetupPlayerInputComponent(PlayerInputComponent);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(UEnhancedInputComponent*<sp/>EnhancedInputComponent<sp/>=<sp/>CastChecked&lt;UEnhancedInputComponent&gt;(PlayerInputComponent))<sp/>{</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Jumping</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EnhancedInputComponent-&gt;BindAction(<ref refid="class_a_player_character_base_1acf0c91b2f75bf16c0bcabc831669ab55" kindref="member">JumpInputAction</ref>,</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ETriggerEvent::Triggered,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">,<sp/>&amp;APlayerCharacterBase::Jump);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EnhancedInputComponent-&gt;BindAction(<ref refid="class_a_player_character_base_1acf0c91b2f75bf16c0bcabc831669ab55" kindref="member">JumpInputAction</ref>,</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ETriggerEvent::Completed,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">,<sp/>&amp;APlayerCharacterBase::StopJumping);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Moving</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EnhancedInputComponent-&gt;BindAction(<ref refid="class_a_player_character_base_1aa1b5e5ece7808b1268908d2561972ffe" kindref="member">MoveInputAction</ref>,</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ETriggerEvent::Triggered,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">,<sp/>&amp;APlayerCharacterBase::Move);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Looking</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EnhancedInputComponent-&gt;BindAction(<ref refid="class_a_player_character_base_1a0e996f48e129d3379ef307fc6abf3569" kindref="member">LookInputAction</ref>,</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ETriggerEvent::Triggered,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">,<sp/>&amp;APlayerCharacterBase::Look);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Call<sp/>the<sp/>function<sp/>that<sp/>handles<sp/>ability<sp/>system<sp/>bindings</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/>BindInput();</highlight></codeline>
+<codeline lineno="192"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>APlayerCharacterBase::Move(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FInputActionValue&amp;<sp/>Value)</highlight></codeline>
+<codeline lineno="195"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>input<sp/>is<sp/>a<sp/>Vector2D</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/>FVector2D<sp/>MovementVector<sp/>=<sp/>Value.Get&lt;FVector2D&gt;();</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Controller<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>find<sp/>out<sp/>which<sp/>way<sp/>is<sp/>forward</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FRotator<sp/>Rotation<sp/>=<sp/>Controller-&gt;GetControlRotation();</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FRotator<sp/>YawRotation(0,<sp/>Rotation.Yaw,<sp/>0);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>get<sp/>forward<sp/>vector</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FVector<sp/>ForwardDirection<sp/>=<sp/>FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>get<sp/>right<sp/>vector<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FVector<sp/>RightDirection<sp/>=<sp/>FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>add<sp/>movement<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AddMovementInput(ForwardDirection,<sp/>MovementVector.Y);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AddMovementInput(RightDirection,<sp/>MovementVector.X);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="215"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>APlayerCharacterBase::Look(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FInputActionValue&amp;<sp/>Value)</highlight></codeline>
+<codeline lineno="218"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>input<sp/>is<sp/>a<sp/>Vector2D</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/>FVector2D<sp/>LookAxisVector<sp/>=<sp/>Value.Get&lt;FVector2D&gt;();</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Controller<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>add<sp/>yaw<sp/>and<sp/>pitch<sp/>input<sp/>to<sp/>controller</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AddControllerYawInput(LookAxisVector.X);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AddControllerPitchInput(LookAxisVector.Y);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="228"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Private/Characters/PlayerCharacterBase.cpp"/>
+  </compounddef>
+</doxygen>

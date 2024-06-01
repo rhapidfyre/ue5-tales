@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="struct_f_character_data" kind="struct" language="C++" prot="public" abstract="yes">
+    <compoundname>FCharacterData</compoundname>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_f_character_data_1ac2cc3e82eddaa74185fa65d532e0c619" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FCharacterData::UPROPERTY</definition>
+        <argsstring>(SaveGame) FString CharacterName</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FCharacterData::UPROPERTY</qualifiedname>
+        <param>
+          <type>SaveGame</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" line="20" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_character_data_1a6cddf1c477b51d7062aded05b2af3725" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FCharacterData::UPROPERTY</definition>
+        <argsstring>(SaveGame) int CharacterLevel</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FCharacterData::UPROPERTY</qualifiedname>
+        <param>
+          <type>SaveGame</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" line="21" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_character_data_1a7e24b21c82e98358468155d2264dac96" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type></type>
+        <definition>FCharacterData::UPROPERTY</definition>
+        <argsstring>(SaveGame) float ExperiencePoints=0.f</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FCharacterData::UPROPERTY</qualifiedname>
+        <param>
+          <type>SaveGame</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" line="22" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_character_data_1a94668d8d5b4b078a824573aab665dc06" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FCharacterData::UPROPERTY</definition>
+        <argsstring>(SaveGame) FGameplayTag CharacterClass</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FCharacterData::UPROPERTY</qualifiedname>
+        <param>
+          <type>SaveGame</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" line="24" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_character_data_1ad3ffe27a00ec12cb2291199a001a80fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FCharacterData::UPROPERTY</definition>
+        <argsstring>(SaveGame) FGameplayTag CharacterRace</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FCharacterData::UPROPERTY</qualifiedname>
+        <param>
+          <type>SaveGame</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" line="25" column="1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" line="16" column="1" bodyfile="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" bodystart="17" bodyend="27"/>
+    <listofallmembers>
+      <member refid="struct_f_character_data_1ac2cc3e82eddaa74185fa65d532e0c619" prot="public" virt="non-virtual"><scope>FCharacterData</scope><name>UPROPERTY</name></member>
+      <member refid="struct_f_character_data_1a6cddf1c477b51d7062aded05b2af3725" prot="public" virt="non-virtual"><scope>FCharacterData</scope><name>UPROPERTY</name></member>
+      <member refid="struct_f_character_data_1a7e24b21c82e98358468155d2264dac96" prot="public" virt="pure-virtual"><scope>FCharacterData</scope><name>UPROPERTY</name></member>
+      <member refid="struct_f_character_data_1a94668d8d5b4b078a824573aab665dc06" prot="public" virt="non-virtual"><scope>FCharacterData</scope><name>UPROPERTY</name></member>
+      <member refid="struct_f_character_data_1ad3ffe27a00ec12cb2291199a001a80fe" prot="public" virt="non-virtual"><scope>FCharacterData</scope><name>UPROPERTY</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

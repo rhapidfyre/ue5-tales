@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="dir_7cc369a7cf4cb41b5b2e6b4466096a37" kind="dir">
+    <compoundname>Source/TalesDungeoneer/Public/DataAssets</compoundname>
+    <innerfile refid="_character_defaults_8h">CharacterDefaults.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Public/DataAssets/"/>
+  </compounddef>
+</doxygen>

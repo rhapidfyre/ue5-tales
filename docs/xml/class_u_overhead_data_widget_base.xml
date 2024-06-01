@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_u_overhead_data_widget_base" kind="class" language="C++" prot="public">
+    <compoundname>UOverheadDataWidgetBase</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">UUserWidget</basecompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_u_overhead_data_widget_base_1a07b858830d94937ae925f72647623f47" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void UOverheadDataWidgetBase::SetOwningCharacter</definition>
+        <argsstring>(ACharacterBase *CharacterBase)</argsstring>
+        <name>SetOwningCharacter</name>
+        <qualifiedname>UOverheadDataWidgetBase::SetOwningCharacter</qualifiedname>
+        <param>
+          <type><ref refid="class_a_character_base" kindref="compound">ACharacterBase</ref> *</type>
+          <declname>CharacterBase</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Widgets/OverheadDataWidgetBase.h" line="22" column="6"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_overhead_data_widget_base_1a676596826f4aa45fc6e1ad6ec880a99c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>UOverheadDataWidgetBase::UFUNCTION</definition>
+        <argsstring>(BlueprintPure) ACharacterBase *GetOwningCharacter() const</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>UOverheadDataWidgetBase::UFUNCTION</qualifiedname>
+        <param>
+          <type>BlueprintPure</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Widgets/OverheadDataWidgetBase.h" line="24" column="1" bodyfile="Source/TalesDungeoneer/Public/Widgets/OverheadDataWidgetBase.h" bodystart="24" bodyend="25"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_u_overhead_data_widget_base_1aaa619345b2df1d17ca0e3f7e710a41c1" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UOverheadDataWidgetBase::UPROPERTY</definition>
+        <argsstring>() ACharacterBase *_OwningCharacter</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UOverheadDataWidgetBase::UPROPERTY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Widgets/OverheadDataWidgetBase.h" line="29" column="1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>UOverheadDataWidgetBase</label>
+        <link refid="class_u_overhead_data_widget_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>UUserWidget</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>UOverheadDataWidgetBase</label>
+        <link refid="class_u_overhead_data_widget_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>UUserWidget</label>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Widgets/OverheadDataWidgetBase.h" line="15" column="1" bodyfile="Source/TalesDungeoneer/Public/Widgets/OverheadDataWidgetBase.h" bodystart="16" bodyend="31"/>
+    <listofallmembers>
+      <member refid="class_u_overhead_data_widget_base_1a07b858830d94937ae925f72647623f47" prot="public" virt="non-virtual"><scope>UOverheadDataWidgetBase</scope><name>SetOwningCharacter</name></member>
+      <member refid="class_u_overhead_data_widget_base_1a676596826f4aa45fc6e1ad6ec880a99c" prot="public" virt="non-virtual"><scope>UOverheadDataWidgetBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_u_overhead_data_widget_base_1aaa619345b2df1d17ca0e3f7e710a41c1" prot="private" virt="non-virtual"><scope>UOverheadDataWidgetBase</scope><name>UPROPERTY</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

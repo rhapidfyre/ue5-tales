@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="dir_866a32c97df33f89bdad3a54049b7362" kind="dir">
+    <compoundname>Source/TalesDungeoneer/Public/lib/datastructures</compoundname>
+    <innerfile refid="_global_data_8h">GlobalData.h</innerfile>
+    <innerfile refid="_loot_data_8h">LootData.h</innerfile>
+    <innerfile refid="_weapon_data_8h">WeaponData.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Public/lib/datastructures/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_weapon_system_8h" kind="file" language="C++">
+    <compoundname>WeaponSystem.h</compoundname>
+    <includes local="yes">CoreMinimal.h</includes>
+    <includes local="yes">Engine/DataTable.h</includes>
+    <includes refid="_weapon_data_8h" local="yes">lib/datastructures/WeaponData.h</includes>
+    <includes local="yes">WeaponSystem.generated.h</includes>
+    <includedby refid="_weapon_base_8cpp" local="yes">Source/TalesDungeoneer/Private/Weapons/WeaponBase.cpp</includedby>
+    <includedby refid="_weapon_system_8cpp" local="yes">Source/TalesDungeoneer/Private/Weapons/WeaponSystem.cpp</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>CoreMinimal.h</label>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/Weapons/WeaponSystem.h</label>
+        <link refid="_weapon_system_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>lib/datastructures/WeaponData.h</label>
+        <link refid="_weapon_data_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>lib/enums/WeaponEnums.h</label>
+        <link refid="_weapon_enums_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Engine/DataTable.h</label>
+      </node>
+      <node id="6">
+        <label>Engine/EngineTypes.h</label>
+      </node>
+      <node id="5">
+        <label>PickupActorBase.h</label>
+      </node>
+      <node id="9">
+        <label>WeaponData.generated.h</label>
+      </node>
+      <node id="8">
+        <label>WeaponEnums.generated.h</label>
+      </node>
+      <node id="10">
+        <label>WeaponSystem.generated.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="class_u_weapon_system" prot="public">UWeaponSystem</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;CoreMinimal.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Engine/DataTable.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;lib/datastructures/WeaponData.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;WeaponSystem.generated.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal">UCLASS()</highlight></codeline>
+<codeline lineno="17" refid="class_u_weapon_system" refkind="compound"><highlight class="normal">class<sp/><ref refid="class_u_weapon_system" kindref="compound">UWeaponSystem</ref><sp/>:<sp/>public<sp/>UBlueprintFunctionLibrary</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>GENERATED_BODY()</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintPure,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Weapon<sp/>System<sp/>Globals&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FName<sp/>GetInvalidName()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;None&quot;</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintPure,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Weapon<sp/>System<sp/>Globals&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>UDataTable*<sp/>GetWeaponDataTable();</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintPure,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Weapon<sp/>System<sp/>Globals&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FString<sp/>GetWeaponItemName(<ref refid="struct_f_st_weapon_data" kindref="compound">FStWeaponData</ref><sp/>weaponData);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintPure,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Weapon<sp/>System<sp/>Globals&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>IsMeleeAttack(EWeaponTypes<sp/>weaponType);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintPure,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Weapon<sp/>System<sp/>Globals&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>IsRangedAttack(EWeaponTypes<sp/>weaponType);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintPure,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Weapon<sp/>System<sp/>Globals&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>GetWeaponNameIsValid(FName<sp/>WeaponName);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintPure,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Weapon<sp/>System<sp/>Globals&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>GetWeaponIsValid(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_f_st_weapon_data" kindref="compound">FStWeaponData</ref><sp/>&amp;WeaponData);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintPure,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Weapon<sp/>System<sp/>Globals&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_f_st_weapon_data" kindref="compound">FStWeaponData</ref><sp/>GetWeaponDataFromName(FName<sp/>weaponName);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Public/Weapons/WeaponSystem.h"/>
+  </compounddef>
+</doxygen>

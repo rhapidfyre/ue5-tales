@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="dir_b7885edd3e9a9b350014f177cd06c848" kind="dir">
+    <compoundname>Source/TalesDungeoneer/Private/Gamemode/BaseFiles</compoundname>
+    <innerfile refid="_tales_game_state_base_8cpp">TalesGameStateBase.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/"/>
+  </compounddef>
+</doxygen>

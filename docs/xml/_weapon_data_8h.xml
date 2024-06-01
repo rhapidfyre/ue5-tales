@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_weapon_data_8h" kind="file" language="C++">
+    <compoundname>WeaponData.h</compoundname>
+    <includes local="yes">CoreMinimal.h</includes>
+    <includes local="yes">PickupActorBase.h</includes>
+    <includes local="yes">Engine/DataTable.h</includes>
+    <includes local="yes">Engine/EngineTypes.h</includes>
+    <includes refid="_weapon_enums_8h" local="yes">lib/enums/WeaponEnums.h</includes>
+    <includes local="yes">WeaponData.generated.h</includes>
+    <includedby refid="_ranged_weapon_base_8cpp" local="yes">Source/TalesDungeoneer/Private/Weapons/RangedWeaponBase.cpp</includedby>
+    <includedby refid="_weapon_data_8cpp" local="yes">Source/TalesDungeoneer/Private/lib/datastructures/WeaponData.cpp</includedby>
+    <includedby refid="_weapon_system_8h" local="yes">Source/TalesDungeoneer/Public/Weapons/WeaponSystem.h</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>CoreMinimal.h</label>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/lib/datastructures/WeaponData.h</label>
+        <link refid="_weapon_data_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>lib/enums/WeaponEnums.h</label>
+        <link refid="_weapon_enums_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Engine/DataTable.h</label>
+      </node>
+      <node id="5">
+        <label>Engine/EngineTypes.h</label>
+      </node>
+      <node id="3">
+        <label>PickupActorBase.h</label>
+      </node>
+      <node id="8">
+        <label>WeaponData.generated.h</label>
+      </node>
+      <node id="7">
+        <label>WeaponEnums.generated.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>Source/TalesDungeoneer/Public/Weapons/WeaponSystem.h</label>
+        <link refid="_weapon_system_8h_source"/>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/lib/datastructures/WeaponData.h</label>
+        <link refid="_weapon_data_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_f_st_weapon_data" prot="public">FStWeaponData</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;CoreMinimal.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;PickupActorBase.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Engine/DataTable.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Engine/EngineTypes.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;lib/enums/WeaponEnums.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;WeaponData.generated.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_a_weapon_base" kindref="compound">AWeaponBase</ref>;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">UDamageTypeBase;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal">USTRUCT(BlueprintType)</highlight></codeline>
+<codeline lineno="17" refid="struct_f_st_weapon_data" refkind="compound"><highlight class="normal">struct<sp/><ref refid="struct_f_st_weapon_data" kindref="compound">FStWeaponData</ref><sp/>:<sp/>public<sp/>FTableRowBase</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>GENERATED_BODY()</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>FString<sp/>DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Display<sp/>Name&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>EWeaponTypes<sp/>WeaponType<sp/>=<sp/>EWeaponTypes::NONE;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>weapon<sp/>actor<sp/>that<sp/>is<sp/>spawned<sp/>when<sp/>this<sp/>becomes<sp/>equipped</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>TSubclassOf&lt;AWeaponBase&gt;<sp/>SpawnClass;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>actor<sp/>that<sp/>spawns<sp/>when<sp/>the<sp/>weapon<sp/>is<sp/>dropped<sp/>on<sp/>the<sp/>ground</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>TSubclassOf&lt;APickupActorBase&gt;<sp/>DropClass;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>skeletal<sp/>mesh<sp/>the<sp/>weapon<sp/>should<sp/>use.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>UStaticMesh*<sp/>MeshStatic<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>USkeletalMesh*<sp/>MeshSkeletal<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>FVector<sp/>MeshOffset<sp/>=<sp/>FVector(0,0,0);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>FRotator<sp/>MeshRotOffset<sp/>=<sp/>FRotator(0,0,0);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Minimum<sp/>time<sp/>between<sp/>attacks<sp/>with<sp/>this<sp/>weapon,<sp/>unmodified</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>AttackDelay<sp/>=<sp/>1.2f;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Amount<sp/>of<sp/>time<sp/>between<sp/>initiation<sp/>of<sp/>attack<sp/>and<sp/>when<sp/>the<sp/>hit<sp/>detection<sp/>should<sp/>be<sp/>made</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Useful<sp/>for<sp/>things<sp/>like<sp/>swinging<sp/>a<sp/>sword.<sp/>The<sp/>hit<sp/>does<sp/>not<sp/>happen<sp/>immediately.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>HitDetectDelay<sp/>=<sp/>0.32;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Time<sp/>until<sp/>hit<sp/>detector<sp/>deactivates.<sp/>Will<sp/>adjust<sp/>if<sp/>it<sp/>ends<sp/>up<sp/>larger<sp/>than<sp/>attack<sp/>delay.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>HitDetectStop<sp/>=<sp/>0.6f;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Deprecated,<sp/>use<sp/>HitDetectDelay</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>HitDelay<sp/>=<sp/>0.0f;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>time<sp/>it<sp/>takes<sp/>to<sp/>employ<sp/>this<sp/>weapon,<sp/>in<sp/>seconds</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>DelayDrawTime<sp/>=<sp/>1.0f;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>time<sp/>it<sp/>takes<sp/>to<sp/>stow<sp/>this<sp/>weapon,<sp/>in<sp/>seconds</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>DelayStowTime<sp/>=<sp/>1.0f;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>maximum<sp/>number<sp/>of<sp/>targets<sp/>this<sp/>weapon<sp/>can<sp/>hit<sp/>in<sp/>a<sp/>single<sp/>attack</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Less<sp/>than<sp/>1<sp/>indicates<sp/>number<sp/>of<sp/>hit<sp/>targets<sp/>is<sp/>limited<sp/>only<sp/>be<sp/>hit<sp/>radius</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>MaxTargetsHitAtOnce<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>How<sp/>far<sp/>away<sp/>from<sp/>the<sp/>weapon<sp/>it<sp/>can<sp/>hit,<sp/>in<sp/>centimeters.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>line<sp/>trace<sp/>ends<sp/>at<sp/>this<sp/>distance<sp/>from<sp/>the<sp/>start<sp/>point.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Used<sp/>for<sp/>validation<sp/>(Distance<sp/>Of<sp/>Actor<sp/>1<sp/>-&gt;<sp/>Actor<sp/>2)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>MaxReachDistance<sp/>=<sp/>128.0f;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Maximum<sp/>hit<sp/>radius<sp/>of<sp/>the<sp/>weapon.<sp/>Values<sp/>below<sp/>1.f<sp/>mean<sp/>it<sp/>can<sp/>only<sp/>hit<sp/>one<sp/>target.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>MaxHitRadius<sp/>=<sp/>0.0f;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>AoE<sp/>Splash<sp/>Damage<sp/>Range,<sp/>in<sp/>centimeters.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>If<sp/>less<sp/>than<sp/>1.f,<sp/>the<sp/>attack<sp/>will<sp/>be<sp/>single<sp/>target<sp/>instead<sp/>of<sp/>AoE<sp/>(default)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>For<sp/>values<sp/>1.f<sp/>or<sp/>higher,<sp/>the<sp/>attack<sp/>will<sp/>hit<sp/>everything<sp/>within<sp/>this<sp/>range.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>SplashSize<sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>If<sp/>SplashSize<sp/>is<sp/>set,<sp/>this<sp/>is<sp/>the<sp/>minimum<sp/>distance<sp/>where<sp/>anything<sp/>within<sp/>this<sp/>zone</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>takes<sp/>full<sp/>damage.<sp/>The<sp/>damage<sp/>is<sp/>then<sp/>fractional<sp/>beyond<sp/>this<sp/>size,<sp/>up<sp/>to<sp/>no<sp/>damage<sp/>at<sp/>SplashSize.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>SplashZone<sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>starting<sp/>point<sp/>of<sp/>where<sp/>attack<sp/>detection<sp/>should<sp/>start</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>FVector<sp/>OffsetDetectStart<sp/>=<sp/>FVector(0,0,0);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>starting<sp/>point<sp/>of<sp/>where<sp/>attack<sp/>detection<sp/>should<sp/>end</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>FVector<sp/>OffsetDetectEnd<sp/>=<sp/>FVector(0,0,0);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Which<sp/>bone<sp/>the<sp/>weapon<sp/>should<sp/>attach<sp/>to<sp/>when<sp/>held</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>FName<sp/>ActorHeldBone<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;weapon_r&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>FVector<sp/>ActorHeldOffset<sp/>=<sp/>FVector(0,0,0);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>FRotator<sp/>ActorHeldRotation<sp/>=<sp/>FRotator(0,0,0);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Which<sp/>bone<sp/>the<sp/>weapon<sp/>should<sp/>attach<sp/>to<sp/>when<sp/>stowed</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>FName<sp/>ActorHolsterBone<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;spine_02&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>FVector<sp/>ActorHolsterOffset<sp/>=<sp/>FVector(0,0,0);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>FRotator<sp/>ActorHolsterRotation<sp/>=<sp/>FRotator(0,0,0);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Public/lib/datastructures/WeaponData.h"/>
+  </compounddef>
+</doxygen>

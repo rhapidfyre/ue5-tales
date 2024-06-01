@@ -1,0 +1,1574 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_u_vitality_attributes" kind="class" language="C++" prot="public">
+    <compoundname>UVitalityAttributes</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">UAttributeSet</basecompoundref>
+    <includes refid="_vitality_attributes_8h" local="no">VitalityAttributes.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_u_vitality_attributes_1aa9807f71f3d3d7ceebb6db3ade830357" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float UVitalityAttributes::DeathPercentage</definition>
+        <argsstring></argsstring>
+        <name>DeathPercentage</name>
+        <qualifiedname>UVitalityAttributes::DeathPercentage</qualifiedname>
+        <initializer>= (0 - 0.1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="31" column="7" bodyfile="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_u_vitality_attributes_1a5600dc46ac4733361a383d0ac3bac188" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::UVitalityAttributes</definition>
+        <argsstring>()</argsstring>
+        <name>UVitalityAttributes</name>
+        <qualifiedname>UVitalityAttributes::UVitalityAttributes</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="23" column="1" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/VitalityAttributes.cpp" bodystart="8" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1ac1b02d8d075e1a929442d2dbdc060507" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float UVitalityAttributes::GetDeathHealthValue</definition>
+        <argsstring>() const</argsstring>
+        <name>GetDeathHealthValue</name>
+        <qualifiedname>UVitalityAttributes::GetDeathHealthValue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="26" column="7" bodyfile="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" bodystart="26" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1abec09d448e374df3235106a4c8350520" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, Category=&quot;Status Attributes&quot;, ReplicatedUsing=OnRep_CurrentHealth, Meta=(AllowPrivateAccess=true)) FGameplayAttributeData CurrentHealth</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UVitalityAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>Category</type>
+          <defval>&quot;Status Attributes&quot;</defval>
+        </param>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_CurrentHealth</defval>
+        </param>
+        <param>
+          <type>Meta</type>
+          <defval>(AllowPrivateAccess=true)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="33" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1ac55fac9e754ae82882d6f5246cdf6341" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::ATTRIBUTE_ACCESSORS</definition>
+        <argsstring>(UVitalityAttributes, CurrentHealth)</argsstring>
+        <name>ATTRIBUTE_ACCESSORS</name>
+        <qualifiedname>UVitalityAttributes::ATTRIBUTE_ACCESSORS</qualifiedname>
+        <param>
+          <type><ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref></type>
+        </param>
+        <param>
+          <type>CurrentHealth</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="36" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a53e8ff24cfe5f7bbf3bae32004658bfe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, Category=&quot;Status Attributes&quot;, ReplicatedUsing=OnRep_CurrentMagic, Meta=(AllowPrivateAccess=true)) FGameplayAttributeData CurrentStamina</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UVitalityAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>Category</type>
+          <defval>&quot;Status Attributes&quot;</defval>
+        </param>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_CurrentMagic</defval>
+        </param>
+        <param>
+          <type>Meta</type>
+          <defval>(AllowPrivateAccess=true)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="38" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1afd334fc03d5ff72427a0e45bef9d02d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::ATTRIBUTE_ACCESSORS</definition>
+        <argsstring>(UVitalityAttributes, CurrentStamina)</argsstring>
+        <name>ATTRIBUTE_ACCESSORS</name>
+        <qualifiedname>UVitalityAttributes::ATTRIBUTE_ACCESSORS</qualifiedname>
+        <param>
+          <type><ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref></type>
+        </param>
+        <param>
+          <type>CurrentStamina</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="41" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a9f46c5acf63bdcb1061b69171e747bb7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, Category=&quot;Status Attributes&quot;, ReplicatedUsing=OnRep_CurrentArmorClass, Meta=(AllowPrivateAccess=true)) FGameplayAttributeData CurrentArmorClass</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UVitalityAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>Category</type>
+          <defval>&quot;Status Attributes&quot;</defval>
+        </param>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_CurrentArmorClass</defval>
+        </param>
+        <param>
+          <type>Meta</type>
+          <defval>(AllowPrivateAccess=true)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="43" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a1a75e4c3a8f059f1e7dc07da3b86fa3a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::ATTRIBUTE_ACCESSORS</definition>
+        <argsstring>(UVitalityAttributes, CurrentArmorClass)</argsstring>
+        <name>ATTRIBUTE_ACCESSORS</name>
+        <qualifiedname>UVitalityAttributes::ATTRIBUTE_ACCESSORS</qualifiedname>
+        <param>
+          <type><ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref></type>
+        </param>
+        <param>
+          <type>CurrentArmorClass</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="46" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a07eb2292808b1ea2d0bd618472944920" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, Category=&quot;Status Attributes&quot;, ReplicatedUsing=OnRep_CurrentArmor, Meta=(AllowPrivateAccess=true)) FGameplayAttributeData CurrentArmor</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UVitalityAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>Category</type>
+          <defval>&quot;Status Attributes&quot;</defval>
+        </param>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_CurrentArmor</defval>
+        </param>
+        <param>
+          <type>Meta</type>
+          <defval>(AllowPrivateAccess=true)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="48" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a1fa35c5522dff8b11e7bc9d67226ac74" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::ATTRIBUTE_ACCESSORS</definition>
+        <argsstring>(UVitalityAttributes, CurrentArmor)</argsstring>
+        <name>ATTRIBUTE_ACCESSORS</name>
+        <qualifiedname>UVitalityAttributes::ATTRIBUTE_ACCESSORS</qualifiedname>
+        <param>
+          <type><ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref></type>
+        </param>
+        <param>
+          <type>CurrentArmor</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="51" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1af583f8e160710257cc9f237bf9428729" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, Category=&quot;Status Attributes&quot;, ReplicatedUsing=OnRep_CurrentMagic, Meta=(AllowPrivateAccess=true)) FGameplayAttributeData CurrentMagic</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UVitalityAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>Category</type>
+          <defval>&quot;Status Attributes&quot;</defval>
+        </param>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_CurrentMagic</defval>
+        </param>
+        <param>
+          <type>Meta</type>
+          <defval>(AllowPrivateAccess=true)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="53" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a245a97cfd2bd7344d1716a9012188c6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::ATTRIBUTE_ACCESSORS</definition>
+        <argsstring>(UVitalityAttributes, CurrentMagic)</argsstring>
+        <name>ATTRIBUTE_ACCESSORS</name>
+        <qualifiedname>UVitalityAttributes::ATTRIBUTE_ACCESSORS</qualifiedname>
+        <param>
+          <type><ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref></type>
+        </param>
+        <param>
+          <type>CurrentMagic</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="56" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1ac6f2abc3e17e3b385092ffe160379a79" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, Category=&quot;Status Attributes&quot;, ReplicatedUsing=OnRep_CurrentHunger, Meta=(AllowPrivateAccess=true)) FGameplayAttributeData CurrentHunger</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UVitalityAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>Category</type>
+          <defval>&quot;Status Attributes&quot;</defval>
+        </param>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_CurrentHunger</defval>
+        </param>
+        <param>
+          <type>Meta</type>
+          <defval>(AllowPrivateAccess=true)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="58" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a48348d023e9fd0b38dec8d5322602e97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::ATTRIBUTE_ACCESSORS</definition>
+        <argsstring>(UVitalityAttributes, CurrentHunger)</argsstring>
+        <name>ATTRIBUTE_ACCESSORS</name>
+        <qualifiedname>UVitalityAttributes::ATTRIBUTE_ACCESSORS</qualifiedname>
+        <param>
+          <type><ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref></type>
+        </param>
+        <param>
+          <type>CurrentHunger</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="61" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a0b71276d0bc2a9020e1ca92357d850c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, Category=&quot;Status Attributes&quot;, ReplicatedUsing=OnRep_CurrentMagic, Meta=(AllowPrivateAccess=true)) FGameplayAttributeData CurrentHydration</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UVitalityAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>Category</type>
+          <defval>&quot;Status Attributes&quot;</defval>
+        </param>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_CurrentMagic</defval>
+        </param>
+        <param>
+          <type>Meta</type>
+          <defval>(AllowPrivateAccess=true)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="63" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a58b6ff93eed0493372847bb3dc8e862c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::ATTRIBUTE_ACCESSORS</definition>
+        <argsstring>(UVitalityAttributes, CurrentHydration)</argsstring>
+        <name>ATTRIBUTE_ACCESSORS</name>
+        <qualifiedname>UVitalityAttributes::ATTRIBUTE_ACCESSORS</qualifiedname>
+        <param>
+          <type><ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref></type>
+        </param>
+        <param>
+          <type>CurrentHydration</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="66" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a2754c69e3ddf44ec6d1d299cc722e8c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, Category=&quot;Attribute Maximums&quot;, ReplicatedUsing=OnRep_MaximumHealth, Meta=(AllowPrivateAccess=true)) FGameplayAttributeData MaximumHealth</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UVitalityAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>Category</type>
+          <defval>&quot;Attribute Maximums&quot;</defval>
+        </param>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_MaximumHealth</defval>
+        </param>
+        <param>
+          <type>Meta</type>
+          <defval>(AllowPrivateAccess=true)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="68" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1ac45964cc9dd0c5f692185a24c7fd5cbd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::ATTRIBUTE_ACCESSORS</definition>
+        <argsstring>(UVitalityAttributes, MaximumHealth)</argsstring>
+        <name>ATTRIBUTE_ACCESSORS</name>
+        <qualifiedname>UVitalityAttributes::ATTRIBUTE_ACCESSORS</qualifiedname>
+        <param>
+          <type><ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref></type>
+        </param>
+        <param>
+          <type>MaximumHealth</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="71" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a76c993e4ada4c470a0b4878e7a5602d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, Category=&quot;Status Attributes&quot;, ReplicatedUsing=OnRep_MaximumArmorClass, Meta=(AllowPrivateAccess=true)) FGameplayAttributeData MaximumArmorClass</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UVitalityAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>Category</type>
+          <defval>&quot;Status Attributes&quot;</defval>
+        </param>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_MaximumArmorClass</defval>
+        </param>
+        <param>
+          <type>Meta</type>
+          <defval>(AllowPrivateAccess=true)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="73" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a6a28ec45894a7740896aaed69c133146" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::ATTRIBUTE_ACCESSORS</definition>
+        <argsstring>(UVitalityAttributes, MaximumArmorClass)</argsstring>
+        <name>ATTRIBUTE_ACCESSORS</name>
+        <qualifiedname>UVitalityAttributes::ATTRIBUTE_ACCESSORS</qualifiedname>
+        <param>
+          <type><ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref></type>
+        </param>
+        <param>
+          <type>MaximumArmorClass</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="76" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a570b401b0b6fe4d238355cf2edd6864c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, Category=&quot;Attribute Maximums&quot;, ReplicatedUsing=OnRep_MaximumArmor, Meta=(AllowPrivateAccess=true)) FGameplayAttributeData MaximumArmor</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UVitalityAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>Category</type>
+          <defval>&quot;Attribute Maximums&quot;</defval>
+        </param>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_MaximumArmor</defval>
+        </param>
+        <param>
+          <type>Meta</type>
+          <defval>(AllowPrivateAccess=true)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="78" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a2e7e61e3f224f016964c4ca69050f05b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::ATTRIBUTE_ACCESSORS</definition>
+        <argsstring>(UVitalityAttributes, MaximumArmor)</argsstring>
+        <name>ATTRIBUTE_ACCESSORS</name>
+        <qualifiedname>UVitalityAttributes::ATTRIBUTE_ACCESSORS</qualifiedname>
+        <param>
+          <type><ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref></type>
+        </param>
+        <param>
+          <type>MaximumArmor</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="81" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a711216a9234be0c1ad25c6f2c4a1bb55" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, Category=&quot;Attribute Maximums&quot;, ReplicatedUsing=OnRep_MaximumMagic, Meta=(AllowPrivateAccess=true)) FGameplayAttributeData MaximumMagic</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UVitalityAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>Category</type>
+          <defval>&quot;Attribute Maximums&quot;</defval>
+        </param>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_MaximumMagic</defval>
+        </param>
+        <param>
+          <type>Meta</type>
+          <defval>(AllowPrivateAccess=true)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="83" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a00cd14f88b38f4c055d37e033b851002" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::ATTRIBUTE_ACCESSORS</definition>
+        <argsstring>(UVitalityAttributes, MaximumMagic)</argsstring>
+        <name>ATTRIBUTE_ACCESSORS</name>
+        <qualifiedname>UVitalityAttributes::ATTRIBUTE_ACCESSORS</qualifiedname>
+        <param>
+          <type><ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref></type>
+        </param>
+        <param>
+          <type>MaximumMagic</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="86" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1afb5282856d8e4ce3cd986c2f4ce564b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, Category=&quot;Attribute Maximums&quot;, ReplicatedUsing=OnRep_MaximumMagic, Meta=(AllowPrivateAccess=true)) FGameplayAttributeData MaximumStamina</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UVitalityAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>Category</type>
+          <defval>&quot;Attribute Maximums&quot;</defval>
+        </param>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_MaximumMagic</defval>
+        </param>
+        <param>
+          <type>Meta</type>
+          <defval>(AllowPrivateAccess=true)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="88" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a2a8b254ea53c1c5ef3c067a2605a9d63" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::ATTRIBUTE_ACCESSORS</definition>
+        <argsstring>(UVitalityAttributes, MaximumStamina)</argsstring>
+        <name>ATTRIBUTE_ACCESSORS</name>
+        <qualifiedname>UVitalityAttributes::ATTRIBUTE_ACCESSORS</qualifiedname>
+        <param>
+          <type><ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref></type>
+        </param>
+        <param>
+          <type>MaximumStamina</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="91" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1ac87a83729282f75653a52aa863379028" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, Category=&quot;Attribute Maximums&quot;, ReplicatedUsing=OnRep_MaximumHunger, Meta=(AllowPrivateAccess=true)) FGameplayAttributeData MaximumHunger</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UVitalityAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>Category</type>
+          <defval>&quot;Attribute Maximums&quot;</defval>
+        </param>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_MaximumHunger</defval>
+        </param>
+        <param>
+          <type>Meta</type>
+          <defval>(AllowPrivateAccess=true)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="93" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1ae1e69b80f06a1455f6975d330ee4f8fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::ATTRIBUTE_ACCESSORS</definition>
+        <argsstring>(UVitalityAttributes, MaximumHunger)</argsstring>
+        <name>ATTRIBUTE_ACCESSORS</name>
+        <qualifiedname>UVitalityAttributes::ATTRIBUTE_ACCESSORS</qualifiedname>
+        <param>
+          <type><ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref></type>
+        </param>
+        <param>
+          <type>MaximumHunger</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="96" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1adb543a898daba7fbed4c21ee9ca2fb0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, Category=&quot;Attribute Maximums&quot;, ReplicatedUsing=OnRep_MaximumHydration, Meta=(AllowPrivateAccess=true)) FGameplayAttributeData MaximumHydration</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UVitalityAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>Category</type>
+          <defval>&quot;Attribute Maximums&quot;</defval>
+        </param>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_MaximumHydration</defval>
+        </param>
+        <param>
+          <type>Meta</type>
+          <defval>(AllowPrivateAccess=true)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="98" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a642aacf9d6d8caa006db51f5a91bb89b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::ATTRIBUTE_ACCESSORS</definition>
+        <argsstring>(UVitalityAttributes, MaximumHydration)</argsstring>
+        <name>ATTRIBUTE_ACCESSORS</name>
+        <qualifiedname>UVitalityAttributes::ATTRIBUTE_ACCESSORS</qualifiedname>
+        <param>
+          <type><ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref></type>
+        </param>
+        <param>
+          <type>MaximumHydration</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="101" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1af884cc494ddab883e76bd63d8b566ec2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, Category=&quot;Status Attributes&quot;, ReplicatedUsing=OnRep_PassiveHealthRegen, Meta=(AllowPrivateAccess=true)) FGameplayAttributeData PassiveHealthRegen</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UVitalityAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>Category</type>
+          <defval>&quot;Status Attributes&quot;</defval>
+        </param>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_PassiveHealthRegen</defval>
+        </param>
+        <param>
+          <type>Meta</type>
+          <defval>(AllowPrivateAccess=true)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="103" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a7d4e94766a9b6f08a35e2eefd2ef2e7d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::ATTRIBUTE_ACCESSORS</definition>
+        <argsstring>(UVitalityAttributes, PassiveHealthRegen)</argsstring>
+        <name>ATTRIBUTE_ACCESSORS</name>
+        <qualifiedname>UVitalityAttributes::ATTRIBUTE_ACCESSORS</qualifiedname>
+        <param>
+          <type><ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref></type>
+        </param>
+        <param>
+          <type>PassiveHealthRegen</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="106" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1afccad22c07cda6b93e94bea202cbf59a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, Category=&quot;Status Attributes&quot;, ReplicatedUsing=OnRep_PassiveMagicRegen, Meta=(AllowPrivateAccess=true)) FGameplayAttributeData PassiveMagicRegen</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UVitalityAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>Category</type>
+          <defval>&quot;Status Attributes&quot;</defval>
+        </param>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_PassiveMagicRegen</defval>
+        </param>
+        <param>
+          <type>Meta</type>
+          <defval>(AllowPrivateAccess=true)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="108" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a65f8a9212937b0a1ca5381218e92e299" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::ATTRIBUTE_ACCESSORS</definition>
+        <argsstring>(UVitalityAttributes, PassiveMagicRegen)</argsstring>
+        <name>ATTRIBUTE_ACCESSORS</name>
+        <qualifiedname>UVitalityAttributes::ATTRIBUTE_ACCESSORS</qualifiedname>
+        <param>
+          <type><ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref></type>
+        </param>
+        <param>
+          <type>PassiveMagicRegen</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="111" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a9423ebaf38e13aebf7220b664c2a0e89" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, Category=&quot;Status Attributes&quot;, ReplicatedUsing=OnRep_PassiveStaminaRegen, Meta=(AllowPrivateAccess=true)) FGameplayAttributeData PassiveStaminaRegen</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UVitalityAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>Category</type>
+          <defval>&quot;Status Attributes&quot;</defval>
+        </param>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_PassiveStaminaRegen</defval>
+        </param>
+        <param>
+          <type>Meta</type>
+          <defval>(AllowPrivateAccess=true)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="113" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1ab5ba6ae73be5717fc15e4afd091e32a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::ATTRIBUTE_ACCESSORS</definition>
+        <argsstring>(UVitalityAttributes, PassiveStaminaRegen)</argsstring>
+        <name>ATTRIBUTE_ACCESSORS</name>
+        <qualifiedname>UVitalityAttributes::ATTRIBUTE_ACCESSORS</qualifiedname>
+        <param>
+          <type><ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref></type>
+        </param>
+        <param>
+          <type>PassiveStaminaRegen</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="116" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a7c2c256fde6233d62e6aa82c6cf36af5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, Category=&quot;Status Attributes&quot;, ReplicatedUsing=OnRep_PassiveHungerDrain, Meta=(AllowPrivateAccess=true)) FGameplayAttributeData PassiveHungerDrain</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UVitalityAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>Category</type>
+          <defval>&quot;Status Attributes&quot;</defval>
+        </param>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_PassiveHungerDrain</defval>
+        </param>
+        <param>
+          <type>Meta</type>
+          <defval>(AllowPrivateAccess=true)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="118" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1abe6b9cbf2bb6acfd628910b66164eaee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::ATTRIBUTE_ACCESSORS</definition>
+        <argsstring>(UVitalityAttributes, PassiveHungerDrain)</argsstring>
+        <name>ATTRIBUTE_ACCESSORS</name>
+        <qualifiedname>UVitalityAttributes::ATTRIBUTE_ACCESSORS</qualifiedname>
+        <param>
+          <type><ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref></type>
+        </param>
+        <param>
+          <type>PassiveHungerDrain</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="121" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1aea5302871e70c1a0685720bfb66bb983" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, Category=&quot;Status Attributes&quot;, ReplicatedUsing=OnRep_PassiveHydroDrain, Meta=(AllowPrivateAccess=true)) FGameplayAttributeData PassiveHydroDrain</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UVitalityAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>Category</type>
+          <defval>&quot;Status Attributes&quot;</defval>
+        </param>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_PassiveHydroDrain</defval>
+        </param>
+        <param>
+          <type>Meta</type>
+          <defval>(AllowPrivateAccess=true)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="123" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1ac003b7955b300d8742e11a11d6965885" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::ATTRIBUTE_ACCESSORS</definition>
+        <argsstring>(UVitalityAttributes, PassiveHydroDrain)</argsstring>
+        <name>ATTRIBUTE_ACCESSORS</name>
+        <qualifiedname>UVitalityAttributes::ATTRIBUTE_ACCESSORS</qualifiedname>
+        <param>
+          <type><ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref></type>
+        </param>
+        <param>
+          <type>PassiveHydroDrain</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="126" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a0f8cab5f7e4ab275ea7efb33bb82c0ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, Category=&quot;Damage Attributes&quot;, ReplicatedUsing=OnRep_Ammunition, Meta=(AllowPrivateAccess=true)) FGameplayAttributeData Ammunition</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UVitalityAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>Category</type>
+          <defval>&quot;Damage Attributes&quot;</defval>
+        </param>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_Ammunition</defval>
+        </param>
+        <param>
+          <type>Meta</type>
+          <defval>(AllowPrivateAccess=true)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="128" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a02a9b9eab796d19b2d455ef317831d94" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UVitalityAttributes::ATTRIBUTE_ACCESSORS</definition>
+        <argsstring>(UVitalityAttributes, Ammunition)</argsstring>
+        <name>ATTRIBUTE_ACCESSORS</name>
+        <qualifiedname>UVitalityAttributes::ATTRIBUTE_ACCESSORS</qualifiedname>
+        <param>
+          <type><ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref></type>
+        </param>
+        <param>
+          <type>Ammunition</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="131" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a59c574e0f329e414c30136c5dd0a883c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>TArray&lt; FGameplayAttribute &gt;</type>
+        <definition>TArray&lt; FGameplayAttribute &gt; UVitalityAttributes::GetAllVitalityAttributes</definition>
+        <argsstring>() const</argsstring>
+        <name>GetAllVitalityAttributes</name>
+        <qualifiedname>UVitalityAttributes::GetAllVitalityAttributes</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="133" column="8" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/VitalityAttributes.cpp" bodystart="20" bodyend="30"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_u_vitality_attributes_1a2b9d77514ae0c80e8e8117dc9e6d1055" prot="protected" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UVitalityAttributes::PreAttributeBaseChange</definition>
+        <argsstring>(const FGameplayAttribute &amp;Attribute, float &amp;NewValue) const override</argsstring>
+        <name>PreAttributeBaseChange</name>
+        <qualifiedname>UVitalityAttributes::PreAttributeBaseChange</qualifiedname>
+        <param>
+          <type>const FGameplayAttribute &amp;</type>
+          <declname>Attribute</declname>
+        </param>
+        <param>
+          <type>float &amp;</type>
+          <declname>NewValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="137" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/VitalityAttributes.cpp" bodystart="32" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1af08af709f1a7e528e68de044d0a38e19" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UVitalityAttributes::PreAttributeChange</definition>
+        <argsstring>(const FGameplayAttribute &amp;Attribute, float &amp;NewValue) override</argsstring>
+        <name>PreAttributeChange</name>
+        <qualifiedname>UVitalityAttributes::PreAttributeChange</qualifiedname>
+        <param>
+          <type>const FGameplayAttribute &amp;</type>
+          <declname>Attribute</declname>
+        </param>
+        <param>
+          <type>float &amp;</type>
+          <declname>NewValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="140" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/VitalityAttributes.cpp" bodystart="38" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a13277412381ccdce2dfe56add2d1ee0e" prot="protected" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UVitalityAttributes::ClampAttributeOnChange</definition>
+        <argsstring>(const FGameplayAttribute &amp;Attribute, float &amp;NewValue) const</argsstring>
+        <name>ClampAttributeOnChange</name>
+        <qualifiedname>UVitalityAttributes::ClampAttributeOnChange</qualifiedname>
+        <param>
+          <type>const FGameplayAttribute &amp;</type>
+          <declname>Attribute</declname>
+        </param>
+        <param>
+          <type>float &amp;</type>
+          <declname>NewValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="143" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/VitalityAttributes.cpp" bodystart="44" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a8a84e2ccc5e5e4ba5f3cf3b9e42f799d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UVitalityAttributes::OnRep_CurrentHealth</definition>
+        <argsstring>(const FGameplayAttributeData &amp;OldData)</argsstring>
+        <name>OnRep_CurrentHealth</name>
+        <qualifiedname>UVitalityAttributes::OnRep_CurrentHealth</qualifiedname>
+        <param>
+          <type>const FGameplayAttributeData &amp;</type>
+          <declname>OldData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="147" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/VitalityAttributes.cpp" bodystart="74" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1ae6dbd5b9c455174f072a5ed78a5659dd" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UVitalityAttributes::OnRep_CurrentArmorClass</definition>
+        <argsstring>(const FGameplayAttributeData &amp;OldData)</argsstring>
+        <name>OnRep_CurrentArmorClass</name>
+        <qualifiedname>UVitalityAttributes::OnRep_CurrentArmorClass</qualifiedname>
+        <param>
+          <type>const FGameplayAttributeData &amp;</type>
+          <declname>OldData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="150" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/VitalityAttributes.cpp" bodystart="84" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1aaeff1b3ff662226fcf63431262f34536" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UVitalityAttributes::OnRep_CurrentArmor</definition>
+        <argsstring>(const FGameplayAttributeData &amp;OldData)</argsstring>
+        <name>OnRep_CurrentArmor</name>
+        <qualifiedname>UVitalityAttributes::OnRep_CurrentArmor</qualifiedname>
+        <param>
+          <type>const FGameplayAttributeData &amp;</type>
+          <declname>OldData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="153" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/VitalityAttributes.cpp" bodystart="95" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1aa5e74075fe8acb8e2e91b7fc0f80cad8" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UVitalityAttributes::OnRep_CurrentMagic</definition>
+        <argsstring>(const FGameplayAttributeData &amp;OldData)</argsstring>
+        <name>OnRep_CurrentMagic</name>
+        <qualifiedname>UVitalityAttributes::OnRep_CurrentMagic</qualifiedname>
+        <param>
+          <type>const FGameplayAttributeData &amp;</type>
+          <declname>OldData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="156" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/VitalityAttributes.cpp" bodystart="106" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a8366b22d8c038420b0493f396a801e55" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UVitalityAttributes::OnRep_CurrentStamina</definition>
+        <argsstring>(const FGameplayAttributeData &amp;OldData)</argsstring>
+        <name>OnRep_CurrentStamina</name>
+        <qualifiedname>UVitalityAttributes::OnRep_CurrentStamina</qualifiedname>
+        <param>
+          <type>const FGameplayAttributeData &amp;</type>
+          <declname>OldData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="159" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/VitalityAttributes.cpp" bodystart="117" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a793f6f729b45622c5604dffd9ff9cf4c" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UVitalityAttributes::OnRep_CurrentHunger</definition>
+        <argsstring>(const FGameplayAttributeData &amp;OldData)</argsstring>
+        <name>OnRep_CurrentHunger</name>
+        <qualifiedname>UVitalityAttributes::OnRep_CurrentHunger</qualifiedname>
+        <param>
+          <type>const FGameplayAttributeData &amp;</type>
+          <declname>OldData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="162" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/VitalityAttributes.cpp" bodystart="128" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1ac9f1a87bf637e3abab4595a216f44751" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UVitalityAttributes::OnRep_CurrentHydration</definition>
+        <argsstring>(const FGameplayAttributeData &amp;OldData)</argsstring>
+        <name>OnRep_CurrentHydration</name>
+        <qualifiedname>UVitalityAttributes::OnRep_CurrentHydration</qualifiedname>
+        <param>
+          <type>const FGameplayAttributeData &amp;</type>
+          <declname>OldData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="165" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/VitalityAttributes.cpp" bodystart="139" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1ab9c23f83b03292dd3c9c95c37c264f12" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UVitalityAttributes::OnRep_PassiveHealthRegen</definition>
+        <argsstring>(const FGameplayAttributeData &amp;OldData)</argsstring>
+        <name>OnRep_PassiveHealthRegen</name>
+        <qualifiedname>UVitalityAttributes::OnRep_PassiveHealthRegen</qualifiedname>
+        <param>
+          <type>const FGameplayAttributeData &amp;</type>
+          <declname>OldData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="168" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/VitalityAttributes.cpp" bodystart="150" bodyend="159"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a1f25fbe565856c7ed84e4ed1decfd855" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UVitalityAttributes::OnRep_PassiveStaminaRegen</definition>
+        <argsstring>(const FGameplayAttributeData &amp;OldData)</argsstring>
+        <name>OnRep_PassiveStaminaRegen</name>
+        <qualifiedname>UVitalityAttributes::OnRep_PassiveStaminaRegen</qualifiedname>
+        <param>
+          <type>const FGameplayAttributeData &amp;</type>
+          <declname>OldData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="171" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/VitalityAttributes.cpp" bodystart="161" bodyend="170"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a2a90760fa48e9ebf40a80c9bf87a8802" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UVitalityAttributes::OnRep_PassiveMagicRegen</definition>
+        <argsstring>(const FGameplayAttributeData &amp;OldData)</argsstring>
+        <name>OnRep_PassiveMagicRegen</name>
+        <qualifiedname>UVitalityAttributes::OnRep_PassiveMagicRegen</qualifiedname>
+        <param>
+          <type>const FGameplayAttributeData &amp;</type>
+          <declname>OldData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="174" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/VitalityAttributes.cpp" bodystart="172" bodyend="181"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a3638583a792d4157b39bf10da9292ece" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UVitalityAttributes::OnRep_PassiveHungerDrain</definition>
+        <argsstring>(const FGameplayAttributeData &amp;OldData)</argsstring>
+        <name>OnRep_PassiveHungerDrain</name>
+        <qualifiedname>UVitalityAttributes::OnRep_PassiveHungerDrain</qualifiedname>
+        <param>
+          <type>const FGameplayAttributeData &amp;</type>
+          <declname>OldData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="177" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/VitalityAttributes.cpp" bodystart="183" bodyend="192"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a006706410497f071cb45a1371bca6255" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UVitalityAttributes::OnRep_PassiveHydroDrain</definition>
+        <argsstring>(const FGameplayAttributeData &amp;OldData)</argsstring>
+        <name>OnRep_PassiveHydroDrain</name>
+        <qualifiedname>UVitalityAttributes::OnRep_PassiveHydroDrain</qualifiedname>
+        <param>
+          <type>const FGameplayAttributeData &amp;</type>
+          <declname>OldData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="180" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/VitalityAttributes.cpp" bodystart="194" bodyend="203"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a5a41681c729e02f0af667de755648fca" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UVitalityAttributes::OnRep_MaximumHealth</definition>
+        <argsstring>(const FGameplayAttributeData &amp;OldData)</argsstring>
+        <name>OnRep_MaximumHealth</name>
+        <qualifiedname>UVitalityAttributes::OnRep_MaximumHealth</qualifiedname>
+        <param>
+          <type>const FGameplayAttributeData &amp;</type>
+          <declname>OldData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="183" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/VitalityAttributes.cpp" bodystart="205" bodyend="214"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1af9fc928b7469f56665206b2cda943ece" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UVitalityAttributes::OnRep_MaximumArmorClass</definition>
+        <argsstring>(const FGameplayAttributeData &amp;OldData)</argsstring>
+        <name>OnRep_MaximumArmorClass</name>
+        <qualifiedname>UVitalityAttributes::OnRep_MaximumArmorClass</qualifiedname>
+        <param>
+          <type>const FGameplayAttributeData &amp;</type>
+          <declname>OldData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="186" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/VitalityAttributes.cpp" bodystart="216" bodyend="225"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1aacffcac18312deb70ca3d8a41bed89b7" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UVitalityAttributes::OnRep_MaximumArmor</definition>
+        <argsstring>(const FGameplayAttributeData &amp;OldData)</argsstring>
+        <name>OnRep_MaximumArmor</name>
+        <qualifiedname>UVitalityAttributes::OnRep_MaximumArmor</qualifiedname>
+        <param>
+          <type>const FGameplayAttributeData &amp;</type>
+          <declname>OldData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="189" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/VitalityAttributes.cpp" bodystart="227" bodyend="236"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a2e227bf33a3c34a2a604747d79f16c96" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UVitalityAttributes::OnRep_MaximumMagic</definition>
+        <argsstring>(const FGameplayAttributeData &amp;OldData)</argsstring>
+        <name>OnRep_MaximumMagic</name>
+        <qualifiedname>UVitalityAttributes::OnRep_MaximumMagic</qualifiedname>
+        <param>
+          <type>const FGameplayAttributeData &amp;</type>
+          <declname>OldData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="192" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/VitalityAttributes.cpp" bodystart="238" bodyend="247"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a7f9903d89a4be5bd7202eca70535a5dc" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UVitalityAttributes::OnRep_MaximumStamina</definition>
+        <argsstring>(const FGameplayAttributeData &amp;OldData)</argsstring>
+        <name>OnRep_MaximumStamina</name>
+        <qualifiedname>UVitalityAttributes::OnRep_MaximumStamina</qualifiedname>
+        <param>
+          <type>const FGameplayAttributeData &amp;</type>
+          <declname>OldData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="195" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/VitalityAttributes.cpp" bodystart="249" bodyend="258"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1af48a4040f54c61ce1ceaa260563a8cf6" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UVitalityAttributes::OnRep_MaximumHunger</definition>
+        <argsstring>(const FGameplayAttributeData &amp;OldData)</argsstring>
+        <name>OnRep_MaximumHunger</name>
+        <qualifiedname>UVitalityAttributes::OnRep_MaximumHunger</qualifiedname>
+        <param>
+          <type>const FGameplayAttributeData &amp;</type>
+          <declname>OldData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="198" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/VitalityAttributes.cpp" bodystart="260" bodyend="269"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a371f9998bdd52dda9b273a2097921fa4" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UVitalityAttributes::OnRep_MaximumHydration</definition>
+        <argsstring>(const FGameplayAttributeData &amp;OldData)</argsstring>
+        <name>OnRep_MaximumHydration</name>
+        <qualifiedname>UVitalityAttributes::OnRep_MaximumHydration</qualifiedname>
+        <param>
+          <type>const FGameplayAttributeData &amp;</type>
+          <declname>OldData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="201" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/VitalityAttributes.cpp" bodystart="271" bodyend="280"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_vitality_attributes_1a57c47d3916299e57e1c55e7841760c4f" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UVitalityAttributes::OnRep_Ammunition</definition>
+        <argsstring>(const FGameplayAttributeData &amp;OldData)</argsstring>
+        <name>OnRep_Ammunition</name>
+        <qualifiedname>UVitalityAttributes::OnRep_Ammunition</qualifiedname>
+        <param>
+          <type>const FGameplayAttributeData &amp;</type>
+          <declname>OldData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="204" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/VitalityAttributes.cpp" bodystart="282" bodyend="291"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Vitality Attributes are any attributes related to the characters well-being, such as health, hunger, hydration, magic. It also includes damage factors and factors the character depends on such as ammunition. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>UAttributeSet</label>
+      </node>
+      <node id="1">
+        <label>UVitalityAttributes</label>
+        <link refid="class_u_vitality_attributes"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>UAttributeSet</label>
+      </node>
+      <node id="1">
+        <label>UVitalityAttributes</label>
+        <link refid="class_u_vitality_attributes"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" line="18" column="1" bodyfile="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h" bodystart="19" bodyend="205"/>
+    <listofallmembers>
+      <member refid="class_u_vitality_attributes_1ac55fac9e754ae82882d6f5246cdf6341" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>ATTRIBUTE_ACCESSORS</name></member>
+      <member refid="class_u_vitality_attributes_1afd334fc03d5ff72427a0e45bef9d02d9" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>ATTRIBUTE_ACCESSORS</name></member>
+      <member refid="class_u_vitality_attributes_1a1a75e4c3a8f059f1e7dc07da3b86fa3a" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>ATTRIBUTE_ACCESSORS</name></member>
+      <member refid="class_u_vitality_attributes_1a1fa35c5522dff8b11e7bc9d67226ac74" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>ATTRIBUTE_ACCESSORS</name></member>
+      <member refid="class_u_vitality_attributes_1a245a97cfd2bd7344d1716a9012188c6e" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>ATTRIBUTE_ACCESSORS</name></member>
+      <member refid="class_u_vitality_attributes_1a48348d023e9fd0b38dec8d5322602e97" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>ATTRIBUTE_ACCESSORS</name></member>
+      <member refid="class_u_vitality_attributes_1a58b6ff93eed0493372847bb3dc8e862c" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>ATTRIBUTE_ACCESSORS</name></member>
+      <member refid="class_u_vitality_attributes_1ac45964cc9dd0c5f692185a24c7fd5cbd" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>ATTRIBUTE_ACCESSORS</name></member>
+      <member refid="class_u_vitality_attributes_1a6a28ec45894a7740896aaed69c133146" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>ATTRIBUTE_ACCESSORS</name></member>
+      <member refid="class_u_vitality_attributes_1a2e7e61e3f224f016964c4ca69050f05b" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>ATTRIBUTE_ACCESSORS</name></member>
+      <member refid="class_u_vitality_attributes_1a00cd14f88b38f4c055d37e033b851002" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>ATTRIBUTE_ACCESSORS</name></member>
+      <member refid="class_u_vitality_attributes_1a2a8b254ea53c1c5ef3c067a2605a9d63" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>ATTRIBUTE_ACCESSORS</name></member>
+      <member refid="class_u_vitality_attributes_1ae1e69b80f06a1455f6975d330ee4f8fc" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>ATTRIBUTE_ACCESSORS</name></member>
+      <member refid="class_u_vitality_attributes_1a642aacf9d6d8caa006db51f5a91bb89b" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>ATTRIBUTE_ACCESSORS</name></member>
+      <member refid="class_u_vitality_attributes_1a7d4e94766a9b6f08a35e2eefd2ef2e7d" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>ATTRIBUTE_ACCESSORS</name></member>
+      <member refid="class_u_vitality_attributes_1a65f8a9212937b0a1ca5381218e92e299" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>ATTRIBUTE_ACCESSORS</name></member>
+      <member refid="class_u_vitality_attributes_1ab5ba6ae73be5717fc15e4afd091e32a3" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>ATTRIBUTE_ACCESSORS</name></member>
+      <member refid="class_u_vitality_attributes_1abe6b9cbf2bb6acfd628910b66164eaee" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>ATTRIBUTE_ACCESSORS</name></member>
+      <member refid="class_u_vitality_attributes_1ac003b7955b300d8742e11a11d6965885" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>ATTRIBUTE_ACCESSORS</name></member>
+      <member refid="class_u_vitality_attributes_1a02a9b9eab796d19b2d455ef317831d94" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>ATTRIBUTE_ACCESSORS</name></member>
+      <member refid="class_u_vitality_attributes_1a13277412381ccdce2dfe56add2d1ee0e" prot="protected" virt="virtual"><scope>UVitalityAttributes</scope><name>ClampAttributeOnChange</name></member>
+      <member refid="class_u_vitality_attributes_1aa9807f71f3d3d7ceebb6db3ade830357" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>DeathPercentage</name></member>
+      <member refid="class_u_vitality_attributes_1a59c574e0f329e414c30136c5dd0a883c" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>GetAllVitalityAttributes</name></member>
+      <member refid="class_u_vitality_attributes_1ac1b02d8d075e1a929442d2dbdc060507" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>GetDeathHealthValue</name></member>
+      <member refid="class_u_vitality_attributes_1a57c47d3916299e57e1c55e7841760c4f" prot="protected" virt="virtual"><scope>UVitalityAttributes</scope><name>OnRep_Ammunition</name></member>
+      <member refid="class_u_vitality_attributes_1aaeff1b3ff662226fcf63431262f34536" prot="protected" virt="virtual"><scope>UVitalityAttributes</scope><name>OnRep_CurrentArmor</name></member>
+      <member refid="class_u_vitality_attributes_1ae6dbd5b9c455174f072a5ed78a5659dd" prot="protected" virt="virtual"><scope>UVitalityAttributes</scope><name>OnRep_CurrentArmorClass</name></member>
+      <member refid="class_u_vitality_attributes_1a8a84e2ccc5e5e4ba5f3cf3b9e42f799d" prot="protected" virt="virtual"><scope>UVitalityAttributes</scope><name>OnRep_CurrentHealth</name></member>
+      <member refid="class_u_vitality_attributes_1a793f6f729b45622c5604dffd9ff9cf4c" prot="protected" virt="virtual"><scope>UVitalityAttributes</scope><name>OnRep_CurrentHunger</name></member>
+      <member refid="class_u_vitality_attributes_1ac9f1a87bf637e3abab4595a216f44751" prot="protected" virt="virtual"><scope>UVitalityAttributes</scope><name>OnRep_CurrentHydration</name></member>
+      <member refid="class_u_vitality_attributes_1aa5e74075fe8acb8e2e91b7fc0f80cad8" prot="protected" virt="virtual"><scope>UVitalityAttributes</scope><name>OnRep_CurrentMagic</name></member>
+      <member refid="class_u_vitality_attributes_1a8366b22d8c038420b0493f396a801e55" prot="protected" virt="virtual"><scope>UVitalityAttributes</scope><name>OnRep_CurrentStamina</name></member>
+      <member refid="class_u_vitality_attributes_1aacffcac18312deb70ca3d8a41bed89b7" prot="protected" virt="virtual"><scope>UVitalityAttributes</scope><name>OnRep_MaximumArmor</name></member>
+      <member refid="class_u_vitality_attributes_1af9fc928b7469f56665206b2cda943ece" prot="protected" virt="virtual"><scope>UVitalityAttributes</scope><name>OnRep_MaximumArmorClass</name></member>
+      <member refid="class_u_vitality_attributes_1a5a41681c729e02f0af667de755648fca" prot="protected" virt="virtual"><scope>UVitalityAttributes</scope><name>OnRep_MaximumHealth</name></member>
+      <member refid="class_u_vitality_attributes_1af48a4040f54c61ce1ceaa260563a8cf6" prot="protected" virt="virtual"><scope>UVitalityAttributes</scope><name>OnRep_MaximumHunger</name></member>
+      <member refid="class_u_vitality_attributes_1a371f9998bdd52dda9b273a2097921fa4" prot="protected" virt="virtual"><scope>UVitalityAttributes</scope><name>OnRep_MaximumHydration</name></member>
+      <member refid="class_u_vitality_attributes_1a2e227bf33a3c34a2a604747d79f16c96" prot="protected" virt="virtual"><scope>UVitalityAttributes</scope><name>OnRep_MaximumMagic</name></member>
+      <member refid="class_u_vitality_attributes_1a7f9903d89a4be5bd7202eca70535a5dc" prot="protected" virt="virtual"><scope>UVitalityAttributes</scope><name>OnRep_MaximumStamina</name></member>
+      <member refid="class_u_vitality_attributes_1ab9c23f83b03292dd3c9c95c37c264f12" prot="protected" virt="virtual"><scope>UVitalityAttributes</scope><name>OnRep_PassiveHealthRegen</name></member>
+      <member refid="class_u_vitality_attributes_1a3638583a792d4157b39bf10da9292ece" prot="protected" virt="virtual"><scope>UVitalityAttributes</scope><name>OnRep_PassiveHungerDrain</name></member>
+      <member refid="class_u_vitality_attributes_1a006706410497f071cb45a1371bca6255" prot="protected" virt="virtual"><scope>UVitalityAttributes</scope><name>OnRep_PassiveHydroDrain</name></member>
+      <member refid="class_u_vitality_attributes_1a2a90760fa48e9ebf40a80c9bf87a8802" prot="protected" virt="virtual"><scope>UVitalityAttributes</scope><name>OnRep_PassiveMagicRegen</name></member>
+      <member refid="class_u_vitality_attributes_1a1f25fbe565856c7ed84e4ed1decfd855" prot="protected" virt="virtual"><scope>UVitalityAttributes</scope><name>OnRep_PassiveStaminaRegen</name></member>
+      <member refid="class_u_vitality_attributes_1a2b9d77514ae0c80e8e8117dc9e6d1055" prot="protected" virt="virtual"><scope>UVitalityAttributes</scope><name>PreAttributeBaseChange</name></member>
+      <member refid="class_u_vitality_attributes_1af08af709f1a7e528e68de044d0a38e19" prot="protected" virt="virtual"><scope>UVitalityAttributes</scope><name>PreAttributeChange</name></member>
+      <member refid="class_u_vitality_attributes_1abec09d448e374df3235106a4c8350520" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_vitality_attributes_1a53e8ff24cfe5f7bbf3bae32004658bfe" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_vitality_attributes_1a9f46c5acf63bdcb1061b69171e747bb7" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_vitality_attributes_1a07eb2292808b1ea2d0bd618472944920" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_vitality_attributes_1af583f8e160710257cc9f237bf9428729" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_vitality_attributes_1ac6f2abc3e17e3b385092ffe160379a79" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_vitality_attributes_1a0b71276d0bc2a9020e1ca92357d850c5" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_vitality_attributes_1a2754c69e3ddf44ec6d1d299cc722e8c9" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_vitality_attributes_1a76c993e4ada4c470a0b4878e7a5602d1" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_vitality_attributes_1a570b401b0b6fe4d238355cf2edd6864c" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_vitality_attributes_1a711216a9234be0c1ad25c6f2c4a1bb55" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_vitality_attributes_1afb5282856d8e4ce3cd986c2f4ce564b3" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_vitality_attributes_1ac87a83729282f75653a52aa863379028" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_vitality_attributes_1adb543a898daba7fbed4c21ee9ca2fb0c" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_vitality_attributes_1af884cc494ddab883e76bd63d8b566ec2" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_vitality_attributes_1afccad22c07cda6b93e94bea202cbf59a" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_vitality_attributes_1a9423ebaf38e13aebf7220b664c2a0e89" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_vitality_attributes_1a7c2c256fde6233d62e6aa82c6cf36af5" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_vitality_attributes_1aea5302871e70c1a0685720bfb66bb983" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_vitality_attributes_1a0f8cab5f7e4ab275ea7efb33bb82c0ac" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_vitality_attributes_1a5600dc46ac4733361a383d0ac3bac188" prot="public" virt="non-virtual"><scope>UVitalityAttributes</scope><name>UVitalityAttributes</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

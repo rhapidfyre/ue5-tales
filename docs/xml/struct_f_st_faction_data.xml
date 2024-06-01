@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="struct_f_st_faction_data" kind="struct" language="C++" prot="public">
+    <compoundname>FStFactionData</compoundname>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_f_st_faction_data_1a5c456d45aa69bb287627b2d1f9dc9f7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FStFactionData::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) TArray&lt; FStFactionDataMap &gt; DataMap</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FStFactionData::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" line="31" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_st_faction_data_1ac12375f6d6688dd2ea71e88780d5a174" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float FStFactionData::GetFactionValue</definition>
+        <argsstring>(EFaction FactionToCheck) const</argsstring>
+        <name>GetFactionValue</name>
+        <qualifiedname>FStFactionData::GetFactionValue</qualifiedname>
+        <param>
+          <type>EFaction</type>
+          <declname>FactionToCheck</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" line="32" column="7" bodyfile="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" bodystart="32" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_st_faction_data_1af901d52dc2f98bf71de4339bb32fc222" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>EFactionState</type>
+        <definition>EFactionState FStFactionData::GetFactionState</definition>
+        <argsstring>(EFaction FactionToCheck) const</argsstring>
+        <name>GetFactionState</name>
+        <qualifiedname>FStFactionData::GetFactionState</qualifiedname>
+        <param>
+          <type>EFaction</type>
+          <declname>FactionToCheck</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" line="41" column="15" bodyfile="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" bodystart="41" bodyend="48"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" line="28" column="1" bodyfile="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" bodystart="29" bodyend="49"/>
+    <listofallmembers>
+      <member refid="struct_f_st_faction_data_1af901d52dc2f98bf71de4339bb32fc222" prot="public" virt="non-virtual"><scope>FStFactionData</scope><name>GetFactionState</name></member>
+      <member refid="struct_f_st_faction_data_1ac12375f6d6688dd2ea71e88780d5a174" prot="public" virt="non-virtual"><scope>FStFactionData</scope><name>GetFactionValue</name></member>
+      <member refid="struct_f_st_faction_data_1a5c456d45aa69bb287627b2d1f9dc9f7b" prot="public" virt="non-virtual"><scope>FStFactionData</scope><name>UPROPERTY</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

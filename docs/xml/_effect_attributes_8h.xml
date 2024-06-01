@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_effect_attributes_8h" kind="file" language="C++">
+    <compoundname>EffectAttributes.h</compoundname>
+    <includes local="yes">CoreMinimal.h</includes>
+    <includes local="yes">AttributeSet.h</includes>
+    <includes local="yes">UObject/Object.h</includes>
+    <includes local="yes">EffectAttributes.generated.h</includes>
+    <includedby refid="_effect_attributes_8cpp" local="yes">Source/TalesDungeoneer/Private/Gas/AttributeSets/EffectAttributes.cpp</includedby>
+    <includedby refid="_tales_attributes_8h" local="yes">Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h</includedby>
+    <incdepgraph>
+      <node id="3">
+        <label>AttributeSet.h</label>
+      </node>
+      <node id="2">
+        <label>CoreMinimal.h</label>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/Gas/AttributeSets/EffectAttributes.h</label>
+        <link refid="_effect_attributes_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>EffectAttributes.generated.h</label>
+      </node>
+      <node id="4">
+        <label>UObject/Object.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/Gas/AttributeSets/EffectAttributes.h</label>
+        <link refid="_effect_attributes_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h</label>
+        <link refid="_tales_attributes_8h_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_u_effect_attributes" prot="public">UEffectAttributes</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>Take<sp/>Five<sp/>Games,<sp/>LLC<sp/>2023<sp/>-<sp/>All<sp/>Rights<sp/>Reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;CoreMinimal.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;AttributeSet.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;UObject/Object.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;EffectAttributes.generated.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal">UCLASS()</highlight></codeline>
+<codeline lineno="15" refid="class_u_effect_attributes" refkind="compound"><highlight class="normal">class<sp/>TALESDUNGEONEER_API<sp/><ref refid="class_u_effect_attributes" kindref="compound">UEffectAttributes</ref><sp/>:<sp/>public<sp/>UAttributeSet</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>GENERATED_BODY()</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/EffectAttributes.h"/>
+  </compounddef>
+</doxygen>

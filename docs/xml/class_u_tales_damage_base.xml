@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_u_tales_damage_base" kind="class" language="C++" prot="public">
+    <compoundname>UTalesDamageBase</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">UDamageType</basecompoundref>
+    <includes refid="_tales_damage_types_8h" local="no">TalesDamageTypes.h</includes>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_u_tales_damage_base_1af986eac97f11d6f91d616a54eadfbfdc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UTalesDamageBase::UTalesDamageBase</definition>
+        <argsstring>()</argsstring>
+        <name>UTalesDamageBase</name>
+        <qualifiedname>UTalesDamageBase::UTalesDamageBase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/Damage/TalesDamageTypes.h" line="22" column="1" bodyfile="Source/TalesDungeoneer/Private/lib/Damage/TalesDamageTypes.cpp" bodystart="6" bodyend="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_tales_damage_base_1a32648f324c99a063a4e091b729d1aa82" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UTalesDamageBase::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) float DamageValue</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UTalesDamageBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/Damage/TalesDamageTypes.h" line="24" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_tales_damage_base_1af9e1d1c458f4d5ea52fe7dcbefb4b789" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UTalesDamageBase::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) float DamageRate</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UTalesDamageBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/Damage/TalesDamageTypes.h" line="27" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_tales_damage_base_1ab706e6d0935228209fcab76f670fd1d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UTalesDamageBase::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) FGameplayTag DamageTypeTag</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UTalesDamageBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/Damage/TalesDamageTypes.h" line="30" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_tales_damage_base_1a82e22e9c520a611bf0560006000ee30b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UTalesDamageBase::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) FGameplayTagContainer DamageTags</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UTalesDamageBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/Damage/TalesDamageTypes.h" line="33" column="1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>The top level master damage type for all damage dealt in the Tales game-mode. Any other types of damage should not be considered </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>UDamageType</label>
+      </node>
+      <node id="1">
+        <label>UTalesDamageBase</label>
+        <link refid="class_u_tales_damage_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>UDamageType</label>
+      </node>
+      <node id="1">
+        <label>UTalesDamageBase</label>
+        <link refid="class_u_tales_damage_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/lib/Damage/TalesDamageTypes.h" line="16" column="1" bodyfile="Source/TalesDungeoneer/Public/lib/Damage/TalesDamageTypes.h" bodystart="17" bodyend="35"/>
+    <listofallmembers>
+      <member refid="class_u_tales_damage_base_1a32648f324c99a063a4e091b729d1aa82" prot="public" virt="non-virtual"><scope>UTalesDamageBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_tales_damage_base_1af9e1d1c458f4d5ea52fe7dcbefb4b789" prot="public" virt="non-virtual"><scope>UTalesDamageBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_tales_damage_base_1ab706e6d0935228209fcab76f670fd1d3" prot="public" virt="non-virtual"><scope>UTalesDamageBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_tales_damage_base_1a82e22e9c520a611bf0560006000ee30b" prot="public" virt="non-virtual"><scope>UTalesDamageBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_tales_damage_base_1af986eac97f11d6f91d616a54eadfbfdc" prot="public" virt="non-virtual"><scope>UTalesDamageBase</scope><name>UTalesDamageBase</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

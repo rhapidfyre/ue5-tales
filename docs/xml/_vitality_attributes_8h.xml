@@ -1,0 +1,271 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_vitality_attributes_8h" kind="file" language="C++">
+    <compoundname>VitalityAttributes.h</compoundname>
+    <includes local="yes">CoreMinimal.h</includes>
+    <includes local="yes">AttributeSet.h</includes>
+    <includes local="yes">Delegates/Delegate.h</includes>
+    <includes refid="_attribute_helpers_8h" local="yes">../AttributeHelpers.h</includes>
+    <includes local="yes">VitalityAttributes.generated.h</includes>
+    <includedby refid="_vitality_attributes_8cpp" local="yes">Source/TalesDungeoneer/Private/Gas/AttributeSets/VitalityAttributes.cpp</includedby>
+    <includedby refid="_tales_damage_calc_8cpp" local="yes">Source/TalesDungeoneer/Private/Gas/Misc/TalesDamageCalc.cpp</includedby>
+    <includedby refid="_tales_attributes_8h" local="yes">Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h</includedby>
+    <incdepgraph>
+      <node id="6">
+        <label>AbilitySystemComponent.h</label>
+      </node>
+      <node id="3">
+        <label>AttributeSet.h</label>
+      </node>
+      <node id="2">
+        <label>CoreMinimal.h</label>
+      </node>
+      <node id="5">
+        <label>../AttributeHelpers.h</label>
+        <link refid="_attribute_helpers_8h_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h</label>
+        <link refid="_vitality_attributes_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Delegates/Delegate.h</label>
+      </node>
+      <node id="7">
+        <label>VitalityAttributes.generated.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h</label>
+        <link refid="_tales_attributes_8h_source"/>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h</label>
+        <link refid="_vitality_attributes_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_u_vitality_attributes" prot="public">UVitalityAttributes</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>Take<sp/>Five<sp/>Games,<sp/>LLC<sp/>2023<sp/>-<sp/>All<sp/>Rights<sp/>Reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;CoreMinimal.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;AttributeSet.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Delegates/Delegate.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../AttributeHelpers.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;VitalityAttributes.generated.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal">UCLASS()</highlight></codeline>
+<codeline lineno="18" refid="class_u_vitality_attributes" refkind="compound"><highlight class="normal">class<sp/>TALESDUNGEONEER_API<sp/><ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref><sp/>:<sp/>public<sp/>UAttributeSet</highlight></codeline>
+<codeline lineno="19"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>GENERATED_BODY()</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref>();</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintPure)</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>GetDeathHealthValue()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>GetMaximumHealth()<sp/>*<sp/>DeathPercentage;<sp/>}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>If<sp/>health<sp/>falls<sp/>this<sp/>far<sp/>below<sp/>zero<sp/>(Percentage<sp/>of<sp/>Max<sp/>Health)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>then<sp/>the<sp/>attribute<sp/>system<sp/>flags<sp/>itself<sp/>as<sp/>&apos;bDead&apos;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>DeathPercentage<sp/>=<sp/>(0<sp/>-<sp/>0.1);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Status<sp/>Attributes&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReplicatedUsing=OnRep_CurrentHealth,<sp/>Meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayAttributeData<sp/>CurrentHealth;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>ATTRIBUTE_ACCESSORS(<ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref>,<sp/>CurrentHealth);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Status<sp/>Attributes&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReplicatedUsing=OnRep_CurrentMagic,<sp/>Meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayAttributeData<sp/>CurrentStamina;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>ATTRIBUTE_ACCESSORS(<ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref>,<sp/>CurrentStamina);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Status<sp/>Attributes&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReplicatedUsing=OnRep_CurrentArmorClass,<sp/>Meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayAttributeData<sp/>CurrentArmorClass;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>ATTRIBUTE_ACCESSORS(<ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref>,<sp/>CurrentArmorClass);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Status<sp/>Attributes&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReplicatedUsing=OnRep_CurrentArmor,<sp/>Meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayAttributeData<sp/>CurrentArmor;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>ATTRIBUTE_ACCESSORS(<ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref>,<sp/>CurrentArmor);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Status<sp/>Attributes&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReplicatedUsing=OnRep_CurrentMagic,<sp/>Meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayAttributeData<sp/>CurrentMagic;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>ATTRIBUTE_ACCESSORS(<ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref>,<sp/>CurrentMagic);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Status<sp/>Attributes&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReplicatedUsing=OnRep_CurrentHunger,<sp/>Meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayAttributeData<sp/>CurrentHunger;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>ATTRIBUTE_ACCESSORS(<ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref>,<sp/>CurrentHunger);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Status<sp/>Attributes&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReplicatedUsing=OnRep_CurrentMagic,<sp/>Meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayAttributeData<sp/>CurrentHydration;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>ATTRIBUTE_ACCESSORS(<ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref>,<sp/>CurrentHydration);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Attribute<sp/>Maximums&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReplicatedUsing=OnRep_MaximumHealth,<sp/>Meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayAttributeData<sp/>MaximumHealth;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>ATTRIBUTE_ACCESSORS(<ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref>,<sp/>MaximumHealth);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Status<sp/>Attributes&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReplicatedUsing=OnRep_MaximumArmorClass,<sp/>Meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayAttributeData<sp/>MaximumArmorClass;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>ATTRIBUTE_ACCESSORS(<ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref>,<sp/>MaximumArmorClass);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Attribute<sp/>Maximums&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReplicatedUsing=OnRep_MaximumArmor,<sp/>Meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayAttributeData<sp/>MaximumArmor;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>ATTRIBUTE_ACCESSORS(<ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref>,<sp/>MaximumArmor);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Attribute<sp/>Maximums&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReplicatedUsing=OnRep_MaximumMagic,<sp/>Meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayAttributeData<sp/>MaximumMagic;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/>ATTRIBUTE_ACCESSORS(<ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref>,<sp/>MaximumMagic);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Attribute<sp/>Maximums&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReplicatedUsing=OnRep_MaximumMagic,<sp/>Meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayAttributeData<sp/>MaximumStamina;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/>ATTRIBUTE_ACCESSORS(<ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref>,<sp/>MaximumStamina);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Attribute<sp/>Maximums&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReplicatedUsing=OnRep_MaximumHunger,<sp/>Meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayAttributeData<sp/>MaximumHunger;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>ATTRIBUTE_ACCESSORS(<ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref>,<sp/>MaximumHunger);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Attribute<sp/>Maximums&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReplicatedUsing=OnRep_MaximumHydration,<sp/>Meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayAttributeData<sp/>MaximumHydration;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/>ATTRIBUTE_ACCESSORS(<ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref>,<sp/>MaximumHydration);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Status<sp/>Attributes&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReplicatedUsing=OnRep_PassiveHealthRegen,<sp/>Meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayAttributeData<sp/>PassiveHealthRegen;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/>ATTRIBUTE_ACCESSORS(<ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref>,<sp/>PassiveHealthRegen);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Status<sp/>Attributes&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReplicatedUsing=OnRep_PassiveMagicRegen,<sp/>Meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayAttributeData<sp/>PassiveMagicRegen;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/>ATTRIBUTE_ACCESSORS(<ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref>,<sp/>PassiveMagicRegen);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Status<sp/>Attributes&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReplicatedUsing=OnRep_PassiveStaminaRegen,<sp/>Meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayAttributeData<sp/>PassiveStaminaRegen;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/>ATTRIBUTE_ACCESSORS(<ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref>,<sp/>PassiveStaminaRegen);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Status<sp/>Attributes&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReplicatedUsing=OnRep_PassiveHungerDrain,<sp/>Meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayAttributeData<sp/>PassiveHungerDrain;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/>ATTRIBUTE_ACCESSORS(<ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref>,<sp/>PassiveHungerDrain);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Status<sp/>Attributes&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReplicatedUsing=OnRep_PassiveHydroDrain,<sp/>Meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayAttributeData<sp/>PassiveHydroDrain;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/>ATTRIBUTE_ACCESSORS(<ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref>,<sp/>PassiveHydroDrain);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Damage<sp/>Attributes&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReplicatedUsing=OnRep_Ammunition,<sp/>Meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayAttributeData<sp/>Ammunition;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/>ATTRIBUTE_ACCESSORS(<ref refid="class_u_vitality_attributes" kindref="compound">UVitalityAttributes</ref>,<sp/>Ammunition);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/>TArray&lt;FGameplayAttribute&gt;<sp/>GetAllVitalityAttributes()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>PreAttributeBaseChange(</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttribute&amp;<sp/>Attribute,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">&amp;<sp/>NewValue)<sp/></highlight><highlight class="keyword">const<sp/>override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>PreAttributeChange(</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttribute&amp;<sp/>Attribute,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">&amp;<sp/>NewValue)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ClampAttributeOnChange(</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttribute&amp;<sp/>Attribute,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">&amp;<sp/>NewValue)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_CurrentHealth(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_CurrentArmorClass(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_CurrentArmor(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_CurrentMagic(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_CurrentStamina(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_CurrentHunger(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_CurrentHydration(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_PassiveHealthRegen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_PassiveStaminaRegen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_PassiveMagicRegen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_PassiveHungerDrain(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_PassiveHydroDrain(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_MaximumHealth(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_MaximumArmorClass(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_MaximumArmor(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_MaximumMagic(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_MaximumStamina(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_MaximumHunger(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_MaximumHydration(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_Ammunition(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/VitalityAttributes.h"/>
+  </compounddef>
+</doxygen>

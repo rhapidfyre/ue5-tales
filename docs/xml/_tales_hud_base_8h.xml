@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_tales_hud_base_8h" kind="file" language="C++">
+    <compoundname>TalesHudBase.h</compoundname>
+    <includes local="yes">CoreMinimal.h</includes>
+    <includes local="yes">GameFramework/HUD.h</includes>
+    <includes local="yes">TalesHudBase.generated.h</includes>
+    <includedby refid="_tales_hud_base_8cpp" local="yes">Source/TalesDungeoneer/Private/Gamemode/AdventureMode/TalesHudBase.cpp</includedby>
+    <includedby refid="_tales_game_state_base_8cpp" local="yes">Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp</includedby>
+    <includedby refid="_tales_dm_hud_base_8h" local="yes">Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesDmHudBase.h</includedby>
+    <includedby refid="_tales_player_hud_base_8h" local="yes">Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesPlayerHudBase.h</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>CoreMinimal.h</label>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesHudBase.h</label>
+        <link refid="_tales_hud_base_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>GameFramework/HUD.h</label>
+      </node>
+      <node id="4">
+        <label>TalesHudBase.generated.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesDmHudBase.h</label>
+        <link refid="_tales_dm_hud_base_8h_source"/>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesHudBase.h</label>
+        <link refid="_tales_hud_base_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesPlayerHudBase.h</label>
+        <link refid="_tales_player_hud_base_8h_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_f_st_hud_notification" prot="public">FStHudNotification</innerclass>
+    <innerclass refid="class_a_tales_hud_base" prot="public">ATalesHudBase</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>Take<sp/>Five<sp/>Games,<sp/>LLC<sp/>2023<sp/>-<sp/>All<sp/>Rights<sp/>Reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;CoreMinimal.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;GameFramework/HUD.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;TalesHudBase.generated.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal">USTRUCT(Blueprintable,<sp/>BlueprintType)</highlight></codeline>
+<codeline lineno="11" refid="struct_f_st_hud_notification" refkind="compound"><highlight class="normal">struct<sp/><ref refid="struct_f_st_hud_notification" kindref="compound">FStHudNotification</ref></highlight></codeline>
+<codeline lineno="12"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>GENERATED_BODY();</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_f_st_hud_notification" kindref="compound">FStHudNotification</ref>()<sp/>{};</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_f_st_hud_notification" kindref="compound">FStHudNotification</ref>(FString<sp/>tMessage)<sp/>{<sp/>Message<sp/>=<sp/>tMessage;<sp/>}</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_f_st_hud_notification" kindref="compound">FStHudNotification</ref>(FString<sp/>tMessageTitle,<sp/>FString<sp/>tNewMessage,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>tPriority<sp/>=<sp/>2)</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Title<sp/>=<sp/>tMessageTitle;<sp/>Message<sp/>=<sp/>tNewMessage;<sp/>Priority<sp/>=<sp/>tPriority;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>FString<sp/>Title<sp/><sp/><sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>FString<sp/>Message<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;No<sp/>Message<sp/>Given&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Priority<sp/><sp/><sp/><sp/>=<sp/>2;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal">UCLASS(Blueprintable,<sp/>BlueprintType)</highlight></codeline>
+<codeline lineno="27" refid="class_a_tales_hud_base" refkind="compound"><highlight class="normal">class<sp/>TALESDUNGEONEER_API<sp/><ref refid="class_a_tales_hud_base" kindref="compound">ATalesHudBase</ref><sp/>:<sp/>public<sp/>AHUD</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>GENERATED_BODY()</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_a_tales_hud_base" kindref="compound">ATalesHudBase</ref>();</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>DrawHUD()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>BeginPlay()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintCallable)</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>NotifyHud(FString<sp/>MessageTitle,<sp/>FString<sp/>NewMessage,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Priority<sp/>=<sp/>2);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY()</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>TArray&lt;FStHudNotification&gt;<sp/>NotificationsPending_<sp/>=<sp/>{};</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesHudBase.h"/>
+  </compounddef>
+</doxygen>

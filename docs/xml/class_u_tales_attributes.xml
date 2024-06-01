@@ -1,0 +1,317 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_u_tales_attributes" kind="class" language="C++" prot="public">
+    <compoundname>UTalesAttributes</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">UAttributeSet</basecompoundref>
+    <includes refid="_tales_attributes_8h" local="no">TalesAttributes.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_u_tales_attributes_1a5ac64aaa94753b0a41b0edf74984ff19" prot="public" static="no" mutable="yes">
+        <type>FOnAttributeEvent</type>
+        <definition>FOnAttributeEvent UTalesAttributes::OnHealthDepleted</definition>
+        <argsstring></argsstring>
+        <name>OnHealthDepleted</name>
+        <qualifiedname>UTalesAttributes::OnHealthDepleted</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" line="52" column="27" bodyfile="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_tales_attributes_1adb34834f53523bb71e9d39fb45e85ba3" prot="public" static="no" mutable="yes">
+        <type>FOnAttributeEvent</type>
+        <definition>FOnAttributeEvent UTalesAttributes::OnArmorDepleted</definition>
+        <argsstring></argsstring>
+        <name>OnArmorDepleted</name>
+        <qualifiedname>UTalesAttributes::OnArmorDepleted</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" line="53" column="27" bodyfile="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_tales_attributes_1ab14326da2e5a12d80ac8279bc4ef262d" prot="public" static="no" mutable="yes">
+        <type>FOnAttributeDamageEvent</type>
+        <definition>FOnAttributeDamageEvent UTalesAttributes::OnDamageTaken</definition>
+        <argsstring></argsstring>
+        <name>OnDamageTaken</name>
+        <qualifiedname>UTalesAttributes::OnDamageTaken</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" line="54" column="33" bodyfile="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_u_tales_attributes_1ac41509027bd6270f224acd0c72953d11" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool UTalesAttributes::bDead</definition>
+        <argsstring></argsstring>
+        <name>bDead</name>
+        <qualifiedname>UTalesAttributes::bDead</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" line="75" column="6" bodyfile="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_tales_attributes_1a395b485180b2ca85d78a4392c4bad003" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool UTalesAttributes::bHealthDepleted</definition>
+        <argsstring></argsstring>
+        <name>bHealthDepleted</name>
+        <qualifiedname>UTalesAttributes::bHealthDepleted</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" line="76" column="6" bodyfile="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_tales_attributes_1a3fc3ba190394ef40b11bb22b89350c0c" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool UTalesAttributes::bArmorDepleted</definition>
+        <argsstring></argsstring>
+        <name>bArmorDepleted</name>
+        <qualifiedname>UTalesAttributes::bArmorDepleted</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" line="77" column="6" bodyfile="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_tales_attributes_1aee625d99d95671781bd5911b73756a1b" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool UTalesAttributes::bStarving</definition>
+        <argsstring></argsstring>
+        <name>bStarving</name>
+        <qualifiedname>UTalesAttributes::bStarving</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" line="78" column="6" bodyfile="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_tales_attributes_1a770303086894d8b15a3547a420d82f85" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool UTalesAttributes::bDehydrated</definition>
+        <argsstring></argsstring>
+        <name>bDehydrated</name>
+        <qualifiedname>UTalesAttributes::bDehydrated</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" line="79" column="6" bodyfile="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_u_tales_attributes_1a552e32bc5746c55deebd6e3887bd6a4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UTalesAttributes::UTalesAttributes</definition>
+        <argsstring>()</argsstring>
+        <name>UTalesAttributes</name>
+        <qualifiedname>UTalesAttributes::UTalesAttributes</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" line="50" column="1" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/TalesAttributes.cpp" bodystart="17" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_tales_attributes_1ace6dba766df2bc3cf8a95664abc99ebc" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool UTalesAttributes::GetIsUnconscious</definition>
+        <argsstring>() const</argsstring>
+        <name>GetIsUnconscious</name>
+        <qualifiedname>UTalesAttributes::GetIsUnconscious</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" line="58" column="6" bodyfile="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" bodystart="58" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_tales_attributes_1a7064bf48738ce586a46908e29a67028e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool UTalesAttributes::GetIsDead</definition>
+        <argsstring>() const</argsstring>
+        <name>GetIsDead</name>
+        <qualifiedname>UTalesAttributes::GetIsDead</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" line="61" column="6" bodyfile="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" bodystart="61" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_tales_attributes_1a3f5d1f460b4b01ce6adc37d793d2aa22" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UTalesAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly) UVitalityAttributes *VitalityAttributes</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UTalesAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" line="63" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_tales_attributes_1a1a02be8dba96f840dca1b940cb323e4d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UTalesAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly) UEffectAttributes *EffectAttributes</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UTalesAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" line="64" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_tales_attributes_1a23aff7482437a39512e4cc010efaa425" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UTalesAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly) UCoreStatsAttributes *CoreStatsAttributes</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UTalesAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" line="65" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_tales_attributes_1a4b3811803ccb1c7d9299379b63608c38" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UTalesAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly) UDamageAttributes *DamageAttributes</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UTalesAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" line="66" column="1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_u_tales_attributes_1a65d112b9b7246882ce536f55d3178a77" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UTalesAttributes::PostGameplayEffectExecute</definition>
+        <argsstring>(const FGameplayEffectModCallbackData &amp;Data) override</argsstring>
+        <name>PostGameplayEffectExecute</name>
+        <qualifiedname>UTalesAttributes::PostGameplayEffectExecute</qualifiedname>
+        <param>
+          <type>const FGameplayEffectModCallbackData &amp;</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Called just before a GameplayEffect is executed to modify the base value of an attribute. No more changes can be made. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the data from the effect post execution </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" line="70" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/TalesAttributes.cpp" bodystart="29" bodyend="148"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>This is the primary attribute set that is to be included into the ability system component </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>UAttributeSet</label>
+      </node>
+      <node id="1">
+        <label>UTalesAttributes</label>
+        <link refid="class_u_tales_attributes"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>UAttributeSet</label>
+      </node>
+      <node id="1">
+        <label>UTalesAttributes</label>
+        <link refid="class_u_tales_attributes"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" line="44" column="1" bodyfile="Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h" bodystart="45" bodyend="81"/>
+    <listofallmembers>
+      <member refid="class_u_tales_attributes_1a3fc3ba190394ef40b11bb22b89350c0c" prot="private" virt="non-virtual"><scope>UTalesAttributes</scope><name>bArmorDepleted</name></member>
+      <member refid="class_u_tales_attributes_1ac41509027bd6270f224acd0c72953d11" prot="private" virt="non-virtual"><scope>UTalesAttributes</scope><name>bDead</name></member>
+      <member refid="class_u_tales_attributes_1a770303086894d8b15a3547a420d82f85" prot="private" virt="non-virtual"><scope>UTalesAttributes</scope><name>bDehydrated</name></member>
+      <member refid="class_u_tales_attributes_1a395b485180b2ca85d78a4392c4bad003" prot="private" virt="non-virtual"><scope>UTalesAttributes</scope><name>bHealthDepleted</name></member>
+      <member refid="class_u_tales_attributes_1aee625d99d95671781bd5911b73756a1b" prot="private" virt="non-virtual"><scope>UTalesAttributes</scope><name>bStarving</name></member>
+      <member refid="class_u_tales_attributes_1a7064bf48738ce586a46908e29a67028e" prot="public" virt="non-virtual"><scope>UTalesAttributes</scope><name>GetIsDead</name></member>
+      <member refid="class_u_tales_attributes_1ace6dba766df2bc3cf8a95664abc99ebc" prot="public" virt="non-virtual"><scope>UTalesAttributes</scope><name>GetIsUnconscious</name></member>
+      <member refid="class_u_tales_attributes_1adb34834f53523bb71e9d39fb45e85ba3" prot="public" virt="non-virtual"><scope>UTalesAttributes</scope><name>OnArmorDepleted</name></member>
+      <member refid="class_u_tales_attributes_1ab14326da2e5a12d80ac8279bc4ef262d" prot="public" virt="non-virtual"><scope>UTalesAttributes</scope><name>OnDamageTaken</name></member>
+      <member refid="class_u_tales_attributes_1a5ac64aaa94753b0a41b0edf74984ff19" prot="public" virt="non-virtual"><scope>UTalesAttributes</scope><name>OnHealthDepleted</name></member>
+      <member refid="class_u_tales_attributes_1a65d112b9b7246882ce536f55d3178a77" prot="protected" virt="virtual"><scope>UTalesAttributes</scope><name>PostGameplayEffectExecute</name></member>
+      <member refid="class_u_tales_attributes_1a3f5d1f460b4b01ce6adc37d793d2aa22" prot="public" virt="non-virtual"><scope>UTalesAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_tales_attributes_1a1a02be8dba96f840dca1b940cb323e4d" prot="public" virt="non-virtual"><scope>UTalesAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_tales_attributes_1a23aff7482437a39512e4cc010efaa425" prot="public" virt="non-virtual"><scope>UTalesAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_tales_attributes_1a4b3811803ccb1c7d9299379b63608c38" prot="public" virt="non-virtual"><scope>UTalesAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_tales_attributes_1a552e32bc5746c55deebd6e3887bd6a4f" prot="public" virt="non-virtual"><scope>UTalesAttributes</scope><name>UTalesAttributes</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

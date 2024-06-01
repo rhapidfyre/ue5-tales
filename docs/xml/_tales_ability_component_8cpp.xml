@@ -1,0 +1,694 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_tales_ability_component_8cpp" kind="file" language="C++">
+    <compoundname>TalesAbilityComponent.cpp</compoundname>
+    <includes refid="_tales_ability_component_8h" local="yes">Characters/Components/TalesAbilityComponent.h</includes>
+    <includes refid="_character_base_8h" local="yes">Characters/CharacterBase.h</includes>
+    <includes refid="_character_defaults_8h" local="yes">DataAssets/CharacterDefaults.h</includes>
+    <includes refid="_tales_player_state_base_8h" local="yes">Gamemode/AdventureMode/TalesPlayerStateBase.h</includes>
+    <includes refid="_core_stats_attributes_8h" local="yes">Gas/AttributeSets/CoreStatsAttributes.h</includes>
+    <includes refid="_damage_attributes_8h" local="yes">Gas/AttributeSets/DamageAttributes.h</includes>
+    <includes refid="_tales_damage_types_8h" local="yes">lib/Damage/TalesDamageTypes.h</includes>
+    <incdepgraph>
+      <node id="12">
+        <label>Abilities/GameplayAbility.h</label>
+      </node>
+      <node id="5">
+        <label>AbilitySystemComponent.h</label>
+      </node>
+      <node id="8">
+        <label>AbilitySystemInterface.h</label>
+      </node>
+      <node id="34">
+        <label>AttributeSet.h</label>
+      </node>
+      <node id="32">
+        <label>CharacterBase.generated.h</label>
+      </node>
+      <node id="36">
+        <label>CharacterDefaults.generated.h</label>
+      </node>
+      <node id="20">
+        <label>Components/ActorComponent.h</label>
+      </node>
+      <node id="3">
+        <label>CoreMinimal.h</label>
+      </node>
+      <node id="42">
+        <label>CoreStatsAttributes.generated.h</label>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Private/Characters/Components/TalesAbilityComponent.cpp</label>
+        <link refid="_tales_ability_component_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>Characters/CharacterBase.h</label>
+        <link refid="_character_base_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>Components/EquipmentComponent.h</label>
+        <link refid="_equipment_component_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>Components/MeshMergeComponent.h</label>
+        <link refid="_mesh_merge_component_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Characters/Components/TalesAbilityComponent.h</label>
+        <link refid="_tales_ability_component_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>DataAssets/CharacterDefaults.h</label>
+        <link refid="_character_defaults_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>Gamemode/AdventureMode/TalesPlayerStateBase.h</label>
+        <link refid="_tales_player_state_base_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>Gas/Abilities/TalesGameplayAbility.h</label>
+        <link refid="_tales_gameplay_ability_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>../AttributeHelpers.h</label>
+        <link refid="_attribute_helpers_8h_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>Gas/AttributeSets/CoreStatsAttributes.h</label>
+        <link refid="_core_stats_attributes_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>Gas/AttributeSets/DamageAttributes.h</label>
+        <link refid="_damage_attributes_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>Saves/SavedCharacters.h</label>
+        <link refid="_saved_characters_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>lib/Damage/TalesDamageTypes.h</label>
+        <link refid="_tales_damage_types_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>lib/Tags/DamageTags.h</label>
+        <link refid="_damage_tags_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>lib/Tags/TalesGlobalTags.h</label>
+        <link refid="_tales_global_tags_8h_source"/>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>lib/enums/GlobalEnums.h</label>
+        <link refid="_global_enums_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>TalesDungeoneer/TalesDungeoneer.h</label>
+        <link refid="_tales_dungeoneer_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>DamageAttributes.generated.h</label>
+      </node>
+      <node id="10">
+        <label>Delegates/Delegate.h</label>
+      </node>
+      <node id="35">
+        <label>Engine/DataAsset.h</label>
+      </node>
+      <node id="25">
+        <label>EquipmentComponent.generated.h</label>
+      </node>
+      <node id="9">
+        <label>GameFramework/Character.h</label>
+      </node>
+      <node id="46">
+        <label>GameFramework/DamageType.h</label>
+      </node>
+      <node id="38">
+        <label>GameFramework/PlayerState.h</label>
+      </node>
+      <node id="22">
+        <label>GameFramework/SaveGame.h</label>
+      </node>
+      <node id="15">
+        <label>GameplayEffectTypes.h</label>
+      </node>
+      <node id="18">
+        <label>GameplayTagContainer.h</label>
+      </node>
+      <node id="4">
+        <label>GameplayTags/Public/GameplayTags.h</label>
+      </node>
+      <node id="30">
+        <label>GlobalEnums.generated.h</label>
+      </node>
+      <node id="16">
+        <label>InventoryComponent.h</label>
+      </node>
+      <node id="23">
+        <label>MeshMergeComponent.generated.h</label>
+      </node>
+      <node id="27">
+        <label>NativeGameplayTags.h</label>
+      </node>
+      <node id="31">
+        <label>SavedCharacters.generated.h</label>
+      </node>
+      <node id="19">
+        <label>SkeletalMeshMerge.h</label>
+      </node>
+      <node id="6">
+        <label>TalesAbilityComponent.generated.h</label>
+      </node>
+      <node id="48">
+        <label>TalesDamageTypes.generated.h</label>
+      </node>
+      <node id="14">
+        <label>TalesGameplayAbility.generated.h</label>
+      </node>
+      <node id="39">
+        <label>TalesPlayerStateBase.generated.h</label>
+      </node>
+      <node id="21">
+        <label>lib/EquipmentData.h</label>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>Take<sp/>Five<sp/>Games,<sp/>LLC<sp/>2023<sp/>-<sp/>All<sp/>Rights<sp/>Reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Characters/Components/TalesAbilityComponent.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Characters/CharacterBase.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;DataAssets/CharacterDefaults.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Gamemode/AdventureMode/TalesPlayerStateBase.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Gas/AttributeSets/CoreStatsAttributes.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Gas/AttributeSets/DamageAttributes.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;lib/Damage/TalesDamageTypes.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal">UTalesAbilityComponent::UTalesAbilityComponent()</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>PrimaryComponentTick.bCanEverTick<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>UTalesAbilityComponent::EnableStatCalculation(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>bCalculateNow)</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>bAllowCalculation<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(bCalculateNow)</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>PerformTotalRecalculation();<sp/>}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>UTalesAbilityComponent::DisableStatCalculation()</highlight></codeline>
+<codeline lineno="30"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>bAllowCalculation<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal">FGameplayTag<sp/>UTalesAbilityComponent::GetCharacterRace()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="35"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_a_character_base" kindref="compound">ACharacterBase</ref>*<sp/>CharacterBase<sp/>=<sp/>Cast&lt;ACharacterBase&gt;(<sp/>GetOwner()<sp/>);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IsValid(CharacterBase))<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>CharacterBase-&gt;GetCharacterRace();<sp/>}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>TAG_Character_Race_Human.GetTag();</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal">FGameplayTag<sp/>UTalesAbilityComponent::GetCharacterClass()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="42"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_a_character_base" kindref="compound">ACharacterBase</ref>*<sp/>CharacterBase<sp/>=<sp/>Cast&lt;ACharacterBase&gt;(<sp/>GetOwner()<sp/>);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IsValid(CharacterBase))<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>CharacterBase-&gt;GetCharacterClass();<sp/>}</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>TAG_Character_Class_Warrior.GetTag();</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>UTalesAbilityComponent::GetCoreStatByTag(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayTag&amp;<sp/>StatTag)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="49"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_a_character_base" kindref="compound">ACharacterBase</ref>*<sp/>CharacterBase<sp/>=<sp/>Cast&lt;ACharacterBase&gt;(<sp/>GetOwner()<sp/>);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IsValid(CharacterBase))<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0.f;<sp/>}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref>*<sp/>CoreStats<sp/>=<sp/>CharacterBase-&gt;AttributeCoreStatsSet;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Get<sp/>the<sp/>initial<sp/>value<sp/>of<sp/>the<sp/>Core<sp/>Stat</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>statValue<sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(StatTag<sp/>==<sp/>TAG_Stats_Strength)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>statValue<sp/>=<sp/>CoreStats-&gt;GetStrength();<sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(StatTag<sp/>==<sp/>TAG_Stats_Dexterity)<sp/><sp/>{<sp/>statValue<sp/>=<sp/>CoreStats-&gt;GetDexterity();<sp/><sp/>}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(StatTag<sp/>==<sp/>TAG_Stats_Fortitude)<sp/><sp/>{<sp/>statValue<sp/>=<sp/>CoreStats-&gt;GetFortitude();<sp/><sp/>}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(StatTag<sp/>==<sp/>TAG_Stats_Astuteness)<sp/>{<sp/>statValue<sp/>=<sp/>CoreStats-&gt;GetAstuteness();<sp/>}</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(StatTag<sp/>==<sp/>TAG_Stats_Intellect)<sp/><sp/>{<sp/>statValue<sp/>=<sp/>CoreStats-&gt;GetIntellect();<sp/><sp/>}</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(StatTag<sp/>==<sp/>TAG_Stats_Charisma)<sp/><sp/><sp/>{<sp/>statValue<sp/>=<sp/>CoreStats-&gt;GetCharisma();<sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Return<sp/>the<sp/>total<sp/>value<sp/>of<sp/>the<sp/>stat</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>statValue;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>UTalesAbilityComponent::GetDamageResistanceByTag(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayTag&amp;<sp/>DamageTag)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="76"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_a_character_base" kindref="compound">ACharacterBase</ref>*<sp/>CharacterBase<sp/>=<sp/>Cast&lt;ACharacterBase&gt;(<sp/>GetOwner()<sp/>);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IsValid(CharacterBase))<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0.f;<sp/>}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_u_damage_attributes" kindref="compound">UDamageAttributes</ref>*<sp/>DamageSet<sp/>=<sp/>CharacterBase-&gt;AttributeDamageSet;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>damageResistance<sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Physical)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageResistance<sp/>=<sp/>DamageSet-&gt;GetNaturalResistance();}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Physical_Blunt)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageResistance<sp/>=<sp/>DamageSet-&gt;GetBluntResistance();}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Physical_Slash)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageResistance<sp/>=<sp/>DamageSet-&gt;GetSlashResistance();}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Physical_Pierce)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageResistance<sp/>=<sp/>DamageSet-&gt;GetPierceResistance();}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Physical_Bite)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageResistance<sp/>=<sp/>DamageSet-&gt;GetBiteResistance();}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Physical_Kick)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageResistance<sp/>=<sp/>DamageSet-&gt;GetKickResistance();}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Physical_Claw)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageResistance<sp/>=<sp/>DamageSet-&gt;GetClawResistance();}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Physical_Sting)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageResistance<sp/>=<sp/>DamageSet-&gt;GetStingResistance();}</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Elemental)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageResistance<sp/>=<sp/>DamageSet-&gt;GetNaturalResistance();}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Elemental_Fire)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageResistance<sp/>=<sp/>DamageSet-&gt;GetFireResistance();}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Elemental_Frost)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageResistance<sp/>=<sp/>DamageSet-&gt;GetFrostResistance();}</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Elemental_Acid)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageResistance<sp/>=<sp/>DamageSet-&gt;GetAcidResistance();}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Elemental_Shock)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageResistance<sp/>=<sp/>DamageSet-&gt;GetShockResistance();}</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Elemental_Radioactive)<sp/>{<sp/>damageResistance<sp/>=<sp/>DamageSet-&gt;GetRadioResistance();}</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Elemental_Sonic)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageResistance<sp/>=<sp/>DamageSet-&gt;GetSonicResistance();}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Magic)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageResistance<sp/>=<sp/>DamageSet-&gt;GetNaturalResistance();}</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Magic_Holy)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageResistance<sp/>=<sp/>DamageSet-&gt;GetHolyResistance();}</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Magic_DarkMagic)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageResistance<sp/>=<sp/>DamageSet-&gt;GetDarkResistance();}</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>damageResistance;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>UTalesAbilityComponent::GetDamageBonusByTag(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayTag&amp;<sp/>DamageTag)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="112"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_a_character_base" kindref="compound">ACharacterBase</ref>*<sp/>CharacterBase<sp/>=<sp/>Cast&lt;ACharacterBase&gt;(<sp/>GetOwner()<sp/>);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IsValid(CharacterBase))<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0.f;<sp/>}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_u_damage_attributes" kindref="compound">UDamageAttributes</ref>*<sp/>DamageSet<sp/>=<sp/>CharacterBase-&gt;AttributeDamageSet;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>damageBonus<sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Physical)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageBonus<sp/>=<sp/>DamageSet-&gt;GetNaturalBonus();}</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Physical_Blunt)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageBonus<sp/>=<sp/>DamageSet-&gt;GetBluntBonus();}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Physical_Slash)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageBonus<sp/>=<sp/>DamageSet-&gt;GetSlashBonus();}</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Physical_Pierce)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageBonus<sp/>=<sp/>DamageSet-&gt;GetPierceBonus();}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Physical_Bite)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageBonus<sp/>=<sp/>DamageSet-&gt;GetBiteBonus();}</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Physical_Kick)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageBonus<sp/>=<sp/>DamageSet-&gt;GetKickBonus();}</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Physical_Claw)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageBonus<sp/>=<sp/>DamageSet-&gt;GetClawBonus();}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Physical_Sting)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageBonus<sp/>=<sp/>DamageSet-&gt;GetStingBonus();}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Elemental)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageBonus<sp/>=<sp/>DamageSet-&gt;GetNaturalBonus();}</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Elemental_Fire)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageBonus<sp/>=<sp/>DamageSet-&gt;GetFireBonus();}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Elemental_Frost)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageBonus<sp/>=<sp/>DamageSet-&gt;GetFrostBonus();}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Elemental_Acid)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageBonus<sp/>=<sp/>DamageSet-&gt;GetAcidBonus();}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Elemental_Shock)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageBonus<sp/>=<sp/>DamageSet-&gt;GetShockBonus();}</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Elemental_Radioactive)<sp/>{<sp/>damageBonus<sp/>=<sp/>DamageSet-&gt;GetRadioBonus();}</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Elemental_Sonic)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageBonus<sp/>=<sp/>DamageSet-&gt;GetSonicBonus();}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Magic)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageBonus<sp/>=<sp/>DamageSet-&gt;GetNaturalBonus();}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Magic_Holy)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageBonus<sp/>=<sp/>DamageSet-&gt;GetHolyBonus();}</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DamageTag<sp/>==<sp/>TAG_Damage_Magic_DarkMagic)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>damageBonus<sp/>=<sp/>DamageSet-&gt;GetDarkBonus();}</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>damageBonus;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>UTalesAbilityComponent::PerformTotalRecalculation()</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/>RecalculateCoreStats();</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/>RecalculateDamageResists();</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/>RecalculateDamageBonuses();</highlight></codeline>
+<codeline lineno="153"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>UTalesAbilityComponent::RecalculateCoreStats()</highlight></codeline>
+<codeline lineno="161"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_a_character_base" kindref="compound">ACharacterBase</ref>*<sp/>CharacterBase<sp/>=<sp/>Cast&lt;ACharacterBase&gt;(<sp/>GetOwner()<sp/>);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!IsValid(CharacterBase))<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_a_tales_player_state_base" kindref="compound">ATalesPlayerStateBase</ref>*<sp/>PlayerStateBase<sp/>=<sp/>Cast&lt;ATalesPlayerStateBase&gt;(CharacterBase-&gt;GetPlayerState());</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!IsValid(PlayerStateBase))<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayTag<sp/>ClassTag<sp/>=<sp/>CharacterBase-&gt;GetCharacterClass();</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_u_character_class_data" kindref="compound">UCharacterClassData</ref>*<sp/>ClassData<sp/>=<sp/>Cast&lt;UCharacterClassData&gt;(PlayerStateBase-&gt;GetClassDataAsset(ClassTag));</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!IsValid(ClassData))<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayTag<sp/>RaceTag<sp/>=<sp/>CharacterBase-&gt;GetCharacterRace();</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_u_character_race_data" kindref="compound">UCharacterRaceData</ref>*<sp/>RaceData<sp/>=<sp/>Cast&lt;UCharacterRaceData&gt;(PlayerStateBase-&gt;GetRaceDataAsset(RaceTag));</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!IsValid(RaceData))<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculate<sp/>as<sp/>we<sp/>go,<sp/>so<sp/>we<sp/>only<sp/>set<sp/>it<sp/>a<sp/>single<sp/>time<sp/>and<sp/>notify<sp/>delegates<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewStrength<sp/><sp/><sp/>=<sp/>STAT_DEFAULT,<sp/>NewDexterity<sp/>=<sp/>STAT_DEFAULT,<sp/>NewFortitude<sp/>=<sp/>STAT_DEFAULT;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewAstuteness<sp/>=<sp/>STAT_DEFAULT,<sp/>NewIntellect<sp/>=<sp/>STAT_DEFAULT,<sp/>NewCharisma<sp/><sp/>=<sp/>STAT_DEFAULT;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref>*<sp/>CoreStats<sp/><sp/><sp/><sp/><sp/>=<sp/>CharacterBase-&gt;AttributeCoreStatsSet;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TPair&lt;FGameplayAttribute,int&gt;&amp;<sp/>dataModifier<sp/>:<sp/>ClassData-&gt;CoreStatsModifiers)</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>CoreStats-&gt;GetStrengthAttribute())<sp/><sp/>{NewStrength<sp/><sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>CoreStats-&gt;GetDexterityAttribute())<sp/>{NewDexterity<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>CoreStats-&gt;GetFortitudeAttribute())<sp/>{NewFortitude<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>CoreStats-&gt;GetAstutenessAttribute()){NewAstuteness<sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>CoreStats-&gt;GetIntellectAttribute())<sp/>{NewIntellect<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>CoreStats-&gt;GetCharismaAttribute())<sp/><sp/>{NewCharisma<sp/><sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TPair&lt;FGameplayAttribute,int&gt;&amp;<sp/>dataModifier<sp/>:<sp/>RaceData-&gt;CoreStatsModifiers)</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>CoreStats-&gt;GetStrengthAttribute())<sp/><sp/>{NewStrength<sp/><sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>CoreStats-&gt;GetDexterityAttribute())<sp/>{NewDexterity<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>CoreStats-&gt;GetFortitudeAttribute())<sp/>{NewFortitude<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>CoreStats-&gt;GetAstutenessAttribute()){NewAstuteness<sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>CoreStats-&gt;GetIntellectAttribute())<sp/>{NewIntellect<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>CoreStats-&gt;GetCharismaAttribute())<sp/><sp/>{NewCharisma<sp/><sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Update<sp/>the<sp/>new<sp/>values</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/>CoreStats-&gt;SetStrength(NewStrength);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/>CoreStats-&gt;SetDexterity(NewDexterity);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/>CoreStats-&gt;SetFortitude(NewFortitude);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/>CoreStats-&gt;SetAstuteness(NewAstuteness);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/>CoreStats-&gt;SetIntellect(NewIntellect);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/>CoreStats-&gt;SetCharisma(NewCharisma);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="210"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>UTalesAbilityComponent::RecalculateDamageResists()</highlight></codeline>
+<codeline lineno="219"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_a_character_base" kindref="compound">ACharacterBase</ref>*<sp/>CharacterBase<sp/>=<sp/>Cast&lt;ACharacterBase&gt;(<sp/>GetOwner()<sp/>);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!IsValid(CharacterBase))<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_a_tales_player_state_base" kindref="compound">ATalesPlayerStateBase</ref>*<sp/>PlayerStateBase<sp/>=<sp/>Cast&lt;ATalesPlayerStateBase&gt;(CharacterBase-&gt;GetPlayerState());</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!IsValid(PlayerStateBase))<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayTag<sp/>ClassTag<sp/>=<sp/>CharacterBase-&gt;GetCharacterClass();</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_u_character_class_data" kindref="compound">UCharacterClassData</ref>*<sp/>ClassData<sp/>=<sp/>Cast&lt;UCharacterClassData&gt;(PlayerStateBase-&gt;GetClassDataAsset(ClassTag));</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!IsValid(ClassData))<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayTag<sp/>RaceTag<sp/>=<sp/>CharacterBase-&gt;GetCharacterRace();</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_u_character_race_data" kindref="compound">UCharacterRaceData</ref>*<sp/>RaceData<sp/>=<sp/>Cast&lt;UCharacterRaceData&gt;(PlayerStateBase-&gt;GetRaceDataAsset(RaceTag));</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!IsValid(RaceData))<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref>*<sp/>CoreStats<sp/><sp/><sp/>=<sp/>CharacterBase-&gt;AttributeCoreStatsSet;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_u_damage_attributes" kindref="compound">UDamageAttributes</ref>*<sp/>DamageStats<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>CharacterBase-&gt;AttributeDamageSet;</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//UVitalityAttributes*<sp/>VitalityStats<sp/><sp/><sp/><sp/>=<sp/>CharacterBase-&gt;AttributeVitalitySet;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Fortitude<sp/>must<sp/>be<sp/>calculated<sp/>or<sp/>this<sp/>won&apos;t<sp/>work</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>TotalFortitude<sp/>=<sp/>CoreStats-&gt;GetFortitude();</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewBaseResistance<sp/>=<sp/>0.f;<sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewResistBlunt<sp/><sp/>=<sp/>0.f;<sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewResistSlash<sp/><sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewResistPierce<sp/>=<sp/>0.f;<sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewResistFire<sp/><sp/><sp/>=<sp/>0.f;<sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewResistFrost<sp/><sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewResistAcid<sp/><sp/><sp/>=<sp/>0.f;<sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewResistShock<sp/><sp/>=<sp/>0.f;<sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewResistRadio<sp/><sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewResistSonic<sp/><sp/>=<sp/>0.f;<sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewResistHoly<sp/><sp/><sp/>=<sp/>0.f;<sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewResistDark<sp/><sp/><sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TPair&lt;FGameplayAttribute,int&gt;&amp;<sp/>dataModifier<sp/>:<sp/>ClassData-&gt;DamageResistModifiers)</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetBluntResistanceAttribute())<sp/>{NewResistBlunt<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetSlashResistanceAttribute())<sp/>{NewResistSlash<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetPierceResistanceAttribute()){NewResistPierce<sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetFireResistanceAttribute())<sp/><sp/>{NewResistFire<sp/><sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetFrostResistanceAttribute())<sp/>{NewResistFrost<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetAcidResistanceAttribute())<sp/><sp/>{NewResistAcid<sp/><sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetShockResistanceAttribute())<sp/>{NewResistShock<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetRadioResistanceAttribute())<sp/>{NewResistRadio<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetSonicResistanceAttribute())<sp/>{NewResistSonic<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetHolyResistanceAttribute())<sp/><sp/>{NewResistHoly<sp/><sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetDarkResistanceAttribute())<sp/><sp/>{NewResistDark<sp/><sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TPair&lt;FGameplayAttribute,int&gt;&amp;<sp/>dataModifier<sp/>:<sp/>RaceData-&gt;DamageResistModifiers)</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetBluntResistanceAttribute())<sp/>{NewResistBlunt<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetSlashResistanceAttribute())<sp/>{NewResistSlash<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetPierceResistanceAttribute()){NewResistPierce<sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetFireResistanceAttribute())<sp/><sp/>{NewResistFire<sp/><sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetFrostResistanceAttribute())<sp/>{NewResistFrost<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetAcidResistanceAttribute())<sp/><sp/>{NewResistAcid<sp/><sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetShockResistanceAttribute())<sp/>{NewResistShock<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetRadioResistanceAttribute())<sp/>{NewResistRadio<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetSonicResistanceAttribute())<sp/>{NewResistSonic<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetHolyResistanceAttribute())<sp/><sp/>{NewResistHoly<sp/><sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetDarkResistanceAttribute())<sp/><sp/>{NewResistDark<sp/><sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>fMultiplier<sp/>=<sp/>TotalFortitude<sp/>&gt;=<sp/>0<sp/>?<sp/>1<sp/>:<sp/>-1;</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>For<sp/>every<sp/>10<sp/>fortitude,<sp/>resists<sp/>will<sp/>change<sp/>by<sp/>5</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>ModifiedFortitude<sp/>=<sp/>FMath::Floor(TotalFortitude<sp/>/<sp/>BonusMultiple)<sp/>*<sp/>fMultiplier;</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/>NewBaseResistance<sp/>+=<sp/>(BonusModifier<sp/>*<sp/>ModifiedFortitude);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/>DamageStats-&gt;SetBluntResistance(NewBaseResistance<sp/><sp/><sp/>+<sp/>NewResistBlunt);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/>DamageStats-&gt;SetSlashResistance(NewBaseResistance<sp/><sp/><sp/>+<sp/>NewResistSlash);</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/>DamageStats-&gt;SetPierceResistance(NewBaseResistance<sp/><sp/>+<sp/>NewResistPierce);</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/>DamageStats-&gt;SetFireResistance(NewBaseResistance<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/>NewResistFire);</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/>DamageStats-&gt;SetFrostResistance(NewBaseResistance<sp/><sp/><sp/>+<sp/>NewResistFrost);</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/>DamageStats-&gt;SetAcidResistance(NewBaseResistance<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/>NewResistAcid);</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/>DamageStats-&gt;SetShockResistance(NewBaseResistance<sp/><sp/><sp/>+<sp/>NewResistShock);</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/>DamageStats-&gt;SetRadioResistance(NewBaseResistance<sp/><sp/><sp/>+<sp/>NewResistRadio);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/>DamageStats-&gt;SetSonicResistance(NewBaseResistance<sp/><sp/><sp/>+<sp/>NewResistSonic);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/>DamageStats-&gt;SetHolyResistance(NewBaseResistance<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/>NewResistHoly);</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/>DamageStats-&gt;SetDarkResistance(NewBaseResistance<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/>NewResistDark);</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="294"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>UTalesAbilityComponent::RecalculateDamageBonuses()</highlight></codeline>
+<codeline lineno="303"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_a_character_base" kindref="compound">ACharacterBase</ref>*<sp/>CharacterBase<sp/>=<sp/>Cast&lt;ACharacterBase&gt;(<sp/>GetOwner()<sp/>);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!IsValid(CharacterBase))<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_a_tales_player_state_base" kindref="compound">ATalesPlayerStateBase</ref>*<sp/>PlayerStateBase<sp/>=<sp/>Cast&lt;ATalesPlayerStateBase&gt;(CharacterBase-&gt;GetPlayerState());</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!IsValid(PlayerStateBase))<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayTag<sp/>ClassTag<sp/>=<sp/>CharacterBase-&gt;GetCharacterClass();</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_u_character_class_data" kindref="compound">UCharacterClassData</ref>*<sp/>ClassData<sp/>=<sp/>Cast&lt;UCharacterClassData&gt;(PlayerStateBase-&gt;GetClassDataAsset(ClassTag));</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!IsValid(ClassData))<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayTag<sp/>RaceTag<sp/>=<sp/>CharacterBase-&gt;GetCharacterRace();</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_u_character_race_data" kindref="compound">UCharacterRaceData</ref>*<sp/>RaceData<sp/>=<sp/>Cast&lt;UCharacterRaceData&gt;(PlayerStateBase-&gt;GetRaceDataAsset(RaceTag));</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!IsValid(RaceData))<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref>*<sp/>CoreStats<sp/><sp/><sp/>=<sp/>CharacterBase-&gt;AttributeCoreStatsSet;</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_u_damage_attributes" kindref="compound">UDamageAttributes</ref>*<sp/>DamageStats<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>CharacterBase-&gt;AttributeDamageSet;</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_u_effect_attributes" kindref="compound">UEffectAttributes</ref>*<sp/>EffectAttributes<sp/><sp/><sp/><sp/><sp/>=<sp/>CharacterBase-&gt;AttributeEffectSet;</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>CoreStats<sp/>must<sp/>be<sp/>calculated</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>TotalStrength<sp/><sp/>=<sp/>CoreStats-&gt;GetStrength();</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>TotalIntellect<sp/>=<sp/>CoreStats-&gt;GetIntellect();</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewBaseBonus<sp/>=<sp/>0.f;<sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewStrBonus<sp/><sp/><sp/><sp/>=<sp/>0.f;<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewBonusBlunt<sp/><sp/>=<sp/>0.f;<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewBonusSlash<sp/><sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewBonusPierce<sp/>=<sp/>0.f;<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewBonusFire<sp/><sp/><sp/>=<sp/>0.f;<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewBonusFrost<sp/><sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewBonusAcid<sp/><sp/><sp/>=<sp/>0.f;<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewBonusShock<sp/><sp/>=<sp/>0.f;<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewBonusRadio<sp/><sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewBonusSonic<sp/><sp/>=<sp/>0.f;<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewBonusHoly<sp/><sp/><sp/>=<sp/>0.f;<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewBonusDark<sp/><sp/><sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TPair&lt;FGameplayAttribute,int&gt;&amp;<sp/>dataModifier<sp/>:<sp/>ClassData-&gt;DamageBonusModifiers)</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetBluntBonusAttribute())<sp/><sp/>{NewBonusBlunt<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetSlashBonusAttribute())<sp/><sp/>{NewBonusSlash<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetPierceBonusAttribute()){NewBonusPierce<sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetFireBonusAttribute())<sp/><sp/><sp/>{NewBonusFire<sp/><sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetFrostBonusAttribute())<sp/><sp/>{NewBonusFrost<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetAcidBonusAttribute())<sp/><sp/><sp/>{NewBonusAcid<sp/><sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetShockBonusAttribute())<sp/>{NewBonusShock<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetRadioBonusAttribute())<sp/>{NewBonusRadio<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetSonicBonusAttribute())<sp/>{NewBonusSonic<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetHolyBonusAttribute())<sp/><sp/><sp/>{NewBonusHoly<sp/><sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetDarkBonusAttribute())<sp/><sp/><sp/>{NewBonusDark<sp/><sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TPair&lt;FGameplayAttribute,int&gt;&amp;<sp/>dataModifier<sp/>:<sp/>RaceData-&gt;DamageBonusModifiers)</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetBluntBonusAttribute())<sp/><sp/>{NewBonusBlunt<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetSlashBonusAttribute())<sp/><sp/>{NewBonusSlash<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetPierceBonusAttribute()){NewBonusPierce<sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetFireBonusAttribute())<sp/><sp/><sp/>{NewBonusFire<sp/><sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetFrostBonusAttribute())<sp/><sp/>{NewBonusFrost<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetAcidBonusAttribute())<sp/><sp/><sp/>{NewBonusAcid<sp/><sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetShockBonusAttribute())<sp/>{NewBonusShock<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetRadioBonusAttribute())<sp/>{NewBonusRadio<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetSonicBonusAttribute())<sp/>{NewBonusSonic<sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetHolyBonusAttribute())<sp/><sp/><sp/>{NewBonusHoly<sp/><sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataModifier.Key<sp/>==<sp/>DamageStats-&gt;GetDarkBonusAttribute())<sp/><sp/><sp/>{NewBonusDark<sp/><sp/><sp/>+=<sp/>dataModifier.Value;}</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"></highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>sMultiplier<sp/>=<sp/>TotalStrength<sp/><sp/><sp/>&gt;=<sp/>0<sp/>?<sp/>1<sp/>:<sp/>-1;</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>iMultiplier<sp/>=<sp/>TotalIntellect<sp/><sp/>&gt;=<sp/>0<sp/>?<sp/>1<sp/>:<sp/>-1;</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>For<sp/>every<sp/>BonusMultiple<sp/>strength,<sp/>melee<sp/>bonuses<sp/>will<sp/>increase<sp/>by<sp/>BonusModifier</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>For<sp/>every<sp/>BonusMultiple<sp/>fortitude,<sp/>non-melee<sp/>bonuses<sp/>will<sp/>change<sp/>by<sp/>BonusModifier</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>ModifiedStrength<sp/><sp/>=<sp/>FMath::Floor(TotalStrength<sp/>/<sp/>BonusMultiple)<sp/><sp/>*<sp/>sMultiplier;</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>ModifiedIntellect<sp/>=<sp/>FMath::Floor(TotalIntellect<sp/>/<sp/>BonusMultiple)<sp/>*<sp/>iMultiplier;</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/>NewStrBonus<sp/><sp/>+=<sp/>(BonusModifier<sp/>*<sp/>ModifiedStrength);</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/>NewBaseBonus<sp/>+=<sp/>(BonusModifier<sp/>*<sp/>ModifiedIntellect);</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/>DamageStats-&gt;SetBluntBonus(NewStrBonus<sp/><sp/>+<sp/>NewBonusBlunt);</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/>DamageStats-&gt;SetSlashBonus(NewStrBonus<sp/><sp/>+<sp/>NewBonusSlash);</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/>DamageStats-&gt;SetPierceBonus(NewStrBonus<sp/>+<sp/>NewBonusPierce);</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/>DamageStats-&gt;SetFireBonus(NewBaseBonus<sp/><sp/>+<sp/>NewBonusFire);</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/>DamageStats-&gt;SetFrostBonus(NewBaseBonus<sp/>+<sp/>NewBonusFrost);</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/>DamageStats-&gt;SetAcidBonus(NewBaseBonus<sp/><sp/>+<sp/>NewBonusAcid);</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/>DamageStats-&gt;SetShockBonus(NewBaseBonus<sp/>+<sp/>NewBonusShock);</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/>DamageStats-&gt;SetRadioBonus(NewBaseBonus<sp/>+<sp/>NewBonusRadio);</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/>DamageStats-&gt;SetSonicBonus(NewBaseBonus<sp/>+<sp/>NewBonusSonic);</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/>DamageStats-&gt;SetHolyBonus(NewBaseBonus<sp/><sp/>+<sp/>NewBonusHoly);</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/>DamageStats-&gt;SetDarkBonus(NewBaseBonus<sp/><sp/>+<sp/>NewBonusDark);</highlight></codeline>
+<codeline lineno="382"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Private/Characters/Components/TalesAbilityComponent.cpp"/>
+  </compounddef>
+</doxygen>

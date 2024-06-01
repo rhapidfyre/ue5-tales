@@ -1,0 +1,244 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_a_ranged_weapon_base" kind="class" language="C++" prot="public">
+    <compoundname>ARangedWeaponBase</compoundname>
+    <basecompoundref refid="class_a_weapon_base" prot="public" virt="non-virtual">AWeaponBase</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_a_ranged_weapon_base_1a4aff4abaec81a7249ae5682e1ba90104" prot="public" static="no" mutable="no">
+        <type>UArrowComponent *</type>
+        <definition>UArrowComponent* ARangedWeaponBase::ProjectileDirection</definition>
+        <argsstring></argsstring>
+        <name>ProjectileDirection</name>
+        <qualifiedname>ARangedWeaponBase::ProjectileDirection</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/RangedWeaponBase.h" line="27" column="17" bodyfile="Source/TalesDungeoneer/Public/Weapons/RangedWeaponBase.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_a_ranged_weapon_base_1a32790dc20fedfd54872b5e56b13932c3" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ARangedWeaponBase::mAmmoCount</definition>
+        <argsstring></argsstring>
+        <name>mAmmoCount</name>
+        <qualifiedname>ARangedWeaponBase::mAmmoCount</qualifiedname>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/RangedWeaponBase.h" line="40" column="5" bodyfile="Source/TalesDungeoneer/Public/Weapons/RangedWeaponBase.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_a_ranged_weapon_base_1ae32756f7816731a2d69104491a39e660" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ARangedWeaponBase::ARangedWeaponBase</definition>
+        <argsstring>()</argsstring>
+        <name>ARangedWeaponBase</name>
+        <qualifiedname>ARangedWeaponBase::ARangedWeaponBase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/RangedWeaponBase.h" line="17" column="1" bodyfile="Source/TalesDungeoneer/Private/Weapons/RangedWeaponBase.cpp" bodystart="9" bodyend="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_ranged_weapon_base_1a31c2380728ef17c31fd87cf141b43170" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ARangedWeaponBase::UFUNCTION</definition>
+        <argsstring>(BlueprintPure) int getAmmoRemaining() const</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>ARangedWeaponBase::UFUNCTION</qualifiedname>
+        <param>
+          <type>BlueprintPure</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/RangedWeaponBase.h" line="19" column="1" bodyfile="Source/TalesDungeoneer/Public/Weapons/RangedWeaponBase.h" bodystart="19" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_ranged_weapon_base_1aea28c2dbec609d22f1d50ff3f0265a24" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool ARangedWeaponBase::doAttack</definition>
+        <argsstring>() override</argsstring>
+        <name>doAttack</name>
+        <qualifiedname>ARangedWeaponBase::doAttack</qualifiedname>
+        <reimplements refid="class_a_weapon_base_1a0c8e0e3616932105f3107e67ac469ddd">doAttack</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/RangedWeaponBase.h" line="21" column="14" bodyfile="Source/TalesDungeoneer/Private/Weapons/RangedWeaponBase.cpp" bodystart="30" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_ranged_weapon_base_1a5b0a8b0f617d45a6b75c7856591f2531" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ARangedWeaponBase::Server_FireWeapon</definition>
+        <argsstring>(FVector fwdVector)</argsstring>
+        <name>Server_FireWeapon</name>
+        <qualifiedname>ARangedWeaponBase::Server_FireWeapon</qualifiedname>
+        <param>
+          <type>FVector</type>
+          <declname>fwdVector</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/RangedWeaponBase.h" line="24" column="6"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_a_ranged_weapon_base_1a8d53eb0e912631fdccc59679966741d2" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ARangedWeaponBase::BeginPlay</definition>
+        <argsstring>() override</argsstring>
+        <name>BeginPlay</name>
+        <qualifiedname>ARangedWeaponBase::BeginPlay</qualifiedname>
+        <reimplements refid="class_a_weapon_base_1a08284e51f5427ccccfb76c4da4839170">BeginPlay</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/RangedWeaponBase.h" line="31" column="14" bodyfile="Source/TalesDungeoneer/Private/Weapons/RangedWeaponBase.cpp" bodystart="15" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_ranged_weapon_base_1a5afd66be37641371c8281890814dd847" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ARangedWeaponBase::OnConstruction</definition>
+        <argsstring>(const FTransform &amp;Transform) override</argsstring>
+        <name>OnConstruction</name>
+        <qualifiedname>ARangedWeaponBase::OnConstruction</qualifiedname>
+        <reimplements refid="class_a_weapon_base_1a7c7f528c95ba6664e00d4512a543b0bd">OnConstruction</reimplements>
+        <param>
+          <type>const FTransform &amp;</type>
+          <declname>Transform</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/RangedWeaponBase.h" line="33" column="14" bodyfile="Source/TalesDungeoneer/Private/Weapons/RangedWeaponBase.cpp" bodystart="20" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_ranged_weapon_base_1ae926c13441260965525063dc7784d0a3" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ARangedWeaponBase::UpdateWeapon</definition>
+        <argsstring>() override</argsstring>
+        <name>UpdateWeapon</name>
+        <qualifiedname>ARangedWeaponBase::UpdateWeapon</qualifiedname>
+        <reimplements refid="class_a_weapon_base_1a0a607b1e8da52b2b376e7e15559c5137">UpdateWeapon</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/RangedWeaponBase.h" line="35" column="14" bodyfile="Source/TalesDungeoneer/Private/Weapons/RangedWeaponBase.cpp" bodystart="25" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_ranged_weapon_base_1a2bcff0aa30bef7217a609438be39ef05" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ARangedWeaponBase::SpawnProjectile</definition>
+        <argsstring>(FVector fwdVector)</argsstring>
+        <name>SpawnProjectile</name>
+        <qualifiedname>ARangedWeaponBase::SpawnProjectile</qualifiedname>
+        <param>
+          <type>FVector</type>
+          <declname>fwdVector</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/RangedWeaponBase.h" line="37" column="14" bodyfile="Source/TalesDungeoneer/Private/Weapons/RangedWeaponBase.cpp" bodystart="45" bodyend="66"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>AActor</label>
+      </node>
+      <node id="1">
+        <label>ARangedWeaponBase</label>
+        <link refid="class_a_ranged_weapon_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>AWeaponBase</label>
+        <link refid="class_a_weapon_base"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>AActor</label>
+      </node>
+      <node id="1">
+        <label>ARangedWeaponBase</label>
+        <link refid="class_a_ranged_weapon_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>AWeaponBase</label>
+        <link refid="class_a_weapon_base"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Weapons/RangedWeaponBase.h" line="11" column="1" bodyfile="Source/TalesDungeoneer/Public/Weapons/RangedWeaponBase.h" bodystart="12" bodyend="41"/>
+    <listofallmembers>
+      <member refid="class_a_ranged_weapon_base_1ae32756f7816731a2d69104491a39e660" prot="public" virt="non-virtual"><scope>ARangedWeaponBase</scope><name>ARangedWeaponBase</name></member>
+      <member refid="class_a_weapon_base_1a64b8ab90669db2552d55cd83df90509b" prot="public" virt="non-virtual"><scope>ARangedWeaponBase</scope><name>AWeaponBase</name></member>
+      <member refid="class_a_ranged_weapon_base_1a8d53eb0e912631fdccc59679966741d2" prot="protected" virt="virtual"><scope>ARangedWeaponBase</scope><name>BeginPlay</name></member>
+      <member refid="class_a_ranged_weapon_base_1aea28c2dbec609d22f1d50ff3f0265a24" prot="public" virt="virtual"><scope>ARangedWeaponBase</scope><name>doAttack</name></member>
+      <member refid="class_a_weapon_base_1ad308d4b4fad4f2c2f454e8c21af6d8dd" prot="protected" virt="virtual"><scope>ARangedWeaponBase</scope><name>EndPlay</name></member>
+      <member refid="class_a_weapon_base_1a5225407dc657bc3045c023bbcc8115ea" prot="protected" virt="virtual"><scope>ARangedWeaponBase</scope><name>GetIsAttackValid</name></member>
+      <member refid="class_a_weapon_base_1ab936abf5a4916e3937cb3847435f9fb9" prot="public" virt="non-virtual"><scope>ARangedWeaponBase</scope><name>getIsMeleeWeapon</name></member>
+      <member refid="class_a_weapon_base_1ad09c61c1ae97c44c575c7ee761266264" prot="public" virt="non-virtual"><scope>ARangedWeaponBase</scope><name>getIsRangedWeapon</name></member>
+      <member refid="class_a_weapon_base_1ad5a2d09f0b45fcda23fea1b828509e63" prot="public" virt="non-virtual"><scope>ARangedWeaponBase</scope><name>getIsWeaponArmed</name></member>
+      <member refid="class_a_weapon_base_1a9262313d3e01b70e67178ce3aa5b8fbb" prot="protected" virt="non-virtual"><scope>ARangedWeaponBase</scope><name>IsAttackValid</name></member>
+      <member refid="class_a_ranged_weapon_base_1a32790dc20fedfd54872b5e56b13932c3" prot="private" virt="non-virtual"><scope>ARangedWeaponBase</scope><name>mAmmoCount</name></member>
+      <member refid="class_a_ranged_weapon_base_1a5afd66be37641371c8281890814dd847" prot="protected" virt="virtual"><scope>ARangedWeaponBase</scope><name>OnConstruction</name></member>
+      <member refid="class_a_weapon_base_1a506d9fe73e23b27853e2595148df5313" prot="protected" virt="virtual"><scope>ARangedWeaponBase</scope><name>OnRep_IsWeaponArmed</name></member>
+      <member refid="class_a_weapon_base_1a0a53fe4ff06b496581a440852407f30b" prot="protected" virt="virtual"><scope>ARangedWeaponBase</scope><name>PostActorCreated</name></member>
+      <member refid="class_a_ranged_weapon_base_1a4aff4abaec81a7249ae5682e1ba90104" prot="public" virt="non-virtual"><scope>ARangedWeaponBase</scope><name>ProjectileDirection</name></member>
+      <member refid="class_a_ranged_weapon_base_1a5b0a8b0f617d45a6b75c7856591f2531" prot="public" virt="non-virtual"><scope>ARangedWeaponBase</scope><name>Server_FireWeapon</name></member>
+      <member refid="class_a_weapon_base_1a1ef6f90f35cfb588d840869f397b6437" prot="public" virt="non-virtual"><scope>ARangedWeaponBase</scope><name>setWeaponIsArmed</name></member>
+      <member refid="class_a_ranged_weapon_base_1a2bcff0aa30bef7217a609438be39ef05" prot="protected" virt="virtual"><scope>ARangedWeaponBase</scope><name>SpawnProjectile</name></member>
+      <member refid="class_a_ranged_weapon_base_1a31c2380728ef17c31fd87cf141b43170" prot="public" virt="non-virtual"><scope>ARangedWeaponBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_ranged_weapon_base_1ae926c13441260965525063dc7784d0a3" prot="protected" virt="virtual"><scope>ARangedWeaponBase</scope><name>UpdateWeapon</name></member>
+      <member refid="class_a_weapon_base_1a9a365b6932e15e04241b8cc097e139fb" prot="public" virt="non-virtual"><scope>ARangedWeaponBase</scope><name>UsingSkeletalMesh</name></member>
+      <member refid="class_a_weapon_base_1af285d62e25b02e54ed2033da59ca4b31" prot="public" virt="non-virtual"><scope>ARangedWeaponBase</scope><name>UsingStaticMesh</name></member>
+      <member refid="class_a_weapon_base_1aea61fd251e7a85be8b1ae6c114276301" prot="public" virt="non-virtual"><scope>ARangedWeaponBase</scope><name>WeaponGripLeft</name></member>
+      <member refid="class_a_weapon_base_1ae7079406fd362fac5cd1471d52229149" prot="public" virt="non-virtual"><scope>ARangedWeaponBase</scope><name>WeaponGripRight</name></member>
+      <member refid="class_a_weapon_base_1ab1c49319827097fc17d30bdabfe67dc2" prot="public" virt="non-virtual"><scope>ARangedWeaponBase</scope><name>WeaponMeshSkeleton</name></member>
+      <member refid="class_a_weapon_base_1a9ba32cf0212ea0d454142022eee787a9" prot="public" virt="non-virtual"><scope>ARangedWeaponBase</scope><name>WeaponMeshStatic</name></member>
+      <member refid="class_a_weapon_base_1af0d4c75d05119b07c29fac8e7c1748f7" prot="public" virt="non-virtual"><scope>ARangedWeaponBase</scope><name>WeaponRoot</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

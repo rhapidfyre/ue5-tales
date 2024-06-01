@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_tales_dungeoneer" kind="class" language="C#" prot="public">
+    <compoundname>TalesDungeoneer</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">ModuleRules</basecompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_tales_dungeoneer_1a9028af893a1c9dfb3a2a37625afe54c7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>TalesDungeoneer.TalesDungeoneer</definition>
+        <argsstring>(ReadOnlyTargetRules Target)</argsstring>
+        <name>TalesDungeoneer</name>
+        <qualifiedname>TalesDungeoneer.TalesDungeoneer</qualifiedname>
+        <param>
+          <type>ReadOnlyTargetRules</type>
+          <declname>Target</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/TalesDungeoneer.Build.cs" line="7" column="8" bodyfile="Source/TalesDungeoneer/TalesDungeoneer.Build.cs" bodystart="7" bodyend="22"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>ModuleRules</label>
+      </node>
+      <node id="1">
+        <label>TalesDungeoneer</label>
+        <link refid="class_tales_dungeoneer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>ModuleRules</label>
+      </node>
+      <node id="1">
+        <label>TalesDungeoneer</label>
+        <link refid="class_tales_dungeoneer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/TalesDungeoneer.Build.cs" line="5" column="7" bodyfile="Source/TalesDungeoneer/TalesDungeoneer.Build.cs" bodystart="6" bodyend="23"/>
+    <listofallmembers>
+      <member refid="class_tales_dungeoneer_1a9028af893a1c9dfb3a2a37625afe54c7" prot="public" virt="non-virtual"><scope>TalesDungeoneer</scope><name>TalesDungeoneer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

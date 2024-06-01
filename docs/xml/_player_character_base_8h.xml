@@ -1,0 +1,467 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_player_character_base_8h" kind="file" language="C++">
+    <compoundname>PlayerCharacterBase.h</compoundname>
+    <includes local="yes">CoreMinimal.h</includes>
+    <includes refid="_character_base_8h" local="yes">CharacterBase.h</includes>
+    <includes local="yes">InputAction.h</includes>
+    <includes local="yes">InputActionValue.h</includes>
+    <includes local="yes">InputMappingContext.h</includes>
+    <includes local="yes">PlayerCharacterBase.generated.h</includes>
+    <includedby refid="_player_character_base_8cpp" local="yes">Source/TalesDungeoneer/Private/Characters/PlayerCharacterBase.cpp</includedby>
+    <includedby refid="_tales_game_state_base_8cpp" local="yes">Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp</includedby>
+    <includedby refid="_creator_character_base_8h" local="yes">Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h</includedby>
+    <includedby refid="_tales_dungeoneer_game_mode_8h" local="yes">Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesDungeoneerGameMode.h</includedby>
+    <incdepgraph>
+      <node id="8">
+        <label>Abilities/GameplayAbility.h</label>
+      </node>
+      <node id="22">
+        <label>AbilitySystemComponent.h</label>
+      </node>
+      <node id="4">
+        <label>AbilitySystemInterface.h</label>
+      </node>
+      <node id="32">
+        <label>CharacterBase.generated.h</label>
+      </node>
+      <node id="16">
+        <label>Components/ActorComponent.h</label>
+      </node>
+      <node id="2">
+        <label>CoreMinimal.h</label>
+      </node>
+      <node id="3">
+        <label>CharacterBase.h</label>
+        <link refid="_character_base_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>Components/EquipmentComponent.h</label>
+        <link refid="_equipment_component_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>Components/MeshMergeComponent.h</label>
+        <link refid="_mesh_merge_component_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>Components/TalesAbilityComponent.h</label>
+        <link refid="_tales_ability_component_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/Characters/PlayerCharacterBase.h</label>
+        <link refid="_player_character_base_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>Gas/Abilities/TalesGameplayAbility.h</label>
+        <link refid="_tales_gameplay_ability_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>Saves/SavedCharacters.h</label>
+        <link refid="_saved_characters_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>lib/Tags/TalesGlobalTags.h</label>
+        <link refid="_tales_global_tags_8h_source"/>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>lib/enums/GlobalEnums.h</label>
+        <link refid="_global_enums_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>TalesDungeoneer/TalesDungeoneer.h</label>
+        <link refid="_tales_dungeoneer_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>Delegates/Delegate.h</label>
+      </node>
+      <node id="25">
+        <label>EquipmentComponent.generated.h</label>
+      </node>
+      <node id="5">
+        <label>GameFramework/Character.h</label>
+      </node>
+      <node id="18">
+        <label>GameFramework/SaveGame.h</label>
+      </node>
+      <node id="11">
+        <label>GameplayEffectTypes.h</label>
+      </node>
+      <node id="14">
+        <label>GameplayTagContainer.h</label>
+      </node>
+      <node id="21">
+        <label>GameplayTags/Public/GameplayTags.h</label>
+      </node>
+      <node id="30">
+        <label>GlobalEnums.generated.h</label>
+      </node>
+      <node id="33">
+        <label>InputAction.h</label>
+      </node>
+      <node id="34">
+        <label>InputActionValue.h</label>
+      </node>
+      <node id="35">
+        <label>InputMappingContext.h</label>
+      </node>
+      <node id="12">
+        <label>InventoryComponent.h</label>
+      </node>
+      <node id="19">
+        <label>MeshMergeComponent.generated.h</label>
+      </node>
+      <node id="27">
+        <label>NativeGameplayTags.h</label>
+      </node>
+      <node id="36">
+        <label>PlayerCharacterBase.generated.h</label>
+      </node>
+      <node id="31">
+        <label>SavedCharacters.generated.h</label>
+      </node>
+      <node id="15">
+        <label>SkeletalMeshMerge.h</label>
+      </node>
+      <node id="23">
+        <label>TalesAbilityComponent.generated.h</label>
+      </node>
+      <node id="10">
+        <label>TalesGameplayAbility.generated.h</label>
+      </node>
+      <node id="17">
+        <label>lib/EquipmentData.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h</label>
+        <link refid="_creator_character_base_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/Characters/PlayerCharacterBase.h</label>
+        <link refid="_player_character_base_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesDungeoneerGameMode.h</label>
+        <link refid="_tales_dungeoneer_game_mode_8h_source"/>
+      </node>
+      <node id="3">
+        <label>Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorGameModeBase.h</label>
+        <link refid="_creator_game_mode_base_8h_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_a_player_character_base" prot="public">APlayerCharacterBase</innerclass>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="_player_character_base_8h_1ae17f4b0199b34bcfb8b531b3d1e8dc7e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DECLARE_DYNAMIC_MULTICAST_DELEGATE</definition>
+        <argsstring>(FOnPlayerJoined)</argsstring>
+        <name>DECLARE_DYNAMIC_MULTICAST_DELEGATE</name>
+        <param>
+          <type>FOnPlayerJoined</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/PlayerCharacterBase.h" line="18" column="1" declfile="Source/TalesDungeoneer/Public/Characters/PlayerCharacterBase.h" declline="18" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_player_character_base_8h_1a9e575f3df8d79f645dd52d379c3f12ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams</definition>
+        <argsstring>(FOnCoreStatUpdated, const FGameplayAttribute &amp;, AttributeData, const float, NewValue)</argsstring>
+        <name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams</name>
+        <param>
+          <type>FOnCoreStatUpdated</type>
+        </param>
+        <param>
+          <type>const FGameplayAttribute &amp;</type>
+        </param>
+        <param>
+          <type>AttributeData</type>
+        </param>
+        <param>
+          <type>const float</type>
+        </param>
+        <param>
+          <type>NewValue</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/PlayerCharacterBase.h" line="20" column="1" declfile="Source/TalesDungeoneer/Public/Characters/PlayerCharacterBase.h" declline="20" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_player_character_base_8h_1a68d6fbb9eec3f7058f52c215289f033b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams</definition>
+        <argsstring>(FOnDamageStatUpdated, const FGameplayAttribute &amp;, AttributeData, const float, NewValue)</argsstring>
+        <name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams</name>
+        <param>
+          <type>FOnDamageStatUpdated</type>
+        </param>
+        <param>
+          <type>const FGameplayAttribute &amp;</type>
+        </param>
+        <param>
+          <type>AttributeData</type>
+        </param>
+        <param>
+          <type>const float</type>
+        </param>
+        <param>
+          <type>NewValue</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/PlayerCharacterBase.h" line="23" column="1" declfile="Source/TalesDungeoneer/Public/Characters/PlayerCharacterBase.h" declline="23" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_player_character_base_8h_1a14e3979b0ba3da7a810ecffcf0e2b7c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams</definition>
+        <argsstring>(FOnAttributeArmorClassUpdated, const float &amp;, OldValue, const float &amp;, NewValue)</argsstring>
+        <name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams</name>
+        <param>
+          <type>FOnAttributeArmorClassUpdated</type>
+        </param>
+        <param>
+          <type>const float &amp;</type>
+        </param>
+        <param>
+          <type>OldValue</type>
+        </param>
+        <param>
+          <type>const float &amp;</type>
+        </param>
+        <param>
+          <type>NewValue</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/PlayerCharacterBase.h" line="26" column="1" declfile="Source/TalesDungeoneer/Public/Characters/PlayerCharacterBase.h" declline="26" declcolumn="1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>Take<sp/>Five<sp/>Games,<sp/>LLC<sp/>2023<sp/>-<sp/>All<sp/>rights<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;CoreMinimal.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;CharacterBase.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;InputAction.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;InputActionValue.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;InputMappingContext.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;PlayerCharacterBase.generated.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_u_saved_character" kindref="compound">USavedCharacter</ref>;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Called<sp/>when<sp/>this<sp/>player<sp/>has<sp/>fully<sp/>spawned<sp/>into<sp/>the<sp/>world</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal">DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPlayerJoined);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal">DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnCoreStatUpdated,</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttribute&amp;,<sp/>AttributeData,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">,<sp/>NewValue);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal">DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnDamageStatUpdated,</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttribute&amp;,<sp/>AttributeData,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">,<sp/>NewValue);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal">DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAttributeArmorClassUpdated,</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">&amp;,<sp/>OldValue,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">&amp;,<sp/>NewValue);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal">UCLASS(Blueprintable,<sp/>BlueprintType)</highlight></codeline>
+<codeline lineno="34" refid="class_a_player_character_base" refkind="compound"><highlight class="normal">class<sp/>TALESDUNGEONEER_API<sp/><ref refid="class_a_player_character_base" kindref="compound">APlayerCharacterBase</ref><sp/>:<sp/>public<sp/><ref refid="class_a_character_base" kindref="compound">ACharacterBase</ref></highlight></codeline>
+<codeline lineno="35"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>GENERATED_BODY()</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:<sp/></highlight><highlight class="comment">//<sp/>functions</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_a_player_character_base" kindref="compound">APlayerCharacterBase</ref>();</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintAssignable)<sp/>FOnPlayerJoined<sp/>OnPlayerJoined;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintAssignable)<sp/>FOnCoreStatUpdated<sp/>OnCoreStatsUpdated;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintAssignable)<sp/>FOnDamageStatUpdated<sp/>OnDamageStatsUpdated;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintAssignable)<sp/>FOnAttributeArmorClassUpdated<sp/>OnAttributeArmorClassUpdated;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadOnly,<sp/>meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;true&quot;</highlight><highlight class="normal">),<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Character<sp/>Input<sp/>Settings&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="49" refid="class_a_player_character_base_1a9a571d97abfd792fb9ab1f01b6077d97" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>UInputMappingContext*<sp/>DefaultMappingContext<sp/>=<sp/></highlight><highlight class="keywordtype">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadOnly,<sp/>meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/>&quot;true&quot;),<sp/>Category<sp/>=<sp/>&quot;Character<sp/>Input<sp/>Settings&quot;)</highlight></codeline>
+<codeline lineno="53" refid="class_a_player_character_base_1acf0c91b2f75bf16c0bcabc831669ab55" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>UInputAction*<sp/>JumpInputAction<sp/>=<sp/></highlight><highlight class="keywordtype">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadOnly,<sp/>meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/>&quot;true&quot;),<sp/>Category<sp/>=<sp/>&quot;Character<sp/>Input<sp/>Settings&quot;)</highlight></codeline>
+<codeline lineno="57" refid="class_a_player_character_base_1aa1b5e5ece7808b1268908d2561972ffe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>UInputAction*<sp/>MoveInputAction<sp/>=<sp/></highlight><highlight class="keywordtype">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadOnly,<sp/>meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/>&quot;true&quot;),<sp/>Category<sp/>=<sp/>&quot;Character<sp/>Input<sp/>Settings&quot;)</highlight></codeline>
+<codeline lineno="61" refid="class_a_player_character_base_1a0e996f48e129d3379ef307fc6abf3569" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>UInputAction*<sp/>LookInputAction<sp/>=<sp/></highlight><highlight class="keywordtype">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadOnly,<sp/>meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/>&quot;true&quot;),<sp/>Category<sp/>=<sp/>&quot;Character<sp/>Input<sp/>Settings&quot;)</highlight></codeline>
+<codeline lineno="65" refid="class_a_player_character_base_1a60b3d849d0034114bd5c1a6874d5268f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>UInputAction*<sp/>PrimaryAttackInputAction<sp/>=<sp/></highlight><highlight class="keywordtype">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadOnly,<sp/>meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/>&quot;true&quot;),<sp/>Category<sp/>=<sp/>&quot;Character<sp/>Input<sp/>Settings&quot;)</highlight></codeline>
+<codeline lineno="69" refid="class_a_player_character_base_1a4b886292f79124b2639228d06f770db7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>UInputAction*<sp/>SecondaryAttackInputAction<sp/>=<sp/></highlight><highlight class="keywordtype">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadOnly,<sp/>meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/>&quot;true&quot;),<sp/>Category<sp/>=<sp/>&quot;Character<sp/>Input<sp/>Settings&quot;)</highlight></codeline>
+<codeline lineno="73" refid="class_a_player_character_base_1a40107142f9181f0f6ddc2149a3080374" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>UInputAction*<sp/>PrimaryInputAction<sp/>=<sp/></highlight><highlight class="keywordtype">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadOnly,<sp/>meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/>&quot;true&quot;),<sp/>Category<sp/>=<sp/>&quot;Character<sp/>Input<sp/>Settings&quot;)</highlight></codeline>
+<codeline lineno="77" refid="class_a_player_character_base_1ae4c045dfbf5ba2ca53c9944bef8b6b90" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>UInputAction*<sp/>SecondaryInputAction<sp/>=<sp/></highlight><highlight class="keywordtype">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79"><highlight class="normal">protected:</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>HotkeyTriggered(UInputAction*<sp/>HotkeyAction);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Called<sp/>for<sp/>movement<sp/>input</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Move(const<sp/>FInputActionValue&amp;<sp/>Value);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Called<sp/>for<sp/>looking<sp/>input</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Look(const<sp/>FInputActionValue&amp;<sp/>Value);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>BeginPlay()<sp/>override;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>BindListeners()<sp/>override;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>BindInput();</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnVitalityAttributeChanged(const<sp/>FOnAttributeChangeData&amp;<sp/>Data)<sp/>override;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnCoreStatsChanged(const<sp/>FOnAttributeChangeData&amp;<sp/>Data)<sp/>override;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnDamageStatsChanged(const<sp/>FOnAttributeChangeData&amp;<sp/>Data)<sp/>override;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>APawn<sp/>interface</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SetupPlayerInputComponent(class<sp/>UInputComponent*<sp/>PlayerInputComponent)<sp/>override;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintImplementableEvent)<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>EventArmorClassChanged(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>OldValue,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewValue);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="107"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Public/Characters/PlayerCharacterBase.h"/>
+  </compounddef>
+</doxygen>

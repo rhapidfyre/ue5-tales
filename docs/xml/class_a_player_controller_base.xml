@@ -1,0 +1,226 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_a_player_controller_base" kind="class" language="C++" prot="public">
+    <compoundname>APlayerControllerBase</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">APlayerController</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_a_player_controller_base_1ae43a79b3be65c7fe192133037a65e08d" prot="public" static="no" mutable="no">
+        <type>TArray&lt; UInputMappingContext * &gt;</type>
+        <definition>TArray&lt;UInputMappingContext*&gt; APlayerControllerBase::MappingContexts</definition>
+        <argsstring></argsstring>
+        <name>MappingContexts</name>
+        <qualifiedname>APlayerControllerBase::MappingContexts</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/PlayerControllerBase.h" line="46" column="8" bodyfile="Source/TalesDungeoneer/Public/Characters/Controllers/PlayerControllerBase.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_player_controller_base_1a36b203bff0c4150b4edef6a794b1e3ea" prot="public" static="no" mutable="no">
+        <type>TArray&lt; UInputAction * &gt;</type>
+        <definition>TArray&lt;UInputAction*&gt; APlayerControllerBase::AbilityHotkeys</definition>
+        <argsstring></argsstring>
+        <name>AbilityHotkeys</name>
+        <qualifiedname>APlayerControllerBase::AbilityHotkeys</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/PlayerControllerBase.h" line="49" column="8" bodyfile="Source/TalesDungeoneer/Public/Characters/Controllers/PlayerControllerBase.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_player_controller_base_1ab356ac7a87dc03981d13898cf2569331" prot="public" static="no" mutable="no">
+        <type>TArray&lt; UInputAction * &gt;</type>
+        <definition>TArray&lt;UInputAction*&gt; APlayerControllerBase::TargetingHotkeys</definition>
+        <argsstring></argsstring>
+        <name>TargetingHotkeys</name>
+        <qualifiedname>APlayerControllerBase::TargetingHotkeys</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/PlayerControllerBase.h" line="52" column="8" bodyfile="Source/TalesDungeoneer/Public/Characters/Controllers/PlayerControllerBase.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_a_player_controller_base_1abbaef3c9dd5b9ecdd1c4883a3f77513d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>APlayerControllerBase::APlayerControllerBase</definition>
+        <argsstring>()</argsstring>
+        <name>APlayerControllerBase</name>
+        <qualifiedname>APlayerControllerBase::APlayerControllerBase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/PlayerControllerBase.h" line="24" column="1" bodyfile="Source/TalesDungeoneer/Private/Characters/Controllers/PlayerControllerBase.cpp" bodystart="9" bodyend="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_player_controller_base_1a967eddeefa02362acc9554471414c155" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>FKey</type>
+        <definition>FKey APlayerControllerBase::GetKeyMapping</definition>
+        <argsstring>(UInputAction *InputAction)</argsstring>
+        <name>GetKeyMapping</name>
+        <qualifiedname>APlayerControllerBase::GetKeyMapping</qualifiedname>
+        <param>
+          <type>UInputAction *</type>
+          <declname>InputAction</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/PlayerControllerBase.h" line="27" column="6" bodyfile="Source/TalesDungeoneer/Private/Characters/Controllers/PlayerControllerBase.cpp" bodystart="59" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_player_controller_base_1a032d696c44d23d2b4b9dba38ef67e1de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>APlayerControllerBase::UPROPERTY</definition>
+        <argsstring>(BlueprintAssignable) FOnHotkeyTriggered OnHotkeyTriggered</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>APlayerControllerBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintAssignable</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/PlayerControllerBase.h" line="29" column="1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_a_player_controller_base_1ae816660ea1be2cdc8c67a7ae2e3e5d1e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void APlayerControllerBase::BeginPlay</definition>
+        <argsstring>() override</argsstring>
+        <name>BeginPlay</name>
+        <qualifiedname>APlayerControllerBase::BeginPlay</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/PlayerControllerBase.h" line="33" column="14" bodyfile="Source/TalesDungeoneer/Private/Characters/Controllers/PlayerControllerBase.cpp" bodystart="15" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_player_controller_base_1a5166cbbdc2d037299178fde6eb7fcfbc" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void APlayerControllerBase::OnConstruction</definition>
+        <argsstring>(const FTransform &amp;Transform) override</argsstring>
+        <name>OnConstruction</name>
+        <qualifiedname>APlayerControllerBase::OnConstruction</qualifiedname>
+        <param>
+          <type>const FTransform &amp;</type>
+          <declname>Transform</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/PlayerControllerBase.h" line="35" column="14" bodyfile="Source/TalesDungeoneer/Private/Characters/Controllers/PlayerControllerBase.cpp" bodystart="75" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_player_controller_base_1a5550d8271f0487365883336a724666e7" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void APlayerControllerBase::HotkeyTriggered</definition>
+        <argsstring>(UInputAction *HotkeyAction)</argsstring>
+        <name>HotkeyTriggered</name>
+        <qualifiedname>APlayerControllerBase::HotkeyTriggered</qualifiedname>
+        <param>
+          <type>UInputAction *</type>
+          <declname>HotkeyAction</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/PlayerControllerBase.h" line="37" column="14" bodyfile="Source/TalesDungeoneer/Private/Characters/Controllers/PlayerControllerBase.cpp" bodystart="80" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_player_controller_base_1aeb083727eee869cc40856a32e634d24e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void APlayerControllerBase::HotkeyTarget</definition>
+        <argsstring>(UInputAction *HotkeyAction)</argsstring>
+        <name>HotkeyTarget</name>
+        <qualifiedname>APlayerControllerBase::HotkeyTarget</qualifiedname>
+        <param>
+          <type>UInputAction *</type>
+          <declname>HotkeyAction</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/PlayerControllerBase.h" line="39" column="14" bodyfile="Source/TalesDungeoneer/Private/Characters/Controllers/PlayerControllerBase.cpp" bodystart="92" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_player_controller_base_1aab2869baf1cb4b5c6c6fcaf2541755a8" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void APlayerControllerBase::SetupInputComponent</definition>
+        <argsstring>() override</argsstring>
+        <name>SetupInputComponent</name>
+        <qualifiedname>APlayerControllerBase::SetupInputComponent</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/PlayerControllerBase.h" line="41" column="14" bodyfile="Source/TalesDungeoneer/Private/Characters/Controllers/PlayerControllerBase.cpp" bodystart="20" bodyend="57"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>APlayerController</label>
+      </node>
+      <node id="1">
+        <label>APlayerControllerBase</label>
+        <link refid="class_a_player_controller_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>APlayerController</label>
+      </node>
+      <node id="1">
+        <label>APlayerControllerBase</label>
+        <link refid="class_a_player_controller_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Characters/Controllers/PlayerControllerBase.h" line="18" column="1" bodyfile="Source/TalesDungeoneer/Public/Characters/Controllers/PlayerControllerBase.h" bodystart="19" bodyend="54"/>
+    <listofallmembers>
+      <member refid="class_a_player_controller_base_1a36b203bff0c4150b4edef6a794b1e3ea" prot="public" virt="non-virtual"><scope>APlayerControllerBase</scope><name>AbilityHotkeys</name></member>
+      <member refid="class_a_player_controller_base_1abbaef3c9dd5b9ecdd1c4883a3f77513d" prot="public" virt="non-virtual"><scope>APlayerControllerBase</scope><name>APlayerControllerBase</name></member>
+      <member refid="class_a_player_controller_base_1ae816660ea1be2cdc8c67a7ae2e3e5d1e" prot="protected" virt="virtual"><scope>APlayerControllerBase</scope><name>BeginPlay</name></member>
+      <member refid="class_a_player_controller_base_1a967eddeefa02362acc9554471414c155" prot="public" virt="non-virtual"><scope>APlayerControllerBase</scope><name>GetKeyMapping</name></member>
+      <member refid="class_a_player_controller_base_1aeb083727eee869cc40856a32e634d24e" prot="protected" virt="virtual"><scope>APlayerControllerBase</scope><name>HotkeyTarget</name></member>
+      <member refid="class_a_player_controller_base_1a5550d8271f0487365883336a724666e7" prot="protected" virt="virtual"><scope>APlayerControllerBase</scope><name>HotkeyTriggered</name></member>
+      <member refid="class_a_player_controller_base_1ae43a79b3be65c7fe192133037a65e08d" prot="public" virt="non-virtual"><scope>APlayerControllerBase</scope><name>MappingContexts</name></member>
+      <member refid="class_a_player_controller_base_1a5166cbbdc2d037299178fde6eb7fcfbc" prot="protected" virt="virtual"><scope>APlayerControllerBase</scope><name>OnConstruction</name></member>
+      <member refid="class_a_player_controller_base_1aab2869baf1cb4b5c6c6fcaf2541755a8" prot="protected" virt="virtual"><scope>APlayerControllerBase</scope><name>SetupInputComponent</name></member>
+      <member refid="class_a_player_controller_base_1ab356ac7a87dc03981d13898cf2569331" prot="public" virt="non-virtual"><scope>APlayerControllerBase</scope><name>TargetingHotkeys</name></member>
+      <member refid="class_a_player_controller_base_1a032d696c44d23d2b4b9dba38ef67e1de" prot="public" virt="non-virtual"><scope>APlayerControllerBase</scope><name>UPROPERTY</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

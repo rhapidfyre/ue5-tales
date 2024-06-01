@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_attribute_tags_8cpp" kind="file" language="C++">
+    <compoundname>AttributeTags.cpp</compoundname>
+    <includes refid="_attribute_tags_8h" local="yes">lib/Tags/AttributeTags.h</includes>
+    <incdepgraph>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Private/lib/Tags/AttributeTags.cpp</label>
+        <link refid="_attribute_tags_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>lib/Tags/AttributeTags.h</label>
+        <link refid="_attribute_tags_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>NativeGameplayTags.h</label>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>Take<sp/>Five<sp/>Games,<sp/>LLC<sp/>2023<sp/>-<sp/>All<sp/>Rights<sp/>Reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;lib/Tags/AttributeTags.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Private/lib/Tags/AttributeTags.cpp"/>
+  </compounddef>
+</doxygen>

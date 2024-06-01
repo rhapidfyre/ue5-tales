@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="struct_f_save_meta" kind="struct" language="C++" prot="public">
+    <compoundname>FSaveMeta</compoundname>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_f_save_meta_1ac2d3a3417ed8d1f74bbbc1271f667aa0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FSaveMeta::GENERATED_BODY</definition>
+        <argsstring>()</argsstring>
+        <name>GENERATED_BODY</name>
+        <qualifiedname>FSaveMeta::GENERATED_BODY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/StaticSaveData.h" line="15" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_save_meta_1a213b7643bb453c2d869dbeb11b25f2e5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>FSaveMeta::FSaveMeta</definition>
+        <argsstring>()</argsstring>
+        <name>FSaveMeta</name>
+        <qualifiedname>FSaveMeta::FSaveMeta</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/StaticSaveData.h" line="16" column="1" bodyfile="Source/TalesDungeoneer/Public/Saves/StaticSaveData.h" bodystart="16" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_save_meta_1ab6edf5d1586655eac40dae3a9d35b3a4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>FSaveMeta::FSaveMeta</definition>
+        <argsstring>(FString NewName, int32 NewIndex)</argsstring>
+        <name>FSaveMeta</name>
+        <qualifiedname>FSaveMeta::FSaveMeta</qualifiedname>
+        <param>
+          <type>FString</type>
+          <declname>NewName</declname>
+        </param>
+        <param>
+          <type>int32</type>
+          <declname>NewIndex</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/StaticSaveData.h" line="17" column="1" bodyfile="Source/TalesDungeoneer/Public/Saves/StaticSaveData.h" bodystart="17" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_save_meta_1a2696588f0ab534a3a6fa1c301548797a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FSaveMeta::UPROPERTY</definition>
+        <argsstring>(SaveGame, EditAnywhere, BlueprintReadWrite) FString SaveName</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FSaveMeta::UPROPERTY</qualifiedname>
+        <param>
+          <type>SaveGame</type>
+        </param>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/StaticSaveData.h" line="18" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_save_meta_1af2e5fc6754871a918742bb42cef77202" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FSaveMeta::UPROPERTY</definition>
+        <argsstring>(SaveGame, EditAnywhere, BlueprintReadWrite) int32 SaveIndex</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FSaveMeta::UPROPERTY</qualifiedname>
+        <param>
+          <type>SaveGame</type>
+        </param>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/StaticSaveData.h" line="19" column="1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Public/Saves/StaticSaveData.h" line="13" column="1" bodyfile="Source/TalesDungeoneer/Public/Saves/StaticSaveData.h" bodystart="14" bodyend="20"/>
+    <listofallmembers>
+      <member refid="struct_f_save_meta_1a213b7643bb453c2d869dbeb11b25f2e5" prot="public" virt="non-virtual"><scope>FSaveMeta</scope><name>FSaveMeta</name></member>
+      <member refid="struct_f_save_meta_1ab6edf5d1586655eac40dae3a9d35b3a4" prot="public" virt="non-virtual"><scope>FSaveMeta</scope><name>FSaveMeta</name></member>
+      <member refid="struct_f_save_meta_1ac2d3a3417ed8d1f74bbbc1271f667aa0" prot="public" virt="non-virtual"><scope>FSaveMeta</scope><name>GENERATED_BODY</name></member>
+      <member refid="struct_f_save_meta_1a2696588f0ab534a3a6fa1c301548797a" prot="public" virt="non-virtual"><scope>FSaveMeta</scope><name>UPROPERTY</name></member>
+      <member refid="struct_f_save_meta_1af2e5fc6754871a918742bb42cef77202" prot="public" virt="non-virtual"><scope>FSaveMeta</scope><name>UPROPERTY</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

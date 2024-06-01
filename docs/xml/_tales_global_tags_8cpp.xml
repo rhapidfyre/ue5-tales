@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_tales_global_tags_8cpp" kind="file" language="C++">
+    <compoundname>TalesGlobalTags.cpp</compoundname>
+    <includes refid="_tales_global_tags_8h" local="yes">lib/Tags/TalesGlobalTags.h</includes>
+    <incdepgraph>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Private/lib/Tags/TalesGlobalTags.cpp</label>
+        <link refid="_tales_global_tags_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>lib/Tags/TalesGlobalTags.h</label>
+        <link refid="_tales_global_tags_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>NativeGameplayTags.h</label>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>Take<sp/>Five<sp/>Games,<sp/>LLC<sp/>2023<sp/>-<sp/>All<sp/>Rights<sp/>Reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;lib/Tags/TalesGlobalTags.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Character.Race&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="7"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race_Human,<sp/><sp/><sp/><sp/>&quot;Character.Race.Human&quot;)</highlight></codeline>
+<codeline lineno="8"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race_Dwarf,<sp/><sp/><sp/><sp/>&quot;Character.Race.Dwarf&quot;)</highlight></codeline>
+<codeline lineno="9"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race_Elf,<sp/><sp/><sp/><sp/><sp/><sp/>&quot;Character.Race.Elf&quot;)</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;Character.Class&quot;)</highlight></codeline>
+<codeline lineno="12"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class_Assassin,<sp/><sp/><sp/><sp/>&quot;Character.Class.Assassin&quot;)</highlight></codeline>
+<codeline lineno="13"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class_Cleric,<sp/><sp/><sp/><sp/><sp/><sp/>&quot;Character.Class.Cleric&quot;)</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class_Deviant,<sp/><sp/><sp/><sp/><sp/>&quot;Character.Class.Deviant&quot;)</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class_Knight,<sp/><sp/><sp/><sp/><sp/><sp/>&quot;Character.Class.Knight&quot;)</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class_Merc,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;Character.Class.Merc&quot;)</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class_Necro,<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;Character.Class.Necro&quot;)</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class_Ranger,<sp/><sp/><sp/><sp/><sp/><sp/>&quot;Character.Class.Ranger&quot;)</highlight></codeline>
+<codeline lineno="19"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class_Warrior,<sp/><sp/><sp/><sp/><sp/>&quot;Character.Class.Warrior&quot;)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class_Wizard,<sp/><sp/><sp/><sp/><sp/><sp/>&quot;Character.Class.Wizard&quot;)</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;Character.Body&quot;)</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Used<sp/>to<sp/>specify<sp/>the<sp/>default<sp/>body<sp/>part<sp/>for<sp/>the<sp/>character<sp/>model</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">//<sp/>It<sp/>will<sp/>be<sp/>applied<sp/>and<sp/>made<sp/>visible<sp/>when<sp/>the<sp/>actor<sp/>component<sp/>is<sp/>initialized</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Default,<sp/>&quot;Character.Body.Default&quot;)</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Armor,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;Character.Body.Armor&quot;)</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Armor_Shoulders,<sp/><sp/><sp/>&quot;Character.Body.Armor.Shoulders&quot;)</highlight></codeline>
+<codeline lineno="30"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Armor_Vambraces,<sp/><sp/><sp/>&quot;Character.Body.Armor.Vambraces&quot;)</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Armor_Gauntlets,<sp/><sp/><sp/>&quot;Character.Body.Armor.Gauntlets&quot;)</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Armor_Breastplate,<sp/>&quot;Character.Body.Armor.Breastplate&quot;)</highlight></codeline>
+<codeline lineno="33"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Armor_Waist,<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;Character.Body.Armor.Waist&quot;)</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Armor_Leggings,<sp/><sp/><sp/><sp/>&quot;Character.Body.Armor.Leggings&quot;)</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Armor_Knees,<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;Character.Body.Armor.Knees&quot;)</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Armor_Ankles,<sp/><sp/><sp/><sp/><sp/><sp/>&quot;Character.Body.Armor.Ankles&quot;)</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Armor_Footwear,<sp/><sp/><sp/><sp/>&quot;Character.Body.Armor.Footwear&quot;)</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Head,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;Character.Body.Head&quot;)</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Head_Ears,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;Character.Body.Head.Ears&quot;)</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Head_FacialHair,<sp/><sp/>&quot;Character.Body.Head.FacialHair&quot;)</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Head_Hair,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;Character.Body.Head.Hair&quot;)</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Head_Head,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;Character.Body.Head.Head&quot;)</highlight></codeline>
+<codeline lineno="44"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Head_Eyes,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;Character.Body.Head.Eyes&quot;)</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Head_Eyebrow,<sp/><sp/><sp/><sp/><sp/>&quot;Character.Body.Head.Eyebrow&quot;)</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Head_Eyelashes,<sp/><sp/><sp/>&quot;Character.Body.Head.Eyelashes&quot;)</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Upper,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;Character.Body.Upper&quot;)</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Upper_Arms,<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;Character.Body.Upper.Arms&quot;)</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Upper_Hand,<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;Character.Body.Upper.Hand&quot;)</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Upper_Torso,<sp/><sp/><sp/><sp/><sp/><sp/>&quot;Character.Body.Upper.Torso&quot;)</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Upper_Underwear,<sp/><sp/>&quot;Character.Body.Upper.Underwear&quot;)</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Upper_Neck,<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;Character.Body.Upper.Neck&quot;)</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Lower,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;Character.Body.Lower&quot;)</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Lower_Legs,<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;Character.Body.Lower.Legs&quot;)</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Lower_Feet,<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;Character.Body.Lower.Feet&quot;)</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body_Lower_Underwear,<sp/><sp/>&quot;Character.Body.Lower.Underwear&quot;)</highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Private/lib/Tags/TalesGlobalTags.cpp"/>
+  </compounddef>
+</doxygen>

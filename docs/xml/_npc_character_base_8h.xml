@@ -1,0 +1,403 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_npc_character_base_8h" kind="file" language="C++">
+    <compoundname>NpcCharacterBase.h</compoundname>
+    <includes refid="_character_base_8h" local="yes">CharacterBase.h</includes>
+    <includes refid="_ai_controller_base_8h" local="yes">Controllers/AiControllerBase.h</includes>
+    <includes local="yes">Delegates/Delegate.h</includes>
+    <includes local="yes">Engine/DataTable.h</includes>
+    <includes local="yes">NpcCharacterBase.generated.h</includes>
+    <includedby refid="_ai_controller_base_8cpp" local="yes">Source/TalesDungeoneer/Private/Characters/Controllers/AiControllerBase.cpp</includedby>
+    <includedby refid="_npc_character_base_8cpp" local="yes">Source/TalesDungeoneer/Private/Characters/NpcCharacterBase.cpp</includedby>
+    <includedby refid="_combat_npc_character_base_8h" local="yes">Source/TalesDungeoneer/Public/Characters/CombatNpcCharacterBase.h</includedby>
+    <includedby refid="_combat_ai_controller_base_8h" local="yes">Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h</includedby>
+    <includedby refid="_interactive_npc_base_8h" local="yes">Source/TalesDungeoneer/Public/Characters/InteractiveNpcBase.h</includedby>
+    <incdepgraph>
+      <node id="8">
+        <label>Abilities/GameplayAbility.h</label>
+      </node>
+      <node id="22">
+        <label>AbilitySystemComponent.h</label>
+      </node>
+      <node id="4">
+        <label>AbilitySystemInterface.h</label>
+      </node>
+      <node id="34">
+        <label>AiController.h</label>
+      </node>
+      <node id="38">
+        <label>AiControllerBase.generated.h</label>
+      </node>
+      <node id="36">
+        <label>BehaviorTree/BehaviorTree.h</label>
+      </node>
+      <node id="32">
+        <label>CharacterBase.generated.h</label>
+      </node>
+      <node id="16">
+        <label>Components/ActorComponent.h</label>
+      </node>
+      <node id="3">
+        <label>CoreMinimal.h</label>
+      </node>
+      <node id="2">
+        <label>CharacterBase.h</label>
+        <link refid="_character_base_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>Components/EquipmentComponent.h</label>
+        <link refid="_equipment_component_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>Components/MeshMergeComponent.h</label>
+        <link refid="_mesh_merge_component_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>Components/TalesAbilityComponent.h</label>
+        <link refid="_tales_ability_component_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>Controllers/AiControllerBase.h</label>
+        <link refid="_ai_controller_base_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h</label>
+        <link refid="_npc_character_base_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>Gas/Abilities/TalesGameplayAbility.h</label>
+        <link refid="_tales_gameplay_ability_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>Saves/SavedCharacters.h</label>
+        <link refid="_saved_characters_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>lib/Tags/TalesGlobalTags.h</label>
+        <link refid="_tales_global_tags_8h_source"/>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>lib/enums/GlobalEnums.h</label>
+        <link refid="_global_enums_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>TalesDungeoneer/TalesDungeoneer.h</label>
+        <link refid="_tales_dungeoneer_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>Delegates/Delegate.h</label>
+      </node>
+      <node id="39">
+        <label>Engine/DataTable.h</label>
+      </node>
+      <node id="25">
+        <label>EquipmentComponent.generated.h</label>
+      </node>
+      <node id="5">
+        <label>GameFramework/Character.h</label>
+      </node>
+      <node id="18">
+        <label>GameFramework/SaveGame.h</label>
+      </node>
+      <node id="11">
+        <label>GameplayEffectTypes.h</label>
+      </node>
+      <node id="14">
+        <label>GameplayTagContainer.h</label>
+      </node>
+      <node id="21">
+        <label>GameplayTags/Public/GameplayTags.h</label>
+      </node>
+      <node id="30">
+        <label>GlobalEnums.generated.h</label>
+      </node>
+      <node id="12">
+        <label>InventoryComponent.h</label>
+      </node>
+      <node id="19">
+        <label>MeshMergeComponent.generated.h</label>
+      </node>
+      <node id="27">
+        <label>NativeGameplayTags.h</label>
+      </node>
+      <node id="40">
+        <label>NpcCharacterBase.generated.h</label>
+      </node>
+      <node id="37">
+        <label>Perception/AIPerceptionComponent.h</label>
+      </node>
+      <node id="35">
+        <label>Perception/AIPerceptionStimuliSourceComponent.h</label>
+      </node>
+      <node id="31">
+        <label>SavedCharacters.generated.h</label>
+      </node>
+      <node id="15">
+        <label>SkeletalMeshMerge.h</label>
+      </node>
+      <node id="23">
+        <label>TalesAbilityComponent.generated.h</label>
+      </node>
+      <node id="10">
+        <label>TalesGameplayAbility.generated.h</label>
+      </node>
+      <node id="17">
+        <label>lib/EquipmentData.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>Source/TalesDungeoneer/Public/Characters/CombatNpcCharacterBase.h</label>
+        <link refid="_combat_npc_character_base_8h_source"/>
+      </node>
+      <node id="3">
+        <label>Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h</label>
+        <link refid="_combat_ai_controller_base_8h_source"/>
+      </node>
+      <node id="4">
+        <label>Source/TalesDungeoneer/Public/Characters/InteractiveNpcBase.h</label>
+        <link refid="_interactive_npc_base_8h_source"/>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h</label>
+        <link refid="_npc_character_base_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_f_st_npc_starting_item" prot="public">FStNpcStartingItem</innerclass>
+    <innerclass refid="struct_f_st_npc_loot_item" prot="public">FStNpcLootItem</innerclass>
+    <innerclass refid="class_a_npc_character_base" prot="public">ANpcCharacterBase</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Fill<sp/>out<sp/>your<sp/>copyright<sp/>notice<sp/>in<sp/>the<sp/>Description<sp/>page<sp/>of<sp/>Project<sp/>Settings.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;CharacterBase.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Controllers/AiControllerBase.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Delegates/Delegate.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Engine/DataTable.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;NpcCharacterBase.generated.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">//<sp/>An<sp/>item<sp/>added<sp/>to<sp/>the<sp/>NPCs<sp/>inventory<sp/>to<sp/>be<sp/>awarded<sp/>upon<sp/>death</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal">USTRUCT(BlueprintType)</highlight></codeline>
+<codeline lineno="15" refid="struct_f_st_npc_starting_item" refkind="compound"><highlight class="normal">struct<sp/><ref refid="struct_f_st_npc_starting_item" kindref="compound">FStNpcStartingItem</ref><sp/>:<sp/>public<sp/>FTableRowBase</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>GENERATED_BODY()</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>If<sp/>TRUE,<sp/>this<sp/>item<sp/>will<sp/>be<sp/>dropped<sp/>from<sp/>the<sp/>NPC<sp/>when<sp/>it<sp/>dies</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>If<sp/>FALSE,<sp/>this<sp/>item<sp/>will<sp/>be<sp/>deleted<sp/>when<sp/>the<sp/>NPC<sp/>dies</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>DroppedOnDeath<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>If<sp/>set,<sp/>the<sp/>NPC<sp/>will<sp/>equip<sp/>this<sp/>item<sp/>if<sp/>they<sp/>are<sp/>able<sp/>to.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>bEquipOnSpawn<sp/><sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>item<sp/>to<sp/>be<sp/>spawned<sp/>when<sp/>the<sp/>NPC<sp/>spawns</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>FDataTableRowHandle<sp/>ItemData<sp/>=<sp/>FDataTableRowHandle();</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Percent<sp/>change<sp/>that<sp/>the<sp/>NPC<sp/>spawns<sp/>with<sp/>this<sp/>item</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>ChanceToSpawn<sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>If<sp/>TRUE,<sp/>Chance<sp/>applies<sp/>to<sp/>each<sp/>quantity<sp/>Min<sp/>thru<sp/>Max</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>If<sp/>FALSE,<sp/>Chance<sp/>applies<sp/>once<sp/>and<sp/>a<sp/>random<sp/>quantity<sp/>Min<sp/>to<sp/>Max<sp/>is<sp/>chosen</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>bRollChanceEach<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>minimum<sp/>amount<sp/>this<sp/>item<sp/>should<sp/>spawn</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>DropQuantityMin<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>maximum<sp/>amount<sp/>this<sp/>item<sp/>should<sp/>spawn</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>DropQuantityMax<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>If<sp/>this<sp/>item<sp/>is<sp/>generated,<sp/>it<sp/>prevents<sp/>any<sp/>of<sp/>the<sp/>items<sp/>in<sp/>this<sp/>array<sp/>from<sp/>spawning</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>TArray&lt;FName&gt;<sp/>IncompatibleItems<sp/>=<sp/>{};</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal">USTRUCT(BlueprintType)</highlight></codeline>
+<codeline lineno="39" refid="struct_f_st_npc_loot_item" refkind="compound"><highlight class="normal">struct<sp/><ref refid="struct_f_st_npc_loot_item" kindref="compound">FStNpcLootItem</ref></highlight></codeline>
+<codeline lineno="40"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>GENERATED_BODY();</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_f_st_npc_loot_item" kindref="compound">FStNpcLootItem</ref>()<sp/>:<sp/>ItemName(FName()),<sp/>Quantity(0)<sp/>{};</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_f_st_npc_loot_item" kindref="compound">FStNpcLootItem</ref>(FName<sp/>iName,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>iQuantity<sp/>=<sp/>1)</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>ItemName<sp/>=<sp/>iName;<sp/>Quantity<sp/>=<sp/>iQuantity;<sp/>}</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>FName<sp/>ItemName;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>Quantity;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal">UCLASS(Blueprintable,<sp/>BlueprintType)</highlight></codeline>
+<codeline lineno="55" refid="class_a_npc_character_base" refkind="compound"><highlight class="normal">class<sp/>TALESDUNGEONEER_API<sp/><ref refid="class_a_npc_character_base" kindref="compound">ANpcCharacterBase</ref><sp/>:<sp/>public<sp/><ref refid="class_a_character_base" kindref="compound">ACharacterBase</ref></highlight></codeline>
+<codeline lineno="56"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>GENERATED_BODY()</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:<sp/></highlight><highlight class="comment">//<sp/>functions</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_a_npc_character_base" kindref="compound">ANpcCharacterBase</ref>();</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintPure)<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>GetDistanceFromOriginPoint()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>DestroyNpc();</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>BeginPlay()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>These<sp/>are<sp/>the<sp/>items<sp/>the<sp/>NPC<sp/>will<sp/>have,<sp/>including<sp/>loot.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>InitializeStartingItems();</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnConstruction(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FTransform&amp;<sp/>Transform)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>These<sp/>items<sp/>will<sp/>be<sp/>added<sp/>to<sp/>the<sp/>NPC</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Npc<sp/>Settings&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>TArray&lt;FDataTableRowHandle&gt;<sp/>StartingItems<sp/>=<sp/>{};</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>If<sp/>specified,<sp/>the<sp/>NPC<sp/>will<sp/>choose<sp/>items<sp/>from<sp/>the<sp/>specified<sp/>data<sp/>tables.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>This<sp/>can<sp/>be<sp/>used<sp/>with,<sp/>or<sp/>in<sp/>place<sp/>of,<sp/>StartingItems<sp/>and<sp/>LootItemSetup.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Npc<sp/>Settings&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/>TArray&lt;UDataTable*&gt;<sp/>LootTables<sp/>=<sp/>{};</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>minimum<sp/>level<sp/>variance<sp/>from<sp/>the<sp/>adjusted<sp/>dungeon<sp/>level</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Npc<sp/>Settings&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>MinimumLevelSpread<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>maximum<sp/>level<sp/>variance<sp/>from<sp/>the<sp/>adjusted<sp/>dungeon<sp/>level</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Npc<sp/>Settings&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>MaximumLevelSpread<sp/>=<sp/>3;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Npc<sp/>Settings&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/>TSubclassOf&lt;AAiControllerBase&gt;<sp/>AiControllerBase<sp/>=<sp/>AAiControllerBase::StaticClass();</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(VisibleAnywhere,<sp/>BlueprintReadWrite,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Npc<sp/>Settings&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/>UAIPerceptionStimuliSourceComponent*<sp/>AiStimuli<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>DropLootTable(AActor*<sp/>MyKiller);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>bIsPatrollingNpc<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>coordinates<sp/>where<sp/>this<sp/>NPC<sp/>spawned</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>FVector<sp/>_SpawnOrigin<sp/>=<sp/>FVector(0.f);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="112"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h"/>
+  </compounddef>
+</doxygen>

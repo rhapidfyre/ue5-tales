@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="struct_f_st_loot_data" kind="struct" language="C++" prot="public" abstract="yes">
+    <compoundname>FStLootData</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">FTableRowBase</basecompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_f_st_loot_data_1ae97a6e9ddbfff182a9bb0fb35169facb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FStLootData::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) FName ItemName</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FStLootData::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/datastructures/LootData.h" line="17" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_st_loot_data_1a67522df3a45d01691f9b390540013e4e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FStLootData::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) int MaxIterations</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FStLootData::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/datastructures/LootData.h" line="20" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_st_loot_data_1aac9f287f2f77e1e55b053275515ac997" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type></type>
+        <definition>FStLootData::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) float DropChance=0.05</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FStLootData::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/datastructures/LootData.h" line="23" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_st_loot_data_1a83cf213c67337590a90e97a5d85e8d87" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FStLootData::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) bool bOneChanceForAll</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FStLootData::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/datastructures/LootData.h" line="26" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_st_loot_data_1a94cb20bdd4422f07893b3b2454256bed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FStLootData::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) TArray&lt; FName &gt; IgnoredItems</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FStLootData::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/datastructures/LootData.h" line="29" column="1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>FStLootData</label>
+        <link refid="struct_f_st_loot_data"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>FTableRowBase</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>FStLootData</label>
+        <link refid="struct_f_st_loot_data"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>FTableRowBase</label>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/lib/datastructures/LootData.h" line="12" column="1" bodyfile="Source/TalesDungeoneer/Public/lib/datastructures/LootData.h" bodystart="13" bodyend="31"/>
+    <listofallmembers>
+      <member refid="struct_f_st_loot_data_1ae97a6e9ddbfff182a9bb0fb35169facb" prot="public" virt="non-virtual"><scope>FStLootData</scope><name>UPROPERTY</name></member>
+      <member refid="struct_f_st_loot_data_1a67522df3a45d01691f9b390540013e4e" prot="public" virt="non-virtual"><scope>FStLootData</scope><name>UPROPERTY</name></member>
+      <member refid="struct_f_st_loot_data_1aac9f287f2f77e1e55b053275515ac997" prot="public" virt="pure-virtual"><scope>FStLootData</scope><name>UPROPERTY</name></member>
+      <member refid="struct_f_st_loot_data_1a83cf213c67337590a90e97a5d85e8d87" prot="public" virt="non-virtual"><scope>FStLootData</scope><name>UPROPERTY</name></member>
+      <member refid="struct_f_st_loot_data_1a94cb20bdd4422f07893b3b2454256bed" prot="public" virt="non-virtual"><scope>FStLootData</scope><name>UPROPERTY</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

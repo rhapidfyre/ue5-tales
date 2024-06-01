@@ -1,0 +1,403 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_a_npc_character_base" kind="class" language="C++" prot="public">
+    <compoundname>ANpcCharacterBase</compoundname>
+    <basecompoundref refid="class_a_character_base" prot="public" virt="non-virtual">ACharacterBase</basecompoundref>
+    <derivedcompoundref refid="class_a_combat_npc_character_base" prot="public" virt="non-virtual">ACombatNpcCharacterBase</derivedcompoundref>
+    <derivedcompoundref refid="class_a_interactive_npc_character_base" prot="public" virt="non-virtual">AInteractiveNpcCharacterBase</derivedcompoundref>
+    <includes refid="_npc_character_base_8h" local="no">NpcCharacterBase.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_a_npc_character_base_1a43d89c7406d587afe31603c224bbf420" prot="public" static="no" mutable="no">
+        <type>TArray&lt; FDataTableRowHandle &gt;</type>
+        <definition>TArray&lt;FDataTableRowHandle&gt; ANpcCharacterBase::StartingItems</definition>
+        <argsstring></argsstring>
+        <name>StartingItems</name>
+        <qualifiedname>ANpcCharacterBase::StartingItems</qualifiedname>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="81" column="8" bodyfile="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" bodystart="81" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_npc_character_base_1a32e47b62d2306fc0016939f6464b1259" prot="public" static="no" mutable="no">
+        <type>TArray&lt; UDataTable * &gt;</type>
+        <definition>TArray&lt;UDataTable*&gt; ANpcCharacterBase::LootTables</definition>
+        <argsstring></argsstring>
+        <name>LootTables</name>
+        <qualifiedname>ANpcCharacterBase::LootTables</qualifiedname>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="86" column="8" bodyfile="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" bodystart="86" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_npc_character_base_1aeeaf2b76335288730e82942250d31681" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ANpcCharacterBase::MinimumLevelSpread</definition>
+        <argsstring></argsstring>
+        <name>MinimumLevelSpread</name>
+        <qualifiedname>ANpcCharacterBase::MinimumLevelSpread</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="90" column="5" bodyfile="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_npc_character_base_1ae6657ed1ef7782bb9804d5d6dc3467c5" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ANpcCharacterBase::MaximumLevelSpread</definition>
+        <argsstring></argsstring>
+        <name>MaximumLevelSpread</name>
+        <qualifiedname>ANpcCharacterBase::MaximumLevelSpread</qualifiedname>
+        <initializer>= 3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="94" column="5" bodyfile="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_npc_character_base_1a8b4aec3a791f395df361f53b7cd69054" prot="public" static="no" mutable="no">
+        <type>TSubclassOf&lt; <ref refid="class_a_ai_controller_base" kindref="compound">AAiControllerBase</ref> &gt;</type>
+        <definition>TSubclassOf&lt;AAiControllerBase&gt; ANpcCharacterBase::AiControllerBase</definition>
+        <argsstring></argsstring>
+        <name>AiControllerBase</name>
+        <qualifiedname>ANpcCharacterBase::AiControllerBase</qualifiedname>
+        <initializer>= AAiControllerBase::StaticClass()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="97" column="13" bodyfile="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_npc_character_base_1a9349d27de03de671c0f05f2f7fa866df" prot="public" static="no" mutable="no">
+        <type>UAIPerceptionStimuliSourceComponent *</type>
+        <definition>UAIPerceptionStimuliSourceComponent* ANpcCharacterBase::AiStimuli</definition>
+        <argsstring></argsstring>
+        <name>AiStimuli</name>
+        <qualifiedname>ANpcCharacterBase::AiStimuli</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="100" column="37" bodyfile="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_a_npc_character_base_1ab31ba4acd246e916f462d7b2de9170db" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ANpcCharacterBase::bIsPatrollingNpc</definition>
+        <argsstring></argsstring>
+        <name>bIsPatrollingNpc</name>
+        <qualifiedname>ANpcCharacterBase::bIsPatrollingNpc</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="107" column="6" bodyfile="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_npc_character_base_1ac9c2e625f64955abec42176a11bc5313" prot="private" static="no" mutable="no">
+        <type>FVector</type>
+        <definition>FVector ANpcCharacterBase::_SpawnOrigin</definition>
+        <argsstring></argsstring>
+        <name>_SpawnOrigin</name>
+        <qualifiedname>ANpcCharacterBase::_SpawnOrigin</qualifiedname>
+        <initializer>= FVector(0.f)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="110" column="9" bodyfile="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_a_npc_character_base_1a407170648be4110eaeacc30f433b4e1b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ANpcCharacterBase::ANpcCharacterBase</definition>
+        <argsstring>()</argsstring>
+        <name>ANpcCharacterBase</name>
+        <qualifiedname>ANpcCharacterBase::ANpcCharacterBase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="61" column="1" bodyfile="Source/TalesDungeoneer/Private/Characters/NpcCharacterBase.cpp" bodystart="12" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_npc_character_base_1a8212a7f437e1517efaa0fcc72edefa69" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ANpcCharacterBase::UFUNCTION</definition>
+        <argsstring>(BlueprintPure) float GetDistanceFromOriginPoint() const</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>ANpcCharacterBase::UFUNCTION</qualifiedname>
+        <param>
+          <type>BlueprintPure</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="63" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_npc_character_base_1a76f35d5cae4b671bd3985d35b30fdc43" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ANpcCharacterBase::UFUNCTION</definition>
+        <argsstring>() void DestroyNpc()</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>ANpcCharacterBase::UFUNCTION</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="65" column="1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_a_npc_character_base_1aeb0c9ba5f0c99a04fc21bd01c0410808" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ANpcCharacterBase::BeginPlay</definition>
+        <argsstring>() override</argsstring>
+        <name>BeginPlay</name>
+        <qualifiedname>ANpcCharacterBase::BeginPlay</qualifiedname>
+        <reimplements refid="class_a_character_base_1a40c133b9bb51b343653ef6a6915a48f3">BeginPlay</reimplements>
+        <reimplementedby refid="class_a_combat_npc_character_base_1a95388f41cf9ca94f0241e6ff9c0df657">BeginPlay</reimplementedby>
+        <reimplementedby refid="class_a_interactive_npc_character_base_1ad5cf9c30d060d25e4933245db02f9732">BeginPlay</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="69" column="14" bodyfile="Source/TalesDungeoneer/Private/Characters/NpcCharacterBase.cpp" bodystart="37" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_npc_character_base_1a5fe706edf2750fc830f4584fe519b774" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ANpcCharacterBase::InitializeStartingItems</definition>
+        <argsstring>()</argsstring>
+        <name>InitializeStartingItems</name>
+        <qualifiedname>ANpcCharacterBase::InitializeStartingItems</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="72" column="14" bodyfile="Source/TalesDungeoneer/Private/Characters/NpcCharacterBase.cpp" bodystart="43" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_npc_character_base_1aa751330413077749280326e4bfb505d7" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ANpcCharacterBase::OnConstruction</definition>
+        <argsstring>(const FTransform &amp;Transform) override</argsstring>
+        <name>OnConstruction</name>
+        <qualifiedname>ANpcCharacterBase::OnConstruction</qualifiedname>
+        <reimplements refid="class_a_character_base_1aca2002cb51ffd95d45742a6ffaec6066">OnConstruction</reimplements>
+        <reimplementedby refid="class_a_combat_npc_character_base_1a884ecc1deeebab4c85b966e31cfe3f0e">OnConstruction</reimplementedby>
+        <param>
+          <type>const FTransform &amp;</type>
+          <declname>Transform</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="74" column="14" bodyfile="Source/TalesDungeoneer/Private/Characters/NpcCharacterBase.cpp" bodystart="55" bodyend="61"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_a_npc_character_base_1a9c8fae0c014dca92cd1c986996abab80" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ANpcCharacterBase::DropLootTable</definition>
+        <argsstring>(AActor *MyKiller)</argsstring>
+        <name>DropLootTable</name>
+        <qualifiedname>ANpcCharacterBase::DropLootTable</qualifiedname>
+        <param>
+          <type>AActor *</type>
+          <declname>MyKiller</declname>
+        </param>
+        <briefdescription>
+<para>Called when the NPC dies, spawning the loot table on the ground. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MyKiller</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Unused in this call </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="105" column="6" bodyfile="Source/TalesDungeoneer/Private/Characters/NpcCharacterBase.cpp" bodystart="67" bodyend="75"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Player Character Base is the base C++ class for all logic, methods and members that affect all PLAYER based characters, prior to handling by child classes or dependent blueprint classes. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>ACharacter</label>
+      </node>
+      <node id="2">
+        <label>ACharacterBase</label>
+        <link refid="class_a_character_base"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>ACombatNpcCharacterBase</label>
+        <link refid="class_a_combat_npc_character_base"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>AInteractiveNpcCharacterBase</label>
+        <link refid="class_a_interactive_npc_character_base"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>ANpcCharacterBase</label>
+        <link refid="class_a_npc_character_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>IAbilitySystemInterface</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>ACharacter</label>
+      </node>
+      <node id="2">
+        <label>ACharacterBase</label>
+        <link refid="class_a_character_base"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>ANpcCharacterBase</label>
+        <link refid="class_a_npc_character_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>IAbilitySystemInterface</label>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="55" column="1" bodyfile="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" bodystart="56" bodyend="112"/>
+    <listofallmembers>
+      <member refid="class_a_npc_character_base_1ac9c2e625f64955abec42176a11bc5313" prot="private" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>_SpawnOrigin</name></member>
+      <member refid="class_a_character_base_1ae440aa8ddb0abf475572bc572a205da2" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>AbilitySystemComponent</name></member>
+      <member refid="class_a_character_base_1afb1c8b3ec64e50d3c49a9f3aa6aad399" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>ACharacterBase</name></member>
+      <member refid="class_a_npc_character_base_1a8b4aec3a791f395df361f53b7cd69054" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>AiControllerBase</name></member>
+      <member refid="class_a_npc_character_base_1a9349d27de03de671c0f05f2f7fa866df" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>AiStimuli</name></member>
+      <member refid="class_a_npc_character_base_1a407170648be4110eaeacc30f433b4e1b" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>ANpcCharacterBase</name></member>
+      <member refid="class_a_npc_character_base_1aeb0c9ba5f0c99a04fc21bd01c0410808" prot="protected" virt="virtual"><scope>ANpcCharacterBase</scope><name>BeginPlay</name></member>
+      <member refid="class_a_character_base_1a86d04681a60f275a7648ed4b53b8155f" prot="protected" virt="virtual"><scope>ANpcCharacterBase</scope><name>BindListeners</name></member>
+      <member refid="class_a_character_base_1aa222676d07e654363645bd5194e54450" prot="protected" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>bIsEnabled</name></member>
+      <member refid="class_a_character_base_1abecc381e55c13b9a9eb0c799d6393557" prot="protected" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>bIsInputBound</name></member>
+      <member refid="class_a_npc_character_base_1ab31ba4acd246e916f462d7b2de9170db" prot="private" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>bIsPatrollingNpc</name></member>
+      <member refid="class_a_character_base_1a8e0ce3f70eb610651fae9352cc2f4e5f" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>bSavesOnServer</name></member>
+      <member refid="class_a_character_base_1a6f72819126002ce12fcd248798bc874b" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>CameraBoom</name></member>
+      <member refid="class_a_character_base_1a84cac3667b6d69ea1de2ab7517569fe6" prot="protected" virt="virtual"><scope>ANpcCharacterBase</scope><name>CharacterRestoredFromSave</name></member>
+      <member refid="class_a_character_base_1a9782daa786016454e8d057b211c39b84" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>DefaultAbilities</name></member>
+      <member refid="class_a_character_base_1ad9e4319f63cec7687f17d3b847f433c9" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>DefaultEffects</name></member>
+      <member refid="class_a_npc_character_base_1a9c8fae0c014dca92cd1c986996abab80" prot="private" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>DropLootTable</name></member>
+      <member refid="class_a_character_base_1a6b61aadac96a0fa877ba78b8b789670f" prot="protected" virt="virtual"><scope>ANpcCharacterBase</scope><name>EndPlay</name></member>
+      <member refid="class_a_character_base_1af9ae749a86c17c0b0b9353b8d681d40a" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>EquipmentComponent</name></member>
+      <member refid="class_a_character_base_1a5a5434eaa6a04f6d9691fd8852030f0b" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>FollowCamera</name></member>
+      <member refid="class_a_character_base_1adfe877af8f9dff59d1f3ed7bbf071e6e" prot="public" virt="virtual"><scope>ANpcCharacterBase</scope><name>GetAbilitySystemComponent</name></member>
+      <member refid="class_a_character_base_1a34fec97e819b9b5552fb240850563508" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>GetCameraBoom</name></member>
+      <member refid="class_a_character_base_1a34b6bc5074c41244c3c82a7903121a8a" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>GetFollowCamera</name></member>
+      <member refid="class_a_character_base_1a48e6c6cef789c8f200aceb2c351e0d00" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>GetRiskLevel</name></member>
+      <member refid="class_a_character_base_1acbdba15f041e4d1f012e9f184e20ff86" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>HeadDisplayWidget</name></member>
+      <member refid="class_a_character_base_1a282f76cdcee9643661e099cac55d5961" prot="protected" virt="virtual"><scope>ANpcCharacterBase</scope><name>InitializeAbilities</name></member>
+      <member refid="class_a_character_base_1a971a14ab5f2081ec44d83520cf53e1fc" prot="protected" virt="virtual"><scope>ANpcCharacterBase</scope><name>InitializeEffects</name></member>
+      <member refid="class_a_npc_character_base_1a5fe706edf2750fc830f4584fe519b774" prot="protected" virt="virtual"><scope>ANpcCharacterBase</scope><name>InitializeStartingItems</name></member>
+      <member refid="class_a_character_base_1a964f435a27b9be605d2485b051935a74" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>InventoryComponent</name></member>
+      <member refid="class_a_character_base_1a6162cfac4931938f70565d9038d7e3fa" prot="public" virt="virtual"><scope>ANpcCharacterBase</scope><name>LoadCharacter</name></member>
+      <member refid="class_a_npc_character_base_1a32e47b62d2306fc0016939f6464b1259" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>LootTables</name></member>
+      <member refid="class_a_npc_character_base_1ae6657ed1ef7782bb9804d5d6dc3467c5" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>MaximumLevelSpread</name></member>
+      <member refid="class_a_character_base_1ab3feb0a990e926490cf51863facad68e" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>MeshMergeComponent</name></member>
+      <member refid="class_a_npc_character_base_1aeeaf2b76335288730e82942250d31681" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>MinimumLevelSpread</name></member>
+      <member refid="class_a_character_base_1a927fcda4dd1b0c39189e702fc4290b62" prot="protected" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>NewValue</name></member>
+      <member refid="class_a_npc_character_base_1aa751330413077749280326e4bfb505d7" prot="protected" virt="virtual"><scope>ANpcCharacterBase</scope><name>OnConstruction</name></member>
+      <member refid="class_a_character_base_1aaa5f5607f86244693627826b507d67a6" prot="protected" virt="virtual"><scope>ANpcCharacterBase</scope><name>OnCoreStatsChanged</name></member>
+      <member refid="class_a_character_base_1a4b949558d4be09096acb5e107b82119e" prot="protected" virt="virtual"><scope>ANpcCharacterBase</scope><name>OnDamageStatsChanged</name></member>
+      <member refid="class_a_character_base_1a244a0fffb3290ad31c38746ac437c689" prot="protected" virt="virtual"><scope>ANpcCharacterBase</scope><name>OnRep_PlayerState</name></member>
+      <member refid="class_a_character_base_1ae80c1ac72f43452616c6fb072ba5115e" prot="protected" virt="virtual"><scope>ANpcCharacterBase</scope><name>OnVitalityAttributeChanged</name></member>
+      <member refid="class_a_character_base_1ac4d0b212516f9152b1abc2d4d93a84e5" prot="protected" virt="virtual"><scope>ANpcCharacterBase</scope><name>PossessedBy</name></member>
+      <member refid="class_a_character_base_1aea7a1b49860dc9ae30f75fb4c1eff52d" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>PronounObjective</name></member>
+      <member refid="class_a_character_base_1ac77ce952836f6f4f0810452fc376c257" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>PronounPossessive</name></member>
+      <member refid="class_a_character_base_1a8c4ef7f32d92a5f5d56c67cac0409cb1" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>PronounSubject</name></member>
+      <member refid="class_a_character_base_1af108e9a63b7ef7c8b439d1489907a97f" prot="public" virt="virtual"><scope>ANpcCharacterBase</scope><name>SaveCharacter</name></member>
+      <member refid="class_a_character_base_1ac786db8fa4814acaca7b63ecd640f216" prot="protected" virt="virtual"><scope>ANpcCharacterBase</scope><name>SaveGameDelegate</name></member>
+      <member refid="class_a_character_base_1a0ed99f5a89d193a4af167fc17ef62c2e" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>SetCharacterName</name></member>
+      <member refid="class_a_character_base_1ae7f610356b07eb3b534452d466776d12" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>SkinColor</name></member>
+      <member refid="class_a_npc_character_base_1a43d89c7406d587afe31603c224bbf420" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>StartingItems</name></member>
+      <member refid="class_a_character_base_1a9eb21f174f4af75367495a9d5211e716" prot="protected" virt="virtual"><scope>ANpcCharacterBase</scope><name>Tick</name></member>
+      <member refid="class_a_npc_character_base_1a8212a7f437e1517efaa0fcc72edefa69" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_npc_character_base_1a76f35d5cae4b671bd3985d35b30fdc43" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_character_base_1a6343a6d46dc1d0effea9c6568254717d" prot="public" virt="non-virtual" ambiguityscope="ACharacterBase::"><scope>ANpcCharacterBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_character_base_1a8f08c623ab0a0c67e10b8246a1126248" prot="public" virt="non-virtual" ambiguityscope="ACharacterBase::"><scope>ANpcCharacterBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_character_base_1aa87f300f0843a1708d621abc643d4bc5" prot="protected" virt="non-virtual" ambiguityscope="ACharacterBase::"><scope>ANpcCharacterBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_character_base_1abc51d8d9178df828fb7df027c01f52eb" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>UnlockPointsOnLevelUp</name></member>
+      <member refid="class_a_character_base_1a7d73b09fa44d637a83538014484ea4d0" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1ac26267cb7d91ec0b4b7777e3c89a84f0" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1ae6f1687542fe32a2a13a1536a7462113" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1aa535d73281a337eb55d51d014c786305" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1a7922b4665c32e2cd767b87dc2dce7502" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1a80c6b78311e6241824538d1c36916095" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1a019a2433ad125b4652edc24995faa3ee" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1a59b8a866cdb976cebd2244212d3719f7" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1a6ba24381bc4ee0470cd15d84ae2ab994" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1afe950d422262a1ae905122f3d29b2a8d" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1a748cd209b36f7da1ccec783199973205" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1a80a48abd98da932fef51ab7532e9daad" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1a2238d899678be29a5b721c80d3d29a69" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1ad9094ffb75c51cece8de330cde09efdb" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1a2c621e5d806379b8e8d8c281af248939" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1a420ebf21eb8d26ed23fa897d4a2d89e8" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1af3c947c93de39852aaf3b6050ad09e24" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1a006caa814a16a3344dd554dca640b910" prot="public" virt="non-virtual"><scope>ANpcCharacterBase</scope><name>UPROPERTY</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

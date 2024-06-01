@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_a_tales_player_hud_base" kind="class" language="C++" prot="public">
+    <compoundname>ATalesPlayerHudBase</compoundname>
+    <basecompoundref refid="class_a_tales_hud_base" prot="public" virt="non-virtual">ATalesHudBase</basecompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_a_tales_player_hud_base_1ae08692b0e91f976123878a3d03582235" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ATalesPlayerHudBase::ATalesPlayerHudBase</definition>
+        <argsstring>()</argsstring>
+        <name>ATalesPlayerHudBase</name>
+        <qualifiedname>ATalesPlayerHudBase::ATalesPlayerHudBase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesPlayerHudBase.h" line="15" column="1" bodyfile="Source/TalesDungeoneer/Private/Gamemode/AdventureMode/TalesPlayerHudBase.cpp" bodystart="5" bodyend="7"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_player_hud_base_1ad715ea86ba714d837bfa490ae45be93b" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ATalesPlayerHudBase::DrawHUD</definition>
+        <argsstring>() override</argsstring>
+        <name>DrawHUD</name>
+        <qualifiedname>ATalesPlayerHudBase::DrawHUD</qualifiedname>
+        <reimplements refid="class_a_tales_hud_base_1ad58291067010d3fa50b95eb42842b507">DrawHUD</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Primary draw call for the HUD </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesPlayerHudBase.h" line="18" column="14" bodyfile="Source/TalesDungeoneer/Private/Gamemode/AdventureMode/TalesPlayerHudBase.cpp" bodystart="9" bodyend="12"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_player_hud_base_1a087278982cd01aea8cfa1fb30dafe854" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ATalesPlayerHudBase::BeginPlay</definition>
+        <argsstring>() override</argsstring>
+        <name>BeginPlay</name>
+        <qualifiedname>ATalesPlayerHudBase::BeginPlay</qualifiedname>
+        <reimplements refid="class_a_tales_hud_base_1a511ee9854cc83fc7697899bf001d5913">BeginPlay</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesPlayerHudBase.h" line="20" column="14" bodyfile="Source/TalesDungeoneer/Private/Gamemode/AdventureMode/TalesPlayerHudBase.cpp" bodystart="14" bodyend="17"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>AHUD</label>
+      </node>
+      <node id="2">
+        <label>ATalesHudBase</label>
+        <link refid="class_a_tales_hud_base"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>ATalesPlayerHudBase</label>
+        <link refid="class_a_tales_player_hud_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>AHUD</label>
+      </node>
+      <node id="2">
+        <label>ATalesHudBase</label>
+        <link refid="class_a_tales_hud_base"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>ATalesPlayerHudBase</label>
+        <link refid="class_a_tales_player_hud_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesPlayerHudBase.h" line="10" column="1" bodyfile="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesPlayerHudBase.h" bodystart="11" bodyend="21"/>
+    <listofallmembers>
+      <member refid="class_a_tales_hud_base_1a2a453743fd3956040ec473a2d19cda9b" prot="public" virt="non-virtual"><scope>ATalesPlayerHudBase</scope><name>ATalesHudBase</name></member>
+      <member refid="class_a_tales_player_hud_base_1ae08692b0e91f976123878a3d03582235" prot="public" virt="non-virtual"><scope>ATalesPlayerHudBase</scope><name>ATalesPlayerHudBase</name></member>
+      <member refid="class_a_tales_player_hud_base_1a087278982cd01aea8cfa1fb30dafe854" prot="public" virt="virtual"><scope>ATalesPlayerHudBase</scope><name>BeginPlay</name></member>
+      <member refid="class_a_tales_player_hud_base_1ad715ea86ba714d837bfa490ae45be93b" prot="public" virt="virtual"><scope>ATalesPlayerHudBase</scope><name>DrawHUD</name></member>
+      <member refid="class_a_tales_hud_base_1a69d3cfb4cdd592a4c3ac38f732778196" prot="public" virt="non-virtual"><scope>ATalesPlayerHudBase</scope><name>NotifyHud</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

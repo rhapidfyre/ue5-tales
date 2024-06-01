@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_u_tales_ability_globals" kind="class" language="C++" prot="public">
+    <compoundname>UTalesAbilityGlobals</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">UAbilitySystemGlobals</basecompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_u_tales_ability_globals_1a328d9c786a96325619d3255a9d8b138d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UTalesAbilityGlobals::UTalesAbilityGlobals</definition>
+        <argsstring>()</argsstring>
+        <name>UTalesAbilityGlobals</name>
+        <qualifiedname>UTalesAbilityGlobals::UTalesAbilityGlobals</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/TalesAbilityGlobals.h" line="18" column="1" bodyfile="Source/TalesDungeoneer/Private/Gas/TalesAbilityGlobals.cpp" bodystart="9" bodyend="12"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_tales_ability_globals_1aa7c317560269de2b50493bf5d2bfdb8b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>FGameplayEffectContext *</type>
+        <definition>FGameplayEffectContext * UTalesAbilityGlobals::AllocGameplayEffectContext</definition>
+        <argsstring>() const override</argsstring>
+        <name>AllocGameplayEffectContext</name>
+        <qualifiedname>UTalesAbilityGlobals::AllocGameplayEffectContext</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/TalesAbilityGlobals.h" line="20" column="32" bodyfile="Source/TalesDungeoneer/Private/Gas/TalesAbilityGlobals.cpp" bodystart="14" bodyend="17"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>UAbilitySystemGlobals</label>
+      </node>
+      <node id="1">
+        <label>UTalesAbilityGlobals</label>
+        <link refid="class_u_tales_ability_globals"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>UAbilitySystemGlobals</label>
+      </node>
+      <node id="1">
+        <label>UTalesAbilityGlobals</label>
+        <link refid="class_u_tales_ability_globals"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Gas/TalesAbilityGlobals.h" line="14" column="1" bodyfile="Source/TalesDungeoneer/Public/Gas/TalesAbilityGlobals.h" bodystart="15" bodyend="21"/>
+    <listofallmembers>
+      <member refid="class_u_tales_ability_globals_1aa7c317560269de2b50493bf5d2bfdb8b" prot="public" virt="virtual"><scope>UTalesAbilityGlobals</scope><name>AllocGameplayEffectContext</name></member>
+      <member refid="class_u_tales_ability_globals_1a328d9c786a96325619d3255a9d8b138d" prot="public" virt="non-virtual"><scope>UTalesAbilityGlobals</scope><name>UTalesAbilityGlobals</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

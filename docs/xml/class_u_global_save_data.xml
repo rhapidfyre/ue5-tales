@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_u_global_save_data" kind="class" language="C++" prot="public">
+    <compoundname>UGlobalSaveData</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">USaveGame</basecompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_u_global_save_data_1adc3bc9094f90965614adbe5fa0de1a4c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UGlobalSaveData::UGlobalSaveData</definition>
+        <argsstring>()</argsstring>
+        <name>UGlobalSaveData</name>
+        <qualifiedname>UGlobalSaveData::UGlobalSaveData</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/StaticSaveData.h" line="29" column="1" bodyfile="Source/TalesDungeoneer/Private/Saves/StaticSaveData.cpp" bodystart="10" bodyend="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_global_save_data_1aa0747015e81a883f5f56facd6df8f8d7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>TArray&lt; <ref refid="struct_f_save_meta" kindref="compound">FSaveMeta</ref> &gt;</type>
+        <definition>TArray&lt; FSaveMeta &gt; UGlobalSaveData::GetAllCharacterSaves</definition>
+        <argsstring>() const</argsstring>
+        <name>GetAllCharacterSaves</name>
+        <qualifiedname>UGlobalSaveData::GetAllCharacterSaves</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/StaticSaveData.h" line="31" column="8" bodyfile="Source/TalesDungeoneer/Public/Saves/StaticSaveData.h" bodystart="31" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_global_save_data_1a528aa7f5aa63c7ee548503446840e732" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void UGlobalSaveData::SetSelectedCharacter</definition>
+        <argsstring>(int CharacterIndex=-1)</argsstring>
+        <name>SetSelectedCharacter</name>
+        <qualifiedname>UGlobalSaveData::SetSelectedCharacter</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>CharacterIndex</declname>
+          <defval>-1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/StaticSaveData.h" line="33" column="6" bodyfile="Source/TalesDungeoneer/Private/Saves/StaticSaveData.cpp" bodystart="28" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_global_save_data_1a3f18a7961e18b1b1965b52516abaafe2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void UGlobalSaveData::SetSavedCharacterNameList</definition>
+        <argsstring>(const TArray&lt; FSaveMeta &gt; &amp;RestoredCharacters)</argsstring>
+        <name>SetSavedCharacterNameList</name>
+        <qualifiedname>UGlobalSaveData::SetSavedCharacterNameList</qualifiedname>
+        <param>
+          <type>const TArray&lt; <ref refid="struct_f_save_meta" kindref="compound">FSaveMeta</ref> &gt; &amp;</type>
+          <declname>RestoredCharacters</declname>
+        </param>
+        <briefdescription>
+<para>Sets the character names of the save game object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RestoredCharacters</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The list of character names saved </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/StaticSaveData.h" line="35" column="6" bodyfile="Source/TalesDungeoneer/Private/Saves/StaticSaveData.cpp" bodystart="19" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_global_save_data_1acc8d985a41db9d2d110203174a5223e9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int UGlobalSaveData::GetSelectedCharacterIndex</definition>
+        <argsstring>() const</argsstring>
+        <name>GetSelectedCharacterIndex</name>
+        <qualifiedname>UGlobalSaveData::GetSelectedCharacterIndex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/StaticSaveData.h" line="37" column="5" bodyfile="Source/TalesDungeoneer/Public/Saves/StaticSaveData.h" bodystart="37" bodyend="37"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_u_global_save_data_1ac293dd78ad28e8269513cac90d6c4a56" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UGlobalSaveData::UPROPERTY</definition>
+        <argsstring>(SaveGame) TArray&lt; FSaveMeta &gt; CharacterData_</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UGlobalSaveData::UPROPERTY</qualifiedname>
+        <param>
+          <type>SaveGame</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/StaticSaveData.h" line="40" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_global_save_data_1a3ff55df5b93beffe515b037c4310207f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UGlobalSaveData::UPROPERTY</definition>
+        <argsstring>(SaveGame) int SelectedCharacter_</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UGlobalSaveData::UPROPERTY</qualifiedname>
+        <param>
+          <type>SaveGame</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/StaticSaveData.h" line="41" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_global_save_data_1aa74f59cbc99b8ab6a7b28d89dd4a8150" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UGlobalSaveData::UPROPERTY</definition>
+        <argsstring>(SaveGame) FString SaveVersion_</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UGlobalSaveData::UPROPERTY</qualifiedname>
+        <param>
+          <type>SaveGame</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/StaticSaveData.h" line="42" column="1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>UGlobalSaveData</label>
+        <link refid="class_u_global_save_data"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>USaveGame</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>UGlobalSaveData</label>
+        <link refid="class_u_global_save_data"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>USaveGame</label>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Saves/StaticSaveData.h" line="23" column="1" bodyfile="Source/TalesDungeoneer/Public/Saves/StaticSaveData.h" bodystart="24" bodyend="44"/>
+    <listofallmembers>
+      <member refid="class_u_global_save_data_1aa0747015e81a883f5f56facd6df8f8d7" prot="public" virt="non-virtual"><scope>UGlobalSaveData</scope><name>GetAllCharacterSaves</name></member>
+      <member refid="class_u_global_save_data_1acc8d985a41db9d2d110203174a5223e9" prot="public" virt="non-virtual"><scope>UGlobalSaveData</scope><name>GetSelectedCharacterIndex</name></member>
+      <member refid="class_u_global_save_data_1a3f18a7961e18b1b1965b52516abaafe2" prot="public" virt="non-virtual"><scope>UGlobalSaveData</scope><name>SetSavedCharacterNameList</name></member>
+      <member refid="class_u_global_save_data_1a528aa7f5aa63c7ee548503446840e732" prot="public" virt="non-virtual"><scope>UGlobalSaveData</scope><name>SetSelectedCharacter</name></member>
+      <member refid="class_u_global_save_data_1adc3bc9094f90965614adbe5fa0de1a4c" prot="public" virt="non-virtual"><scope>UGlobalSaveData</scope><name>UGlobalSaveData</name></member>
+      <member refid="class_u_global_save_data_1ac293dd78ad28e8269513cac90d6c4a56" prot="private" virt="non-virtual"><scope>UGlobalSaveData</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_global_save_data_1a3ff55df5b93beffe515b037c4310207f" prot="private" virt="non-virtual"><scope>UGlobalSaveData</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_global_save_data_1aa74f59cbc99b8ab6a7b28d89dd4a8150" prot="private" virt="non-virtual"><scope>UGlobalSaveData</scope><name>UPROPERTY</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

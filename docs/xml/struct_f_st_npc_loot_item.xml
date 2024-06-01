@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="struct_f_st_npc_loot_item" kind="struct" language="C++" prot="public">
+    <compoundname>FStNpcLootItem</compoundname>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_f_st_npc_loot_item_1a7c7c41e3946c78bd1de9399d5c9aacec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FStNpcLootItem::GENERATED_BODY</definition>
+        <argsstring>()</argsstring>
+        <name>GENERATED_BODY</name>
+        <qualifiedname>FStNpcLootItem::GENERATED_BODY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="41" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_st_npc_loot_item_1aac4a4db1a9c6179944733376772c5fb1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>FStNpcLootItem::FStNpcLootItem</definition>
+        <argsstring>()</argsstring>
+        <name>FStNpcLootItem</name>
+        <qualifiedname>FStNpcLootItem::FStNpcLootItem</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="42" column="1" bodyfile="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" bodystart="42" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_st_npc_loot_item_1a1fb14b4cedfb915168587b976eda1e17" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>FStNpcLootItem::FStNpcLootItem</definition>
+        <argsstring>(FName iName, int iQuantity=1)</argsstring>
+        <name>FStNpcLootItem</name>
+        <qualifiedname>FStNpcLootItem::FStNpcLootItem</qualifiedname>
+        <param>
+          <type>FName</type>
+          <declname>iName</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>iQuantity</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="43" column="1" bodyfile="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" bodystart="43" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_st_npc_loot_item_1a9a4dbda6eeb5d8227f8f449d34f78a4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FStNpcLootItem::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) FName ItemName</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FStNpcLootItem::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="45" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_st_npc_loot_item_1a4eb28ee577ca8cf204a72313e3c13b64" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FStNpcLootItem::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) int Quantity</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FStNpcLootItem::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="46" column="1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="39" column="1" bodyfile="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" bodystart="40" bodyend="47"/>
+    <listofallmembers>
+      <member refid="struct_f_st_npc_loot_item_1aac4a4db1a9c6179944733376772c5fb1" prot="public" virt="non-virtual"><scope>FStNpcLootItem</scope><name>FStNpcLootItem</name></member>
+      <member refid="struct_f_st_npc_loot_item_1a1fb14b4cedfb915168587b976eda1e17" prot="public" virt="non-virtual"><scope>FStNpcLootItem</scope><name>FStNpcLootItem</name></member>
+      <member refid="struct_f_st_npc_loot_item_1a7c7c41e3946c78bd1de9399d5c9aacec" prot="public" virt="non-virtual"><scope>FStNpcLootItem</scope><name>GENERATED_BODY</name></member>
+      <member refid="struct_f_st_npc_loot_item_1a9a4dbda6eeb5d8227f8f449d34f78a4b" prot="public" virt="non-virtual"><scope>FStNpcLootItem</scope><name>UPROPERTY</name></member>
+      <member refid="struct_f_st_npc_loot_item_1a4eb28ee577ca8cf204a72313e3c13b64" prot="public" virt="non-virtual"><scope>FStNpcLootItem</scope><name>UPROPERTY</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

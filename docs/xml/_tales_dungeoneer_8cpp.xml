@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_tales_dungeoneer_8cpp" kind="file" language="C++">
+    <compoundname>TalesDungeoneer.cpp</compoundname>
+    <includes refid="_tales_dungeoneer_8h" local="yes">TalesDungeoneer.h</includes>
+    <includes local="yes">Modules/ModuleManager.h</includes>
+    <incdepgraph>
+      <node id="3">
+        <label>CoreMinimal.h</label>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/TalesDungeoneer.cpp</label>
+        <link refid="_tales_dungeoneer_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>TalesDungeoneer.h</label>
+        <link refid="_tales_dungeoneer_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Modules/ModuleManager.h</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="_tales_dungeoneer_8cpp_1ac962a616991a227f4b906db7cce64447" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>IMPLEMENT_PRIMARY_GAME_MODULE</definition>
+        <argsstring>(FDefaultGameModuleImpl, TalesDungeoneer, &quot;TalesDungeoneer&quot;)</argsstring>
+        <name>IMPLEMENT_PRIMARY_GAME_MODULE</name>
+        <param>
+          <type>FDefaultGameModuleImpl</type>
+        </param>
+        <param>
+          <type><ref refid="class_tales_dungeoneer" kindref="compound">TalesDungeoneer</ref></type>
+        </param>
+        <param>
+          <type>&quot;TalesDungeoneer&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/TalesDungeoneer.cpp" line="6" column="1" declfile="Source/TalesDungeoneer/TalesDungeoneer.cpp" declline="6" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_tales_dungeoneer_8cpp_1af2ff12548cf7a08c39cd65a54f9e29ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DEFINE_LOG_CATEGORY</definition>
+        <argsstring>(LogTales)</argsstring>
+        <name>DEFINE_LOG_CATEGORY</name>
+        <param>
+          <type>LogTales</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/TalesDungeoneer.cpp" line="8" column="1" declfile="Source/TalesDungeoneer/TalesDungeoneer.cpp" declline="8" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_tales_dungeoneer_8cpp_1a009a4471d5037ca30a74cb283a0d19b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DEFINE_LOG_CATEGORY</definition>
+        <argsstring>(LogCharacterBase)</argsstring>
+        <name>DEFINE_LOG_CATEGORY</name>
+        <param>
+          <type>LogCharacterBase</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/TalesDungeoneer.cpp" line="9" column="1" declfile="Source/TalesDungeoneer/TalesDungeoneer.cpp" declline="9" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_tales_dungeoneer_8cpp_1a414ec721cd4a405ae2738369a2d09d32" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DEFINE_LOG_CATEGORY</definition>
+        <argsstring>(LogCombatSystem)</argsstring>
+        <name>DEFINE_LOG_CATEGORY</name>
+        <param>
+          <type>LogCombatSystem</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/TalesDungeoneer.cpp" line="10" column="1" declfile="Source/TalesDungeoneer/TalesDungeoneer.cpp" declline="10" declcolumn="1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>Epic<sp/>Games,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;TalesDungeoneer.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Modules/ModuleManager.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal">IMPLEMENT_PRIMARY_GAME_MODULE(<sp/>FDefaultGameModuleImpl,<sp/><ref refid="class_tales_dungeoneer" kindref="compound">TalesDungeoneer</ref>,<sp/></highlight><highlight class="stringliteral">&quot;TalesDungeoneer&quot;</highlight><highlight class="normal"><sp/>);</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal">DEFINE_LOG_CATEGORY(LogTales);</highlight></codeline>
+<codeline lineno="9"><highlight class="normal">DEFINE_LOG_CATEGORY(LogCharacterBase);</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">DEFINE_LOG_CATEGORY(LogCombatSystem);</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/></highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/TalesDungeoneer.cpp"/>
+  </compounddef>
+</doxygen>

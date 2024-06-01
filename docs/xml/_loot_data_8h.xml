@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_loot_data_8h" kind="file" language="C++">
+    <compoundname>LootData.h</compoundname>
+    <includes local="yes">CoreMinimal.h</includes>
+    <includes local="yes">Engine/DataTable.h</includes>
+    <includes local="yes">LootData.generated.h</includes>
+    <includedby refid="_loot_data_8cpp" local="yes">Source/TalesDungeoneer/Private/lib/datastructures/LootData.cpp</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>CoreMinimal.h</label>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/lib/datastructures/LootData.h</label>
+        <link refid="_loot_data_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Engine/DataTable.h</label>
+      </node>
+      <node id="4">
+        <label>LootData.generated.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="struct_f_st_loot_data" prot="public">FStLootData</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>Take<sp/>Five<sp/>Games,<sp/>LLC<sp/>2023<sp/>-<sp/>All<sp/>Rights<sp/>Reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;CoreMinimal.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Engine/DataTable.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;LootData.generated.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal">USTRUCT(BlueprintType,<sp/>Blueprintable)</highlight></codeline>
+<codeline lineno="12" refid="struct_f_st_loot_data" refkind="compound"><highlight class="normal">struct<sp/>TALESDUNGEONEER_API<sp/><ref refid="struct_f_st_loot_data" kindref="compound">FStLootData</ref><sp/>:<sp/>public<sp/>FTableRowBase</highlight></codeline>
+<codeline lineno="13"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>GENERATED_BODY()</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>name<sp/>of<sp/>the<sp/>item<sp/>(From<sp/>FStItemData<sp/>table)<sp/>to<sp/>award</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>FName<sp/>ItemName<sp/>=<sp/>FName();</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>maximum<sp/>number<sp/>of<sp/>this<sp/>item<sp/>that<sp/>can<sp/>be<sp/>dropped</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>MaxIterations<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>chance<sp/>of<sp/>this<sp/>item<sp/>to<sp/>drop,<sp/>per<sp/>iteration</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>DropChance<sp/>=<sp/>0.05;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>If<sp/>true,<sp/>the<sp/>DropChance<sp/>will<sp/>apply<sp/>once<sp/>to<sp/>ALL<sp/>MaxIterations</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>bOneChanceForAll<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>If<sp/>this<sp/>item<sp/>drops,<sp/>the<sp/>other<sp/>rows<sp/>in<sp/>this<sp/>loot<sp/>table<sp/>by<sp/>these<sp/>names<sp/>will<sp/>be<sp/>ignored</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>TArray&lt;FName&gt;<sp/>IgnoredItems<sp/>=<sp/>{};</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="31"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Public/lib/datastructures/LootData.h"/>
+  </compounddef>
+</doxygen>

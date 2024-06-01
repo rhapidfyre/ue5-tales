@@ -1,0 +1,234 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_a_ai_controller_base" kind="class" language="C++" prot="public">
+    <compoundname>AAiControllerBase</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">AAIController</basecompoundref>
+    <derivedcompoundref refid="class_a_combat_ai_controller_base" prot="public" virt="non-virtual">ACombatAiControllerBase</derivedcompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_a_ai_controller_base_1aefb7ec98957db9a3bfc183501828614a" prot="public" static="no" mutable="no">
+        <type>UBehaviorTree *</type>
+        <definition>UBehaviorTree* AAiControllerBase::BehaviorTree</definition>
+        <argsstring></argsstring>
+        <name>BehaviorTree</name>
+        <qualifiedname>AAiControllerBase::BehaviorTree</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/AiControllerBase.h" line="39" column="15" bodyfile="Source/TalesDungeoneer/Public/Characters/Controllers/AiControllerBase.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_ai_controller_base_1a27ae1bd0f533edc996266112e4fc8d70" prot="public" static="no" mutable="no">
+        <type>UAIPerceptionComponent *</type>
+        <definition>UAIPerceptionComponent* AAiControllerBase::AiPerception</definition>
+        <argsstring></argsstring>
+        <name>AiPerception</name>
+        <qualifiedname>AAiControllerBase::AiPerception</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/AiControllerBase.h" line="42" column="24" bodyfile="Source/TalesDungeoneer/Public/Characters/Controllers/AiControllerBase.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_ai_controller_base_1a82fd5e159c757f4df720be6454718511" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float AAiControllerBase::GainSightRadius</definition>
+        <argsstring></argsstring>
+        <name>GainSightRadius</name>
+        <qualifiedname>AAiControllerBase::GainSightRadius</qualifiedname>
+        <initializer>= 1024.f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/AiControllerBase.h" line="45" column="7" bodyfile="Source/TalesDungeoneer/Public/Characters/Controllers/AiControllerBase.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_ai_controller_base_1aca78b1048a7e427eb004c0646ee18a4e" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float AAiControllerBase::LoseSightRadius</definition>
+        <argsstring></argsstring>
+        <name>LoseSightRadius</name>
+        <qualifiedname>AAiControllerBase::LoseSightRadius</qualifiedname>
+        <initializer>= 2048.f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/AiControllerBase.h" line="48" column="7" bodyfile="Source/TalesDungeoneer/Public/Characters/Controllers/AiControllerBase.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_a_ai_controller_base_1a279dbd15982e9ed164147c049d0cc4db" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool AAiControllerBase::_PatrolArea</definition>
+        <argsstring></argsstring>
+        <name>_PatrolArea</name>
+        <qualifiedname>AAiControllerBase::_PatrolArea</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/AiControllerBase.h" line="52" column="6" bodyfile="Source/TalesDungeoneer/Public/Characters/Controllers/AiControllerBase.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_a_ai_controller_base_1a24509ebec165661f7a1d5ad3032ae7fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>AAiControllerBase::AAiControllerBase</definition>
+        <argsstring>()</argsstring>
+        <name>AAiControllerBase</name>
+        <qualifiedname>AAiControllerBase::AAiControllerBase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/AiControllerBase.h" line="21" column="1" bodyfile="Source/TalesDungeoneer/Private/Characters/Controllers/AiControllerBase.cpp" bodystart="12" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_ai_controller_base_1ad4449a2a39488eabb765147c969c76e7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>AAiControllerBase::UFUNCTION</definition>
+        <argsstring>(BlueprintPure) bool GetAiShouldPatrol() const</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>AAiControllerBase::UFUNCTION</qualifiedname>
+        <param>
+          <type>BlueprintPure</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/AiControllerBase.h" line="23" column="1" bodyfile="Source/TalesDungeoneer/Public/Characters/Controllers/AiControllerBase.h" bodystart="23" bodyend="23"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_a_ai_controller_base_1a49f1eeeaed6c48ac5cc914a0c7e54eeb" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void AAiControllerBase::BeginPlay</definition>
+        <argsstring>() override</argsstring>
+        <name>BeginPlay</name>
+        <qualifiedname>AAiControllerBase::BeginPlay</qualifiedname>
+        <reimplementedby refid="class_a_combat_ai_controller_base_1ae366a506e99022431d5d043d8a54a02d">BeginPlay</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/AiControllerBase.h" line="27" column="14" bodyfile="Source/TalesDungeoneer/Private/Characters/Controllers/AiControllerBase.cpp" bodystart="19" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_ai_controller_base_1a4d7f4c5a91807c234a79c1f9be959d91" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void AAiControllerBase::OnConstruction</definition>
+        <argsstring>(const FTransform &amp;Transform) override</argsstring>
+        <name>OnConstruction</name>
+        <qualifiedname>AAiControllerBase::OnConstruction</qualifiedname>
+        <param>
+          <type>const FTransform &amp;</type>
+          <declname>Transform</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/AiControllerBase.h" line="29" column="14" bodyfile="Source/TalesDungeoneer/Private/Characters/Controllers/AiControllerBase.cpp" bodystart="29" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_ai_controller_base_1a738fc3a8b93ea1278aca8ad1460dc949" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void AAiControllerBase::PostInitializeComponents</definition>
+        <argsstring>() override</argsstring>
+        <name>PostInitializeComponents</name>
+        <qualifiedname>AAiControllerBase::PostInitializeComponents</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/AiControllerBase.h" line="31" column="14" bodyfile="Source/TalesDungeoneer/Private/Characters/Controllers/AiControllerBase.cpp" bodystart="55" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_ai_controller_base_1a44fd946dd8d5411fe5c0415777d7c2b6" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void AAiControllerBase::Tick</definition>
+        <argsstring>(float DeltaSeconds) override</argsstring>
+        <name>Tick</name>
+        <qualifiedname>AAiControllerBase::Tick</qualifiedname>
+        <reimplementedby refid="class_a_combat_ai_controller_base_1a2b908358b12dd94b25c793a63d5253c6">Tick</reimplementedby>
+        <param>
+          <type>float</type>
+          <declname>DeltaSeconds</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Controllers/AiControllerBase.h" line="33" column="14" bodyfile="Source/TalesDungeoneer/Private/Characters/Controllers/AiControllerBase.cpp" bodystart="60" bodyend="63"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>AAIController</label>
+      </node>
+      <node id="1">
+        <label>AAiControllerBase</label>
+        <link refid="class_a_ai_controller_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>ACombatAiControllerBase</label>
+        <link refid="class_a_combat_ai_controller_base"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>AAIController</label>
+      </node>
+      <node id="1">
+        <label>AAiControllerBase</label>
+        <link refid="class_a_ai_controller_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Characters/Controllers/AiControllerBase.h" line="15" column="1" bodyfile="Source/TalesDungeoneer/Public/Characters/Controllers/AiControllerBase.h" bodystart="16" bodyend="55"/>
+    <listofallmembers>
+      <member refid="class_a_ai_controller_base_1a279dbd15982e9ed164147c049d0cc4db" prot="private" virt="non-virtual"><scope>AAiControllerBase</scope><name>_PatrolArea</name></member>
+      <member refid="class_a_ai_controller_base_1a24509ebec165661f7a1d5ad3032ae7fb" prot="public" virt="non-virtual"><scope>AAiControllerBase</scope><name>AAiControllerBase</name></member>
+      <member refid="class_a_ai_controller_base_1a27ae1bd0f533edc996266112e4fc8d70" prot="public" virt="non-virtual"><scope>AAiControllerBase</scope><name>AiPerception</name></member>
+      <member refid="class_a_ai_controller_base_1a49f1eeeaed6c48ac5cc914a0c7e54eeb" prot="protected" virt="virtual"><scope>AAiControllerBase</scope><name>BeginPlay</name></member>
+      <member refid="class_a_ai_controller_base_1aefb7ec98957db9a3bfc183501828614a" prot="public" virt="non-virtual"><scope>AAiControllerBase</scope><name>BehaviorTree</name></member>
+      <member refid="class_a_ai_controller_base_1a82fd5e159c757f4df720be6454718511" prot="public" virt="non-virtual"><scope>AAiControllerBase</scope><name>GainSightRadius</name></member>
+      <member refid="class_a_ai_controller_base_1aca78b1048a7e427eb004c0646ee18a4e" prot="public" virt="non-virtual"><scope>AAiControllerBase</scope><name>LoseSightRadius</name></member>
+      <member refid="class_a_ai_controller_base_1a4d7f4c5a91807c234a79c1f9be959d91" prot="protected" virt="virtual"><scope>AAiControllerBase</scope><name>OnConstruction</name></member>
+      <member refid="class_a_ai_controller_base_1a738fc3a8b93ea1278aca8ad1460dc949" prot="protected" virt="virtual"><scope>AAiControllerBase</scope><name>PostInitializeComponents</name></member>
+      <member refid="class_a_ai_controller_base_1a44fd946dd8d5411fe5c0415777d7c2b6" prot="protected" virt="virtual"><scope>AAiControllerBase</scope><name>Tick</name></member>
+      <member refid="class_a_ai_controller_base_1ad4449a2a39488eabb765147c969c76e7" prot="public" virt="non-virtual"><scope>AAiControllerBase</scope><name>UFUNCTION</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

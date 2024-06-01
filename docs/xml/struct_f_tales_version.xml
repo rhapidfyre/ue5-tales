@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="struct_f_tales_version" kind="struct" language="C++" prot="public">
+    <compoundname>FTalesVersion</compoundname>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_f_tales_version_1a272a713aa58558891c144803c34b0a4e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>FTalesVersion::FTalesVersion</definition>
+        <argsstring>()</argsstring>
+        <name>FTalesVersion</name>
+        <qualifiedname>FTalesVersion::FTalesVersion</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" line="55" column="1" bodyfile="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" bodystart="55" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_tales_version_1ac69006bc2484c12dd5ec969d1d77cbf2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FTalesVersion::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, VisibleAnywhere) int VersionMajor</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FTalesVersion::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>VisibleAnywhere</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" line="56" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_tales_version_1a43b080b2865bd6a48b814fa6492d7f2a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FTalesVersion::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, VisibleAnywhere) int VersionMinor</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FTalesVersion::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>VisibleAnywhere</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" line="57" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_tales_version_1a5f3b737bf285612348d0b0657dd73199" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FTalesVersion::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, VisibleAnywhere) int VersionPatch</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FTalesVersion::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>VisibleAnywhere</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" line="58" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_tales_version_1a70fbc3efd7c362fb8735efc3445eb68e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FTalesVersion::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, VisibleAnywhere) FString VersionBranch</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FTalesVersion::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>VisibleAnywhere</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" line="59" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_tales_version_1a36346f37e0cc66c66a06428ff8de5b7d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>FString</type>
+        <definition>FString FTalesVersion::ToString</definition>
+        <argsstring>(const bool bShowBranch=false, const bool bSafeString=false) const</argsstring>
+        <name>ToString</name>
+        <qualifiedname>FTalesVersion::ToString</qualifiedname>
+        <param>
+          <type>const bool</type>
+          <declname>bShowBranch</declname>
+          <defval>false</defval>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>bSafeString</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" line="60" column="9" bodyfile="Source/TalesDungeoneer/Private/lib/datastructures/GlobalData.cpp" bodystart="4" bodyend="15"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" line="52" column="1" bodyfile="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" bodystart="53" bodyend="61"/>
+    <listofallmembers>
+      <member refid="struct_f_tales_version_1a272a713aa58558891c144803c34b0a4e" prot="public" virt="non-virtual"><scope>FTalesVersion</scope><name>FTalesVersion</name></member>
+      <member refid="struct_f_tales_version_1a36346f37e0cc66c66a06428ff8de5b7d" prot="public" virt="non-virtual"><scope>FTalesVersion</scope><name>ToString</name></member>
+      <member refid="struct_f_tales_version_1ac69006bc2484c12dd5ec969d1d77cbf2" prot="public" virt="non-virtual"><scope>FTalesVersion</scope><name>UPROPERTY</name></member>
+      <member refid="struct_f_tales_version_1a43b080b2865bd6a48b814fa6492d7f2a" prot="public" virt="non-virtual"><scope>FTalesVersion</scope><name>UPROPERTY</name></member>
+      <member refid="struct_f_tales_version_1a5f3b737bf285612348d0b0657dd73199" prot="public" virt="non-virtual"><scope>FTalesVersion</scope><name>UPROPERTY</name></member>
+      <member refid="struct_f_tales_version_1a70fbc3efd7c362fb8735efc3445eb68e" prot="public" virt="non-virtual"><scope>FTalesVersion</scope><name>UPROPERTY</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

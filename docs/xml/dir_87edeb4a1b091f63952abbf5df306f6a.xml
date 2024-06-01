@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="dir_87edeb4a1b091f63952abbf5df306f6a" kind="dir">
+    <compoundname>Source/TalesDungeoneer/Public</compoundname>
+    <innerdir refid="dir_b23f57faea0075cd738a7e5abe5d539e">Source/TalesDungeoneer/Public/Characters</innerdir>
+    <innerdir refid="dir_7cc369a7cf4cb41b5b2e6b4466096a37">Source/TalesDungeoneer/Public/DataAssets</innerdir>
+    <innerdir refid="dir_4076a4fa91df8543435081a7e2a629fe">Source/TalesDungeoneer/Public/Gamemode</innerdir>
+    <innerdir refid="dir_8603b024c5f63fd27f086e7793eda84e">Source/TalesDungeoneer/Public/Gas</innerdir>
+    <innerdir refid="dir_0dbbcc08cbcd2c8c4c75c974c8625dc4">Source/TalesDungeoneer/Public/lib</innerdir>
+    <innerdir refid="dir_44e6e92b09860ad5d841270d1d840a4a">Source/TalesDungeoneer/Public/Saves</innerdir>
+    <innerdir refid="dir_3c666f301e7b6f26ca4c6765c9ab8a98">Source/TalesDungeoneer/Public/Weapons</innerdir>
+    <innerdir refid="dir_36dc2666ccf4cc5efa342ee01598bba6">Source/TalesDungeoneer/Public/Widgets</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Public/"/>
+  </compounddef>
+</doxygen>

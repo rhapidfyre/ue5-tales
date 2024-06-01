@@ -1,0 +1,239 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_a_tales_player_state_base" kind="class" language="C++" prot="public">
+    <compoundname>ATalesPlayerStateBase</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">APlayerState</basecompoundref>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_a_tales_player_state_base_1a5b6245c8ddc114ea62d52d121b940274" prot="protected" static="no" mutable="no">
+        <type>UDataAsset *</type>
+        <definition>UDataAsset* ATalesPlayerStateBase::RaceTagsMapped</definition>
+        <argsstring></argsstring>
+        <name>RaceTagsMapped</name>
+        <qualifiedname>ATalesPlayerStateBase::RaceTagsMapped</qualifiedname>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesPlayerStateBase.h" line="41" column="24" bodyfile="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesPlayerStateBase.h" bodystart="41" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_tales_player_state_base_1a858c9fe65bca404b1e784b23f3da7c96" prot="protected" static="no" mutable="no">
+        <type>UDataAsset *</type>
+        <definition>UDataAsset* ATalesPlayerStateBase::ClassTagsMapped</definition>
+        <argsstring></argsstring>
+        <name>ClassTagsMapped</name>
+        <qualifiedname>ATalesPlayerStateBase::ClassTagsMapped</qualifiedname>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesPlayerStateBase.h" line="42" column="24" bodyfile="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesPlayerStateBase.h" bodystart="42" bodyend="42"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_a_tales_player_state_base_1a0c4db7a6f0fa2508a6350214b63ea2a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ATalesPlayerStateBase::ATalesPlayerStateBase</definition>
+        <argsstring>()</argsstring>
+        <name>ATalesPlayerStateBase</name>
+        <qualifiedname>ATalesPlayerStateBase::ATalesPlayerStateBase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesPlayerStateBase.h" line="23" column="1" bodyfile="Source/TalesDungeoneer/Private/Gamemode/AdventureMode/TalesPlayerStateBase.cpp" bodystart="8" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_player_state_base_1affd885f61d9ba61b04e4067b55f3db75" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ATalesPlayerStateBase::UPROPERTY</definition>
+        <argsstring>(BlueprintAssignable) FOnPlayerNameUpdated OnPlayerNameUpdated</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ATalesPlayerStateBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintAssignable</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesPlayerStateBase.h" line="25" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_player_state_base_1a0adb88c0ecbb645c8c46064adcb040e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ATalesPlayerStateBase::UFUNCTION</definition>
+        <argsstring>(BlueprintCallable) void UpdatePlayerName()</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>ATalesPlayerStateBase::UFUNCTION</qualifiedname>
+        <param>
+          <type>BlueprintCallable</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesPlayerStateBase.h" line="28" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_player_state_base_1a6f4149b98e1fb97a43be43618562c0f0" prot="public" static="no" const="yes" explicit="no" inline="no" refqual="lvalue" virt="non-virtual">
+        <type></type>
+        <definition>ATalesPlayerStateBase::UFUNCTION</definition>
+        <argsstring>(BlueprintPure) UDataAsset *GetClassDataAsset(const FGameplayTag &amp;ClassTag) const</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>ATalesPlayerStateBase::UFUNCTION</qualifiedname>
+        <param>
+          <type>BlueprintPure</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesPlayerStateBase.h" line="32" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_player_state_base_1a6f1ce38af59254f38263657ece3167a1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ATalesPlayerStateBase::UFUNCTION</definition>
+        <argsstring>(BlueprintPure) TArray&lt; FGameplayTag &gt; GetAllCharacterClasses() const</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>ATalesPlayerStateBase::UFUNCTION</qualifiedname>
+        <param>
+          <type>BlueprintPure</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesPlayerStateBase.h" line="33" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_player_state_base_1a8096839dc6e7baa215ec86dfef11f3cd" prot="public" static="no" const="yes" explicit="no" inline="no" refqual="lvalue" virt="non-virtual">
+        <type></type>
+        <definition>ATalesPlayerStateBase::UFUNCTION</definition>
+        <argsstring>(BlueprintPure) UDataAsset *GetRaceDataAsset(const FGameplayTag &amp;RaceTag) const</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>ATalesPlayerStateBase::UFUNCTION</qualifiedname>
+        <param>
+          <type>BlueprintPure</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesPlayerStateBase.h" line="37" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_player_state_base_1a14533dfe0154399bd03c0663cca0f1c7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ATalesPlayerStateBase::UFUNCTION</definition>
+        <argsstring>(BlueprintPure) TArray&lt; FGameplayTag &gt; GetAllCharacterRaces() const</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>ATalesPlayerStateBase::UFUNCTION</qualifiedname>
+        <param>
+          <type>BlueprintPure</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesPlayerStateBase.h" line="38" column="1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_a_tales_player_state_base_1a40f611532632a85f72d37c76bf0d4ba2" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ATalesPlayerStateBase::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) TMap&lt; FGameplayTag</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ATalesPlayerStateBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesPlayerStateBase.h" line="41" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_player_state_base_1a40f611532632a85f72d37c76bf0d4ba2" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ATalesPlayerStateBase::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) TMap&lt; FGameplayTag</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ATalesPlayerStateBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesPlayerStateBase.h" line="42" column="1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>APlayerState</label>
+      </node>
+      <node id="1">
+        <label>ATalesPlayerStateBase</label>
+        <link refid="class_a_tales_player_state_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>APlayerState</label>
+      </node>
+      <node id="1">
+        <label>ATalesPlayerStateBase</label>
+        <link refid="class_a_tales_player_state_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesPlayerStateBase.h" line="17" column="1" bodyfile="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesPlayerStateBase.h" bodystart="18" bodyend="44"/>
+    <listofallmembers>
+      <member refid="class_a_tales_player_state_base_1a0c4db7a6f0fa2508a6350214b63ea2a4" prot="public" virt="non-virtual"><scope>ATalesPlayerStateBase</scope><name>ATalesPlayerStateBase</name></member>
+      <member refid="class_a_tales_player_state_base_1a858c9fe65bca404b1e784b23f3da7c96" prot="protected" virt="non-virtual"><scope>ATalesPlayerStateBase</scope><name>ClassTagsMapped</name></member>
+      <member refid="class_a_tales_player_state_base_1a5b6245c8ddc114ea62d52d121b940274" prot="protected" virt="non-virtual"><scope>ATalesPlayerStateBase</scope><name>RaceTagsMapped</name></member>
+      <member refid="class_a_tales_player_state_base_1a0adb88c0ecbb645c8c46064adcb040e4" prot="public" virt="non-virtual"><scope>ATalesPlayerStateBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_tales_player_state_base_1a6f4149b98e1fb97a43be43618562c0f0" prot="public" virt="non-virtual"><scope>ATalesPlayerStateBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_tales_player_state_base_1a6f1ce38af59254f38263657ece3167a1" prot="public" virt="non-virtual"><scope>ATalesPlayerStateBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_tales_player_state_base_1a8096839dc6e7baa215ec86dfef11f3cd" prot="public" virt="non-virtual"><scope>ATalesPlayerStateBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_tales_player_state_base_1a14533dfe0154399bd03c0663cca0f1c7" prot="public" virt="non-virtual"><scope>ATalesPlayerStateBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_tales_player_state_base_1affd885f61d9ba61b04e4067b55f3db75" prot="public" virt="non-virtual"><scope>ATalesPlayerStateBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_tales_player_state_base_1a40f611532632a85f72d37c76bf0d4ba2" prot="protected" virt="non-virtual"><scope>ATalesPlayerStateBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_tales_player_state_base_1a40f611532632a85f72d37c76bf0d4ba2" prot="protected" virt="non-virtual"><scope>ATalesPlayerStateBase</scope><name>UPROPERTY</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

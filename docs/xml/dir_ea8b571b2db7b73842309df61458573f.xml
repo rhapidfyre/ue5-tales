@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="dir_ea8b571b2db7b73842309df61458573f" kind="dir">
+    <compoundname>Source/TalesDungeoneer/Public/Gas/AttributeSets</compoundname>
+    <innerfile refid="_core_stats_attributes_8h">CoreStatsAttributes.h</innerfile>
+    <innerfile refid="_damage_attributes_8h">DamageAttributes.h</innerfile>
+    <innerfile refid="_effect_attributes_8h">EffectAttributes.h</innerfile>
+    <innerfile refid="_tales_attributes_8h">TalesAttributes.h</innerfile>
+    <innerfile refid="_vitality_attributes_8h">VitalityAttributes.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/"/>
+  </compounddef>
+</doxygen>

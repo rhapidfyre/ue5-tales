@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="dir_3c666f301e7b6f26ca4c6765c9ab8a98" kind="dir">
+    <compoundname>Source/TalesDungeoneer/Public/Weapons</compoundname>
+    <innerfile refid="_melee_weapon_base_8h">MeleeWeaponBase.h</innerfile>
+    <innerfile refid="_ranged_weapon_base_8h">RangedWeaponBase.h</innerfile>
+    <innerfile refid="_thrown_weapon_base_8h">ThrownWeaponBase.h</innerfile>
+    <innerfile refid="_weapon_base_8h">WeaponBase.h</innerfile>
+    <innerfile refid="_weapon_melee_base_8h">WeaponMeleeBase.h</innerfile>
+    <innerfile refid="_weapon_system_8h">WeaponSystem.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Public/Weapons/"/>
+  </compounddef>
+</doxygen>

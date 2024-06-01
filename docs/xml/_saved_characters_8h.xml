@@ -1,0 +1,281 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_saved_characters_8h" kind="file" language="C++">
+    <compoundname>SavedCharacters.h</compoundname>
+    <includes local="yes">CoreMinimal.h</includes>
+    <includes local="yes">GameFramework/SaveGame.h</includes>
+    <includes refid="_global_enums_8h" local="yes">lib/enums/GlobalEnums.h</includes>
+    <includes refid="_mesh_merge_component_8h" local="yes">Characters/Components/MeshMergeComponent.h</includes>
+    <includes refid="_tales_global_tags_8h" local="yes">lib/Tags/TalesGlobalTags.h</includes>
+    <includes local="yes">SavedCharacters.generated.h</includes>
+    <includedby refid="_character_base_8cpp" local="yes">Source/TalesDungeoneer/Private/Characters/CharacterBase.cpp</includedby>
+    <includedby refid="_player_character_base_8cpp" local="yes">Source/TalesDungeoneer/Private/Characters/PlayerCharacterBase.cpp</includedby>
+    <includedby refid="_tales_game_state_base_8cpp" local="yes">Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp</includedby>
+    <includedby refid="_saved_characters_8cpp" local="yes">Source/TalesDungeoneer/Private/Saves/SavedCharacters.cpp</includedby>
+    <includedby refid="_static_save_data_8cpp" local="yes">Source/TalesDungeoneer/Private/Saves/StaticSaveData.cpp</includedby>
+    <includedby refid="_character_base_8h" local="yes">Source/TalesDungeoneer/Public/Characters/CharacterBase.h</includedby>
+    <incdepgraph>
+      <node id="9">
+        <label>Components/ActorComponent.h</label>
+      </node>
+      <node id="2">
+        <label>CoreMinimal.h</label>
+      </node>
+      <node id="6">
+        <label>Characters/Components/MeshMergeComponent.h</label>
+        <link refid="_mesh_merge_component_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/Saves/SavedCharacters.h</label>
+        <link refid="_saved_characters_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>lib/Tags/TalesGlobalTags.h</label>
+        <link refid="_tales_global_tags_8h_source"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>lib/enums/GlobalEnums.h</label>
+        <link refid="_global_enums_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>Delegates/Delegate.h</label>
+      </node>
+      <node id="3">
+        <label>GameFramework/SaveGame.h</label>
+      </node>
+      <node id="7">
+        <label>GameplayTagContainer.h</label>
+      </node>
+      <node id="5">
+        <label>GlobalEnums.generated.h</label>
+      </node>
+      <node id="12">
+        <label>MeshMergeComponent.generated.h</label>
+      </node>
+      <node id="14">
+        <label>NativeGameplayTags.h</label>
+      </node>
+      <node id="15">
+        <label>SavedCharacters.generated.h</label>
+      </node>
+      <node id="8">
+        <label>SkeletalMeshMerge.h</label>
+      </node>
+      <node id="10">
+        <label>lib/EquipmentData.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>Source/TalesDungeoneer/Public/Characters/CharacterBase.h</label>
+        <link refid="_character_base_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Source/TalesDungeoneer/Public/Characters/CombatNpcCharacterBase.h</label>
+        <link refid="_combat_npc_character_base_8h_source"/>
+      </node>
+      <node id="6">
+        <label>Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h</label>
+        <link refid="_combat_ai_controller_base_8h_source"/>
+      </node>
+      <node id="9">
+        <label>Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h</label>
+        <link refid="_creator_character_base_8h_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Source/TalesDungeoneer/Public/Characters/DmCharacterBase.h</label>
+        <link refid="_dm_character_base_8h_source"/>
+      </node>
+      <node id="7">
+        <label>Source/TalesDungeoneer/Public/Characters/InteractiveNpcBase.h</label>
+        <link refid="_interactive_npc_base_8h_source"/>
+      </node>
+      <node id="4">
+        <label>Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h</label>
+        <link refid="_npc_character_base_8h_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>Source/TalesDungeoneer/Public/Characters/PlayerCharacterBase.h</label>
+        <link refid="_player_character_base_8h_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesDungeoneerGameMode.h</label>
+        <link refid="_tales_dungeoneer_game_mode_8h_source"/>
+      </node>
+      <node id="10">
+        <label>Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorGameModeBase.h</label>
+        <link refid="_creator_game_mode_base_8h_source"/>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/Saves/SavedCharacters.h</label>
+        <link refid="_saved_characters_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>Source/TalesDungeoneer/Public/Widgets/OverheadDataWidgetBase.h</label>
+        <link refid="_overhead_data_widget_base_8h_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_f_character_data" prot="public">FCharacterData</innerclass>
+    <innerclass refid="class_u_saved_character" prot="public">USavedCharacter</innerclass>
+    <innerclass refid="class_u_saved_dm_character" prot="public">USavedDmCharacter</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>Take<sp/>Five<sp/>Games,<sp/>LLC<sp/>2023<sp/>-<sp/>All<sp/>Rights<sp/>Reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;CoreMinimal.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;GameFramework/SaveGame.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;lib/enums/GlobalEnums.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Characters/Components/MeshMergeComponent.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;lib/Tags/TalesGlobalTags.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;SavedCharacters.generated.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">FStCharacterStats;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal">USTRUCT()</highlight></codeline>
+<codeline lineno="16" refid="struct_f_character_data" refkind="compound"><highlight class="normal">struct<sp/>TALESDUNGEONEER_API<sp/><ref refid="struct_f_character_data" kindref="compound">FCharacterData</ref></highlight></codeline>
+<codeline lineno="17"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>GENERATED_BODY()</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(SaveGame)<sp/>FString<sp/>CharacterName<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(SaveGame)<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>CharacterLevel<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(SaveGame)<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/>ExperiencePoints<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(SaveGame)<sp/>FGameplayTag<sp/>CharacterClass<sp/>=<sp/>TAG_Character_Class_Warrior;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(SaveGame)<sp/>FGameplayTag<sp/>CharacterRace<sp/><sp/>=<sp/>TAG_Character_Race_Human;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="27"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal">UCLASS(Blueprintable,<sp/>BlueprintType)</highlight></codeline>
+<codeline lineno="33" refid="class_u_saved_character" refkind="compound"><highlight class="normal">class<sp/>TALESDUNGEONEER_API<sp/><ref refid="class_u_saved_character" kindref="compound">USavedCharacter</ref><sp/>:<sp/>public<sp/>USaveGame</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>GENERATED_BODY()</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_u_saved_character" kindref="compound">USavedCharacter</ref>()<sp/>{};</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(SaveGame,<sp/>VisibleAnywhere,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Character<sp/>Save<sp/>Data&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>FString<sp/>SaveVersion<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;v?&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(SaveGame,<sp/>VisibleAnywhere,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Character<sp/>Save<sp/>Data&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>FString<sp/>SaveSlotName<sp/>=<sp/>TEXT(</highlight><highlight class="stringliteral">&quot;QuickName&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(SaveGame,<sp/>VisibleAnywhere,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Character<sp/>Save<sp/>Data&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_f_character_data" kindref="compound">FCharacterData</ref><sp/>CharacterData<sp/>=<sp/>{};</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(SaveGame,<sp/>VisibleAnywhere,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Character<sp/>Save<sp/>Data&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32<sp/>UserIndex<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(SaveGame,<sp/>VisibleAnywhere,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Mesh<sp/>Merge<sp/>Save<sp/>Data&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>TSubclassOf&lt;UAnimInstance&gt;<sp/>AnimBlueprint<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(SaveGame,<sp/>VisibleAnywhere,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Mesh<sp/>Merge<sp/>Save<sp/>Data&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>USkeleton*<sp/>Skeleton<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(SaveGame,<sp/>VisibleAnywhere,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Mesh<sp/>Merge<sp/>Save<sp/>Data&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>TArray<sp/>&lt;FMeshMergeMappings&gt;<sp/>MeshMergeMappings<sp/>=<sp/>{};</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>name<sp/>of<sp/>the<sp/>inventory<sp/>save<sp/>file</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(SaveGame,<sp/>VisibleAnywhere,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Inventory<sp/>Save<sp/>Data&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>FString<sp/>SavedInventory<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>name<sp/>of<sp/>the<sp/>mesh<sp/>merge<sp/>save<sp/>file</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(SaveGame,<sp/>VisibleAnywhere,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Mesh<sp/>Merge<sp/>Save<sp/>Data&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>FString<sp/>SavedMeshMerge<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal">UCLASS(Blueprintable,<sp/>BlueprintType)</highlight></codeline>
+<codeline lineno="79" refid="class_u_saved_dm_character" refkind="compound"><highlight class="normal">class<sp/>TALESDUNGEONEER_API<sp/><ref refid="class_u_saved_dm_character" kindref="compound">USavedDmCharacter</ref><sp/>:<sp/>public<sp/>USaveGame</highlight></codeline>
+<codeline lineno="80"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>GENERATED_BODY()</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_u_saved_dm_character" kindref="compound">USavedDmCharacter</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(SaveGame,<sp/>VisibleAnywhere,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Character<sp/>Save<sp/>Data&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>FString<sp/>SaveVersion<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;v?&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(SaveGame,<sp/>VisibleAnywhere,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Character<sp/>Save<sp/>Data&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/>FString<sp/>SaveSlotName<sp/>=<sp/>TEXT(</highlight><highlight class="stringliteral">&quot;QuickName&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(SaveGame,<sp/>VisibleAnywhere,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Character<sp/>Save<sp/>Data&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>EngineeringLevel<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(SaveGame,<sp/>VisibleAnywhere,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Character<sp/>Save<sp/>Data&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>ExperiencePoints<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(SaveGame,<sp/>VisibleAnywhere,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Character<sp/>Save<sp/>Data&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32<sp/>UserIndex<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="102"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h"/>
+  </compounddef>
+</doxygen>

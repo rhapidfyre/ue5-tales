@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="dir_863f16609b2043e84594e334625993f9" kind="dir">
+    <compoundname>Source/TalesDungeoneer/Private/Gas/Effects</compoundname>
+    <innerfile refid="_equipment_effect_8cpp">EquipmentEffect.cpp</innerfile>
+    <innerfile refid="_tales_effect_base_8cpp">TalesEffectBase.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Private/Gas/Effects/"/>
+  </compounddef>
+</doxygen>

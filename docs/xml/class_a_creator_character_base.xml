@@ -1,0 +1,718 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_a_creator_character_base" kind="class" language="C++" prot="public">
+    <compoundname>ACreatorCharacterBase</compoundname>
+    <basecompoundref refid="class_a_player_character_base" prot="public" virt="non-virtual">APlayerCharacterBase</basecompoundref>
+    <includes refid="_creator_character_base_8h" local="no">CreatorCharacterBase.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_a_creator_character_base_1a7fb095ebe26c3872a6c29841870ce646" prot="private" static="no" mutable="no">
+        <type>FString</type>
+        <definition>FString ACreatorCharacterBase::NewSaveSlotName_</definition>
+        <argsstring></argsstring>
+        <name>NewSaveSlotName_</name>
+        <qualifiedname>ACreatorCharacterBase::NewSaveSlotName_</qualifiedname>
+        <initializer>= &quot;&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="70" column="9" bodyfile="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_creator_character_base_1a24380ed97f161d5d6a84a831b37b8458" prot="private" static="no" mutable="no">
+        <type>int32</type>
+        <definition>int32 ACreatorCharacterBase::NewSaveUserIndex_</definition>
+        <argsstring></argsstring>
+        <name>NewSaveUserIndex_</name>
+        <qualifiedname>ACreatorCharacterBase::NewSaveUserIndex_</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="71" column="8" bodyfile="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_creator_character_base_1a943cbb786078c9cbd85d1f2eeb036edb" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ACreatorCharacterBase::bIsCreating</definition>
+        <argsstring></argsstring>
+        <name>bIsCreating</name>
+        <qualifiedname>ACreatorCharacterBase::bIsCreating</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="73" column="6" bodyfile="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_a_creator_character_base_1a2be0da043a5cd2d46784431b7a27b2a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACreatorCharacterBase::ACreatorCharacterBase</definition>
+        <argsstring>()</argsstring>
+        <name>ACreatorCharacterBase</name>
+        <qualifiedname>ACreatorCharacterBase::ACreatorCharacterBase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="22" column="1" bodyfile="Source/TalesDungeoneer/Private/Characters/CreatorCharacterBase.cpp" bodystart="12" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_character_base_1aa0d6106714da1d30dd42e2bad085d1fd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ACreatorCharacterBase::FinishCreation</definition>
+        <argsstring>()</argsstring>
+        <name>FinishCreation</name>
+        <qualifiedname>ACreatorCharacterBase::FinishCreation</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="25" column="6" bodyfile="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" bodystart="25" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_character_base_1aa08023a2d823d61214e1792b3628273c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ACreatorCharacterBase::SetIsBeingCreated</definition>
+        <argsstring>(bool bIsBeingCreated=true)</argsstring>
+        <name>SetIsBeingCreated</name>
+        <qualifiedname>ACreatorCharacterBase::SetIsBeingCreated</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>bIsBeingCreated</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="28" column="6" bodyfile="Source/TalesDungeoneer/Private/Characters/CreatorCharacterBase.cpp" bodystart="32" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_character_base_1a78485a2b06750406988b0157f6a75597" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ACreatorCharacterBase::GetIsBeingCreated</definition>
+        <argsstring>() const</argsstring>
+        <name>GetIsBeingCreated</name>
+        <qualifiedname>ACreatorCharacterBase::GetIsBeingCreated</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="31" column="6" bodyfile="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" bodystart="31" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_character_base_1a4cbc226d4c2891702b0e0abfab4fe0c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool ACreatorCharacterBase::CreateCharacter</definition>
+        <argsstring>()</argsstring>
+        <name>CreateCharacter</name>
+        <qualifiedname>ACreatorCharacterBase::CreateCharacter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="33" column="14" bodyfile="Source/TalesDungeoneer/Private/Characters/CreatorCharacterBase.cpp" bodystart="40" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_character_base_1af12f935a13c7074805a93682006f5a50" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ACreatorCharacterBase::GetAllBodyPartMeshes</definition>
+        <argsstring>(TArray&lt; USkeletalMeshComponent * &gt; &amp;BodyPartMeshes)</argsstring>
+        <name>GetAllBodyPartMeshes</name>
+        <qualifiedname>ACreatorCharacterBase::GetAllBodyPartMeshes</qualifiedname>
+        <param>
+          <type>TArray&lt; USkeletalMeshComponent * &gt; &amp;</type>
+          <declname>BodyPartMeshes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="35" column="6" bodyfile="Source/TalesDungeoneer/Private/Characters/CreatorCharacterBase.cpp" bodystart="78" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_character_base_1a9c60540bb7f384c37437aefd48933a97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ACreatorCharacterBase::ResetMeshSelections</definition>
+        <argsstring>()</argsstring>
+        <name>ResetMeshSelections</name>
+        <qualifiedname>ACreatorCharacterBase::ResetMeshSelections</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Resets all of the mesh parts to clear/none, and destroys each of their children </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="38" column="6" bodyfile="Source/TalesDungeoneer/Private/Characters/CreatorCharacterBase.cpp" bodystart="91" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_character_base_1a2a7e1a49468dcf7ccb5ce0f965653694" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ACreatorCharacterBase::ClearChildrenOfMesh</definition>
+        <argsstring>(USkeletalMeshComponent *ReferenceMesh)</argsstring>
+        <name>ClearChildrenOfMesh</name>
+        <qualifiedname>ACreatorCharacterBase::ClearChildrenOfMesh</qualifiedname>
+        <param>
+          <type>USkeletalMeshComponent *</type>
+          <declname>ReferenceMesh</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Destroys all of the child components of the given mesh part <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ReferenceMesh</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The mesh part to reference </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="41" column="6" bodyfile="Source/TalesDungeoneer/Private/Characters/CreatorCharacterBase.cpp" bodystart="109" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_character_base_1a366df9d9a1bcb0c121ff33f2768d5f32" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool ACreatorCharacterBase::LoadCharacter</definition>
+        <argsstring>(const FString &amp;SlotName, const int32 UserIndex, USaveGame *SaveGame) override</argsstring>
+        <name>LoadCharacter</name>
+        <qualifiedname>ACreatorCharacterBase::LoadCharacter</qualifiedname>
+        <reimplements refid="class_a_character_base_1a6162cfac4931938f70565d9038d7e3fa">LoadCharacter</reimplements>
+        <param>
+          <type>const FString &amp;</type>
+          <declname>SlotName</declname>
+        </param>
+        <param>
+          <type>const int32</type>
+          <declname>UserIndex</declname>
+        </param>
+        <param>
+          <type>USaveGame *</type>
+          <declname>SaveGame</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Processes loading a character from a save. Does not work if &apos;bCharacterRestored&apos; is already set. Will not run if the character has not initialized. Internally calls &apos;OnCharacterRestored&apos; after load data has been processed. The SlotName and UserIndex is only used by the async delegate. If LoadCharacter is called manually, these values will not be<itemizedlist>
+<listitem><para>used and are obtained from the ATalesGameState. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SlotName</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The save name to be restored. Only set in async call. Ignored if called manually. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>UserIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The user index for the character. Only set in async call. Ignored if called manually. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SaveGame</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>When used as an async load delegate, this is the save object loaded. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="43" column="14" bodyfile="Source/TalesDungeoneer/Private/Characters/CreatorCharacterBase.cpp" bodystart="127" bodyend="131"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_character_base_1ae98c8465678f324d7ff2971d74deee8b" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>USaveGame *</type>
+        <definition>USaveGame * ACreatorCharacterBase::SaveCharacter</definition>
+        <argsstring>(USaveGame *SaveObject, bool bRunAsync) override</argsstring>
+        <name>SaveCharacter</name>
+        <qualifiedname>ACreatorCharacterBase::SaveCharacter</qualifiedname>
+        <reimplements refid="class_a_character_base_1af108e9a63b7ef7c8b439d1489907a97f">SaveCharacter</reimplements>
+        <param>
+          <type>USaveGame *</type>
+          <declname>SaveObject</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bRunAsync</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Saves the character to file. If being saved asynchronously, the returned save object will be the updated object as it is right before the save writes to file. Triggers &apos;OnCharacterSaved&apos; upon completion (async or not). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SaveObject</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The save data being carried between child/parent </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bRunAsync</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>True if the save should run asynchronously </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The <ref refid="class_u_saved_character" kindref="compound">USavedCharacter</ref> SaveGame object for this character. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="44" column="19" bodyfile="Source/TalesDungeoneer/Private/Characters/CreatorCharacterBase.cpp" bodystart="133" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_character_base_1a3879685392fead0659b436d619e8232e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACreatorCharacterBase::UPROPERTY</definition>
+        <argsstring>(VisibleAnywhere, BlueprintReadWrite) USkeletalMeshComponent *MeshPartHair</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ACreatorCharacterBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>VisibleAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="46" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_character_base_1a7ec82b64c3ab743c39e373037c4e777c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACreatorCharacterBase::UPROPERTY</definition>
+        <argsstring>(VisibleAnywhere, BlueprintReadWrite) USkeletalMeshComponent *MeshPartEyebrows</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ACreatorCharacterBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>VisibleAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="47" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_character_base_1acffe8a9ef9e557c029dd61da5f4d08ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACreatorCharacterBase::UPROPERTY</definition>
+        <argsstring>(VisibleAnywhere, BlueprintReadWrite) USkeletalMeshComponent *MeshPartEyes</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ACreatorCharacterBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>VisibleAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="48" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_character_base_1a7f95ff73f3d7e9558fd1f5e16df43061" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACreatorCharacterBase::UPROPERTY</definition>
+        <argsstring>(VisibleAnywhere, BlueprintReadWrite) USkeletalMeshComponent *MeshPartBeard</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ACreatorCharacterBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>VisibleAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="49" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_character_base_1a30a9d278f8daf121ab28c000218b99db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACreatorCharacterBase::UPROPERTY</definition>
+        <argsstring>(VisibleAnywhere, BlueprintReadWrite) USkeletalMeshComponent *MeshPartHead</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ACreatorCharacterBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>VisibleAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="50" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_character_base_1a407756f96c116bd50412cd1419f3d84c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACreatorCharacterBase::UPROPERTY</definition>
+        <argsstring>(VisibleAnywhere, BlueprintReadWrite) USkeletalMeshComponent *MeshPartNeck</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ACreatorCharacterBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>VisibleAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="51" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_character_base_1a1e283fde5b18fe36f0ccdb87b53b726f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACreatorCharacterBase::UPROPERTY</definition>
+        <argsstring>(VisibleAnywhere, BlueprintReadWrite) USkeletalMeshComponent *MeshPartChest</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ACreatorCharacterBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>VisibleAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="52" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_character_base_1a2a8ce2c7c1dc57967d858f5184254552" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACreatorCharacterBase::UPROPERTY</definition>
+        <argsstring>(VisibleAnywhere, BlueprintReadWrite) USkeletalMeshComponent *MeshPartArms</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ACreatorCharacterBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>VisibleAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="54" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_character_base_1a8bab6af29ca0653f092880094c89e6a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACreatorCharacterBase::UPROPERTY</definition>
+        <argsstring>(VisibleAnywhere, BlueprintReadWrite) USkeletalMeshComponent *MeshPartHands</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ACreatorCharacterBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>VisibleAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="55" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_character_base_1a9b88a6127db031dd55818dc0cafa7581" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACreatorCharacterBase::UPROPERTY</definition>
+        <argsstring>(VisibleAnywhere, BlueprintReadWrite) USkeletalMeshComponent *MeshPartLegs</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ACreatorCharacterBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>VisibleAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="57" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_character_base_1a7dcf82d87a1ba09373ed034672f2704c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACreatorCharacterBase::UPROPERTY</definition>
+        <argsstring>(VisibleAnywhere, BlueprintReadWrite) USkeletalMeshComponent *MeshPartFeet</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ACreatorCharacterBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>VisibleAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="58" column="1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_a_creator_character_base_1acbb1ace10ba76d9d3df71aa8a25f8577" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ACreatorCharacterBase::BeginPlay</definition>
+        <argsstring>() override</argsstring>
+        <name>BeginPlay</name>
+        <qualifiedname>ACreatorCharacterBase::BeginPlay</qualifiedname>
+        <reimplements refid="class_a_player_character_base_1a22d7e54ad4027e9ba1b260783cb570cc">BeginPlay</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="62" column="14" bodyfile="Source/TalesDungeoneer/Private/Characters/CreatorCharacterBase.cpp" bodystart="138" bodyend="146"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_character_base_1a54161bcd1868b6b5d9d43a4ce9490149" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ACreatorCharacterBase::OnConstruction</definition>
+        <argsstring>(const FTransform &amp;Transform) override</argsstring>
+        <name>OnConstruction</name>
+        <qualifiedname>ACreatorCharacterBase::OnConstruction</qualifiedname>
+        <reimplements refid="class_a_character_base_1aca2002cb51ffd95d45742a6ffaec6066">OnConstruction</reimplements>
+        <param>
+          <type>const FTransform &amp;</type>
+          <declname>Transform</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="64" column="14" bodyfile="Source/TalesDungeoneer/Private/Characters/CreatorCharacterBase.cpp" bodystart="148" bodyend="162"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_a_creator_character_base_1acf0c8885e46ccb314f0354ea13d4739a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>USkeletalMeshComponent *</type>
+        <definition>USkeletalMeshComponent * ACreatorCharacterBase::InitMeshPart</definition>
+        <argsstring>(FName MeshName)</argsstring>
+        <name>InitMeshPart</name>
+        <qualifiedname>ACreatorCharacterBase::InitMeshPart</qualifiedname>
+        <param>
+          <type>FName</type>
+          <declname>MeshName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="68" column="24" bodyfile="Source/TalesDungeoneer/Private/Characters/CreatorCharacterBase.cpp" bodystart="164" bodyend="169"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Base class for all logic regarding the character creator </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="4">
+        <label>ACharacter</label>
+      </node>
+      <node id="3">
+        <label>ACharacterBase</label>
+        <link refid="class_a_character_base"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>ACreatorCharacterBase</label>
+        <link refid="class_a_creator_character_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>APlayerCharacterBase</label>
+        <link refid="class_a_player_character_base"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>IAbilitySystemInterface</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="4">
+        <label>ACharacter</label>
+      </node>
+      <node id="3">
+        <label>ACharacterBase</label>
+        <link refid="class_a_character_base"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>ACreatorCharacterBase</label>
+        <link refid="class_a_creator_character_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>APlayerCharacterBase</label>
+        <link refid="class_a_player_character_base"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>IAbilitySystemInterface</label>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" line="16" column="1" bodyfile="Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h" bodystart="17" bodyend="75"/>
+    <listofallmembers>
+      <member refid="class_a_character_base_1ae440aa8ddb0abf475572bc572a205da2" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>AbilitySystemComponent</name></member>
+      <member refid="class_a_character_base_1afb1c8b3ec64e50d3c49a9f3aa6aad399" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>ACharacterBase</name></member>
+      <member refid="class_a_creator_character_base_1a2be0da043a5cd2d46784431b7a27b2a3" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>ACreatorCharacterBase</name></member>
+      <member refid="class_a_player_character_base_1ad0dc555aaddb73c545c8612cbb24fbd8" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>APlayerCharacterBase</name></member>
+      <member refid="class_a_creator_character_base_1acbb1ace10ba76d9d3df71aa8a25f8577" prot="protected" virt="virtual"><scope>ACreatorCharacterBase</scope><name>BeginPlay</name></member>
+      <member refid="class_a_player_character_base_1a2e61f5c60bc6aaddbd99dbbcdd7e2e31" prot="protected" virt="virtual"><scope>ACreatorCharacterBase</scope><name>BindInput</name></member>
+      <member refid="class_a_player_character_base_1aabe340c552757c49ad2791ce49c64d2c" prot="protected" virt="virtual"><scope>ACreatorCharacterBase</scope><name>BindListeners</name></member>
+      <member refid="class_a_creator_character_base_1a943cbb786078c9cbd85d1f2eeb036edb" prot="private" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>bIsCreating</name></member>
+      <member refid="class_a_character_base_1aa222676d07e654363645bd5194e54450" prot="protected" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>bIsEnabled</name></member>
+      <member refid="class_a_character_base_1abecc381e55c13b9a9eb0c799d6393557" prot="protected" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>bIsInputBound</name></member>
+      <member refid="class_a_character_base_1a8e0ce3f70eb610651fae9352cc2f4e5f" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>bSavesOnServer</name></member>
+      <member refid="class_a_character_base_1a6f72819126002ce12fcd248798bc874b" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>CameraBoom</name></member>
+      <member refid="class_a_character_base_1a84cac3667b6d69ea1de2ab7517569fe6" prot="protected" virt="virtual"><scope>ACreatorCharacterBase</scope><name>CharacterRestoredFromSave</name></member>
+      <member refid="class_a_creator_character_base_1a2a7e1a49468dcf7ccb5ce0f965653694" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>ClearChildrenOfMesh</name></member>
+      <member refid="class_a_creator_character_base_1a4cbc226d4c2891702b0e0abfab4fe0c1" prot="public" virt="virtual"><scope>ACreatorCharacterBase</scope><name>CreateCharacter</name></member>
+      <member refid="class_a_character_base_1a9782daa786016454e8d057b211c39b84" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>DefaultAbilities</name></member>
+      <member refid="class_a_character_base_1ad9e4319f63cec7687f17d3b847f433c9" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>DefaultEffects</name></member>
+      <member refid="class_a_player_character_base_1a9a571d97abfd792fb9ab1f01b6077d97" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>DefaultMappingContext</name></member>
+      <member refid="class_a_character_base_1a6b61aadac96a0fa877ba78b8b789670f" prot="protected" virt="virtual"><scope>ACreatorCharacterBase</scope><name>EndPlay</name></member>
+      <member refid="class_a_character_base_1af9ae749a86c17c0b0b9353b8d681d40a" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>EquipmentComponent</name></member>
+      <member refid="class_a_creator_character_base_1aa0d6106714da1d30dd42e2bad085d1fd" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>FinishCreation</name></member>
+      <member refid="class_a_character_base_1a5a5434eaa6a04f6d9691fd8852030f0b" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>FollowCamera</name></member>
+      <member refid="class_a_character_base_1adfe877af8f9dff59d1f3ed7bbf071e6e" prot="public" virt="virtual"><scope>ACreatorCharacterBase</scope><name>GetAbilitySystemComponent</name></member>
+      <member refid="class_a_creator_character_base_1af12f935a13c7074805a93682006f5a50" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>GetAllBodyPartMeshes</name></member>
+      <member refid="class_a_character_base_1a34fec97e819b9b5552fb240850563508" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>GetCameraBoom</name></member>
+      <member refid="class_a_character_base_1a34b6bc5074c41244c3c82a7903121a8a" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>GetFollowCamera</name></member>
+      <member refid="class_a_creator_character_base_1a78485a2b06750406988b0157f6a75597" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>GetIsBeingCreated</name></member>
+      <member refid="class_a_character_base_1a48e6c6cef789c8f200aceb2c351e0d00" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>GetRiskLevel</name></member>
+      <member refid="class_a_character_base_1acbdba15f041e4d1f012e9f184e20ff86" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>HeadDisplayWidget</name></member>
+      <member refid="class_a_player_character_base_1a876dac4a1dd786d135bdb1d57feea71f" prot="protected" virt="virtual"><scope>ACreatorCharacterBase</scope><name>HotkeyTriggered</name></member>
+      <member refid="class_a_character_base_1a282f76cdcee9643661e099cac55d5961" prot="protected" virt="virtual"><scope>ACreatorCharacterBase</scope><name>InitializeAbilities</name></member>
+      <member refid="class_a_character_base_1a971a14ab5f2081ec44d83520cf53e1fc" prot="protected" virt="virtual"><scope>ACreatorCharacterBase</scope><name>InitializeEffects</name></member>
+      <member refid="class_a_creator_character_base_1acf0c8885e46ccb314f0354ea13d4739a" prot="private" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>InitMeshPart</name></member>
+      <member refid="class_a_character_base_1a964f435a27b9be605d2485b051935a74" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>InventoryComponent</name></member>
+      <member refid="class_a_player_character_base_1acf0c91b2f75bf16c0bcabc831669ab55" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>JumpInputAction</name></member>
+      <member refid="class_a_creator_character_base_1a366df9d9a1bcb0c121ff33f2768d5f32" prot="public" virt="virtual"><scope>ACreatorCharacterBase</scope><name>LoadCharacter</name></member>
+      <member refid="class_a_player_character_base_1aa92c0394f8a8c5151803326bc4e27372" prot="protected" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>Look</name></member>
+      <member refid="class_a_player_character_base_1a0e996f48e129d3379ef307fc6abf3569" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>LookInputAction</name></member>
+      <member refid="class_a_character_base_1ab3feb0a990e926490cf51863facad68e" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>MeshMergeComponent</name></member>
+      <member refid="class_a_player_character_base_1ab9711dbd01761fc22dbb1884af3e0ce5" prot="protected" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>Move</name></member>
+      <member refid="class_a_player_character_base_1aa1b5e5ece7808b1268908d2561972ffe" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>MoveInputAction</name></member>
+      <member refid="class_a_creator_character_base_1a7fb095ebe26c3872a6c29841870ce646" prot="private" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>NewSaveSlotName_</name></member>
+      <member refid="class_a_creator_character_base_1a24380ed97f161d5d6a84a831b37b8458" prot="private" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>NewSaveUserIndex_</name></member>
+      <member refid="class_a_player_character_base_1aa118495f9e0ef1bd8e5b397e3acbeedb" prot="protected" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>NewValue</name></member>
+      <member refid="class_a_creator_character_base_1a54161bcd1868b6b5d9d43a4ce9490149" prot="protected" virt="virtual"><scope>ACreatorCharacterBase</scope><name>OnConstruction</name></member>
+      <member refid="class_a_player_character_base_1a729d84f95a7129084e1c78140cdcffe4" prot="protected" virt="virtual"><scope>ACreatorCharacterBase</scope><name>OnCoreStatsChanged</name></member>
+      <member refid="class_a_player_character_base_1a6e9f22df58042fb2408c8a5d8106ea4b" prot="protected" virt="virtual"><scope>ACreatorCharacterBase</scope><name>OnDamageStatsChanged</name></member>
+      <member refid="class_a_character_base_1a244a0fffb3290ad31c38746ac437c689" prot="protected" virt="virtual"><scope>ACreatorCharacterBase</scope><name>OnRep_PlayerState</name></member>
+      <member refid="class_a_player_character_base_1aeadf3abe6614ad4e35fc990041683a63" prot="protected" virt="virtual"><scope>ACreatorCharacterBase</scope><name>OnVitalityAttributeChanged</name></member>
+      <member refid="class_a_character_base_1ac4d0b212516f9152b1abc2d4d93a84e5" prot="protected" virt="virtual"><scope>ACreatorCharacterBase</scope><name>PossessedBy</name></member>
+      <member refid="class_a_player_character_base_1a60b3d849d0034114bd5c1a6874d5268f" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>PrimaryAttackInputAction</name></member>
+      <member refid="class_a_player_character_base_1a40107142f9181f0f6ddc2149a3080374" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>PrimaryInputAction</name></member>
+      <member refid="class_a_character_base_1aea7a1b49860dc9ae30f75fb4c1eff52d" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>PronounObjective</name></member>
+      <member refid="class_a_character_base_1ac77ce952836f6f4f0810452fc376c257" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>PronounPossessive</name></member>
+      <member refid="class_a_character_base_1a8c4ef7f32d92a5f5d56c67cac0409cb1" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>PronounSubject</name></member>
+      <member refid="class_a_creator_character_base_1a9c60540bb7f384c37437aefd48933a97" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>ResetMeshSelections</name></member>
+      <member refid="class_a_creator_character_base_1ae98c8465678f324d7ff2971d74deee8b" prot="public" virt="virtual"><scope>ACreatorCharacterBase</scope><name>SaveCharacter</name></member>
+      <member refid="class_a_character_base_1ac786db8fa4814acaca7b63ecd640f216" prot="protected" virt="virtual"><scope>ACreatorCharacterBase</scope><name>SaveGameDelegate</name></member>
+      <member refid="class_a_player_character_base_1a4b886292f79124b2639228d06f770db7" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>SecondaryAttackInputAction</name></member>
+      <member refid="class_a_player_character_base_1ae4c045dfbf5ba2ca53c9944bef8b6b90" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>SecondaryInputAction</name></member>
+      <member refid="class_a_character_base_1a0ed99f5a89d193a4af167fc17ef62c2e" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>SetCharacterName</name></member>
+      <member refid="class_a_creator_character_base_1aa08023a2d823d61214e1792b3628273c" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>SetIsBeingCreated</name></member>
+      <member refid="class_a_player_character_base_1a400c861d1f1006ca8a8a59fed4337fdf" prot="protected" virt="virtual"><scope>ACreatorCharacterBase</scope><name>SetupPlayerInputComponent</name></member>
+      <member refid="class_a_character_base_1ae7f610356b07eb3b534452d466776d12" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>SkinColor</name></member>
+      <member refid="class_a_character_base_1a9eb21f174f4af75367495a9d5211e716" prot="protected" virt="virtual"><scope>ACreatorCharacterBase</scope><name>Tick</name></member>
+      <member refid="class_a_player_character_base_1ae66adeca8500a5e173e562961f513b08" prot="protected" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_character_base_1acd559518667d72500e16d39155d23030" prot="public" virt="non-virtual" ambiguityscope="ACharacterBase::"><scope>ACreatorCharacterBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_character_base_1a6343a6d46dc1d0effea9c6568254717d" prot="public" virt="non-virtual" ambiguityscope="ACharacterBase::"><scope>ACreatorCharacterBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_character_base_1a8f08c623ab0a0c67e10b8246a1126248" prot="public" virt="non-virtual" ambiguityscope="ACharacterBase::"><scope>ACreatorCharacterBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_character_base_1abbf0115c04a791dafa3a07db457790c2" prot="protected" virt="non-virtual" ambiguityscope="ACharacterBase::"><scope>ACreatorCharacterBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_character_base_1abc51d8d9178df828fb7df027c01f52eb" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>UnlockPointsOnLevelUp</name></member>
+      <member refid="class_a_creator_character_base_1a3879685392fead0659b436d619e8232e" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_creator_character_base_1a7ec82b64c3ab743c39e373037c4e777c" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_creator_character_base_1acffe8a9ef9e557c029dd61da5f4d08ef" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_creator_character_base_1a7f95ff73f3d7e9558fd1f5e16df43061" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_creator_character_base_1a30a9d278f8daf121ab28c000218b99db" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_creator_character_base_1a407756f96c116bd50412cd1419f3d84c" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_creator_character_base_1a1e283fde5b18fe36f0ccdb87b53b726f" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_creator_character_base_1a2a8ce2c7c1dc57967d858f5184254552" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_creator_character_base_1a8bab6af29ca0653f092880094c89e6a9" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_creator_character_base_1a9b88a6127db031dd55818dc0cafa7581" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_creator_character_base_1a7dcf82d87a1ba09373ed034672f2704c" prot="public" virt="non-virtual"><scope>ACreatorCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_player_character_base_1a578522d80f839dce81a6873fb3d7ae44" prot="public" virt="non-virtual" ambiguityscope="APlayerCharacterBase::"><scope>ACreatorCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1a2238d899678be29a5b721c80d3d29a69" prot="public" virt="non-virtual" ambiguityscope="ACharacterBase::"><scope>ACreatorCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1ad9094ffb75c51cece8de330cde09efdb" prot="public" virt="non-virtual" ambiguityscope="ACharacterBase::"><scope>ACreatorCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1a2c621e5d806379b8e8d8c281af248939" prot="public" virt="non-virtual" ambiguityscope="ACharacterBase::"><scope>ACreatorCharacterBase</scope><name>UPROPERTY</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

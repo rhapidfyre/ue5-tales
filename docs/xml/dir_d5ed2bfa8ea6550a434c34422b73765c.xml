@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="dir_d5ed2bfa8ea6550a434c34422b73765c" kind="dir">
+    <compoundname>Source/TalesDungeoneer/Public/lib/Tags</compoundname>
+    <innerfile refid="_attribute_tags_8h">AttributeTags.h</innerfile>
+    <innerfile refid="_damage_tags_8h">DamageTags.h</innerfile>
+    <innerfile refid="_tales_global_tags_8h">TalesGlobalTags.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Public/lib/Tags/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,555 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_a_weapon_base" kind="class" language="C++" prot="public">
+    <compoundname>AWeaponBase</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">AActor</basecompoundref>
+    <derivedcompoundref refid="class_a_melee_weapon_base" prot="public" virt="non-virtual">AMeleeWeaponBase</derivedcompoundref>
+    <derivedcompoundref refid="class_a_ranged_weapon_base" prot="public" virt="non-virtual">ARangedWeaponBase</derivedcompoundref>
+    <derivedcompoundref refid="class_a_thrown_weapon_base" prot="public" virt="non-virtual">AThrownWeaponBase</derivedcompoundref>
+    <derivedcompoundref refid="class_a_weapon_melee_base" prot="public" virt="non-virtual">AWeaponMeleeBase</derivedcompoundref>
+    <includes refid="_weapon_base_8h" local="no">WeaponBase.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_a_weapon_base_1af0d4c75d05119b07c29fac8e7c1748f7" prot="public" static="no" mutable="no">
+        <type>USceneComponent *</type>
+        <definition>USceneComponent* AWeaponBase::WeaponRoot</definition>
+        <argsstring></argsstring>
+        <name>WeaponRoot</name>
+        <qualifiedname>AWeaponBase::WeaponRoot</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="44" column="17" bodyfile="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_weapon_base_1a9ba32cf0212ea0d454142022eee787a9" prot="public" static="no" mutable="no">
+        <type>UStaticMeshComponent *</type>
+        <definition>UStaticMeshComponent* AWeaponBase::WeaponMeshStatic</definition>
+        <argsstring></argsstring>
+        <name>WeaponMeshStatic</name>
+        <qualifiedname>AWeaponBase::WeaponMeshStatic</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="47" column="22" bodyfile="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_weapon_base_1ab1c49319827097fc17d30bdabfe67dc2" prot="public" static="no" mutable="no">
+        <type>USkeletalMeshComponent *</type>
+        <definition>USkeletalMeshComponent* AWeaponBase::WeaponMeshSkeleton</definition>
+        <argsstring></argsstring>
+        <name>WeaponMeshSkeleton</name>
+        <qualifiedname>AWeaponBase::WeaponMeshSkeleton</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="50" column="24" bodyfile="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_weapon_base_1aea61fd251e7a85be8b1ae6c114276301" prot="public" static="no" mutable="no">
+        <type>USceneComponent *</type>
+        <definition>USceneComponent* AWeaponBase::WeaponGripLeft</definition>
+        <argsstring></argsstring>
+        <name>WeaponGripLeft</name>
+        <qualifiedname>AWeaponBase::WeaponGripLeft</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="53" column="17" bodyfile="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_weapon_base_1ae7079406fd362fac5cd1471d52229149" prot="public" static="no" mutable="no">
+        <type>USceneComponent *</type>
+        <definition>USceneComponent* AWeaponBase::WeaponGripRight</definition>
+        <argsstring></argsstring>
+        <name>WeaponGripRight</name>
+        <qualifiedname>AWeaponBase::WeaponGripRight</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="56" column="17" bodyfile="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_weapon_base_1af285d62e25b02e54ed2033da59ca4b31" prot="public" static="no" mutable="no">
+        <type>UStaticMesh *</type>
+        <definition>UStaticMesh* AWeaponBase::UsingStaticMesh</definition>
+        <argsstring></argsstring>
+        <name>UsingStaticMesh</name>
+        <qualifiedname>AWeaponBase::UsingStaticMesh</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="60" column="13" bodyfile="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_weapon_base_1a9a365b6932e15e04241b8cc097e139fb" prot="public" static="no" mutable="no">
+        <type>USkeletalMesh *</type>
+        <definition>USkeletalMesh* AWeaponBase::UsingSkeletalMesh</definition>
+        <argsstring></argsstring>
+        <name>UsingSkeletalMesh</name>
+        <qualifiedname>AWeaponBase::UsingSkeletalMesh</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="65" column="15" bodyfile="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_a_weapon_base_1a9d7e2bfcb4253e9dda24518cf34e6918" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool AWeaponBase::bIsWeaponArmed</definition>
+        <argsstring></argsstring>
+        <name>bIsWeaponArmed</name>
+        <qualifiedname>AWeaponBase::bIsWeaponArmed</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="91" column="6" bodyfile="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_weapon_base_1ab55cd4b1e8ce2a3ca52a337e5956a9d8" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool AWeaponBase::bIsDebugging</definition>
+        <argsstring></argsstring>
+        <name>bIsDebugging</name>
+        <qualifiedname>AWeaponBase::bIsDebugging</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="96" column="6" bodyfile="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_weapon_base_1a6c81b7c46bd7f7ba2aec7ed0e2c3e1d8" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool AWeaponBase::bWeaponReady</definition>
+        <argsstring></argsstring>
+        <name>bWeaponReady</name>
+        <qualifiedname>AWeaponBase::bWeaponReady</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="100" column="6" bodyfile="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_weapon_base_1a1eb9fad7a9ffa893929f4737b796647b" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool AWeaponBase::bShowDebug</definition>
+        <argsstring></argsstring>
+        <name>bShowDebug</name>
+        <qualifiedname>AWeaponBase::bShowDebug</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="101" column="6" bodyfile="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_weapon_base_1a7fc04ae0fe3f42dc8f724e8f19417335" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool AWeaponBase::bVerboseOutput</definition>
+        <argsstring></argsstring>
+        <name>bVerboseOutput</name>
+        <qualifiedname>AWeaponBase::bVerboseOutput</qualifiedname>
+        <initializer>= true</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="102" column="6" bodyfile="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_a_weapon_base_1a64b8ab90669db2552d55cd83df90509b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>AWeaponBase::AWeaponBase</definition>
+        <argsstring>()</argsstring>
+        <name>AWeaponBase</name>
+        <qualifiedname>AWeaponBase::AWeaponBase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="25" column="1" bodyfile="Source/TalesDungeoneer/Private/Weapons/WeaponBase.cpp" bodystart="12" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_weapon_base_1a1ef6f90f35cfb588d840869f397b6437" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool AWeaponBase::setWeaponIsArmed</definition>
+        <argsstring>(bool setArmed=false)</argsstring>
+        <name>setWeaponIsArmed</name>
+        <qualifiedname>AWeaponBase::setWeaponIsArmed</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>setArmed</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set to true when the weapon should be drawn. False to stow. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>setArmed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>True for draw, false for stow. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Whether the weapon is now armed (true) or unarmed (false) </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="28" column="6" bodyfile="Source/TalesDungeoneer/Private/Weapons/WeaponBase.cpp" bodystart="78" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_weapon_base_1ad5a2d09f0b45fcda23fea1b828509e63" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool AWeaponBase::getIsWeaponArmed</definition>
+        <argsstring>() const</argsstring>
+        <name>getIsWeaponArmed</name>
+        <qualifiedname>AWeaponBase::getIsWeaponArmed</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="31" column="6" bodyfile="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" bodystart="31" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_weapon_base_1ab936abf5a4916e3937cb3847435f9fb9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool AWeaponBase::getIsMeleeWeapon</definition>
+        <argsstring>()</argsstring>
+        <name>getIsMeleeWeapon</name>
+        <qualifiedname>AWeaponBase::getIsMeleeWeapon</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="34" column="6" bodyfile="Source/TalesDungeoneer/Private/Weapons/WeaponBase.cpp" bodystart="84" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_weapon_base_1ad09c61c1ae97c44c575c7ee761266264" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool AWeaponBase::getIsRangedWeapon</definition>
+        <argsstring>()</argsstring>
+        <name>getIsRangedWeapon</name>
+        <qualifiedname>AWeaponBase::getIsRangedWeapon</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="37" column="6" bodyfile="Source/TalesDungeoneer/Private/Weapons/WeaponBase.cpp" bodystart="89" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_weapon_base_1a489056c4be45ebefd84fb2ff7b808592" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>AWeaponBase::UFUNCTION</definition>
+        <argsstring>(BlueprintPure) bool GetIsDebuggingMode() const</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>AWeaponBase::UFUNCTION</qualifiedname>
+        <param>
+          <type>BlueprintPure</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="39" column="1" bodyfile="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" bodystart="39" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_weapon_base_1a0c8e0e3616932105f3107e67ac469ddd" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool AWeaponBase::doAttack</definition>
+        <argsstring>()</argsstring>
+        <name>doAttack</name>
+        <qualifiedname>AWeaponBase::doAttack</qualifiedname>
+        <reimplementedby refid="class_a_melee_weapon_base_1aab9a31db4eafc8cba3211b377d7ea89b">doAttack</reimplementedby>
+        <reimplementedby refid="class_a_ranged_weapon_base_1aea28c2dbec609d22f1d50ff3f0265a24">doAttack</reimplementedby>
+        <reimplementedby refid="class_a_thrown_weapon_base_1a7f81a1c3ccc7d190ca71b6ec4d38fce6">doAttack</reimplementedby>
+        <reimplementedby refid="class_a_weapon_melee_base_1a52df3b1f6556b263b344f7623962679e">doAttack</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="41" column="14" bodyfile="Source/TalesDungeoneer/Private/Weapons/WeaponBase.cpp" bodystart="153" bodyend="157"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_a_weapon_base_1a08284e51f5427ccccfb76c4da4839170" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void AWeaponBase::BeginPlay</definition>
+        <argsstring>() override</argsstring>
+        <name>BeginPlay</name>
+        <qualifiedname>AWeaponBase::BeginPlay</qualifiedname>
+        <reimplementedby refid="class_a_melee_weapon_base_1a40c69348dbe8fe1bd0003581aa1c6216">BeginPlay</reimplementedby>
+        <reimplementedby refid="class_a_ranged_weapon_base_1a8d53eb0e912631fdccc59679966741d2">BeginPlay</reimplementedby>
+        <reimplementedby refid="class_a_thrown_weapon_base_1abf1ff74c75bd88e59a65dfd58c75fa63">BeginPlay</reimplementedby>
+        <reimplementedby refid="class_a_weapon_melee_base_1a1d1fec16886e008556cab60d31e82de8">BeginPlay</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="71" column="14" bodyfile="Source/TalesDungeoneer/Private/Weapons/WeaponBase.cpp" bodystart="51" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_weapon_base_1a0a53fe4ff06b496581a440852407f30b" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void AWeaponBase::PostActorCreated</definition>
+        <argsstring>() override</argsstring>
+        <name>PostActorCreated</name>
+        <qualifiedname>AWeaponBase::PostActorCreated</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="72" column="14" bodyfile="Source/TalesDungeoneer/Private/Weapons/WeaponBase.cpp" bodystart="58" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_weapon_base_1ad308d4b4fad4f2c2f454e8c21af6d8dd" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void AWeaponBase::EndPlay</definition>
+        <argsstring>(const EEndPlayReason::Type EndPlayReason) override</argsstring>
+        <name>EndPlay</name>
+        <qualifiedname>AWeaponBase::EndPlay</qualifiedname>
+        <param>
+          <type>const EEndPlayReason::Type</type>
+          <declname>EndPlayReason</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="73" column="14" bodyfile="Source/TalesDungeoneer/Private/Weapons/WeaponBase.cpp" bodystart="63" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_weapon_base_1a7c7f528c95ba6664e00d4512a543b0bd" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void AWeaponBase::OnConstruction</definition>
+        <argsstring>(const FTransform &amp;Transform) override</argsstring>
+        <name>OnConstruction</name>
+        <qualifiedname>AWeaponBase::OnConstruction</qualifiedname>
+        <reimplementedby refid="class_a_melee_weapon_base_1addd60d14bf928ef62220743c85cd871e">OnConstruction</reimplementedby>
+        <reimplementedby refid="class_a_ranged_weapon_base_1a5afd66be37641371c8281890814dd847">OnConstruction</reimplementedby>
+        <reimplementedby refid="class_a_thrown_weapon_base_1a41927cc02153270f53e90fd12017d563">OnConstruction</reimplementedby>
+        <param>
+          <type>const FTransform &amp;</type>
+          <declname>Transform</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="74" column="14" bodyfile="Source/TalesDungeoneer/Private/Weapons/WeaponBase.cpp" bodystart="44" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_weapon_base_1a0a607b1e8da52b2b376e7e15559c5137" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void AWeaponBase::UpdateWeapon</definition>
+        <argsstring>()</argsstring>
+        <name>UpdateWeapon</name>
+        <qualifiedname>AWeaponBase::UpdateWeapon</qualifiedname>
+        <reimplementedby refid="class_a_melee_weapon_base_1a9c00334e0ef24fbe836888bec2fe2b8a">UpdateWeapon</reimplementedby>
+        <reimplementedby refid="class_a_ranged_weapon_base_1ae926c13441260965525063dc7784d0a3">UpdateWeapon</reimplementedby>
+        <reimplementedby refid="class_a_thrown_weapon_base_1a0590c78e01762a129bb074b3b121d923">UpdateWeapon</reimplementedby>
+        <reimplementedby refid="class_a_weapon_melee_base_1a47910c7149c3299db0566c910f587242">UpdateWeapon</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="76" column="14" bodyfile="Source/TalesDungeoneer/Private/Weapons/WeaponBase.cpp" bodystart="105" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_weapon_base_1a5225407dc657bc3045c023bbcc8115ea" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool AWeaponBase::GetIsAttackValid</definition>
+        <argsstring>(AActor *HitActor)</argsstring>
+        <name>GetIsAttackValid</name>
+        <qualifiedname>AWeaponBase::GetIsAttackValid</qualifiedname>
+        <reimplementedby refid="class_a_weapon_melee_base_1a8770f64d290f4bbb72a8279549206e04">GetIsAttackValid</reimplementedby>
+        <param>
+          <type>AActor *</type>
+          <declname>HitActor</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Allows child classes to deny or allow the attack. ex: Melee weapon checks distance - Invalid distance is found, then the attack check could return false and indicate failure. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>HitActor</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The actor to run the validation against (hit target) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True by default. Children should set true or false accordingly. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="78" column="14" bodyfile="Source/TalesDungeoneer/Private/Weapons/WeaponBase.cpp" bodystart="136" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_weapon_base_1a9262313d3e01b70e67178ce3aa5b8fbb" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool AWeaponBase::IsAttackValid</definition>
+        <argsstring>(AActor *HitActor)</argsstring>
+        <name>IsAttackValid</name>
+        <qualifiedname>AWeaponBase::IsAttackValid</qualifiedname>
+        <param>
+          <type>AActor *</type>
+          <declname>HitActor</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="80" column="6"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_weapon_base_1a506d9fe73e23b27853e2595148df5313" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void AWeaponBase::OnRep_IsWeaponArmed</definition>
+        <argsstring>()</argsstring>
+        <name>OnRep_IsWeaponArmed</name>
+        <qualifiedname>AWeaponBase::OnRep_IsWeaponArmed</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="84" column="14"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>WEAPON BASE A C++ class containing all of the logic; Methods &amp; Members, for all functionality in regards to weapons. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>AActor</label>
+      </node>
+      <node id="3">
+        <label>AMeleeWeaponBase</label>
+        <link refid="class_a_melee_weapon_base"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ARangedWeaponBase</label>
+        <link refid="class_a_ranged_weapon_base"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>AThrownWeaponBase</label>
+        <link refid="class_a_thrown_weapon_base"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>AWeaponBase</label>
+        <link refid="class_a_weapon_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>AWeaponMeleeBase</label>
+        <link refid="class_a_weapon_melee_base"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>AActor</label>
+      </node>
+      <node id="1">
+        <label>AWeaponBase</label>
+        <link refid="class_a_weapon_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" line="18" column="1" bodyfile="Source/TalesDungeoneer/Public/Weapons/WeaponBase.h" bodystart="19" bodyend="104"/>
+    <listofallmembers>
+      <member refid="class_a_weapon_base_1a64b8ab90669db2552d55cd83df90509b" prot="public" virt="non-virtual"><scope>AWeaponBase</scope><name>AWeaponBase</name></member>
+      <member refid="class_a_weapon_base_1a08284e51f5427ccccfb76c4da4839170" prot="protected" virt="virtual"><scope>AWeaponBase</scope><name>BeginPlay</name></member>
+      <member refid="class_a_weapon_base_1ab55cd4b1e8ce2a3ca52a337e5956a9d8" prot="private" virt="non-virtual"><scope>AWeaponBase</scope><name>bIsDebugging</name></member>
+      <member refid="class_a_weapon_base_1a9d7e2bfcb4253e9dda24518cf34e6918" prot="private" virt="non-virtual"><scope>AWeaponBase</scope><name>bIsWeaponArmed</name></member>
+      <member refid="class_a_weapon_base_1a1eb9fad7a9ffa893929f4737b796647b" prot="private" virt="non-virtual"><scope>AWeaponBase</scope><name>bShowDebug</name></member>
+      <member refid="class_a_weapon_base_1a7fc04ae0fe3f42dc8f724e8f19417335" prot="private" virt="non-virtual"><scope>AWeaponBase</scope><name>bVerboseOutput</name></member>
+      <member refid="class_a_weapon_base_1a6c81b7c46bd7f7ba2aec7ed0e2c3e1d8" prot="private" virt="non-virtual"><scope>AWeaponBase</scope><name>bWeaponReady</name></member>
+      <member refid="class_a_weapon_base_1a0c8e0e3616932105f3107e67ac469ddd" prot="public" virt="virtual"><scope>AWeaponBase</scope><name>doAttack</name></member>
+      <member refid="class_a_weapon_base_1ad308d4b4fad4f2c2f454e8c21af6d8dd" prot="protected" virt="virtual"><scope>AWeaponBase</scope><name>EndPlay</name></member>
+      <member refid="class_a_weapon_base_1a5225407dc657bc3045c023bbcc8115ea" prot="protected" virt="virtual"><scope>AWeaponBase</scope><name>GetIsAttackValid</name></member>
+      <member refid="class_a_weapon_base_1ab936abf5a4916e3937cb3847435f9fb9" prot="public" virt="non-virtual"><scope>AWeaponBase</scope><name>getIsMeleeWeapon</name></member>
+      <member refid="class_a_weapon_base_1ad09c61c1ae97c44c575c7ee761266264" prot="public" virt="non-virtual"><scope>AWeaponBase</scope><name>getIsRangedWeapon</name></member>
+      <member refid="class_a_weapon_base_1ad5a2d09f0b45fcda23fea1b828509e63" prot="public" virt="non-virtual"><scope>AWeaponBase</scope><name>getIsWeaponArmed</name></member>
+      <member refid="class_a_weapon_base_1a9262313d3e01b70e67178ce3aa5b8fbb" prot="protected" virt="non-virtual"><scope>AWeaponBase</scope><name>IsAttackValid</name></member>
+      <member refid="class_a_weapon_base_1a7c7f528c95ba6664e00d4512a543b0bd" prot="protected" virt="virtual"><scope>AWeaponBase</scope><name>OnConstruction</name></member>
+      <member refid="class_a_weapon_base_1a506d9fe73e23b27853e2595148df5313" prot="protected" virt="virtual"><scope>AWeaponBase</scope><name>OnRep_IsWeaponArmed</name></member>
+      <member refid="class_a_weapon_base_1a0a53fe4ff06b496581a440852407f30b" prot="protected" virt="virtual"><scope>AWeaponBase</scope><name>PostActorCreated</name></member>
+      <member refid="class_a_weapon_base_1a1ef6f90f35cfb588d840869f397b6437" prot="public" virt="non-virtual"><scope>AWeaponBase</scope><name>setWeaponIsArmed</name></member>
+      <member refid="class_a_weapon_base_1a489056c4be45ebefd84fb2ff7b808592" prot="public" virt="non-virtual"><scope>AWeaponBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_weapon_base_1a0a607b1e8da52b2b376e7e15559c5137" prot="protected" virt="virtual"><scope>AWeaponBase</scope><name>UpdateWeapon</name></member>
+      <member refid="class_a_weapon_base_1a9a365b6932e15e04241b8cc097e139fb" prot="public" virt="non-virtual"><scope>AWeaponBase</scope><name>UsingSkeletalMesh</name></member>
+      <member refid="class_a_weapon_base_1af285d62e25b02e54ed2033da59ca4b31" prot="public" virt="non-virtual"><scope>AWeaponBase</scope><name>UsingStaticMesh</name></member>
+      <member refid="class_a_weapon_base_1aea61fd251e7a85be8b1ae6c114276301" prot="public" virt="non-virtual"><scope>AWeaponBase</scope><name>WeaponGripLeft</name></member>
+      <member refid="class_a_weapon_base_1ae7079406fd362fac5cd1471d52229149" prot="public" virt="non-virtual"><scope>AWeaponBase</scope><name>WeaponGripRight</name></member>
+      <member refid="class_a_weapon_base_1ab1c49319827097fc17d30bdabfe67dc2" prot="public" virt="non-virtual"><scope>AWeaponBase</scope><name>WeaponMeshSkeleton</name></member>
+      <member refid="class_a_weapon_base_1a9ba32cf0212ea0d454142022eee787a9" prot="public" virt="non-virtual"><scope>AWeaponBase</scope><name>WeaponMeshStatic</name></member>
+      <member refid="class_a_weapon_base_1af0d4c75d05119b07c29fac8e7c1748f7" prot="public" virt="non-virtual"><scope>AWeaponBase</scope><name>WeaponRoot</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

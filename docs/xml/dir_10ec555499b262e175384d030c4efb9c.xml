@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="dir_10ec555499b262e175384d030c4efb9c" kind="dir">
+    <compoundname>Source/TalesDungeoneer/Private/Characters/Components</compoundname>
+    <innerfile refid="_equipment_component_8cpp">EquipmentComponent.cpp</innerfile>
+    <innerfile refid="_mesh_merge_component_8cpp">MeshMergeComponent.cpp</innerfile>
+    <innerfile refid="_overhead_widget_component_8cpp">OverheadWidgetComponent.cpp</innerfile>
+    <innerfile refid="_tales_ability_component_8cpp">TalesAbilityComponent.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Private/Characters/Components/"/>
+  </compounddef>
+</doxygen>

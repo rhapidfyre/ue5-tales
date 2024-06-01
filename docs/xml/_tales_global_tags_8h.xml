@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_tales_global_tags_8h" kind="file" language="C++">
+    <compoundname>TalesGlobalTags.h</compoundname>
+    <includes local="yes">NativeGameplayTags.h</includes>
+    <includedby refid="_character_base_8cpp" local="yes">Source/TalesDungeoneer/Private/Characters/CharacterBase.cpp</includedby>
+    <includedby refid="_tales_global_tags_8cpp" local="yes">Source/TalesDungeoneer/Private/lib/Tags/TalesGlobalTags.cpp</includedby>
+    <includedby refid="_character_base_8h" local="yes">Source/TalesDungeoneer/Public/Characters/CharacterBase.h</includedby>
+    <includedby refid="_character_defaults_8h" local="yes">Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h</includedby>
+    <includedby refid="_saved_characters_8h" local="yes">Source/TalesDungeoneer/Public/Saves/SavedCharacters.h</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/lib/Tags/TalesGlobalTags.h</label>
+        <link refid="_tales_global_tags_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>NativeGameplayTags.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>Source/TalesDungeoneer/Public/Characters/CharacterBase.h</label>
+        <link refid="_character_base_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Source/TalesDungeoneer/Public/Characters/CombatNpcCharacterBase.h</label>
+        <link refid="_combat_npc_character_base_8h_source"/>
+      </node>
+      <node id="6">
+        <label>Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h</label>
+        <link refid="_combat_ai_controller_base_8h_source"/>
+      </node>
+      <node id="9">
+        <label>Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h</label>
+        <link refid="_creator_character_base_8h_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Source/TalesDungeoneer/Public/Characters/DmCharacterBase.h</label>
+        <link refid="_dm_character_base_8h_source"/>
+      </node>
+      <node id="7">
+        <label>Source/TalesDungeoneer/Public/Characters/InteractiveNpcBase.h</label>
+        <link refid="_interactive_npc_base_8h_source"/>
+      </node>
+      <node id="4">
+        <label>Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h</label>
+        <link refid="_npc_character_base_8h_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>Source/TalesDungeoneer/Public/Characters/PlayerCharacterBase.h</label>
+        <link refid="_player_character_base_8h_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h</label>
+        <link refid="_character_defaults_8h_source"/>
+      </node>
+      <node id="11">
+        <label>Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesDungeoneerGameMode.h</label>
+        <link refid="_tales_dungeoneer_game_mode_8h_source"/>
+      </node>
+      <node id="10">
+        <label>Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorGameModeBase.h</label>
+        <link refid="_creator_game_mode_base_8h_source"/>
+      </node>
+      <node id="14">
+        <label>Source/TalesDungeoneer/Public/Saves/SavedCharacters.h</label>
+        <link refid="_saved_characters_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>Source/TalesDungeoneer/Public/Widgets/OverheadDataWidgetBase.h</label>
+        <link refid="_overhead_data_widget_base_8h_source"/>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/lib/Tags/TalesGlobalTags.h</label>
+        <link refid="_tales_global_tags_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>Take<sp/>Five<sp/>Games,<sp/>LLC<sp/>2023<sp/>-<sp/>All<sp/>Rights<sp/>Reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;NativeGameplayTags.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Race)</highlight></codeline>
+<codeline lineno="9"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Race_Human)</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Race_Dwarf)</highlight></codeline>
+<codeline lineno="11"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Race_Elf)</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Class)</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Class_Assassin)</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Class_Cleric)</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Class_Deviant)</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Class_Knight)</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Class_Merc)</highlight></codeline>
+<codeline lineno="19"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Class_Necro)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Class_Ranger)</highlight></codeline>
+<codeline lineno="21"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Class_Warrior)</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Class_Wizard)</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body)</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Default)</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Armor)</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Armor_Shoulders)</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Armor_Vambraces)</highlight></codeline>
+<codeline lineno="30"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Armor_Gauntlets)</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Armor_Breastplate)</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Armor_Waist)</highlight></codeline>
+<codeline lineno="33"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Armor_Leggings)</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Armor_Knees)</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Armor_Ankles)</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Armor_Footwear)</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Head)</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Head_Ears)</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Head_FacialHair)</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Head_Hair)</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Head_Head)</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Head_Eyes)</highlight></codeline>
+<codeline lineno="44"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Head_Eyebrow)</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Head_Eyelashes)</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Upper)</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Upper_Arms)</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Upper_Bust)</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Upper_Hand)</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Upper_Neck)</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Upper_Torso)</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Upper_Underwear)</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Lower)</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Lower_Feet)</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Lower_Legs)</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Body_Lower_Underwear)</highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Public/lib/Tags/TalesGlobalTags.h"/>
+  </compounddef>
+</doxygen>

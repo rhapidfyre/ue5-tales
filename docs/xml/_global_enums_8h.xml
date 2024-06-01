@@ -1,0 +1,591 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_global_enums_8h" kind="file" language="C++">
+    <compoundname>GlobalEnums.h</compoundname>
+    <includes local="yes">CoreMinimal.h</includes>
+    <includes local="yes">GlobalEnums.generated.h</includes>
+    <includedby refid="_global_enums_8cpp" local="yes">Source/TalesDungeoneer/Private/lib/enums/GlobalEnums.cpp</includedby>
+    <includedby refid="_combat_ai_controller_base_8h" local="yes">Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h</includedby>
+    <includedby refid="_saved_characters_8h" local="yes">Source/TalesDungeoneer/Public/Saves/SavedCharacters.h</includedby>
+    <includedby refid="_global_data_8h" local="yes">Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>CoreMinimal.h</label>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/lib/enums/GlobalEnums.h</label>
+        <link refid="_global_enums_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>GlobalEnums.generated.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4">
+        <label>Source/TalesDungeoneer/Public/Characters/CharacterBase.h</label>
+        <link refid="_character_base_8h_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>Source/TalesDungeoneer/Public/Characters/CombatNpcCharacterBase.h</label>
+        <link refid="_combat_npc_character_base_8h_source"/>
+      </node>
+      <node id="2">
+        <label>Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h</label>
+        <link refid="_combat_ai_controller_base_8h_source"/>
+      </node>
+      <node id="10">
+        <label>Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h</label>
+        <link refid="_creator_character_base_8h_source"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Source/TalesDungeoneer/Public/Characters/DmCharacterBase.h</label>
+        <link refid="_dm_character_base_8h_source"/>
+      </node>
+      <node id="8">
+        <label>Source/TalesDungeoneer/Public/Characters/InteractiveNpcBase.h</label>
+        <link refid="_interactive_npc_base_8h_source"/>
+      </node>
+      <node id="6">
+        <label>Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h</label>
+        <link refid="_npc_character_base_8h_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>Source/TalesDungeoneer/Public/Characters/PlayerCharacterBase.h</label>
+        <link refid="_player_character_base_8h_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesDungeoneerGameMode.h</label>
+        <link refid="_tales_dungeoneer_game_mode_8h_source"/>
+      </node>
+      <node id="11">
+        <label>Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorGameModeBase.h</label>
+        <link refid="_creator_game_mode_base_8h_source"/>
+      </node>
+      <node id="3">
+        <label>Source/TalesDungeoneer/Public/Saves/SavedCharacters.h</label>
+        <link refid="_saved_characters_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>Source/TalesDungeoneer/Public/Widgets/OverheadDataWidgetBase.h</label>
+        <link refid="_overhead_data_widget_base_8h_source"/>
+      </node>
+      <node id="14">
+        <label>Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h</label>
+        <link refid="_global_data_8h_source"/>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/lib/enums/GlobalEnums.h</label>
+        <link refid="_global_enums_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="enum">
+      <memberdef kind="enum" id="_global_enums_8h_1a7aeee01f026e0db8527e8c126e8e6ba4" prot="public" static="no" strong="yes">
+        <type>uint8</type>
+        <name>EFaction</name>
+        <enumvalue id="_global_enums_8h_1a7aeee01f026e0db8527e8c126e8e6ba4aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;All Undead&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a7aeee01f026e0db8527e8c126e8e6ba4aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Demons &amp; Devils&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a7aeee01f026e0db8527e8c126e8e6ba4aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Dragonkin&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a7aeee01f026e0db8527e8c126e8e6ba4aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Humankin&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a7aeee01f026e0db8527e8c126e8e6ba4aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Dwarfkin&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a7aeee01f026e0db8527e8c126e8e6ba4aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Elfkin&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a7aeee01f026e0db8527e8c126e8e6ba4aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;All Players&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a7aeee01f026e0db8527e8c126e8e6ba4aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;All Pets&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a7aeee01f026e0db8527e8c126e8e6ba4aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Combative NPCs&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a7aeee01f026e0db8527e8c126e8e6ba4aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Merchant NPCs&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a7aeee01f026e0db8527e8c126e8e6ba4aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Guard NPCs&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a7aeee01f026e0db8527e8c126e8e6ba4aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(Hidden)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/enums/GlobalEnums.h" line="8" column="1" bodyfile="Source/TalesDungeoneer/Public/lib/enums/GlobalEnums.h" bodystart="9" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="enum" id="_global_enums_8h_1a61ced6a4856dd01729c400a683047b37" prot="public" static="no" strong="yes">
+        <type>uint8</type>
+        <name>EFactionState</name>
+        <enumvalue id="_global_enums_8h_1a61ced6a4856dd01729c400a683047b37ab50339a10e1de285ac99d4c3990b8693" prot="public">
+          <name>NONE</name>
+          <initializer>= 0		UMETA(DisplayName = &quot;Indifferent&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a61ced6a4856dd01729c400a683047b37a15d4934eb495744eaaf040c7f8688b32" prot="public">
+          <name>HATE</name>
+          <initializer>= 1		UMETA(DisplayName = &quot;Hated&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a61ced6a4856dd01729c400a683047b37aa7598964efa10e649f92662b79e8d4d3" prot="public">
+          <name>LIKE</name>
+          <initializer>= 2		UMETA(DisplayName = &quot;Liked&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a61ced6a4856dd01729c400a683047b37a8a909f5ee9185002151cd3779f9fbb0b" prot="public">
+          <name>ALLY</name>
+          <initializer>= 3		UMETA(DisplayName = &quot;Allied&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/enums/GlobalEnums.h" line="25" column="1" bodyfile="Source/TalesDungeoneer/Public/lib/enums/GlobalEnums.h" bodystart="26" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="enum" id="_global_enums_8h_1a1cdeda6e0607b24962bb081d9e018b06" prot="public" static="no" strong="yes">
+        <type>uint8</type>
+        <name>ECharacterClass</name>
+        <enumvalue id="_global_enums_8h_1a1cdeda6e0607b24962bb081d9e018b06aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Wizard&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a1cdeda6e0607b24962bb081d9e018b06aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Warrior&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a1cdeda6e0607b24962bb081d9e018b06aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Necromancer&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a1cdeda6e0607b24962bb081d9e018b06aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Knight&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a1cdeda6e0607b24962bb081d9e018b06aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Ranger&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a1cdeda6e0607b24962bb081d9e018b06aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Cleric&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a1cdeda6e0607b24962bb081d9e018b06aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Assassin&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a1cdeda6e0607b24962bb081d9e018b06aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Mercenary&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a1cdeda6e0607b24962bb081d9e018b06aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Deviant&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a1cdeda6e0607b24962bb081d9e018b06aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Any&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/enums/GlobalEnums.h" line="44" column="1" bodyfile="Source/TalesDungeoneer/Public/lib/enums/GlobalEnums.h" bodystart="45" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="enum" id="_global_enums_8h_1a0debd0a0796eb65e19554cf406991358" prot="public" static="no" strong="yes">
+        <type>uint8</type>
+        <name>ECharacterRace</name>
+        <enumvalue id="_global_enums_8h_1a0debd0a0796eb65e19554cf406991358aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Human&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a0debd0a0796eb65e19554cf406991358aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Dwarf&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a0debd0a0796eb65e19554cf406991358aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Elf&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a0debd0a0796eb65e19554cf406991358aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Goblin&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a0debd0a0796eb65e19554cf406991358aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Undead&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a0debd0a0796eb65e19554cf406991358aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Demon&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a0debd0a0796eb65e19554cf406991358aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Construct&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a0debd0a0796eb65e19554cf406991358aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Elemental&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a0debd0a0796eb65e19554cf406991358aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Avian&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1a0debd0a0796eb65e19554cf406991358aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Any&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/enums/GlobalEnums.h" line="61" column="1" bodyfile="Source/TalesDungeoneer/Public/lib/enums/GlobalEnums.h" bodystart="62" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="enum" id="_global_enums_8h_1add28d6128ba7f97513bf8aaa1965ee1b" prot="public" static="no" strong="yes">
+        <type>uint8</type>
+        <name>ECharacterTeam</name>
+        <enumvalue id="_global_enums_8h_1add28d6128ba7f97513bf8aaa1965ee1baa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Unassigned&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1add28d6128ba7f97513bf8aaa1965ee1baa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Players&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1add28d6128ba7f97513bf8aaa1965ee1baa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Dungeoneer&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1add28d6128ba7f97513bf8aaa1965ee1baa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Friendly NPCs&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_global_enums_8h_1add28d6128ba7f97513bf8aaa1965ee1baa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Enemy NPCs&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/enums/GlobalEnums.h" line="78" column="1" bodyfile="Source/TalesDungeoneer/Public/lib/enums/GlobalEnums.h" bodystart="79" bodyend="85"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;CoreMinimal.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;GlobalEnums.generated.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal">UENUM(BlueprintType)</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">enum<sp/>class</highlight><highlight class="normal"><sp/>EFaction<sp/>:<sp/>uint8</highlight></codeline>
+<codeline lineno="9"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/>UNDEAD<sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;All<sp/>Undead&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/>DEMON<sp/><sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Demons<sp/>&amp;<sp/>Devils&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>DRAGON<sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Dragonkin&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>HUMAN<sp/><sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Humankin&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>DWARF<sp/><sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Dwarfkin&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>ELF<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Elfkin&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>PLAYER<sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;All<sp/>Players&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>PET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;All<sp/>Pets&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>CREATURE<sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Combative<sp/>NPCs&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>MERCHANT<sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Merchant<sp/>NPCs&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>GUARD<sp/><sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Guard<sp/>NPCs&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>ANY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UMETA(Hidden),</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal">UENUM(BlueprintType)</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keyword">enum<sp/>class</highlight><highlight class="normal"><sp/>EFactionState<sp/>:<sp/>uint8</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Combatants<sp/>will<sp/>ignore<sp/>any<sp/>actions<sp/>taken<sp/>against<sp/>members<sp/>of<sp/>an<sp/>indifferent<sp/>faction</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Noncombatants<sp/>will<sp/>treat<sp/>them<sp/>like<sp/>any<sp/>other<sp/>neutral<sp/>being</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>NONE<sp/>=<sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Indifferent&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Hatred<sp/>will<sp/>result<sp/>in<sp/>combatants<sp/>attacking<sp/>on<sp/>sight</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Noncombatants<sp/>will<sp/>refuse<sp/>service</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>HATE<sp/>=<sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Hated&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Likefulness<sp/>will<sp/>result<sp/>in<sp/>combatants<sp/>ignoring<sp/>the<sp/>faction&apos;s<sp/>members</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Noncombatants<sp/>will<sp/>offer<sp/>better<sp/>services</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>LIKE<sp/>=<sp/>2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Liked&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Combatants<sp/>will<sp/>come<sp/>to<sp/>the<sp/>aid<sp/>of<sp/>allied<sp/>factions</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>ALLY<sp/>=<sp/>3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Allied&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal">UENUM(BlueprintType)</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">enum<sp/>class</highlight><highlight class="normal"><sp/>ECharacterClass<sp/>:<sp/>uint8</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>WIZARD<sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Wizard&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>WARRIOR<sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Warrior&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>NECRO<sp/><sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Necromancer&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>KNIGHT<sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Knight&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>RANGER<sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Ranger&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>CLERIC<sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Cleric&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>ROGUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Assassin&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>MERC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Mercenary&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>DEVIANT<sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Deviant&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Used<sp/>for<sp/>non-selections</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>ANY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Any&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal">UENUM(BlueprintType)</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keyword">enum<sp/>class</highlight><highlight class="normal"><sp/>ECharacterRace<sp/>:<sp/>uint8</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>HUMAN<sp/><sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Human&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>DWARF<sp/><sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Dwarf&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>ELF<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Elf&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>GOBLIN<sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Goblin&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>UNDEAD<sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Undead&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>DEMON<sp/><sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Demon&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>CONSTRUCT<sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Construct&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/>ELEMENTAL<sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Elemental&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>AVIAN<sp/><sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Avian&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Used<sp/>for<sp/>non-selections</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>ANY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Any&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal">UENUM(BlueprintType)</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="keyword">enum<sp/>class</highlight><highlight class="normal"><sp/>ECharacterTeam<sp/>:<sp/>uint8</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>SPECTATOR<sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Unassigned&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>PLAYER<sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Players&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>DUNGEONEER<sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Dungeoneer&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>FRIEND<sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Friendly<sp/>NPCs&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>ENEMY<sp/><sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Enemy<sp/>NPCs&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Public/lib/enums/GlobalEnums.h"/>
+  </compounddef>
+</doxygen>

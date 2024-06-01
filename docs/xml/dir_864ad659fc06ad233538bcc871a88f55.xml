@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="dir_864ad659fc06ad233538bcc871a88f55" kind="dir">
+    <compoundname>Source/TalesDungeoneer/Public/Characters/Controllers</compoundname>
+    <innerfile refid="_ai_controller_base_8h">AiControllerBase.h</innerfile>
+    <innerfile refid="_combat_ai_controller_base_8h">CombatAiControllerBase.h</innerfile>
+    <innerfile refid="_player_controller_base_8h">PlayerControllerBase.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Public/Characters/Controllers/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_vitality_effect_context_8h" kind="file" language="C++">
+    <compoundname>VitalityEffectContext.h</compoundname>
+    <includes local="yes">GameplayEffectTypes.h</includes>
+    <includes local="yes">VitalityEffectContext.generated.h</includes>
+    <includedby refid="_tales_attributes_8cpp" local="yes">Source/TalesDungeoneer/Private/Gas/AttributeSets/TalesAttributes.cpp</includedby>
+    <includedby refid="_vitality_effect_context_8cpp" local="yes">Source/TalesDungeoneer/Private/Gas/Contexts/VitalityEffectContext.cpp</includedby>
+    <includedby refid="_tales_damage_calc_8cpp" local="yes">Source/TalesDungeoneer/Private/Gas/Misc/TalesDamageCalc.cpp</includedby>
+    <includedby refid="_tales_ability_globals_8cpp" local="yes">Source/TalesDungeoneer/Private/Gas/TalesAbilityGlobals.cpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/Gas/Contexts/VitalityEffectContext.h</label>
+        <link refid="_vitality_effect_context_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>GameplayEffectTypes.h</label>
+      </node>
+      <node id="3">
+        <label>VitalityEffectContext.generated.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="struct_f_vitality_effect_context" prot="public">FVitalityEffectContext</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>Take<sp/>Five<sp/>Games,<sp/>LLC<sp/>2023<sp/>-<sp/>All<sp/>Rights<sp/>Reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;GameplayEffectTypes.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;VitalityEffectContext.generated.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal">USTRUCT()</highlight></codeline>
+<codeline lineno="14" refid="struct_f_vitality_effect_context" refkind="compound"><highlight class="normal">struct<sp/>TALESDUNGEONEER_API<sp/><ref refid="struct_f_vitality_effect_context" kindref="compound">FVitalityEffectContext</ref><sp/>:<sp/>public<sp/>FGameplayEffectContext</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>GENERATED_BODY()</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SetIsCriticalHit(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>tIsCriticalHit)<sp/>{<sp/>bIsCriticalHit<sp/>=<sp/>tIsCriticalHit;<sp/>}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SetIsLuckyHit(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>tIsLuckyHit)<sp/>{<sp/>bIsLuckyHit<sp/>=<sp/>tIsLuckyHit;<sp/>}</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>IsCriticalHit()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>bIsCriticalHit;<sp/>}</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>IsLuckyHit()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>bIsLuckyHit;<sp/>}</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Mandatory<sp/>child<sp/>override<sp/>-<sp/>Returns<sp/>the<sp/>actual<sp/>struct<sp/>used<sp/>for<sp/>serialization</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>UScriptStruct*<sp/>GetScriptStruct()<sp/></highlight><highlight class="keyword">const<sp/>override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Duplicates<sp/>(deep<sp/>copy)<sp/>this<sp/>struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="struct_f_vitality_effect_context" kindref="compound">FVitalityEffectContext</ref>*<sp/>Duplicate()<sp/></highlight><highlight class="keyword">const<sp/>override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Mandatory<sp/>child<sp/>override<sp/>-<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>NetSerialize(FArchive&amp;<sp/>Ar,<sp/>UPackageMap*<sp/>Map,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal">&amp;<sp/>bOutSuccess)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY()</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>bIsCriticalHit<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY()</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>bIsLuckyHit<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Public/Gas/Contexts/VitalityEffectContext.h"/>
+  </compounddef>
+</doxygen>

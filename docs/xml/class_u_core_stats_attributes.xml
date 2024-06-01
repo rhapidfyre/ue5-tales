@@ -1,0 +1,578 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_u_core_stats_attributes" kind="class" language="C++" prot="public">
+    <compoundname>UCoreStatsAttributes</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">UAttributeSet</basecompoundref>
+    <includes refid="_core_stats_attributes_8h" local="no">CoreStatsAttributes.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_u_core_stats_attributes_1a4fd15fa9bc7068b4345900ab3a3f167e" prot="public" static="no" mutable="no">
+        <type>TMulticastDelegate&lt; void(const FOnAttributeChangeData &amp;Attribute)&gt;</type>
+        <definition>TMulticastDelegate&lt;void(const FOnAttributeChangeData&amp; Attribute)&gt; UCoreStatsAttributes::OnAttributeUpdated</definition>
+        <argsstring></argsstring>
+        <name>OnAttributeUpdated</name>
+        <qualifiedname>UCoreStatsAttributes::OnAttributeUpdated</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="39" column="20" bodyfile="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_u_core_stats_attributes_1a9efe00a47a030b6d07d1605d8f28bde5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCoreStatsAttributes::UCoreStatsAttributes</definition>
+        <argsstring>()</argsstring>
+        <name>UCoreStatsAttributes</name>
+        <qualifiedname>UCoreStatsAttributes::UCoreStatsAttributes</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="37" column="1" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/CoreStatsAttributes.cpp" bodystart="19" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_core_stats_attributes_1a003abe42743c910b0f98cacaf902ddac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCoreStatsAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, Category=&quot;Core Stat Attributes&quot;, ReplicatedUsing=OnRep_Strength, Meta=(AllowPrivateAccess=true)) FGameplayAttributeData Strength</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UCoreStatsAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>Category</type>
+          <defval>&quot;Core Stat Attributes&quot;</defval>
+        </param>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_Strength</defval>
+        </param>
+        <param>
+          <type>Meta</type>
+          <defval>(AllowPrivateAccess=true)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="42" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_core_stats_attributes_1a6dff17f8f253725acff6eda47c8611a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCoreStatsAttributes::ATTRIBUTE_ACCESSORS</definition>
+        <argsstring>(UCoreStatsAttributes, Strength)</argsstring>
+        <name>ATTRIBUTE_ACCESSORS</name>
+        <qualifiedname>UCoreStatsAttributes::ATTRIBUTE_ACCESSORS</qualifiedname>
+        <param>
+          <type><ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref></type>
+        </param>
+        <param>
+          <type>Strength</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="45" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_core_stats_attributes_1a7898f05dab527420349bbd410ca63964" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCoreStatsAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, Category=&quot;Core Stat Attributes&quot;, ReplicatedUsing=OnRep_Dexterity, Meta=(AllowPrivateAccess=true)) FGameplayAttributeData Dexterity</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UCoreStatsAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>Category</type>
+          <defval>&quot;Core Stat Attributes&quot;</defval>
+        </param>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_Dexterity</defval>
+        </param>
+        <param>
+          <type>Meta</type>
+          <defval>(AllowPrivateAccess=true)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="47" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_core_stats_attributes_1a30754310291d8d8446f09cb88c24e144" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCoreStatsAttributes::ATTRIBUTE_ACCESSORS</definition>
+        <argsstring>(UCoreStatsAttributes, Dexterity)</argsstring>
+        <name>ATTRIBUTE_ACCESSORS</name>
+        <qualifiedname>UCoreStatsAttributes::ATTRIBUTE_ACCESSORS</qualifiedname>
+        <param>
+          <type><ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref></type>
+        </param>
+        <param>
+          <type>Dexterity</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="50" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_core_stats_attributes_1a70fb68076316cb4b3256752981a1863c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCoreStatsAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, Category=&quot;Core Stat Attributes&quot;, ReplicatedUsing=OnRep_Fortitude, Meta=(AllowPrivateAccess=true)) FGameplayAttributeData Fortitude</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UCoreStatsAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>Category</type>
+          <defval>&quot;Core Stat Attributes&quot;</defval>
+        </param>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_Fortitude</defval>
+        </param>
+        <param>
+          <type>Meta</type>
+          <defval>(AllowPrivateAccess=true)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="52" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_core_stats_attributes_1ac6aaf6d5d4268eb87589a55124096dc0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCoreStatsAttributes::ATTRIBUTE_ACCESSORS</definition>
+        <argsstring>(UCoreStatsAttributes, Fortitude)</argsstring>
+        <name>ATTRIBUTE_ACCESSORS</name>
+        <qualifiedname>UCoreStatsAttributes::ATTRIBUTE_ACCESSORS</qualifiedname>
+        <param>
+          <type><ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref></type>
+        </param>
+        <param>
+          <type>Fortitude</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="55" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_core_stats_attributes_1a01379cbbfed8827446c4a195d5f797a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCoreStatsAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, Category=&quot;Core Stat Attributes&quot;, ReplicatedUsing=OnRep_Astuteness, Meta=(AllowPrivateAccess=true)) FGameplayAttributeData Astuteness</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UCoreStatsAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>Category</type>
+          <defval>&quot;Core Stat Attributes&quot;</defval>
+        </param>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_Astuteness</defval>
+        </param>
+        <param>
+          <type>Meta</type>
+          <defval>(AllowPrivateAccess=true)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="57" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_core_stats_attributes_1a91e4f9d6bb78e54342b73235cf644e66" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCoreStatsAttributes::ATTRIBUTE_ACCESSORS</definition>
+        <argsstring>(UCoreStatsAttributes, Astuteness)</argsstring>
+        <name>ATTRIBUTE_ACCESSORS</name>
+        <qualifiedname>UCoreStatsAttributes::ATTRIBUTE_ACCESSORS</qualifiedname>
+        <param>
+          <type><ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref></type>
+        </param>
+        <param>
+          <type>Astuteness</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="60" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_core_stats_attributes_1a0bbd22447a7b14cea096eead485c491a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCoreStatsAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, Category=&quot;Core Stat Attributes&quot;, ReplicatedUsing=OnRep_Intellect, Meta=(AllowPrivateAccess=true)) FGameplayAttributeData Intellect</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UCoreStatsAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>Category</type>
+          <defval>&quot;Core Stat Attributes&quot;</defval>
+        </param>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_Intellect</defval>
+        </param>
+        <param>
+          <type>Meta</type>
+          <defval>(AllowPrivateAccess=true)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="62" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_core_stats_attributes_1ac805ce5bfbbadfddaabc0a1cde3a69b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCoreStatsAttributes::ATTRIBUTE_ACCESSORS</definition>
+        <argsstring>(UCoreStatsAttributes, Intellect)</argsstring>
+        <name>ATTRIBUTE_ACCESSORS</name>
+        <qualifiedname>UCoreStatsAttributes::ATTRIBUTE_ACCESSORS</qualifiedname>
+        <param>
+          <type><ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref></type>
+        </param>
+        <param>
+          <type>Intellect</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="65" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_core_stats_attributes_1ae6e9df870611e07bd44eb2b3db137cd7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCoreStatsAttributes::UPROPERTY</definition>
+        <argsstring>(BlueprintReadOnly, Category=&quot;Core Stat Attributes&quot;, ReplicatedUsing=OnRep_Charisma, Meta=(AllowPrivateAccess=true)) FGameplayAttributeData Charisma</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UCoreStatsAttributes::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <param>
+          <type>Category</type>
+          <defval>&quot;Core Stat Attributes&quot;</defval>
+        </param>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_Charisma</defval>
+        </param>
+        <param>
+          <type>Meta</type>
+          <defval>(AllowPrivateAccess=true)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="67" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_core_stats_attributes_1acd2a0e241af4c544870ebd2347b47131" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCoreStatsAttributes::ATTRIBUTE_ACCESSORS</definition>
+        <argsstring>(UCoreStatsAttributes, Charisma)</argsstring>
+        <name>ATTRIBUTE_ACCESSORS</name>
+        <qualifiedname>UCoreStatsAttributes::ATTRIBUTE_ACCESSORS</qualifiedname>
+        <param>
+          <type><ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref></type>
+        </param>
+        <param>
+          <type>Charisma</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="70" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_core_stats_attributes_1a545772db83e8908600ca9c463009bad1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>TArray&lt; FGameplayAttribute &gt;</type>
+        <definition>TArray&lt; FGameplayAttribute &gt; UCoreStatsAttributes::GetAllCoreStatAttributes</definition>
+        <argsstring>() const</argsstring>
+        <name>GetAllCoreStatAttributes</name>
+        <qualifiedname>UCoreStatsAttributes::GetAllCoreStatAttributes</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="72" column="8" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/CoreStatsAttributes.cpp" bodystart="27" bodyend="33"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_u_core_stats_attributes_1ab5e9ee68201a29b645d92274720d08d6" prot="protected" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UCoreStatsAttributes::PreAttributeBaseChange</definition>
+        <argsstring>(const FGameplayAttribute &amp;Attribute, float &amp;NewValue) const override</argsstring>
+        <name>PreAttributeBaseChange</name>
+        <qualifiedname>UCoreStatsAttributes::PreAttributeBaseChange</qualifiedname>
+        <param>
+          <type>const FGameplayAttribute &amp;</type>
+          <declname>Attribute</declname>
+        </param>
+        <param>
+          <type>float &amp;</type>
+          <declname>NewValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="76" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/CoreStatsAttributes.cpp" bodystart="35" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_core_stats_attributes_1a3b696529db1a48667a58db201290f233" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UCoreStatsAttributes::PreAttributeChange</definition>
+        <argsstring>(const FGameplayAttribute &amp;Attribute, float &amp;NewValue) override</argsstring>
+        <name>PreAttributeChange</name>
+        <qualifiedname>UCoreStatsAttributes::PreAttributeChange</qualifiedname>
+        <param>
+          <type>const FGameplayAttribute &amp;</type>
+          <declname>Attribute</declname>
+        </param>
+        <param>
+          <type>float &amp;</type>
+          <declname>NewValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="79" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/CoreStatsAttributes.cpp" bodystart="41" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_core_stats_attributes_1a2333d4f39c287caf0d24151d7b98d465" prot="protected" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UCoreStatsAttributes::ClampAttributeOnChange</definition>
+        <argsstring>(const FGameplayAttribute &amp;Attribute, float &amp;NewValue) const</argsstring>
+        <name>ClampAttributeOnChange</name>
+        <qualifiedname>UCoreStatsAttributes::ClampAttributeOnChange</qualifiedname>
+        <param>
+          <type>const FGameplayAttribute &amp;</type>
+          <declname>Attribute</declname>
+        </param>
+        <param>
+          <type>float &amp;</type>
+          <declname>NewValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="82" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/CoreStatsAttributes.cpp" bodystart="47" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_core_stats_attributes_1a0ab964d8db09de7482c2de9727cf5cb0" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UCoreStatsAttributes::OnRep_Strength</definition>
+        <argsstring>(const FGameplayAttributeData &amp;OldData)</argsstring>
+        <name>OnRep_Strength</name>
+        <qualifiedname>UCoreStatsAttributes::OnRep_Strength</qualifiedname>
+        <param>
+          <type>const FGameplayAttributeData &amp;</type>
+          <declname>OldData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="86" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/CoreStatsAttributes.cpp" bodystart="60" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_core_stats_attributes_1a1c3fb0dcbf8394c4d2928064f4304738" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UCoreStatsAttributes::OnRep_Dexterity</definition>
+        <argsstring>(const FGameplayAttributeData &amp;OldData)</argsstring>
+        <name>OnRep_Dexterity</name>
+        <qualifiedname>UCoreStatsAttributes::OnRep_Dexterity</qualifiedname>
+        <param>
+          <type>const FGameplayAttributeData &amp;</type>
+          <declname>OldData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="89" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/CoreStatsAttributes.cpp" bodystart="70" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_core_stats_attributes_1aa3a9e87c848de10860831b665b0f0fa5" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UCoreStatsAttributes::OnRep_Fortitude</definition>
+        <argsstring>(const FGameplayAttributeData &amp;OldData)</argsstring>
+        <name>OnRep_Fortitude</name>
+        <qualifiedname>UCoreStatsAttributes::OnRep_Fortitude</qualifiedname>
+        <param>
+          <type>const FGameplayAttributeData &amp;</type>
+          <declname>OldData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="92" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/CoreStatsAttributes.cpp" bodystart="80" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_core_stats_attributes_1aae525ee2677f4e4cad01f9a4fec160cc" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UCoreStatsAttributes::OnRep_Astuteness</definition>
+        <argsstring>(const FGameplayAttributeData &amp;OldData)</argsstring>
+        <name>OnRep_Astuteness</name>
+        <qualifiedname>UCoreStatsAttributes::OnRep_Astuteness</qualifiedname>
+        <param>
+          <type>const FGameplayAttributeData &amp;</type>
+          <declname>OldData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="95" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/CoreStatsAttributes.cpp" bodystart="90" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_core_stats_attributes_1a8f9ad5065c2cc340d55672804f4dccf0" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UCoreStatsAttributes::OnRep_Intellect</definition>
+        <argsstring>(const FGameplayAttributeData &amp;OldData)</argsstring>
+        <name>OnRep_Intellect</name>
+        <qualifiedname>UCoreStatsAttributes::OnRep_Intellect</qualifiedname>
+        <param>
+          <type>const FGameplayAttributeData &amp;</type>
+          <declname>OldData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="98" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/CoreStatsAttributes.cpp" bodystart="100" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_core_stats_attributes_1a05889efa26e8982d771251cf86d9d996" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UCoreStatsAttributes::OnRep_Charisma</definition>
+        <argsstring>(const FGameplayAttributeData &amp;OldData)</argsstring>
+        <name>OnRep_Charisma</name>
+        <qualifiedname>UCoreStatsAttributes::OnRep_Charisma</qualifiedname>
+        <param>
+          <type>const FGameplayAttributeData &amp;</type>
+          <declname>OldData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="101" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/AttributeSets/CoreStatsAttributes.cpp" bodystart="110" bodyend="118"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Vitality Attributes are any attributes related to the characters well-being, such as health, hunger, hydration, magic. It also includes damage factors and factors the character depends on such as ammunition. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>UAttributeSet</label>
+      </node>
+      <node id="1">
+        <label>UCoreStatsAttributes</label>
+        <link refid="class_u_core_stats_attributes"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>UAttributeSet</label>
+      </node>
+      <node id="1">
+        <label>UCoreStatsAttributes</label>
+        <link refid="class_u_core_stats_attributes"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="32" column="1" bodyfile="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" bodystart="33" bodyend="103"/>
+    <listofallmembers>
+      <member refid="class_u_core_stats_attributes_1a6dff17f8f253725acff6eda47c8611a9" prot="public" virt="non-virtual"><scope>UCoreStatsAttributes</scope><name>ATTRIBUTE_ACCESSORS</name></member>
+      <member refid="class_u_core_stats_attributes_1a30754310291d8d8446f09cb88c24e144" prot="public" virt="non-virtual"><scope>UCoreStatsAttributes</scope><name>ATTRIBUTE_ACCESSORS</name></member>
+      <member refid="class_u_core_stats_attributes_1ac6aaf6d5d4268eb87589a55124096dc0" prot="public" virt="non-virtual"><scope>UCoreStatsAttributes</scope><name>ATTRIBUTE_ACCESSORS</name></member>
+      <member refid="class_u_core_stats_attributes_1a91e4f9d6bb78e54342b73235cf644e66" prot="public" virt="non-virtual"><scope>UCoreStatsAttributes</scope><name>ATTRIBUTE_ACCESSORS</name></member>
+      <member refid="class_u_core_stats_attributes_1ac805ce5bfbbadfddaabc0a1cde3a69b0" prot="public" virt="non-virtual"><scope>UCoreStatsAttributes</scope><name>ATTRIBUTE_ACCESSORS</name></member>
+      <member refid="class_u_core_stats_attributes_1acd2a0e241af4c544870ebd2347b47131" prot="public" virt="non-virtual"><scope>UCoreStatsAttributes</scope><name>ATTRIBUTE_ACCESSORS</name></member>
+      <member refid="class_u_core_stats_attributes_1a2333d4f39c287caf0d24151d7b98d465" prot="protected" virt="virtual"><scope>UCoreStatsAttributes</scope><name>ClampAttributeOnChange</name></member>
+      <member refid="class_u_core_stats_attributes_1a545772db83e8908600ca9c463009bad1" prot="public" virt="non-virtual"><scope>UCoreStatsAttributes</scope><name>GetAllCoreStatAttributes</name></member>
+      <member refid="class_u_core_stats_attributes_1a4fd15fa9bc7068b4345900ab3a3f167e" prot="public" virt="non-virtual"><scope>UCoreStatsAttributes</scope><name>OnAttributeUpdated</name></member>
+      <member refid="class_u_core_stats_attributes_1aae525ee2677f4e4cad01f9a4fec160cc" prot="protected" virt="virtual"><scope>UCoreStatsAttributes</scope><name>OnRep_Astuteness</name></member>
+      <member refid="class_u_core_stats_attributes_1a05889efa26e8982d771251cf86d9d996" prot="protected" virt="virtual"><scope>UCoreStatsAttributes</scope><name>OnRep_Charisma</name></member>
+      <member refid="class_u_core_stats_attributes_1a1c3fb0dcbf8394c4d2928064f4304738" prot="protected" virt="virtual"><scope>UCoreStatsAttributes</scope><name>OnRep_Dexterity</name></member>
+      <member refid="class_u_core_stats_attributes_1aa3a9e87c848de10860831b665b0f0fa5" prot="protected" virt="virtual"><scope>UCoreStatsAttributes</scope><name>OnRep_Fortitude</name></member>
+      <member refid="class_u_core_stats_attributes_1a8f9ad5065c2cc340d55672804f4dccf0" prot="protected" virt="virtual"><scope>UCoreStatsAttributes</scope><name>OnRep_Intellect</name></member>
+      <member refid="class_u_core_stats_attributes_1a0ab964d8db09de7482c2de9727cf5cb0" prot="protected" virt="virtual"><scope>UCoreStatsAttributes</scope><name>OnRep_Strength</name></member>
+      <member refid="class_u_core_stats_attributes_1ab5e9ee68201a29b645d92274720d08d6" prot="protected" virt="virtual"><scope>UCoreStatsAttributes</scope><name>PreAttributeBaseChange</name></member>
+      <member refid="class_u_core_stats_attributes_1a3b696529db1a48667a58db201290f233" prot="protected" virt="virtual"><scope>UCoreStatsAttributes</scope><name>PreAttributeChange</name></member>
+      <member refid="class_u_core_stats_attributes_1a9efe00a47a030b6d07d1605d8f28bde5" prot="public" virt="non-virtual"><scope>UCoreStatsAttributes</scope><name>UCoreStatsAttributes</name></member>
+      <member refid="class_u_core_stats_attributes_1a003abe42743c910b0f98cacaf902ddac" prot="public" virt="non-virtual"><scope>UCoreStatsAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_core_stats_attributes_1a7898f05dab527420349bbd410ca63964" prot="public" virt="non-virtual"><scope>UCoreStatsAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_core_stats_attributes_1a70fb68076316cb4b3256752981a1863c" prot="public" virt="non-virtual"><scope>UCoreStatsAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_core_stats_attributes_1a01379cbbfed8827446c4a195d5f797a1" prot="public" virt="non-virtual"><scope>UCoreStatsAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_core_stats_attributes_1a0bbd22447a7b14cea096eead485c491a" prot="public" virt="non-virtual"><scope>UCoreStatsAttributes</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_core_stats_attributes_1ae6e9df870611e07bd44eb2b3db137cd7" prot="public" virt="non-virtual"><scope>UCoreStatsAttributes</scope><name>UPROPERTY</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

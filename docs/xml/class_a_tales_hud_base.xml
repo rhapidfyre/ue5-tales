@@ -1,0 +1,148 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_a_tales_hud_base" kind="class" language="C++" prot="public">
+    <compoundname>ATalesHudBase</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">AHUD</basecompoundref>
+    <derivedcompoundref refid="class_a_tales_dm_hud_base" prot="public" virt="non-virtual">ATalesDmHudBase</derivedcompoundref>
+    <derivedcompoundref refid="class_a_tales_player_hud_base" prot="public" virt="non-virtual">ATalesPlayerHudBase</derivedcompoundref>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_a_tales_hud_base_1a62817a09b5a47a185ffac26fb66f2263" prot="private" static="no" mutable="no">
+        <type>TArray&lt; <ref refid="struct_f_st_hud_notification" kindref="compound">FStHudNotification</ref> &gt;</type>
+        <definition>TArray&lt;FStHudNotification&gt; ATalesHudBase::NotificationsPending_</definition>
+        <argsstring></argsstring>
+        <name>NotificationsPending_</name>
+        <qualifiedname>ATalesHudBase::NotificationsPending_</qualifiedname>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesHudBase.h" line="45" column="8" bodyfile="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesHudBase.h" bodystart="45" bodyend="45"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_a_tales_hud_base_1a2a453743fd3956040ec473a2d19cda9b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ATalesHudBase::ATalesHudBase</definition>
+        <argsstring>()</argsstring>
+        <name>ATalesHudBase</name>
+        <qualifiedname>ATalesHudBase::ATalesHudBase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesHudBase.h" line="32" column="1" bodyfile="Source/TalesDungeoneer/Private/Gamemode/AdventureMode/TalesHudBase.cpp" bodystart="6" bodyend="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_hud_base_1ad58291067010d3fa50b95eb42842b507" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ATalesHudBase::DrawHUD</definition>
+        <argsstring>() override</argsstring>
+        <name>DrawHUD</name>
+        <qualifiedname>ATalesHudBase::DrawHUD</qualifiedname>
+        <reimplementedby refid="class_a_tales_dm_hud_base_1a294a04e423c90659a82ce631bb93fabf">DrawHUD</reimplementedby>
+        <reimplementedby refid="class_a_tales_player_hud_base_1ad715ea86ba714d837bfa490ae45be93b">DrawHUD</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Primary draw call for the HUD </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesHudBase.h" line="35" column="14" bodyfile="Source/TalesDungeoneer/Private/Gamemode/AdventureMode/TalesHudBase.cpp" bodystart="11" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_hud_base_1a511ee9854cc83fc7697899bf001d5913" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ATalesHudBase::BeginPlay</definition>
+        <argsstring>() override</argsstring>
+        <name>BeginPlay</name>
+        <qualifiedname>ATalesHudBase::BeginPlay</qualifiedname>
+        <reimplementedby refid="class_a_tales_dm_hud_base_1a0aa12f3b161e7317c82a52f0dcd0447f">BeginPlay</reimplementedby>
+        <reimplementedby refid="class_a_tales_player_hud_base_1a087278982cd01aea8cfa1fb30dafe854">BeginPlay</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesHudBase.h" line="37" column="14" bodyfile="Source/TalesDungeoneer/Private/Gamemode/AdventureMode/TalesHudBase.cpp" bodystart="16" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_hud_base_1a69d3cfb4cdd592a4c3ac38f732778196" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ATalesHudBase::NotifyHud</definition>
+        <argsstring>(FString MessageTitle, FString NewMessage, int Priority=2)</argsstring>
+        <name>NotifyHud</name>
+        <qualifiedname>ATalesHudBase::NotifyHud</qualifiedname>
+        <param>
+          <type>FString</type>
+          <declname>MessageTitle</declname>
+        </param>
+        <param>
+          <type>FString</type>
+          <declname>NewMessage</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Priority</declname>
+          <defval>2</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesHudBase.h" line="40" column="6" bodyfile="Source/TalesDungeoneer/Private/Gamemode/AdventureMode/TalesHudBase.cpp" bodystart="21" bodyend="24"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>AHUD</label>
+      </node>
+      <node id="3">
+        <label>ATalesDmHudBase</label>
+        <link refid="class_a_tales_dm_hud_base"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>ATalesHudBase</label>
+        <link refid="class_a_tales_hud_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ATalesPlayerHudBase</label>
+        <link refid="class_a_tales_player_hud_base"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>AHUD</label>
+      </node>
+      <node id="1">
+        <label>ATalesHudBase</label>
+        <link refid="class_a_tales_hud_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesHudBase.h" line="27" column="1" bodyfile="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesHudBase.h" bodystart="28" bodyend="46"/>
+    <listofallmembers>
+      <member refid="class_a_tales_hud_base_1a2a453743fd3956040ec473a2d19cda9b" prot="public" virt="non-virtual"><scope>ATalesHudBase</scope><name>ATalesHudBase</name></member>
+      <member refid="class_a_tales_hud_base_1a511ee9854cc83fc7697899bf001d5913" prot="public" virt="virtual"><scope>ATalesHudBase</scope><name>BeginPlay</name></member>
+      <member refid="class_a_tales_hud_base_1ad58291067010d3fa50b95eb42842b507" prot="public" virt="virtual"><scope>ATalesHudBase</scope><name>DrawHUD</name></member>
+      <member refid="class_a_tales_hud_base_1a62817a09b5a47a185ffac26fb66f2263" prot="private" virt="non-virtual"><scope>ATalesHudBase</scope><name>NotificationsPending_</name></member>
+      <member refid="class_a_tales_hud_base_1a69d3cfb4cdd592a4c3ac38f732778196" prot="public" virt="non-virtual"><scope>ATalesHudBase</scope><name>NotifyHud</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

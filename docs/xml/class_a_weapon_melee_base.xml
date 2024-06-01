@@ -1,0 +1,335 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_a_weapon_melee_base" kind="class" language="C++" prot="public">
+    <compoundname>AWeaponMeleeBase</compoundname>
+    <basecompoundref refid="class_a_weapon_base" prot="public" virt="non-virtual">AWeaponBase</basecompoundref>
+    <includes refid="_weapon_melee_base_8h" local="no">WeaponMeleeBase.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_a_weapon_melee_base_1aa9c68396f8c14f88470fe99a785ab572" prot="public" static="no" mutable="no">
+        <type>FName</type>
+        <definition>FName AWeaponMeleeBase::SocketStartName</definition>
+        <argsstring></argsstring>
+        <name>SocketStartName</name>
+        <qualifiedname>AWeaponMeleeBase::SocketStartName</qualifiedname>
+        <initializer>= &quot;trace_start&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponMeleeBase.h" line="33" column="7" bodyfile="Source/TalesDungeoneer/Public/Weapons/WeaponMeleeBase.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_weapon_melee_base_1ae1dcc89464f0405b73a8ea1955d39c24" prot="public" static="no" mutable="no">
+        <type>FName</type>
+        <definition>FName AWeaponMeleeBase::SocketEndName</definition>
+        <argsstring></argsstring>
+        <name>SocketEndName</name>
+        <qualifiedname>AWeaponMeleeBase::SocketEndName</qualifiedname>
+        <initializer>= &quot;trace_end&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponMeleeBase.h" line="35" column="7" bodyfile="Source/TalesDungeoneer/Public/Weapons/WeaponMeleeBase.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_a_weapon_melee_base_1acfd5123e48aa55cdd85bec6fea801a8a" prot="private" static="no" mutable="no">
+        <type>FTimerHandle</type>
+        <definition>FTimerHandle AWeaponMeleeBase::AttackTimer_</definition>
+        <argsstring></argsstring>
+        <name>AttackTimer_</name>
+        <qualifiedname>AWeaponMeleeBase::AttackTimer_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponMeleeBase.h" line="42" column="14" bodyfile="Source/TalesDungeoneer/Public/Weapons/WeaponMeleeBase.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_weapon_melee_base_1a5ff16c9e15cc979c2b605209604efb14" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float AWeaponMeleeBase::AttackTimerTickRate_</definition>
+        <argsstring></argsstring>
+        <name>AttackTimerTickRate_</name>
+        <qualifiedname>AWeaponMeleeBase::AttackTimerTickRate_</qualifiedname>
+        <initializer>= 0.02f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponMeleeBase.h" line="44" column="7" bodyfile="Source/TalesDungeoneer/Public/Weapons/WeaponMeleeBase.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_weapon_melee_base_1a60f1a931fe4abce2bc09994293dc7e37" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AWeaponMeleeBase::TicksDelayed_</definition>
+        <argsstring></argsstring>
+        <name>TicksDelayed_</name>
+        <qualifiedname>AWeaponMeleeBase::TicksDelayed_</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponMeleeBase.h" line="46" column="5" bodyfile="Source/TalesDungeoneer/Public/Weapons/WeaponMeleeBase.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_weapon_melee_base_1a92f35d9cc899029495086fd5a0755259" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AWeaponMeleeBase::TimerTicksRemaining_</definition>
+        <argsstring></argsstring>
+        <name>TimerTicksRemaining_</name>
+        <qualifiedname>AWeaponMeleeBase::TimerTicksRemaining_</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponMeleeBase.h" line="47" column="5" bodyfile="Source/TalesDungeoneer/Public/Weapons/WeaponMeleeBase.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_weapon_melee_base_1a5e3c0eef6a164e1230d3587c1fad396c" prot="private" static="no" mutable="no">
+        <type>TArray&lt; AActor * &gt;</type>
+        <definition>TArray&lt;AActor*&gt; AWeaponMeleeBase::HitTargets_</definition>
+        <argsstring></argsstring>
+        <name>HitTargets_</name>
+        <qualifiedname>AWeaponMeleeBase::HitTargets_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponMeleeBase.h" line="50" column="8" bodyfile="Source/TalesDungeoneer/Public/Weapons/WeaponMeleeBase.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_a_weapon_melee_base_1af886b1f702a29eef2958b92e63ed97ff" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>AWeaponMeleeBase::AWeaponMeleeBase</definition>
+        <argsstring>()</argsstring>
+        <name>AWeaponMeleeBase</name>
+        <qualifiedname>AWeaponMeleeBase::AWeaponMeleeBase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponMeleeBase.h" line="19" column="1" bodyfile="Source/TalesDungeoneer/Public/Weapons/WeaponMeleeBase.h" bodystart="19" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_weapon_melee_base_1a52df3b1f6556b263b344f7623962679e" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool AWeaponMeleeBase::doAttack</definition>
+        <argsstring>() override</argsstring>
+        <name>doAttack</name>
+        <qualifiedname>AWeaponMeleeBase::doAttack</qualifiedname>
+        <reimplements refid="class_a_weapon_base_1a0c8e0e3616932105f3107e67ac469ddd">doAttack</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Override of parent method (<ref refid="class_a_weapon_base" kindref="compound">AWeaponBase</ref>) If the parent succeeds, sets up for a melee attack with timers. <simplesect kind="return"><para>True if the attack preparations were successful. False otherwise. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponMeleeBase.h" line="20" column="14" bodyfile="Source/TalesDungeoneer/Private/Weapons/WeaponMeleeBase.cpp" bodystart="14" bodyend="22"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_a_weapon_melee_base_1a47910c7149c3299db0566c910f587242" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void AWeaponMeleeBase::UpdateWeapon</definition>
+        <argsstring>() override</argsstring>
+        <name>UpdateWeapon</name>
+        <qualifiedname>AWeaponMeleeBase::UpdateWeapon</qualifiedname>
+        <reimplements refid="class_a_weapon_base_1a0a607b1e8da52b2b376e7e15559c5137">UpdateWeapon</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponMeleeBase.h" line="23" column="14" bodyfile="Source/TalesDungeoneer/Private/Weapons/WeaponMeleeBase.cpp" bodystart="40" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_weapon_melee_base_1a1d1fec16886e008556cab60d31e82de8" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void AWeaponMeleeBase::BeginPlay</definition>
+        <argsstring>() override</argsstring>
+        <name>BeginPlay</name>
+        <qualifiedname>AWeaponMeleeBase::BeginPlay</qualifiedname>
+        <reimplements refid="class_a_weapon_base_1a08284e51f5427ccccfb76c4da4839170">BeginPlay</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponMeleeBase.h" line="24" column="14" bodyfile="Source/TalesDungeoneer/Private/Weapons/WeaponMeleeBase.cpp" bodystart="45" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_weapon_melee_base_1a421f6b52623bff98e9c06009cc6e1a76" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void AWeaponMeleeBase::TargetHitByWeapon</definition>
+        <argsstring>(AActor *HitActor)</argsstring>
+        <name>TargetHitByWeapon</name>
+        <qualifiedname>AWeaponMeleeBase::TargetHitByWeapon</qualifiedname>
+        <param>
+          <type>AActor *</type>
+          <declname>HitActor</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponMeleeBase.h" line="25" column="14" bodyfile="Source/TalesDungeoneer/Private/Weapons/WeaponMeleeBase.cpp" bodystart="77" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_weapon_melee_base_1a9ef765c517919464b87f1b181a448bab" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void AWeaponMeleeBase::InitiateAttack</definition>
+        <argsstring>()</argsstring>
+        <name>InitiateAttack</name>
+        <qualifiedname>AWeaponMeleeBase::InitiateAttack</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponMeleeBase.h" line="26" column="14" bodyfile="Source/TalesDungeoneer/Private/Weapons/WeaponMeleeBase.cpp" bodystart="26" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_weapon_melee_base_1a8770f64d290f4bbb72a8279549206e04" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool AWeaponMeleeBase::GetIsAttackValid</definition>
+        <argsstring>(AActor *HitActor) override</argsstring>
+        <name>GetIsAttackValid</name>
+        <qualifiedname>AWeaponMeleeBase::GetIsAttackValid</qualifiedname>
+        <reimplements refid="class_a_weapon_base_1a5225407dc657bc3045c023bbcc8115ea">GetIsAttackValid</reimplements>
+        <param>
+          <type>AActor *</type>
+          <declname>HitActor</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Allows child classes to deny or allow the attack. ex: Melee weapon checks distance - Invalid distance is found, then the attack check could return false and indicate failure. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>HitActor</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The actor to run the validation against (hit target) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True by default. Children should set true or false accordingly. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponMeleeBase.h" line="28" column="14" bodyfile="Source/TalesDungeoneer/Private/Weapons/WeaponMeleeBase.cpp" bodystart="31" bodyend="38"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_a_weapon_melee_base_1a17eb718afd9c9a627fb4ed6e2eb2cc26" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>AWeaponMeleeBase::UFUNCTION</definition>
+        <argsstring>() void DoAttackTracing()</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>AWeaponMeleeBase::UFUNCTION</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponMeleeBase.h" line="39" column="1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>NEW CLASS Base C++ class for all melee weapons. Contains all of the melee weapon logic. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>AActor</label>
+      </node>
+      <node id="2">
+        <label>AWeaponBase</label>
+        <link refid="class_a_weapon_base"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>AWeaponMeleeBase</label>
+        <link refid="class_a_weapon_melee_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>AActor</label>
+      </node>
+      <node id="2">
+        <label>AWeaponBase</label>
+        <link refid="class_a_weapon_base"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>AWeaponMeleeBase</label>
+        <link refid="class_a_weapon_melee_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Weapons/WeaponMeleeBase.h" line="14" column="1" bodyfile="Source/TalesDungeoneer/Public/Weapons/WeaponMeleeBase.h" bodystart="15" bodyend="51"/>
+    <listofallmembers>
+      <member refid="class_a_weapon_melee_base_1acfd5123e48aa55cdd85bec6fea801a8a" prot="private" virt="non-virtual"><scope>AWeaponMeleeBase</scope><name>AttackTimer_</name></member>
+      <member refid="class_a_weapon_melee_base_1a5ff16c9e15cc979c2b605209604efb14" prot="private" virt="non-virtual"><scope>AWeaponMeleeBase</scope><name>AttackTimerTickRate_</name></member>
+      <member refid="class_a_weapon_base_1a64b8ab90669db2552d55cd83df90509b" prot="public" virt="non-virtual"><scope>AWeaponMeleeBase</scope><name>AWeaponBase</name></member>
+      <member refid="class_a_weapon_melee_base_1af886b1f702a29eef2958b92e63ed97ff" prot="public" virt="non-virtual"><scope>AWeaponMeleeBase</scope><name>AWeaponMeleeBase</name></member>
+      <member refid="class_a_weapon_melee_base_1a1d1fec16886e008556cab60d31e82de8" prot="protected" virt="virtual"><scope>AWeaponMeleeBase</scope><name>BeginPlay</name></member>
+      <member refid="class_a_weapon_melee_base_1a52df3b1f6556b263b344f7623962679e" prot="public" virt="virtual"><scope>AWeaponMeleeBase</scope><name>doAttack</name></member>
+      <member refid="class_a_weapon_base_1ad308d4b4fad4f2c2f454e8c21af6d8dd" prot="protected" virt="virtual"><scope>AWeaponMeleeBase</scope><name>EndPlay</name></member>
+      <member refid="class_a_weapon_melee_base_1a8770f64d290f4bbb72a8279549206e04" prot="protected" virt="virtual"><scope>AWeaponMeleeBase</scope><name>GetIsAttackValid</name></member>
+      <member refid="class_a_weapon_base_1ab936abf5a4916e3937cb3847435f9fb9" prot="public" virt="non-virtual"><scope>AWeaponMeleeBase</scope><name>getIsMeleeWeapon</name></member>
+      <member refid="class_a_weapon_base_1ad09c61c1ae97c44c575c7ee761266264" prot="public" virt="non-virtual"><scope>AWeaponMeleeBase</scope><name>getIsRangedWeapon</name></member>
+      <member refid="class_a_weapon_base_1ad5a2d09f0b45fcda23fea1b828509e63" prot="public" virt="non-virtual"><scope>AWeaponMeleeBase</scope><name>getIsWeaponArmed</name></member>
+      <member refid="class_a_weapon_melee_base_1a5e3c0eef6a164e1230d3587c1fad396c" prot="private" virt="non-virtual"><scope>AWeaponMeleeBase</scope><name>HitTargets_</name></member>
+      <member refid="class_a_weapon_melee_base_1a9ef765c517919464b87f1b181a448bab" prot="protected" virt="virtual"><scope>AWeaponMeleeBase</scope><name>InitiateAttack</name></member>
+      <member refid="class_a_weapon_base_1a9262313d3e01b70e67178ce3aa5b8fbb" prot="protected" virt="non-virtual"><scope>AWeaponMeleeBase</scope><name>IsAttackValid</name></member>
+      <member refid="class_a_weapon_base_1a7c7f528c95ba6664e00d4512a543b0bd" prot="protected" virt="virtual"><scope>AWeaponMeleeBase</scope><name>OnConstruction</name></member>
+      <member refid="class_a_weapon_base_1a506d9fe73e23b27853e2595148df5313" prot="protected" virt="virtual"><scope>AWeaponMeleeBase</scope><name>OnRep_IsWeaponArmed</name></member>
+      <member refid="class_a_weapon_base_1a0a53fe4ff06b496581a440852407f30b" prot="protected" virt="virtual"><scope>AWeaponMeleeBase</scope><name>PostActorCreated</name></member>
+      <member refid="class_a_weapon_base_1a1ef6f90f35cfb588d840869f397b6437" prot="public" virt="non-virtual"><scope>AWeaponMeleeBase</scope><name>setWeaponIsArmed</name></member>
+      <member refid="class_a_weapon_melee_base_1ae1dcc89464f0405b73a8ea1955d39c24" prot="public" virt="non-virtual"><scope>AWeaponMeleeBase</scope><name>SocketEndName</name></member>
+      <member refid="class_a_weapon_melee_base_1aa9c68396f8c14f88470fe99a785ab572" prot="public" virt="non-virtual"><scope>AWeaponMeleeBase</scope><name>SocketStartName</name></member>
+      <member refid="class_a_weapon_melee_base_1a421f6b52623bff98e9c06009cc6e1a76" prot="protected" virt="virtual"><scope>AWeaponMeleeBase</scope><name>TargetHitByWeapon</name></member>
+      <member refid="class_a_weapon_melee_base_1a60f1a931fe4abce2bc09994293dc7e37" prot="private" virt="non-virtual"><scope>AWeaponMeleeBase</scope><name>TicksDelayed_</name></member>
+      <member refid="class_a_weapon_melee_base_1a92f35d9cc899029495086fd5a0755259" prot="private" virt="non-virtual"><scope>AWeaponMeleeBase</scope><name>TimerTicksRemaining_</name></member>
+      <member refid="class_a_weapon_melee_base_1a17eb718afd9c9a627fb4ed6e2eb2cc26" prot="private" virt="non-virtual"><scope>AWeaponMeleeBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_weapon_base_1a489056c4be45ebefd84fb2ff7b808592" prot="public" virt="non-virtual" ambiguityscope="AWeaponBase::"><scope>AWeaponMeleeBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_weapon_melee_base_1a47910c7149c3299db0566c910f587242" prot="protected" virt="virtual"><scope>AWeaponMeleeBase</scope><name>UpdateWeapon</name></member>
+      <member refid="class_a_weapon_base_1a9a365b6932e15e04241b8cc097e139fb" prot="public" virt="non-virtual"><scope>AWeaponMeleeBase</scope><name>UsingSkeletalMesh</name></member>
+      <member refid="class_a_weapon_base_1af285d62e25b02e54ed2033da59ca4b31" prot="public" virt="non-virtual"><scope>AWeaponMeleeBase</scope><name>UsingStaticMesh</name></member>
+      <member refid="class_a_weapon_base_1aea61fd251e7a85be8b1ae6c114276301" prot="public" virt="non-virtual"><scope>AWeaponMeleeBase</scope><name>WeaponGripLeft</name></member>
+      <member refid="class_a_weapon_base_1ae7079406fd362fac5cd1471d52229149" prot="public" virt="non-virtual"><scope>AWeaponMeleeBase</scope><name>WeaponGripRight</name></member>
+      <member refid="class_a_weapon_base_1ab1c49319827097fc17d30bdabfe67dc2" prot="public" virt="non-virtual"><scope>AWeaponMeleeBase</scope><name>WeaponMeshSkeleton</name></member>
+      <member refid="class_a_weapon_base_1a9ba32cf0212ea0d454142022eee787a9" prot="public" virt="non-virtual"><scope>AWeaponMeleeBase</scope><name>WeaponMeshStatic</name></member>
+      <member refid="class_a_weapon_base_1af0d4c75d05119b07c29fac8e7c1748f7" prot="public" virt="non-virtual"><scope>AWeaponMeleeBase</scope><name>WeaponRoot</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

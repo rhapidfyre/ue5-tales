@@ -1,0 +1,209 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_core_stats_attributes_8cpp" kind="file" language="C++">
+    <compoundname>CoreStatsAttributes.cpp</compoundname>
+    <includes refid="_core_stats_attributes_8h" local="yes">Gas/AttributeSets/CoreStatsAttributes.h</includes>
+    <includes local="yes">Logging/StructuredLog.h</includes>
+    <includes local="yes">Net/UnrealNetwork.h</includes>
+    <incdepgraph>
+      <node id="8">
+        <label>AbilitySystemComponent.h</label>
+      </node>
+      <node id="4">
+        <label>AttributeSet.h</label>
+      </node>
+      <node id="3">
+        <label>CoreMinimal.h</label>
+      </node>
+      <node id="9">
+        <label>CoreStatsAttributes.generated.h</label>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Private/Gas/AttributeSets/CoreStatsAttributes.cpp</label>
+        <link refid="_core_stats_attributes_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>../AttributeHelpers.h</label>
+        <link refid="_attribute_helpers_8h_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Gas/AttributeSets/CoreStatsAttributes.h</label>
+        <link refid="_core_stats_attributes_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>Delegates/Delegate.h</label>
+      </node>
+      <node id="10">
+        <label>Logging/StructuredLog.h</label>
+      </node>
+      <node id="5">
+        <label>NativeGameplayTags.h</label>
+      </node>
+      <node id="11">
+        <label>Net/UnrealNetwork.h</label>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>Take<sp/>Five<sp/>Games,<sp/>LLC<sp/>2023<sp/>-<sp/>All<sp/>Rights<sp/>Reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Gas/AttributeSets/CoreStatsAttributes.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Logging/StructuredLog.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Net/UnrealNetwork.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Stats,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Stats&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="11"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Stats_Strength,<sp/><sp/><sp/><sp/><sp/><sp/>&quot;Stats.Strength&quot;)</highlight></codeline>
+<codeline lineno="12"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Stats_Dexterity,<sp/><sp/><sp/><sp/><sp/>&quot;Stats.Dexterity&quot;)</highlight></codeline>
+<codeline lineno="13"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Stats_Fortitude,<sp/><sp/><sp/><sp/><sp/>&quot;Stats.Fortitude&quot;)</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Stats_Astuteness,<sp/><sp/><sp/><sp/>&quot;Stats.Astuteness&quot;)</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Stats_Intellect,<sp/><sp/><sp/><sp/><sp/>&quot;Stats.Intellect&quot;)</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">UE_DEFINE_GAMEPLAY_TAG(TAG_Stats_Charisma,<sp/><sp/><sp/><sp/><sp/><sp/>&quot;Stats.Charisma&quot;)</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref>::<ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref>()<sp/>:</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>Strength(STAT_DEFAULT),<sp/><sp/>Dexterity(STAT_DEFAULT),</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>Fortitude(STAT_DEFAULT),<sp/>Astuteness(STAT_DEFAULT),</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>Intellect(STAT_DEFAULT),<sp/>Charisma(STAT_DEFAULT)</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="25"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal">TArray&lt;FGameplayAttribute&gt;<sp/>UCoreStatsAttributes::GetAllCoreStatAttributes()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="28"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GetStrengthAttribute(),<sp/>GetDexterityAttribute(),<sp/>GetFortitudeAttribute(),</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GetAstutenessAttribute(),<sp/>GetIntellectAttribute(),<sp/>GetCharismaAttribute()</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="33"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>UCoreStatsAttributes::PreAttributeBaseChange(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttribute&amp;<sp/>Attribute,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">&amp;<sp/>NewValue)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="36"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>Super::PreAttributeBaseChange(Attribute,<sp/>NewValue);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>ClampAttributeOnChange(Attribute,<sp/>NewValue);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>UCoreStatsAttributes::PreAttributeChange(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttribute&amp;<sp/>Attribute,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">&amp;<sp/>NewValue)</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>Super::PreAttributeChange(Attribute,<sp/>NewValue);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>ClampAttributeOnChange(Attribute,<sp/>NewValue);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>UCoreStatsAttributes::ClampAttributeOnChange(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttribute&amp;<sp/>Attribute,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">&amp;<sp/>NewValue)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="48"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Allow<sp/>some<sp/>stats<sp/>to<sp/>go<sp/>below<sp/>zero</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>minAttributeValue<sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(GetDexterityAttribute()<sp/>==<sp/>Attribute)</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>minAttributeValue<sp/>=<sp/>STAT_MIN;<sp/>}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(GetCharismaAttribute()<sp/>==<sp/>Attribute)</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>minAttributeValue<sp/>=<sp/>STAT_MIN;<sp/>}</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Cap<sp/>all<sp/>core<sp/>stats<sp/>at<sp/>1,000</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>NewValue<sp/>=<sp/>FMath::Clamp(NewValue,<sp/>minAttributeValue,<sp/>STAT_MAX);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>UCoreStatsAttributes::OnRep_Strength(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData)</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>oldValue<sp/>=<sp/>OldData.GetCurrentValue();</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>newValue<sp/>=<sp/>GetStrength();</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>UE_LOGFMT(LogAbilitySystemComponent,<sp/>VeryVerbose,<sp/><sp/></highlight><highlight class="stringliteral">&quot;{Name}({Authority})<sp/>REPNOTIFY:<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Strength<sp/>Updated.<sp/>Was<sp/>{OldValue},<sp/>Now<sp/>{NewValue}&quot;</highlight><highlight class="normal">,<sp/>GetName(),</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GetOwningActor()-&gt;HasAuthority()?</highlight><highlight class="stringliteral">&quot;SRV&quot;</highlight><highlight class="normal">:</highlight><highlight class="stringliteral">&quot;CLI&quot;</highlight><highlight class="normal">,<sp/>oldValue,<sp/>newValue);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>GAMEPLAYATTRIBUTE_REPNOTIFY(<ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref>,<sp/>Strength,<sp/>OldData);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>UCoreStatsAttributes::OnRep_Dexterity(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData)</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>oldValue<sp/>=<sp/>OldData.GetCurrentValue();</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>newValue<sp/>=<sp/>GetDexterity();</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/>UE_LOGFMT(LogAbilitySystemComponent,<sp/>VeryVerbose,<sp/><sp/></highlight><highlight class="stringliteral">&quot;{Name}({Authority})<sp/>REPNOTIFY:<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Dexterity<sp/>Updated.<sp/>Was<sp/>{OldValue},<sp/>Now<sp/>{NewValue}&quot;</highlight><highlight class="normal">,<sp/>GetName(),</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GetOwningActor()-&gt;HasAuthority()?</highlight><highlight class="stringliteral">&quot;SRV&quot;</highlight><highlight class="normal">:</highlight><highlight class="stringliteral">&quot;CLI&quot;</highlight><highlight class="normal">,<sp/>oldValue,<sp/>newValue);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>GAMEPLAYATTRIBUTE_REPNOTIFY(<ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref>,<sp/>Dexterity,<sp/>OldData);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>UCoreStatsAttributes::OnRep_Fortitude(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData)</highlight></codeline>
+<codeline lineno="81"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>oldValue<sp/>=<sp/>OldData.GetCurrentValue();</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>newValue<sp/>=<sp/>GetFortitude();</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>UE_LOGFMT(LogAbilitySystemComponent,<sp/>VeryVerbose,<sp/><sp/></highlight><highlight class="stringliteral">&quot;{Name}({Authority})<sp/>REPNOTIFY:<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Fortitude<sp/>Updated.<sp/>Was<sp/>{OldValue},<sp/>Now<sp/>{NewValue}&quot;</highlight><highlight class="normal">,<sp/>GetName(),</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GetOwningActor()-&gt;HasAuthority()?</highlight><highlight class="stringliteral">&quot;SRV&quot;</highlight><highlight class="normal">:</highlight><highlight class="stringliteral">&quot;CLI&quot;</highlight><highlight class="normal">,<sp/>oldValue,<sp/>newValue);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>GAMEPLAYATTRIBUTE_REPNOTIFY(<ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref>,<sp/>Fortitude,<sp/>OldData);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>UCoreStatsAttributes::OnRep_Astuteness(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData)</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>oldValue<sp/>=<sp/>OldData.GetCurrentValue();</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>newValue<sp/>=<sp/>GetAstuteness();</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>UE_LOGFMT(LogAbilitySystemComponent,<sp/>VeryVerbose,<sp/><sp/></highlight><highlight class="stringliteral">&quot;{Name}({Authority})<sp/>REPNOTIFY:<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Astuteness<sp/>Updated.<sp/>Was<sp/>{OldValue},<sp/>Now<sp/>{NewValue}&quot;</highlight><highlight class="normal">,<sp/>GetName(),</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GetOwningActor()-&gt;HasAuthority()?</highlight><highlight class="stringliteral">&quot;SRV&quot;</highlight><highlight class="normal">:</highlight><highlight class="stringliteral">&quot;CLI&quot;</highlight><highlight class="normal">,<sp/>oldValue,<sp/>newValue);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/>GAMEPLAYATTRIBUTE_REPNOTIFY(<ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref>,<sp/>Astuteness,<sp/>OldData);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>UCoreStatsAttributes::OnRep_Intellect(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData)</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>oldValue<sp/>=<sp/>OldData.GetCurrentValue();</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>newValue<sp/>=<sp/>GetIntellect();</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/>UE_LOGFMT(LogAbilitySystemComponent,<sp/>VeryVerbose,<sp/><sp/></highlight><highlight class="stringliteral">&quot;{Name}({Authority})<sp/>REPNOTIFY:<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Intellect<sp/>Updated.<sp/>Was<sp/>{OldValue},<sp/>Now<sp/>{NewValue}&quot;</highlight><highlight class="normal">,<sp/>GetName(),</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GetOwningActor()-&gt;HasAuthority()?</highlight><highlight class="stringliteral">&quot;SRV&quot;</highlight><highlight class="normal">:</highlight><highlight class="stringliteral">&quot;CLI&quot;</highlight><highlight class="normal">,<sp/>oldValue,<sp/>newValue);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/>GAMEPLAYATTRIBUTE_REPNOTIFY(<ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref>,<sp/>Intellect,<sp/>OldData);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>UCoreStatsAttributes::OnRep_Charisma(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData)</highlight></codeline>
+<codeline lineno="111"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>oldValue<sp/>=<sp/>OldData.GetCurrentValue();</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>newValue<sp/>=<sp/>GetCharisma();</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/>UE_LOGFMT(LogAbilitySystemComponent,<sp/>VeryVerbose,<sp/><sp/></highlight><highlight class="stringliteral">&quot;{Name}({Authority})<sp/>REPNOTIFY:<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Charisma<sp/>Updated.<sp/>Was<sp/>{OldValue},<sp/>Now<sp/>{NewValue}&quot;</highlight><highlight class="normal">,<sp/>GetName(),</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GetOwningActor()-&gt;HasAuthority()?</highlight><highlight class="stringliteral">&quot;SRV&quot;</highlight><highlight class="normal">:</highlight><highlight class="stringliteral">&quot;CLI&quot;</highlight><highlight class="normal">,<sp/>oldValue,<sp/>newValue);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/>GAMEPLAYATTRIBUTE_REPNOTIFY(<ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref>,<sp/>Charisma,<sp/>OldData);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="comment">//<sp/><sp/>REPLICATION</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>UCoreStatsAttributes::GetLifetimeReplicatedProps(TArray&lt;FLifetimeProperty&gt;&amp;<sp/>OutLifetimeProps)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="126"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/>Super::GetLifetimeReplicatedProps(OutLifetimeProps);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Vitality<sp/>Attributes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/>DOREPLIFETIME_CONDITION_NOTIFY(<ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref>,<sp/>Strength,<sp/><sp/><sp/><sp/><sp/><sp/>COND_OwnerOnly,<sp/>REPNOTIFY_Always);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/>DOREPLIFETIME_CONDITION_NOTIFY(<ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref>,<sp/>Dexterity,<sp/><sp/><sp/><sp/><sp/>COND_OwnerOnly,<sp/>REPNOTIFY_Always);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/>DOREPLIFETIME_CONDITION_NOTIFY(<ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref>,<sp/>Fortitude,<sp/><sp/><sp/><sp/><sp/>COND_OwnerOnly,<sp/>REPNOTIFY_Always);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/>DOREPLIFETIME_CONDITION_NOTIFY(<ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref>,<sp/>Astuteness,<sp/><sp/><sp/><sp/>COND_OwnerOnly,<sp/>REPNOTIFY_Always);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/>DOREPLIFETIME_CONDITION_NOTIFY(<ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref>,<sp/>Intellect,<sp/><sp/><sp/><sp/><sp/>COND_OwnerOnly,<sp/>REPNOTIFY_Always);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/>DOREPLIFETIME_CONDITION_NOTIFY(<ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref>,<sp/>Charisma,<sp/><sp/><sp/><sp/><sp/><sp/>COND_OwnerOnly,<sp/>REPNOTIFY_Always);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Private/Gas/AttributeSets/CoreStatsAttributes.cpp"/>
+  </compounddef>
+</doxygen>

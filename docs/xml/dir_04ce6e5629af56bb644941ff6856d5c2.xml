@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="dir_04ce6e5629af56bb644941ff6856d5c2" kind="dir">
+    <compoundname>Source/TalesDungeoneer/Private/Gas/Abilities</compoundname>
+    <innerfile refid="_tales_gameplay_ability_8cpp">TalesGameplayAbility.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Private/Gas/Abilities/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_ai_behavior_tree_base_8h" kind="file" language="C++">
+    <compoundname>AiBehaviorTreeBase.h</compoundname>
+    <includes local="yes">CoreMinimal.h</includes>
+    <includes local="yes">BehaviorTree/BehaviorTree.h</includes>
+    <includes local="yes">AiBehaviorTreeBase.generated.h</includes>
+    <includedby refid="_ai_behavior_tree_base_8cpp" local="yes">Source/TalesDungeoneer/Private/Characters/Behaviors/AiBehaviorTreeBase.cpp</includedby>
+    <includedby refid="_combat_ai_behavior_tree_base_8h" local="yes">Source/TalesDungeoneer/Public/Characters/Behaviors/CombatAiBehaviorTreeBase.h</includedby>
+    <incdepgraph>
+      <node id="4">
+        <label>AiBehaviorTreeBase.generated.h</label>
+      </node>
+      <node id="3">
+        <label>BehaviorTree/BehaviorTree.h</label>
+      </node>
+      <node id="2">
+        <label>CoreMinimal.h</label>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/Characters/Behaviors/AiBehaviorTreeBase.h</label>
+        <link refid="_ai_behavior_tree_base_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/Characters/Behaviors/AiBehaviorTreeBase.h</label>
+        <link refid="_ai_behavior_tree_base_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Source/TalesDungeoneer/Public/Characters/Behaviors/CombatAiBehaviorTreeBase.h</label>
+        <link refid="_combat_ai_behavior_tree_base_8h_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_u_ai_behavior_tree_base" prot="public">UAiBehaviorTreeBase</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>Take<sp/>Five<sp/>Games,<sp/>LLC<sp/>2023<sp/>-<sp/>All<sp/>Rights<sp/>Reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;CoreMinimal.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;BehaviorTree/BehaviorTree.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;AiBehaviorTreeBase.generated.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal">UCLASS()</highlight></codeline>
+<codeline lineno="10" refid="class_u_ai_behavior_tree_base" refkind="compound"><highlight class="normal">class<sp/>TALESDUNGEONEER_API<sp/><ref refid="class_u_ai_behavior_tree_base" kindref="compound">UAiBehaviorTreeBase</ref><sp/>:<sp/>public<sp/>UBehaviorTree</highlight></codeline>
+<codeline lineno="11"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>GENERATED_BODY()</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_u_ai_behavior_tree_base" kindref="compound">UAiBehaviorTreeBase</ref>();</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Public/Characters/Behaviors/AiBehaviorTreeBase.h"/>
+  </compounddef>
+</doxygen>

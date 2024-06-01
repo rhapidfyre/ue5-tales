@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_u_global_data" kind="class" language="C++" prot="public">
+    <compoundname>UGlobalData</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">UBlueprintFunctionLibrary</basecompoundref>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_u_global_data_1af072bd7c71fe5255304e300d1076b514" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>FString</type>
+        <definition>FString UGlobalData::GetAppVersion</definition>
+        <argsstring>(bool bShowBranch=false, bool bSafeString=false)</argsstring>
+        <name>GetAppVersion</name>
+        <qualifiedname>UGlobalData::GetAppVersion</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>bShowBranch</declname>
+          <defval>false</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bSafeString</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" line="70" column="16" bodyfile="Source/TalesDungeoneer/Private/lib/datastructures/GlobalData.cpp" bodystart="17" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_global_data_1add359f20eee6b72395b531e515f46951" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_f_tales_version" kindref="compound">FTalesVersion</ref></type>
+        <definition>FTalesVersion UGlobalData::GetFullAppVersion</definition>
+        <argsstring>()</argsstring>
+        <name>GetFullAppVersion</name>
+        <qualifiedname>UGlobalData::GetFullAppVersion</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" line="73" column="22" bodyfile="Source/TalesDungeoneer/Private/lib/datastructures/GlobalData.cpp" bodystart="22" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_global_data_1ae1e460de1cf28c49f97727775fa6604f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int UGlobalData::GetGameMaxCharacterLevel</definition>
+        <argsstring>()</argsstring>
+        <name>GetGameMaxCharacterLevel</name>
+        <qualifiedname>UGlobalData::GetGameMaxCharacterLevel</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" line="76" column="12" bodyfile="Source/TalesDungeoneer/Private/lib/datastructures/GlobalData.cpp" bodystart="41" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_global_data_1a59518109e51636710d63de0e53b92f80" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>FString</type>
+        <definition>static FString UGlobalData::CharacterSaveFolder</definition>
+        <argsstring>()</argsstring>
+        <name>CharacterSaveFolder</name>
+        <qualifiedname>UGlobalData::CharacterSaveFolder</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" line="79" column="16" bodyfile="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" bodystart="79" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_global_data_1aa74b9b13a193faac8f9769d082d2b64d" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>FString</type>
+        <definition>static FString UGlobalData::InventorySaveFolder</definition>
+        <argsstring>()</argsstring>
+        <name>InventorySaveFolder</name>
+        <qualifiedname>UGlobalData::InventorySaveFolder</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" line="82" column="16" bodyfile="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" bodystart="82" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_global_data_1aa07453aed0635a0c364607abeb8ff047" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>FString</type>
+        <definition>static FString UGlobalData::MeshMergeSaveFolder</definition>
+        <argsstring>()</argsstring>
+        <name>MeshMergeSaveFolder</name>
+        <qualifiedname>UGlobalData::MeshMergeSaveFolder</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" line="85" column="16" bodyfile="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" bodystart="85" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_global_data_1af87193e1096542552fb4f248b3b26c1f" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool UGlobalData::GetGameIsInDebugMode</definition>
+        <argsstring>()</argsstring>
+        <name>GetGameIsInDebugMode</name>
+        <qualifiedname>UGlobalData::GetGameIsInDebugMode</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" line="88" column="13" bodyfile="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" bodystart="88" bodyend="91"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>UBlueprintFunctionLibrary</label>
+      </node>
+      <node id="1">
+        <label>UGlobalData</label>
+        <link refid="class_u_global_data"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>UBlueprintFunctionLibrary</label>
+      </node>
+      <node id="1">
+        <label>UGlobalData</label>
+        <link refid="class_u_global_data"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" line="64" column="1" bodyfile="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" bodystart="65" bodyend="93"/>
+    <listofallmembers>
+      <member refid="class_u_global_data_1a59518109e51636710d63de0e53b92f80" prot="public" virt="non-virtual"><scope>UGlobalData</scope><name>CharacterSaveFolder</name></member>
+      <member refid="class_u_global_data_1af072bd7c71fe5255304e300d1076b514" prot="public" virt="non-virtual"><scope>UGlobalData</scope><name>GetAppVersion</name></member>
+      <member refid="class_u_global_data_1add359f20eee6b72395b531e515f46951" prot="public" virt="non-virtual"><scope>UGlobalData</scope><name>GetFullAppVersion</name></member>
+      <member refid="class_u_global_data_1af87193e1096542552fb4f248b3b26c1f" prot="public" virt="non-virtual"><scope>UGlobalData</scope><name>GetGameIsInDebugMode</name></member>
+      <member refid="class_u_global_data_1ae1e460de1cf28c49f97727775fa6604f" prot="public" virt="non-virtual"><scope>UGlobalData</scope><name>GetGameMaxCharacterLevel</name></member>
+      <member refid="class_u_global_data_1aa74b9b13a193faac8f9769d082d2b64d" prot="public" virt="non-virtual"><scope>UGlobalData</scope><name>InventorySaveFolder</name></member>
+      <member refid="class_u_global_data_1aa07453aed0635a0c364607abeb8ff047" prot="public" virt="non-virtual"><scope>UGlobalData</scope><name>MeshMergeSaveFolder</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

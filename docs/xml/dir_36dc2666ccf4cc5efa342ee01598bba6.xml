@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="dir_36dc2666ccf4cc5efa342ee01598bba6" kind="dir">
+    <compoundname>Source/TalesDungeoneer/Public/Widgets</compoundname>
+    <innerfile refid="_floating_text_widget_base_8h">FloatingTextWidgetBase.h</innerfile>
+    <innerfile refid="_overhead_data_widget_base_8h">OverheadDataWidgetBase.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Public/Widgets/"/>
+  </compounddef>
+</doxygen>

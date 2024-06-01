@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_tales_gameplay_ability_8h" kind="file" language="C++">
+    <compoundname>TalesGameplayAbility.h</compoundname>
+    <includes local="yes">CoreMinimal.h</includes>
+    <includes local="yes">Abilities/GameplayAbility.h</includes>
+    <includes refid="_tales_dungeoneer_8h" local="yes">TalesDungeoneer/TalesDungeoneer.h</includes>
+    <includes local="yes">TalesGameplayAbility.generated.h</includes>
+    <includedby refid="_character_base_8cpp" local="yes">Source/TalesDungeoneer/Private/Characters/CharacterBase.cpp</includedby>
+    <includedby refid="_character_defaults_8cpp" local="yes">Source/TalesDungeoneer/Private/DataAssets/CharacterDefaults.cpp</includedby>
+    <includedby refid="_tales_gameplay_ability_8cpp" local="yes">Source/TalesDungeoneer/Private/Gas/Abilities/TalesGameplayAbility.cpp</includedby>
+    <includedby refid="_character_base_8h" local="yes">Source/TalesDungeoneer/Public/Characters/CharacterBase.h</includedby>
+    <incdepgraph>
+      <node id="3">
+        <label>Abilities/GameplayAbility.h</label>
+      </node>
+      <node id="2">
+        <label>CoreMinimal.h</label>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/Gas/Abilities/TalesGameplayAbility.h</label>
+        <link refid="_tales_gameplay_ability_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>TalesDungeoneer/TalesDungeoneer.h</label>
+        <link refid="_tales_dungeoneer_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>TalesGameplayAbility.generated.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>Source/TalesDungeoneer/Public/Characters/CharacterBase.h</label>
+        <link refid="_character_base_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Source/TalesDungeoneer/Public/Characters/CombatNpcCharacterBase.h</label>
+        <link refid="_combat_npc_character_base_8h_source"/>
+      </node>
+      <node id="6">
+        <label>Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h</label>
+        <link refid="_combat_ai_controller_base_8h_source"/>
+      </node>
+      <node id="9">
+        <label>Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h</label>
+        <link refid="_creator_character_base_8h_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Source/TalesDungeoneer/Public/Characters/DmCharacterBase.h</label>
+        <link refid="_dm_character_base_8h_source"/>
+      </node>
+      <node id="7">
+        <label>Source/TalesDungeoneer/Public/Characters/InteractiveNpcBase.h</label>
+        <link refid="_interactive_npc_base_8h_source"/>
+      </node>
+      <node id="4">
+        <label>Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h</label>
+        <link refid="_npc_character_base_8h_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>Source/TalesDungeoneer/Public/Characters/PlayerCharacterBase.h</label>
+        <link refid="_player_character_base_8h_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesDungeoneerGameMode.h</label>
+        <link refid="_tales_dungeoneer_game_mode_8h_source"/>
+      </node>
+      <node id="10">
+        <label>Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorGameModeBase.h</label>
+        <link refid="_creator_game_mode_base_8h_source"/>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/Gas/Abilities/TalesGameplayAbility.h</label>
+        <link refid="_tales_gameplay_ability_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>Source/TalesDungeoneer/Public/Widgets/OverheadDataWidgetBase.h</label>
+        <link refid="_overhead_data_widget_base_8h_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_u_tales_gameplay_ability" prot="public">UTalesGameplayAbility</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>Take<sp/>Five<sp/>Games,<sp/>LLC<sp/>2023<sp/>-<sp/>All<sp/>Rights<sp/>Reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;CoreMinimal.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Abilities/GameplayAbility.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;TalesDungeoneer/TalesDungeoneer.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;TalesGameplayAbility.generated.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal">UCLASS()</highlight></codeline>
+<codeline lineno="16" refid="class_u_tales_gameplay_ability" refkind="compound"><highlight class="normal">class<sp/>TALESDUNGEONEER_API<sp/><ref refid="class_u_tales_gameplay_ability" kindref="compound">UTalesGameplayAbility</ref><sp/>:<sp/>public<sp/>UGameplayAbility</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>GENERATED_BODY()</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>EditAnywhere,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Ability&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>EAbilityInputID<sp/>AbilityInputID<sp/>{<sp/>EAbilityInputID::None<sp/>};</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="24"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Public/Gas/Abilities/TalesGameplayAbility.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_weapon_enums_8cpp" kind="file" language="C++">
+    <compoundname>WeaponEnums.cpp</compoundname>
+    <includes refid="_weapon_enums_8h" local="yes">lib/enums/WeaponEnums.h</includes>
+    <incdepgraph>
+      <node id="3">
+        <label>CoreMinimal.h</label>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Private/lib/enums/WeaponEnums.cpp</label>
+        <link refid="_weapon_enums_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>lib/enums/WeaponEnums.h</label>
+        <link refid="_weapon_enums_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>WeaponEnums.generated.h</label>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;lib/enums/WeaponEnums.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Private/lib/enums/WeaponEnums.cpp"/>
+  </compounddef>
+</doxygen>

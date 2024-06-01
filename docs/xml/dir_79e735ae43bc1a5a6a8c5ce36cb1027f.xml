@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="dir_79e735ae43bc1a5a6a8c5ce36cb1027f" kind="dir">
+    <compoundname>Source/TalesDungeoneer/Private/Gas/Misc</compoundname>
+    <innerfile refid="_tales_damage_calc_8cpp">TalesDamageCalc.cpp</innerfile>
+    <innerfile refid="_tales_damage_calc_8h">TalesDamageCalc.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Private/Gas/Misc/"/>
+  </compounddef>
+</doxygen>

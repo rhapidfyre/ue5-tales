@@ -1,0 +1,1501 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.11.0" xml:lang="en-US">
+  <compound refid="class_a_ai_controller_base" kind="class"><name>AAiControllerBase</name>
+    <member refid="class_a_ai_controller_base_1aefb7ec98957db9a3bfc183501828614a" kind="variable"><name>BehaviorTree</name></member>
+    <member refid="class_a_ai_controller_base_1a27ae1bd0f533edc996266112e4fc8d70" kind="variable"><name>AiPerception</name></member>
+    <member refid="class_a_ai_controller_base_1a82fd5e159c757f4df720be6454718511" kind="variable"><name>GainSightRadius</name></member>
+    <member refid="class_a_ai_controller_base_1aca78b1048a7e427eb004c0646ee18a4e" kind="variable"><name>LoseSightRadius</name></member>
+    <member refid="class_a_ai_controller_base_1a279dbd15982e9ed164147c049d0cc4db" kind="variable"><name>_PatrolArea</name></member>
+    <member refid="class_a_ai_controller_base_1a24509ebec165661f7a1d5ad3032ae7fb" kind="function"><name>AAiControllerBase</name></member>
+    <member refid="class_a_ai_controller_base_1ad4449a2a39488eabb765147c969c76e7" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_ai_controller_base_1a49f1eeeaed6c48ac5cc914a0c7e54eeb" kind="function"><name>BeginPlay</name></member>
+    <member refid="class_a_ai_controller_base_1a4d7f4c5a91807c234a79c1f9be959d91" kind="function"><name>OnConstruction</name></member>
+    <member refid="class_a_ai_controller_base_1a738fc3a8b93ea1278aca8ad1460dc949" kind="function"><name>PostInitializeComponents</name></member>
+    <member refid="class_a_ai_controller_base_1a44fd946dd8d5411fe5c0415777d7c2b6" kind="function"><name>Tick</name></member>
+  </compound>
+  <compound refid="class_a_character_base" kind="class"><name>ACharacterBase</name>
+    <member refid="class_a_character_base_1aa222676d07e654363645bd5194e54450" kind="variable"><name>bIsEnabled</name></member>
+    <member refid="class_a_character_base_1a927fcda4dd1b0c39189e702fc4290b62" kind="variable"><name>NewValue</name></member>
+    <member refid="class_a_character_base_1abecc381e55c13b9a9eb0c799d6393557" kind="variable"><name>bIsInputBound</name></member>
+    <member refid="class_a_character_base_1acbdba15f041e4d1f012e9f184e20ff86" kind="variable"><name>HeadDisplayWidget</name></member>
+    <member refid="class_a_character_base_1a6f72819126002ce12fcd248798bc874b" kind="variable"><name>CameraBoom</name></member>
+    <member refid="class_a_character_base_1a5a5434eaa6a04f6d9691fd8852030f0b" kind="variable"><name>FollowCamera</name></member>
+    <member refid="class_a_character_base_1a964f435a27b9be605d2485b051935a74" kind="variable"><name>InventoryComponent</name></member>
+    <member refid="class_a_character_base_1ab3feb0a990e926490cf51863facad68e" kind="variable"><name>MeshMergeComponent</name></member>
+    <member refid="class_a_character_base_1af9ae749a86c17c0b0b9353b8d681d40a" kind="variable"><name>EquipmentComponent</name></member>
+    <member refid="class_a_character_base_1abc51d8d9178df828fb7df027c01f52eb" kind="variable"><name>UnlockPointsOnLevelUp</name></member>
+    <member refid="class_a_character_base_1a8c4ef7f32d92a5f5d56c67cac0409cb1" kind="variable"><name>PronounSubject</name></member>
+    <member refid="class_a_character_base_1aea7a1b49860dc9ae30f75fb4c1eff52d" kind="variable"><name>PronounObjective</name></member>
+    <member refid="class_a_character_base_1ac77ce952836f6f4f0810452fc376c257" kind="variable"><name>PronounPossessive</name></member>
+    <member refid="class_a_character_base_1ae7f610356b07eb3b534452d466776d12" kind="variable"><name>SkinColor</name></member>
+    <member refid="class_a_character_base_1ae440aa8ddb0abf475572bc572a205da2" kind="variable"><name>AbilitySystemComponent</name></member>
+    <member refid="class_a_character_base_1a9782daa786016454e8d057b211c39b84" kind="variable"><name>DefaultAbilities</name></member>
+    <member refid="class_a_character_base_1ad9e4319f63cec7687f17d3b847f433c9" kind="variable"><name>DefaultEffects</name></member>
+    <member refid="class_a_character_base_1a8e0ce3f70eb610651fae9352cc2f4e5f" kind="variable"><name>bSavesOnServer</name></member>
+    <member refid="class_a_character_base_1a67dd8fd969d899e60a48d7fa935422d8" kind="variable"><name>CharacterRace_</name></member>
+    <member refid="class_a_character_base_1ae0cc698d9dda24dde1d461489f25c78e" kind="variable"><name>CharacterClass_</name></member>
+    <member refid="class_a_character_base_1a277320dd8fab63a90e9c1ab44fed7eed" kind="variable"><name>bCharacterSaveRestored</name></member>
+    <member refid="class_a_character_base_1a40fcdf4cf44638defe6123d018a401bf" kind="variable"><name>bCharacterReady</name></member>
+    <member refid="class_a_character_base_1afb1c8b3ec64e50d3c49a9f3aa6aad399" kind="function"><name>ACharacterBase</name></member>
+    <member refid="class_a_character_base_1a7d73b09fa44d637a83538014484ea4d0" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_character_base_1ac26267cb7d91ec0b4b7777e3c89a84f0" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_character_base_1ae6f1687542fe32a2a13a1536a7462113" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_character_base_1aa535d73281a337eb55d51d014c786305" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_character_base_1a7922b4665c32e2cd767b87dc2dce7502" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_character_base_1a80c6b78311e6241824538d1c36916095" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_character_base_1a019a2433ad125b4652edc24995faa3ee" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_character_base_1a59b8a866cdb976cebd2244212d3719f7" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_character_base_1a6ba24381bc4ee0470cd15d84ae2ab994" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_character_base_1afe950d422262a1ae905122f3d29b2a8d" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_character_base_1a748cd209b36f7da1ccec783199973205" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_character_base_1a80a48abd98da932fef51ab7532e9daad" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_character_base_1a34fec97e819b9b5552fb240850563508" kind="function"><name>GetCameraBoom</name></member>
+    <member refid="class_a_character_base_1a34b6bc5074c41244c3c82a7903121a8a" kind="function"><name>GetFollowCamera</name></member>
+    <member refid="class_a_character_base_1a48e6c6cef789c8f200aceb2c351e0d00" kind="function"><name>GetRiskLevel</name></member>
+    <member refid="class_a_character_base_1acd559518667d72500e16d39155d23030" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_character_base_1a6343a6d46dc1d0effea9c6568254717d" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_character_base_1a022b5e6d201c8ee9afa3b387df2817c3" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_character_base_1a287ec3782211ca74de6b6b8b5c0dfe8b" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_character_base_1a323ee0a3178d3b0edb4eb650f1ea806a" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_character_base_1ade1ff5cb31d8da177802d89ebed1220a" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_character_base_1ad3ee315dafd3b463d4cc10e4d888411c" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_character_base_1a5d4013fcd8cee1bf14cf1a649c264222" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_character_base_1a8f08c623ab0a0c67e10b8246a1126248" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_character_base_1a0ed99f5a89d193a4af167fc17ef62c2e" kind="function"><name>SetCharacterName</name></member>
+    <member refid="class_a_character_base_1adfe877af8f9dff59d1f3ed7bbf071e6e" kind="function"><name>GetAbilitySystemComponent</name></member>
+    <member refid="class_a_character_base_1af108e9a63b7ef7c8b439d1489907a97f" kind="function"><name>SaveCharacter</name></member>
+    <member refid="class_a_character_base_1a6162cfac4931938f70565d9038d7e3fa" kind="function"><name>LoadCharacter</name></member>
+    <member refid="class_a_character_base_1a2238d899678be29a5b721c80d3d29a69" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_character_base_1ad9094ffb75c51cece8de330cde09efdb" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_character_base_1a2c621e5d806379b8e8d8c281af248939" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_character_base_1a420ebf21eb8d26ed23fa897d4a2d89e8" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_character_base_1af3c947c93de39852aaf3b6050ad09e24" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_character_base_1a006caa814a16a3344dd554dca640b910" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_character_base_1a40c133b9bb51b343653ef6a6915a48f3" kind="function"><name>BeginPlay</name></member>
+    <member refid="class_a_character_base_1a86d04681a60f275a7648ed4b53b8155f" kind="function"><name>BindListeners</name></member>
+    <member refid="class_a_character_base_1aca2002cb51ffd95d45742a6ffaec6066" kind="function"><name>OnConstruction</name></member>
+    <member refid="class_a_character_base_1a282f76cdcee9643661e099cac55d5961" kind="function"><name>InitializeAbilities</name></member>
+    <member refid="class_a_character_base_1a971a14ab5f2081ec44d83520cf53e1fc" kind="function"><name>InitializeEffects</name></member>
+    <member refid="class_a_character_base_1ac4d0b212516f9152b1abc2d4d93a84e5" kind="function"><name>PossessedBy</name></member>
+    <member refid="class_a_character_base_1a244a0fffb3290ad31c38746ac437c689" kind="function"><name>OnRep_PlayerState</name></member>
+    <member refid="class_a_character_base_1a84cac3667b6d69ea1de2ab7517569fe6" kind="function"><name>CharacterRestoredFromSave</name></member>
+    <member refid="class_a_character_base_1a6b61aadac96a0fa877ba78b8b789670f" kind="function"><name>EndPlay</name></member>
+    <member refid="class_a_character_base_1a9eb21f174f4af75367495a9d5211e716" kind="function"><name>Tick</name></member>
+    <member refid="class_a_character_base_1ac786db8fa4814acaca7b63ecd640f216" kind="function"><name>SaveGameDelegate</name></member>
+    <member refid="class_a_character_base_1abbf0115c04a791dafa3a07db457790c2" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_character_base_1a67a6f5ceb8884525d5f102a5fbe07df8" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_character_base_1ae80c1ac72f43452616c6fb072ba5115e" kind="function"><name>OnVitalityAttributeChanged</name></member>
+    <member refid="class_a_character_base_1aaa5f5607f86244693627826b507d67a6" kind="function"><name>OnCoreStatsChanged</name></member>
+    <member refid="class_a_character_base_1a4b949558d4be09096acb5e107b82119e" kind="function"><name>OnDamageStatsChanged</name></member>
+    <member refid="class_a_character_base_1aa87f300f0843a1708d621abc643d4bc5" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_character_base_1af4e2b5a064868b34ffdcd5c4121dcd84" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_character_base_1aed0b1c141d4ec13d46fb42eb8b387d70" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_character_base_1a34e9be93e43e816473c63f45ae01081b" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_character_base_1aa1d9640271b752da99c94fe2d92957e5" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_character_base_1a887c148e9fb4f57356b9b0a5bbfa1379" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_character_base_1ad574955baad39e064f76e5ba3db5648b" kind="function"><name>Client_CharacterRestored</name></member>
+    <member refid="class_a_character_base_1a9b7a306ece1d3036e6df99acdfeb0292" kind="function"><name>OnRep_CharacterName</name></member>
+    <member refid="class_a_character_base_1ace8cdf619fe126131b6f08f157156114" kind="function"><name>OnRep_CharacterRace</name></member>
+    <member refid="class_a_character_base_1a6a529b6fecb331a5a6f0c4e23a2cc93a" kind="function"><name>OnRep_CharacterClass</name></member>
+    <member refid="class_a_character_base_1a4cdd0a06e11b465514b1e62d00a4fd19" kind="function"><name>Server_RestoreCharacter</name></member>
+    <member refid="class_a_character_base_1acebae45bd1b4bb27ee2d9315fd73939f" kind="function"><name>RestoreCharacter</name></member>
+  </compound>
+  <compound refid="class_a_combat_ai_controller_base" kind="class"><name>ACombatAiControllerBase</name>
+    <member refid="class_a_combat_ai_controller_base_1a4838c2d856b1d99867ff9223bc721601" kind="variable"><name>HatePoints</name></member>
+    <member refid="class_a_combat_ai_controller_base_1a56ca50f4aa232112536c07ce00aee7a2" kind="variable"><name>DamageValue</name></member>
+    <member refid="class_a_combat_ai_controller_base_1afb66b2ad0bf35b2b2692c435ab9d086a" kind="variable"><name>AiTeam</name></member>
+    <member refid="class_a_combat_ai_controller_base_1a2d3b1581e6ca552030e7fcbccc33f7a1" kind="variable"><name>StimulusData</name></member>
+    <member refid="class_a_combat_ai_controller_base_1ad6690d7d190294bc4b01d4a0e845716a" kind="variable"><name>_HateList</name></member>
+    <member refid="class_a_combat_ai_controller_base_1a45242c2b95fc5f44117e16e59921cbb1" kind="variable"><name>_DamageList</name></member>
+    <member refid="class_a_combat_ai_controller_base_1a28f41d504a090640b97e557f13724c11" kind="function"><name>ACombatAiControllerBase</name></member>
+    <member refid="class_a_combat_ai_controller_base_1ade1f85bc0dc34ec92bb5f9fb4b5449ae" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_combat_ai_controller_base_1ae56b38cdabe574407cdfa9460558f373" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_combat_ai_controller_base_1ab24621045391d1456a28db69dcf23daa" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_combat_ai_controller_base_1a10e3dd3b93a5a8cc09d535786adeb71d" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_combat_ai_controller_base_1a41f6ed5d3333a25406e2d6a007d47aee" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_combat_ai_controller_base_1a28561c897708c4f2d128cfa59586081e" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_combat_ai_controller_base_1ade9c9278789c8dfdb8046ab89501dec4" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_combat_ai_controller_base_1ae46f93b5a505a9918719571c172f7bc4" kind="function"><name>GetHateList</name></member>
+    <member refid="class_a_combat_ai_controller_base_1aea0d7684368248c623e78749436bc6ae" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_combat_ai_controller_base_1a02588bed7e0670967b3fee77dfff11fd" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_combat_ai_controller_base_1a9de4b3a58baa6daaefb3cfd4e9f2b742" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_combat_ai_controller_base_1ae366a506e99022431d5d043d8a54a02d" kind="function"><name>BeginPlay</name></member>
+    <member refid="class_a_combat_ai_controller_base_1a2b908358b12dd94b25c793a63d5253c6" kind="function"><name>Tick</name></member>
+    <member refid="class_a_combat_ai_controller_base_1a6a50abec827b3f1b785bcc3bb1d7f77c" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_combat_ai_controller_base_1ab7633672dc74e8801512f2a647dbfa1e" kind="function"><name>SortHateList</name></member>
+    <member refid="class_a_combat_ai_controller_base_1ac1ebdec874fc892efcd650fdff8fe803" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_combat_ai_controller_base_1a14c17f3a81d875d4d8137ea39d6c0547" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_combat_ai_controller_base_1a14c17f3a81d875d4d8137ea39d6c0547" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_combat_ai_controller_base_1a07387aa5683d6b546d3f5c238e244c1a" kind="function"><name>UPROPERTY</name></member>
+  </compound>
+  <compound refid="class_a_combat_npc_character_base" kind="class"><name>ACombatNpcCharacterBase</name>
+    <member refid="class_a_combat_npc_character_base_1aa46fb589552bd93583bc8ecaa134e886" kind="variable"><name>TimeBetweenAttacks</name></member>
+    <member refid="class_a_combat_npc_character_base_1aa828601f8da2f4294e85145d303a8796" kind="variable"><name>TimeBetweenAbilities</name></member>
+    <member refid="class_a_combat_npc_character_base_1a1f2cdaaff41d26716209abd3fddd56a8" kind="variable"><name>SynergyChance</name></member>
+    <member refid="class_a_combat_npc_character_base_1a2b1273071ef03aba9a6d83c5432cec73" kind="variable"><name>_AttackTimer</name></member>
+    <member refid="class_a_combat_npc_character_base_1aa36b9d77c4705b0d50ed856bc59f2dc6" kind="function"><name>ACombatNpcCharacterBase</name></member>
+    <member refid="class_a_combat_npc_character_base_1a823a9987113d391e1c36086471e57c9c" kind="function"><name>Tick</name></member>
+    <member refid="class_a_combat_npc_character_base_1a7329a30e9ca99791d6e70a6f455551f2" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_combat_npc_character_base_1a214f43172c1372fde63dc0ff44a2b19d" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_combat_npc_character_base_1a95388f41cf9ca94f0241e6ff9c0df657" kind="function"><name>BeginPlay</name></member>
+    <member refid="class_a_combat_npc_character_base_1a884ecc1deeebab4c85b966e31cfe3f0e" kind="function"><name>OnConstruction</name></member>
+    <member refid="class_a_combat_npc_character_base_1a988ae73f803f9acb057aea46b35bd706" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_combat_npc_character_base_1ab21578912595616e63be96c059667531" kind="function"><name>UFUNCTION</name></member>
+  </compound>
+  <compound refid="class_a_creator_character_base" kind="class"><name>ACreatorCharacterBase</name>
+    <member refid="class_a_creator_character_base_1a7fb095ebe26c3872a6c29841870ce646" kind="variable"><name>NewSaveSlotName_</name></member>
+    <member refid="class_a_creator_character_base_1a24380ed97f161d5d6a84a831b37b8458" kind="variable"><name>NewSaveUserIndex_</name></member>
+    <member refid="class_a_creator_character_base_1a943cbb786078c9cbd85d1f2eeb036edb" kind="variable"><name>bIsCreating</name></member>
+    <member refid="class_a_creator_character_base_1a2be0da043a5cd2d46784431b7a27b2a3" kind="function"><name>ACreatorCharacterBase</name></member>
+    <member refid="class_a_creator_character_base_1aa0d6106714da1d30dd42e2bad085d1fd" kind="function"><name>FinishCreation</name></member>
+    <member refid="class_a_creator_character_base_1aa08023a2d823d61214e1792b3628273c" kind="function"><name>SetIsBeingCreated</name></member>
+    <member refid="class_a_creator_character_base_1a78485a2b06750406988b0157f6a75597" kind="function"><name>GetIsBeingCreated</name></member>
+    <member refid="class_a_creator_character_base_1a4cbc226d4c2891702b0e0abfab4fe0c1" kind="function"><name>CreateCharacter</name></member>
+    <member refid="class_a_creator_character_base_1af12f935a13c7074805a93682006f5a50" kind="function"><name>GetAllBodyPartMeshes</name></member>
+    <member refid="class_a_creator_character_base_1a9c60540bb7f384c37437aefd48933a97" kind="function"><name>ResetMeshSelections</name></member>
+    <member refid="class_a_creator_character_base_1a2a7e1a49468dcf7ccb5ce0f965653694" kind="function"><name>ClearChildrenOfMesh</name></member>
+    <member refid="class_a_creator_character_base_1a366df9d9a1bcb0c121ff33f2768d5f32" kind="function"><name>LoadCharacter</name></member>
+    <member refid="class_a_creator_character_base_1ae98c8465678f324d7ff2971d74deee8b" kind="function"><name>SaveCharacter</name></member>
+    <member refid="class_a_creator_character_base_1a3879685392fead0659b436d619e8232e" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_creator_character_base_1a7ec82b64c3ab743c39e373037c4e777c" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_creator_character_base_1acffe8a9ef9e557c029dd61da5f4d08ef" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_creator_character_base_1a7f95ff73f3d7e9558fd1f5e16df43061" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_creator_character_base_1a30a9d278f8daf121ab28c000218b99db" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_creator_character_base_1a407756f96c116bd50412cd1419f3d84c" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_creator_character_base_1a1e283fde5b18fe36f0ccdb87b53b726f" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_creator_character_base_1a2a8ce2c7c1dc57967d858f5184254552" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_creator_character_base_1a8bab6af29ca0653f092880094c89e6a9" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_creator_character_base_1a9b88a6127db031dd55818dc0cafa7581" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_creator_character_base_1a7dcf82d87a1ba09373ed034672f2704c" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_creator_character_base_1acbb1ace10ba76d9d3df71aa8a25f8577" kind="function"><name>BeginPlay</name></member>
+    <member refid="class_a_creator_character_base_1a54161bcd1868b6b5d9d43a4ce9490149" kind="function"><name>OnConstruction</name></member>
+    <member refid="class_a_creator_character_base_1acf0c8885e46ccb314f0354ea13d4739a" kind="function"><name>InitMeshPart</name></member>
+  </compound>
+  <compound refid="class_a_creator_game_mode_base" kind="class"><name>ACreatorGameModeBase</name>
+    <member refid="class_a_creator_game_mode_base_1abcde80d3cbfa58f0d1115d317fde792a" kind="variable"><name>BpCharacter</name></member>
+    <member refid="class_a_creator_game_mode_base_1af5e14c53c277c7da0210360da3492a5a" kind="function"><name>ACreatorGameModeBase</name></member>
+    <member refid="class_a_creator_game_mode_base_1a73c6056685b2014546a600589cfd1fa9" kind="function"><name>OnConstruction</name></member>
+  </compound>
+  <compound refid="class_a_creator_game_state_base" kind="class"><name>ACreatorGameStateBase</name>
+    <member refid="class_a_creator_game_state_base_1a49ecef7a169b6ff0776580781a765505" kind="variable"><name>bIsCreating</name></member>
+    <member refid="class_a_creator_game_state_base_1af996554542d24bf366137aad4c1baf57" kind="function"><name>ACreatorGameStateBase</name></member>
+    <member refid="class_a_creator_game_state_base_1a19714022593e835aa3b8c611f9ac2d4c" kind="function"><name>BeginPlay</name></member>
+    <member refid="class_a_creator_game_state_base_1ae6e36a023aef09980b43273b13715dfb" kind="function"><name>SetIsCreatingCharacter</name></member>
+    <member refid="class_a_creator_game_state_base_1a4ff915479432099b3c7829bf375bd31e" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_creator_game_state_base_1a97923a53ddbab7c3e4c9b38b041c6d78" kind="function"><name>CreateNewCharacter</name></member>
+    <member refid="class_a_creator_game_state_base_1a76fd852d3ed92cab2bbdffef08fb63d9" kind="function"><name>SaveCharacterSync</name></member>
+    <member refid="class_a_creator_game_state_base_1aa8eeae7e25b637bb91ef439cffbed774" kind="function"><name>GetIsCreatingCharacter</name></member>
+    <member refid="class_a_creator_game_state_base_1a6990e1c127cc94a66466f7db83caa89d" kind="function"><name>OnRep_IsCreating</name></member>
+  </compound>
+  <compound refid="class_a_creator_hud_base" kind="class"><name>ACreatorHudBase</name>
+    <member refid="class_a_creator_hud_base_1a2e546d618491d6e40ade6bd6e1537dff" kind="function"><name>ACreatorHudBase</name></member>
+    <member refid="class_a_creator_hud_base_1a82493d5f43fa9d29626edfef153444ef" kind="function"><name>DrawHUD</name></member>
+    <member refid="class_a_creator_hud_base_1a74e08c9c6e64a2956961aea4d9badb1e" kind="function"><name>BeginPlay</name></member>
+  </compound>
+  <compound refid="class_a_creator_player_state_base" kind="class"><name>ACreatorPlayerStateBase</name>
+    <member refid="class_a_creator_player_state_base_1a89b8525bf24b69ac2c9f0fc1c489eabd" kind="function"><name>ACreatorPlayerStateBase</name></member>
+    <member refid="class_a_creator_player_state_base_1a369b651431895e1c4ddf9ac716183919" kind="function"><name>BeginPlay</name></member>
+  </compound>
+  <compound refid="class_a_dm_character_base" kind="class"><name>ADmCharacterBase</name>
+    <member refid="class_a_dm_character_base_1a5931a076948a891202c2199daf98f652" kind="function"><name>ADmCharacterBase</name></member>
+    <member refid="class_a_dm_character_base_1a178446263ccf22f8a9a83048492210fb" kind="function"><name>BeginPlay</name></member>
+  </compound>
+  <compound refid="class_a_interactive_npc_character_base" kind="class"><name>AInteractiveNpcCharacterBase</name>
+    <member refid="class_a_interactive_npc_character_base_1a25e4ed63de748c7181667780227b5d9a" kind="variable"><name>bCanBeTargetedByCombatants</name></member>
+    <member refid="class_a_interactive_npc_character_base_1a668d5bca3d637931b45ee0c2b9cacfe9" kind="function"><name>AInteractiveNpcCharacterBase</name></member>
+    <member refid="class_a_interactive_npc_character_base_1a33b4b9a2bb43c07678fe616537545ac7" kind="function"><name>Tick</name></member>
+    <member refid="class_a_interactive_npc_character_base_1ad5cf9c30d060d25e4933245db02f9732" kind="function"><name>BeginPlay</name></member>
+  </compound>
+  <compound refid="class_a_melee_weapon_base" kind="class"><name>AMeleeWeaponBase</name>
+    <member refid="class_a_melee_weapon_base_1a9555efdd6b79bfb39d636ed79273be62" kind="variable"><name>mHitDetector</name></member>
+    <member refid="class_a_melee_weapon_base_1adf11f0ffc9d6d30f88ffa9288798e4c0" kind="variable"><name>_DelayTimer</name></member>
+    <member refid="class_a_melee_weapon_base_1a764e3befee7e37bb3ca584f8b463ad23" kind="function"><name>AMeleeWeaponBase</name></member>
+    <member refid="class_a_melee_weapon_base_1aab9a31db4eafc8cba3211b377d7ea89b" kind="function"><name>doAttack</name></member>
+    <member refid="class_a_melee_weapon_base_1aadb195a76ff454663cba7e9be96970f4" kind="function"><name>startHitDetection</name></member>
+    <member refid="class_a_melee_weapon_base_1a40c69348dbe8fe1bd0003581aa1c6216" kind="function"><name>BeginPlay</name></member>
+    <member refid="class_a_melee_weapon_base_1a0e258a967a0d478c09f25513158b59c8" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_melee_weapon_base_1addd60d14bf928ef62220743c85cd871e" kind="function"><name>OnConstruction</name></member>
+    <member refid="class_a_melee_weapon_base_1a9c00334e0ef24fbe836888bec2fe2b8a" kind="function"><name>UpdateWeapon</name></member>
+    <member refid="class_a_melee_weapon_base_1a4c723d205de17f7f56986241085a9ab0" kind="function"><name>TargetHitByWeapon</name></member>
+    <member refid="class_a_melee_weapon_base_1a88746d6ed4e9651e2148d1fca5cd6e23" kind="function"><name>onMeleeWeaponHit</name></member>
+    <member refid="class_a_melee_weapon_base_1a12b1c8fe54d07cdf90cf989240b2a2e5" kind="function"><name>UPROPERTY</name></member>
+  </compound>
+  <compound refid="class_a_npc_character_base" kind="class"><name>ANpcCharacterBase</name>
+    <member refid="class_a_npc_character_base_1a43d89c7406d587afe31603c224bbf420" kind="variable"><name>StartingItems</name></member>
+    <member refid="class_a_npc_character_base_1a32e47b62d2306fc0016939f6464b1259" kind="variable"><name>LootTables</name></member>
+    <member refid="class_a_npc_character_base_1aeeaf2b76335288730e82942250d31681" kind="variable"><name>MinimumLevelSpread</name></member>
+    <member refid="class_a_npc_character_base_1ae6657ed1ef7782bb9804d5d6dc3467c5" kind="variable"><name>MaximumLevelSpread</name></member>
+    <member refid="class_a_npc_character_base_1a8b4aec3a791f395df361f53b7cd69054" kind="variable"><name>AiControllerBase</name></member>
+    <member refid="class_a_npc_character_base_1a9349d27de03de671c0f05f2f7fa866df" kind="variable"><name>AiStimuli</name></member>
+    <member refid="class_a_npc_character_base_1ab31ba4acd246e916f462d7b2de9170db" kind="variable"><name>bIsPatrollingNpc</name></member>
+    <member refid="class_a_npc_character_base_1ac9c2e625f64955abec42176a11bc5313" kind="variable"><name>_SpawnOrigin</name></member>
+    <member refid="class_a_npc_character_base_1a407170648be4110eaeacc30f433b4e1b" kind="function"><name>ANpcCharacterBase</name></member>
+    <member refid="class_a_npc_character_base_1a8212a7f437e1517efaa0fcc72edefa69" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_npc_character_base_1a76f35d5cae4b671bd3985d35b30fdc43" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_npc_character_base_1aeb0c9ba5f0c99a04fc21bd01c0410808" kind="function"><name>BeginPlay</name></member>
+    <member refid="class_a_npc_character_base_1a5fe706edf2750fc830f4584fe519b774" kind="function"><name>InitializeStartingItems</name></member>
+    <member refid="class_a_npc_character_base_1aa751330413077749280326e4bfb505d7" kind="function"><name>OnConstruction</name></member>
+    <member refid="class_a_npc_character_base_1a9c8fae0c014dca92cd1c986996abab80" kind="function"><name>DropLootTable</name></member>
+  </compound>
+  <compound refid="class_a_player_character_base" kind="class"><name>APlayerCharacterBase</name>
+    <member refid="class_a_player_character_base_1a9a571d97abfd792fb9ab1f01b6077d97" kind="variable"><name>DefaultMappingContext</name></member>
+    <member refid="class_a_player_character_base_1acf0c91b2f75bf16c0bcabc831669ab55" kind="variable"><name>JumpInputAction</name></member>
+    <member refid="class_a_player_character_base_1aa1b5e5ece7808b1268908d2561972ffe" kind="variable"><name>MoveInputAction</name></member>
+    <member refid="class_a_player_character_base_1a0e996f48e129d3379ef307fc6abf3569" kind="variable"><name>LookInputAction</name></member>
+    <member refid="class_a_player_character_base_1a60b3d849d0034114bd5c1a6874d5268f" kind="variable"><name>PrimaryAttackInputAction</name></member>
+    <member refid="class_a_player_character_base_1a4b886292f79124b2639228d06f770db7" kind="variable"><name>SecondaryAttackInputAction</name></member>
+    <member refid="class_a_player_character_base_1a40107142f9181f0f6ddc2149a3080374" kind="variable"><name>PrimaryInputAction</name></member>
+    <member refid="class_a_player_character_base_1ae4c045dfbf5ba2ca53c9944bef8b6b90" kind="variable"><name>SecondaryInputAction</name></member>
+    <member refid="class_a_player_character_base_1aa118495f9e0ef1bd8e5b397e3acbeedb" kind="variable"><name>NewValue</name></member>
+    <member refid="class_a_player_character_base_1ad0dc555aaddb73c545c8612cbb24fbd8" kind="function"><name>APlayerCharacterBase</name></member>
+    <member refid="class_a_player_character_base_1a578522d80f839dce81a6873fb3d7ae44" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_player_character_base_1a46536d6a961e30619c8b1f0974e67993" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_player_character_base_1a5b6a2cf249a0856166fe476fd2729d92" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_player_character_base_1af71b6c53d33583d83258d3df787ee5f9" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_player_character_base_1a876dac4a1dd786d135bdb1d57feea71f" kind="function"><name>HotkeyTriggered</name></member>
+    <member refid="class_a_player_character_base_1ab9711dbd01761fc22dbb1884af3e0ce5" kind="function"><name>Move</name></member>
+    <member refid="class_a_player_character_base_1aa92c0394f8a8c5151803326bc4e27372" kind="function"><name>Look</name></member>
+    <member refid="class_a_player_character_base_1a22d7e54ad4027e9ba1b260783cb570cc" kind="function"><name>BeginPlay</name></member>
+    <member refid="class_a_player_character_base_1aabe340c552757c49ad2791ce49c64d2c" kind="function"><name>BindListeners</name></member>
+    <member refid="class_a_player_character_base_1a2e61f5c60bc6aaddbd99dbbcdd7e2e31" kind="function"><name>BindInput</name></member>
+    <member refid="class_a_player_character_base_1aeadf3abe6614ad4e35fc990041683a63" kind="function"><name>OnVitalityAttributeChanged</name></member>
+    <member refid="class_a_player_character_base_1a729d84f95a7129084e1c78140cdcffe4" kind="function"><name>OnCoreStatsChanged</name></member>
+    <member refid="class_a_player_character_base_1a6e9f22df58042fb2408c8a5d8106ea4b" kind="function"><name>OnDamageStatsChanged</name></member>
+    <member refid="class_a_player_character_base_1a400c861d1f1006ca8a8a59fed4337fdf" kind="function"><name>SetupPlayerInputComponent</name></member>
+    <member refid="class_a_player_character_base_1ae66adeca8500a5e173e562961f513b08" kind="function"><name>UFUNCTION</name></member>
+  </compound>
+  <compound refid="class_a_player_controller_base" kind="class"><name>APlayerControllerBase</name>
+    <member refid="class_a_player_controller_base_1ae43a79b3be65c7fe192133037a65e08d" kind="variable"><name>MappingContexts</name></member>
+    <member refid="class_a_player_controller_base_1a36b203bff0c4150b4edef6a794b1e3ea" kind="variable"><name>AbilityHotkeys</name></member>
+    <member refid="class_a_player_controller_base_1ab356ac7a87dc03981d13898cf2569331" kind="variable"><name>TargetingHotkeys</name></member>
+    <member refid="class_a_player_controller_base_1abbaef3c9dd5b9ecdd1c4883a3f77513d" kind="function"><name>APlayerControllerBase</name></member>
+    <member refid="class_a_player_controller_base_1a967eddeefa02362acc9554471414c155" kind="function"><name>GetKeyMapping</name></member>
+    <member refid="class_a_player_controller_base_1a032d696c44d23d2b4b9dba38ef67e1de" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_player_controller_base_1ae816660ea1be2cdc8c67a7ae2e3e5d1e" kind="function"><name>BeginPlay</name></member>
+    <member refid="class_a_player_controller_base_1a5166cbbdc2d037299178fde6eb7fcfbc" kind="function"><name>OnConstruction</name></member>
+    <member refid="class_a_player_controller_base_1a5550d8271f0487365883336a724666e7" kind="function"><name>HotkeyTriggered</name></member>
+    <member refid="class_a_player_controller_base_1aeb083727eee869cc40856a32e634d24e" kind="function"><name>HotkeyTarget</name></member>
+    <member refid="class_a_player_controller_base_1aab2869baf1cb4b5c6c6fcaf2541755a8" kind="function"><name>SetupInputComponent</name></member>
+  </compound>
+  <compound refid="class_a_ranged_weapon_base" kind="class"><name>ARangedWeaponBase</name>
+    <member refid="class_a_ranged_weapon_base_1a4aff4abaec81a7249ae5682e1ba90104" kind="variable"><name>ProjectileDirection</name></member>
+    <member refid="class_a_ranged_weapon_base_1a32790dc20fedfd54872b5e56b13932c3" kind="variable"><name>mAmmoCount</name></member>
+    <member refid="class_a_ranged_weapon_base_1ae32756f7816731a2d69104491a39e660" kind="function"><name>ARangedWeaponBase</name></member>
+    <member refid="class_a_ranged_weapon_base_1a31c2380728ef17c31fd87cf141b43170" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_ranged_weapon_base_1aea28c2dbec609d22f1d50ff3f0265a24" kind="function"><name>doAttack</name></member>
+    <member refid="class_a_ranged_weapon_base_1a5b0a8b0f617d45a6b75c7856591f2531" kind="function"><name>Server_FireWeapon</name></member>
+    <member refid="class_a_ranged_weapon_base_1a8d53eb0e912631fdccc59679966741d2" kind="function"><name>BeginPlay</name></member>
+    <member refid="class_a_ranged_weapon_base_1a5afd66be37641371c8281890814dd847" kind="function"><name>OnConstruction</name></member>
+    <member refid="class_a_ranged_weapon_base_1ae926c13441260965525063dc7784d0a3" kind="function"><name>UpdateWeapon</name></member>
+    <member refid="class_a_ranged_weapon_base_1a2bcff0aa30bef7217a609438be39ef05" kind="function"><name>SpawnProjectile</name></member>
+  </compound>
+  <compound refid="class_a_spectator_base" kind="class"><name>ASpectatorBase</name>
+    <member refid="class_a_spectator_base_1a5f7b845a63f0550a5a304c59a9cdb7e6" kind="function"><name>ASpectatorBase</name></member>
+    <member refid="class_a_spectator_base_1a48a15e6f1c5445061d258bb2a0be9721" kind="function"><name>Tick</name></member>
+    <member refid="class_a_spectator_base_1af5e1ffd2eea7f3d16a60af49d8496fb5" kind="function"><name>BeginPlay</name></member>
+  </compound>
+  <compound refid="class_a_tales_dm_hud_base" kind="class"><name>ATalesDmHudBase</name>
+    <member refid="class_a_tales_dm_hud_base_1a0db7f2877e6b73a5941f4d3ba0ee9e0f" kind="function"><name>ATalesDmHudBase</name></member>
+    <member refid="class_a_tales_dm_hud_base_1a294a04e423c90659a82ce631bb93fabf" kind="function"><name>DrawHUD</name></member>
+    <member refid="class_a_tales_dm_hud_base_1a0aa12f3b161e7317c82a52f0dcd0447f" kind="function"><name>BeginPlay</name></member>
+  </compound>
+  <compound refid="class_a_tales_dungeoneer_game_mode" kind="class"><name>ATalesDungeoneerGameMode</name>
+    <member refid="class_a_tales_dungeoneer_game_mode_1a9bd44fcabe7bf36111d3f41a34bfef35" kind="variable"><name>DefaultCharacter</name></member>
+    <member refid="class_a_tales_dungeoneer_game_mode_1ad5c68d1cbb92c836f5eaa7885406163f" kind="function"><name>ATalesDungeoneerGameMode</name></member>
+    <member refid="class_a_tales_dungeoneer_game_mode_1ae35ffc540813e6e6ebad14426bdc4da6" kind="function"><name>OnConstruction</name></member>
+  </compound>
+  <compound refid="class_a_tales_game_state_base" kind="class"><name>ATalesGameStateBase</name>
+    <member refid="class_a_tales_game_state_base_1afbe6aa36b8f981ecb390df3f331bd90d" kind="variable"><name>OnDataAssetLoaded</name></member>
+    <member refid="class_a_tales_game_state_base_1a5060f32520bf85e34804cdd8f3724fe6" kind="variable"><name>DungeonLevel</name></member>
+    <member refid="class_a_tales_game_state_base_1a8b19f8bc583fd0f261a2e1d37bdedc6d" kind="variable"><name>DataTableRace</name></member>
+    <member refid="class_a_tales_game_state_base_1a5c9cde6214796727e596498e77a6f824" kind="variable"><name>DataTableClass</name></member>
+    <member refid="class_a_tales_game_state_base_1a7ad4518b874383c4d5783fc294990557" kind="variable"><name>DataTableVitality</name></member>
+    <member refid="class_a_tales_game_state_base_1a437e44fb53878c6a36a920aa109b4e23" kind="variable"><name>DataTableInventory</name></member>
+    <member refid="class_a_tales_game_state_base_1a67061c22f9c2691f78835b6f6b4e57f3" kind="variable"><name>DataTableAbilities</name></member>
+    <member refid="class_a_tales_game_state_base_1a4b9ca9b467aa049d37036cee0b5ec692" kind="variable"><name>DataTableEffects</name></member>
+    <member refid="class_a_tales_game_state_base_1ab03a1e4b24812fef79c0d5860c447325" kind="variable"><name>bSavesOnServer</name></member>
+    <member refid="class_a_tales_game_state_base_1abb7f3ef258ae3a29f09bb63bd10cb487" kind="variable"><name>EquipmentSlotIcons</name></member>
+    <member refid="class_a_tales_game_state_base_1af1002e3cb4fa3fe1ff963c74db451888" kind="variable"><name>UserIndex</name></member>
+    <member refid="class_a_tales_game_state_base_1a04bccc709fc7955b251cb6ccc77809a3" kind="variable"><name>const</name></member>
+    <member refid="class_a_tales_game_state_base_1a8fe2af89e09ba3961ac766ada0ddb3f9" kind="variable"><name>CheatMode_</name></member>
+    <member refid="class_a_tales_game_state_base_1a9141c5f1219c7ca7d9cea66078b3c507" kind="function"><name>ATalesGameStateBase</name></member>
+    <member refid="class_a_tales_game_state_base_1a97c8919d3c8e31d99b05ce23020ac6a6" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_tales_game_state_base_1ab8cb3672574a48a37d40fe516436715e" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_tales_game_state_base_1a5a0e677faa073f0a6477f0a33928f5f3" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_tales_game_state_base_1a5eadb71e664010242e4d4241ab6aacd7" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_tales_game_state_base_1a1648a7b4d0bbb08413aad2fdd7482e45" kind="function"><name>LoadDataAsset</name></member>
+    <member refid="class_a_tales_game_state_base_1a64cf6ed24d593773eac9d7968cabde17" kind="function"><name>LoadDataAsset</name></member>
+    <member refid="class_a_tales_game_state_base_1abb131703d1e091ecee0504eadf6a948c" kind="function"><name>LoadDataAssetDelegate</name></member>
+    <member refid="class_a_tales_game_state_base_1a5f9024b0e77ad29e368c999ad2a1d664" kind="function"><name>GetEquipmentIcon</name></member>
+    <member refid="class_a_tales_game_state_base_1a771279d52f5fa1d96acbdc7effb1dab0" kind="function"><name>CheckIsServer</name></member>
+    <member refid="class_a_tales_game_state_base_1a51f14587602f86979f30a46f7a0d579d" kind="function"><name>CheckIsPlayableClient</name></member>
+    <member refid="class_a_tales_game_state_base_1a379f2b0d1b294694fde326fccc7d5fb7" kind="function"><name>GenerateAlphanumeric</name></member>
+    <member refid="class_a_tales_game_state_base_1a59d76811fb2d641064f0f99305f7cac3" kind="function"><name>GetMetaDataSaveName</name></member>
+    <member refid="class_a_tales_game_state_base_1aa7e747aaadb6318b503e91aa0d449d92" kind="function"><name>Server_NewNotification</name></member>
+    <member refid="class_a_tales_game_state_base_1aebf0404b2b6c8d12282ccf28099448c4" kind="function"><name>LocalNotification</name></member>
+    <member refid="class_a_tales_game_state_base_1a7a922fc36c3ca8f2a415554784777ea1" kind="function"><name>GetIsCheatModeEnabled</name></member>
+    <member refid="class_a_tales_game_state_base_1ad85acd9de8722f46c07da3ff178e75d2" kind="function"><name>SaveMetaData</name></member>
+    <member refid="class_a_tales_game_state_base_1a4c2865c9f70641b4282120b0b561853c" kind="function"><name>SaveMetaDataAsync</name></member>
+    <member refid="class_a_tales_game_state_base_1a2d3e99e9402a59452c0cfd57fc34bc37" kind="function"><name>GetIsSaveMetaReady</name></member>
+    <member refid="class_a_tales_game_state_base_1ae5306fd965238af532c0e92c36e78d37" kind="function"><name>RemoveSelectedCharacter</name></member>
+    <member refid="class_a_tales_game_state_base_1ab00b336e6dda1976db5696eee9376919" kind="function"><name>SaveCurrentCharacter</name></member>
+    <member refid="class_a_tales_game_state_base_1a44c5ae0935e6c2e3deae4ab3b050dc94" kind="function"><name>LoadSaveGameMeta</name></member>
+    <member refid="class_a_tales_game_state_base_1aabdf4f6da36305bfa6aaf4e904a22ed7" kind="function"><name>GetSaveGameMetaName</name></member>
+    <member refid="class_a_tales_game_state_base_1a876cecfc5bf84ad771e47adb42aa2eb3" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_tales_game_state_base_1af8de965e850aa88c90cb76a0165453b0" kind="function"><name>GetSavedCharacterSlotNames</name></member>
+    <member refid="class_a_tales_game_state_base_1ac1634017a2b06d6b76454b809ad95435" kind="function"><name>GetIndexOfSavedCharacter</name></member>
+    <member refid="class_a_tales_game_state_base_1a1c4fe66aa9f79a843bb59f76f29c319d" kind="function"><name>GetSavedCharacterData</name></member>
+    <member refid="class_a_tales_game_state_base_1aef5bab008f26edddd4929657417dfce2" kind="function"><name>GetCharacterSlotName</name></member>
+    <member refid="class_a_tales_game_state_base_1a959642bdd705bbc16b6a3d227434aa91" kind="function"><name>GetCharacterUserIndex</name></member>
+    <member refid="class_a_tales_game_state_base_1a8f48888e6ca8e210d7f4c4af441eeb94" kind="function"><name>GetIsValidCharacterSelected</name></member>
+    <member refid="class_a_tales_game_state_base_1ae8eb339be8574630bff00fe733a7fd9f" kind="function"><name>GetDoesCharacterSaveExist</name></member>
+    <member refid="class_a_tales_game_state_base_1a7f7fcac81d23d13d097a7fc5ea1d2b8b" kind="function"><name>GetSelectedCharacter</name></member>
+    <member refid="class_a_tales_game_state_base_1a0d1c0e36ea7f5e74d997bfe29b22a226" kind="function"><name>SetSelectedCharacter</name></member>
+    <member refid="class_a_tales_game_state_base_1adb7d8a54fec82de1fb328a7b48e9c122" kind="function"><name>GetNextCharacterIndex</name></member>
+    <member refid="class_a_tales_game_state_base_1aaa95f894faa7894aa4182e19c306a1f4" kind="function"><name>GetPrevCharacterIndex</name></member>
+    <member refid="class_a_tales_game_state_base_1abf00f67ff7eb00b327666706440e5104" kind="function"><name>GetLastCharacterIndex</name></member>
+    <member refid="class_a_tales_game_state_base_1a855b11bfb255bc48ccada2e3bb9cc7f1" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_tales_game_state_base_1a53df3b46b3fd64da9c11b14209d0d8e5" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_tales_game_state_base_1a5e831493aa44e37c5d5ef778cdf19201" kind="function"><name>GetMetaDataSaveIndex</name></member>
+    <member refid="class_a_tales_game_state_base_1af66211c9e8505eb5625ad525600b3a7b" kind="function"><name>BeginPlay</name></member>
+    <member refid="class_a_tales_game_state_base_1aee5dcf46cbcf5bf3a7fba819bbeb77f1" kind="function"><name>AddOrUpdateSavedCharacter</name></member>
+    <member refid="class_a_tales_game_state_base_1a38b1963b25c39df8a8f6831a8e049ccc" kind="function"><name>SaveGameMetaLoaded</name></member>
+    <member refid="class_a_tales_game_state_base_1ab167ec4ca63e41389b661ce04fa94c64" kind="function"><name>CharacterSaveLoaded</name></member>
+    <member refid="class_a_tales_game_state_base_1ae8413db34b6d1d6406be24377880092f" kind="function"><name>LoadCharacterSync</name></member>
+    <member refid="class_a_tales_game_state_base_1a3bd2eeeed97f2df7d3a70d5ce4c6c7ab" kind="function"><name>LoadCharacterAsync</name></member>
+    <member refid="class_a_tales_game_state_base_1aca736ae65ee57569f64c79701bfdb53d" kind="function"><name>LoadSaveGameMetaSync</name></member>
+    <member refid="class_a_tales_game_state_base_1a3b9700d68513943fadd86369ea8d5f5a" kind="function"><name>LoadSaveGameMetaAsync</name></member>
+    <member refid="class_a_tales_game_state_base_1a71d5405f0708564d8ef450d04367ee68" kind="function"><name>SaveCharacterSync</name></member>
+    <member refid="class_a_tales_game_state_base_1a03f24a6aebbe7f7e57a5fbe65b35b0de" kind="function"><name>ResetCharacter</name></member>
+    <member refid="class_a_tales_game_state_base_1a384d03e628d7a478809e2e2b6ee3c1f0" kind="function"><name>SaveCharacterAsync</name></member>
+    <member refid="class_a_tales_game_state_base_1aa9d4abf355d973ef7209e9f8bae7adb9" kind="function"><name>GetLifetimeReplicatedProps</name></member>
+    <member refid="class_a_tales_game_state_base_1a4248f262f32d9ea68e5a63afd4180b97" kind="function"><name>Multicast_SendNotification</name></member>
+    <member refid="class_a_tales_game_state_base_1a46dafdf1b91321a707c55cb9cf50d2ab" kind="function"><name>Helper_SetSaveValues</name></member>
+    <member refid="class_a_tales_game_state_base_1a2cc8659a8e0bc80b506d2d9fc76be6e6" kind="function"><name>Helper_LoadSavedValues</name></member>
+    <member refid="class_a_tales_game_state_base_1aecf4c403b75ab63ecee782064f2e5f19" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_tales_game_state_base_1adbbadd3510c2fef5f6a476cdd15682da" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_tales_game_state_base_1a8fa0030a5ce251fa01c3026dd8a2dcc9" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_tales_game_state_base_1a99c74044a6b9d23d9e384aa0a2aaf00e" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_tales_game_state_base_1a2476a2c95859b4566bfc998818d17698" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_tales_game_state_base_1af2b5b2d2da7dc4bbc3b80fc44b4f175c" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_tales_game_state_base_1ad8f6a497bc41958412c4394b118ede76" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_tales_game_state_base_1a6994396f571e42d3a8d329325c6c6379" kind="function"><name>UFUNCTION</name></member>
+  </compound>
+  <compound refid="class_a_tales_hud_base" kind="class"><name>ATalesHudBase</name>
+    <member refid="class_a_tales_hud_base_1a62817a09b5a47a185ffac26fb66f2263" kind="variable"><name>NotificationsPending_</name></member>
+    <member refid="class_a_tales_hud_base_1a2a453743fd3956040ec473a2d19cda9b" kind="function"><name>ATalesHudBase</name></member>
+    <member refid="class_a_tales_hud_base_1ad58291067010d3fa50b95eb42842b507" kind="function"><name>DrawHUD</name></member>
+    <member refid="class_a_tales_hud_base_1a511ee9854cc83fc7697899bf001d5913" kind="function"><name>BeginPlay</name></member>
+    <member refid="class_a_tales_hud_base_1a69d3cfb4cdd592a4c3ac38f732778196" kind="function"><name>NotifyHud</name></member>
+  </compound>
+  <compound refid="class_a_tales_player_hud_base" kind="class"><name>ATalesPlayerHudBase</name>
+    <member refid="class_a_tales_player_hud_base_1ae08692b0e91f976123878a3d03582235" kind="function"><name>ATalesPlayerHudBase</name></member>
+    <member refid="class_a_tales_player_hud_base_1ad715ea86ba714d837bfa490ae45be93b" kind="function"><name>DrawHUD</name></member>
+    <member refid="class_a_tales_player_hud_base_1a087278982cd01aea8cfa1fb30dafe854" kind="function"><name>BeginPlay</name></member>
+  </compound>
+  <compound refid="class_a_tales_player_state_base" kind="class"><name>ATalesPlayerStateBase</name>
+    <member refid="class_a_tales_player_state_base_1a5b6245c8ddc114ea62d52d121b940274" kind="variable"><name>RaceTagsMapped</name></member>
+    <member refid="class_a_tales_player_state_base_1a858c9fe65bca404b1e784b23f3da7c96" kind="variable"><name>ClassTagsMapped</name></member>
+    <member refid="class_a_tales_player_state_base_1a0c4db7a6f0fa2508a6350214b63ea2a4" kind="function"><name>ATalesPlayerStateBase</name></member>
+    <member refid="class_a_tales_player_state_base_1affd885f61d9ba61b04e4067b55f3db75" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_tales_player_state_base_1a0adb88c0ecbb645c8c46064adcb040e4" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_tales_player_state_base_1a6f4149b98e1fb97a43be43618562c0f0" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_tales_player_state_base_1a6f1ce38af59254f38263657ece3167a1" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_tales_player_state_base_1a8096839dc6e7baa215ec86dfef11f3cd" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_tales_player_state_base_1a14533dfe0154399bd03c0663cca0f1c7" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_tales_player_state_base_1a40f611532632a85f72d37c76bf0d4ba2" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_a_tales_player_state_base_1a40f611532632a85f72d37c76bf0d4ba2" kind="function"><name>UPROPERTY</name></member>
+  </compound>
+  <compound refid="class_a_thrown_weapon_base" kind="class"><name>AThrownWeaponBase</name>
+    <member refid="class_a_thrown_weapon_base_1ae9309405305b7c7a7339329be9639b6c" kind="function"><name>AThrownWeaponBase</name></member>
+    <member refid="class_a_thrown_weapon_base_1a7f81a1c3ccc7d190ca71b6ec4d38fce6" kind="function"><name>doAttack</name></member>
+    <member refid="class_a_thrown_weapon_base_1abf1ff74c75bd88e59a65dfd58c75fa63" kind="function"><name>BeginPlay</name></member>
+    <member refid="class_a_thrown_weapon_base_1a41927cc02153270f53e90fd12017d563" kind="function"><name>OnConstruction</name></member>
+    <member refid="class_a_thrown_weapon_base_1a0590c78e01762a129bb074b3b121d923" kind="function"><name>UpdateWeapon</name></member>
+    <member refid="class_a_thrown_weapon_base_1abc8e7d5d983bb86f27059b62f47acd88" kind="function"><name>SpawnProjectile</name></member>
+  </compound>
+  <compound refid="class_a_weapon_base" kind="class"><name>AWeaponBase</name>
+    <member refid="class_a_weapon_base_1af0d4c75d05119b07c29fac8e7c1748f7" kind="variable"><name>WeaponRoot</name></member>
+    <member refid="class_a_weapon_base_1a9ba32cf0212ea0d454142022eee787a9" kind="variable"><name>WeaponMeshStatic</name></member>
+    <member refid="class_a_weapon_base_1ab1c49319827097fc17d30bdabfe67dc2" kind="variable"><name>WeaponMeshSkeleton</name></member>
+    <member refid="class_a_weapon_base_1aea61fd251e7a85be8b1ae6c114276301" kind="variable"><name>WeaponGripLeft</name></member>
+    <member refid="class_a_weapon_base_1ae7079406fd362fac5cd1471d52229149" kind="variable"><name>WeaponGripRight</name></member>
+    <member refid="class_a_weapon_base_1af285d62e25b02e54ed2033da59ca4b31" kind="variable"><name>UsingStaticMesh</name></member>
+    <member refid="class_a_weapon_base_1a9a365b6932e15e04241b8cc097e139fb" kind="variable"><name>UsingSkeletalMesh</name></member>
+    <member refid="class_a_weapon_base_1a9d7e2bfcb4253e9dda24518cf34e6918" kind="variable"><name>bIsWeaponArmed</name></member>
+    <member refid="class_a_weapon_base_1ab55cd4b1e8ce2a3ca52a337e5956a9d8" kind="variable"><name>bIsDebugging</name></member>
+    <member refid="class_a_weapon_base_1a6c81b7c46bd7f7ba2aec7ed0e2c3e1d8" kind="variable"><name>bWeaponReady</name></member>
+    <member refid="class_a_weapon_base_1a1eb9fad7a9ffa893929f4737b796647b" kind="variable"><name>bShowDebug</name></member>
+    <member refid="class_a_weapon_base_1a7fc04ae0fe3f42dc8f724e8f19417335" kind="variable"><name>bVerboseOutput</name></member>
+    <member refid="class_a_weapon_base_1a64b8ab90669db2552d55cd83df90509b" kind="function"><name>AWeaponBase</name></member>
+    <member refid="class_a_weapon_base_1a1ef6f90f35cfb588d840869f397b6437" kind="function"><name>setWeaponIsArmed</name></member>
+    <member refid="class_a_weapon_base_1ad5a2d09f0b45fcda23fea1b828509e63" kind="function"><name>getIsWeaponArmed</name></member>
+    <member refid="class_a_weapon_base_1ab936abf5a4916e3937cb3847435f9fb9" kind="function"><name>getIsMeleeWeapon</name></member>
+    <member refid="class_a_weapon_base_1ad09c61c1ae97c44c575c7ee761266264" kind="function"><name>getIsRangedWeapon</name></member>
+    <member refid="class_a_weapon_base_1a489056c4be45ebefd84fb2ff7b808592" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_a_weapon_base_1a0c8e0e3616932105f3107e67ac469ddd" kind="function"><name>doAttack</name></member>
+    <member refid="class_a_weapon_base_1a08284e51f5427ccccfb76c4da4839170" kind="function"><name>BeginPlay</name></member>
+    <member refid="class_a_weapon_base_1a0a53fe4ff06b496581a440852407f30b" kind="function"><name>PostActorCreated</name></member>
+    <member refid="class_a_weapon_base_1ad308d4b4fad4f2c2f454e8c21af6d8dd" kind="function"><name>EndPlay</name></member>
+    <member refid="class_a_weapon_base_1a7c7f528c95ba6664e00d4512a543b0bd" kind="function"><name>OnConstruction</name></member>
+    <member refid="class_a_weapon_base_1a0a607b1e8da52b2b376e7e15559c5137" kind="function"><name>UpdateWeapon</name></member>
+    <member refid="class_a_weapon_base_1a5225407dc657bc3045c023bbcc8115ea" kind="function"><name>GetIsAttackValid</name></member>
+    <member refid="class_a_weapon_base_1a9262313d3e01b70e67178ce3aa5b8fbb" kind="function"><name>IsAttackValid</name></member>
+    <member refid="class_a_weapon_base_1a506d9fe73e23b27853e2595148df5313" kind="function"><name>OnRep_IsWeaponArmed</name></member>
+  </compound>
+  <compound refid="class_a_weapon_melee_base" kind="class"><name>AWeaponMeleeBase</name>
+    <member refid="class_a_weapon_melee_base_1aa9c68396f8c14f88470fe99a785ab572" kind="variable"><name>SocketStartName</name></member>
+    <member refid="class_a_weapon_melee_base_1ae1dcc89464f0405b73a8ea1955d39c24" kind="variable"><name>SocketEndName</name></member>
+    <member refid="class_a_weapon_melee_base_1acfd5123e48aa55cdd85bec6fea801a8a" kind="variable"><name>AttackTimer_</name></member>
+    <member refid="class_a_weapon_melee_base_1a5ff16c9e15cc979c2b605209604efb14" kind="variable"><name>AttackTimerTickRate_</name></member>
+    <member refid="class_a_weapon_melee_base_1a60f1a931fe4abce2bc09994293dc7e37" kind="variable"><name>TicksDelayed_</name></member>
+    <member refid="class_a_weapon_melee_base_1a92f35d9cc899029495086fd5a0755259" kind="variable"><name>TimerTicksRemaining_</name></member>
+    <member refid="class_a_weapon_melee_base_1a5e3c0eef6a164e1230d3587c1fad396c" kind="variable"><name>HitTargets_</name></member>
+    <member refid="class_a_weapon_melee_base_1af886b1f702a29eef2958b92e63ed97ff" kind="function"><name>AWeaponMeleeBase</name></member>
+    <member refid="class_a_weapon_melee_base_1a52df3b1f6556b263b344f7623962679e" kind="function"><name>doAttack</name></member>
+    <member refid="class_a_weapon_melee_base_1a47910c7149c3299db0566c910f587242" kind="function"><name>UpdateWeapon</name></member>
+    <member refid="class_a_weapon_melee_base_1a1d1fec16886e008556cab60d31e82de8" kind="function"><name>BeginPlay</name></member>
+    <member refid="class_a_weapon_melee_base_1a421f6b52623bff98e9c06009cc6e1a76" kind="function"><name>TargetHitByWeapon</name></member>
+    <member refid="class_a_weapon_melee_base_1a9ef765c517919464b87f1b181a448bab" kind="function"><name>InitiateAttack</name></member>
+    <member refid="class_a_weapon_melee_base_1a8770f64d290f4bbb72a8279549206e04" kind="function"><name>GetIsAttackValid</name></member>
+    <member refid="class_a_weapon_melee_base_1a17eb718afd9c9a627fb4ed6e2eb2cc26" kind="function"><name>UFUNCTION</name></member>
+  </compound>
+  <compound refid="struct_f_character_data" kind="struct"><name>FCharacterData</name>
+    <member refid="struct_f_character_data_1ac2cc3e82eddaa74185fa65d532e0c619" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_character_data_1a6cddf1c477b51d7062aded05b2af3725" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_character_data_1a7e24b21c82e98358468155d2264dac96" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_character_data_1a94668d8d5b4b078a824573aab665dc06" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_character_data_1ad3ffe27a00ec12cb2291199a001a80fe" kind="function"><name>UPROPERTY</name></member>
+  </compound>
+  <compound refid="struct_f_damage_statics" kind="struct"><name>FDamageStatics</name>
+    <member refid="struct_f_damage_statics_1adfe4a40d195bfcea6244d18e76f6007a" kind="function"><name>DECLARE_ATTRIBUTE_CAPTUREDEF</name></member>
+    <member refid="struct_f_damage_statics_1ab08594398545f451c4869b1e638807bd" kind="function"><name>DECLARE_ATTRIBUTE_CAPTUREDEF</name></member>
+    <member refid="struct_f_damage_statics_1ad26c3bb296c2e4af5de2dd2f076ab34d" kind="function"><name>DECLARE_ATTRIBUTE_CAPTUREDEF</name></member>
+    <member refid="struct_f_damage_statics_1af53f0a5aef37051be961adc835c424a8" kind="function"><name>DECLARE_ATTRIBUTE_CAPTUREDEF</name></member>
+    <member refid="struct_f_damage_statics_1a2e3340dcbda1f7b6333bca53c40782aa" kind="function"><name>FDamageStatics</name></member>
+  </compound>
+  <compound refid="struct_f_mesh_body_mappings" kind="struct"><name>FMeshBodyMappings</name>
+    <member refid="struct_f_mesh_body_mappings_1a4a2028fc5e80baa8b02774e69b423f87" kind="variable"><name>MaterialInstances</name></member>
+    <member refid="struct_f_mesh_body_mappings_1a339876a232ff0fb3b2ed716e9c40610b" kind="function"><name>FMeshBodyMappings</name></member>
+    <member refid="struct_f_mesh_body_mappings_1a36083934af667223334a89fe7ac121e2" kind="function"><name>FMeshBodyMappings</name></member>
+    <member refid="struct_f_mesh_body_mappings_1aebf43520dd7deeef0d60bbf082f5a9f3" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_mesh_body_mappings_1a8ee6bd9bfc61a9e209b7598b20191800" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_mesh_body_mappings_1a97e873d37e4a11ca45137293fdaec458" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_mesh_body_mappings_1a91ce01a8e6bdd4ba92ccdbbb79130f51" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_mesh_body_mappings_1a3f729f2ca7ba1adca0dde2710154623b" kind="function"><name>UPROPERTY</name></member>
+  </compound>
+  <compound refid="struct_f_mesh_merge_mappings" kind="struct"><name>FMeshMergeMappings</name>
+    <member refid="struct_f_mesh_merge_mappings_1a289379d24313c12493454abbe120735c" kind="variable"><name>numSuperiorMeshes</name></member>
+    <member refid="struct_f_mesh_merge_mappings_1a08dbcb393ef327c8e5ca647a640087bf" kind="variable"><name>GameplayTags</name></member>
+    <member refid="struct_f_mesh_merge_mappings_1aa344beaff0f2575675ca24d5e9b758da" kind="variable"><name>EquipSlotTag</name></member>
+    <member refid="struct_f_mesh_merge_mappings_1ad374538d3461fc8accbeb317dd4d1c2a" kind="variable"><name>DataAsset</name></member>
+    <member refid="struct_f_mesh_merge_mappings_1a281665c9cd461f760def43b0b701b162" kind="variable"><name>SkeletalMesh</name></member>
+    <member refid="struct_f_mesh_merge_mappings_1aefcebec04da8f12856da7a3852cac15f" kind="variable"><name>AccompaniedMeshes</name></member>
+    <member refid="struct_f_mesh_merge_mappings_1a929daf92d494caa0bded8d820075fbec" kind="variable"><name>SectionMappings</name></member>
+    <member refid="struct_f_mesh_merge_mappings_1a9c56ab012f21531e076639e790e2c29a" kind="variable"><name>MeshUvTransforms</name></member>
+    <member refid="struct_f_mesh_merge_mappings_1aad4d66cbadc9e84b3ab1e127115e198c" kind="function"><name>FMeshMergeMappings</name></member>
+    <member refid="struct_f_mesh_merge_mappings_1abec62fc0bcd158998c068a41e6241fa9" kind="function"><name>FMeshMergeMappings</name></member>
+  </compound>
+  <compound refid="struct_f_save_meta" kind="struct"><name>FSaveMeta</name>
+    <member refid="struct_f_save_meta_1ac2d3a3417ed8d1f74bbbc1271f667aa0" kind="function"><name>GENERATED_BODY</name></member>
+    <member refid="struct_f_save_meta_1a213b7643bb453c2d869dbeb11b25f2e5" kind="function"><name>FSaveMeta</name></member>
+    <member refid="struct_f_save_meta_1ab6edf5d1586655eac40dae3a9d35b3a4" kind="function"><name>FSaveMeta</name></member>
+    <member refid="struct_f_save_meta_1a2696588f0ab534a3a6fa1c301548797a" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_save_meta_1af2e5fc6754871a918742bb42cef77202" kind="function"><name>UPROPERTY</name></member>
+  </compound>
+  <compound refid="struct_f_skeleton_options_data" kind="struct"><name>FSkeletonOptionsData</name>
+    <member refid="struct_f_skeleton_options_data_1a45aac2f1348db8d8bbc3183e418dcbaa" kind="function"><name>GENERATED_BODY</name></member>
+    <member refid="struct_f_skeleton_options_data_1a972930da7c34c89c2b433e70ca560c79" kind="function"><name>FSkeletonOptionsData</name></member>
+    <member refid="struct_f_skeleton_options_data_1a0292aa89163e67ef6ec02434339e356d" kind="function"><name>~FSkeletonOptionsData</name></member>
+    <member refid="struct_f_skeleton_options_data_1a22ef499cc15d09099898fa64f4382902" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_skeleton_options_data_1ac062edd57d4fb418b317562f927e4794" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_skeleton_options_data_1ab6f0671d50efa180361ef1ce9a84757f" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_skeleton_options_data_1ad3b2b175d2af357ef87859d59ede4d0f" kind="function"><name>operator==</name></member>
+    <member refid="struct_f_skeleton_options_data_1aabb84b8b2032a2676ace2c0575d7eef6" kind="friend"><name>GetTypeHash</name></member>
+  </compound>
+  <compound refid="struct_f_st_faction_data" kind="struct"><name>FStFactionData</name>
+    <member refid="struct_f_st_faction_data_1a5c456d45aa69bb287627b2d1f9dc9f7b" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_faction_data_1ac12375f6d6688dd2ea71e88780d5a174" kind="function"><name>GetFactionValue</name></member>
+    <member refid="struct_f_st_faction_data_1af901d52dc2f98bf71de4339bb32fc222" kind="function"><name>GetFactionState</name></member>
+  </compound>
+  <compound refid="struct_f_st_faction_data_map" kind="struct"><name>FStFactionDataMap</name>
+    <member refid="struct_f_st_faction_data_map_1a5e5dd2c516be228756add4ce715f5cbd" kind="function"><name>FStFactionDataMap</name></member>
+    <member refid="struct_f_st_faction_data_map_1a614b5c36f101b6818be125c921d78703" kind="function"><name>FStFactionDataMap</name></member>
+    <member refid="struct_f_st_faction_data_map_1af445656c19b1aec8230e42460f04a275" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_faction_data_map_1aff557fd13f5567c1f6e04405bbad3f23" kind="function"><name>UPROPERTY</name></member>
+  </compound>
+  <compound refid="struct_f_st_hud_notification" kind="struct"><name>FStHudNotification</name>
+    <member refid="struct_f_st_hud_notification_1af79279e47ea6c486d0b2fa38df8fbc79" kind="variable"><name>Title</name></member>
+    <member refid="struct_f_st_hud_notification_1ab7289c34753ab86b2ed70ca3fab81ff2" kind="variable"><name>Message</name></member>
+    <member refid="struct_f_st_hud_notification_1a5b858c7d84bc4b52bf05833820afd4ce" kind="variable"><name>Priority</name></member>
+    <member refid="struct_f_st_hud_notification_1a89b7addd9af06f400c535a4a05f9805a" kind="function"><name>GENERATED_BODY</name></member>
+    <member refid="struct_f_st_hud_notification_1a8b1926fdb6a852bbb2f6d4960e6cabcf" kind="function"><name>FStHudNotification</name></member>
+    <member refid="struct_f_st_hud_notification_1a50847870c5b6f669b3e04046b4701c85" kind="function"><name>FStHudNotification</name></member>
+    <member refid="struct_f_st_hud_notification_1a5d6db83f876e7f4f8f3af4663a00e144" kind="function"><name>FStHudNotification</name></member>
+  </compound>
+  <compound refid="struct_f_st_loot_data" kind="struct"><name>FStLootData</name>
+    <member refid="struct_f_st_loot_data_1ae97a6e9ddbfff182a9bb0fb35169facb" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_loot_data_1a67522df3a45d01691f9b390540013e4e" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_loot_data_1aac9f287f2f77e1e55b053275515ac997" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_loot_data_1a83cf213c67337590a90e97a5d85e8d87" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_loot_data_1a94cb20bdd4422f07893b3b2454256bed" kind="function"><name>UPROPERTY</name></member>
+  </compound>
+  <compound refid="struct_f_st_npc_loot_item" kind="struct"><name>FStNpcLootItem</name>
+    <member refid="struct_f_st_npc_loot_item_1a7c7c41e3946c78bd1de9399d5c9aacec" kind="function"><name>GENERATED_BODY</name></member>
+    <member refid="struct_f_st_npc_loot_item_1aac4a4db1a9c6179944733376772c5fb1" kind="function"><name>FStNpcLootItem</name></member>
+    <member refid="struct_f_st_npc_loot_item_1a1fb14b4cedfb915168587b976eda1e17" kind="function"><name>FStNpcLootItem</name></member>
+    <member refid="struct_f_st_npc_loot_item_1a9a4dbda6eeb5d8227f8f449d34f78a4b" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_npc_loot_item_1a4eb28ee577ca8cf204a72313e3c13b64" kind="function"><name>UPROPERTY</name></member>
+  </compound>
+  <compound refid="struct_f_st_npc_starting_item" kind="struct"><name>FStNpcStartingItem</name>
+    <member refid="struct_f_st_npc_starting_item_1a87ebaf64c0766db82e3efbf52546f924" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_npc_starting_item_1acfb8646cf582275ec860902c96b8442d" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_npc_starting_item_1a5c49e9751b69341007124839f2b997c8" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_npc_starting_item_1ac92caf4258ffa7c3f84ca5da53c449aa" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_npc_starting_item_1a478c80e54423a0c1a69cc248786c04ae" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_npc_starting_item_1a639befdaf898f74ee92b401167a90cb7" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_npc_starting_item_1a2d7de9fc97a43cd4c1d3654158f72d41" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_npc_starting_item_1a307a7982798978d5a9a9609ba03d3b61" kind="function"><name>UPROPERTY</name></member>
+  </compound>
+  <compound refid="struct_f_st_weapon_data" kind="struct"><name>FStWeaponData</name>
+    <member refid="struct_f_st_weapon_data_1acd4f8cb596715a3a952781b89b5ed8b8" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_weapon_data_1a8f8c55ad788c3ad9ecbe8a63042e6a69" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_weapon_data_1a67cb9a9ff8e9ec7b5928a441e2fc31be" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_weapon_data_1a2f0317cf1db579a06d0f0f2d4a4d5c9d" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_weapon_data_1a482da59fd124113c54aa48e56cc5a09e" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_weapon_data_1ac83fc23e12214648c0ede9d08dc8251c" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_weapon_data_1abedfb376dc0460913e455bd9be8151c8" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_weapon_data_1a378c7313bfec89ba8073d3337c85c503" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_weapon_data_1aea383502d06849bfff3d7cb14202dffa" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_weapon_data_1a79ef50688717c1bc2d9392f9f16449b3" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_weapon_data_1a89ef9279598e2fd0ee364cd5bc818085" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_weapon_data_1ab3bf38e15d35c6f52907c530c50c88bc" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_weapon_data_1a819ccd70da18010ad87a11b42c788aab" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_weapon_data_1a613fa9a6742cb41aa926da1017ffc8e2" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_weapon_data_1a0c7d6f6273ee31d50a5629fc99b65605" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_weapon_data_1ae162c4703d2516f218aee9b07def0dbf" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_weapon_data_1a651c34ad059bb1359c20ed50fbca08b9" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_weapon_data_1add63b0de05a5f7d6f7c0148fb9903a34" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_weapon_data_1a81bbec04f1347bc063c818f9193ee95c" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_weapon_data_1a2676339b75dfd6059fcc4386758c36b2" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_weapon_data_1ac66f5ac0951de972afcb88e6618ec224" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_weapon_data_1a1cd8c85b3800a6c8303cd1f258cf4862" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_weapon_data_1ad57df5bd89e46d8971924bc391765447" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_weapon_data_1a4a9cd926987c7d5e6c319c40bc19f44c" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_weapon_data_1a34071c4652369f25115dba2cfce2d022" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_weapon_data_1a4088b0c84caefe496b4e64c3b76c5f0e" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_st_weapon_data_1a8df8de794e1275b644059f28e329e741" kind="function"><name>UPROPERTY</name></member>
+  </compound>
+  <compound refid="struct_f_tales_version" kind="struct"><name>FTalesVersion</name>
+    <member refid="struct_f_tales_version_1a272a713aa58558891c144803c34b0a4e" kind="function"><name>FTalesVersion</name></member>
+    <member refid="struct_f_tales_version_1ac69006bc2484c12dd5ec969d1d77cbf2" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_tales_version_1a43b080b2865bd6a48b814fa6492d7f2a" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_tales_version_1a5f3b737bf285612348d0b0657dd73199" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_tales_version_1a70fbc3efd7c362fb8735efc3445eb68e" kind="function"><name>UPROPERTY</name></member>
+    <member refid="struct_f_tales_version_1a36346f37e0cc66c66a06428ff8de5b7d" kind="function"><name>ToString</name></member>
+  </compound>
+  <compound refid="struct_f_vitality_effect_context" kind="struct"><name>FVitalityEffectContext</name>
+    <member refid="struct_f_vitality_effect_context_1ae6a64b9d17ac42f076d68767cb40f15e" kind="variable"><name>bIsCriticalHit</name></member>
+    <member refid="struct_f_vitality_effect_context_1afdcc14e58442cb4da2cfc42c77f63193" kind="variable"><name>bIsLuckyHit</name></member>
+    <member refid="struct_f_vitality_effect_context_1aea187927ebeec6d7c2e300ccb58c6c33" kind="function"><name>SetIsCriticalHit</name></member>
+    <member refid="struct_f_vitality_effect_context_1ae2ac26c23c72eb4b03cee1baaed842db" kind="function"><name>SetIsLuckyHit</name></member>
+    <member refid="struct_f_vitality_effect_context_1ac0df52b6a56789a3aec34d6163bdd1a1" kind="function"><name>IsCriticalHit</name></member>
+    <member refid="struct_f_vitality_effect_context_1a54ccbf336a5ee9ee81806040ea1b389e" kind="function"><name>IsLuckyHit</name></member>
+    <member refid="struct_f_vitality_effect_context_1ad9e72dffffb2407277d0ca8f4e92bb96" kind="function"><name>GetScriptStruct</name></member>
+    <member refid="struct_f_vitality_effect_context_1a5debb36ff2f70cb7ab7c071b3ec12911" kind="function"><name>Duplicate</name></member>
+    <member refid="struct_f_vitality_effect_context_1a2adccaeb0b95ae8b5220f584f7f219a6" kind="function"><name>NetSerialize</name></member>
+  </compound>
+  <compound refid="class_tales_dungeoneer" kind="class"><name>TalesDungeoneer</name>
+    <member refid="class_tales_dungeoneer_1a9028af893a1c9dfb3a2a37625afe54c7" kind="function"><name>TalesDungeoneer</name></member>
+  </compound>
+  <compound refid="class_u_ai_behavior_tree_base" kind="class"><name>UAiBehaviorTreeBase</name>
+    <member refid="class_u_ai_behavior_tree_base_1a197347e93ab563d4e868f12db606754d" kind="function"><name>UAiBehaviorTreeBase</name></member>
+  </compound>
+  <compound refid="class_u_character_class_data" kind="class"><name>UCharacterClassData</name>
+    <member refid="class_u_character_class_data_1ac0a05e56c92a9cc40b33c1a73a0bd7a5" kind="variable"><name>GameplayTag</name></member>
+    <member refid="class_u_character_class_data_1a3272554ef68e66e844bedfddd1562bcc" kind="variable"><name>DescriptionText</name></member>
+    <member refid="class_u_character_class_data_1aa4407a0d721e8f734eab3374cc339228" kind="variable"><name>ClassIcon</name></member>
+    <member refid="class_u_character_class_data_1aa8fcd1b97ead266ade008a17951d0772" kind="function"><name>UCharacterClassData</name></member>
+  </compound>
+  <compound refid="class_u_character_common_data" kind="class"><name>UCharacterCommonData</name>
+    <member refid="class_u_character_common_data_1ac69b7a2e5df7332d1a6a56670119a782" kind="variable"><name>DisplayName</name></member>
+    <member refid="class_u_character_common_data_1a90040cdc2458fc59f33396b0849a4982" kind="variable"><name>CoreStatsModifiers</name></member>
+    <member refid="class_u_character_common_data_1a99170dbd6f888e6c477f25d2293dfb9e" kind="variable"><name>DamageResistModifiers</name></member>
+    <member refid="class_u_character_common_data_1ac1ed158282121326386968765ee72617" kind="variable"><name>DamageBonusModifiers</name></member>
+    <member refid="class_u_character_common_data_1a7f9393fbb6e3dfb59a5a79ebf4814b26" kind="variable"><name>Abilities</name></member>
+    <member refid="class_u_character_common_data_1ac0b751d1652488ed1d0766995ef54968" kind="variable"><name>Effects</name></member>
+    <member refid="class_u_character_common_data_1ac8cc3a50f0269e47dc90946da8734432" kind="function"><name>UCharacterCommonData</name></member>
+  </compound>
+  <compound refid="class_u_character_data_asset" kind="class"><name>UCharacterDataAsset</name>
+    <member refid="class_u_character_data_asset_1a57a7792aeba9764effa13896c428ecb9" kind="variable"><name>InventoryData</name></member>
+    <member refid="class_u_character_data_asset_1ae24279aadcc722eca9ae9af9ff7f9d0e" kind="variable"><name>EligibleRaces</name></member>
+    <member refid="class_u_character_data_asset_1aec99f417b9e64817a9d12e37c12feb60" kind="function"><name>UCharacterDataAsset</name></member>
+  </compound>
+  <compound refid="class_u_character_race_data" kind="class"><name>UCharacterRaceData</name>
+    <member refid="class_u_character_race_data_1ad9e72f148b070416cc5a37e507d20603" kind="variable"><name>GameplayTag</name></member>
+    <member refid="class_u_character_race_data_1afc6c5973e312ee9c9c349d71e5f1f949" kind="variable"><name>DescriptionText</name></member>
+    <member refid="class_u_character_race_data_1a3931803992201829d958803ac20f9efb" kind="variable"><name>RaceIcon</name></member>
+    <member refid="class_u_character_race_data_1af5f6306dbc8fe20b8779f771d33191c8" kind="variable"><name>EligibleClasses</name></member>
+    <member refid="class_u_character_race_data_1af2152f0f14f643ab6fe6f5016533a733" kind="variable"><name>SkeletonOptions</name></member>
+    <member refid="class_u_character_race_data_1aa6ffa79ffedbcb9451a4e388e531df8a" kind="variable"><name>SkinColorOptions</name></member>
+    <member refid="class_u_character_race_data_1ab9e3c52c611181af43456b18ce14c691" kind="variable"><name>HairMaterial</name></member>
+    <member refid="class_u_character_race_data_1af953ff3442d39fadc89e41e7dcca1944" kind="variable"><name>BeardColorOptions</name></member>
+    <member refid="class_u_character_race_data_1a623c29685c4103779a69be94889cf7dc" kind="variable"><name>HairColorOptions</name></member>
+    <member refid="class_u_character_race_data_1a7e4e6bb59f79012624d4efe2e4a2b07c" kind="variable"><name>EyeColorOptions</name></member>
+    <member refid="class_u_character_race_data_1ab8ef674bf5a38b59615775bbb1c9fb7c" kind="function"><name>UCharacterRaceData</name></member>
+    <member refid="class_u_character_race_data_1a57f08f9a0cced1897b94fc46e958763f" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_character_race_data_1ae90ee10695c640f1650352132d37c9fe" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_character_race_data_1a8d0847b9ef0e8ea841e1405636cd8321" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_character_race_data_1a0d08f147dd997ce637b7b549ebcb2a3d" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_character_race_data_1abffb06ba2444f09f62fb008e7ba5e88b" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_character_race_data_1a541e672351bc9dd63ca3537caf17e266" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_character_race_data_1aa2246bdded48a0e0e8d5e82ecd7a8cf9" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_character_race_data_1a92443b75281c58f1608f97f2f0c23748" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_character_race_data_1a356d40109e9be330588d15a3bfd2a49b" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_character_race_data_1ad7d0ae68797c2f2e714e069eb0bdb80b" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_character_race_data_1a8c8dfbf331884afdf217fe35d8892e19" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_character_race_data_1a4a0557dfe85d562289711bcf8a7870e7" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_character_race_data_1ace590ecbde3e4fb3dbc2fb77ad29d2de" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_character_race_data_1a16987d8dfe69824f7c61ce16d51531b5" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_character_race_data_1a455e2211e1df69c01ff2fa3c9cd8ca45" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_character_race_data_1aaa5b77434b6b601bfd931ca5b29b8411" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_character_race_data_1a43656101499fd4a615182a083f513640" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_character_race_data_1a1f7c3c5e4705d2d928a2465e152ae671" kind="function"><name>UPROPERTY</name></member>
+  </compound>
+  <compound refid="class_u_combat_ai_behavior_tree_base" kind="class"><name>UCombatAiBehaviorTreeBase</name>
+    <member refid="class_u_combat_ai_behavior_tree_base_1af46ec5c3e53d4daba4bc3c124e0a7bff" kind="function"><name>UCombatAiBehaviorTreeBase</name></member>
+  </compound>
+  <compound refid="class_u_core_stats_attributes" kind="class"><name>UCoreStatsAttributes</name>
+    <member refid="class_u_core_stats_attributes_1a4fd15fa9bc7068b4345900ab3a3f167e" kind="variable"><name>OnAttributeUpdated</name></member>
+    <member refid="class_u_core_stats_attributes_1a9efe00a47a030b6d07d1605d8f28bde5" kind="function"><name>UCoreStatsAttributes</name></member>
+    <member refid="class_u_core_stats_attributes_1a003abe42743c910b0f98cacaf902ddac" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_core_stats_attributes_1a6dff17f8f253725acff6eda47c8611a9" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_core_stats_attributes_1a7898f05dab527420349bbd410ca63964" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_core_stats_attributes_1a30754310291d8d8446f09cb88c24e144" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_core_stats_attributes_1a70fb68076316cb4b3256752981a1863c" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_core_stats_attributes_1ac6aaf6d5d4268eb87589a55124096dc0" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_core_stats_attributes_1a01379cbbfed8827446c4a195d5f797a1" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_core_stats_attributes_1a91e4f9d6bb78e54342b73235cf644e66" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_core_stats_attributes_1a0bbd22447a7b14cea096eead485c491a" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_core_stats_attributes_1ac805ce5bfbbadfddaabc0a1cde3a69b0" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_core_stats_attributes_1ae6e9df870611e07bd44eb2b3db137cd7" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_core_stats_attributes_1acd2a0e241af4c544870ebd2347b47131" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_core_stats_attributes_1a545772db83e8908600ca9c463009bad1" kind="function"><name>GetAllCoreStatAttributes</name></member>
+    <member refid="class_u_core_stats_attributes_1ab5e9ee68201a29b645d92274720d08d6" kind="function"><name>PreAttributeBaseChange</name></member>
+    <member refid="class_u_core_stats_attributes_1a3b696529db1a48667a58db201290f233" kind="function"><name>PreAttributeChange</name></member>
+    <member refid="class_u_core_stats_attributes_1a2333d4f39c287caf0d24151d7b98d465" kind="function"><name>ClampAttributeOnChange</name></member>
+    <member refid="class_u_core_stats_attributes_1a0ab964d8db09de7482c2de9727cf5cb0" kind="function"><name>OnRep_Strength</name></member>
+    <member refid="class_u_core_stats_attributes_1a1c3fb0dcbf8394c4d2928064f4304738" kind="function"><name>OnRep_Dexterity</name></member>
+    <member refid="class_u_core_stats_attributes_1aa3a9e87c848de10860831b665b0f0fa5" kind="function"><name>OnRep_Fortitude</name></member>
+    <member refid="class_u_core_stats_attributes_1aae525ee2677f4e4cad01f9a4fec160cc" kind="function"><name>OnRep_Astuteness</name></member>
+    <member refid="class_u_core_stats_attributes_1a8f9ad5065c2cc340d55672804f4dccf0" kind="function"><name>OnRep_Intellect</name></member>
+    <member refid="class_u_core_stats_attributes_1a05889efa26e8982d771251cf86d9d996" kind="function"><name>OnRep_Charisma</name></member>
+  </compound>
+  <compound refid="class_u_damage_attributes" kind="class"><name>UDamageAttributes</name>
+    <member refid="class_u_damage_attributes_1a943680eea7863a41d73e31769ef4ebf6" kind="variable"><name>BiteResistance</name></member>
+    <member refid="class_u_damage_attributes_1a14ffb486938f32020a85ba6464332120" kind="variable"><name>KickResistance</name></member>
+    <member refid="class_u_damage_attributes_1a190cb7e4ac6a53948ae75a8b2ffde528" kind="variable"><name>ClawResistance</name></member>
+    <member refid="class_u_damage_attributes_1aecbde5728e0af09d6623bccd3932037c" kind="variable"><name>StingResistance</name></member>
+    <member refid="class_u_damage_attributes_1ad96faa8b053c910b9c62fb620f309e63" kind="variable"><name>BiteBonus</name></member>
+    <member refid="class_u_damage_attributes_1ab046ef7ff7524cf60ae923aee4486ab9" kind="variable"><name>KickBonus</name></member>
+    <member refid="class_u_damage_attributes_1a156606ba0c928e06267528dc15fd31d4" kind="variable"><name>ClawBonus</name></member>
+    <member refid="class_u_damage_attributes_1accdcbbe747311387669f5606e45b4e7b" kind="variable"><name>StingBonus</name></member>
+    <member refid="class_u_damage_attributes_1ac548456aa39937835e8b6c3e6e839e53" kind="function"><name>UDamageAttributes</name></member>
+    <member refid="class_u_damage_attributes_1a0c913f1bbeedbcac9ab11ae6a277178d" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1a24440da1a155d954470ca22d1412b8ba" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1a96512a216d64a3fefdc8705b1601cdbd" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1a10731ec2bf03e62cf61f7fed44ab26cd" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1a7d23c56ee871f9906d01f127e9ba5274" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1a07ce0268507fae360df2a0a2a45c32a6" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1ad0509b48572769a8140441d0b1605c8b" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1ab666344f5ada5e0e627b551a27e4d630" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1a67e3de2ee05cd266094b550d52317db9" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1ab415008e71ca994bf08e2b216d0b1dfe" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1a8f7f11b9c62f1382923f6e956951a69a" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1a3bfb25b4026367a0762bdb0399584d07" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1a6a98701f49a26f2e4fc4febcb4a7be48" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1a5c0547e5f14312f157f8b5bbe3f85aae" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1af11010481cf82341bb75a914b40d836e" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1a774d0619d3ebff7530cb3c46b629d9cf" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1ae9a12bbe9e0a8230d4d958e53c5d0488" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1a70dbac0984eb2d252dd488b53a654986" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1a118240a6fef72ce31cc1996617c4b480" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1af1a2bbb953ca0fe687765e9c00136f99" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1a9f66856b4662bb803595592590821814" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1a62f8b60340a734fe9529bea7038e90c6" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1aabd4576cee7baff20e42dca7ba9660ea" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1a6c3f20cac2805951fff2e912c99f858f" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1ab9b38242754223198adbca3ddd00efa4" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1af145b88066bf9066eade384cf7beb3f5" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1a82bc5f44d4759e64d5c5c32bfb21ecf7" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1afde91e3b9998a75a52cef9c694bb1b86" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1ad16c2f3f2556bced57138c946bbbb79c" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1a0098c1dbefff292e1d2f997a953786e1" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1a209986d518a446418a177060aaf40dbc" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1a010063ca83f850273c604def6d033072" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1a4000362814c4ee83f98e6e5ccd27deb8" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1acd06bb30a39abb2d4ed7efe702a961d4" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1a59320c7e0765ea64d2b57cbfb255037c" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1a9a14c65e80c72369a5b61d33cabf5497" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1a896f04ac63d789ee1127a55c8a55ea22" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1adb1eead0ecfbdab5f97fcfafa9c74558" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1af0dce351ab6a47f23f35bc27da6d7882" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1ab383fa87f5979821918ab5a52654474c" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1abdfbf9e780775d49be1a3b1e72bb672f" kind="function"><name>GetAllDamageResistAttributes</name></member>
+    <member refid="class_u_damage_attributes_1adb86faa2ee927e90eda228a2f33c26a5" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1a9e542e37f8de2c9ac1b81ea19ae1a2d0" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1a2270f88c8075dbd5a3bbf764ad048373" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1afd3529a73180e25793c8871bd8a25530" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1a43d48dd44de9dfa58873c57c3afcf19b" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1a6beb84d2a22de06cd9cc5ad81fcaa79c" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1abc78908b32b351eb3a263523a09c8db8" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1a8210b70f1b562b9d5db6c74e0130fddb" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1a23a437bd426fdcb437221354a67f7857" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1ae740a2125a7d440c7d3387b5ed6bd74a" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1a529dcfff396e14c54bc651f2960bb5a8" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1a630bc5b3fa65232d7d3dfe970deca73f" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1a826f093a584df0fa46de163e527240d4" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1a5d4deebf8e380e6405d704af648b493c" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1a395da8a7690f9d5b6e33123e459f41d5" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1a5576f3d55d821ac6e70cf64d91b23c8a" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1a3ddebd5430fc388adfef06cd19b10e95" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1a5a04492e61d12ce99e48af8f516e05ae" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1a191dbce2998cda907a5aed04bf5ee94a" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1a01744a6da2b9b74de612bba0f05a4dbf" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1a68b80a71ebb1a7a99de4650cc9aa41ce" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1aea1bfac4c8523013166e23e74a583c9d" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1a618ac5a776a0440aaedc4bba3f9f23bc" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1acda55f3ef4feec2554447809940384d4" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1a063118409b38f00bc43832d3f80e83ef" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1ad88227818ce3a47e822831db10316e50" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1abb1fc6355b78a916a1fb15bbc6a17197" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_damage_attributes_1a1bdc50195340cd75fa71574cb45a4727" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_damage_attributes_1a6ceb2e25359589e2ab81b1bcf928372f" kind="function"><name>GetAllDamageBonusAttributes</name></member>
+    <member refid="class_u_damage_attributes_1a2ca92672231363dba96a3c4c848179e7" kind="function"><name>PreAttributeBaseChange</name></member>
+    <member refid="class_u_damage_attributes_1a1dff360763a6a0a106749147bd18dc59" kind="function"><name>PreAttributeChange</name></member>
+    <member refid="class_u_damage_attributes_1a292517651a8bf9d245ce484fd43f983c" kind="function"><name>ClampAttributeOnChange</name></member>
+    <member refid="class_u_damage_attributes_1a51415323100d8e93a6467e2c7ebe80c0" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1af2a6aad44c7402373382118f3e981296" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1aa60d00b64a737b71ad78f5ad7e70ac83" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1a8d165ad97a3f2cbdface172d1638ad1a" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1a28cbcc0fe5416b963e8bf29cab095961" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1a9b088d78fc712f84aad57f4e474c00a1" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1a9b41fb769746e78130fee2ce334b3651" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1a6605b7a4d81c312d99b091cfbfe85328" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1a753fdc6483b8cf488d744dfc6d9a5e55" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1a2853f7cfe5ffd4cc9dc4da199cfbf69d" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1aeba3bdeae26441ce96abb56d38863495" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1a3d95abbd0946e32bebc9aa20ad3d4c13" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1a77e9746bdeb9968e87743b97e06128e8" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1a4b7488749528fc20e8b7df203ee01354" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1a994c4349deec618c7570a26d0b5c40cc" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1ae607623546c826dcf78fddb1d2fb34b2" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1aed947c6e5e54c8bd3cd3b66860f3f3ed" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1a3e052aef59a01b135276bfb04baf0759" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1aaf79e162ebe9c5f08cc59f36007bb6bc" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1aaa0b66ca7cfe128e11744da652ff3eb3" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1a1551fd66a6abccb6beaa080ee63df886" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1a14ca49a6c2ab6750d9600154fa7078b4" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1a5edd89bbc44bd7301d4426d2ccfc1e85" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1adfc81425f531815af8a6c3707643a1f9" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1acef4ef8ebd73cbc7b6eb1c696768b37b" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1a622484e32d3ff7c93162442aac2078cd" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1adc04a6ba664b91be21f006643de154e6" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1ac7f475650761452b2b76c677ccbc14aa" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1ae41cb9711cdab2cb91c98cb55f291734" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_damage_attributes_1ad15215d3f42102b4100bfc9e03b89db7" kind="function"><name>UFUNCTION</name></member>
+  </compound>
+  <compound refid="class_u_effect_attributes" kind="class"><name>UEffectAttributes</name>
+  </compound>
+  <compound refid="class_u_equipment_effect" kind="class"><name>UEquipmentEffect</name>
+  </compound>
+  <compound refid="class_u_floating_text_widget_base" kind="class"><name>UFloatingTextWidgetBase</name>
+    <member refid="class_u_floating_text_widget_base_1aa7ae539d1108aed7bd92beac8293a26f" kind="variable"><name>TextShown</name></member>
+    <member refid="class_u_floating_text_widget_base_1a081d87c210dd625071636e9810ea0f07" kind="variable"><name>TextColor</name></member>
+    <member refid="class_u_floating_text_widget_base_1a29b507133d43fd581dc80721587a9842" kind="variable"><name>SpawnAnimation</name></member>
+    <member refid="class_u_floating_text_widget_base_1a21d37a53c1c033ebe4edd838161dc508" kind="function"><name>UpdateWidgetText</name></member>
+    <member refid="class_u_floating_text_widget_base_1af0246017e6239943709869eda4876887" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_floating_text_widget_base_1a8988be9ab22f86c54a59e71fc3aae602" kind="function"><name>NativeConstruct</name></member>
+    <member refid="class_u_floating_text_widget_base_1af8029086b89f21aa2016b3c865fffc0b" kind="function"><name>NativeOnInitialized</name></member>
+  </compound>
+  <compound refid="class_u_global_data" kind="class"><name>UGlobalData</name>
+    <member refid="class_u_global_data_1af072bd7c71fe5255304e300d1076b514" kind="function"><name>GetAppVersion</name></member>
+    <member refid="class_u_global_data_1add359f20eee6b72395b531e515f46951" kind="function"><name>GetFullAppVersion</name></member>
+    <member refid="class_u_global_data_1ae1e460de1cf28c49f97727775fa6604f" kind="function"><name>GetGameMaxCharacterLevel</name></member>
+    <member refid="class_u_global_data_1a59518109e51636710d63de0e53b92f80" kind="function"><name>CharacterSaveFolder</name></member>
+    <member refid="class_u_global_data_1aa74b9b13a193faac8f9769d082d2b64d" kind="function"><name>InventorySaveFolder</name></member>
+    <member refid="class_u_global_data_1aa07453aed0635a0c364607abeb8ff047" kind="function"><name>MeshMergeSaveFolder</name></member>
+    <member refid="class_u_global_data_1af87193e1096542552fb4f248b3b26c1f" kind="function"><name>GetGameIsInDebugMode</name></member>
+  </compound>
+  <compound refid="class_u_global_save_data" kind="class"><name>UGlobalSaveData</name>
+    <member refid="class_u_global_save_data_1adc3bc9094f90965614adbe5fa0de1a4c" kind="function"><name>UGlobalSaveData</name></member>
+    <member refid="class_u_global_save_data_1aa0747015e81a883f5f56facd6df8f8d7" kind="function"><name>GetAllCharacterSaves</name></member>
+    <member refid="class_u_global_save_data_1a528aa7f5aa63c7ee548503446840e732" kind="function"><name>SetSelectedCharacter</name></member>
+    <member refid="class_u_global_save_data_1a3f18a7961e18b1b1965b52516abaafe2" kind="function"><name>SetSavedCharacterNameList</name></member>
+    <member refid="class_u_global_save_data_1acc8d985a41db9d2d110203174a5223e9" kind="function"><name>GetSelectedCharacterIndex</name></member>
+    <member refid="class_u_global_save_data_1ac293dd78ad28e8269513cac90d6c4a56" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_global_save_data_1a3ff55df5b93beffe515b037c4310207f" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_global_save_data_1aa74f59cbc99b8ab6a7b28d89dd4a8150" kind="function"><name>UPROPERTY</name></member>
+  </compound>
+  <compound refid="class_u_mesh_merge_save_data" kind="class"><name>UMeshMergeSaveData</name>
+    <member refid="class_u_mesh_merge_save_data_1a09fb732ca23fda208bf77adc96818036" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_mesh_merge_save_data_1a85750939bf220a88a003b40b4e8dd989" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_mesh_merge_save_data_1a9a265b1ad670b042053f2d4ff31d09b5" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_mesh_merge_save_data_1a1859f07158b22fbcf9fa0c7830617ad2" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_mesh_merge_save_data_1a2081708af36ca972bd80c5371b131438" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_mesh_merge_save_data_1aa46ff7cfe15ea977fc3e81da633b72e7" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_mesh_merge_save_data_1af4c618f61c74994a4820c83d4c551d34" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_mesh_merge_save_data_1a3a8eb0109830a430c96276d6b38d4c8f" kind="function"><name>UPROPERTY</name></member>
+  </compound>
+  <compound refid="class_u_overhead_data_widget_base" kind="class"><name>UOverheadDataWidgetBase</name>
+    <member refid="class_u_overhead_data_widget_base_1a07b858830d94937ae925f72647623f47" kind="function"><name>SetOwningCharacter</name></member>
+    <member refid="class_u_overhead_data_widget_base_1a676596826f4aa45fc6e1ad6ec880a99c" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_overhead_data_widget_base_1aaa619345b2df1d17ca0e3f7e710a41c1" kind="function"><name>UPROPERTY</name></member>
+  </compound>
+  <compound refid="class_u_primary_character_data" kind="class"><name>UPrimaryCharacterData</name>
+    <member refid="class_u_primary_character_data_1a4678c7b79b4e409ee10b88e6b2eeeb8d" kind="function"><name>UPrimaryCharacterData</name></member>
+    <member refid="class_u_primary_character_data_1a0ae0de80297d60b551072b0498a954d3" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_primary_character_data_1ab46ca8c63f7f6ccd3d4e25d23d0c30f0" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_primary_character_data_1a8cb8b50d2436ef57c075abb8778543a0" kind="function"><name>GetCharacterSkeleton</name></member>
+    <member refid="class_u_primary_character_data_1a73bbb054ffc942f4f245634509346ce1" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_primary_character_data_1a92996e140bc7c2731cc3d5a0fdd98279" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_primary_character_data_1a034eec6a465f1cbc01481721f7503c05" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_primary_character_data_1affbbd29c99db262449ac4d514c251574" kind="function"><name>GetDefaultCoreStats</name></member>
+    <member refid="class_u_primary_character_data_1a034eec6a465f1cbc01481721f7503c05" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_primary_character_data_1a4c6bfc62e34311edb9af8124e731e8bc" kind="function"><name>GetDefaultDamageBonus</name></member>
+    <member refid="class_u_primary_character_data_1a034eec6a465f1cbc01481721f7503c05" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_primary_character_data_1ad59c6dbc4c16187daf4397ebf7cc7991" kind="function"><name>GetDefaultDamageResist</name></member>
+    <member refid="class_u_primary_character_data_1adf2529fc7ac377be516947f2a9116757" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_primary_character_data_1a617466d23a1d856f894cc0a8f4919655" kind="function"><name>UFUNCTION</name></member>
+    <member refid="class_u_primary_character_data_1a306cedb4bb3f20a49e4ecd5a60baa1b3" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_primary_character_data_1a850a0d6f762428f0a93ada5e904acfad" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_primary_character_data_1a6eb7288fed895e5a95735c616ee96612" kind="function"><name>UPROPERTY</name></member>
+  </compound>
+  <compound refid="class_u_saved_character" kind="class"><name>USavedCharacter</name>
+    <member refid="class_u_saved_character_1aa449b22500a23ff7e4af62ee51455fc7" kind="variable"><name>SaveVersion</name></member>
+    <member refid="class_u_saved_character_1af1db355372545c4f85241af614642ab0" kind="variable"><name>SaveSlotName</name></member>
+    <member refid="class_u_saved_character_1a1432c1d60b0bff741b8dcf411544362a" kind="variable"><name>CharacterData</name></member>
+    <member refid="class_u_saved_character_1a1cdcf02f022c7ff2ffe7f108230fc893" kind="variable"><name>UserIndex</name></member>
+    <member refid="class_u_saved_character_1a1fc53180a36384932e03951273a553b2" kind="variable"><name>AnimBlueprint</name></member>
+    <member refid="class_u_saved_character_1a6aa86315579d37ec5c40644ba7abbe16" kind="variable"><name>Skeleton</name></member>
+    <member refid="class_u_saved_character_1ac90e7fe3a264c4a04d42858d87c78324" kind="variable"><name>MeshMergeMappings</name></member>
+    <member refid="class_u_saved_character_1a8c76c7962fbfc0d69a580385d24c249c" kind="variable"><name>SavedInventory</name></member>
+    <member refid="class_u_saved_character_1a6c6b21aaa36be8d85aa20e73c6b4d1d6" kind="variable"><name>SavedMeshMerge</name></member>
+    <member refid="class_u_saved_character_1ad9705ee1ca66598bccb2a5c60a5df8d7" kind="function"><name>USavedCharacter</name></member>
+  </compound>
+  <compound refid="class_u_saved_dm_character" kind="class"><name>USavedDmCharacter</name>
+    <member refid="class_u_saved_dm_character_1a8f8e0bb956e9c53f7cdb8f0237422b99" kind="variable"><name>SaveVersion</name></member>
+    <member refid="class_u_saved_dm_character_1a24073a89db73430d22bfb5cb4a7296e1" kind="variable"><name>SaveSlotName</name></member>
+    <member refid="class_u_saved_dm_character_1abe77e62498fd99539056c5e467dd9301" kind="variable"><name>EngineeringLevel</name></member>
+    <member refid="class_u_saved_dm_character_1a1da14b20727f8fa1faf07cef80cc2192" kind="variable"><name>ExperiencePoints</name></member>
+    <member refid="class_u_saved_dm_character_1abe7bf2d816e14a610864774a96718d40" kind="variable"><name>UserIndex</name></member>
+    <member refid="class_u_saved_dm_character_1a78c2aac216ebd72d3aecd739abe2c0fa" kind="function"><name>USavedDmCharacter</name></member>
+  </compound>
+  <compound refid="class_u_tales_ability_globals" kind="class"><name>UTalesAbilityGlobals</name>
+    <member refid="class_u_tales_ability_globals_1a328d9c786a96325619d3255a9d8b138d" kind="function"><name>UTalesAbilityGlobals</name></member>
+    <member refid="class_u_tales_ability_globals_1aa7c317560269de2b50493bf5d2bfdb8b" kind="function"><name>AllocGameplayEffectContext</name></member>
+  </compound>
+  <compound refid="class_u_tales_attributes" kind="class"><name>UTalesAttributes</name>
+    <member refid="class_u_tales_attributes_1a5ac64aaa94753b0a41b0edf74984ff19" kind="variable"><name>OnHealthDepleted</name></member>
+    <member refid="class_u_tales_attributes_1adb34834f53523bb71e9d39fb45e85ba3" kind="variable"><name>OnArmorDepleted</name></member>
+    <member refid="class_u_tales_attributes_1ab14326da2e5a12d80ac8279bc4ef262d" kind="variable"><name>OnDamageTaken</name></member>
+    <member refid="class_u_tales_attributes_1ac41509027bd6270f224acd0c72953d11" kind="variable"><name>bDead</name></member>
+    <member refid="class_u_tales_attributes_1a395b485180b2ca85d78a4392c4bad003" kind="variable"><name>bHealthDepleted</name></member>
+    <member refid="class_u_tales_attributes_1a3fc3ba190394ef40b11bb22b89350c0c" kind="variable"><name>bArmorDepleted</name></member>
+    <member refid="class_u_tales_attributes_1aee625d99d95671781bd5911b73756a1b" kind="variable"><name>bStarving</name></member>
+    <member refid="class_u_tales_attributes_1a770303086894d8b15a3547a420d82f85" kind="variable"><name>bDehydrated</name></member>
+    <member refid="class_u_tales_attributes_1a552e32bc5746c55deebd6e3887bd6a4f" kind="function"><name>UTalesAttributes</name></member>
+    <member refid="class_u_tales_attributes_1ace6dba766df2bc3cf8a95664abc99ebc" kind="function"><name>GetIsUnconscious</name></member>
+    <member refid="class_u_tales_attributes_1a7064bf48738ce586a46908e29a67028e" kind="function"><name>GetIsDead</name></member>
+    <member refid="class_u_tales_attributes_1a3f5d1f460b4b01ce6adc37d793d2aa22" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_tales_attributes_1a1a02be8dba96f840dca1b940cb323e4d" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_tales_attributes_1a23aff7482437a39512e4cc010efaa425" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_tales_attributes_1a4b3811803ccb1c7d9299379b63608c38" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_tales_attributes_1a65d112b9b7246882ce536f55d3178a77" kind="function"><name>PostGameplayEffectExecute</name></member>
+  </compound>
+  <compound refid="class_u_tales_damage_base" kind="class"><name>UTalesDamageBase</name>
+    <member refid="class_u_tales_damage_base_1af986eac97f11d6f91d616a54eadfbfdc" kind="function"><name>UTalesDamageBase</name></member>
+    <member refid="class_u_tales_damage_base_1a32648f324c99a063a4e091b729d1aa82" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_tales_damage_base_1af9e1d1c458f4d5ea52fe7dcbefb4b789" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_tales_damage_base_1ab706e6d0935228209fcab76f670fd1d3" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_tales_damage_base_1a82e22e9c520a611bf0560006000ee30b" kind="function"><name>UPROPERTY</name></member>
+  </compound>
+  <compound refid="class_u_tales_damage_calc" kind="class"><name>UTalesDamageCalc</name>
+    <member refid="class_u_tales_damage_calc_1a792cbeca8b24d349f6c4b2f75401ed59" kind="variable"><name>InDamageTag</name></member>
+    <member refid="class_u_tales_damage_calc_1aab36fc9b0c9f4a6b6c6cb221ffddd665" kind="function"><name>UTalesDamageCalc</name></member>
+    <member refid="class_u_tales_damage_calc_1a7449d74af8f61865ac88df92fb0a9d12" kind="function"><name>Execute_Implementation</name></member>
+  </compound>
+  <compound refid="class_u_tales_effect_base" kind="class"><name>UTalesEffectBase</name>
+  </compound>
+  <compound refid="class_u_tales_gameplay_ability" kind="class"><name>UTalesGameplayAbility</name>
+    <member refid="class_u_tales_gameplay_ability_1af2636d7536ceffe273f0851eb1017327" kind="variable"><name>AbilityInputID</name></member>
+  </compound>
+  <compound refid="class_u_vitality_attributes" kind="class"><name>UVitalityAttributes</name>
+    <member refid="class_u_vitality_attributes_1aa9807f71f3d3d7ceebb6db3ade830357" kind="variable"><name>DeathPercentage</name></member>
+    <member refid="class_u_vitality_attributes_1a5600dc46ac4733361a383d0ac3bac188" kind="function"><name>UVitalityAttributes</name></member>
+    <member refid="class_u_vitality_attributes_1ac1b02d8d075e1a929442d2dbdc060507" kind="function"><name>GetDeathHealthValue</name></member>
+    <member refid="class_u_vitality_attributes_1abec09d448e374df3235106a4c8350520" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_vitality_attributes_1ac55fac9e754ae82882d6f5246cdf6341" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_vitality_attributes_1a53e8ff24cfe5f7bbf3bae32004658bfe" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_vitality_attributes_1afd334fc03d5ff72427a0e45bef9d02d9" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_vitality_attributes_1a9f46c5acf63bdcb1061b69171e747bb7" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_vitality_attributes_1a1a75e4c3a8f059f1e7dc07da3b86fa3a" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_vitality_attributes_1a07eb2292808b1ea2d0bd618472944920" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_vitality_attributes_1a1fa35c5522dff8b11e7bc9d67226ac74" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_vitality_attributes_1af583f8e160710257cc9f237bf9428729" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_vitality_attributes_1a245a97cfd2bd7344d1716a9012188c6e" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_vitality_attributes_1ac6f2abc3e17e3b385092ffe160379a79" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_vitality_attributes_1a48348d023e9fd0b38dec8d5322602e97" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_vitality_attributes_1a0b71276d0bc2a9020e1ca92357d850c5" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_vitality_attributes_1a58b6ff93eed0493372847bb3dc8e862c" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_vitality_attributes_1a2754c69e3ddf44ec6d1d299cc722e8c9" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_vitality_attributes_1ac45964cc9dd0c5f692185a24c7fd5cbd" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_vitality_attributes_1a76c993e4ada4c470a0b4878e7a5602d1" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_vitality_attributes_1a6a28ec45894a7740896aaed69c133146" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_vitality_attributes_1a570b401b0b6fe4d238355cf2edd6864c" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_vitality_attributes_1a2e7e61e3f224f016964c4ca69050f05b" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_vitality_attributes_1a711216a9234be0c1ad25c6f2c4a1bb55" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_vitality_attributes_1a00cd14f88b38f4c055d37e033b851002" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_vitality_attributes_1afb5282856d8e4ce3cd986c2f4ce564b3" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_vitality_attributes_1a2a8b254ea53c1c5ef3c067a2605a9d63" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_vitality_attributes_1ac87a83729282f75653a52aa863379028" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_vitality_attributes_1ae1e69b80f06a1455f6975d330ee4f8fc" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_vitality_attributes_1adb543a898daba7fbed4c21ee9ca2fb0c" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_vitality_attributes_1a642aacf9d6d8caa006db51f5a91bb89b" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_vitality_attributes_1af884cc494ddab883e76bd63d8b566ec2" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_vitality_attributes_1a7d4e94766a9b6f08a35e2eefd2ef2e7d" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_vitality_attributes_1afccad22c07cda6b93e94bea202cbf59a" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_vitality_attributes_1a65f8a9212937b0a1ca5381218e92e299" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_vitality_attributes_1a9423ebaf38e13aebf7220b664c2a0e89" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_vitality_attributes_1ab5ba6ae73be5717fc15e4afd091e32a3" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_vitality_attributes_1a7c2c256fde6233d62e6aa82c6cf36af5" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_vitality_attributes_1abe6b9cbf2bb6acfd628910b66164eaee" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_vitality_attributes_1aea5302871e70c1a0685720bfb66bb983" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_vitality_attributes_1ac003b7955b300d8742e11a11d6965885" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_vitality_attributes_1a0f8cab5f7e4ab275ea7efb33bb82c0ac" kind="function"><name>UPROPERTY</name></member>
+    <member refid="class_u_vitality_attributes_1a02a9b9eab796d19b2d455ef317831d94" kind="function"><name>ATTRIBUTE_ACCESSORS</name></member>
+    <member refid="class_u_vitality_attributes_1a59c574e0f329e414c30136c5dd0a883c" kind="function"><name>GetAllVitalityAttributes</name></member>
+    <member refid="class_u_vitality_attributes_1a2b9d77514ae0c80e8e8117dc9e6d1055" kind="function"><name>PreAttributeBaseChange</name></member>
+    <member refid="class_u_vitality_attributes_1af08af709f1a7e528e68de044d0a38e19" kind="function"><name>PreAttributeChange</name></member>
+    <member refid="class_u_vitality_attributes_1a13277412381ccdce2dfe56add2d1ee0e" kind="function"><name>ClampAttributeOnChange</name></member>
+    <member refid="class_u_vitality_attributes_1a8a84e2ccc5e5e4ba5f3cf3b9e42f799d" kind="function"><name>OnRep_CurrentHealth</name></member>
+    <member refid="class_u_vitality_attributes_1ae6dbd5b9c455174f072a5ed78a5659dd" kind="function"><name>OnRep_CurrentArmorClass</name></member>
+    <member refid="class_u_vitality_attributes_1aaeff1b3ff662226fcf63431262f34536" kind="function"><name>OnRep_CurrentArmor</name></member>
+    <member refid="class_u_vitality_attributes_1aa5e74075fe8acb8e2e91b7fc0f80cad8" kind="function"><name>OnRep_CurrentMagic</name></member>
+    <member refid="class_u_vitality_attributes_1a8366b22d8c038420b0493f396a801e55" kind="function"><name>OnRep_CurrentStamina</name></member>
+    <member refid="class_u_vitality_attributes_1a793f6f729b45622c5604dffd9ff9cf4c" kind="function"><name>OnRep_CurrentHunger</name></member>
+    <member refid="class_u_vitality_attributes_1ac9f1a87bf637e3abab4595a216f44751" kind="function"><name>OnRep_CurrentHydration</name></member>
+    <member refid="class_u_vitality_attributes_1ab9c23f83b03292dd3c9c95c37c264f12" kind="function"><name>OnRep_PassiveHealthRegen</name></member>
+    <member refid="class_u_vitality_attributes_1a1f25fbe565856c7ed84e4ed1decfd855" kind="function"><name>OnRep_PassiveStaminaRegen</name></member>
+    <member refid="class_u_vitality_attributes_1a2a90760fa48e9ebf40a80c9bf87a8802" kind="function"><name>OnRep_PassiveMagicRegen</name></member>
+    <member refid="class_u_vitality_attributes_1a3638583a792d4157b39bf10da9292ece" kind="function"><name>OnRep_PassiveHungerDrain</name></member>
+    <member refid="class_u_vitality_attributes_1a006706410497f071cb45a1371bca6255" kind="function"><name>OnRep_PassiveHydroDrain</name></member>
+    <member refid="class_u_vitality_attributes_1a5a41681c729e02f0af667de755648fca" kind="function"><name>OnRep_MaximumHealth</name></member>
+    <member refid="class_u_vitality_attributes_1af9fc928b7469f56665206b2cda943ece" kind="function"><name>OnRep_MaximumArmorClass</name></member>
+    <member refid="class_u_vitality_attributes_1aacffcac18312deb70ca3d8a41bed89b7" kind="function"><name>OnRep_MaximumArmor</name></member>
+    <member refid="class_u_vitality_attributes_1a2e227bf33a3c34a2a604747d79f16c96" kind="function"><name>OnRep_MaximumMagic</name></member>
+    <member refid="class_u_vitality_attributes_1a7f9903d89a4be5bd7202eca70535a5dc" kind="function"><name>OnRep_MaximumStamina</name></member>
+    <member refid="class_u_vitality_attributes_1af48a4040f54c61ce1ceaa260563a8cf6" kind="function"><name>OnRep_MaximumHunger</name></member>
+    <member refid="class_u_vitality_attributes_1a371f9998bdd52dda9b273a2097921fa4" kind="function"><name>OnRep_MaximumHydration</name></member>
+    <member refid="class_u_vitality_attributes_1a57c47d3916299e57e1c55e7841760c4f" kind="function"><name>OnRep_Ammunition</name></member>
+  </compound>
+  <compound refid="class_u_weapon_system" kind="class"><name>UWeaponSystem</name>
+    <member refid="class_u_weapon_system_1a6adb87fdcd6a6d2bbb1caf250b55d19d" kind="function"><name>GetInvalidName</name></member>
+    <member refid="class_u_weapon_system_1aa6b0b9fb248c06fa796ebdf13721899b" kind="function"><name>GetWeaponDataTable</name></member>
+    <member refid="class_u_weapon_system_1af08df318fcb4b97818a4077adfc2c323" kind="function"><name>GetWeaponItemName</name></member>
+    <member refid="class_u_weapon_system_1a96389a503ec704e7412164d9ce47c092" kind="function"><name>IsMeleeAttack</name></member>
+    <member refid="class_u_weapon_system_1aadc014ab06ee21a24dd2429c7113a1a5" kind="function"><name>IsRangedAttack</name></member>
+    <member refid="class_u_weapon_system_1a87f32447ffe484a196111e1583af9a99" kind="function"><name>GetWeaponNameIsValid</name></member>
+    <member refid="class_u_weapon_system_1ab635ee0e3e23db976c27b220bc4fc7ef" kind="function"><name>GetWeaponIsValid</name></member>
+    <member refid="class_u_weapon_system_1a5eef1f52deafd06000dad5871432bba7" kind="function"><name>GetWeaponDataFromName</name></member>
+  </compound>
+  <compound refid="namespace_unreal_build_tool" kind="namespace"><name>UnrealBuildTool</name>
+  </compound>
+  <compound refid="_ai_behavior_tree_base_8cpp" kind="file"><name>AiBehaviorTreeBase.cpp</name>
+  </compound>
+  <compound refid="_combat_ai_behavior_tree_base_8cpp" kind="file"><name>CombatAiBehaviorTreeBase.cpp</name>
+  </compound>
+  <compound refid="_character_base_8cpp" kind="file"><name>CharacterBase.cpp</name>
+  </compound>
+  <compound refid="_combat_npc_character_base_8cpp" kind="file"><name>CombatNpcCharacterBase.cpp</name>
+  </compound>
+  <compound refid="_equipment_component_8cpp" kind="file"><name>EquipmentComponent.cpp</name>
+  </compound>
+  <compound refid="_mesh_merge_component_8cpp" kind="file"><name>MeshMergeComponent.cpp</name>
+    <member refid="_mesh_merge_component_8cpp_1a754f8f0a2cc06ac85492d165cab37cbd" kind="function"><name>UE_DEFINE_GAMEPLAY_TAG</name></member>
+    <member refid="_mesh_merge_component_8cpp_1a3556e7414f0cc345e942a7131d191339" kind="function"><name>UE_DEFINE_GAMEPLAY_TAG</name></member>
+    <member refid="_mesh_merge_component_8cpp_1a500c03ee0dd871ae7dffcf7793843bbb" kind="function"><name>UE_DEFINE_GAMEPLAY_TAG</name></member>
+    <member refid="_mesh_merge_component_8cpp_1a16a3d37784027a28b6380bd9b1f8cb26" kind="function"><name>UE_DEFINE_GAMEPLAY_TAG</name></member>
+    <member refid="_mesh_merge_component_8cpp_1a0bb3201cc63340b76b8db8354ce67101" kind="function"><name>UE_DEFINE_GAMEPLAY_TAG</name></member>
+    <member refid="_mesh_merge_component_8cpp_1a3473c7d88439cb2baf367149244a0f26" kind="function"><name>UE_DEFINE_GAMEPLAY_TAG</name></member>
+    <member refid="_mesh_merge_component_8cpp_1a764c81fbcbe46d8fbb81866f0fc28a34" kind="function"><name>UE_DEFINE_GAMEPLAY_TAG</name></member>
+    <member refid="_mesh_merge_component_8cpp_1a5776b0dad615b0ece26fd1f2b4ae019b" kind="function"><name>UE_DEFINE_GAMEPLAY_TAG</name></member>
+    <member refid="_mesh_merge_component_8cpp_1a76c7a304b684e8d09916b7c6bedf2a5b" kind="function"><name>UE_DEFINE_GAMEPLAY_TAG</name></member>
+    <member refid="_mesh_merge_component_8cpp_1aa0aa463fb311415b6e7e2ccd8c830625" kind="function"><name>UE_DEFINE_GAMEPLAY_TAG</name></member>
+    <member refid="_mesh_merge_component_8cpp_1ad6b41f2b29274a937102f7e0fe2db37a" kind="function"><name>UE_DEFINE_GAMEPLAY_TAG</name></member>
+    <member refid="_mesh_merge_component_8cpp_1a72696f6cb97577eca7ced1eafd47427f" kind="function"><name>UE_DEFINE_GAMEPLAY_TAG</name></member>
+    <member refid="_mesh_merge_component_8cpp_1a5221842ab55300cc679dc8f1a0e8b71c" kind="function"><name>UE_DEFINE_GAMEPLAY_TAG</name></member>
+    <member refid="_mesh_merge_component_8cpp_1a4d598df94661ebf72b3f59be65cf00a3" kind="function"><name>UE_DEFINE_GAMEPLAY_TAG</name></member>
+    <member refid="_mesh_merge_component_8cpp_1ac694f43613ab9a90d69de0bafc962ab7" kind="function"><name>UE_DEFINE_GAMEPLAY_TAG</name></member>
+    <member refid="_mesh_merge_component_8cpp_1a2713e69e91e00e5303a950aec1d2c9a5" kind="function"><name>UE_DEFINE_GAMEPLAY_TAG</name></member>
+    <member refid="_mesh_merge_component_8cpp_1ae02b6ec48225dba175318f81c109372f" kind="function"><name>UE_DEFINE_GAMEPLAY_TAG</name></member>
+    <member refid="_mesh_merge_component_8cpp_1a4924dab6f2fb838f54bd02b6474d4f2a" kind="function"><name>UE_DEFINE_GAMEPLAY_TAG</name></member>
+    <member refid="_mesh_merge_component_8cpp_1a6185d4ae145e4d733764f5e68876dfe5" kind="function"><name>UE_DEFINE_GAMEPLAY_TAG</name></member>
+    <member refid="_mesh_merge_component_8cpp_1a433cdf952995aee1170bfa4957d93b57" kind="function"><name>UE_DEFINE_GAMEPLAY_TAG</name></member>
+    <member refid="_mesh_merge_component_8cpp_1affe2fa5274e325dc82edf99db9143a75" kind="function"><name>UE_DEFINE_GAMEPLAY_TAG</name></member>
+    <member refid="_mesh_merge_component_8cpp_1a44d95780b2ba54b462156f1db9f37cba" kind="function"><name>UE_DEFINE_GAMEPLAY_TAG</name></member>
+    <member refid="_mesh_merge_component_8cpp_1aa5be7c6907c89df7189bcc638d0ac706" kind="function"><name>UE_DEFINE_GAMEPLAY_TAG</name></member>
+  </compound>
+  <compound refid="_overhead_widget_component_8cpp" kind="file"><name>OverheadWidgetComponent.cpp</name>
+  </compound>
+  <compound refid="_tales_ability_component_8cpp" kind="file"><name>TalesAbilityComponent.cpp</name>
+  </compound>
+  <compound refid="_ai_controller_base_8cpp" kind="file"><name>AiControllerBase.cpp</name>
+  </compound>
+  <compound refid="_combat_ai_controller_base_8cpp" kind="file"><name>CombatAiControllerBase.cpp</name>
+  </compound>
+  <compound refid="_player_controller_base_8cpp" kind="file"><name>PlayerControllerBase.cpp</name>
+  </compound>
+  <compound refid="_creator_character_base_8cpp" kind="file"><name>CreatorCharacterBase.cpp</name>
+  </compound>
+  <compound refid="_dm_character_base_8cpp" kind="file"><name>DmCharacterBase.cpp</name>
+  </compound>
+  <compound refid="_interactive_npc_base_8cpp" kind="file"><name>InteractiveNpcBase.cpp</name>
+  </compound>
+  <compound refid="_npc_character_base_8cpp" kind="file"><name>NpcCharacterBase.cpp</name>
+  </compound>
+  <compound refid="_player_character_base_8cpp" kind="file"><name>PlayerCharacterBase.cpp</name>
+  </compound>
+  <compound refid="_spectator_base_8cpp" kind="file"><name>SpectatorBase.cpp</name>
+  </compound>
+  <compound refid="_character_defaults_8cpp" kind="file"><name>CharacterDefaults.cpp</name>
+    <member refid="_character_defaults_8cpp_1a28965306a3ff6f5478a11c005233064c" kind="function"><name>UE_DEFINE_GAMEPLAY_TAG</name></member>
+    <member refid="_character_defaults_8cpp_1afd9b76eec2d27b168686441284f5233c" kind="function"><name>UE_DEFINE_GAMEPLAY_TAG</name></member>
+    <member refid="_character_defaults_8cpp_1a14733a1a25c1c2c1aace98ead894c9c1" kind="function"><name>UE_DEFINE_GAMEPLAY_TAG</name></member>
+  </compound>
+  <compound refid="_tales_dm_hud_base_8cpp" kind="file"><name>TalesDmHudBase.cpp</name>
+  </compound>
+  <compound refid="_tales_dungeoneer_game_mode_8cpp" kind="file"><name>TalesDungeoneerGameMode.cpp</name>
+  </compound>
+  <compound refid="_tales_hud_base_8cpp" kind="file"><name>TalesHudBase.cpp</name>
+  </compound>
+  <compound refid="_tales_player_hud_base_8cpp" kind="file"><name>TalesPlayerHudBase.cpp</name>
+  </compound>
+  <compound refid="_tales_player_state_base_8cpp" kind="file"><name>TalesPlayerStateBase.cpp</name>
+  </compound>
+  <compound refid="_tales_game_state_base_8cpp" kind="file"><name>TalesGameStateBase.cpp</name>
+    <member refid="_tales_game_state_base_8cpp_1a785f4f60df2e23ee2de38f1e239067e0" kind="function"><name>FindPlayerCharacter</name></member>
+  </compound>
+  <compound refid="_creator_game_mode_base_8cpp" kind="file"><name>CreatorGameModeBase.cpp</name>
+  </compound>
+  <compound refid="_creator_game_state_base_8cpp" kind="file"><name>CreatorGameStateBase.cpp</name>
+  </compound>
+  <compound refid="_creator_hud_base_8cpp" kind="file"><name>CreatorHudBase.cpp</name>
+  </compound>
+  <compound refid="_creator_player_state_base_8cpp" kind="file"><name>CreatorPlayerStateBase.cpp</name>
+  </compound>
+  <compound refid="_tales_gameplay_ability_8cpp" kind="file"><name>TalesGameplayAbility.cpp</name>
+  </compound>
+  <compound refid="_core_stats_attributes_8cpp" kind="file"><name>CoreStatsAttributes.cpp</name>
+  </compound>
+  <compound refid="_damage_attributes_8cpp" kind="file"><name>DamageAttributes.cpp</name>
+  </compound>
+  <compound refid="_effect_attributes_8cpp" kind="file"><name>EffectAttributes.cpp</name>
+  </compound>
+  <compound refid="_tales_attributes_8cpp" kind="file"><name>TalesAttributes.cpp</name>
+  </compound>
+  <compound refid="_vitality_attributes_8cpp" kind="file"><name>VitalityAttributes.cpp</name>
+  </compound>
+  <compound refid="_vitality_effect_context_8cpp" kind="file"><name>VitalityEffectContext.cpp</name>
+  </compound>
+  <compound refid="_equipment_effect_8cpp" kind="file"><name>EquipmentEffect.cpp</name>
+  </compound>
+  <compound refid="_tales_effect_base_8cpp" kind="file"><name>TalesEffectBase.cpp</name>
+  </compound>
+  <compound refid="_tales_damage_calc_8cpp" kind="file"><name>TalesDamageCalc.cpp</name>
+    <member refid="_tales_damage_calc_8cpp_1a6ef5ec74437a3e8cfe6e93f39574505b" kind="function"><name>DamageStatics</name></member>
+  </compound>
+  <compound refid="_tales_damage_calc_8h" kind="file"><name>TalesDamageCalc.h</name>
+  </compound>
+  <compound refid="_tales_ability_globals_8cpp" kind="file"><name>TalesAbilityGlobals.cpp</name>
+  </compound>
+  <compound refid="_tales_damage_types_8cpp" kind="file"><name>TalesDamageTypes.cpp</name>
+  </compound>
+  <compound refid="_global_data_8cpp" kind="file"><name>GlobalData.cpp</name>
+  </compound>
+  <compound refid="_loot_data_8cpp" kind="file"><name>LootData.cpp</name>
+  </compound>
+  <compound refid="_weapon_data_8cpp" kind="file"><name>WeaponData.cpp</name>
+  </compound>
+  <compound refid="_global_enums_8cpp" kind="file"><name>GlobalEnums.cpp</name>
+  </compound>
+  <compound refid="_weapon_enums_8cpp" kind="file"><name>WeaponEnums.cpp</name>
+  </compound>
+  <compound refid="_attribute_tags_8cpp" kind="file"><name>AttributeTags.cpp</name>
+  </compound>
+  <compound refid="_damage_tags_8cpp" kind="file"><name>DamageTags.cpp</name>
+  </compound>
+  <compound refid="_tales_global_tags_8cpp" kind="file"><name>TalesGlobalTags.cpp</name>
+  </compound>
+  <compound refid="_mesh_merge_save_data_8cpp" kind="file"><name>MeshMergeSaveData.cpp</name>
+  </compound>
+  <compound refid="_saved_characters_8cpp" kind="file"><name>SavedCharacters.cpp</name>
+  </compound>
+  <compound refid="_static_save_data_8cpp" kind="file"><name>StaticSaveData.cpp</name>
+  </compound>
+  <compound refid="_melee_weapon_base_8cpp" kind="file"><name>MeleeWeaponBase.cpp</name>
+  </compound>
+  <compound refid="_ranged_weapon_base_8cpp" kind="file"><name>RangedWeaponBase.cpp</name>
+  </compound>
+  <compound refid="_thrown_weapon_base_8cpp" kind="file"><name>ThrownWeaponBase.cpp</name>
+  </compound>
+  <compound refid="_weapon_base_8cpp" kind="file"><name>WeaponBase.cpp</name>
+  </compound>
+  <compound refid="_weapon_melee_base_8cpp" kind="file"><name>WeaponMeleeBase.cpp</name>
+  </compound>
+  <compound refid="_weapon_system_8cpp" kind="file"><name>WeaponSystem.cpp</name>
+  </compound>
+  <compound refid="_floating_text_widget_base_8cpp" kind="file"><name>FloatingTextWidgetBase.cpp</name>
+  </compound>
+  <compound refid="_overhead_data_widget_base_8cpp" kind="file"><name>OverheadDataWidgetBase.cpp</name>
+  </compound>
+  <compound refid="_ai_behavior_tree_base_8h" kind="file"><name>AiBehaviorTreeBase.h</name>
+  </compound>
+  <compound refid="_combat_ai_behavior_tree_base_8h" kind="file"><name>CombatAiBehaviorTreeBase.h</name>
+  </compound>
+  <compound refid="_character_base_8h" kind="file"><name>CharacterBase.h</name>
+    <member refid="_character_base_8h_1a93d2ee3894232f271ac5fad23028eb04" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE</name></member>
+    <member refid="_character_base_8h_1ad9be82980c8830cbefda867cdb0ed591" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam</name></member>
+    <member refid="_character_base_8h_1af657446b2a0dbbdd35cc1507cd1dd13f" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams</name></member>
+    <member refid="_character_base_8h_1a939acbed14f9b11adb5023bf496f42e9" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams</name></member>
+    <member refid="_character_base_8h_1ae47a048281084a065200bfc558ea36e1" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams</name></member>
+    <member refid="_character_base_8h_1aecd811fe08681517623b1e224faa6fef" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams</name></member>
+    <member refid="_character_base_8h_1a5c2f48858bdee53e4196a6009561a306" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams</name></member>
+    <member refid="_character_base_8h_1ab4fd6043bb33dfa55db94c3b7bdb5308" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams</name></member>
+    <member refid="_character_base_8h_1a6e448882d184fc436890c3096822c13c" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams</name></member>
+    <member refid="_character_base_8h_1a355216ad79931f8c1ce0c9800af8772d" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams</name></member>
+    <member refid="_character_base_8h_1a240d3b20b0b3b418234b4c0e62f383db" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams</name></member>
+    <member refid="_character_base_8h_1a480fb4f9c71491c4bb9d217d28dd294f" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams</name></member>
+  </compound>
+  <compound refid="_combat_npc_character_base_8h" kind="file"><name>CombatNpcCharacterBase.h</name>
+  </compound>
+  <compound refid="_equipment_component_8h" kind="file"><name>EquipmentComponent.h</name>
+    <member refid="_equipment_component_8h_1acc06ba183527bbf95e3deb078e62efe6" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams</name></member>
+  </compound>
+  <compound refid="_mesh_merge_component_8h" kind="file"><name>MeshMergeComponent.h</name>
+    <member refid="_mesh_merge_component_8h_1a015c7c84efd37741a36009d43c94a1b3" kind="enum"><name>ECharacterSex</name></member>
+    <member refid="_mesh_merge_component_8h_1a015c7c84efd37741a36009d43c94a1b3a21f916747bf450058692114c6c675ea7" kind="enumvalue"><name>NONBINARY</name></member>
+    <member refid="_mesh_merge_component_8h_1a015c7c84efd37741a36009d43c94a1b3aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_mesh_merge_component_8h_1a015c7c84efd37741a36009d43c94a1b3aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_mesh_merge_component_8h_1a015c7c84efd37741a36009d43c94a1b3aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_mesh_merge_component_8h_1ac74ae72b565f894bf07936cf68aa544c" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE</name></member>
+    <member refid="_mesh_merge_component_8h_1a460ef2342dc420eedab77d2348f3fda8" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam</name></member>
+    <member refid="_mesh_merge_component_8h_1af975c6831f29c4a36b718bd337a3a86f" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam</name></member>
+  </compound>
+  <compound refid="_overhead_widget_component_8h" kind="file"><name>OverheadWidgetComponent.h</name>
+  </compound>
+  <compound refid="_tales_ability_component_8h" kind="file"><name>TalesAbilityComponent.h</name>
+  </compound>
+  <compound refid="_ai_controller_base_8h" kind="file"><name>AiControllerBase.h</name>
+  </compound>
+  <compound refid="_combat_ai_controller_base_8h" kind="file"><name>CombatAiControllerBase.h</name>
+    <member refid="_combat_ai_controller_base_8h_1a982e5710e9dfdd5b20dec2e20d6c869d" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE</name></member>
+  </compound>
+  <compound refid="_player_controller_base_8h" kind="file"><name>PlayerControllerBase.h</name>
+    <member refid="_player_controller_base_8h_1a50ad46cadf5f83213f30db855f0e78c4" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam</name></member>
+  </compound>
+  <compound refid="_creator_character_base_8h" kind="file"><name>CreatorCharacterBase.h</name>
+  </compound>
+  <compound refid="_dm_character_base_8h" kind="file"><name>DmCharacterBase.h</name>
+  </compound>
+  <compound refid="_interactive_npc_base_8h" kind="file"><name>InteractiveNpcBase.h</name>
+  </compound>
+  <compound refid="_npc_character_base_8h" kind="file"><name>NpcCharacterBase.h</name>
+  </compound>
+  <compound refid="_player_character_base_8h" kind="file"><name>PlayerCharacterBase.h</name>
+    <member refid="_player_character_base_8h_1ae17f4b0199b34bcfb8b531b3d1e8dc7e" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE</name></member>
+    <member refid="_player_character_base_8h_1a9e575f3df8d79f645dd52d379c3f12ca" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams</name></member>
+    <member refid="_player_character_base_8h_1a68d6fbb9eec3f7058f52c215289f033b" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams</name></member>
+    <member refid="_player_character_base_8h_1a14e3979b0ba3da7a810ecffcf0e2b7c8" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams</name></member>
+  </compound>
+  <compound refid="_spectator_base_8h" kind="file"><name>SpectatorBase.h</name>
+  </compound>
+  <compound refid="_character_defaults_8h" kind="file"><name>CharacterDefaults.h</name>
+    <member refid="_character_defaults_8h_1ae1f65624f1009e6f5b77bfb71d1d507f" kind="function"><name>UE_DECLARE_GAMEPLAY_TAG_EXTERN</name></member>
+    <member refid="_character_defaults_8h_1a85fad51bd4472048f8dba8025826ea1a" kind="function"><name>UE_DECLARE_GAMEPLAY_TAG_EXTERN</name></member>
+    <member refid="_character_defaults_8h_1a84d6e9fd7e48fa5deafceed84c60ba0f" kind="function"><name>UE_DECLARE_GAMEPLAY_TAG_EXTERN</name></member>
+  </compound>
+  <compound refid="_tales_dm_hud_base_8h" kind="file"><name>TalesDmHudBase.h</name>
+  </compound>
+  <compound refid="_tales_dungeoneer_game_mode_8h" kind="file"><name>TalesDungeoneerGameMode.h</name>
+  </compound>
+  <compound refid="_tales_hud_base_8h" kind="file"><name>TalesHudBase.h</name>
+  </compound>
+  <compound refid="_tales_player_hud_base_8h" kind="file"><name>TalesPlayerHudBase.h</name>
+  </compound>
+  <compound refid="_tales_player_state_base_8h" kind="file"><name>TalesPlayerStateBase.h</name>
+    <member refid="_tales_player_state_base_8h_1a49acd737148c8bb1a2c3b7b88103e2e5" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE</name></member>
+  </compound>
+  <compound refid="_tales_game_state_base_8h" kind="file"><name>TalesGameStateBase.h</name>
+    <member refid="_tales_game_state_base_8h_1a5ce9065440a0cabcd8e0f4838dde958f" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE</name></member>
+    <member refid="_tales_game_state_base_8h_1a7f84fb1204ce014fcaee86fdf91a94c2" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam</name></member>
+    <member refid="_tales_game_state_base_8h_1afa4376b089cae2fae68b96ec464d8e2f" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam</name></member>
+    <member refid="_tales_game_state_base_8h_1ae722271add5895b68599fd6553856411" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams</name></member>
+    <member refid="_tales_game_state_base_8h_1a7a26d3f6cad8bbfe76f2fc0e73e6d681" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams</name></member>
+  </compound>
+  <compound refid="_creator_game_mode_base_8h" kind="file"><name>CreatorGameModeBase.h</name>
+  </compound>
+  <compound refid="_creator_game_state_base_8h" kind="file"><name>CreatorGameStateBase.h</name>
+    <member refid="_creator_game_state_base_8h_1ac69c71c2a2c5f2327c99e3c5da72f97a" kind="function"><name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam</name></member>
+  </compound>
+  <compound refid="_creator_hud_base_8h" kind="file"><name>CreatorHudBase.h</name>
+  </compound>
+  <compound refid="_creator_player_state_base_8h" kind="file"><name>CreatorPlayerStateBase.h</name>
+  </compound>
+  <compound refid="_tales_gameplay_ability_8h" kind="file"><name>TalesGameplayAbility.h</name>
+  </compound>
+  <compound refid="_attribute_helpers_8h" kind="file"><name>AttributeHelpers.h</name>
+    <member refid="_attribute_helpers_8h_1a557ad7abc436418aee5d00d667d37f02" kind="define"><name>ATTRIBUTE_ACCESSORS</name></member>
+  </compound>
+  <compound refid="_core_stats_attributes_8h" kind="file"><name>CoreStatsAttributes.h</name>
+    <member refid="_core_stats_attributes_8h_1a1815e7c2061fea0e9acc488de3951ba4" kind="define"><name>STAT_DEFAULT</name></member>
+    <member refid="_core_stats_attributes_8h_1a72a29dc5e9a90ecee838c26530da83ca" kind="define"><name>STAT_MAX</name></member>
+    <member refid="_core_stats_attributes_8h_1a02787269b096d4d9287ee1b876762286" kind="define"><name>STAT_MIN</name></member>
+  </compound>
+  <compound refid="_damage_attributes_8h" kind="file"><name>DamageAttributes.h</name>
+  </compound>
+  <compound refid="_effect_attributes_8h" kind="file"><name>EffectAttributes.h</name>
+  </compound>
+  <compound refid="_tales_attributes_8h" kind="file"><name>TalesAttributes.h</name>
+    <member refid="_tales_attributes_8h_1aab43ceb5436920158e59a5569e53be00" kind="function"><name>DECLARE_MULTICAST_DELEGATE_FourParams</name></member>
+    <member refid="_tales_attributes_8h_1a93de62ea6381f3b785b550c5836893fa" kind="function"><name>DECLARE_MULTICAST_DELEGATE_SixParams</name></member>
+  </compound>
+  <compound refid="_vitality_attributes_8h" kind="file"><name>VitalityAttributes.h</name>
+  </compound>
+  <compound refid="_vitality_effect_context_8h" kind="file"><name>VitalityEffectContext.h</name>
+  </compound>
+  <compound refid="_equipment_effect_8h" kind="file"><name>EquipmentEffect.h</name>
+  </compound>
+  <compound refid="_tales_effect_base_8h" kind="file"><name>TalesEffectBase.h</name>
+  </compound>
+  <compound refid="_tales_ability_globals_8h" kind="file"><name>TalesAbilityGlobals.h</name>
+  </compound>
+  <compound refid="_tales_damage_types_8h" kind="file"><name>TalesDamageTypes.h</name>
+  </compound>
+  <compound refid="_global_data_8h" kind="file"><name>GlobalData.h</name>
+  </compound>
+  <compound refid="_loot_data_8h" kind="file"><name>LootData.h</name>
+  </compound>
+  <compound refid="_weapon_data_8h" kind="file"><name>WeaponData.h</name>
+  </compound>
+  <compound refid="_global_enums_8h" kind="file"><name>GlobalEnums.h</name>
+    <member refid="_global_enums_8h_1a7aeee01f026e0db8527e8c126e8e6ba4" kind="enum"><name>EFaction</name></member>
+    <member refid="_global_enums_8h_1a7aeee01f026e0db8527e8c126e8e6ba4aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a7aeee01f026e0db8527e8c126e8e6ba4aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a7aeee01f026e0db8527e8c126e8e6ba4aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a7aeee01f026e0db8527e8c126e8e6ba4aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a7aeee01f026e0db8527e8c126e8e6ba4aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a7aeee01f026e0db8527e8c126e8e6ba4aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a7aeee01f026e0db8527e8c126e8e6ba4aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a7aeee01f026e0db8527e8c126e8e6ba4aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a7aeee01f026e0db8527e8c126e8e6ba4aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a7aeee01f026e0db8527e8c126e8e6ba4aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a7aeee01f026e0db8527e8c126e8e6ba4aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a7aeee01f026e0db8527e8c126e8e6ba4aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a61ced6a4856dd01729c400a683047b37" kind="enum"><name>EFactionState</name></member>
+    <member refid="_global_enums_8h_1a61ced6a4856dd01729c400a683047b37ab50339a10e1de285ac99d4c3990b8693" kind="enumvalue"><name>NONE</name></member>
+    <member refid="_global_enums_8h_1a61ced6a4856dd01729c400a683047b37a15d4934eb495744eaaf040c7f8688b32" kind="enumvalue"><name>HATE</name></member>
+    <member refid="_global_enums_8h_1a61ced6a4856dd01729c400a683047b37aa7598964efa10e649f92662b79e8d4d3" kind="enumvalue"><name>LIKE</name></member>
+    <member refid="_global_enums_8h_1a61ced6a4856dd01729c400a683047b37a8a909f5ee9185002151cd3779f9fbb0b" kind="enumvalue"><name>ALLY</name></member>
+    <member refid="_global_enums_8h_1a1cdeda6e0607b24962bb081d9e018b06" kind="enum"><name>ECharacterClass</name></member>
+    <member refid="_global_enums_8h_1a1cdeda6e0607b24962bb081d9e018b06aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a1cdeda6e0607b24962bb081d9e018b06aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a1cdeda6e0607b24962bb081d9e018b06aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a1cdeda6e0607b24962bb081d9e018b06aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a1cdeda6e0607b24962bb081d9e018b06aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a1cdeda6e0607b24962bb081d9e018b06aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a1cdeda6e0607b24962bb081d9e018b06aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a1cdeda6e0607b24962bb081d9e018b06aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a1cdeda6e0607b24962bb081d9e018b06aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a1cdeda6e0607b24962bb081d9e018b06aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a0debd0a0796eb65e19554cf406991358" kind="enum"><name>ECharacterRace</name></member>
+    <member refid="_global_enums_8h_1a0debd0a0796eb65e19554cf406991358aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a0debd0a0796eb65e19554cf406991358aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a0debd0a0796eb65e19554cf406991358aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a0debd0a0796eb65e19554cf406991358aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a0debd0a0796eb65e19554cf406991358aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a0debd0a0796eb65e19554cf406991358aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a0debd0a0796eb65e19554cf406991358aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a0debd0a0796eb65e19554cf406991358aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a0debd0a0796eb65e19554cf406991358aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1a0debd0a0796eb65e19554cf406991358aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1add28d6128ba7f97513bf8aaa1965ee1b" kind="enum"><name>ECharacterTeam</name></member>
+    <member refid="_global_enums_8h_1add28d6128ba7f97513bf8aaa1965ee1baa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1add28d6128ba7f97513bf8aaa1965ee1baa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1add28d6128ba7f97513bf8aaa1965ee1baa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1add28d6128ba7f97513bf8aaa1965ee1baa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_global_enums_8h_1add28d6128ba7f97513bf8aaa1965ee1baa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+  </compound>
+  <compound refid="_weapon_enums_8h" kind="file"><name>WeaponEnums.h</name>
+    <member refid="_weapon_enums_8h_1a617357d170f0c96ac648fce89aa005d2" kind="enum"><name>EWeaponSlots</name></member>
+    <member refid="_weapon_enums_8h_1a617357d170f0c96ac648fce89aa005d2aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_weapon_enums_8h_1a617357d170f0c96ac648fce89aa005d2aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_weapon_enums_8h_1a617357d170f0c96ac648fce89aa005d2aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_weapon_enums_8h_1a35c02ce0d8fc7c1d3aa6fcfa6bd85d65" kind="enum"><name>EWeaponTypes</name></member>
+    <member refid="_weapon_enums_8h_1a35c02ce0d8fc7c1d3aa6fcfa6bd85d65aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_weapon_enums_8h_1a35c02ce0d8fc7c1d3aa6fcfa6bd85d65aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_weapon_enums_8h_1a35c02ce0d8fc7c1d3aa6fcfa6bd85d65aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_weapon_enums_8h_1a35c02ce0d8fc7c1d3aa6fcfa6bd85d65aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_weapon_enums_8h_1a35c02ce0d8fc7c1d3aa6fcfa6bd85d65aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_weapon_enums_8h_1a35c02ce0d8fc7c1d3aa6fcfa6bd85d65aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_weapon_enums_8h_1a35c02ce0d8fc7c1d3aa6fcfa6bd85d65aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_weapon_enums_8h_1a35c02ce0d8fc7c1d3aa6fcfa6bd85d65aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_weapon_enums_8h_1a35c02ce0d8fc7c1d3aa6fcfa6bd85d65aa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+  </compound>
+  <compound refid="_attribute_tags_8h" kind="file"><name>AttributeTags.h</name>
+  </compound>
+  <compound refid="_damage_tags_8h" kind="file"><name>DamageTags.h</name>
+  </compound>
+  <compound refid="_tales_global_tags_8h" kind="file"><name>TalesGlobalTags.h</name>
+  </compound>
+  <compound refid="_mesh_merge_save_data_8h" kind="file"><name>MeshMergeSaveData.h</name>
+  </compound>
+  <compound refid="_saved_characters_8h" kind="file"><name>SavedCharacters.h</name>
+  </compound>
+  <compound refid="_static_save_data_8h" kind="file"><name>StaticSaveData.h</name>
+  </compound>
+  <compound refid="_melee_weapon_base_8h" kind="file"><name>MeleeWeaponBase.h</name>
+  </compound>
+  <compound refid="_ranged_weapon_base_8h" kind="file"><name>RangedWeaponBase.h</name>
+  </compound>
+  <compound refid="_thrown_weapon_base_8h" kind="file"><name>ThrownWeaponBase.h</name>
+  </compound>
+  <compound refid="_weapon_base_8h" kind="file"><name>WeaponBase.h</name>
+    <member refid="_weapon_base_8h_1af5d9f27a4d2c119d7f2a4c787b65cccd" kind="function"><name>DECLARE_LOG_CATEGORY_EXTERN</name></member>
+  </compound>
+  <compound refid="_weapon_melee_base_8h" kind="file"><name>WeaponMeleeBase.h</name>
+  </compound>
+  <compound refid="_weapon_system_8h" kind="file"><name>WeaponSystem.h</name>
+  </compound>
+  <compound refid="_floating_text_widget_base_8h" kind="file"><name>FloatingTextWidgetBase.h</name>
+  </compound>
+  <compound refid="_overhead_data_widget_base_8h" kind="file"><name>OverheadDataWidgetBase.h</name>
+  </compound>
+  <compound refid="_tales_dungeoneer_8_build_8cs" kind="file"><name>TalesDungeoneer.Build.cs</name>
+  </compound>
+  <compound refid="_tales_dungeoneer_8cpp" kind="file"><name>TalesDungeoneer.cpp</name>
+    <member refid="_tales_dungeoneer_8cpp_1ac962a616991a227f4b906db7cce64447" kind="function"><name>IMPLEMENT_PRIMARY_GAME_MODULE</name></member>
+    <member refid="_tales_dungeoneer_8cpp_1af2ff12548cf7a08c39cd65a54f9e29ae" kind="function"><name>DEFINE_LOG_CATEGORY</name></member>
+    <member refid="_tales_dungeoneer_8cpp_1a009a4471d5037ca30a74cb283a0d19b6" kind="function"><name>DEFINE_LOG_CATEGORY</name></member>
+    <member refid="_tales_dungeoneer_8cpp_1a414ec721cd4a405ae2738369a2d09d32" kind="function"><name>DEFINE_LOG_CATEGORY</name></member>
+  </compound>
+  <compound refid="_tales_dungeoneer_8h" kind="file"><name>TalesDungeoneer.h</name>
+    <member refid="_tales_dungeoneer_8h_1abd3a681fddaeb6295755f3fd1e1dcc7e" kind="enum"><name>EAbilityInputID</name></member>
+    <member refid="_tales_dungeoneer_8h_1abd3a681fddaeb6295755f3fd1e1dcc7eaa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_tales_dungeoneer_8h_1abd3a681fddaeb6295755f3fd1e1dcc7eaa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_tales_dungeoneer_8h_1abd3a681fddaeb6295755f3fd1e1dcc7eaa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_tales_dungeoneer_8h_1abd3a681fddaeb6295755f3fd1e1dcc7eaa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_tales_dungeoneer_8h_1abd3a681fddaeb6295755f3fd1e1dcc7eaa3f80d8f0f1b4ffa8c475f5d60ea5635" kind="enumvalue"><name>UMETA</name></member>
+    <member refid="_tales_dungeoneer_8h_1a8e6e03a8c886771379c4803c85de5fc9" kind="function"><name>DECLARE_LOG_CATEGORY_EXTERN</name></member>
+    <member refid="_tales_dungeoneer_8h_1a00720ed29c7d02d26905d82f8c223845" kind="function"><name>DECLARE_LOG_CATEGORY_EXTERN</name></member>
+    <member refid="_tales_dungeoneer_8h_1a89240dcc763b7795ab4f3b4dc24c76ae" kind="function"><name>DECLARE_LOG_CATEGORY_EXTERN</name></member>
+  </compound>
+  <compound refid="dir_04ce6e5629af56bb644941ff6856d5c2" kind="dir"><name>Source/TalesDungeoneer/Private/Gas/Abilities</name>
+  </compound>
+  <compound refid="dir_a351c31718df2492298a129895ee9635" kind="dir"><name>Source/TalesDungeoneer/Public/Gas/Abilities</name>
+  </compound>
+  <compound refid="dir_2f29526baf69ec145833c0d89db06ecd" kind="dir"><name>Source/TalesDungeoneer/Private/Gamemode/AdventureMode</name>
+  </compound>
+  <compound refid="dir_74d22f86b0ca49d4d939ca2fc3eb64f8" kind="dir"><name>Source/TalesDungeoneer/Public/Gamemode/AdventureMode</name>
+  </compound>
+  <compound refid="dir_21d9210cc48803742552dc38b6a9cc10" kind="dir"><name>Source/TalesDungeoneer/Private/Gas/AttributeSets</name>
+  </compound>
+  <compound refid="dir_ea8b571b2db7b73842309df61458573f" kind="dir"><name>Source/TalesDungeoneer/Public/Gas/AttributeSets</name>
+  </compound>
+  <compound refid="dir_b7885edd3e9a9b350014f177cd06c848" kind="dir"><name>Source/TalesDungeoneer/Private/Gamemode/BaseFiles</name>
+  </compound>
+  <compound refid="dir_b178190dc4dc196f493a5093a2357f9b" kind="dir"><name>Source/TalesDungeoneer/Public/Gamemode/BaseFiles</name>
+  </compound>
+  <compound refid="dir_0a0e42094fb093e3c800f31c96a7d03a" kind="dir"><name>Source/TalesDungeoneer/Private/Characters/Behaviors</name>
+  </compound>
+  <compound refid="dir_9b168cf5cbd6de37536429343213b3d5" kind="dir"><name>Source/TalesDungeoneer/Public/Characters/Behaviors</name>
+  </compound>
+  <compound refid="dir_73a2454602c79a8366ca65698d03d0c3" kind="dir"><name>Source/TalesDungeoneer/Private/Characters</name>
+  </compound>
+  <compound refid="dir_b23f57faea0075cd738a7e5abe5d539e" kind="dir"><name>Source/TalesDungeoneer/Public/Characters</name>
+  </compound>
+  <compound refid="dir_10ec555499b262e175384d030c4efb9c" kind="dir"><name>Source/TalesDungeoneer/Private/Characters/Components</name>
+  </compound>
+  <compound refid="dir_e2274537234b76759362404ff60dc47f" kind="dir"><name>Source/TalesDungeoneer/Public/Characters/Components</name>
+  </compound>
+  <compound refid="dir_09372c19a2e54ae73ea61a1a26bb1477" kind="dir"><name>Source/TalesDungeoneer/Private/Gas/Contexts</name>
+  </compound>
+  <compound refid="dir_46cb3695d96511e69621fedc6fff6cbe" kind="dir"><name>Source/TalesDungeoneer/Public/Gas/Contexts</name>
+  </compound>
+  <compound refid="dir_2b52f8ad9f5f35970ae01dcbc69bdee0" kind="dir"><name>Source/TalesDungeoneer/Private/Characters/Controllers</name>
+  </compound>
+  <compound refid="dir_864ad659fc06ad233538bcc871a88f55" kind="dir"><name>Source/TalesDungeoneer/Public/Characters/Controllers</name>
+  </compound>
+  <compound refid="dir_37d76bf0c291ef0002d6ad1ff484726f" kind="dir"><name>Source/TalesDungeoneer/Private/lib/Damage</name>
+  </compound>
+  <compound refid="dir_e26edd96a781e73a13e1ee44c20dabef" kind="dir"><name>Source/TalesDungeoneer/Public/lib/Damage</name>
+  </compound>
+  <compound refid="dir_4906348f9e979c257b97db175b978135" kind="dir"><name>Source/TalesDungeoneer/Private/DataAssets</name>
+  </compound>
+  <compound refid="dir_7cc369a7cf4cb41b5b2e6b4466096a37" kind="dir"><name>Source/TalesDungeoneer/Public/DataAssets</name>
+  </compound>
+  <compound refid="dir_65be7b9f983cc0569c40d853923f338b" kind="dir"><name>Source/TalesDungeoneer/Private/lib/datastructures</name>
+  </compound>
+  <compound refid="dir_866a32c97df33f89bdad3a54049b7362" kind="dir"><name>Source/TalesDungeoneer/Public/lib/datastructures</name>
+  </compound>
+  <compound refid="dir_863f16609b2043e84594e334625993f9" kind="dir"><name>Source/TalesDungeoneer/Private/Gas/Effects</name>
+  </compound>
+  <compound refid="dir_0178af4ed238b67c5e1ffd3963dc518f" kind="dir"><name>Source/TalesDungeoneer/Public/Gas/Effects</name>
+  </compound>
+  <compound refid="dir_e6b45db47a27a71943cc4e767c4d41b2" kind="dir"><name>Source/TalesDungeoneer/Private/lib/enums</name>
+  </compound>
+  <compound refid="dir_1f3d3e5e40c48c50ce95c5e80da0def5" kind="dir"><name>Source/TalesDungeoneer/Public/lib/enums</name>
+  </compound>
+  <compound refid="dir_b5f4370bb9a7874880b0137057a3622f" kind="dir"><name>Source/TalesDungeoneer/Private/Gamemode</name>
+  </compound>
+  <compound refid="dir_4076a4fa91df8543435081a7e2a629fe" kind="dir"><name>Source/TalesDungeoneer/Public/Gamemode</name>
+  </compound>
+  <compound refid="dir_1c3863ad136f0162a119bfca66b50f20" kind="dir"><name>Source/TalesDungeoneer/Private/Gas</name>
+  </compound>
+  <compound refid="dir_8603b024c5f63fd27f086e7793eda84e" kind="dir"><name>Source/TalesDungeoneer/Public/Gas</name>
+  </compound>
+  <compound refid="dir_21e45c749b081b5e3eaff0b50e8949b4" kind="dir"><name>Source/TalesDungeoneer/Private/lib</name>
+  </compound>
+  <compound refid="dir_0dbbcc08cbcd2c8c4c75c974c8625dc4" kind="dir"><name>Source/TalesDungeoneer/Public/lib</name>
+  </compound>
+  <compound refid="dir_79e735ae43bc1a5a6a8c5ce36cb1027f" kind="dir"><name>Source/TalesDungeoneer/Private/Gas/Misc</name>
+  </compound>
+  <compound refid="dir_60dddb4fc21a45b2eb92488ad3cf0b77" kind="dir"><name>Source/TalesDungeoneer/Private</name>
+  </compound>
+  <compound refid="dir_87edeb4a1b091f63952abbf5df306f6a" kind="dir"><name>Source/TalesDungeoneer/Public</name>
+  </compound>
+  <compound refid="dir_bfc364fb3908806eb9b4253a15aa4322" kind="dir"><name>Source/TalesDungeoneer/Private/Saves</name>
+  </compound>
+  <compound refid="dir_44e6e92b09860ad5d841270d1d840a4a" kind="dir"><name>Source/TalesDungeoneer/Public/Saves</name>
+  </compound>
+  <compound refid="dir_74389ed8173ad57b461b9d623a1f3867" kind="dir"><name>Source</name>
+  </compound>
+  <compound refid="dir_5eafda38b53853f547a96e8c90aec102" kind="dir"><name>Source/TalesDungeoneer/Private/lib/Tags</name>
+  </compound>
+  <compound refid="dir_d5ed2bfa8ea6550a434c34422b73765c" kind="dir"><name>Source/TalesDungeoneer/Public/lib/Tags</name>
+  </compound>
+  <compound refid="dir_18a24518c61291f285824497c1e62157" kind="dir"><name>Source/TalesDungeoneer</name>
+  </compound>
+  <compound refid="dir_086f4add725d24e9037735b7f827fb75" kind="dir"><name>Source/TalesDungeoneer/Private/Gamemode/TitleScreen</name>
+  </compound>
+  <compound refid="dir_2b3889a46a535c7af21d7743ab36883d" kind="dir"><name>Source/TalesDungeoneer/Public/Gamemode/TitleScreen</name>
+  </compound>
+  <compound refid="dir_18d898dfdcbfd380392a8464fc51a726" kind="dir"><name>Source/TalesDungeoneer/Private/Weapons</name>
+  </compound>
+  <compound refid="dir_3c666f301e7b6f26ca4c6765c9ab8a98" kind="dir"><name>Source/TalesDungeoneer/Public/Weapons</name>
+  </compound>
+  <compound refid="dir_1a5d9b4ad43d47e7490ca2867e5c927a" kind="dir"><name>Source/TalesDungeoneer/Private/Widgets</name>
+  </compound>
+  <compound refid="dir_36dc2666ccf4cc5efa342ee01598bba6" kind="dir"><name>Source/TalesDungeoneer/Public/Widgets</name>
+  </compound>
+</doxygenindex>

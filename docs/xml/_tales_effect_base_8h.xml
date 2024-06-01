@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_tales_effect_base_8h" kind="file" language="C++">
+    <compoundname>TalesEffectBase.h</compoundname>
+    <includes local="yes">CoreMinimal.h</includes>
+    <includes local="yes">GameplayEffect.h</includes>
+    <includes local="yes">TalesEffectBase.generated.h</includes>
+    <includedby refid="_tales_effect_base_8cpp" local="yes">Source/TalesDungeoneer/Private/Gas/Effects/TalesEffectBase.cpp</includedby>
+    <includedby refid="_equipment_effect_8h" local="yes">Source/TalesDungeoneer/Public/Gas/Effects/EquipmentEffect.h</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>CoreMinimal.h</label>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/Gas/Effects/TalesEffectBase.h</label>
+        <link refid="_tales_effect_base_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>GameplayEffect.h</label>
+      </node>
+      <node id="4">
+        <label>TalesEffectBase.generated.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>Source/TalesDungeoneer/Public/Gas/Effects/EquipmentEffect.h</label>
+        <link refid="_equipment_effect_8h_source"/>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/Gas/Effects/TalesEffectBase.h</label>
+        <link refid="_tales_effect_base_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_u_tales_effect_base" prot="public">UTalesEffectBase</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Take<sp/>Five<sp/>Games,<sp/>LLC</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;CoreMinimal.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;GameplayEffect.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;TalesEffectBase.generated.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal">UCLASS()</highlight></codeline>
+<codeline lineno="14" refid="class_u_tales_effect_base" refkind="compound"><highlight class="normal">class<sp/>TALESDUNGEONEER_API<sp/><ref refid="class_u_tales_effect_base" kindref="compound">UTalesEffectBase</ref><sp/>:<sp/>public<sp/>UGameplayEffect</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>GENERATED_BODY()</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Public/Gas/Effects/TalesEffectBase.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_a_thrown_weapon_base" kind="class" language="C++" prot="public">
+    <compoundname>AThrownWeaponBase</compoundname>
+    <basecompoundref refid="class_a_weapon_base" prot="public" virt="non-virtual">AWeaponBase</basecompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_a_thrown_weapon_base_1ae9309405305b7c7a7339329be9639b6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>AThrownWeaponBase::AThrownWeaponBase</definition>
+        <argsstring>()</argsstring>
+        <name>AThrownWeaponBase</name>
+        <qualifiedname>AThrownWeaponBase::AThrownWeaponBase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/ThrownWeaponBase.h" line="16" column="1" bodyfile="Source/TalesDungeoneer/Private/Weapons/ThrownWeaponBase.cpp" bodystart="5" bodyend="7"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_thrown_weapon_base_1a7f81a1c3ccc7d190ca71b6ec4d38fce6" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool AThrownWeaponBase::doAttack</definition>
+        <argsstring>() override</argsstring>
+        <name>doAttack</name>
+        <qualifiedname>AThrownWeaponBase::doAttack</qualifiedname>
+        <reimplements refid="class_a_weapon_base_1a0c8e0e3616932105f3107e67ac469ddd">doAttack</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/ThrownWeaponBase.h" line="18" column="14" bodyfile="Source/TalesDungeoneer/Private/Weapons/ThrownWeaponBase.cpp" bodystart="9" bodyend="12"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_a_thrown_weapon_base_1abf1ff74c75bd88e59a65dfd58c75fa63" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void AThrownWeaponBase::BeginPlay</definition>
+        <argsstring>() override</argsstring>
+        <name>BeginPlay</name>
+        <qualifiedname>AThrownWeaponBase::BeginPlay</qualifiedname>
+        <reimplements refid="class_a_weapon_base_1a08284e51f5427ccccfb76c4da4839170">BeginPlay</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/ThrownWeaponBase.h" line="22" column="14" bodyfile="Source/TalesDungeoneer/Private/Weapons/ThrownWeaponBase.cpp" bodystart="14" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_thrown_weapon_base_1a41927cc02153270f53e90fd12017d563" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void AThrownWeaponBase::OnConstruction</definition>
+        <argsstring>(const FTransform &amp;Transform) override</argsstring>
+        <name>OnConstruction</name>
+        <qualifiedname>AThrownWeaponBase::OnConstruction</qualifiedname>
+        <reimplements refid="class_a_weapon_base_1a7c7f528c95ba6664e00d4512a543b0bd">OnConstruction</reimplements>
+        <param>
+          <type>const FTransform &amp;</type>
+          <declname>Transform</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/ThrownWeaponBase.h" line="23" column="14" bodyfile="Source/TalesDungeoneer/Private/Weapons/ThrownWeaponBase.cpp" bodystart="19" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_thrown_weapon_base_1a0590c78e01762a129bb074b3b121d923" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void AThrownWeaponBase::UpdateWeapon</definition>
+        <argsstring>() override</argsstring>
+        <name>UpdateWeapon</name>
+        <qualifiedname>AThrownWeaponBase::UpdateWeapon</qualifiedname>
+        <reimplements refid="class_a_weapon_base_1a0a607b1e8da52b2b376e7e15559c5137">UpdateWeapon</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/ThrownWeaponBase.h" line="24" column="14" bodyfile="Source/TalesDungeoneer/Private/Weapons/ThrownWeaponBase.cpp" bodystart="24" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_thrown_weapon_base_1abc8e7d5d983bb86f27059b62f47acd88" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void AThrownWeaponBase::SpawnProjectile</definition>
+        <argsstring>(FVector fwdVector)</argsstring>
+        <name>SpawnProjectile</name>
+        <qualifiedname>AThrownWeaponBase::SpawnProjectile</qualifiedname>
+        <param>
+          <type>FVector</type>
+          <declname>fwdVector</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Deducts one item from the thrown weapon slot (primary/secondary), and on success, it will spawn a projectile of the same mesh, in it&apos;s fully activated state, and launch it as a new projectile actor (throwing a torch, or an axe for example). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fwdVector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The trajectory at initial spawn from the throwing actor </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/ThrownWeaponBase.h" line="31" column="14" bodyfile="Source/TalesDungeoneer/Private/Weapons/ThrownWeaponBase.cpp" bodystart="29" bodyend="32"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>AActor</label>
+      </node>
+      <node id="1">
+        <label>AThrownWeaponBase</label>
+        <link refid="class_a_thrown_weapon_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>AWeaponBase</label>
+        <link refid="class_a_weapon_base"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>AActor</label>
+      </node>
+      <node id="1">
+        <label>AThrownWeaponBase</label>
+        <link refid="class_a_thrown_weapon_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>AWeaponBase</label>
+        <link refid="class_a_weapon_base"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Weapons/ThrownWeaponBase.h" line="10" column="1" bodyfile="Source/TalesDungeoneer/Public/Weapons/ThrownWeaponBase.h" bodystart="11" bodyend="33"/>
+    <listofallmembers>
+      <member refid="class_a_thrown_weapon_base_1ae9309405305b7c7a7339329be9639b6c" prot="public" virt="non-virtual"><scope>AThrownWeaponBase</scope><name>AThrownWeaponBase</name></member>
+      <member refid="class_a_weapon_base_1a64b8ab90669db2552d55cd83df90509b" prot="public" virt="non-virtual"><scope>AThrownWeaponBase</scope><name>AWeaponBase</name></member>
+      <member refid="class_a_thrown_weapon_base_1abf1ff74c75bd88e59a65dfd58c75fa63" prot="protected" virt="virtual"><scope>AThrownWeaponBase</scope><name>BeginPlay</name></member>
+      <member refid="class_a_thrown_weapon_base_1a7f81a1c3ccc7d190ca71b6ec4d38fce6" prot="public" virt="virtual"><scope>AThrownWeaponBase</scope><name>doAttack</name></member>
+      <member refid="class_a_weapon_base_1ad308d4b4fad4f2c2f454e8c21af6d8dd" prot="protected" virt="virtual"><scope>AThrownWeaponBase</scope><name>EndPlay</name></member>
+      <member refid="class_a_weapon_base_1a5225407dc657bc3045c023bbcc8115ea" prot="protected" virt="virtual"><scope>AThrownWeaponBase</scope><name>GetIsAttackValid</name></member>
+      <member refid="class_a_weapon_base_1ab936abf5a4916e3937cb3847435f9fb9" prot="public" virt="non-virtual"><scope>AThrownWeaponBase</scope><name>getIsMeleeWeapon</name></member>
+      <member refid="class_a_weapon_base_1ad09c61c1ae97c44c575c7ee761266264" prot="public" virt="non-virtual"><scope>AThrownWeaponBase</scope><name>getIsRangedWeapon</name></member>
+      <member refid="class_a_weapon_base_1ad5a2d09f0b45fcda23fea1b828509e63" prot="public" virt="non-virtual"><scope>AThrownWeaponBase</scope><name>getIsWeaponArmed</name></member>
+      <member refid="class_a_weapon_base_1a9262313d3e01b70e67178ce3aa5b8fbb" prot="protected" virt="non-virtual"><scope>AThrownWeaponBase</scope><name>IsAttackValid</name></member>
+      <member refid="class_a_thrown_weapon_base_1a41927cc02153270f53e90fd12017d563" prot="protected" virt="virtual"><scope>AThrownWeaponBase</scope><name>OnConstruction</name></member>
+      <member refid="class_a_weapon_base_1a506d9fe73e23b27853e2595148df5313" prot="protected" virt="virtual"><scope>AThrownWeaponBase</scope><name>OnRep_IsWeaponArmed</name></member>
+      <member refid="class_a_weapon_base_1a0a53fe4ff06b496581a440852407f30b" prot="protected" virt="virtual"><scope>AThrownWeaponBase</scope><name>PostActorCreated</name></member>
+      <member refid="class_a_weapon_base_1a1ef6f90f35cfb588d840869f397b6437" prot="public" virt="non-virtual"><scope>AThrownWeaponBase</scope><name>setWeaponIsArmed</name></member>
+      <member refid="class_a_thrown_weapon_base_1abc8e7d5d983bb86f27059b62f47acd88" prot="protected" virt="virtual"><scope>AThrownWeaponBase</scope><name>SpawnProjectile</name></member>
+      <member refid="class_a_weapon_base_1a489056c4be45ebefd84fb2ff7b808592" prot="public" virt="non-virtual"><scope>AThrownWeaponBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_thrown_weapon_base_1a0590c78e01762a129bb074b3b121d923" prot="protected" virt="virtual"><scope>AThrownWeaponBase</scope><name>UpdateWeapon</name></member>
+      <member refid="class_a_weapon_base_1a9a365b6932e15e04241b8cc097e139fb" prot="public" virt="non-virtual"><scope>AThrownWeaponBase</scope><name>UsingSkeletalMesh</name></member>
+      <member refid="class_a_weapon_base_1af285d62e25b02e54ed2033da59ca4b31" prot="public" virt="non-virtual"><scope>AThrownWeaponBase</scope><name>UsingStaticMesh</name></member>
+      <member refid="class_a_weapon_base_1aea61fd251e7a85be8b1ae6c114276301" prot="public" virt="non-virtual"><scope>AThrownWeaponBase</scope><name>WeaponGripLeft</name></member>
+      <member refid="class_a_weapon_base_1ae7079406fd362fac5cd1471d52229149" prot="public" virt="non-virtual"><scope>AThrownWeaponBase</scope><name>WeaponGripRight</name></member>
+      <member refid="class_a_weapon_base_1ab1c49319827097fc17d30bdabfe67dc2" prot="public" virt="non-virtual"><scope>AThrownWeaponBase</scope><name>WeaponMeshSkeleton</name></member>
+      <member refid="class_a_weapon_base_1a9ba32cf0212ea0d454142022eee787a9" prot="public" virt="non-virtual"><scope>AThrownWeaponBase</scope><name>WeaponMeshStatic</name></member>
+      <member refid="class_a_weapon_base_1af0d4c75d05119b07c29fac8e7c1748f7" prot="public" virt="non-virtual"><scope>AThrownWeaponBase</scope><name>WeaponRoot</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

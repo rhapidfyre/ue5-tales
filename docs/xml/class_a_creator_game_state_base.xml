@@ -1,0 +1,288 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_a_creator_game_state_base" kind="class" language="C++" prot="public">
+    <compoundname>ACreatorGameStateBase</compoundname>
+    <basecompoundref refid="class_a_tales_game_state_base" prot="public" virt="non-virtual">ATalesGameStateBase</basecompoundref>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_a_creator_game_state_base_1a49ecef7a169b6ff0776580781a765505" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ACreatorGameStateBase::bIsCreating</definition>
+        <argsstring></argsstring>
+        <name>bIsCreating</name>
+        <qualifiedname>ACreatorGameStateBase::bIsCreating</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorGameStateBase.h" line="46" column="6" bodyfile="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorGameStateBase.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_a_creator_game_state_base_1af996554542d24bf366137aad4c1baf57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACreatorGameStateBase::ACreatorGameStateBase</definition>
+        <argsstring>()</argsstring>
+        <name>ACreatorGameStateBase</name>
+        <qualifiedname>ACreatorGameStateBase::ACreatorGameStateBase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorGameStateBase.h" line="23" column="1" bodyfile="Source/TalesDungeoneer/Private/Gamemode/TitleScreen/CreatorGameStateBase.cpp" bodystart="9" bodyend="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_game_state_base_1a19714022593e835aa3b8c611f9ac2d4c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ACreatorGameStateBase::BeginPlay</definition>
+        <argsstring>() override</argsstring>
+        <name>BeginPlay</name>
+        <qualifiedname>ACreatorGameStateBase::BeginPlay</qualifiedname>
+        <reimplements refid="class_a_tales_game_state_base_1af66211c9e8505eb5625ad525600b3a7b">BeginPlay</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorGameStateBase.h" line="25" column="14" bodyfile="Source/TalesDungeoneer/Private/Gamemode/TitleScreen/CreatorGameStateBase.cpp" bodystart="11" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_game_state_base_1ae6e36a023aef09980b43273b13715dfb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ACreatorGameStateBase::SetIsCreatingCharacter</definition>
+        <argsstring>(bool isCreating=true)</argsstring>
+        <name>SetIsCreatingCharacter</name>
+        <qualifiedname>ACreatorGameStateBase::SetIsCreatingCharacter</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>isCreating</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorGameStateBase.h" line="28" column="6" bodyfile="Source/TalesDungeoneer/Private/Gamemode/TitleScreen/CreatorGameStateBase.cpp" bodystart="16" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_game_state_base_1a4ff915479432099b3c7829bf375bd31e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACreatorGameStateBase::UPROPERTY</definition>
+        <argsstring>(BlueprintAssignable) FOnCharacterCreated OnCharacterCreated</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ACreatorGameStateBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintAssignable</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorGameStateBase.h" line="30" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_game_state_base_1a97923a53ddbab7c3e4c9b38b041c6d78" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ACreatorGameStateBase::CreateNewCharacter</definition>
+        <argsstring>(FString &amp;SaveResponse, bool RunAsync=false)</argsstring>
+        <name>CreateNewCharacter</name>
+        <qualifiedname>ACreatorGameStateBase::CreateNewCharacter</qualifiedname>
+        <param>
+          <type>FString &amp;</type>
+          <declname>SaveResponse</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>RunAsync</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Turns the current player character into a new saved character slot. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SaveResponse</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The return string stating the action of the outcome </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RunAsync</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>True for async, false for sync </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True on success, false on failure </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorGameStateBase.h" line="33" column="6" bodyfile="Source/TalesDungeoneer/Private/Gamemode/TitleScreen/CreatorGameStateBase.cpp" bodystart="36" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_game_state_base_1a76fd852d3ed92cab2bbdffef08fb63d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool ACreatorGameStateBase::SaveCharacterSync</definition>
+        <argsstring>(USaveGame *&amp;SaveGame) override</argsstring>
+        <name>SaveCharacterSync</name>
+        <qualifiedname>ACreatorGameStateBase::SaveCharacterSync</qualifiedname>
+        <reimplements refid="class_a_tales_game_state_base_1a71d5405f0708564d8ef450d04367ee68">SaveCharacterSync</reimplements>
+        <param>
+          <type>USaveGame *&amp;</type>
+          <declname>SaveGame</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorGameStateBase.h" line="35" column="14" bodyfile="Source/TalesDungeoneer/Private/Gamemode/TitleScreen/CreatorGameStateBase.cpp" bodystart="60" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_creator_game_state_base_1aa8eeae7e25b637bb91ef439cffbed774" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ACreatorGameStateBase::GetIsCreatingCharacter</definition>
+        <argsstring>() const</argsstring>
+        <name>GetIsCreatingCharacter</name>
+        <qualifiedname>ACreatorGameStateBase::GetIsCreatingCharacter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorGameStateBase.h" line="38" column="6" bodyfile="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorGameStateBase.h" bodystart="38" bodyend="38"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_a_creator_game_state_base_1a6990e1c127cc94a66466f7db83caa89d" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ACreatorGameStateBase::OnRep_IsCreating</definition>
+        <argsstring>()</argsstring>
+        <name>OnRep_IsCreating</name>
+        <qualifiedname>ACreatorGameStateBase::OnRep_IsCreating</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorGameStateBase.h" line="43" column="6"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>ACreatorGameStateBase</label>
+        <link refid="class_a_creator_game_state_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>AGameStateBase</label>
+      </node>
+      <node id="2">
+        <label>ATalesGameStateBase</label>
+        <link refid="class_a_tales_game_state_base"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>ACreatorGameStateBase</label>
+        <link refid="class_a_creator_game_state_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>AGameStateBase</label>
+      </node>
+      <node id="2">
+        <label>ATalesGameStateBase</label>
+        <link refid="class_a_tales_game_state_base"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorGameStateBase.h" line="17" column="1" bodyfile="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorGameStateBase.h" bodystart="18" bodyend="48"/>
+    <listofallmembers>
+      <member refid="class_a_creator_game_state_base_1af996554542d24bf366137aad4c1baf57" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>ACreatorGameStateBase</name></member>
+      <member refid="class_a_tales_game_state_base_1aee5dcf46cbcf5bf3a7fba819bbeb77f1" prot="protected" virt="virtual"><scope>ACreatorGameStateBase</scope><name>AddOrUpdateSavedCharacter</name></member>
+      <member refid="class_a_tales_game_state_base_1a9141c5f1219c7ca7d9cea66078b3c507" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>ATalesGameStateBase</name></member>
+      <member refid="class_a_creator_game_state_base_1a19714022593e835aa3b8c611f9ac2d4c" prot="public" virt="virtual"><scope>ACreatorGameStateBase</scope><name>BeginPlay</name></member>
+      <member refid="class_a_creator_game_state_base_1a49ecef7a169b6ff0776580781a765505" prot="private" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>bIsCreating</name></member>
+      <member refid="class_a_tales_game_state_base_1ab03a1e4b24812fef79c0d5860c447325" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>bSavesOnServer</name></member>
+      <member refid="class_a_tales_game_state_base_1ab167ec4ca63e41389b661ce04fa94c64" prot="protected" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>CharacterSaveLoaded</name></member>
+      <member refid="class_a_tales_game_state_base_1a51f14587602f86979f30a46f7a0d579d" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>CheckIsPlayableClient</name></member>
+      <member refid="class_a_tales_game_state_base_1a771279d52f5fa1d96acbdc7effb1dab0" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>CheckIsServer</name></member>
+      <member refid="class_a_creator_game_state_base_1a97923a53ddbab7c3e4c9b38b041c6d78" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>CreateNewCharacter</name></member>
+      <member refid="class_a_tales_game_state_base_1a67061c22f9c2691f78835b6f6b4e57f3" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>DataTableAbilities</name></member>
+      <member refid="class_a_tales_game_state_base_1a5c9cde6214796727e596498e77a6f824" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>DataTableClass</name></member>
+      <member refid="class_a_tales_game_state_base_1a4b9ca9b467aa049d37036cee0b5ec692" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>DataTableEffects</name></member>
+      <member refid="class_a_tales_game_state_base_1a437e44fb53878c6a36a920aa109b4e23" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>DataTableInventory</name></member>
+      <member refid="class_a_tales_game_state_base_1a8b19f8bc583fd0f261a2e1d37bdedc6d" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>DataTableRace</name></member>
+      <member refid="class_a_tales_game_state_base_1a7ad4518b874383c4d5783fc294990557" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>DataTableVitality</name></member>
+      <member refid="class_a_tales_game_state_base_1a5060f32520bf85e34804cdd8f3724fe6" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>DungeonLevel</name></member>
+      <member refid="class_a_tales_game_state_base_1abb7f3ef258ae3a29f09bb63bd10cb487" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>EquipmentSlotIcons</name></member>
+      <member refid="class_a_tales_game_state_base_1a379f2b0d1b294694fde326fccc7d5fb7" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>GenerateAlphanumeric</name></member>
+      <member refid="class_a_tales_game_state_base_1aef5bab008f26edddd4929657417dfce2" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>GetCharacterSlotName</name></member>
+      <member refid="class_a_tales_game_state_base_1a959642bdd705bbc16b6a3d227434aa91" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>GetCharacterUserIndex</name></member>
+      <member refid="class_a_tales_game_state_base_1ae8eb339be8574630bff00fe733a7fd9f" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>GetDoesCharacterSaveExist</name></member>
+      <member refid="class_a_tales_game_state_base_1a5f9024b0e77ad29e368c999ad2a1d664" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>GetEquipmentIcon</name></member>
+      <member refid="class_a_tales_game_state_base_1ac1634017a2b06d6b76454b809ad95435" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>GetIndexOfSavedCharacter</name></member>
+      <member refid="class_a_tales_game_state_base_1a7a922fc36c3ca8f2a415554784777ea1" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>GetIsCheatModeEnabled</name></member>
+      <member refid="class_a_creator_game_state_base_1aa8eeae7e25b637bb91ef439cffbed774" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>GetIsCreatingCharacter</name></member>
+      <member refid="class_a_tales_game_state_base_1a2d3e99e9402a59452c0cfd57fc34bc37" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>GetIsSaveMetaReady</name></member>
+      <member refid="class_a_tales_game_state_base_1a8f48888e6ca8e210d7f4c4af441eeb94" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>GetIsValidCharacterSelected</name></member>
+      <member refid="class_a_tales_game_state_base_1abf00f67ff7eb00b327666706440e5104" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>GetLastCharacterIndex</name></member>
+      <member refid="class_a_tales_game_state_base_1aa9d4abf355d973ef7209e9f8bae7adb9" prot="protected" virt="virtual"><scope>ACreatorGameStateBase</scope><name>GetLifetimeReplicatedProps</name></member>
+      <member refid="class_a_tales_game_state_base_1a5e831493aa44e37c5d5ef778cdf19201" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>GetMetaDataSaveIndex</name></member>
+      <member refid="class_a_tales_game_state_base_1a59d76811fb2d641064f0f99305f7cac3" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>GetMetaDataSaveName</name></member>
+      <member refid="class_a_tales_game_state_base_1adb7d8a54fec82de1fb328a7b48e9c122" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>GetNextCharacterIndex</name></member>
+      <member refid="class_a_tales_game_state_base_1aaa95f894faa7894aa4182e19c306a1f4" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>GetPrevCharacterIndex</name></member>
+      <member refid="class_a_tales_game_state_base_1a1c4fe66aa9f79a843bb59f76f29c319d" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>GetSavedCharacterData</name></member>
+      <member refid="class_a_tales_game_state_base_1af8de965e850aa88c90cb76a0165453b0" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>GetSavedCharacterSlotNames</name></member>
+      <member refid="class_a_tales_game_state_base_1aabdf4f6da36305bfa6aaf4e904a22ed7" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>GetSaveGameMetaName</name></member>
+      <member refid="class_a_tales_game_state_base_1a7f7fcac81d23d13d097a7fc5ea1d2b8b" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>GetSelectedCharacter</name></member>
+      <member refid="class_a_tales_game_state_base_1a3bd2eeeed97f2df7d3a70d5ce4c6c7ab" prot="protected" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>LoadCharacterAsync</name></member>
+      <member refid="class_a_tales_game_state_base_1ae8413db34b6d1d6406be24377880092f" prot="protected" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>LoadCharacterSync</name></member>
+      <member refid="class_a_tales_game_state_base_1a1648a7b4d0bbb08413aad2fdd7482e45" prot="public" virt="virtual"><scope>ACreatorGameStateBase</scope><name>LoadDataAsset</name></member>
+      <member refid="class_a_tales_game_state_base_1a64cf6ed24d593773eac9d7968cabde17" prot="public" virt="virtual"><scope>ACreatorGameStateBase</scope><name>LoadDataAsset</name></member>
+      <member refid="class_a_tales_game_state_base_1abb131703d1e091ecee0504eadf6a948c" prot="public" virt="virtual"><scope>ACreatorGameStateBase</scope><name>LoadDataAssetDelegate</name></member>
+      <member refid="class_a_tales_game_state_base_1a44c5ae0935e6c2e3deae4ab3b050dc94" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>LoadSaveGameMeta</name></member>
+      <member refid="class_a_tales_game_state_base_1a3b9700d68513943fadd86369ea8d5f5a" prot="protected" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>LoadSaveGameMetaAsync</name></member>
+      <member refid="class_a_tales_game_state_base_1aca736ae65ee57569f64c79701bfdb53d" prot="protected" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>LoadSaveGameMetaSync</name></member>
+      <member refid="class_a_tales_game_state_base_1aebf0404b2b6c8d12282ccf28099448c4" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>LocalNotification</name></member>
+      <member refid="class_a_tales_game_state_base_1afbe6aa36b8f981ecb390df3f331bd90d" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>OnDataAssetLoaded</name></member>
+      <member refid="class_a_creator_game_state_base_1a6990e1c127cc94a66466f7db83caa89d" prot="private" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>OnRep_IsCreating</name></member>
+      <member refid="class_a_tales_game_state_base_1ae5306fd965238af532c0e92c36e78d37" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>RemoveSelectedCharacter</name></member>
+      <member refid="class_a_tales_game_state_base_1a03f24a6aebbe7f7e57a5fbe65b35b0de" prot="protected" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>ResetCharacter</name></member>
+      <member refid="class_a_tales_game_state_base_1a384d03e628d7a478809e2e2b6ee3c1f0" prot="protected" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>SaveCharacterAsync</name></member>
+      <member refid="class_a_creator_game_state_base_1a76fd852d3ed92cab2bbdffef08fb63d9" prot="public" virt="virtual"><scope>ACreatorGameStateBase</scope><name>SaveCharacterSync</name></member>
+      <member refid="class_a_tales_game_state_base_1ab00b336e6dda1976db5696eee9376919" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>SaveCurrentCharacter</name></member>
+      <member refid="class_a_tales_game_state_base_1a38b1963b25c39df8a8f6831a8e049ccc" prot="protected" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>SaveGameMetaLoaded</name></member>
+      <member refid="class_a_tales_game_state_base_1ad85acd9de8722f46c07da3ff178e75d2" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>SaveMetaData</name></member>
+      <member refid="class_a_tales_game_state_base_1a4c2865c9f70641b4282120b0b561853c" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>SaveMetaDataAsync</name></member>
+      <member refid="class_a_tales_game_state_base_1aa7e747aaadb6318b503e91aa0d449d92" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>Server_NewNotification</name></member>
+      <member refid="class_a_creator_game_state_base_1ae6e36a023aef09980b43273b13715dfb" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>SetIsCreatingCharacter</name></member>
+      <member refid="class_a_tales_game_state_base_1a0d1c0e36ea7f5e74d997bfe29b22a226" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>SetSelectedCharacter</name></member>
+      <member refid="class_a_tales_game_state_base_1a876cecfc5bf84ad771e47adb42aa2eb3" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_creator_game_state_base_1a4ff915479432099b3c7829bf375bd31e" prot="public" virt="non-virtual"><scope>ACreatorGameStateBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_tales_game_state_base_1a855b11bfb255bc48ccada2e3bb9cc7f1" prot="public" virt="non-virtual" ambiguityscope="ATalesGameStateBase::"><scope>ACreatorGameStateBase</scope><name>UPROPERTY</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

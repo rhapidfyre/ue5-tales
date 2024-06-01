@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_a_creator_player_state_base" kind="class" language="C++" prot="public">
+    <compoundname>ACreatorPlayerStateBase</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">APlayerState</basecompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_a_creator_player_state_base_1a89b8525bf24b69ac2c9f0fc1c489eabd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACreatorPlayerStateBase::ACreatorPlayerStateBase</definition>
+        <argsstring>()</argsstring>
+        <name>ACreatorPlayerStateBase</name>
+        <qualifiedname>ACreatorPlayerStateBase::ACreatorPlayerStateBase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorPlayerStateBase.h" line="18" column="1" bodyfile="Source/TalesDungeoneer/Private/Gamemode/TitleScreen/CreatorPlayerStateBase.cpp" bodystart="6" bodyend="9"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_a_creator_player_state_base_1a369b651431895e1c4ddf9ac716183919" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ACreatorPlayerStateBase::BeginPlay</definition>
+        <argsstring>() override</argsstring>
+        <name>BeginPlay</name>
+        <qualifiedname>ACreatorPlayerStateBase::BeginPlay</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorPlayerStateBase.h" line="21" column="14" bodyfile="Source/TalesDungeoneer/Private/Gamemode/TitleScreen/CreatorPlayerStateBase.cpp" bodystart="11" bodyend="14"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>ACreatorPlayerStateBase</label>
+        <link refid="class_a_creator_player_state_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>APlayerState</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>ACreatorPlayerStateBase</label>
+        <link refid="class_a_creator_player_state_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>APlayerState</label>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorPlayerStateBase.h" line="13" column="1" bodyfile="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorPlayerStateBase.h" bodystart="14" bodyend="23"/>
+    <listofallmembers>
+      <member refid="class_a_creator_player_state_base_1a89b8525bf24b69ac2c9f0fc1c489eabd" prot="public" virt="non-virtual"><scope>ACreatorPlayerStateBase</scope><name>ACreatorPlayerStateBase</name></member>
+      <member refid="class_a_creator_player_state_base_1a369b651431895e1c4ddf9ac716183919" prot="protected" virt="virtual"><scope>ACreatorPlayerStateBase</scope><name>BeginPlay</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

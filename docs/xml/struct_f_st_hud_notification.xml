@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="struct_f_st_hud_notification" kind="struct" language="C++" prot="public">
+    <compoundname>FStHudNotification</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_f_st_hud_notification_1af79279e47ea6c486d0b2fa38df8fbc79" prot="public" static="no" mutable="no">
+        <type>FString</type>
+        <definition>FString FStHudNotification::Title</definition>
+        <argsstring></argsstring>
+        <name>Title</name>
+        <qualifiedname>FStHudNotification::Title</qualifiedname>
+        <initializer>= &quot;&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesHudBase.h" line="20" column="9" bodyfile="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesHudBase.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_st_hud_notification_1ab7289c34753ab86b2ed70ca3fab81ff2" prot="public" static="no" mutable="no">
+        <type>FString</type>
+        <definition>FString FStHudNotification::Message</definition>
+        <argsstring></argsstring>
+        <name>Message</name>
+        <qualifiedname>FStHudNotification::Message</qualifiedname>
+        <initializer>= &quot;No Message Given&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesHudBase.h" line="21" column="9" bodyfile="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesHudBase.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_st_hud_notification_1a5b858c7d84bc4b52bf05833820afd4ce" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int FStHudNotification::Priority</definition>
+        <argsstring></argsstring>
+        <name>Priority</name>
+        <qualifiedname>FStHudNotification::Priority</qualifiedname>
+        <initializer>= 2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesHudBase.h" line="22" column="5" bodyfile="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesHudBase.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_f_st_hud_notification_1a89b7addd9af06f400c535a4a05f9805a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FStHudNotification::GENERATED_BODY</definition>
+        <argsstring>()</argsstring>
+        <name>GENERATED_BODY</name>
+        <qualifiedname>FStHudNotification::GENERATED_BODY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesHudBase.h" line="13" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_st_hud_notification_1a8b1926fdb6a852bbb2f6d4960e6cabcf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>FStHudNotification::FStHudNotification</definition>
+        <argsstring>()</argsstring>
+        <name>FStHudNotification</name>
+        <qualifiedname>FStHudNotification::FStHudNotification</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesHudBase.h" line="14" column="1" bodyfile="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesHudBase.h" bodystart="14" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_st_hud_notification_1a50847870c5b6f669b3e04046b4701c85" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>FStHudNotification::FStHudNotification</definition>
+        <argsstring>(FString tMessage)</argsstring>
+        <name>FStHudNotification</name>
+        <qualifiedname>FStHudNotification::FStHudNotification</qualifiedname>
+        <param>
+          <type>FString</type>
+          <declname>tMessage</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesHudBase.h" line="15" column="1" bodyfile="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesHudBase.h" bodystart="15" bodyend="15"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_st_hud_notification_1a5d6db83f876e7f4f8f3af4663a00e144" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>FStHudNotification::FStHudNotification</definition>
+        <argsstring>(FString tMessageTitle, FString tNewMessage, int tPriority=2)</argsstring>
+        <name>FStHudNotification</name>
+        <qualifiedname>FStHudNotification::FStHudNotification</qualifiedname>
+        <param>
+          <type>FString</type>
+          <declname>tMessageTitle</declname>
+        </param>
+        <param>
+          <type>FString</type>
+          <declname>tNewMessage</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tPriority</declname>
+          <defval>2</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesHudBase.h" line="16" column="1" bodyfile="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesHudBase.h" bodystart="16" bodyend="19"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesHudBase.h" line="11" column="1" bodyfile="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesHudBase.h" bodystart="12" bodyend="23"/>
+    <listofallmembers>
+      <member refid="struct_f_st_hud_notification_1a8b1926fdb6a852bbb2f6d4960e6cabcf" prot="public" virt="non-virtual"><scope>FStHudNotification</scope><name>FStHudNotification</name></member>
+      <member refid="struct_f_st_hud_notification_1a50847870c5b6f669b3e04046b4701c85" prot="public" virt="non-virtual"><scope>FStHudNotification</scope><name>FStHudNotification</name></member>
+      <member refid="struct_f_st_hud_notification_1a5d6db83f876e7f4f8f3af4663a00e144" prot="public" virt="non-virtual"><scope>FStHudNotification</scope><name>FStHudNotification</name></member>
+      <member refid="struct_f_st_hud_notification_1a89b7addd9af06f400c535a4a05f9805a" prot="public" virt="non-virtual"><scope>FStHudNotification</scope><name>GENERATED_BODY</name></member>
+      <member refid="struct_f_st_hud_notification_1ab7289c34753ab86b2ed70ca3fab81ff2" prot="public" virt="non-virtual"><scope>FStHudNotification</scope><name>Message</name></member>
+      <member refid="struct_f_st_hud_notification_1a5b858c7d84bc4b52bf05833820afd4ce" prot="public" virt="non-virtual"><scope>FStHudNotification</scope><name>Priority</name></member>
+      <member refid="struct_f_st_hud_notification_1af79279e47ea6c486d0b2fa38df8fbc79" prot="public" virt="non-virtual"><scope>FStHudNotification</scope><name>Title</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="dir_73a2454602c79a8366ca65698d03d0c3" kind="dir">
+    <compoundname>Source/TalesDungeoneer/Private/Characters</compoundname>
+    <innerdir refid="dir_0a0e42094fb093e3c800f31c96a7d03a">Source/TalesDungeoneer/Private/Characters/Behaviors</innerdir>
+    <innerdir refid="dir_10ec555499b262e175384d030c4efb9c">Source/TalesDungeoneer/Private/Characters/Components</innerdir>
+    <innerdir refid="dir_2b52f8ad9f5f35970ae01dcbc69bdee0">Source/TalesDungeoneer/Private/Characters/Controllers</innerdir>
+    <innerfile refid="_character_base_8cpp">CharacterBase.cpp</innerfile>
+    <innerfile refid="_combat_npc_character_base_8cpp">CombatNpcCharacterBase.cpp</innerfile>
+    <innerfile refid="_creator_character_base_8cpp">CreatorCharacterBase.cpp</innerfile>
+    <innerfile refid="_dm_character_base_8cpp">DmCharacterBase.cpp</innerfile>
+    <innerfile refid="_interactive_npc_base_8cpp">InteractiveNpcBase.cpp</innerfile>
+    <innerfile refid="_npc_character_base_8cpp">NpcCharacterBase.cpp</innerfile>
+    <innerfile refid="_player_character_base_8cpp">PlayerCharacterBase.cpp</innerfile>
+    <innerfile refid="_spectator_base_8cpp">SpectatorBase.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Private/Characters/"/>
+  </compounddef>
+</doxygen>

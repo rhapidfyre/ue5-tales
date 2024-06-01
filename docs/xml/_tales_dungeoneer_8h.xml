@@ -1,0 +1,256 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_tales_dungeoneer_8h" kind="file" language="C++">
+    <compoundname>TalesDungeoneer.h</compoundname>
+    <includes local="yes">CoreMinimal.h</includes>
+    <includedby refid="_player_character_base_8cpp" local="yes">Source/TalesDungeoneer/Private/Characters/PlayerCharacterBase.cpp</includedby>
+    <includedby refid="_tales_gameplay_ability_8h" local="yes">Source/TalesDungeoneer/Public/Gas/Abilities/TalesGameplayAbility.h</includedby>
+    <includedby refid="_tales_dungeoneer_8cpp" local="yes">Source/TalesDungeoneer/TalesDungeoneer.cpp</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>CoreMinimal.h</label>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/TalesDungeoneer.h</label>
+        <link refid="_tales_dungeoneer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>Source/TalesDungeoneer/Public/Characters/CharacterBase.h</label>
+        <link refid="_character_base_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>Source/TalesDungeoneer/Public/Characters/CombatNpcCharacterBase.h</label>
+        <link refid="_combat_npc_character_base_8h_source"/>
+      </node>
+      <node id="7">
+        <label>Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h</label>
+        <link refid="_combat_ai_controller_base_8h_source"/>
+      </node>
+      <node id="10">
+        <label>Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h</label>
+        <link refid="_creator_character_base_8h_source"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Source/TalesDungeoneer/Public/Characters/DmCharacterBase.h</label>
+        <link refid="_dm_character_base_8h_source"/>
+      </node>
+      <node id="8">
+        <label>Source/TalesDungeoneer/Public/Characters/InteractiveNpcBase.h</label>
+        <link refid="_interactive_npc_base_8h_source"/>
+      </node>
+      <node id="5">
+        <label>Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h</label>
+        <link refid="_npc_character_base_8h_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>Source/TalesDungeoneer/Public/Characters/PlayerCharacterBase.h</label>
+        <link refid="_player_character_base_8h_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesDungeoneerGameMode.h</label>
+        <link refid="_tales_dungeoneer_game_mode_8h_source"/>
+      </node>
+      <node id="11">
+        <label>Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorGameModeBase.h</label>
+        <link refid="_creator_game_mode_base_8h_source"/>
+      </node>
+      <node id="2">
+        <label>Source/TalesDungeoneer/Public/Gas/Abilities/TalesGameplayAbility.h</label>
+        <link refid="_tales_gameplay_ability_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>Source/TalesDungeoneer/Public/Widgets/OverheadDataWidgetBase.h</label>
+        <link refid="_overhead_data_widget_base_8h_source"/>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/TalesDungeoneer.h</label>
+        <link refid="_tales_dungeoneer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="enum">
+      <memberdef kind="enum" id="_tales_dungeoneer_8h_1abd3a681fddaeb6295755f3fd1e1dcc7e" prot="public" static="no" strong="yes">
+        <type>uint8</type>
+        <name>EAbilityInputID</name>
+        <enumvalue id="_tales_dungeoneer_8h_1abd3a681fddaeb6295755f3fd1e1dcc7eaa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(Hidden)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_tales_dungeoneer_8h_1abd3a681fddaeb6295755f3fd1e1dcc7eaa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Confirm Activation&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_tales_dungeoneer_8h_1abd3a681fddaeb6295755f3fd1e1dcc7eaa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Cancel Activation&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_tales_dungeoneer_8h_1abd3a681fddaeb6295755f3fd1e1dcc7eaa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;ActivateSlot&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_tales_dungeoneer_8h_1abd3a681fddaeb6295755f3fd1e1dcc7eaa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(Hidden)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>An enum for organizing the different ways an ability input can fire/trigger </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/TalesDungeoneer.h" line="15" column="1" bodyfile="Source/TalesDungeoneer/TalesDungeoneer.h" bodystart="16" bodyend="31"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="_tales_dungeoneer_8h_1a8e6e03a8c886771379c4803c85de5fc9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DECLARE_LOG_CATEGORY_EXTERN</definition>
+        <argsstring>(LogTales, Log, Error)</argsstring>
+        <name>DECLARE_LOG_CATEGORY_EXTERN</name>
+        <param>
+          <type>LogTales</type>
+        </param>
+        <param>
+          <type>Log</type>
+        </param>
+        <param>
+          <type>Error</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/TalesDungeoneer.h" line="5" column="1" declfile="Source/TalesDungeoneer/TalesDungeoneer.h" declline="5" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_tales_dungeoneer_8h_1a00720ed29c7d02d26905d82f8c223845" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DECLARE_LOG_CATEGORY_EXTERN</definition>
+        <argsstring>(LogCharacterBase, Log, Error)</argsstring>
+        <name>DECLARE_LOG_CATEGORY_EXTERN</name>
+        <param>
+          <type>LogCharacterBase</type>
+        </param>
+        <param>
+          <type>Log</type>
+        </param>
+        <param>
+          <type>Error</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/TalesDungeoneer.h" line="6" column="1" declfile="Source/TalesDungeoneer/TalesDungeoneer.h" declline="6" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_tales_dungeoneer_8h_1a89240dcc763b7795ab4f3b4dc24c76ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DECLARE_LOG_CATEGORY_EXTERN</definition>
+        <argsstring>(LogCombatSystem, Log, Error)</argsstring>
+        <name>DECLARE_LOG_CATEGORY_EXTERN</name>
+        <param>
+          <type>LogCombatSystem</type>
+        </param>
+        <param>
+          <type>Log</type>
+        </param>
+        <param>
+          <type>Error</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/TalesDungeoneer.h" line="7" column="1" declfile="Source/TalesDungeoneer/TalesDungeoneer.h" declline="7" declcolumn="1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>Epic<sp/>Games,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal">DECLARE_LOG_CATEGORY_EXTERN(LogTales,<sp/>Log,<sp/>Error);</highlight></codeline>
+<codeline lineno="6"><highlight class="normal">DECLARE_LOG_CATEGORY_EXTERN(LogCharacterBase,<sp/>Log,<sp/>Error);</highlight></codeline>
+<codeline lineno="7"><highlight class="normal">DECLARE_LOG_CATEGORY_EXTERN(LogCombatSystem,<sp/>Log,<sp/>Error);</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;CoreMinimal.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal">UENUM()</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">enum<sp/>class<sp/>EAbilityInputID<sp/>:<sp/>uint8</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Not<sp/>Used;<sp/>For<sp/>iteration/tracking<sp/>purposes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>None<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UMETA(Hidden),</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Confirms<sp/>the<sp/>activation<sp/>of<sp/>certain<sp/>abilities</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>Confirm<sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Confirm<sp/>Activation&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Cancels<sp/>the<sp/>activation<sp/>of<sp/>certain<sp/>abilities</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>Cancel<sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Cancel<sp/>Activation&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Begins<sp/>the<sp/>activation<sp/>of<sp/>certain<sp/>abilities</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/>Activate<sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;ActivateSlot&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Not<sp/>used;<sp/>For<sp/>iteration/tracking<sp/>purposes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UMETA(Hidden)</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/TalesDungeoneer.h"/>
+  </compounddef>
+</doxygen>

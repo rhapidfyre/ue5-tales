@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="struct_f_damage_statics" kind="struct" language="C++" prot="public">
+    <compoundname>FDamageStatics</compoundname>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_f_damage_statics_1adfe4a40d195bfcea6244d18e76f6007a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FDamageStatics::DECLARE_ATTRIBUTE_CAPTUREDEF</definition>
+        <argsstring>(IncomingDamage)</argsstring>
+        <name>DECLARE_ATTRIBUTE_CAPTUREDEF</name>
+        <qualifiedname>FDamageStatics::DECLARE_ATTRIBUTE_CAPTUREDEF</qualifiedname>
+        <param>
+          <type>IncomingDamage</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Private/Gas/Misc/TalesDamageCalc.cpp" line="17" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_damage_statics_1ab08594398545f451c4869b1e638807bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FDamageStatics::DECLARE_ATTRIBUTE_CAPTUREDEF</definition>
+        <argsstring>(CriticalChance)</argsstring>
+        <name>DECLARE_ATTRIBUTE_CAPTUREDEF</name>
+        <qualifiedname>FDamageStatics::DECLARE_ATTRIBUTE_CAPTUREDEF</qualifiedname>
+        <param>
+          <type>CriticalChance</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Private/Gas/Misc/TalesDamageCalc.cpp" line="18" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_damage_statics_1ad26c3bb296c2e4af5de2dd2f076ab34d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FDamageStatics::DECLARE_ATTRIBUTE_CAPTUREDEF</definition>
+        <argsstring>(CriticalMultiplier)</argsstring>
+        <name>DECLARE_ATTRIBUTE_CAPTUREDEF</name>
+        <qualifiedname>FDamageStatics::DECLARE_ATTRIBUTE_CAPTUREDEF</qualifiedname>
+        <param>
+          <type>CriticalMultiplier</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Private/Gas/Misc/TalesDamageCalc.cpp" line="19" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_damage_statics_1af53f0a5aef37051be961adc835c424a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FDamageStatics::DECLARE_ATTRIBUTE_CAPTUREDEF</definition>
+        <argsstring>(LuckyChance)</argsstring>
+        <name>DECLARE_ATTRIBUTE_CAPTUREDEF</name>
+        <qualifiedname>FDamageStatics::DECLARE_ATTRIBUTE_CAPTUREDEF</qualifiedname>
+        <param>
+          <type>LuckyChance</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Private/Gas/Misc/TalesDamageCalc.cpp" line="20" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_damage_statics_1a2e3340dcbda1f7b6333bca53c40782aa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>FDamageStatics::FDamageStatics</definition>
+        <argsstring>()</argsstring>
+        <name>FDamageStatics</name>
+        <qualifiedname>FDamageStatics::FDamageStatics</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Private/Gas/Misc/TalesDamageCalc.cpp" line="22" column="1" bodyfile="Source/TalesDungeoneer/Private/Gas/Misc/TalesDamageCalc.cpp" bodystart="22" bodyend="28"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Private/Gas/Misc/TalesDamageCalc.cpp" line="15" column="1" bodyfile="Source/TalesDungeoneer/Private/Gas/Misc/TalesDamageCalc.cpp" bodystart="16" bodyend="29"/>
+    <listofallmembers>
+      <member refid="struct_f_damage_statics_1adfe4a40d195bfcea6244d18e76f6007a" prot="public" virt="non-virtual"><scope>FDamageStatics</scope><name>DECLARE_ATTRIBUTE_CAPTUREDEF</name></member>
+      <member refid="struct_f_damage_statics_1ab08594398545f451c4869b1e638807bd" prot="public" virt="non-virtual"><scope>FDamageStatics</scope><name>DECLARE_ATTRIBUTE_CAPTUREDEF</name></member>
+      <member refid="struct_f_damage_statics_1ad26c3bb296c2e4af5de2dd2f076ab34d" prot="public" virt="non-virtual"><scope>FDamageStatics</scope><name>DECLARE_ATTRIBUTE_CAPTUREDEF</name></member>
+      <member refid="struct_f_damage_statics_1af53f0a5aef37051be961adc835c424a8" prot="public" virt="non-virtual"><scope>FDamageStatics</scope><name>DECLARE_ATTRIBUTE_CAPTUREDEF</name></member>
+      <member refid="struct_f_damage_statics_1a2e3340dcbda1f7b6333bca53c40782aa" prot="public" virt="non-virtual"><scope>FDamageStatics</scope><name>FDamageStatics</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

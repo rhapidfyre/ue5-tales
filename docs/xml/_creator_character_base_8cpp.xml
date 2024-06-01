@@ -1,0 +1,516 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_creator_character_base_8cpp" kind="file" language="C++">
+    <compoundname>CreatorCharacterBase.cpp</compoundname>
+    <includes refid="_creator_character_base_8h" local="yes">Characters/CreatorCharacterBase.h</includes>
+    <includes refid="_character_defaults_8h" local="yes">DataAssets/CharacterDefaults.h</includes>
+    <includes refid="_creator_game_state_base_8h" local="yes">Gamemode/TitleScreen/CreatorGameStateBase.h</includes>
+    <includes local="yes">Kismet/GameplayStatics.h</includes>
+    <includes local="yes">Logging/StructuredLog.h</includes>
+    <incdepgraph>
+      <node id="10">
+        <label>Abilities/GameplayAbility.h</label>
+      </node>
+      <node id="24">
+        <label>AbilitySystemComponent.h</label>
+      </node>
+      <node id="6">
+        <label>AbilitySystemInterface.h</label>
+      </node>
+      <node id="41">
+        <label>AttributeSet.h</label>
+      </node>
+      <node id="34">
+        <label>CharacterBase.generated.h</label>
+      </node>
+      <node id="43">
+        <label>CharacterDefaults.generated.h</label>
+      </node>
+      <node id="18">
+        <label>Components/ActorComponent.h</label>
+      </node>
+      <node id="3">
+        <label>CoreMinimal.h</label>
+      </node>
+      <node id="39">
+        <label>CreatorCharacterBase.generated.h</label>
+      </node>
+      <node id="50">
+        <label>CreatorGameStateBase.generated.h</label>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Private/Characters/CreatorCharacterBase.cpp</label>
+        <link refid="_creator_character_base_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>CharacterBase.h</label>
+        <link refid="_character_base_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>Components/EquipmentComponent.h</label>
+        <link refid="_equipment_component_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>Components/MeshMergeComponent.h</label>
+        <link refid="_mesh_merge_component_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>Components/TalesAbilityComponent.h</label>
+        <link refid="_tales_ability_component_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Characters/CreatorCharacterBase.h</label>
+        <link refid="_creator_character_base_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>PlayerCharacterBase.h</label>
+        <link refid="_player_character_base_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>DataAssets/CharacterDefaults.h</label>
+        <link refid="_character_defaults_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>Gamemode/BaseFiles/TalesGameStateBase.h</label>
+        <link refid="_tales_game_state_base_8h_source"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>Gamemode/TitleScreen/CreatorGameStateBase.h</label>
+        <link refid="_creator_game_state_base_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>Gas/Abilities/TalesGameplayAbility.h</label>
+        <link refid="_tales_gameplay_ability_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>Saves/SavedCharacters.h</label>
+        <link refid="_saved_characters_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>Saves/StaticSaveData.h</label>
+        <link refid="_static_save_data_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>lib/Tags/TalesGlobalTags.h</label>
+        <link refid="_tales_global_tags_8h_source"/>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>lib/enums/GlobalEnums.h</label>
+        <link refid="_global_enums_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>TalesDungeoneer/TalesDungeoneer.h</label>
+        <link refid="_tales_dungeoneer_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>Delegates/Delegate.h</label>
+      </node>
+      <node id="42">
+        <label>Engine/DataAsset.h</label>
+      </node>
+      <node id="27">
+        <label>EquipmentComponent.generated.h</label>
+      </node>
+      <node id="7">
+        <label>GameFramework/Character.h</label>
+      </node>
+      <node id="46">
+        <label>GameFramework/GameState.h</label>
+      </node>
+      <node id="20">
+        <label>GameFramework/SaveGame.h</label>
+      </node>
+      <node id="13">
+        <label>GameplayEffectTypes.h</label>
+      </node>
+      <node id="16">
+        <label>GameplayTagContainer.h</label>
+      </node>
+      <node id="23">
+        <label>GameplayTags/Public/GameplayTags.h</label>
+      </node>
+      <node id="32">
+        <label>GlobalEnums.generated.h</label>
+      </node>
+      <node id="35">
+        <label>InputAction.h</label>
+      </node>
+      <node id="36">
+        <label>InputActionValue.h</label>
+      </node>
+      <node id="37">
+        <label>InputMappingContext.h</label>
+      </node>
+      <node id="14">
+        <label>InventoryComponent.h</label>
+      </node>
+      <node id="51">
+        <label>Kismet/GameplayStatics.h</label>
+      </node>
+      <node id="52">
+        <label>Logging/StructuredLog.h</label>
+      </node>
+      <node id="21">
+        <label>MeshMergeComponent.generated.h</label>
+      </node>
+      <node id="29">
+        <label>NativeGameplayTags.h</label>
+      </node>
+      <node id="38">
+        <label>PlayerCharacterBase.generated.h</label>
+      </node>
+      <node id="33">
+        <label>SavedCharacters.generated.h</label>
+      </node>
+      <node id="17">
+        <label>SkeletalMeshMerge.h</label>
+      </node>
+      <node id="48">
+        <label>StaticSaveData.generated.h</label>
+      </node>
+      <node id="25">
+        <label>TalesAbilityComponent.generated.h</label>
+      </node>
+      <node id="49">
+        <label>TalesGameStateBase.generated.h</label>
+      </node>
+      <node id="12">
+        <label>TalesGameplayAbility.generated.h</label>
+      </node>
+      <node id="19">
+        <label>lib/EquipmentData.h</label>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>Take<sp/>Five<sp/>Games,<sp/>LLC<sp/>2023<sp/>-<sp/>All<sp/>rights<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Characters/CreatorCharacterBase.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;DataAssets/CharacterDefaults.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Gamemode/TitleScreen/CreatorGameStateBase.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Kismet/GameplayStatics.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Logging/StructuredLog.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Sets<sp/>default<sp/>values</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal">ACreatorCharacterBase::ACreatorCharacterBase()</highlight></codeline>
+<codeline lineno="13"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>PrimaryActorTick.bCanEverTick<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Each<sp/>mesh<sp/>must<sp/>be<sp/>declared<sp/>individually<sp/>or<sp/>Blueprint<sp/>can&apos;t<sp/>differentiate<sp/>between<sp/>array<sp/>indices</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>MeshPartHair<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>InitMeshPart(</highlight><highlight class="stringliteral">&quot;MeshPartHair&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>MeshPartEyebrows<sp/><sp/><sp/><sp/>=<sp/>InitMeshPart(</highlight><highlight class="stringliteral">&quot;MeshPartEyebrows&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>MeshPartEyes<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>InitMeshPart(</highlight><highlight class="stringliteral">&quot;MeshPartEyes&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>MeshPartBeard<sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>InitMeshPart(</highlight><highlight class="stringliteral">&quot;MeshPartBeard&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>MeshPartHead<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>InitMeshPart(</highlight><highlight class="stringliteral">&quot;MeshPartHead&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>MeshPartNeck<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>InitMeshPart(</highlight><highlight class="stringliteral">&quot;MeshPartNeck&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>MeshPartChest<sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>InitMeshPart(</highlight><highlight class="stringliteral">&quot;MeshPartChest&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//MeshPartBra<sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>InitMeshPart(&quot;MeshPartBra&quot;);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>MeshPartArms<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>InitMeshPart(</highlight><highlight class="stringliteral">&quot;MeshPartArms&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>MeshPartHands<sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>InitMeshPart(</highlight><highlight class="stringliteral">&quot;MeshPartHands&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//MeshPartUnderwear<sp/>=<sp/>InitMeshPart(&quot;MeshPartUnderwear&quot;);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>MeshPartLegs<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>InitMeshPart(</highlight><highlight class="stringliteral">&quot;MeshPartLegs&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>MeshPartFeet<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>InitMeshPart(</highlight><highlight class="stringliteral">&quot;MeshPartFeet&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ACreatorCharacterBase::SetIsBeingCreated(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>bIsBeingCreated)</highlight></codeline>
+<codeline lineno="33"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//GetMesh()-&gt;SetSkeletalMeshAsset(nullptr);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_a_creator_character_base_1a9c60540bb7f384c37437aefd48933a97" kindref="member">ResetMeshSelections</ref>();</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>GetMesh()-&gt;SetVisibility(bIsBeingCreated);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>bIsCreating<sp/>=<sp/>bIsBeingCreated;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ACreatorCharacterBase::CreateCharacter()</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_a_creator_game_state_base" kindref="compound">ACreatorGameStateBase</ref>*<sp/>TalesGameState<sp/>=</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cast&lt;ACreatorGameStateBase&gt;(GetWorld()-&gt;GetGameState());</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IsValid(TalesGameState))</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!TalesGameState-&gt;GetIsCreatingCharacter())</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UE_LOGFMT(LogTemp,<sp/>Warning,<sp/></highlight><highlight class="stringliteral">&quot;Creation<sp/>of<sp/>Character<sp/>{NewName}<sp/>Rejected<sp/>-<sp/>Not<sp/>in<sp/>Character<sp/>Creator&quot;</highlight><highlight class="normal">,<sp/>GetCharacterName());</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NewSaveSlotName_<sp/><sp/><sp/><sp/>=<sp/>GetCharacterSafeName();</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NewSaveUserIndex_<sp/><sp/><sp/>=<sp/>TalesGameState-&gt;GetCharacterUserIndex();</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Allow<sp/>creation<sp/>as<sp/>long<sp/>as<sp/>this<sp/>character<sp/>doesn&apos;t<sp/>already<sp/>exist</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(UGameplayStatics::DoesSaveGameExist(NewSaveSlotName_,<sp/>NewSaveUserIndex_))</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UE_LOGFMT(LogTemp,<sp/>Warning,<sp/></highlight><highlight class="stringliteral">&quot;Creation<sp/>of<sp/>Character<sp/>{NewName}<sp/>Rejected<sp/>-<sp/>Already<sp/>Exists&quot;</highlight><highlight class="normal">,<sp/>NewSaveSlotName_);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NewSaveSlotName_<sp/><sp/><sp/><sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NewSaveUserIndex_<sp/><sp/><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Do<sp/>Initial<sp/>Character<sp/>Setup</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UE_LOGFMT(LogTemp,<sp/>Display,<sp/></highlight><highlight class="stringliteral">&quot;Attempting<sp/>to<sp/>create<sp/>new<sp/>character<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&apos;{CharacterName}&apos;<sp/>in<sp/>Save<sp/>Slot:<sp/>&apos;{SaveName},<sp/>{UserIndex}&apos;&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GetCharacterName(),<sp/>NewSaveSlotName_,<sp/>NewSaveUserIndex_);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FString<sp/>SaveResponse<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>saveSuccess<sp/>=<sp/>TalesGameState-&gt;<ref refid="class_a_creator_game_state_base_1a97923a53ddbab7c3e4c9b38b041c6d78" kindref="member">CreateNewCharacter</ref>(SaveResponse,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UE_LOGFMT(LogTemp,<sp/>Display,<sp/></highlight><highlight class="stringliteral">&quot;Creation<sp/>of<sp/>Character<sp/>{NewName}<sp/>Response:<sp/>{SaveResponse}&quot;</highlight><highlight class="normal">,<sp/>GetCharacterName(),<sp/>SaveResponse);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>saveSuccess;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ACreatorCharacterBase::GetAllBodyPartMeshes(TArray&lt;USkeletalMeshComponent*&gt;&amp;<sp/>BodyPartMeshes)</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>BodyPartMeshes<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MeshPartHair,<sp/><sp/><sp/><sp/><sp/><sp/><sp/>MeshPartEyebrows,<sp/><sp/><sp/>MeshPartEyes,<sp/><sp/><sp/><sp/><sp/><sp/><sp/>MeshPartBeard,</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MeshPartHead,<sp/><sp/><sp/><sp/><sp/><sp/><sp/>MeshPartChest,<sp/><sp/><sp/><sp/><sp/><sp/>MeshPartArms,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MeshPartHands,<sp/><sp/><sp/><sp/><sp/><sp/>MeshPartLegs,<sp/><sp/><sp/><sp/><sp/><sp/><sp/>MeshPartFeet,</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MeshPartNeck</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_a_creator_character_base_1a9c60540bb7f384c37437aefd48933a97" kindref="member">ACreatorCharacterBase::ResetMeshSelections</ref>()</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>TArray&lt;USkeletalMeshComponent*&gt;<sp/>BodyPartMeshes;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>GetAllBodyPartMeshes(BodyPartMeshes);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(USkeletalMeshComponent*<sp/>MeshPart<sp/>:<sp/>BodyPartMeshes)</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IsValid(MeshPart))</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_a_creator_character_base_1a2a7e1a49468dcf7ccb5ce0f965653694" kindref="member">ClearChildrenOfMesh</ref>(MeshPart);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MeshPart-&gt;SetSkeletalMeshAsset(</highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_a_creator_character_base_1a2a7e1a49468dcf7ccb5ce0f965653694" kindref="member">ACreatorCharacterBase::ClearChildrenOfMesh</ref>(USkeletalMeshComponent*<sp/>ReferenceMesh)</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IsValid(ReferenceMesh))</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TArray&lt;USkeletalMeshComponent*&gt;<sp/>BodyPartMeshes;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GetAllBodyPartMeshes(BodyPartMeshes);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(BodyPartMeshes.Contains(ReferenceMesh))</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TArray&lt;USceneComponent*&gt;<sp/>MeshChildren;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReferenceMesh-&gt;GetChildrenComponents(</highlight><highlight class="keyword">true</highlight><highlight class="normal">,<sp/>MeshChildren);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(USceneComponent*<sp/>MeshChild<sp/>:<sp/>MeshChildren)</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MeshChild-&gt;DestroyComponent(</highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_a_creator_character_base_1a366df9d9a1bcb0c121ff33f2768d5f32" kindref="member">ACreatorCharacterBase::LoadCharacter</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FString&amp;<sp/>SlotName,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>int32<sp/>UserIndex,<sp/>USaveGame*<sp/>SaveGame)</highlight></codeline>
+<codeline lineno="128"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(GetIsBeingCreated())<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Super::LoadCharacter(SlotName,<sp/>UserIndex,<sp/>SaveGame);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal">USaveGame*<sp/><ref refid="class_a_creator_character_base_1ae98c8465678f324d7ff2971d74deee8b" kindref="member">ACreatorCharacterBase::SaveCharacter</ref>(USaveGame*<sp/>SaveObject,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>bRunAsync)</highlight></codeline>
+<codeline lineno="134"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Super::SaveCharacter(SaveObject,<sp/>bRunAsync);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ACreatorCharacterBase::BeginPlay()</highlight></codeline>
+<codeline lineno="139"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/>USkeletalMeshComponent*<sp/>SkeletalMesh<sp/>=<sp/>GetMesh();</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IsValid(SkeletalMesh))</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SkeletalMesh-&gt;SetVisibility(</highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/>Super::BeginPlay();</highlight></codeline>
+<codeline lineno="146"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ACreatorCharacterBase::OnConstruction(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FTransform&amp;<sp/>Transform)</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/>Super::OnConstruction(Transform);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/>USkeletalMeshComponent*<sp/>SkinnedMesh<sp/>=<sp/>GetMesh();</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/>TArray&lt;USkeletalMeshComponent*&gt;<sp/>BodyPartMeshes;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/>GetAllBodyPartMeshes(BodyPartMeshes);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(USkeletalMeshComponent*<sp/>meshComponent<sp/>:<sp/>BodyPartMeshes)</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>meshComponent-&gt;SetLeaderPoseComponent(SkinnedMesh);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/>SkinnedMesh-&gt;VisibilityBasedAnimTickOption<sp/>=<sp/>EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//SkinnedMesh-&gt;SetAnimInstanceClass(MeshMergeComponent-&gt;AnimBlueprint);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal">USkeletalMeshComponent*<sp/>ACreatorCharacterBase::InitMeshPart(FName<sp/>MeshName)</highlight></codeline>
+<codeline lineno="165"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/>USkeletalMeshComponent*<sp/>BodyPartMesh<sp/>=<sp/>CreateDefaultSubobject&lt;USkeletalMeshComponent&gt;(MeshName);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IsValid(BodyPartMesh))<sp/>{<sp/>BodyPartMesh-&gt;SetupAttachment(<sp/>GetMesh()<sp/>);<sp/>}</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>BodyPartMesh;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Private/Characters/CreatorCharacterBase.cpp"/>
+  </compounddef>
+</doxygen>

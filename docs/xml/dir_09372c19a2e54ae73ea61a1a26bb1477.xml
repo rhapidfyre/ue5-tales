@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="dir_09372c19a2e54ae73ea61a1a26bb1477" kind="dir">
+    <compoundname>Source/TalesDungeoneer/Private/Gas/Contexts</compoundname>
+    <innerfile refid="_vitality_effect_context_8cpp">VitalityEffectContext.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Private/Gas/Contexts/"/>
+  </compounddef>
+</doxygen>

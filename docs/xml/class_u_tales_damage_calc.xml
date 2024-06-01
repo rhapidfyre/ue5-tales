@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_u_tales_damage_calc" kind="class" language="C++" prot="public">
+    <compoundname>UTalesDamageCalc</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">UGameplayEffectExecutionCalculation</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_u_tales_damage_calc_1a792cbeca8b24d349f6c4b2f75401ed59" prot="public" static="no" mutable="no">
+        <type>FName</type>
+        <definition>FName UTalesDamageCalc::InDamageTag</definition>
+        <argsstring></argsstring>
+        <name>InDamageTag</name>
+        <qualifiedname>UTalesDamageCalc::InDamageTag</qualifiedname>
+        <initializer>= FName(&quot;Damage.SetByCaller&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Private/Gas/Misc/TalesDamageCalc.h" line="26" column="7" bodyfile="Source/TalesDungeoneer/Private/Gas/Misc/TalesDamageCalc.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_u_tales_damage_calc_1aab36fc9b0c9f4a6b6c6cb221ffddd665" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UTalesDamageCalc::UTalesDamageCalc</definition>
+        <argsstring>()</argsstring>
+        <name>UTalesDamageCalc</name>
+        <qualifiedname>UTalesDamageCalc::UTalesDamageCalc</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Private/Gas/Misc/TalesDamageCalc.h" line="19" column="1" bodyfile="Source/TalesDungeoneer/Private/Gas/Misc/TalesDamageCalc.cpp" bodystart="37" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_tales_damage_calc_1a7449d74af8f61865ac88df92fb0a9d12" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void UTalesDamageCalc::Execute_Implementation</definition>
+        <argsstring>(const FGameplayEffectCustomExecutionParameters &amp;ExecutionParams, FGameplayEffectCustomExecutionOutput &amp;OutExecutionOutput) const override</argsstring>
+        <name>Execute_Implementation</name>
+        <qualifiedname>UTalesDamageCalc::Execute_Implementation</qualifiedname>
+        <param>
+          <type>const FGameplayEffectCustomExecutionParameters &amp;</type>
+          <declname>ExecutionParams</declname>
+        </param>
+        <param>
+          <type>FGameplayEffectCustomExecutionOutput &amp;</type>
+          <declname>OutExecutionOutput</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Private/Gas/Misc/TalesDamageCalc.h" line="21" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/Misc/TalesDamageCalc.cpp" bodystart="45" bodyend="131"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>UGameplayEffectExecutionCalculation</label>
+      </node>
+      <node id="1">
+        <label>UTalesDamageCalc</label>
+        <link refid="class_u_tales_damage_calc"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>UGameplayEffectExecutionCalculation</label>
+      </node>
+      <node id="1">
+        <label>UTalesDamageCalc</label>
+        <link refid="class_u_tales_damage_calc"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Private/Gas/Misc/TalesDamageCalc.h" line="13" column="1" bodyfile="Source/TalesDungeoneer/Private/Gas/Misc/TalesDamageCalc.h" bodystart="14" bodyend="27"/>
+    <listofallmembers>
+      <member refid="class_u_tales_damage_calc_1a7449d74af8f61865ac88df92fb0a9d12" prot="public" virt="virtual"><scope>UTalesDamageCalc</scope><name>Execute_Implementation</name></member>
+      <member refid="class_u_tales_damage_calc_1a792cbeca8b24d349f6c4b2f75401ed59" prot="public" virt="non-virtual"><scope>UTalesDamageCalc</scope><name>InDamageTag</name></member>
+      <member refid="class_u_tales_damage_calc_1aab36fc9b0c9f4a6b6c6cb221ffddd665" prot="public" virt="non-virtual"><scope>UTalesDamageCalc</scope><name>UTalesDamageCalc</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

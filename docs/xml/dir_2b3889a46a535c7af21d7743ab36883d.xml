@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="dir_2b3889a46a535c7af21d7743ab36883d" kind="dir">
+    <compoundname>Source/TalesDungeoneer/Public/Gamemode/TitleScreen</compoundname>
+    <innerfile refid="_creator_game_mode_base_8h">CreatorGameModeBase.h</innerfile>
+    <innerfile refid="_creator_game_state_base_8h">CreatorGameStateBase.h</innerfile>
+    <innerfile refid="_creator_hud_base_8h">CreatorHudBase.h</innerfile>
+    <innerfile refid="_creator_player_state_base_8h">CreatorPlayerStateBase.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/"/>
+  </compounddef>
+</doxygen>

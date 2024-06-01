@@ -1,0 +1,564 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_mesh_merge_component_8h" kind="file" language="C++">
+    <compoundname>MeshMergeComponent.h</compoundname>
+    <includes local="yes">CoreMinimal.h</includes>
+    <includes local="yes">GameplayTagContainer.h</includes>
+    <includes local="yes">SkeletalMeshMerge.h</includes>
+    <includes local="yes">Components/ActorComponent.h</includes>
+    <includes local="yes">lib/EquipmentData.h</includes>
+    <includes local="yes">Delegates/Delegate.h</includes>
+    <includes local="yes">GameFramework/SaveGame.h</includes>
+    <includes local="yes">MeshMergeComponent.generated.h</includes>
+    <includedby refid="_mesh_merge_component_8cpp" local="yes">Source/TalesDungeoneer/Private/Characters/Components/MeshMergeComponent.cpp</includedby>
+    <includedby refid="_character_base_8h" local="yes">Source/TalesDungeoneer/Public/Characters/CharacterBase.h</includedby>
+    <includedby refid="_equipment_component_8h" local="yes">Source/TalesDungeoneer/Public/Characters/Components/EquipmentComponent.h</includedby>
+    <includedby refid="_character_defaults_8h" local="yes">Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h</includedby>
+    <includedby refid="_mesh_merge_save_data_8h" local="yes">Source/TalesDungeoneer/Public/Saves/MeshMergeSaveData.h</includedby>
+    <includedby refid="_saved_characters_8h" local="yes">Source/TalesDungeoneer/Public/Saves/SavedCharacters.h</includedby>
+    <incdepgraph>
+      <node id="5">
+        <label>Components/ActorComponent.h</label>
+      </node>
+      <node id="2">
+        <label>CoreMinimal.h</label>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h</label>
+        <link refid="_mesh_merge_component_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>Delegates/Delegate.h</label>
+      </node>
+      <node id="8">
+        <label>GameFramework/SaveGame.h</label>
+      </node>
+      <node id="3">
+        <label>GameplayTagContainer.h</label>
+      </node>
+      <node id="9">
+        <label>MeshMergeComponent.generated.h</label>
+      </node>
+      <node id="4">
+        <label>SkeletalMeshMerge.h</label>
+      </node>
+      <node id="6">
+        <label>lib/EquipmentData.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>Source/TalesDungeoneer/Public/Characters/CharacterBase.h</label>
+        <link refid="_character_base_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Source/TalesDungeoneer/Public/Characters/CombatNpcCharacterBase.h</label>
+        <link refid="_combat_npc_character_base_8h_source"/>
+      </node>
+      <node id="13">
+        <label>Source/TalesDungeoneer/Public/Characters/Components/EquipmentComponent.h</label>
+        <link refid="_equipment_component_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h</label>
+        <link refid="_mesh_merge_component_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>Source/TalesDungeoneer/Public/Characters/Controllers/CombatAiControllerBase.h</label>
+        <link refid="_combat_ai_controller_base_8h_source"/>
+      </node>
+      <node id="9">
+        <label>Source/TalesDungeoneer/Public/Characters/CreatorCharacterBase.h</label>
+        <link refid="_creator_character_base_8h_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Source/TalesDungeoneer/Public/Characters/DmCharacterBase.h</label>
+        <link refid="_dm_character_base_8h_source"/>
+      </node>
+      <node id="7">
+        <label>Source/TalesDungeoneer/Public/Characters/InteractiveNpcBase.h</label>
+        <link refid="_interactive_npc_base_8h_source"/>
+      </node>
+      <node id="4">
+        <label>Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h</label>
+        <link refid="_npc_character_base_8h_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>Source/TalesDungeoneer/Public/Characters/PlayerCharacterBase.h</label>
+        <link refid="_player_character_base_8h_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h</label>
+        <link refid="_character_defaults_8h_source"/>
+      </node>
+      <node id="11">
+        <label>Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesDungeoneerGameMode.h</label>
+        <link refid="_tales_dungeoneer_game_mode_8h_source"/>
+      </node>
+      <node id="10">
+        <label>Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorGameModeBase.h</label>
+        <link refid="_creator_game_mode_base_8h_source"/>
+      </node>
+      <node id="15">
+        <label>Source/TalesDungeoneer/Public/Saves/MeshMergeSaveData.h</label>
+        <link refid="_mesh_merge_save_data_8h_source"/>
+      </node>
+      <node id="16">
+        <label>Source/TalesDungeoneer/Public/Saves/SavedCharacters.h</label>
+        <link refid="_saved_characters_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>Source/TalesDungeoneer/Public/Widgets/OverheadDataWidgetBase.h</label>
+        <link refid="_overhead_data_widget_base_8h_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_f_mesh_merge_mappings" prot="public">FMeshMergeMappings</innerclass>
+    <innerclass refid="struct_f_mesh_body_mappings" prot="public">FMeshBodyMappings</innerclass>
+    <sectiondef kind="enum">
+      <memberdef kind="enum" id="_mesh_merge_component_8h_1a015c7c84efd37741a36009d43c94a1b3" prot="public" static="no" strong="yes">
+        <type>uint8</type>
+        <name>ECharacterSex</name>
+        <enumvalue id="_mesh_merge_component_8h_1a015c7c84efd37741a36009d43c94a1b3a21f916747bf450058692114c6c675ea7" prot="public">
+          <name>NONBINARY</name>
+          <initializer>= 0	UMETA(DisplayName = &quot;Non-Binary&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_mesh_merge_component_8h_1a015c7c84efd37741a36009d43c94a1b3aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Masculine&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_mesh_merge_component_8h_1a015c7c84efd37741a36009d43c94a1b3aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(DisplayName = &quot;Feminine&quot;)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_mesh_merge_component_8h_1a015c7c84efd37741a36009d43c94a1b3aa3f80d8f0f1b4ffa8c475f5d60ea5635" prot="public">
+          <name>UMETA</name>
+          <initializer>=(Hidden)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" line="24" column="1" bodyfile="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" bodystart="25" bodyend="30"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="_mesh_merge_component_8h_1ac74ae72b565f894bf07936cf68aa544c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DECLARE_DYNAMIC_MULTICAST_DELEGATE</definition>
+        <argsstring>(FOnMeshMergeCompleted)</argsstring>
+        <name>DECLARE_DYNAMIC_MULTICAST_DELEGATE</name>
+        <param>
+          <type>FOnMeshMergeCompleted</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" line="18" column="1" declfile="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" declline="18" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_mesh_merge_component_8h_1a460ef2342dc420eedab77d2348f3fda8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam</definition>
+        <argsstring>(FOnMeshMergeRestored, const bool, bSuccess)</argsstring>
+        <name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam</name>
+        <param>
+          <type>FOnMeshMergeRestored</type>
+        </param>
+        <param>
+          <type>const bool</type>
+        </param>
+        <param>
+          <type>bSuccess</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" line="19" column="1" declfile="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" declline="19" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_mesh_merge_component_8h_1af975c6831f29c4a36b718bd337a3a86f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam</definition>
+        <argsstring>(FOnMeshMergeSaved, const bool, bSuccess)</argsstring>
+        <name>DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam</name>
+        <param>
+          <type>FOnMeshMergeSaved</type>
+        </param>
+        <param>
+          <type>const bool</type>
+        </param>
+        <param>
+          <type>bSuccess</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" line="20" column="1" declfile="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" declline="20" declcolumn="1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>Take<sp/>Five<sp/>Games,<sp/>LLC<sp/>2023<sp/>-<sp/>All<sp/>Rights<sp/>Reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;CoreMinimal.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;GameplayTagContainer.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;SkeletalMeshMerge.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Components/ActorComponent.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;lib/EquipmentData.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Delegates/Delegate.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;GameFramework/SaveGame.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;MeshMergeComponent.generated.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">UEquipmentDataAsset;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal">DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnMeshMergeCompleted);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal">DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMeshMergeRestored,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal">,<sp/>bSuccess);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMeshMergeSaved,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal">,<sp/>bSuccess);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal">UENUM(BlueprintType)</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">enum<sp/>class</highlight><highlight class="normal"><sp/>ECharacterSex<sp/>:<sp/>uint8</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>NONBINARY<sp/>=<sp/>0<sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Non-Binary&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/>MASCULINE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Masculine&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>FEMININE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UMETA(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Feminine&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UMETA(Hidden)</highlight></codeline>
+<codeline lineno="30"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal">USTRUCT(BlueprintType)</highlight></codeline>
+<codeline lineno="33" refid="struct_f_mesh_merge_mappings" refkind="compound"><highlight class="normal">struct<sp/><ref refid="struct_f_mesh_merge_mappings" kindref="compound">FMeshMergeMappings</ref></highlight></codeline>
+<codeline lineno="34"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>GENERATED_BODY()</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_f_mesh_merge_mappings" kindref="compound">FMeshMergeMappings</ref>()<sp/>:<sp/>DataAsset(</highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">),<sp/>SkeletalMesh(</highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{};</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_f_mesh_merge_mappings" kindref="compound">FMeshMergeMappings</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>UEquipmentDataAsset*<sp/>NewAsset,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isFeminine);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>number<sp/>of<sp/>meshes<sp/>holding<sp/>this<sp/>mesh<sp/>as<sp/>hidden</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>numSuperiorMeshes<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Optional<sp/>gameplay<sp/>tags<sp/>that<sp/>describe<sp/>this<sp/>mesh<sp/>(underwear,<sp/>male,<sp/>etc)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayTagContainer<sp/><sp/><sp/><sp/><sp/><sp/><sp/>GameplayTags<sp/>=<sp/>{};</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Which<sp/>equipment<sp/>or<sp/>body<sp/>slot<sp/>this<sp/>mesh<sp/>occupies</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayTag<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EquipSlotTag;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Is<sp/>this<sp/>used?<sp/>Obsolete?</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>UEquipmentDataAsset*<sp/><sp/>DataAsset;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>mesh<sp/>to<sp/>be<sp/>used<sp/>by<sp/>this<sp/>option</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>USkeletalMesh*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SkeletalMesh;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Additional<sp/>meshes<sp/>that<sp/>must<sp/>accompany<sp/>this<sp/>mesh,<sp/>if<sp/>visible</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>TArray&lt;USkeletalMesh*&gt;<sp/><sp/><sp/><sp/><sp/><sp/>AccompaniedMeshes<sp/>=<sp/>{};</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>A<sp/>map<sp/>section<sp/>from<sp/>the<sp/>source<sp/>mesh<sp/>to<sp/>merged<sp/>section<sp/>entry</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>TArray&lt;FSkelMeshMergeSectionMapping&gt;<sp/><sp/><sp/><sp/><sp/>SectionMappings<sp/><sp/><sp/><sp/>=<sp/>{};</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>A<sp/>transform<sp/>for<sp/>the<sp/>UVs<sp/>in<sp/>mesh</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>TArray&lt;FSkelMeshMergeUVTransformMapping&gt;<sp/>MeshUvTransforms<sp/><sp/><sp/>=<sp/>{};</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="70"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal">USTRUCT(BlueprintType)</highlight></codeline>
+<codeline lineno="74" refid="struct_f_mesh_body_mappings" refkind="compound"><highlight class="normal">struct<sp/><ref refid="struct_f_mesh_body_mappings" kindref="compound">FMeshBodyMappings</ref></highlight></codeline>
+<codeline lineno="75"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>GENERATED_BODY()</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_f_mesh_body_mappings" kindref="compound">FMeshBodyMappings</ref>()<sp/>:<sp/>SkeletalMesh(</highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{};</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_f_mesh_body_mappings" kindref="compound">FMeshBodyMappings</ref>(USkeletalMesh*<sp/>UsingMesh,</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayTag&amp;<sp/>BodyTag,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayTagContainer&amp;<sp/>OptionTags);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>mesh<sp/>to<sp/>be<sp/>used<sp/>by<sp/>this<sp/>option</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>USkeletalMesh*<sp/>SkeletalMesh;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>primary<sp/>tag<sp/>for<sp/>this<sp/>body<sp/>part<sp/>(body.arms,<sp/>body.torso,<sp/>etc)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>FGameplayTag<sp/>BodyPartTag;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Optional<sp/>material<sp/>instance<sp/>corrections<sp/>(Skin<sp/>Color,<sp/>Hair<sp/>Color,<sp/>etc)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/>TMap&lt;UMaterialInstance*,<sp/>FLinearColor&gt;<sp/><sp/><sp/>MaterialInstances<sp/><sp/>=<sp/>{};</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Optional<sp/>tags<sp/>that<sp/>describe<sp/>this<sp/>mesh</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>FGameplayTagContainer<sp/>OptionTags;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Any<sp/>mesh<sp/>in<sp/>the<sp/>merge<sp/>with<sp/>any<sp/>of<sp/>these<sp/>tags<sp/>will<sp/>be<sp/>visible<sp/>if<sp/>this<sp/>mesh<sp/>is<sp/>visible<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>FGameplayTagContainer<sp/>RequiresMeshesWithTags;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Any<sp/>mesh<sp/>in<sp/>the<sp/>merge<sp/>with<sp/>any<sp/>of<sp/>these<sp/>tags<sp/>will<sp/>be<sp/>hidden<sp/>if<sp/>this<sp/>mesh<sp/>is<sp/>visible</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Does<sp/>not<sp/>hide<sp/>any<sp/>mesh<sp/>that<sp/>is<sp/>marked<sp/>as<sp/>required<sp/>by<sp/>any<sp/>other<sp/>mesh</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>FGameplayTagContainer<sp/>HidesMeshesWithTags;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal">UCLASS(ClassGroup=(Custom),<sp/>meta=(BlueprintSpawnableComponent))</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">TALESDUNGEONEER_API<sp/>UMeshMergeComponent<sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>UActorComponent</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/>GENERATED_BODY()</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal">public:</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>UMeshMergeComponent();</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintAssignable)<sp/>FOnMeshMergeCompleted<sp/>OnMeshMergeCompleted;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintAssignable)<sp/>FOnMeshMergeRestored<sp/><sp/>OnMeshMergeRestored;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintAssignable)<sp/>FOnMeshMergeSaved<sp/><sp/><sp/><sp/><sp/>OnMeshMergeSaved;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintCallable)</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>PerformMeshMerge(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>bMergeMeshesOnly<sp/>=<sp/>false);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintPure)</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>GetIsMeshMergeSystemReady()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>bMeshMergeReady;<sp/>}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>FindIndexOfMeshByTag(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayTag&amp;<sp/>SearchTag);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintCallable)</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_f_mesh_merge_mappings" kindref="compound">FMeshMergeMappings</ref><sp/>CreateMeshMapping(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>UEquipmentDataAsset*<sp/>NewAsset,</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayTag&amp;<sp/>EquipmentTag,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>useFeminineMesh<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintCallable)</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_f_mesh_body_mappings" kindref="compound">FMeshBodyMappings</ref><sp/>CreateBodyMapping(USkeletalMesh*<sp/>UsingMesh,</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayTag&amp;<sp/>BodyTag,<sp/>FGameplayTagContainer<sp/>BodyOptionTags);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintCallable)</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>AddMeshToMerge(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_f_mesh_merge_mappings" kindref="compound">FMeshMergeMappings</ref>&amp;<sp/>NewMapping);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintCallable)</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>RemoveMeshFromMerge(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>UEquipmentDataAsset*<sp/>NewAsset,</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayTag&amp;<sp/>EquipmentTag);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>FindMeshMappingByTag(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayTag&amp;<sp/>searchTag);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_f_mesh_merge_mappings" kindref="compound">FMeshMergeMappings</ref><sp/>GetMeshMappingFromIndex(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>index<sp/>=<sp/>-1);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintPure)</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayTag<sp/>GetBodyPartFromEquipmentSlot(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayTag&amp;<sp/>EquipmentSlotTag);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Private<sp/>Member<sp/>Accessors</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/>TArray&lt;FMeshMergeMappings&gt;<sp/><sp/>GetAllMeshMergeMappings()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>MeshMergeData;<sp/>}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/>FLinearColor<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GetEyeColor()</highlight><highlight class="keyword"><sp/>const<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>EyeColor_;<sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/>FLinearColor<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GetSkinColor()</highlight><highlight class="keyword"><sp/>const<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>SkinColor_;<sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/>FLinearColor<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GetHairColor()</highlight><highlight class="keyword"><sp/>const<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>HairColor_;<sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/>FLinearColor<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GetBeardColor()</highlight><highlight class="keyword"><sp/>const<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>BeardColor_;<sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/>USkeleton*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GetSkeleton()</highlight><highlight class="keyword"><sp/>const<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Skeleton;<sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/>TSubclassOf&lt;UAnimInstance&gt;<sp/><sp/>GetAnimBlueprint()</highlight><highlight class="keyword"><sp/>const<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>AnimBlueprint;<sp/>}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintCallable)<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SetEyeColor(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FLinearColor<sp/>NewColor);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintCallable)<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SetSkinColor(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FLinearColor<sp/>NewColor);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintCallable)<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SetHairColor(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FLinearColor<sp/>NewColor);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintCallable)<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SetBeardColor(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FLinearColor<sp/>NewColor);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>LoadMeshMerge(FString&amp;<sp/>LoadResponse,<sp/>FString&amp;<sp/>SaveSlotName,</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int32<sp/>SaveUserIndex<sp/>=<sp/>0,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>bIsAsync<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/>FString<sp/>SaveMeshMerge(FString&amp;<sp/>responseStr,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isAsync<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintPure)<sp/>FString<sp/>GetMeshMergeSaveName()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>SaveSlotName_;<sp/>}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>HasAuthority()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>BeginPlay()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnComponentCreated()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>InitializeComponent()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>GetLifetimeReplicatedProps(</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/>TArray&lt;FLifetimeProperty&gt;&amp;<sp/>OutLifetimeProps)<sp/></highlight><highlight class="keyword">const<sp/>override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Set<sp/>false<sp/>if<sp/>the<sp/>owner<sp/>actor<sp/>uses<sp/>a<sp/>full<sp/>body<sp/>mesh<sp/>that<sp/>doesn&apos;t<sp/>need<sp/>to<sp/>be<sp/>merged</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>This<sp/>is<sp/>for<sp/>things<sp/>such<sp/>as<sp/>skeletons<sp/>that<sp/>are<sp/>not<sp/>modular,<sp/>or<sp/>spectres<sp/>that<sp/>always<sp/>look<sp/>the<sp/>same</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Defaults<sp/>to<sp/>TRUE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>bUseMeshMerge<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Override<sp/>to<sp/>force<sp/>all-masculine<sp/>or<sp/>feminine<sp/>options,<sp/>or<sp/>both<sp/>(Non-Binary)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere)<sp/>ECharacterSex<sp/>SexSkeleton<sp/>=<sp/>ECharacterSex::NONBINARY;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>number<sp/>of<sp/>high<sp/>LODs<sp/>to<sp/>remove<sp/>from<sp/>input<sp/>meshes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/>int32<sp/>StripTopLODS;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Whether<sp/>or<sp/>not<sp/>the<sp/>resulting<sp/>mesh<sp/>needs<sp/>to<sp/>be<sp/>accessed<sp/>by<sp/>the<sp/>CPU<sp/>for<sp/>any<sp/>reason<sp/>(e.g.<sp/>for<sp/>spawning<sp/>particle<sp/>effects).</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32<sp/>bNeedsCpuAccess<sp/>:<sp/>1;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Update<sp/>skeleton<sp/>before<sp/>merge.<sp/>Otherwise,<sp/>update<sp/>after.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Skeleton<sp/>must<sp/>also<sp/>be<sp/>provided.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32<sp/>bSkeletonBefore<sp/>:<sp/>1;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Skeleton<sp/>that<sp/>will<sp/>be<sp/>used<sp/>for<sp/>the<sp/>merged<sp/>mesh.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Leave<sp/>empty<sp/>if<sp/>the<sp/>generated<sp/>skeleton<sp/>is<sp/>OK.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(Replicated,<sp/>EditAnywhere,<sp/>BlueprintReadWrite)</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/>USkeleton*<sp/>Skeleton<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>animation<sp/>blueprint<sp/>that<sp/>will<sp/>be<sp/>used</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(ReplicatedUsing=OnRep_AnimInstance,<sp/>EditAnywhere,<sp/>BlueprintReadWrite)</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/>TSubclassOf&lt;UAnimInstance&gt;<sp/>AnimBlueprint<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>default<sp/>body<sp/>meshes<sp/>used<sp/>in<sp/>every<sp/>single<sp/>mesh<sp/>merge</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(ReplicatedUsing=OnRep_MeshBodyData,<sp/>EditAnywhere,<sp/>BlueprintReadOnly)</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/>TArray&lt;FMeshBodyMappings&gt;<sp/>MeshBodyData<sp/>=<sp/>{};</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ValidateMeshMergeMappings(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_f_mesh_merge_mappings" kindref="compound">FMeshMergeMappings</ref>&amp;<sp/>MapReference,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>bWasRemoved<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(NetMulticast,<sp/>Reliable)<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_EyeColor();</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(NetMulticast,<sp/>Reliable)<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_SkinColor();</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(NetMulticast,<sp/>Reliable)<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_HairColor();</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(NetMulticast,<sp/>Reliable)<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_BeardColor();</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(NetMulticast,<sp/>Reliable)<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_MeshMergeData();</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(NetMulticast,<sp/>Reliable)<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_AnimInstance();</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(NetMulticast,<sp/>Reliable)<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_MeshBodyData();</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>UpdateMeshMaterials(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>UMaterialInterface*<sp/>MaterialInterface<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()<sp/>void<sp/>LoadDataDelegate(const<sp/>FString&amp;<sp/>SaveName,<sp/>const<sp/>int32<sp/>UserIndex,<sp/>USaveGame*<sp/>LoadGameData);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SaveDataDelegate(const<sp/>FString&amp;<sp/>SaveName,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>UserIndex,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>bSuccess<sp/>=<sp/>false);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(Server,<sp/>Reliable)</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Server_RestoreSkeleton(USkeleton*<sp/>NewSkeleton,<sp/>TSubclassOf&lt;UAnimInstance&gt;<sp/>NewAnimInstance);</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>RestoreSkeleton(USkeleton*<sp/>NewSkeleton,<sp/>TSubclassOf&lt;UAnimInstance&gt;<sp/>NewAnimInstance);</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(Server,<sp/>Reliable)</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Server_RestoreMappings(const<sp/>TArray&lt;<ref refid="struct_f_mesh_merge_mappings" kindref="compound">FMeshMergeMappings</ref>&gt;&amp;<sp/>NewMeshMappings,</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/>TArray&lt;<ref refid="struct_f_mesh_body_mappings" kindref="compound">FMeshBodyMappings</ref>&gt;&amp;<sp/><sp/>NewBodyMappings);</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>RestoreMappings(const<sp/>TArray&lt;<ref refid="struct_f_mesh_merge_mappings" kindref="compound">FMeshMergeMappings</ref>&gt;&amp;<sp/>NewMeshMappings,</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/>TArray&lt;<ref refid="struct_f_mesh_body_mappings" kindref="compound">FMeshBodyMappings</ref>&gt;&amp;<sp/><sp/>NewBodyMappings);</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(Server,<sp/>Reliable)</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Server_RestoreMaterials(FLinearColor<sp/>NewEyeColor,<sp/>FLinearColor<sp/>NewSkinColor,</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FLinearColor<sp/>NewHairColor,<sp/>FLinearColor<sp/>NewBeardColor);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>RestoreMaterials(FLinearColor<sp/>NewEyeColor,<sp/>FLinearColor<sp/>NewSkinColor,</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FLinearColor<sp/>NewHairColor,<sp/>FLinearColor<sp/>NewBeardColor);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(ReplicatedUsing=OnRep_EyeColor)</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/>FLinearColor<sp/>EyeColor_<sp/><sp/><sp/>=<sp/>FLinearColor(0.1,<sp/>0.1,<sp/>0.1,<sp/>255);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(ReplicatedUsing=OnRep_SkinColor)</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/>FLinearColor<sp/>SkinColor_<sp/><sp/>=<sp/>FLinearColor(0.949,<sp/>0.937,<sp/>0.933,<sp/>255);</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(ReplicatedUsing=OnRep_HairColor)</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/>FLinearColor<sp/>HairColor_<sp/><sp/>=<sp/>FLinearColor(0.02,<sp/>0.02,<sp/>0.02,<sp/>255);</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(ReplicatedUsing=OnRep_BeardColor)</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/>FLinearColor<sp/>BeardColor_<sp/>=<sp/>FLinearColor(0.02,<sp/>0.02,<sp/>0.02,<sp/>255);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>These<sp/>are<sp/>the<sp/>&quot;optional&quot;<sp/>overlaid<sp/>meshes<sp/>in<sp/>addition<sp/>to<sp/>the<sp/>MeshBodyData</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(ReplicatedUsing=OnRep_MeshMergeData)</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/>TArray&lt;<ref refid="struct_f_mesh_merge_mappings" kindref="compound">FMeshMergeMappings</ref>&gt;<sp/>MeshMergeData<sp/>=<sp/>{};</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY()</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/>class<sp/><ref refid="class_a_character_base" kindref="compound">ACharacterBase</ref>*<sp/>CharacterBase_<sp/>=<sp/></highlight><highlight class="keywordtype">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/>FString<sp/>SaveSlotName_<sp/><sp/>=<sp/>&quot;&quot;;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/>int32<sp/><sp/><sp/>SaveUserIndex_<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>This<sp/>way<sp/>the<sp/>initial<sp/>setups<sp/>on<sp/>OnConstruction<sp/>only<sp/>run<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>bMeshMergeReady<sp/><sp/><sp/><sp/>=<sp/>false;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>bRestoredFromSave<sp/><sp/>=<sp/>false;</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>bSavesOnServer<sp/><sp/><sp/><sp/><sp/>=<sp/>false;</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>bMeshSaveRestored<sp/><sp/>=<sp/>false;</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/>FString<sp/>SaveFolder<sp/>=<sp/>&quot;MeshMerge/&quot;;</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="282"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h"/>
+  </compounddef>
+</doxygen>

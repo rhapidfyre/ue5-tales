@@ -1,0 +1,208 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_u_saved_character" kind="class" language="C++" prot="public">
+    <compoundname>USavedCharacter</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">USaveGame</basecompoundref>
+    <includes refid="_saved_characters_8h" local="no">SavedCharacters.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_u_saved_character_1aa449b22500a23ff7e4af62ee51455fc7" prot="public" static="no" mutable="no">
+        <type>FString</type>
+        <definition>FString USavedCharacter::SaveVersion</definition>
+        <argsstring></argsstring>
+        <name>SaveVersion</name>
+        <qualifiedname>USavedCharacter::SaveVersion</qualifiedname>
+        <initializer>= &quot;v?&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" line="42" column="9" bodyfile="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_saved_character_1af1db355372545c4f85241af614642ab0" prot="public" static="no" mutable="no">
+        <type>FString</type>
+        <definition>FString USavedCharacter::SaveSlotName</definition>
+        <argsstring></argsstring>
+        <name>SaveSlotName</name>
+        <qualifiedname>USavedCharacter::SaveSlotName</qualifiedname>
+        <initializer>= TEXT(&quot;QuickName&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" line="45" column="9" bodyfile="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_saved_character_1a1432c1d60b0bff741b8dcf411544362a" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_f_character_data" kindref="compound">FCharacterData</ref></type>
+        <definition>FCharacterData USavedCharacter::CharacterData</definition>
+        <argsstring></argsstring>
+        <name>CharacterData</name>
+        <qualifiedname>USavedCharacter::CharacterData</qualifiedname>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" line="48" column="16" bodyfile="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" bodystart="48" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_saved_character_1a1cdcf02f022c7ff2ffe7f108230fc893" prot="public" static="no" mutable="no">
+        <type>uint32</type>
+        <definition>uint32 USavedCharacter::UserIndex</definition>
+        <argsstring></argsstring>
+        <name>UserIndex</name>
+        <qualifiedname>USavedCharacter::UserIndex</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" line="51" column="8" bodyfile="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_saved_character_1a1fc53180a36384932e03951273a553b2" prot="public" static="no" mutable="no">
+        <type>TSubclassOf&lt; UAnimInstance &gt;</type>
+        <definition>TSubclassOf&lt;UAnimInstance&gt; USavedCharacter::AnimBlueprint</definition>
+        <argsstring></argsstring>
+        <name>AnimBlueprint</name>
+        <qualifiedname>USavedCharacter::AnimBlueprint</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" line="54" column="13" bodyfile="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_saved_character_1a6aa86315579d37ec5c40644ba7abbe16" prot="public" static="no" mutable="no">
+        <type>USkeleton *</type>
+        <definition>USkeleton* USavedCharacter::Skeleton</definition>
+        <argsstring></argsstring>
+        <name>Skeleton</name>
+        <qualifiedname>USavedCharacter::Skeleton</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" line="57" column="11" bodyfile="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_saved_character_1ac90e7fe3a264c4a04d42858d87c78324" prot="public" static="no" mutable="no">
+        <type>TArray&lt; <ref refid="struct_f_mesh_merge_mappings" kindref="compound">FMeshMergeMappings</ref> &gt;</type>
+        <definition>TArray&lt;FMeshMergeMappings&gt; USavedCharacter::MeshMergeMappings</definition>
+        <argsstring></argsstring>
+        <name>MeshMergeMappings</name>
+        <qualifiedname>USavedCharacter::MeshMergeMappings</qualifiedname>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" line="60" column="9" bodyfile="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" bodystart="60" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_saved_character_1a8c76c7962fbfc0d69a580385d24c249c" prot="public" static="no" mutable="no">
+        <type>FString</type>
+        <definition>FString USavedCharacter::SavedInventory</definition>
+        <argsstring></argsstring>
+        <name>SavedInventory</name>
+        <qualifiedname>USavedCharacter::SavedInventory</qualifiedname>
+        <initializer>= &quot;&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" line="64" column="9" bodyfile="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_saved_character_1a6c6b21aaa36be8d85aa20e73c6b4d1d6" prot="public" static="no" mutable="no">
+        <type>FString</type>
+        <definition>FString USavedCharacter::SavedMeshMerge</definition>
+        <argsstring></argsstring>
+        <name>SavedMeshMerge</name>
+        <qualifiedname>USavedCharacter::SavedMeshMerge</qualifiedname>
+        <initializer>= &quot;&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" line="68" column="9" bodyfile="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_u_saved_character_1ad9705ee1ca66598bccb2a5c60a5df8d7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>USavedCharacter::USavedCharacter</definition>
+        <argsstring>()</argsstring>
+        <name>USavedCharacter</name>
+        <qualifiedname>USavedCharacter::USavedCharacter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" line="39" column="1" bodyfile="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" bodystart="39" bodyend="39"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>The object used for saving all PLAYER character data </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>USaveGame</label>
+      </node>
+      <node id="1">
+        <label>USavedCharacter</label>
+        <link refid="class_u_saved_character"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>FCharacterData</label>
+        <link refid="struct_f_character_data"/>
+      </node>
+      <node id="2">
+        <label>USaveGame</label>
+      </node>
+      <node id="1">
+        <label>USavedCharacter</label>
+        <link refid="class_u_saved_character"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>CharacterData</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" line="33" column="1" bodyfile="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" bodystart="34" bodyend="73"/>
+    <listofallmembers>
+      <member refid="class_u_saved_character_1a1fc53180a36384932e03951273a553b2" prot="public" virt="non-virtual"><scope>USavedCharacter</scope><name>AnimBlueprint</name></member>
+      <member refid="class_u_saved_character_1a1432c1d60b0bff741b8dcf411544362a" prot="public" virt="non-virtual"><scope>USavedCharacter</scope><name>CharacterData</name></member>
+      <member refid="class_u_saved_character_1ac90e7fe3a264c4a04d42858d87c78324" prot="public" virt="non-virtual"><scope>USavedCharacter</scope><name>MeshMergeMappings</name></member>
+      <member refid="class_u_saved_character_1a8c76c7962fbfc0d69a580385d24c249c" prot="public" virt="non-virtual"><scope>USavedCharacter</scope><name>SavedInventory</name></member>
+      <member refid="class_u_saved_character_1a6c6b21aaa36be8d85aa20e73c6b4d1d6" prot="public" virt="non-virtual"><scope>USavedCharacter</scope><name>SavedMeshMerge</name></member>
+      <member refid="class_u_saved_character_1af1db355372545c4f85241af614642ab0" prot="public" virt="non-virtual"><scope>USavedCharacter</scope><name>SaveSlotName</name></member>
+      <member refid="class_u_saved_character_1aa449b22500a23ff7e4af62ee51455fc7" prot="public" virt="non-virtual"><scope>USavedCharacter</scope><name>SaveVersion</name></member>
+      <member refid="class_u_saved_character_1a6aa86315579d37ec5c40644ba7abbe16" prot="public" virt="non-virtual"><scope>USavedCharacter</scope><name>Skeleton</name></member>
+      <member refid="class_u_saved_character_1ad9705ee1ca66598bccb2a5c60a5df8d7" prot="public" virt="non-virtual"><scope>USavedCharacter</scope><name>USavedCharacter</name></member>
+      <member refid="class_u_saved_character_1a1cdcf02f022c7ff2ffe7f108230fc893" prot="public" virt="non-virtual"><scope>USavedCharacter</scope><name>UserIndex</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

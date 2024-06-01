@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_u_character_class_data" kind="class" language="C++" prot="public">
+    <compoundname>UCharacterClassData</compoundname>
+    <basecompoundref refid="class_u_character_common_data" prot="public" virt="non-virtual">UCharacterCommonData</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_u_character_class_data_1ac0a05e56c92a9cc40b33c1a73a0bd7a5" prot="public" static="no" mutable="no">
+        <type>FGameplayTag</type>
+        <definition>FGameplayTag UCharacterClassData::GameplayTag</definition>
+        <argsstring></argsstring>
+        <name>GameplayTag</name>
+        <qualifiedname>UCharacterClassData::GameplayTag</qualifiedname>
+        <initializer>= TAG_Character_Class_Warrior</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="159" column="14" bodyfile="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_character_class_data_1a3272554ef68e66e844bedfddd1562bcc" prot="public" static="no" mutable="no">
+        <type>FString</type>
+        <definition>FString UCharacterClassData::DescriptionText</definition>
+        <argsstring></argsstring>
+        <name>DescriptionText</name>
+        <qualifiedname>UCharacterClassData::DescriptionText</qualifiedname>
+        <initializer>= &quot;Unknown&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="162" column="9" bodyfile="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_character_class_data_1aa4407a0d721e8f734eab3374cc339228" prot="public" static="no" mutable="no">
+        <type>UTexture2D *</type>
+        <definition>UTexture2D* UCharacterClassData::ClassIcon</definition>
+        <argsstring></argsstring>
+        <name>ClassIcon</name>
+        <qualifiedname>UCharacterClassData::ClassIcon</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="165" column="12" bodyfile="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_u_character_class_data_1aa8fcd1b97ead266ade008a17951d0772" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>UCharacterClassData::UCharacterClassData</definition>
+        <argsstring>()</argsstring>
+        <name>UCharacterClassData</name>
+        <qualifiedname>UCharacterClassData::UCharacterClassData</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="156" column="1" bodyfile="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" bodystart="156" bodyend="156"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>UCharacterClassData</label>
+        <link refid="class_u_character_class_data"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>UCharacterCommonData</label>
+        <link refid="class_u_character_common_data"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>UDataAsset</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>UCharacterClassData</label>
+        <link refid="class_u_character_class_data"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>UCharacterCommonData</label>
+        <link refid="class_u_character_common_data"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>UDataAsset</label>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="151" column="1" bodyfile="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" bodystart="152" bodyend="167"/>
+    <listofallmembers>
+      <member refid="class_u_character_common_data_1a7f9393fbb6e3dfb59a5a79ebf4814b26" prot="public" virt="non-virtual"><scope>UCharacterClassData</scope><name>Abilities</name></member>
+      <member refid="class_u_character_class_data_1aa4407a0d721e8f734eab3374cc339228" prot="public" virt="non-virtual"><scope>UCharacterClassData</scope><name>ClassIcon</name></member>
+      <member refid="class_u_character_common_data_1a90040cdc2458fc59f33396b0849a4982" prot="public" virt="non-virtual"><scope>UCharacterClassData</scope><name>CoreStatsModifiers</name></member>
+      <member refid="class_u_character_common_data_1ac1ed158282121326386968765ee72617" prot="public" virt="non-virtual"><scope>UCharacterClassData</scope><name>DamageBonusModifiers</name></member>
+      <member refid="class_u_character_common_data_1a99170dbd6f888e6c477f25d2293dfb9e" prot="public" virt="non-virtual"><scope>UCharacterClassData</scope><name>DamageResistModifiers</name></member>
+      <member refid="class_u_character_class_data_1a3272554ef68e66e844bedfddd1562bcc" prot="public" virt="non-virtual"><scope>UCharacterClassData</scope><name>DescriptionText</name></member>
+      <member refid="class_u_character_common_data_1ac69b7a2e5df7332d1a6a56670119a782" prot="public" virt="non-virtual"><scope>UCharacterClassData</scope><name>DisplayName</name></member>
+      <member refid="class_u_character_common_data_1ac0b751d1652488ed1d0766995ef54968" prot="public" virt="non-virtual"><scope>UCharacterClassData</scope><name>Effects</name></member>
+      <member refid="class_u_character_class_data_1ac0a05e56c92a9cc40b33c1a73a0bd7a5" prot="public" virt="non-virtual"><scope>UCharacterClassData</scope><name>GameplayTag</name></member>
+      <member refid="class_u_character_class_data_1aa8fcd1b97ead266ade008a17951d0772" prot="public" virt="non-virtual"><scope>UCharacterClassData</scope><name>UCharacterClassData</name></member>
+      <member refid="class_u_character_common_data_1ac8cc3a50f0269e47dc90946da8734432" prot="public" virt="non-virtual"><scope>UCharacterClassData</scope><name>UCharacterCommonData</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

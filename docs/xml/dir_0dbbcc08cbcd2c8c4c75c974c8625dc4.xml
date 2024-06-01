@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="dir_0dbbcc08cbcd2c8c4c75c974c8625dc4" kind="dir">
+    <compoundname>Source/TalesDungeoneer/Public/lib</compoundname>
+    <innerdir refid="dir_e26edd96a781e73a13e1ee44c20dabef">Source/TalesDungeoneer/Public/lib/Damage</innerdir>
+    <innerdir refid="dir_866a32c97df33f89bdad3a54049b7362">Source/TalesDungeoneer/Public/lib/datastructures</innerdir>
+    <innerdir refid="dir_1f3d3e5e40c48c50ce95c5e80da0def5">Source/TalesDungeoneer/Public/lib/enums</innerdir>
+    <innerdir refid="dir_d5ed2bfa8ea6550a434c34422b73765c">Source/TalesDungeoneer/Public/lib/Tags</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Public/lib/"/>
+  </compounddef>
+</doxygen>

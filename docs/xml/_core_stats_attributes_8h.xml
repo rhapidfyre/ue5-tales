@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_core_stats_attributes_8h" kind="file" language="C++">
+    <compoundname>CoreStatsAttributes.h</compoundname>
+    <includes local="yes">CoreMinimal.h</includes>
+    <includes local="yes">AttributeSet.h</includes>
+    <includes local="yes">NativeGameplayTags.h</includes>
+    <includes local="yes">Delegates/Delegate.h</includes>
+    <includes refid="_attribute_helpers_8h" local="yes">../AttributeHelpers.h</includes>
+    <includes local="yes">CoreStatsAttributes.generated.h</includes>
+    <includedby refid="_tales_ability_component_8cpp" local="yes">Source/TalesDungeoneer/Private/Characters/Components/TalesAbilityComponent.cpp</includedby>
+    <includedby refid="_core_stats_attributes_8cpp" local="yes">Source/TalesDungeoneer/Private/Gas/AttributeSets/CoreStatsAttributes.cpp</includedby>
+    <includedby refid="_tales_attributes_8h" local="yes">Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h</includedby>
+    <incdepgraph>
+      <node id="7">
+        <label>AbilitySystemComponent.h</label>
+      </node>
+      <node id="3">
+        <label>AttributeSet.h</label>
+      </node>
+      <node id="2">
+        <label>CoreMinimal.h</label>
+      </node>
+      <node id="8">
+        <label>CoreStatsAttributes.generated.h</label>
+      </node>
+      <node id="6">
+        <label>../AttributeHelpers.h</label>
+        <link refid="_attribute_helpers_8h_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h</label>
+        <link refid="_core_stats_attributes_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Delegates/Delegate.h</label>
+      </node>
+      <node id="4">
+        <label>NativeGameplayTags.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h</label>
+        <link refid="_core_stats_attributes_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Source/TalesDungeoneer/Public/Gas/AttributeSets/TalesAttributes.h</label>
+        <link refid="_tales_attributes_8h_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_u_core_stats_attributes" prot="public">UCoreStatsAttributes</innerclass>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="_core_stats_attributes_8h_1a1815e7c2061fea0e9acc488de3951ba4" prot="public" static="no">
+        <name>STAT_DEFAULT</name>
+        <initializer>100.f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="13" column="9" bodyfile="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_core_stats_attributes_8h_1a72a29dc5e9a90ecee838c26530da83ca" prot="public" static="no">
+        <name>STAT_MAX</name>
+        <initializer>1000.f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="14" column="9" bodyfile="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_core_stats_attributes_8h_1a02787269b096d4d9287ee1b876762286" prot="public" static="no">
+        <name>STAT_MIN</name>
+        <initializer>-1000.f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" line="15" column="9" bodyfile="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>Take<sp/>Five<sp/>Games,<sp/>LLC<sp/>2023<sp/>-<sp/>All<sp/>Rights<sp/>Reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;CoreMinimal.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;AttributeSet.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;NativeGameplayTags.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Delegates/Delegate.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../AttributeHelpers.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;CoreStatsAttributes.generated.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>STAT_DEFAULT<sp/><sp/><sp/><sp/>100.f</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>STAT_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1000.f</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>STAT_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-1000.f</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Stats)</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Stats_Strength)</highlight></codeline>
+<codeline lineno="19"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Stats_Dexterity)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Stats_Fortitude)</highlight></codeline>
+<codeline lineno="21"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Stats_Astuteness)</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Stats_Intellect)</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Stats_Charisma)</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal">UCLASS()</highlight></codeline>
+<codeline lineno="32" refid="class_u_core_stats_attributes" refkind="compound"><highlight class="normal">class<sp/>TALESDUNGEONEER_API<sp/><ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref><sp/>:<sp/>public<sp/>UAttributeSet</highlight></codeline>
+<codeline lineno="33"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>GENERATED_BODY()</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref>();</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>TMulticastDelegate&lt;void(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FOnAttributeChangeData&amp;<sp/>Attribute)&gt;<sp/>OnAttributeUpdated;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Core<sp/>Stat<sp/>Attributes&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReplicatedUsing=OnRep_Strength,<sp/>Meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayAttributeData<sp/>Strength;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>ATTRIBUTE_ACCESSORS(<ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref>,<sp/>Strength);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Core<sp/>Stat<sp/>Attributes&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReplicatedUsing=OnRep_Dexterity,<sp/>Meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayAttributeData<sp/>Dexterity;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>ATTRIBUTE_ACCESSORS(<ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref>,<sp/>Dexterity);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Core<sp/>Stat<sp/>Attributes&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReplicatedUsing=OnRep_Fortitude,<sp/>Meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayAttributeData<sp/>Fortitude;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>ATTRIBUTE_ACCESSORS(<ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref>,<sp/>Fortitude);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Core<sp/>Stat<sp/>Attributes&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReplicatedUsing=OnRep_Astuteness,<sp/>Meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayAttributeData<sp/>Astuteness;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>ATTRIBUTE_ACCESSORS(<ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref>,<sp/>Astuteness);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Core<sp/>Stat<sp/>Attributes&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReplicatedUsing=OnRep_Intellect,<sp/>Meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayAttributeData<sp/>Intellect;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>ATTRIBUTE_ACCESSORS(<ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref>,<sp/>Intellect);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Core<sp/>Stat<sp/>Attributes&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReplicatedUsing=OnRep_Charisma,<sp/>Meta<sp/>=<sp/>(AllowPrivateAccess<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayAttributeData<sp/>Charisma;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/>ATTRIBUTE_ACCESSORS(<ref refid="class_u_core_stats_attributes" kindref="compound">UCoreStatsAttributes</ref>,<sp/>Charisma);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/>TArray&lt;FGameplayAttribute&gt;<sp/>GetAllCoreStatAttributes()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>PreAttributeBaseChange(</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttribute&amp;<sp/>Attribute,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">&amp;<sp/>NewValue)<sp/></highlight><highlight class="keyword">const<sp/>override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>PreAttributeChange(</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttribute&amp;<sp/>Attribute,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">&amp;<sp/>NewValue)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ClampAttributeOnChange(</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttribute&amp;<sp/>Attribute,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">&amp;<sp/>NewValue)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_Strength(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_Dexterity(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_Fortitude(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_Astuteness(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_Intellect(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION()</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OnRep_Charisma(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayAttributeData&amp;<sp/>OldData);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="103"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/CoreStatsAttributes.h"/>
+  </compounddef>
+</doxygen>

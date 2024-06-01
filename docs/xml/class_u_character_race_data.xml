@@ -1,0 +1,600 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_u_character_race_data" kind="class" language="C++" prot="public">
+    <compoundname>UCharacterRaceData</compoundname>
+    <basecompoundref refid="class_u_character_common_data" prot="public" virt="non-virtual">UCharacterCommonData</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_u_character_race_data_1ad9e72f148b070416cc5a37e507d20603" prot="public" static="no" mutable="no">
+        <type>FGameplayTag</type>
+        <definition>FGameplayTag UCharacterRaceData::GameplayTag</definition>
+        <argsstring></argsstring>
+        <name>GameplayTag</name>
+        <qualifiedname>UCharacterRaceData::GameplayTag</qualifiedname>
+        <initializer>= TAG_Character_Class_Warrior</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="99" column="14" bodyfile="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_character_race_data_1afc6c5973e312ee9c9c349d71e5f1f949" prot="public" static="no" mutable="no">
+        <type>FString</type>
+        <definition>FString UCharacterRaceData::DescriptionText</definition>
+        <argsstring></argsstring>
+        <name>DescriptionText</name>
+        <qualifiedname>UCharacterRaceData::DescriptionText</qualifiedname>
+        <initializer>= &quot;Unknown&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="102" column="9" bodyfile="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_character_race_data_1a3931803992201829d958803ac20f9efb" prot="public" static="no" mutable="no">
+        <type>UTexture2D *</type>
+        <definition>UTexture2D* UCharacterRaceData::RaceIcon</definition>
+        <argsstring></argsstring>
+        <name>RaceIcon</name>
+        <qualifiedname>UCharacterRaceData::RaceIcon</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="105" column="12" bodyfile="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_character_race_data_1af5f6306dbc8fe20b8779f771d33191c8" prot="public" static="no" mutable="no">
+        <type>FGameplayTagContainer</type>
+        <definition>FGameplayTagContainer UCharacterRaceData::EligibleClasses</definition>
+        <argsstring></argsstring>
+        <name>EligibleClasses</name>
+        <qualifiedname>UCharacterRaceData::EligibleClasses</qualifiedname>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="110" column="23" bodyfile="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" bodystart="110" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_character_race_data_1af2152f0f14f643ab6fe6f5016533a733" prot="public" static="no" mutable="no">
+        <type>TArray&lt; <ref refid="struct_f_skeleton_options_data" kindref="compound">FSkeletonOptionsData</ref> &gt;</type>
+        <definition>TArray&lt;FSkeletonOptionsData&gt; UCharacterRaceData::SkeletonOptions</definition>
+        <argsstring></argsstring>
+        <name>SkeletonOptions</name>
+        <qualifiedname>UCharacterRaceData::SkeletonOptions</qualifiedname>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="113" column="8" bodyfile="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" bodystart="113" bodyend="113"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_character_race_data_1aa6ffa79ffedbcb9451a4e388e531df8a" prot="public" static="no" mutable="no">
+        <type>TArray&lt; FLinearColor &gt;</type>
+        <definition>TArray&lt;FLinearColor&gt; UCharacterRaceData::SkinColorOptions</definition>
+        <argsstring></argsstring>
+        <name>SkinColorOptions</name>
+        <qualifiedname>UCharacterRaceData::SkinColorOptions</qualifiedname>
+        <initializer>= {FLinearColor(242, 239, 238, 255)}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="118" column="8" bodyfile="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" bodystart="118" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_character_race_data_1ab9e3c52c611181af43456b18ce14c691" prot="public" static="no" mutable="no">
+        <type>UMaterialInstance *</type>
+        <definition>UMaterialInstance* UCharacterRaceData::HairMaterial</definition>
+        <argsstring></argsstring>
+        <name>HairMaterial</name>
+        <qualifiedname>UCharacterRaceData::HairMaterial</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="121" column="19" bodyfile="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_character_race_data_1af953ff3442d39fadc89e41e7dcca1944" prot="public" static="no" mutable="no">
+        <type>TArray&lt; FLinearColor &gt;</type>
+        <definition>TArray&lt;FLinearColor&gt; UCharacterRaceData::BeardColorOptions</definition>
+        <argsstring></argsstring>
+        <name>BeardColorOptions</name>
+        <qualifiedname>UCharacterRaceData::BeardColorOptions</qualifiedname>
+        <initializer>= {FColor::FromHex(&quot;0xC0946F&quot;).ReinterpretAsLinear()}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="124" column="8" bodyfile="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" bodystart="124" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_character_race_data_1a623c29685c4103779a69be94889cf7dc" prot="public" static="no" mutable="no">
+        <type>TArray&lt; FLinearColor &gt;</type>
+        <definition>TArray&lt;FLinearColor&gt; UCharacterRaceData::HairColorOptions</definition>
+        <argsstring></argsstring>
+        <name>HairColorOptions</name>
+        <qualifiedname>UCharacterRaceData::HairColorOptions</qualifiedname>
+        <initializer>= {FColor::FromHex(&quot;0xC0946F&quot;).ReinterpretAsLinear()}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="129" column="8" bodyfile="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" bodystart="129" bodyend="129"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_character_race_data_1a7e4e6bb59f79012624d4efe2e4a2b07c" prot="public" static="no" mutable="no">
+        <type>TArray&lt; FLinearColor &gt;</type>
+        <definition>TArray&lt;FLinearColor&gt; UCharacterRaceData::EyeColorOptions</definition>
+        <argsstring></argsstring>
+        <name>EyeColorOptions</name>
+        <qualifiedname>UCharacterRaceData::EyeColorOptions</qualifiedname>
+        <initializer>= {FColor::FromHex(&quot;0x020202&quot;).ReinterpretAsLinear()}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="134" column="8" bodyfile="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" bodystart="134" bodyend="134"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_u_character_race_data_1ab8ef674bf5a38b59615775bbb1c9fb7c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>UCharacterRaceData::UCharacterRaceData</definition>
+        <argsstring>()</argsstring>
+        <name>UCharacterRaceData</name>
+        <qualifiedname>UCharacterRaceData::UCharacterRaceData</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="89" column="1" bodyfile="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" bodystart="89" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_character_race_data_1a57f08f9a0cced1897b94fc46e958763f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCharacterRaceData::UFUNCTION</definition>
+        <argsstring>(BlueprintPure) FLinearColor GetEyeColor(int EyeColorIndex</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>UCharacterRaceData::UFUNCTION</qualifiedname>
+        <param>
+          <type>BlueprintPure</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="91" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_character_race_data_1ae90ee10695c640f1650352132d37c9fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCharacterRaceData::UFUNCTION</definition>
+        <argsstring>(BlueprintPure) FLinearColor GetSkinColor(int SkinColorIndex</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>UCharacterRaceData::UFUNCTION</qualifiedname>
+        <param>
+          <type>BlueprintPure</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="92" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_character_race_data_1a8d0847b9ef0e8ea841e1405636cd8321" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCharacterRaceData::UFUNCTION</definition>
+        <argsstring>(BlueprintPure) FLinearColor GetHairColor(int HairColorIndex</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>UCharacterRaceData::UFUNCTION</qualifiedname>
+        <param>
+          <type>BlueprintPure</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="93" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_character_race_data_1a0d08f147dd997ce637b7b549ebcb2a3d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCharacterRaceData::UFUNCTION</definition>
+        <argsstring>(BlueprintPure) FLinearColor GetBeardColor(int BeardColorIndex</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>UCharacterRaceData::UFUNCTION</qualifiedname>
+        <param>
+          <type>BlueprintPure</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="94" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_character_race_data_1abffb06ba2444f09f62fb008e7ba5e88b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCharacterRaceData::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadOnly) UMaterialInstance *SkinMaterial</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UCharacterRaceData::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="115" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_character_race_data_1a541e672351bc9dd63ca3537caf17e266" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCharacterRaceData::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadOnly) UMaterialInstance *BeardMaterial</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UCharacterRaceData::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="126" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_character_race_data_1aa2246bdded48a0e0e8d5e82ecd7a8cf9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCharacterRaceData::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadOnly) UMaterialInstance *EyeMaterial</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UCharacterRaceData::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadOnly</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="131" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_character_race_data_1a92443b75281c58f1608f97f2f0c23748" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCharacterRaceData::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) TArray&lt; FMeshMergeMappings &gt; MeshOptionsForArms</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UCharacterRaceData::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="136" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_character_race_data_1a356d40109e9be330588d15a3bfd2a49b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCharacterRaceData::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) TArray&lt; FMeshMergeMappings &gt; MeshOptionsForHairstyle</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UCharacterRaceData::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="137" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_character_race_data_1ad7d0ae68797c2f2e714e069eb0bdb80b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCharacterRaceData::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) TArray&lt; FMeshMergeMappings &gt; MeshOptionsForHands</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UCharacterRaceData::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="138" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_character_race_data_1a8c8dfbf331884afdf217fe35d8892e19" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCharacterRaceData::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) TArray&lt; FMeshMergeMappings &gt; MeshOptionsForHead</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UCharacterRaceData::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="139" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_character_race_data_1a4a0557dfe85d562289711bcf8a7870e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCharacterRaceData::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) TArray&lt; FMeshMergeMappings &gt; MeshOptionsForEyebrows</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UCharacterRaceData::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="140" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_character_race_data_1ace590ecbde3e4fb3dbc2fb77ad29d2de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCharacterRaceData::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) TArray&lt; FMeshMergeMappings &gt; MeshOptionsForEyes</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UCharacterRaceData::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="141" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_character_race_data_1a16987d8dfe69824f7c61ce16d51531b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCharacterRaceData::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) TArray&lt; FMeshMergeMappings &gt; MeshOptionsForFacialHair</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UCharacterRaceData::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="142" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_character_race_data_1a455e2211e1df69c01ff2fa3c9cd8ca45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCharacterRaceData::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) TArray&lt; FMeshMergeMappings &gt; MeshOptionsForFeet</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UCharacterRaceData::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="143" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_character_race_data_1aaa5b77434b6b601bfd931ca5b29b8411" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCharacterRaceData::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) TArray&lt; FMeshMergeMappings &gt; MeshOptionsForLegs</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UCharacterRaceData::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="144" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_character_race_data_1a43656101499fd4a615182a083f513640" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCharacterRaceData::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) TArray&lt; FMeshMergeMappings &gt; MeshOptionsForNeck</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UCharacterRaceData::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="145" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_character_race_data_1a1f7c3c5e4705d2d928a2465e152ae671" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UCharacterRaceData::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) TArray&lt; FMeshMergeMappings &gt; MeshOptionsForTorso</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>UCharacterRaceData::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="146" column="1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>UCharacterCommonData</label>
+        <link refid="class_u_character_common_data"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>UCharacterRaceData</label>
+        <link refid="class_u_character_race_data"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>UDataAsset</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>UCharacterCommonData</label>
+        <link refid="class_u_character_common_data"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>UCharacterRaceData</label>
+        <link refid="class_u_character_race_data"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>UDataAsset</label>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="84" column="1" bodyfile="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" bodystart="85" bodyend="148"/>
+    <listofallmembers>
+      <member refid="class_u_character_common_data_1a7f9393fbb6e3dfb59a5a79ebf4814b26" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>Abilities</name></member>
+      <member refid="class_u_character_race_data_1af953ff3442d39fadc89e41e7dcca1944" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>BeardColorOptions</name></member>
+      <member refid="class_u_character_common_data_1a90040cdc2458fc59f33396b0849a4982" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>CoreStatsModifiers</name></member>
+      <member refid="class_u_character_common_data_1ac1ed158282121326386968765ee72617" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>DamageBonusModifiers</name></member>
+      <member refid="class_u_character_common_data_1a99170dbd6f888e6c477f25d2293dfb9e" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>DamageResistModifiers</name></member>
+      <member refid="class_u_character_race_data_1afc6c5973e312ee9c9c349d71e5f1f949" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>DescriptionText</name></member>
+      <member refid="class_u_character_common_data_1ac69b7a2e5df7332d1a6a56670119a782" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>DisplayName</name></member>
+      <member refid="class_u_character_common_data_1ac0b751d1652488ed1d0766995ef54968" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>Effects</name></member>
+      <member refid="class_u_character_race_data_1af5f6306dbc8fe20b8779f771d33191c8" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>EligibleClasses</name></member>
+      <member refid="class_u_character_race_data_1a7e4e6bb59f79012624d4efe2e4a2b07c" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>EyeColorOptions</name></member>
+      <member refid="class_u_character_race_data_1ad9e72f148b070416cc5a37e507d20603" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>GameplayTag</name></member>
+      <member refid="class_u_character_race_data_1a623c29685c4103779a69be94889cf7dc" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>HairColorOptions</name></member>
+      <member refid="class_u_character_race_data_1ab9e3c52c611181af43456b18ce14c691" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>HairMaterial</name></member>
+      <member refid="class_u_character_race_data_1a3931803992201829d958803ac20f9efb" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>RaceIcon</name></member>
+      <member refid="class_u_character_race_data_1af2152f0f14f643ab6fe6f5016533a733" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>SkeletonOptions</name></member>
+      <member refid="class_u_character_race_data_1aa6ffa79ffedbcb9451a4e388e531df8a" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>SkinColorOptions</name></member>
+      <member refid="class_u_character_common_data_1ac8cc3a50f0269e47dc90946da8734432" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>UCharacterCommonData</name></member>
+      <member refid="class_u_character_race_data_1ab8ef674bf5a38b59615775bbb1c9fb7c" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>UCharacterRaceData</name></member>
+      <member refid="class_u_character_race_data_1a57f08f9a0cced1897b94fc46e958763f" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>UFUNCTION</name></member>
+      <member refid="class_u_character_race_data_1ae90ee10695c640f1650352132d37c9fe" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>UFUNCTION</name></member>
+      <member refid="class_u_character_race_data_1a8d0847b9ef0e8ea841e1405636cd8321" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>UFUNCTION</name></member>
+      <member refid="class_u_character_race_data_1a0d08f147dd997ce637b7b549ebcb2a3d" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>UFUNCTION</name></member>
+      <member refid="class_u_character_race_data_1abffb06ba2444f09f62fb008e7ba5e88b" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_character_race_data_1a541e672351bc9dd63ca3537caf17e266" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_character_race_data_1aa2246bdded48a0e0e8d5e82ecd7a8cf9" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_character_race_data_1a92443b75281c58f1608f97f2f0c23748" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_character_race_data_1a356d40109e9be330588d15a3bfd2a49b" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_character_race_data_1ad7d0ae68797c2f2e714e069eb0bdb80b" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_character_race_data_1a8c8dfbf331884afdf217fe35d8892e19" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_character_race_data_1a4a0557dfe85d562289711bcf8a7870e7" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_character_race_data_1ace590ecbde3e4fb3dbc2fb77ad29d2de" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_character_race_data_1a16987d8dfe69824f7c61ce16d51531b5" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_character_race_data_1a455e2211e1df69c01ff2fa3c9cd8ca45" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_character_race_data_1aaa5b77434b6b601bfd931ca5b29b8411" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_character_race_data_1a43656101499fd4a615182a083f513640" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>UPROPERTY</name></member>
+      <member refid="class_u_character_race_data_1a1f7c3c5e4705d2d928a2465e152ae671" prot="public" virt="non-virtual"><scope>UCharacterRaceData</scope><name>UPROPERTY</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="dir_1c3863ad136f0162a119bfca66b50f20" kind="dir">
+    <compoundname>Source/TalesDungeoneer/Private/Gas</compoundname>
+    <innerdir refid="dir_04ce6e5629af56bb644941ff6856d5c2">Source/TalesDungeoneer/Private/Gas/Abilities</innerdir>
+    <innerdir refid="dir_21d9210cc48803742552dc38b6a9cc10">Source/TalesDungeoneer/Private/Gas/AttributeSets</innerdir>
+    <innerdir refid="dir_09372c19a2e54ae73ea61a1a26bb1477">Source/TalesDungeoneer/Private/Gas/Contexts</innerdir>
+    <innerdir refid="dir_863f16609b2043e84594e334625993f9">Source/TalesDungeoneer/Private/Gas/Effects</innerdir>
+    <innerdir refid="dir_79e735ae43bc1a5a6a8c5ce36cb1027f">Source/TalesDungeoneer/Private/Gas/Misc</innerdir>
+    <innerfile refid="_tales_ability_globals_8cpp">TalesAbilityGlobals.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Private/Gas/"/>
+  </compounddef>
+</doxygen>

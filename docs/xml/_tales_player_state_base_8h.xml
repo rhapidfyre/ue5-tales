@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_tales_player_state_base_8h" kind="file" language="C++">
+    <compoundname>TalesPlayerStateBase.h</compoundname>
+    <includes local="yes">CoreMinimal.h</includes>
+    <includes local="yes">GameplayTagContainer.h</includes>
+    <includes local="yes">GameFramework/PlayerState.h</includes>
+    <includes local="yes">Delegates/Delegate.h</includes>
+    <includes local="yes">TalesPlayerStateBase.generated.h</includes>
+    <includedby refid="_tales_ability_component_8cpp" local="yes">Source/TalesDungeoneer/Private/Characters/Components/TalesAbilityComponent.cpp</includedby>
+    <includedby refid="_tales_player_state_base_8cpp" local="yes">Source/TalesDungeoneer/Private/Gamemode/AdventureMode/TalesPlayerStateBase.cpp</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>CoreMinimal.h</label>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesPlayerStateBase.h</label>
+        <link refid="_tales_player_state_base_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Delegates/Delegate.h</label>
+      </node>
+      <node id="4">
+        <label>GameFramework/PlayerState.h</label>
+      </node>
+      <node id="3">
+        <label>GameplayTagContainer.h</label>
+      </node>
+      <node id="6">
+        <label>TalesPlayerStateBase.generated.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="class_a_tales_player_state_base" prot="public">ATalesPlayerStateBase</innerclass>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="_tales_player_state_base_8h_1a49acd737148c8bb1a2c3b7b88103e2e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DECLARE_DYNAMIC_MULTICAST_DELEGATE</definition>
+        <argsstring>(FOnPlayerNameUpdated)</argsstring>
+        <name>DECLARE_DYNAMIC_MULTICAST_DELEGATE</name>
+        <param>
+          <type>FOnPlayerNameUpdated</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesPlayerStateBase.h" line="13" column="1" declfile="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesPlayerStateBase.h" declline="13" declcolumn="1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Fill<sp/>out<sp/>your<sp/>copyright<sp/>notice<sp/>in<sp/>the<sp/>Description<sp/>page<sp/>of<sp/>Project<sp/>Settings.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;CoreMinimal.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;GameplayTagContainer.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;GameFramework/PlayerState.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Delegates/Delegate.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;TalesPlayerStateBase.generated.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal">DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPlayerNameUpdated);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal">UCLASS(BlueprintType,<sp/>Blueprintable)</highlight></codeline>
+<codeline lineno="17" refid="class_a_tales_player_state_base" refkind="compound"><highlight class="normal">class<sp/>TALESDUNGEONEER_API<sp/><ref refid="class_a_tales_player_state_base" kindref="compound">ATalesPlayerStateBase</ref><sp/>:<sp/>public<sp/>APlayerState</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>GENERATED_BODY()</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_a_tales_player_state_base" kindref="compound">ATalesPlayerStateBase</ref>();</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintAssignable)<sp/>FOnPlayerNameUpdated<sp/>OnPlayerNameUpdated;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Called<sp/>whenever<sp/>the<sp/>player&apos;s<sp/>name<sp/>is<sp/>changed<sp/>to<sp/>update<sp/>all<sp/>delegates</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintCallable)<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>UpdatePlayerName();</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Returns<sp/>the<sp/>data<sp/>asset<sp/>for<sp/>the<sp/>current<sp/>character<sp/>class.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Check<sp/>for<sp/>nullptr<sp/>before<sp/>accessing<sp/>result</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintPure)<sp/>UDataAsset*<sp/>GetClassDataAsset(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayTag&amp;<sp/>ClassTag)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintPure)<sp/>TArray&lt;FGameplayTag&gt;<sp/>GetAllCharacterClasses()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Returns<sp/>the<sp/>data<sp/>asset<sp/>for<sp/>the<sp/>current<sp/>character<sp/>race.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Check<sp/>for<sp/>nullptr<sp/>before<sp/>accessing<sp/>result</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintPure)<sp/>UDataAsset*<sp/>GetRaceDataAsset(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayTag&amp;<sp/>RaceTag)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintPure)<sp/>TArray&lt;FGameplayTag&gt;<sp/>GetAllCharacterRaces()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>TMap&lt;FGameplayTag,<sp/>UDataAsset*&gt;<sp/>RaceTagsMapped<sp/><sp/>=<sp/>{};</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>TMap&lt;FGameplayTag,<sp/>UDataAsset*&gt;<sp/>ClassTagsMapped<sp/>=<sp/>{};</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="44"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesPlayerStateBase.h"/>
+  </compounddef>
+</doxygen>

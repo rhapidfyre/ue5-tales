@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="dir_0a0e42094fb093e3c800f31c96a7d03a" kind="dir">
+    <compoundname>Source/TalesDungeoneer/Private/Characters/Behaviors</compoundname>
+    <innerfile refid="_ai_behavior_tree_base_8cpp">AiBehaviorTreeBase.cpp</innerfile>
+    <innerfile refid="_combat_ai_behavior_tree_base_8cpp">CombatAiBehaviorTreeBase.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Private/Characters/Behaviors/"/>
+  </compounddef>
+</doxygen>

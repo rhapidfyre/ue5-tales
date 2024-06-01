@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_u_ai_behavior_tree_base" kind="class" language="C++" prot="public">
+    <compoundname>UAiBehaviorTreeBase</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">UBehaviorTree</basecompoundref>
+    <derivedcompoundref refid="class_u_combat_ai_behavior_tree_base" prot="public" virt="non-virtual">UCombatAiBehaviorTreeBase</derivedcompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_u_ai_behavior_tree_base_1a197347e93ab563d4e868f12db606754d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UAiBehaviorTreeBase::UAiBehaviorTreeBase</definition>
+        <argsstring>()</argsstring>
+        <name>UAiBehaviorTreeBase</name>
+        <qualifiedname>UAiBehaviorTreeBase::UAiBehaviorTreeBase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Behaviors/AiBehaviorTreeBase.h" line="14" column="1" bodyfile="Source/TalesDungeoneer/Private/Characters/Behaviors/AiBehaviorTreeBase.cpp" bodystart="6" bodyend="9"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>UAiBehaviorTreeBase</label>
+        <link refid="class_u_ai_behavior_tree_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>UBehaviorTree</label>
+      </node>
+      <node id="3">
+        <label>UCombatAiBehaviorTreeBase</label>
+        <link refid="class_u_combat_ai_behavior_tree_base"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>UAiBehaviorTreeBase</label>
+        <link refid="class_u_ai_behavior_tree_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>UBehaviorTree</label>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Characters/Behaviors/AiBehaviorTreeBase.h" line="10" column="1" bodyfile="Source/TalesDungeoneer/Public/Characters/Behaviors/AiBehaviorTreeBase.h" bodystart="11" bodyend="15"/>
+    <listofallmembers>
+      <member refid="class_u_ai_behavior_tree_base_1a197347e93ab563d4e868f12db606754d" prot="public" virt="non-virtual"><scope>UAiBehaviorTreeBase</scope><name>UAiBehaviorTreeBase</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

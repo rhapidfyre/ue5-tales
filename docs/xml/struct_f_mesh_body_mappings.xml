@@ -1,0 +1,180 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="struct_f_mesh_body_mappings" kind="struct" language="C++" prot="public">
+    <compoundname>FMeshBodyMappings</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_f_mesh_body_mappings_1a4a2028fc5e80baa8b02774e69b423f87" prot="public" static="no" mutable="no">
+        <type>TMap&lt; UMaterialInstance *, FLinearColor &gt;</type>
+        <definition>TMap&lt;UMaterialInstance*, FLinearColor&gt; FMeshBodyMappings::MaterialInstances</definition>
+        <argsstring></argsstring>
+        <name>MaterialInstances</name>
+        <qualifiedname>FMeshBodyMappings::MaterialInstances</qualifiedname>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" line="89" column="6" bodyfile="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" bodystart="89" bodyend="89"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_f_mesh_body_mappings_1a339876a232ff0fb3b2ed716e9c40610b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>FMeshBodyMappings::FMeshBodyMappings</definition>
+        <argsstring>()</argsstring>
+        <name>FMeshBodyMappings</name>
+        <qualifiedname>FMeshBodyMappings::FMeshBodyMappings</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" line="77" column="1" bodyfile="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" bodystart="77" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_mesh_body_mappings_1a36083934af667223334a89fe7ac121e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FMeshBodyMappings::FMeshBodyMappings</definition>
+        <argsstring>(USkeletalMesh *UsingMesh, const FGameplayTag &amp;BodyTag, const FGameplayTagContainer &amp;OptionTags)</argsstring>
+        <name>FMeshBodyMappings</name>
+        <qualifiedname>FMeshBodyMappings::FMeshBodyMappings</qualifiedname>
+        <param>
+          <type>USkeletalMesh *</type>
+          <declname>UsingMesh</declname>
+        </param>
+        <param>
+          <type>const FGameplayTag &amp;</type>
+          <declname>BodyTag</declname>
+        </param>
+        <param>
+          <type>const FGameplayTagContainer &amp;</type>
+          <declname>OptionTags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" line="78" column="1" bodyfile="Source/TalesDungeoneer/Private/Characters/Components/MeshMergeComponent.cpp" bodystart="63" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_mesh_body_mappings_1aebf43520dd7deeef0d60bbf082f5a9f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FMeshBodyMappings::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) USkeletalMesh *SkeletalMesh</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FMeshBodyMappings::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" line="82" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_mesh_body_mappings_1a8ee6bd9bfc61a9e209b7598b20191800" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FMeshBodyMappings::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) FGameplayTag BodyPartTag</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FMeshBodyMappings::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" line="85" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_mesh_body_mappings_1a97e873d37e4a11ca45137293fdaec458" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FMeshBodyMappings::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) FGameplayTagContainer OptionTags</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FMeshBodyMappings::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" line="92" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_mesh_body_mappings_1a91ce01a8e6bdd4ba92ccdbbb79130f51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FMeshBodyMappings::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) FGameplayTagContainer RequiresMeshesWithTags</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FMeshBodyMappings::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" line="95" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_mesh_body_mappings_1a3f729f2ca7ba1adca0dde2710154623b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FMeshBodyMappings::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) FGameplayTagContainer HidesMeshesWithTags</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FMeshBodyMappings::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" line="99" column="1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" line="74" column="1" bodyfile="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" bodystart="75" bodyend="100"/>
+    <listofallmembers>
+      <member refid="struct_f_mesh_body_mappings_1a339876a232ff0fb3b2ed716e9c40610b" prot="public" virt="non-virtual"><scope>FMeshBodyMappings</scope><name>FMeshBodyMappings</name></member>
+      <member refid="struct_f_mesh_body_mappings_1a36083934af667223334a89fe7ac121e2" prot="public" virt="non-virtual"><scope>FMeshBodyMappings</scope><name>FMeshBodyMappings</name></member>
+      <member refid="struct_f_mesh_body_mappings_1a4a2028fc5e80baa8b02774e69b423f87" prot="public" virt="non-virtual"><scope>FMeshBodyMappings</scope><name>MaterialInstances</name></member>
+      <member refid="struct_f_mesh_body_mappings_1aebf43520dd7deeef0d60bbf082f5a9f3" prot="public" virt="non-virtual"><scope>FMeshBodyMappings</scope><name>UPROPERTY</name></member>
+      <member refid="struct_f_mesh_body_mappings_1a8ee6bd9bfc61a9e209b7598b20191800" prot="public" virt="non-virtual"><scope>FMeshBodyMappings</scope><name>UPROPERTY</name></member>
+      <member refid="struct_f_mesh_body_mappings_1a97e873d37e4a11ca45137293fdaec458" prot="public" virt="non-virtual"><scope>FMeshBodyMappings</scope><name>UPROPERTY</name></member>
+      <member refid="struct_f_mesh_body_mappings_1a91ce01a8e6bdd4ba92ccdbbb79130f51" prot="public" virt="non-virtual"><scope>FMeshBodyMappings</scope><name>UPROPERTY</name></member>
+      <member refid="struct_f_mesh_body_mappings_1a3f729f2ca7ba1adca0dde2710154623b" prot="public" virt="non-virtual"><scope>FMeshBodyMappings</scope><name>UPROPERTY</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

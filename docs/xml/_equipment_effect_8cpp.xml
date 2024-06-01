@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_equipment_effect_8cpp" kind="file" language="C++">
+    <compoundname>EquipmentEffect.cpp</compoundname>
+    <includes refid="_equipment_effect_8h" local="yes">Gas/Effects/EquipmentEffect.h</includes>
+    <incdepgraph>
+      <node id="3">
+        <label>CoreMinimal.h</label>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Private/Gas/Effects/EquipmentEffect.cpp</label>
+        <link refid="_equipment_effect_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Gas/Effects/EquipmentEffect.h</label>
+        <link refid="_equipment_effect_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>TalesEffectBase.h</label>
+        <link refid="_tales_effect_base_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>EquipmentEffect.generated.h</label>
+      </node>
+      <node id="5">
+        <label>GameplayEffect.h</label>
+      </node>
+      <node id="6">
+        <label>TalesEffectBase.generated.h</label>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Take<sp/>Five<sp/>Games,<sp/>LLC</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Gas/Effects/EquipmentEffect.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Private/Gas/Effects/EquipmentEffect.cpp"/>
+  </compounddef>
+</doxygen>

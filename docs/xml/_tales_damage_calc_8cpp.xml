@@ -1,0 +1,338 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_tales_damage_calc_8cpp" kind="file" language="C++">
+    <compoundname>TalesDamageCalc.cpp</compoundname>
+    <includes refid="_tales_damage_calc_8h" local="yes">TalesDamageCalc.h</includes>
+    <includes refid="_tales_attributes_8h" local="yes">Gas/AttributeSets/TalesAttributes.h</includes>
+    <includes refid="_damage_attributes_8h" local="yes">Gas/AttributeSets/DamageAttributes.h</includes>
+    <includes refid="_vitality_attributes_8h" local="yes">Gas/AttributeSets/VitalityAttributes.h</includes>
+    <includes refid="_vitality_effect_context_8h" local="yes">Gas/Contexts/VitalityEffectContext.h</includes>
+    <includes local="yes">Logging/StructuredLog.h</includes>
+    <incdepgraph>
+      <node id="13">
+        <label>AbilitySystemComponent.h</label>
+      </node>
+      <node id="7">
+        <label>AttributeSet.h</label>
+      </node>
+      <node id="3">
+        <label>CoreMinimal.h</label>
+      </node>
+      <node id="18">
+        <label>CoreStatsAttributes.generated.h</label>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Private/Gas/Misc/TalesDamageCalc.cpp</label>
+        <link refid="_tales_damage_calc_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>TalesDamageCalc.h</label>
+        <link refid="_tales_damage_calc_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>../AttributeHelpers.h</label>
+        <link refid="_attribute_helpers_8h_source"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>CoreStatsAttributes.h</label>
+        <link refid="_core_stats_attributes_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>DamageAttributes.h</label>
+        <link refid="_damage_attributes_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>EffectAttributes.h</label>
+        <link refid="_effect_attributes_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>Gas/AttributeSets/TalesAttributes.h</label>
+        <link refid="_tales_attributes_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>VitalityAttributes.h</label>
+        <link refid="_vitality_attributes_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>Gas/Contexts/VitalityEffectContext.h</label>
+        <link refid="_vitality_effect_context_8h_source"/>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>DamageAttributes.generated.h</label>
+      </node>
+      <node id="11">
+        <label>Delegates/Delegate.h</label>
+      </node>
+      <node id="10">
+        <label>EffectAttributes.generated.h</label>
+      </node>
+      <node id="4">
+        <label>GameplayEffectExecutionCalculation.h</label>
+      </node>
+      <node id="23">
+        <label>GameplayEffectTypes.h</label>
+      </node>
+      <node id="25">
+        <label>Logging/StructuredLog.h</label>
+      </node>
+      <node id="14">
+        <label>NativeGameplayTags.h</label>
+      </node>
+      <node id="21">
+        <label>TalesAttributes.generated.h</label>
+      </node>
+      <node id="5">
+        <label>TalesDamageCalc.generated.h</label>
+      </node>
+      <node id="9">
+        <label>UObject/Object.h</label>
+      </node>
+      <node id="16">
+        <label>VitalityAttributes.generated.h</label>
+      </node>
+      <node id="24">
+        <label>VitalityEffectContext.generated.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="struct_f_damage_statics" prot="public">FDamageStatics</innerclass>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="_tales_damage_calc_8cpp_1a6ef5ec74437a3e8cfe6e93f39574505b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_f_damage_statics" kindref="compound">FDamageStatics</ref></type>
+        <definition>static FDamageStatics DamageStatics</definition>
+        <argsstring>()</argsstring>
+        <name>DamageStatics</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Private/Gas/Misc/TalesDamageCalc.cpp" line="31" column="23" bodyfile="Source/TalesDungeoneer/Private/Gas/Misc/TalesDamageCalc.cpp" bodystart="31" bodyend="35"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>Take<sp/>Five<sp/>Games,<sp/>LLC<sp/>2023<sp/>-<sp/>All<sp/>Rights<sp/>Reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;TalesDamageCalc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Gas/AttributeSets/TalesAttributes.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Gas/AttributeSets/DamageAttributes.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Gas/AttributeSets/VitalityAttributes.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Gas/Contexts/VitalityEffectContext.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Logging/StructuredLog.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Allows<sp/>manipulation<sp/>of<sp/>the<sp/>captured<sp/>values,<sp/>such<sp/>as<sp/>resistances<sp/>and<sp/>bonuses</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15" refid="struct_f_damage_statics" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_f_damage_statics" kindref="compound">FDamageStatics</ref></highlight></codeline>
+<codeline lineno="16"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>DECLARE_ATTRIBUTE_CAPTUREDEF(IncomingDamage);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>DECLARE_ATTRIBUTE_CAPTUREDEF(CriticalChance);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>DECLARE_ATTRIBUTE_CAPTUREDEF(CriticalMultiplier);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>DECLARE_ATTRIBUTE_CAPTUREDEF(LuckyChance);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_f_damage_statics" kindref="compound">FDamageStatics</ref>()</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEFINE_ATTRIBUTE_CAPTUREDEF(<ref refid="class_u_damage_attributes" kindref="compound">UDamageAttributes</ref>,<sp/>IncomingDamage,<sp/>Source,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEFINE_ATTRIBUTE_CAPTUREDEF(<ref refid="class_u_damage_attributes" kindref="compound">UDamageAttributes</ref>,<sp/>CriticalChance,<sp/>Source,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEFINE_ATTRIBUTE_CAPTUREDEF(<ref refid="class_u_damage_attributes" kindref="compound">UDamageAttributes</ref>,<sp/>CriticalMultiplier,<sp/>Source,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEFINE_ATTRIBUTE_CAPTUREDEF(<ref refid="class_u_damage_attributes" kindref="compound">UDamageAttributes</ref>,<sp/>LuckyChance,<sp/>Source,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_f_damage_statics" kindref="compound">FDamageStatics</ref><sp/>DamageStatics()</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_f_damage_statics" kindref="compound">FDamageStatics</ref><sp/>DmgStatics;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>DmgStatics;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal">UTalesDamageCalc::UTalesDamageCalc()</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>RelevantAttributesToCapture.Add(DamageStatics().IncomingDamageDef);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>RelevantAttributesToCapture.Add(DamageStatics().CriticalChanceDef);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>RelevantAttributesToCapture.Add(DamageStatics().CriticalMultiplierDef);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>RelevantAttributesToCapture.Add(DamageStatics().LuckyChanceDef);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>UTalesDamageCalc::Execute_Implementation(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayEffectCustomExecutionParameters&amp;<sp/>ExecutionParams,</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayEffectCustomExecutionOutput&amp;<sp/>OutExecutionOutput)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="47"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>Super::Execute_Implementation(ExecutionParams,<sp/>OutExecutionOutput);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>UAbilitySystemComponent*<sp/>SourceComponent<sp/>=<sp/>ExecutionParams.GetSourceAbilitySystemComponent();</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>UAbilitySystemComponent*<sp/>TargetComponent<sp/>=<sp/>ExecutionParams.GetTargetAbilitySystemComponent();</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>AActor*<sp/>TargetActor<sp/>=<sp/>IsValid(TargetComponent)<sp/>?<sp/>TargetComponent-&gt;GetAvatarActor()<sp/>:<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayEffectSpec&amp;<sp/>EffectSpec<sp/>=<sp/>ExecutionParams.GetOwningSpec();</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayTagContainer*<sp/>SourceTags<sp/>=<sp/>EffectSpec.CapturedSourceTags.GetAggregatedTags();</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FGameplayTagContainer*<sp/>TargetTags<sp/>=<sp/>EffectSpec.CapturedTargetTags.GetAggregatedTags();</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>FAggregatorEvaluateParameters<sp/>EvaluationParameters;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/>EvaluationParameters.SourceTags<sp/>=<sp/>SourceTags;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>EvaluationParameters.TargetTags<sp/>=<sp/>TargetTags;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Retrieve<sp/>the<sp/>InDamage<sp/>value<sp/>passed<sp/>to<sp/>Assign<sp/>Tag<sp/>Set<sp/>by<sp/>Caller<sp/>Magnitude</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/>(on<sp/>output<sp/>of<sp/>Make<sp/>Outgoing<sp/>Spec)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//const<sp/>FGameplayTag<sp/>SetCallerTag<sp/>=<sp/>FGameplayTag::RequestGameplayTag(InDamageTag,false);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>InDamage<sp/>=<sp/>0.f;</highlight><highlight class="comment">//FMath::Max(EffectSpec.GetSetByCallerMagnitude(SetCallerTag,<sp/>false,<sp/>-1.f),<sp/>0.f);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DamageStatics().IncomingDamageDef,<sp/>EvaluationParameters,<sp/>InDamage);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>CriticalChance<sp/><sp/><sp/><sp/><sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>CriticalMultiplier<sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>LuckyChance<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Set<sp/>critical<sp/>chance<sp/>to<sp/>100%<sp/>if<sp/>the<sp/>hit<sp/>bone<sp/>is<sp/>the<sp/>head</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DamageStatics().CriticalChanceDef,<sp/>EvaluationParameters,<sp/>CriticalChance);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FHitResult*<sp/>HitResult<sp/>=<sp/>EffectSpec.GetContext().GetHitResult();</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(HitResult)</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(HitResult-&gt;BoneName<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;head&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CriticalChance<sp/>=<sp/>100.f;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Multiply<sp/>the<sp/>damage<sp/>if<sp/>the<sp/>hit<sp/>was<sp/>a<sp/>critical<sp/>hit</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DamageStatics().CriticalMultiplierDef,<sp/>EvaluationParameters,<sp/>CriticalMultiplier);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isCritical<sp/>=<sp/>FMath::RandRange(0.01f,<sp/>100.f)<sp/>&lt;=<sp/>CriticalChance;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(CriticalMultiplier<sp/>&gt;<sp/>1.f)</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InDamage<sp/>*=<sp/>isCritical<sp/>?<sp/>CriticalMultiplier<sp/>:<sp/>1.f;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>For<sp/>every<sp/>time<sp/>the<sp/>random<sp/>number<sp/>is<sp/>below<sp/>the<sp/>lucky<sp/>chance,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>the<sp/>damage<sp/>multiplier<sp/>will<sp/>be<sp/>increased<sp/>by<sp/>*1<sp/>and<sp/>the<sp/>lucky<sp/>chance</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>gets<sp/>lowered<sp/>by<sp/>100%</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/>ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DamageStatics().LuckyChanceDef,<sp/>EvaluationParameters,<sp/>LuckyChance);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isLucky<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(LuckyChance<sp/>&gt;<sp/>0.f)</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>LuckyMulti<sp/>=<sp/>1.f;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(FMath::RandRange(0.01f,<sp/>100.f)<sp/>&lt;=<sp/>LuckyChance)</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LuckyChance<sp/>-=<sp/>100.f;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LuckyMulti<sp/><sp/>+=<sp/>1.f;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>isLucky<sp/><sp/><sp/><sp/><sp/><sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InDamage<sp/>*=<sp/>isLucky<sp/>?<sp/>LuckyMulti<sp/>:<sp/>1.f;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/>UE_LOGFMT(LogTemp,<sp/>Log,<sp/></highlight><highlight class="stringliteral">&quot;Damage<sp/>After<sp/>Modification:<sp/>{DamageValue}&quot;</highlight><highlight class="normal">,<sp/>InDamage);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/>OutExecutionOutput.AddOutputModifier(</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FGameplayModifierEvaluatedData(DamageStatics().IncomingDamageProperty,</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EGameplayModOp::Additive,<sp/>InDamage));</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/>FGameplayEffectSpec*<sp/>MutableSpec<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>ExecutionParams.GetOwningSpecForPreExecuteMod();</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_f_vitality_effect_context" kindref="compound">FVitalityEffectContext</ref>*<sp/>EffectContext<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal"><ref refid="struct_f_vitality_effect_context" kindref="compound">FVitalityEffectContext</ref>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>MutableSpec-&gt;GetContext().Get()<sp/>);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(EffectContext<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EffectContext-&gt;SetIsCriticalHit(isCritical);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EffectContext-&gt;SetIsLuckyHit(isLucky);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Private/Gas/Misc/TalesDamageCalc.cpp"/>
+  </compounddef>
+</doxygen>

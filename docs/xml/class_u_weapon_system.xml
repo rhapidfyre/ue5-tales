@@ -1,0 +1,202 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_u_weapon_system" kind="class" language="C++" prot="public">
+    <compoundname>UWeaponSystem</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">UBlueprintFunctionLibrary</basecompoundref>
+    <includes refid="_weapon_system_8h" local="no">WeaponSystem.h</includes>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_u_weapon_system_1a6adb87fdcd6a6d2bbb1caf250b55d19d" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>FName</type>
+        <definition>static FName UWeaponSystem::GetInvalidName</definition>
+        <argsstring>()</argsstring>
+        <name>GetInvalidName</name>
+        <qualifiedname>UWeaponSystem::GetInvalidName</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponSystem.h" line="22" column="14" bodyfile="Source/TalesDungeoneer/Public/Weapons/WeaponSystem.h" bodystart="22" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_weapon_system_1aa6b0b9fb248c06fa796ebdf13721899b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>UDataTable *</type>
+        <definition>UDataTable * UWeaponSystem::GetWeaponDataTable</definition>
+        <argsstring>()</argsstring>
+        <name>GetWeaponDataTable</name>
+        <qualifiedname>UWeaponSystem::GetWeaponDataTable</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponSystem.h" line="25" column="19" bodyfile="Source/TalesDungeoneer/Private/Weapons/WeaponSystem.cpp" bodystart="3" bodyend="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_weapon_system_1af08df318fcb4b97818a4077adfc2c323" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>FString</type>
+        <definition>FString UWeaponSystem::GetWeaponItemName</definition>
+        <argsstring>(FStWeaponData weaponData)</argsstring>
+        <name>GetWeaponItemName</name>
+        <qualifiedname>UWeaponSystem::GetWeaponItemName</qualifiedname>
+        <param>
+          <type><ref refid="struct_f_st_weapon_data" kindref="compound">FStWeaponData</ref></type>
+          <declname>weaponData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponSystem.h" line="28" column="16" bodyfile="Source/TalesDungeoneer/Private/Weapons/WeaponSystem.cpp" bodystart="17" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_weapon_system_1a96389a503ec704e7412164d9ce47c092" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool UWeaponSystem::IsMeleeAttack</definition>
+        <argsstring>(EWeaponTypes weaponType)</argsstring>
+        <name>IsMeleeAttack</name>
+        <qualifiedname>UWeaponSystem::IsMeleeAttack</qualifiedname>
+        <param>
+          <type>EWeaponTypes</type>
+          <declname>weaponType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponSystem.h" line="31" column="13" bodyfile="Source/TalesDungeoneer/Private/Weapons/WeaponSystem.cpp" bodystart="22" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_weapon_system_1aadc014ab06ee21a24dd2429c7113a1a5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool UWeaponSystem::IsRangedAttack</definition>
+        <argsstring>(EWeaponTypes weaponType)</argsstring>
+        <name>IsRangedAttack</name>
+        <qualifiedname>UWeaponSystem::IsRangedAttack</qualifiedname>
+        <param>
+          <type>EWeaponTypes</type>
+          <declname>weaponType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponSystem.h" line="34" column="13" bodyfile="Source/TalesDungeoneer/Private/Weapons/WeaponSystem.cpp" bodystart="31" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_weapon_system_1a87f32447ffe484a196111e1583af9a99" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool UWeaponSystem::GetWeaponNameIsValid</definition>
+        <argsstring>(FName WeaponName)</argsstring>
+        <name>GetWeaponNameIsValid</name>
+        <qualifiedname>UWeaponSystem::GetWeaponNameIsValid</qualifiedname>
+        <param>
+          <type>FName</type>
+          <declname>WeaponName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Checks if the given FName is a valid weapon name. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>weaponName</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The FName for the weapon to challenge </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>performLookup</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If true, will check validity in the weapon data table </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponSystem.h" line="42" column="13" bodyfile="Source/TalesDungeoneer/Private/Weapons/WeaponSystem.cpp" bodystart="60" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_weapon_system_1ab635ee0e3e23db976c27b220bc4fc7ef" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool UWeaponSystem::GetWeaponIsValid</definition>
+        <argsstring>(const FStWeaponData &amp;WeaponData)</argsstring>
+        <name>GetWeaponIsValid</name>
+        <qualifiedname>UWeaponSystem::GetWeaponIsValid</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_f_st_weapon_data" kindref="compound">FStWeaponData</ref> &amp;</type>
+          <declname>WeaponData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponSystem.h" line="45" column="13" bodyfile="Source/TalesDungeoneer/Private/Weapons/WeaponSystem.cpp" bodystart="70" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="class_u_weapon_system_1a5eef1f52deafd06000dad5871432bba7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_f_st_weapon_data" kindref="compound">FStWeaponData</ref></type>
+        <definition>FStWeaponData UWeaponSystem::GetWeaponDataFromName</definition>
+        <argsstring>(FName weaponName)</argsstring>
+        <name>GetWeaponDataFromName</name>
+        <qualifiedname>UWeaponSystem::GetWeaponDataFromName</qualifiedname>
+        <param>
+          <type>FName</type>
+          <declname>weaponName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Weapons/WeaponSystem.h" line="48" column="22" bodyfile="Source/TalesDungeoneer/Private/Weapons/WeaponSystem.cpp" bodystart="36" bodyend="58"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>All global functionality for the <ref refid="class_u_weapon_system" kindref="compound">UWeaponSystem</ref>, comparable to the UItemSystem. Unlikely the UItemSystem, most of the <ref refid="class_u_weapon_system" kindref="compound">UWeaponSystem</ref>&apos;s struct accessing can just be done directly. That&apos;s because this system is generally only used by a few classes.. If we change a member variable, it&apos;s just 5-10 minutes of a couple files to change everything else to match. These are for more in depth inconvenient things like calling data rows from data tables and validating weapon data. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>UBlueprintFunctionLibrary</label>
+      </node>
+      <node id="1">
+        <label>UWeaponSystem</label>
+        <link refid="class_u_weapon_system"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>UBlueprintFunctionLibrary</label>
+      </node>
+      <node id="1">
+        <label>UWeaponSystem</label>
+        <link refid="class_u_weapon_system"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Weapons/WeaponSystem.h" line="17" column="1" bodyfile="Source/TalesDungeoneer/Public/Weapons/WeaponSystem.h" bodystart="18" bodyend="49"/>
+    <listofallmembers>
+      <member refid="class_u_weapon_system_1a6adb87fdcd6a6d2bbb1caf250b55d19d" prot="public" virt="non-virtual"><scope>UWeaponSystem</scope><name>GetInvalidName</name></member>
+      <member refid="class_u_weapon_system_1a5eef1f52deafd06000dad5871432bba7" prot="public" virt="non-virtual"><scope>UWeaponSystem</scope><name>GetWeaponDataFromName</name></member>
+      <member refid="class_u_weapon_system_1aa6b0b9fb248c06fa796ebdf13721899b" prot="public" virt="non-virtual"><scope>UWeaponSystem</scope><name>GetWeaponDataTable</name></member>
+      <member refid="class_u_weapon_system_1ab635ee0e3e23db976c27b220bc4fc7ef" prot="public" virt="non-virtual"><scope>UWeaponSystem</scope><name>GetWeaponIsValid</name></member>
+      <member refid="class_u_weapon_system_1af08df318fcb4b97818a4077adfc2c323" prot="public" virt="non-virtual"><scope>UWeaponSystem</scope><name>GetWeaponItemName</name></member>
+      <member refid="class_u_weapon_system_1a87f32447ffe484a196111e1583af9a99" prot="public" virt="non-virtual"><scope>UWeaponSystem</scope><name>GetWeaponNameIsValid</name></member>
+      <member refid="class_u_weapon_system_1a96389a503ec704e7412164d9ce47c092" prot="public" virt="non-virtual"><scope>UWeaponSystem</scope><name>IsMeleeAttack</name></member>
+      <member refid="class_u_weapon_system_1aadc014ab06ee21a24dd2429c7113a1a5" prot="public" virt="non-virtual"><scope>UWeaponSystem</scope><name>IsRangedAttack</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="dir_44e6e92b09860ad5d841270d1d840a4a" kind="dir">
+    <compoundname>Source/TalesDungeoneer/Public/Saves</compoundname>
+    <innerfile refid="_mesh_merge_save_data_8h">MeshMergeSaveData.h</innerfile>
+    <innerfile refid="_saved_characters_8h">SavedCharacters.h</innerfile>
+    <innerfile refid="_static_save_data_8h">StaticSaveData.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Public/Saves/"/>
+  </compounddef>
+</doxygen>

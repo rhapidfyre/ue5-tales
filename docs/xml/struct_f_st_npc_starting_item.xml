@@ -1,0 +1,206 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="struct_f_st_npc_starting_item" kind="struct" language="C++" prot="public" abstract="yes">
+    <compoundname>FStNpcStartingItem</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">FTableRowBase</basecompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_f_st_npc_starting_item_1a87ebaf64c0766db82e3efbf52546f924" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FStNpcStartingItem::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) bool DroppedOnDeath</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FStNpcStartingItem::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="20" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_st_npc_starting_item_1acfb8646cf582275ec860902c96b8442d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FStNpcStartingItem::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) bool bEquipOnSpawn</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FStNpcStartingItem::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="22" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_st_npc_starting_item_1a5c49e9751b69341007124839f2b997c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FStNpcStartingItem::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) FDataTableRowHandle ItemData</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FStNpcStartingItem::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="24" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_st_npc_starting_item_1ac92caf4258ffa7c3f84ca5da53c449aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type></type>
+        <definition>FStNpcStartingItem::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) float ChanceToSpawn=0.f</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FStNpcStartingItem::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="26" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_st_npc_starting_item_1a478c80e54423a0c1a69cc248786c04ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FStNpcStartingItem::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) bool bRollChanceEach</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FStNpcStartingItem::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="29" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_st_npc_starting_item_1a639befdaf898f74ee92b401167a90cb7" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type></type>
+        <definition>FStNpcStartingItem::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) int DropQuantityMin=0</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FStNpcStartingItem::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="31" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_st_npc_starting_item_1a2d7de9fc97a43cd4c1d3654158f72d41" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type></type>
+        <definition>FStNpcStartingItem::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) int DropQuantityMax=0</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FStNpcStartingItem::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="33" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_st_npc_starting_item_1a307a7982798978d5a9a9609ba03d3b61" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FStNpcStartingItem::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) TArray&lt; FName &gt; IncompatibleItems</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FStNpcStartingItem::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="35" column="1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>FStNpcStartingItem</label>
+        <link refid="struct_f_st_npc_starting_item"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>FTableRowBase</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>FStNpcStartingItem</label>
+        <link refid="struct_f_st_npc_starting_item"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>FTableRowBase</label>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" line="15" column="1" bodyfile="Source/TalesDungeoneer/Public/Characters/NpcCharacterBase.h" bodystart="16" bodyend="36"/>
+    <listofallmembers>
+      <member refid="struct_f_st_npc_starting_item_1a87ebaf64c0766db82e3efbf52546f924" prot="public" virt="non-virtual"><scope>FStNpcStartingItem</scope><name>UPROPERTY</name></member>
+      <member refid="struct_f_st_npc_starting_item_1acfb8646cf582275ec860902c96b8442d" prot="public" virt="non-virtual"><scope>FStNpcStartingItem</scope><name>UPROPERTY</name></member>
+      <member refid="struct_f_st_npc_starting_item_1a5c49e9751b69341007124839f2b997c8" prot="public" virt="non-virtual"><scope>FStNpcStartingItem</scope><name>UPROPERTY</name></member>
+      <member refid="struct_f_st_npc_starting_item_1ac92caf4258ffa7c3f84ca5da53c449aa" prot="public" virt="pure-virtual"><scope>FStNpcStartingItem</scope><name>UPROPERTY</name></member>
+      <member refid="struct_f_st_npc_starting_item_1a478c80e54423a0c1a69cc248786c04ae" prot="public" virt="non-virtual"><scope>FStNpcStartingItem</scope><name>UPROPERTY</name></member>
+      <member refid="struct_f_st_npc_starting_item_1a639befdaf898f74ee92b401167a90cb7" prot="public" virt="pure-virtual"><scope>FStNpcStartingItem</scope><name>UPROPERTY</name></member>
+      <member refid="struct_f_st_npc_starting_item_1a2d7de9fc97a43cd4c1d3654158f72d41" prot="public" virt="pure-virtual"><scope>FStNpcStartingItem</scope><name>UPROPERTY</name></member>
+      <member refid="struct_f_st_npc_starting_item_1a307a7982798978d5a9a9609ba03d3b61" prot="public" virt="non-virtual"><scope>FStNpcStartingItem</scope><name>UPROPERTY</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

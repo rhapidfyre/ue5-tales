@@ -1,0 +1,1446 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_a_tales_game_state_base" kind="class" language="C++" prot="public">
+    <compoundname>ATalesGameStateBase</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">AGameStateBase</basecompoundref>
+    <derivedcompoundref refid="class_a_creator_game_state_base" prot="public" virt="non-virtual">ACreatorGameStateBase</derivedcompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_a_tales_game_state_base_1afbe6aa36b8f981ecb390df3f331bd90d" prot="public" static="no" mutable="no">
+        <type>FOnDataAssetReady</type>
+        <definition>FOnDataAssetReady ATalesGameStateBase::OnDataAssetLoaded</definition>
+        <argsstring></argsstring>
+        <name>OnDataAssetLoaded</name>
+        <qualifiedname>ATalesGameStateBase::OnDataAssetLoaded</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="46" column="19" bodyfile="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_tales_game_state_base_1a5060f32520bf85e34804cdd8f3724fe6" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ATalesGameStateBase::DungeonLevel</definition>
+        <argsstring></argsstring>
+        <name>DungeonLevel</name>
+        <qualifiedname>ATalesGameStateBase::DungeonLevel</qualifiedname>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="87" column="5" bodyfile="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_tales_game_state_base_1a8b19f8bc583fd0f261a2e1d37bdedc6d" prot="public" static="no" mutable="no">
+        <type>UDataTable *</type>
+        <definition>UDataTable* ATalesGameStateBase::DataTableRace</definition>
+        <argsstring></argsstring>
+        <name>DataTableRace</name>
+        <qualifiedname>ATalesGameStateBase::DataTableRace</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="241" column="12" bodyfile="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_tales_game_state_base_1a5c9cde6214796727e596498e77a6f824" prot="public" static="no" mutable="no">
+        <type>UDataTable *</type>
+        <definition>UDataTable* ATalesGameStateBase::DataTableClass</definition>
+        <argsstring></argsstring>
+        <name>DataTableClass</name>
+        <qualifiedname>ATalesGameStateBase::DataTableClass</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="245" column="12" bodyfile="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_tales_game_state_base_1a7ad4518b874383c4d5783fc294990557" prot="public" static="no" mutable="no">
+        <type>UDataTable *</type>
+        <definition>UDataTable* ATalesGameStateBase::DataTableVitality</definition>
+        <argsstring></argsstring>
+        <name>DataTableVitality</name>
+        <qualifiedname>ATalesGameStateBase::DataTableVitality</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="249" column="12" bodyfile="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" bodystart="249" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_tales_game_state_base_1a437e44fb53878c6a36a920aa109b4e23" prot="public" static="no" mutable="no">
+        <type>UDataTable *</type>
+        <definition>UDataTable* ATalesGameStateBase::DataTableInventory</definition>
+        <argsstring></argsstring>
+        <name>DataTableInventory</name>
+        <qualifiedname>ATalesGameStateBase::DataTableInventory</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="253" column="12" bodyfile="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" bodystart="253" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_tales_game_state_base_1a67061c22f9c2691f78835b6f6b4e57f3" prot="public" static="no" mutable="no">
+        <type>UDataTable *</type>
+        <definition>UDataTable* ATalesGameStateBase::DataTableAbilities</definition>
+        <argsstring></argsstring>
+        <name>DataTableAbilities</name>
+        <qualifiedname>ATalesGameStateBase::DataTableAbilities</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="257" column="12" bodyfile="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" bodystart="257" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_tales_game_state_base_1a4b9ca9b467aa049d37036cee0b5ec692" prot="public" static="no" mutable="no">
+        <type>UDataTable *</type>
+        <definition>UDataTable* ATalesGameStateBase::DataTableEffects</definition>
+        <argsstring></argsstring>
+        <name>DataTableEffects</name>
+        <qualifiedname>ATalesGameStateBase::DataTableEffects</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="261" column="12" bodyfile="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" bodystart="261" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_tales_game_state_base_1ab03a1e4b24812fef79c0d5860c447325" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ATalesGameStateBase::bSavesOnServer</definition>
+        <argsstring></argsstring>
+        <name>bSavesOnServer</name>
+        <qualifiedname>ATalesGameStateBase::bSavesOnServer</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="264" column="6" bodyfile="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_tales_game_state_base_1abb7f3ef258ae3a29f09bb63bd10cb487" prot="public" static="no" mutable="no">
+        <type>TMap&lt; FGameplayTag, UTexture2D * &gt;</type>
+        <definition>TMap&lt;FGameplayTag, UTexture2D*&gt; ATalesGameStateBase::EquipmentSlotIcons</definition>
+        <argsstring></argsstring>
+        <name>EquipmentSlotIcons</name>
+        <qualifiedname>ATalesGameStateBase::EquipmentSlotIcons</qualifiedname>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="267" column="6" bodyfile="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" bodystart="267" bodyend="267"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_a_tales_game_state_base_1af1002e3cb4fa3fe1ff963c74db451888" prot="private" static="no" mutable="no">
+        <type>const int32</type>
+        <definition>const int32 ATalesGameStateBase::UserIndex</definition>
+        <argsstring></argsstring>
+        <name>UserIndex</name>
+        <qualifiedname>ATalesGameStateBase::UserIndex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="229" column="13" bodyfile="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" bodystart="229" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_tales_game_state_base_1a04bccc709fc7955b251cb6ccc77809a3" prot="private" static="no" mutable="no">
+        <type>const int32 bool bSuccess</type>
+        <definition>const int32 bool bSuccess ATalesGameStateBase::const</definition>
+        <argsstring></argsstring>
+        <name>const</name>
+        <qualifiedname>ATalesGameStateBase::const</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="229" column="37" bodyfile="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" bodystart="229" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_tales_game_state_base_1a8fe2af89e09ba3961ac766ada0ddb3f9" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ATalesGameStateBase::CheatMode_</definition>
+        <argsstring></argsstring>
+        <name>CheatMode_</name>
+        <qualifiedname>ATalesGameStateBase::CheatMode_</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="288" column="6" bodyfile="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" bodystart="288" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a9141c5f1219c7ca7d9cea66078b3c507" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ATalesGameStateBase::ATalesGameStateBase</definition>
+        <argsstring>()</argsstring>
+        <name>ATalesGameStateBase</name>
+        <qualifiedname>ATalesGameStateBase::ATalesGameStateBase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="37" column="1" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="117" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a97c8919d3c8e31d99b05ce23020ac6a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ATalesGameStateBase::UPROPERTY</definition>
+        <argsstring>(BlueprintAssignable) FOnSaveGameObjectReady OnSaveGameObjectReady</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ATalesGameStateBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintAssignable</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="39" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1ab8cb3672574a48a37d40fe516436715e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ATalesGameStateBase::UPROPERTY</definition>
+        <argsstring>(BlueprintAssignable) FOnGameSaved OnGameSaved</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ATalesGameStateBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintAssignable</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="40" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a5a0e677faa073f0a6477f0a33928f5f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ATalesGameStateBase::UPROPERTY</definition>
+        <argsstring>(BlueprintAssignable) FOnCharacterSelected OnCharacterSelected</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ATalesGameStateBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintAssignable</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="41" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a5eadb71e664010242e4d4241ab6aacd7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ATalesGameStateBase::UPROPERTY</definition>
+        <argsstring>(BlueprintAssignable) FOnCharacterDeleted OnCharacterDeleted</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ATalesGameStateBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>BlueprintAssignable</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="42" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a1648a7b4d0bbb08413aad2fdd7482e45" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool ATalesGameStateBase::LoadDataAsset</definition>
+        <argsstring>(const FName &amp;AssetName)</argsstring>
+        <name>LoadDataAsset</name>
+        <qualifiedname>ATalesGameStateBase::LoadDataAsset</qualifiedname>
+        <param>
+          <type>const FName &amp;</type>
+          <declname>AssetName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="48" column="14" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="39" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a64cf6ed24d593773eac9d7968cabde17" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool ATalesGameStateBase::LoadDataAsset</definition>
+        <argsstring>(const FPrimaryAssetId &amp;AssetId)</argsstring>
+        <name>LoadDataAsset</name>
+        <qualifiedname>ATalesGameStateBase::LoadDataAsset</qualifiedname>
+        <param>
+          <type>const FPrimaryAssetId &amp;</type>
+          <declname>AssetId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="50" column="14" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="46" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1abb131703d1e091ecee0504eadf6a948c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ATalesGameStateBase::LoadDataAssetDelegate</definition>
+        <argsstring>(const FPrimaryAssetId AssetId)</argsstring>
+        <name>LoadDataAssetDelegate</name>
+        <qualifiedname>ATalesGameStateBase::LoadDataAssetDelegate</qualifiedname>
+        <param>
+          <type>const FPrimaryAssetId</type>
+          <declname>AssetId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="53" column="14" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="69" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a5f9024b0e77ad29e368c999ad2a1d664" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>UTexture2D *</type>
+        <definition>UTexture2D * ATalesGameStateBase::GetEquipmentIcon</definition>
+        <argsstring>(const FGameplayTag &amp;EquipmentTag) const</argsstring>
+        <name>GetEquipmentIcon</name>
+        <qualifiedname>ATalesGameStateBase::GetEquipmentIcon</qualifiedname>
+        <param>
+          <type>const FGameplayTag &amp;</type>
+          <declname>EquipmentTag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="57" column="12" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="80" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a771279d52f5fa1d96acbdc7effb1dab0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ATalesGameStateBase::CheckIsServer</definition>
+        <argsstring>() const</argsstring>
+        <name>CheckIsServer</name>
+        <qualifiedname>ATalesGameStateBase::CheckIsServer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="59" column="6" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="90" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a51f14587602f86979f30a46f7a0d579d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ATalesGameStateBase::CheckIsPlayableClient</definition>
+        <argsstring>() const</argsstring>
+        <name>CheckIsPlayableClient</name>
+        <qualifiedname>ATalesGameStateBase::CheckIsPlayableClient</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="61" column="6" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="96" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a379f2b0d1b294694fde326fccc7d5fb7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>FString</type>
+        <definition>FString ATalesGameStateBase::GenerateAlphanumeric</definition>
+        <argsstring>(FString OptionalPath=&quot;&quot;) const</argsstring>
+        <name>GenerateAlphanumeric</name>
+        <qualifiedname>ATalesGameStateBase::GenerateAlphanumeric</qualifiedname>
+        <param>
+          <type>FString</type>
+          <declname>OptionalPath</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="64" column="9" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="102" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a59d76811fb2d641064f0f99305f7cac3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>FString</type>
+        <definition>FString ATalesGameStateBase::GetMetaDataSaveName</definition>
+        <argsstring>() const</argsstring>
+        <name>GetMetaDataSaveName</name>
+        <qualifiedname>ATalesGameStateBase::GetMetaDataSaveName</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="67" column="9" bodyfile="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" bodystart="67" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1aa7e747aaadb6318b503e91aa0d449d92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ATalesGameStateBase::Server_NewNotification</definition>
+        <argsstring>(const FString &amp;NewTitle, const FString &amp;NewMessage, int NewPriority=2)</argsstring>
+        <name>Server_NewNotification</name>
+        <qualifiedname>ATalesGameStateBase::Server_NewNotification</qualifiedname>
+        <param>
+          <type>const FString &amp;</type>
+          <declname>NewTitle</declname>
+        </param>
+        <param>
+          <type>const FString &amp;</type>
+          <declname>NewMessage</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>NewPriority</declname>
+          <defval>2</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="77" column="6"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1aebf0404b2b6c8d12282ccf28099448c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ATalesGameStateBase::LocalNotification</definition>
+        <argsstring>(FString NewTitle, FString NewMessage, int NewPriority=2)</argsstring>
+        <name>LocalNotification</name>
+        <qualifiedname>ATalesGameStateBase::LocalNotification</qualifiedname>
+        <param>
+          <type>FString</type>
+          <declname>NewTitle</declname>
+        </param>
+        <param>
+          <type>FString</type>
+          <declname>NewMessage</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>NewPriority</declname>
+          <defval>2</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="81" column="6" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="125" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a7a922fc36c3ca8f2a415554784777ea1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ATalesGameStateBase::GetIsCheatModeEnabled</definition>
+        <argsstring>() const</argsstring>
+        <name>GetIsCheatModeEnabled</name>
+        <qualifiedname>ATalesGameStateBase::GetIsCheatModeEnabled</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="84" column="6" bodyfile="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" bodystart="84" bodyend="84"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1ad85acd9de8722f46c07da3ff178e75d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ATalesGameStateBase::SaveMetaData</definition>
+        <argsstring>()</argsstring>
+        <name>SaveMetaData</name>
+        <qualifiedname>ATalesGameStateBase::SaveMetaData</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>SAVING </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="95" column="6" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="143" bodyend="160"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a4c2865c9f70641b4282120b0b561853c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ATalesGameStateBase::SaveMetaDataAsync</definition>
+        <argsstring>()</argsstring>
+        <name>SaveMetaDataAsync</name>
+        <qualifiedname>ATalesGameStateBase::SaveMetaDataAsync</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="99" column="6" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="162" bodyend="174"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a2d3e99e9402a59452c0cfd57fc34bc37" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ATalesGameStateBase::GetIsSaveMetaReady</definition>
+        <argsstring>() const</argsstring>
+        <name>GetIsSaveMetaReady</name>
+        <qualifiedname>ATalesGameStateBase::GetIsSaveMetaReady</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="102" column="6" bodyfile="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" bodystart="102" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1ae5306fd965238af532c0e92c36e78d37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ATalesGameStateBase::RemoveSelectedCharacter</definition>
+        <argsstring>()</argsstring>
+        <name>RemoveSelectedCharacter</name>
+        <qualifiedname>ATalesGameStateBase::RemoveSelectedCharacter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="106" column="6" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="176" bodyend="224"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1ab00b336e6dda1976db5696eee9376919" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ATalesGameStateBase::SaveCurrentCharacter</definition>
+        <argsstring>(FString &amp;SaveResponse, bool RunAsync=true)</argsstring>
+        <name>SaveCurrentCharacter</name>
+        <qualifiedname>ATalesGameStateBase::SaveCurrentCharacter</qualifiedname>
+        <param>
+          <type>FString &amp;</type>
+          <declname>SaveResponse</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>RunAsync</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Saves the character. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SaveResponse</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Response from the save attempt, whether successful or failure </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RunAsync</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If true, runs the save async and ignores the response </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if ran async, or sync-save is successful. False otherwise. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="115" column="6" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="397" bodyend="457"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a44c5ae0935e6c2e3deae4ab3b050dc94" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ATalesGameStateBase::LoadSaveGameMeta</definition>
+        <argsstring>(bool LoadAsync=true)</argsstring>
+        <name>LoadSaveGameMeta</name>
+        <qualifiedname>ATalesGameStateBase::LoadSaveGameMeta</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>LoadAsync</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Loads the save game meta file into memory. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>LOADING</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>LoadAsync</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>True if loading can be run asynchronously </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns true if ran async or file was loaded successfully. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="123" column="6" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="464" bodyend="477"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1aabdf4f6da36305bfa6aaf4e904a22ed7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>FString</type>
+        <definition>FString ATalesGameStateBase::GetSaveGameMetaName</definition>
+        <argsstring>() const</argsstring>
+        <name>GetSaveGameMetaName</name>
+        <qualifiedname>ATalesGameStateBase::GetSaveGameMetaName</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>OTHER METHODS </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="131" column="9" bodyfile="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" bodystart="131" bodyend="131"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a876cecfc5bf84ad771e47adb42aa2eb3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ATalesGameStateBase::UFUNCTION</definition>
+        <argsstring>(BlueprintCallable) USaveGame *GetSaveGameMeta() const</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>ATalesGameStateBase::UFUNCTION</qualifiedname>
+        <param>
+          <type>BlueprintCallable</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="134" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1af8de965e850aa88c90cb76a0165453b0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>TArray&lt; <ref refid="struct_f_save_meta" kindref="compound">FSaveMeta</ref> &gt;</type>
+        <definition>TArray&lt; FSaveMeta &gt; ATalesGameStateBase::GetSavedCharacterSlotNames</definition>
+        <argsstring>() const</argsstring>
+        <name>GetSavedCharacterSlotNames</name>
+        <qualifiedname>ATalesGameStateBase::GetSavedCharacterSlotNames</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="138" column="8" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="280" bodyend="283"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1ac1634017a2b06d6b76454b809ad95435" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int ATalesGameStateBase::GetIndexOfSavedCharacter</definition>
+        <argsstring>(const FString &amp;SlotName, const int32 &amp;UserIndex) const</argsstring>
+        <name>GetIndexOfSavedCharacter</name>
+        <qualifiedname>ATalesGameStateBase::GetIndexOfSavedCharacter</qualifiedname>
+        <param>
+          <type>const FString &amp;</type>
+          <declname>SlotName</declname>
+        </param>
+        <param>
+          <type>const int32 &amp;</type>
+          <declname>UserIndex</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="141" column="5" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="285" bodyend="299"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a1c4fe66aa9f79a843bb59f76f29c319d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_u_saved_character" kindref="compound">USavedCharacter</ref> *</type>
+        <definition>USavedCharacter * ATalesGameStateBase::GetSavedCharacterData</definition>
+        <argsstring>(FString SaveSlotName=&quot;&quot;)</argsstring>
+        <name>GetSavedCharacterData</name>
+        <qualifiedname>ATalesGameStateBase::GetSavedCharacterData</qualifiedname>
+        <param>
+          <type>FString</type>
+          <declname>SaveSlotName</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+<para>Returns the save data for the requested character slot. Return requires validation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SaveSlotName</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional. If empty string, will get the currently selected character. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Saved data on success. Nullptr on failure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="149" column="17" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="301" bodyend="314"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1aef5bab008f26edddd4929657417dfce2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>FString</type>
+        <definition>FString ATalesGameStateBase::GetCharacterSlotName</definition>
+        <argsstring>() const</argsstring>
+        <name>GetCharacterSlotName</name>
+        <qualifiedname>ATalesGameStateBase::GetCharacterSlotName</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="152" column="9" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="316" bodyend="323"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a959642bdd705bbc16b6a3d227434aa91" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int ATalesGameStateBase::GetCharacterUserIndex</definition>
+        <argsstring>() const</argsstring>
+        <name>GetCharacterUserIndex</name>
+        <qualifiedname>ATalesGameStateBase::GetCharacterUserIndex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="155" column="5" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="325" bodyend="332"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a8f48888e6ca8e210d7f4c4af441eeb94" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ATalesGameStateBase::GetIsValidCharacterSelected</definition>
+        <argsstring>() const</argsstring>
+        <name>GetIsValidCharacterSelected</name>
+        <qualifiedname>ATalesGameStateBase::GetIsValidCharacterSelected</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="158" column="6" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="334" bodyend="337"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1ae8eb339be8574630bff00fe733a7fd9f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ATalesGameStateBase::GetDoesCharacterSaveExist</definition>
+        <argsstring>() const</argsstring>
+        <name>GetDoesCharacterSaveExist</name>
+        <qualifiedname>ATalesGameStateBase::GetDoesCharacterSaveExist</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="161" column="6" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="339" bodyend="350"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a7f7fcac81d23d13d097a7fc5ea1d2b8b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int ATalesGameStateBase::GetSelectedCharacter</definition>
+        <argsstring>() const</argsstring>
+        <name>GetSelectedCharacter</name>
+        <qualifiedname>ATalesGameStateBase::GetSelectedCharacter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="164" column="5" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="539" bodyend="542"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a0d1c0e36ea7f5e74d997bfe29b22a226" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ATalesGameStateBase::SetSelectedCharacter</definition>
+        <argsstring>(int CharacterIndex)</argsstring>
+        <name>SetSelectedCharacter</name>
+        <qualifiedname>ATalesGameStateBase::SetSelectedCharacter</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>CharacterIndex</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="167" column="6" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="514" bodyend="537"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1adb7d8a54fec82de1fb328a7b48e9c122" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int ATalesGameStateBase::GetNextCharacterIndex</definition>
+        <argsstring>()</argsstring>
+        <name>GetNextCharacterIndex</name>
+        <qualifiedname>ATalesGameStateBase::GetNextCharacterIndex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="170" column="5" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="544" bodyend="561"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1aaa95f894faa7894aa4182e19c306a1f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int ATalesGameStateBase::GetPrevCharacterIndex</definition>
+        <argsstring>()</argsstring>
+        <name>GetPrevCharacterIndex</name>
+        <qualifiedname>ATalesGameStateBase::GetPrevCharacterIndex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="173" column="5" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="563" bodyend="578"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1abf00f67ff7eb00b327666706440e5104" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int ATalesGameStateBase::GetLastCharacterIndex</definition>
+        <argsstring>() const</argsstring>
+        <name>GetLastCharacterIndex</name>
+        <qualifiedname>ATalesGameStateBase::GetLastCharacterIndex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="176" column="5" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="580" bodyend="583"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a855b11bfb255bc48ccada2e3bb9cc7f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ATalesGameStateBase::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) UDataTable *NpcDataTable</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ATalesGameStateBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="234" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a53df3b46b3fd64da9c11b14209d0d8e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ATalesGameStateBase::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) UDataTable *ItemLookupTable</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ATalesGameStateBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="237" column="1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a5e831493aa44e37c5d5ef778cdf19201" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int32</type>
+        <definition>static int32 ATalesGameStateBase::GetMetaDataSaveIndex</definition>
+        <argsstring>()</argsstring>
+        <name>GetMetaDataSaveIndex</name>
+        <qualifiedname>ATalesGameStateBase::GetMetaDataSaveIndex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="70" column="14" bodyfile="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" bodystart="70" bodyend="70"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_a_tales_game_state_base_1af66211c9e8505eb5625ad525600b3a7b" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ATalesGameStateBase::BeginPlay</definition>
+        <argsstring>() override</argsstring>
+        <name>BeginPlay</name>
+        <qualifiedname>ATalesGameStateBase::BeginPlay</qualifiedname>
+        <reimplementedby refid="class_a_creator_game_state_base_1a19714022593e835aa3b8c611f9ac2d4c">BeginPlay</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="180" column="14" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="352" bodyend="375"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1aee5dcf46cbcf5bf3a7fba819bbeb77f1" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ATalesGameStateBase::AddOrUpdateSavedCharacter</definition>
+        <argsstring>(USaveGame *SaveGame)</argsstring>
+        <name>AddOrUpdateSavedCharacter</name>
+        <qualifiedname>ATalesGameStateBase::AddOrUpdateSavedCharacter</qualifiedname>
+        <param>
+          <type>USaveGame *</type>
+          <declname>SaveGame</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="182" column="14" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="377" bodyend="395"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a38b1963b25c39df8a8f6831a8e049ccc" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ATalesGameStateBase::SaveGameMetaLoaded</definition>
+        <argsstring>(const FString &amp;SlotName, const int32 UserIndex, USaveGame *LoadedGameData)</argsstring>
+        <name>SaveGameMetaLoaded</name>
+        <qualifiedname>ATalesGameStateBase::SaveGameMetaLoaded</qualifiedname>
+        <param>
+          <type>const FString &amp;</type>
+          <declname>SlotName</declname>
+        </param>
+        <param>
+          <type>const int32</type>
+          <declname>UserIndex</declname>
+        </param>
+        <param>
+          <type>USaveGame *</type>
+          <declname>LoadedGameData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="185" column="6" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="491" bodyend="512"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1ab167ec4ca63e41389b661ce04fa94c64" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ATalesGameStateBase::CharacterSaveLoaded</definition>
+        <argsstring>(const FString &amp;SlotName, int32 UserIndex, USaveGame *LoadedGameData)</argsstring>
+        <name>CharacterSaveLoaded</name>
+        <qualifiedname>ATalesGameStateBase::CharacterSaveLoaded</qualifiedname>
+        <param>
+          <type>const FString &amp;</type>
+          <declname>SlotName</declname>
+        </param>
+        <param>
+          <type>int32</type>
+          <declname>UserIndex</declname>
+        </param>
+        <param>
+          <type>USaveGame *</type>
+          <declname>LoadedGameData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="189" column="6" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="479" bodyend="489"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1ae8413db34b6d1d6406be24377880092f" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ATalesGameStateBase::LoadCharacterSync</definition>
+        <argsstring>(const FString &amp;SaveSlotName=&quot;&quot;, const uint32 SaveUserIndex=0)</argsstring>
+        <name>LoadCharacterSync</name>
+        <qualifiedname>ATalesGameStateBase::LoadCharacterSync</qualifiedname>
+        <param>
+          <type>const FString &amp;</type>
+          <declname>SaveSlotName</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <param>
+          <type>const uint32</type>
+          <declname>SaveUserIndex</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="193" column="6" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="636" bodyend="653"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a3bd2eeeed97f2df7d3a70d5ce4c6c7ab" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ATalesGameStateBase::LoadCharacterAsync</definition>
+        <argsstring>(const FString &amp;SaveSlotName=&quot;&quot;, const uint32 SaveUserIndex=0)</argsstring>
+        <name>LoadCharacterAsync</name>
+        <qualifiedname>ATalesGameStateBase::LoadCharacterAsync</qualifiedname>
+        <param>
+          <type>const FString &amp;</type>
+          <declname>SaveSlotName</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <param>
+          <type>const uint32</type>
+          <declname>SaveUserIndex</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="196" column="6" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="655" bodyend="660"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1aca736ae65ee57569f64c79701bfdb53d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ATalesGameStateBase::LoadSaveGameMetaSync</definition>
+        <argsstring>()</argsstring>
+        <name>LoadSaveGameMetaSync</name>
+        <qualifiedname>ATalesGameStateBase::LoadSaveGameMetaSync</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="199" column="6" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="662" bodyend="672"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a3b9700d68513943fadd86369ea8d5f5a" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ATalesGameStateBase::LoadSaveGameMetaAsync</definition>
+        <argsstring>()</argsstring>
+        <name>LoadSaveGameMetaAsync</name>
+        <qualifiedname>ATalesGameStateBase::LoadSaveGameMetaAsync</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="202" column="6" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="674" bodyend="684"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a71d5405f0708564d8ef450d04367ee68" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool ATalesGameStateBase::SaveCharacterSync</definition>
+        <argsstring>(USaveGame *&amp;SaveGame)</argsstring>
+        <name>SaveCharacterSync</name>
+        <qualifiedname>ATalesGameStateBase::SaveCharacterSync</qualifiedname>
+        <reimplementedby refid="class_a_creator_game_state_base_1a76fd852d3ed92cab2bbdffef08fb63d9">SaveCharacterSync</reimplementedby>
+        <param>
+          <type>USaveGame *&amp;</type>
+          <declname>SaveGame</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="204" column="14" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="228" bodyend="241"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a03f24a6aebbe7f7e57a5fbe65b35b0de" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ATalesGameStateBase::ResetCharacter</definition>
+        <argsstring>()</argsstring>
+        <name>ResetCharacter</name>
+        <qualifiedname>ATalesGameStateBase::ResetCharacter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="206" column="6" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="243" bodyend="246"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a384d03e628d7a478809e2e2b6ee3c1f0" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ATalesGameStateBase::SaveCharacterAsync</definition>
+        <argsstring>()</argsstring>
+        <name>SaveCharacterAsync</name>
+        <qualifiedname>ATalesGameStateBase::SaveCharacterAsync</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="210" column="6" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="248" bodyend="253"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1aa9d4abf355d973ef7209e9f8bae7adb9" prot="protected" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ATalesGameStateBase::GetLifetimeReplicatedProps</definition>
+        <argsstring>(TArray&lt; FLifetimeProperty &gt; &amp;OutLifetimeProps) const override</argsstring>
+        <name>GetLifetimeReplicatedProps</name>
+        <qualifiedname>ATalesGameStateBase::GetLifetimeReplicatedProps</qualifiedname>
+        <param>
+          <type>TArray&lt; FLifetimeProperty &gt; &amp;</type>
+          <declname>OutLifetimeProps</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="212" column="14" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="255" bodyend="264"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a4248f262f32d9ea68e5a63afd4180b97" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ATalesGameStateBase::Multicast_SendNotification</definition>
+        <argsstring>(const FString &amp;NewTitle, const FString &amp;NewMessage, int NewPriority=2)</argsstring>
+        <name>Multicast_SendNotification</name>
+        <qualifiedname>ATalesGameStateBase::Multicast_SendNotification</qualifiedname>
+        <param>
+          <type>const FString &amp;</type>
+          <declname>NewTitle</declname>
+        </param>
+        <param>
+          <type>const FString &amp;</type>
+          <declname>NewMessage</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>NewPriority</declname>
+          <defval>2</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="218" column="6"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a46dafdf1b91321a707c55cb9cf50d2ab" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>USaveGame *</type>
+        <definition>USaveGame * ATalesGameStateBase::Helper_SetSaveValues</definition>
+        <argsstring>()</argsstring>
+        <name>Helper_SetSaveValues</name>
+        <qualifiedname>ATalesGameStateBase::Helper_SetSaveValues</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="222" column="11" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="585" bodyend="592"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a2cc8659a8e0bc80b506d2d9fc76be6e6" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ATalesGameStateBase::Helper_LoadSavedValues</definition>
+        <argsstring>(const USaveGame *SaveMeta)</argsstring>
+        <name>Helper_LoadSavedValues</name>
+        <qualifiedname>ATalesGameStateBase::Helper_LoadSavedValues</qualifiedname>
+        <param>
+          <type>const USaveGame *</type>
+          <declname>SaveMeta</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="225" column="6" bodyfile="Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp" bodystart="594" bodyend="604"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1aecf4c403b75ab63ecee782064f2e5f19" prot="private" static="no" const="yes" explicit="no" inline="no" refqual="lvalue" virt="non-virtual">
+        <type></type>
+        <definition>ATalesGameStateBase::UFUNCTION</definition>
+        <argsstring>() void SaveGameDelegate(const FString &amp;SlotName</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>ATalesGameStateBase::UFUNCTION</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="228" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1adbbadd3510c2fef5f6a476cdd15682da" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ATalesGameStateBase::UPROPERTY</definition>
+        <argsstring>() FString SaveMetaName_</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ATalesGameStateBase::UPROPERTY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="272" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a8fa0030a5ce251fa01c3026dd8a2dcc9" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ATalesGameStateBase::UPROPERTY</definition>
+        <argsstring>(ReplicatedUsing=OnRep_SaveMetaReady) bool bSaveMetaIsReady</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ATalesGameStateBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_SaveMetaReady</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="275" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a99c74044a6b9d23d9e384aa0a2aaf00e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ATalesGameStateBase::UFUNCTION</definition>
+        <argsstring>(Client, Reliable) void OnRep_SaveMetaReady()</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>ATalesGameStateBase::UFUNCTION</qualifiedname>
+        <param>
+          <type>Client</type>
+        </param>
+        <param>
+          <type>Reliable</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="276" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a2476a2c95859b4566bfc998818d17698" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ATalesGameStateBase::UPROPERTY</definition>
+        <argsstring>() TArray&lt; FSaveMeta &gt; SavedCharacters_</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ATalesGameStateBase::UPROPERTY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="279" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1af2b5b2d2da7dc4bbc3b80fc44b4f175c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ATalesGameStateBase::UPROPERTY</definition>
+        <argsstring>(ReplicatedUsing=OnRep_SelectedCharacter) int SelectedCharacter_</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>ATalesGameStateBase::UPROPERTY</qualifiedname>
+        <param>
+          <type>ReplicatedUsing</type>
+          <defval>OnRep_SelectedCharacter</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="283" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1ad8f6a497bc41958412c4394b118ede76" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ATalesGameStateBase::UFUNCTION</definition>
+        <argsstring>(Client, Reliable) void OnRep_SelectedCharacter(const int OldSelection)</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>ATalesGameStateBase::UFUNCTION</qualifiedname>
+        <param>
+          <type>Client</type>
+        </param>
+        <param>
+          <type>Reliable</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="284" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_tales_game_state_base_1a6994396f571e42d3a8d329325c6c6379" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ATalesGameStateBase::UFUNCTION</definition>
+        <argsstring>(NetMulticast, Reliable) void OnRep_CheatMode(bool OldState)</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>ATalesGameStateBase::UFUNCTION</qualifiedname>
+        <param>
+          <type>NetMulticast</type>
+        </param>
+        <param>
+          <type>Reliable</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="286" column="1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>ACreatorGameStateBase</label>
+        <link refid="class_a_creator_game_state_base"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>AGameStateBase</label>
+      </node>
+      <node id="1">
+        <label>ATalesGameStateBase</label>
+        <link refid="class_a_tales_game_state_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>AGameStateBase</label>
+      </node>
+      <node id="1">
+        <label>ATalesGameStateBase</label>
+        <link refid="class_a_tales_game_state_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" line="31" column="1" bodyfile="Source/TalesDungeoneer/Public/Gamemode/BaseFiles/TalesGameStateBase.h" bodystart="32" bodyend="290"/>
+    <listofallmembers>
+      <member refid="class_a_tales_game_state_base_1aee5dcf46cbcf5bf3a7fba819bbeb77f1" prot="protected" virt="virtual"><scope>ATalesGameStateBase</scope><name>AddOrUpdateSavedCharacter</name></member>
+      <member refid="class_a_tales_game_state_base_1a9141c5f1219c7ca7d9cea66078b3c507" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>ATalesGameStateBase</name></member>
+      <member refid="class_a_tales_game_state_base_1af66211c9e8505eb5625ad525600b3a7b" prot="protected" virt="virtual"><scope>ATalesGameStateBase</scope><name>BeginPlay</name></member>
+      <member refid="class_a_tales_game_state_base_1ab03a1e4b24812fef79c0d5860c447325" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>bSavesOnServer</name></member>
+      <member refid="class_a_tales_game_state_base_1ab167ec4ca63e41389b661ce04fa94c64" prot="protected" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>CharacterSaveLoaded</name></member>
+      <member refid="class_a_tales_game_state_base_1a8fe2af89e09ba3961ac766ada0ddb3f9" prot="private" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>CheatMode_</name></member>
+      <member refid="class_a_tales_game_state_base_1a51f14587602f86979f30a46f7a0d579d" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>CheckIsPlayableClient</name></member>
+      <member refid="class_a_tales_game_state_base_1a771279d52f5fa1d96acbdc7effb1dab0" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>CheckIsServer</name></member>
+      <member refid="class_a_tales_game_state_base_1a04bccc709fc7955b251cb6ccc77809a3" prot="private" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>const</name></member>
+      <member refid="class_a_tales_game_state_base_1a67061c22f9c2691f78835b6f6b4e57f3" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>DataTableAbilities</name></member>
+      <member refid="class_a_tales_game_state_base_1a5c9cde6214796727e596498e77a6f824" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>DataTableClass</name></member>
+      <member refid="class_a_tales_game_state_base_1a4b9ca9b467aa049d37036cee0b5ec692" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>DataTableEffects</name></member>
+      <member refid="class_a_tales_game_state_base_1a437e44fb53878c6a36a920aa109b4e23" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>DataTableInventory</name></member>
+      <member refid="class_a_tales_game_state_base_1a8b19f8bc583fd0f261a2e1d37bdedc6d" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>DataTableRace</name></member>
+      <member refid="class_a_tales_game_state_base_1a7ad4518b874383c4d5783fc294990557" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>DataTableVitality</name></member>
+      <member refid="class_a_tales_game_state_base_1a5060f32520bf85e34804cdd8f3724fe6" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>DungeonLevel</name></member>
+      <member refid="class_a_tales_game_state_base_1abb7f3ef258ae3a29f09bb63bd10cb487" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>EquipmentSlotIcons</name></member>
+      <member refid="class_a_tales_game_state_base_1a379f2b0d1b294694fde326fccc7d5fb7" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>GenerateAlphanumeric</name></member>
+      <member refid="class_a_tales_game_state_base_1aef5bab008f26edddd4929657417dfce2" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>GetCharacterSlotName</name></member>
+      <member refid="class_a_tales_game_state_base_1a959642bdd705bbc16b6a3d227434aa91" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>GetCharacterUserIndex</name></member>
+      <member refid="class_a_tales_game_state_base_1ae8eb339be8574630bff00fe733a7fd9f" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>GetDoesCharacterSaveExist</name></member>
+      <member refid="class_a_tales_game_state_base_1a5f9024b0e77ad29e368c999ad2a1d664" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>GetEquipmentIcon</name></member>
+      <member refid="class_a_tales_game_state_base_1ac1634017a2b06d6b76454b809ad95435" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>GetIndexOfSavedCharacter</name></member>
+      <member refid="class_a_tales_game_state_base_1a7a922fc36c3ca8f2a415554784777ea1" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>GetIsCheatModeEnabled</name></member>
+      <member refid="class_a_tales_game_state_base_1a2d3e99e9402a59452c0cfd57fc34bc37" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>GetIsSaveMetaReady</name></member>
+      <member refid="class_a_tales_game_state_base_1a8f48888e6ca8e210d7f4c4af441eeb94" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>GetIsValidCharacterSelected</name></member>
+      <member refid="class_a_tales_game_state_base_1abf00f67ff7eb00b327666706440e5104" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>GetLastCharacterIndex</name></member>
+      <member refid="class_a_tales_game_state_base_1aa9d4abf355d973ef7209e9f8bae7adb9" prot="protected" virt="virtual"><scope>ATalesGameStateBase</scope><name>GetLifetimeReplicatedProps</name></member>
+      <member refid="class_a_tales_game_state_base_1a5e831493aa44e37c5d5ef778cdf19201" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>GetMetaDataSaveIndex</name></member>
+      <member refid="class_a_tales_game_state_base_1a59d76811fb2d641064f0f99305f7cac3" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>GetMetaDataSaveName</name></member>
+      <member refid="class_a_tales_game_state_base_1adb7d8a54fec82de1fb328a7b48e9c122" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>GetNextCharacterIndex</name></member>
+      <member refid="class_a_tales_game_state_base_1aaa95f894faa7894aa4182e19c306a1f4" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>GetPrevCharacterIndex</name></member>
+      <member refid="class_a_tales_game_state_base_1a1c4fe66aa9f79a843bb59f76f29c319d" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>GetSavedCharacterData</name></member>
+      <member refid="class_a_tales_game_state_base_1af8de965e850aa88c90cb76a0165453b0" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>GetSavedCharacterSlotNames</name></member>
+      <member refid="class_a_tales_game_state_base_1aabdf4f6da36305bfa6aaf4e904a22ed7" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>GetSaveGameMetaName</name></member>
+      <member refid="class_a_tales_game_state_base_1a7f7fcac81d23d13d097a7fc5ea1d2b8b" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>GetSelectedCharacter</name></member>
+      <member refid="class_a_tales_game_state_base_1a2cc8659a8e0bc80b506d2d9fc76be6e6" prot="private" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>Helper_LoadSavedValues</name></member>
+      <member refid="class_a_tales_game_state_base_1a46dafdf1b91321a707c55cb9cf50d2ab" prot="private" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>Helper_SetSaveValues</name></member>
+      <member refid="class_a_tales_game_state_base_1a3bd2eeeed97f2df7d3a70d5ce4c6c7ab" prot="protected" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>LoadCharacterAsync</name></member>
+      <member refid="class_a_tales_game_state_base_1ae8413db34b6d1d6406be24377880092f" prot="protected" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>LoadCharacterSync</name></member>
+      <member refid="class_a_tales_game_state_base_1a1648a7b4d0bbb08413aad2fdd7482e45" prot="public" virt="virtual"><scope>ATalesGameStateBase</scope><name>LoadDataAsset</name></member>
+      <member refid="class_a_tales_game_state_base_1a64cf6ed24d593773eac9d7968cabde17" prot="public" virt="virtual"><scope>ATalesGameStateBase</scope><name>LoadDataAsset</name></member>
+      <member refid="class_a_tales_game_state_base_1abb131703d1e091ecee0504eadf6a948c" prot="public" virt="virtual"><scope>ATalesGameStateBase</scope><name>LoadDataAssetDelegate</name></member>
+      <member refid="class_a_tales_game_state_base_1a44c5ae0935e6c2e3deae4ab3b050dc94" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>LoadSaveGameMeta</name></member>
+      <member refid="class_a_tales_game_state_base_1a3b9700d68513943fadd86369ea8d5f5a" prot="protected" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>LoadSaveGameMetaAsync</name></member>
+      <member refid="class_a_tales_game_state_base_1aca736ae65ee57569f64c79701bfdb53d" prot="protected" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>LoadSaveGameMetaSync</name></member>
+      <member refid="class_a_tales_game_state_base_1aebf0404b2b6c8d12282ccf28099448c4" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>LocalNotification</name></member>
+      <member refid="class_a_tales_game_state_base_1a4248f262f32d9ea68e5a63afd4180b97" prot="private" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>Multicast_SendNotification</name></member>
+      <member refid="class_a_tales_game_state_base_1afbe6aa36b8f981ecb390df3f331bd90d" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>OnDataAssetLoaded</name></member>
+      <member refid="class_a_tales_game_state_base_1ae5306fd965238af532c0e92c36e78d37" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>RemoveSelectedCharacter</name></member>
+      <member refid="class_a_tales_game_state_base_1a03f24a6aebbe7f7e57a5fbe65b35b0de" prot="protected" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>ResetCharacter</name></member>
+      <member refid="class_a_tales_game_state_base_1a384d03e628d7a478809e2e2b6ee3c1f0" prot="protected" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>SaveCharacterAsync</name></member>
+      <member refid="class_a_tales_game_state_base_1a71d5405f0708564d8ef450d04367ee68" prot="protected" virt="virtual"><scope>ATalesGameStateBase</scope><name>SaveCharacterSync</name></member>
+      <member refid="class_a_tales_game_state_base_1ab00b336e6dda1976db5696eee9376919" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>SaveCurrentCharacter</name></member>
+      <member refid="class_a_tales_game_state_base_1a38b1963b25c39df8a8f6831a8e049ccc" prot="protected" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>SaveGameMetaLoaded</name></member>
+      <member refid="class_a_tales_game_state_base_1ad85acd9de8722f46c07da3ff178e75d2" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>SaveMetaData</name></member>
+      <member refid="class_a_tales_game_state_base_1a4c2865c9f70641b4282120b0b561853c" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>SaveMetaDataAsync</name></member>
+      <member refid="class_a_tales_game_state_base_1aa7e747aaadb6318b503e91aa0d449d92" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>Server_NewNotification</name></member>
+      <member refid="class_a_tales_game_state_base_1a0d1c0e36ea7f5e74d997bfe29b22a226" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>SetSelectedCharacter</name></member>
+      <member refid="class_a_tales_game_state_base_1a876cecfc5bf84ad771e47adb42aa2eb3" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_tales_game_state_base_1aecf4c403b75ab63ecee782064f2e5f19" prot="private" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_tales_game_state_base_1a99c74044a6b9d23d9e384aa0a2aaf00e" prot="private" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_tales_game_state_base_1ad8f6a497bc41958412c4394b118ede76" prot="private" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_tales_game_state_base_1a6994396f571e42d3a8d329325c6c6379" prot="private" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_tales_game_state_base_1a97c8919d3c8e31d99b05ce23020ac6a6" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_tales_game_state_base_1ab8cb3672574a48a37d40fe516436715e" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_tales_game_state_base_1a5a0e677faa073f0a6477f0a33928f5f3" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_tales_game_state_base_1a5eadb71e664010242e4d4241ab6aacd7" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_tales_game_state_base_1a855b11bfb255bc48ccada2e3bb9cc7f1" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_tales_game_state_base_1a53df3b46b3fd64da9c11b14209d0d8e5" prot="public" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_tales_game_state_base_1adbbadd3510c2fef5f6a476cdd15682da" prot="private" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_tales_game_state_base_1a8fa0030a5ce251fa01c3026dd8a2dcc9" prot="private" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_tales_game_state_base_1a2476a2c95859b4566bfc998818d17698" prot="private" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_tales_game_state_base_1af2b5b2d2da7dc4bbc3b80fc44b4f175c" prot="private" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_tales_game_state_base_1af1002e3cb4fa3fe1ff963c74db451888" prot="private" virt="non-virtual"><scope>ATalesGameStateBase</scope><name>UserIndex</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

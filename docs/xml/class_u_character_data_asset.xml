@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_u_character_data_asset" kind="class" language="C++" prot="public">
+    <compoundname>UCharacterDataAsset</compoundname>
+    <basecompoundref refid="class_u_character_common_data" prot="public" virt="non-virtual">UCharacterCommonData</basecompoundref>
+    <includes refid="_character_defaults_8h" local="no">CharacterDefaults.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_u_character_data_asset_1a57a7792aeba9764effa13896c428ecb9" prot="public" static="no" mutable="no">
+        <type>class UInventoryDataAsset *</type>
+        <definition>class UInventoryDataAsset* UCharacterDataAsset::InventoryData</definition>
+        <argsstring></argsstring>
+        <name>InventoryData</name>
+        <qualifiedname>UCharacterDataAsset::InventoryData</qualifiedname>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="183" column="27" bodyfile="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" bodystart="183" bodyend="183"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_character_data_asset_1ae24279aadcc722eca9ae9af9ff7f9d0e" prot="public" static="no" mutable="no">
+        <type>FGameplayTagContainer</type>
+        <definition>FGameplayTagContainer UCharacterDataAsset::EligibleRaces</definition>
+        <argsstring></argsstring>
+        <name>EligibleRaces</name>
+        <qualifiedname>UCharacterDataAsset::EligibleRaces</qualifiedname>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="188" column="23" bodyfile="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" bodystart="188" bodyend="188"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_u_character_data_asset_1aec99f417b9e64817a9d12e37c12feb60" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>UCharacterDataAsset::UCharacterDataAsset</definition>
+        <argsstring>()</argsstring>
+        <name>UCharacterDataAsset</name>
+        <qualifiedname>UCharacterDataAsset::UCharacterDataAsset</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="180" column="1" bodyfile="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" bodystart="180" bodyend="180"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>This asset is what is loaded by the save-character method when a new character is created, as well as what is loaded by NPCs first when spawning. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>UCharacterCommonData</label>
+        <link refid="class_u_character_common_data"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>UCharacterDataAsset</label>
+        <link refid="class_u_character_data_asset"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>UDataAsset</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>UCharacterCommonData</label>
+        <link refid="class_u_character_common_data"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>UCharacterDataAsset</label>
+        <link refid="class_u_character_data_asset"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>UDataAsset</label>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" line="174" column="1" bodyfile="Source/TalesDungeoneer/Public/DataAssets/CharacterDefaults.h" bodystart="175" bodyend="190"/>
+    <listofallmembers>
+      <member refid="class_u_character_common_data_1a7f9393fbb6e3dfb59a5a79ebf4814b26" prot="public" virt="non-virtual"><scope>UCharacterDataAsset</scope><name>Abilities</name></member>
+      <member refid="class_u_character_common_data_1a90040cdc2458fc59f33396b0849a4982" prot="public" virt="non-virtual"><scope>UCharacterDataAsset</scope><name>CoreStatsModifiers</name></member>
+      <member refid="class_u_character_common_data_1ac1ed158282121326386968765ee72617" prot="public" virt="non-virtual"><scope>UCharacterDataAsset</scope><name>DamageBonusModifiers</name></member>
+      <member refid="class_u_character_common_data_1a99170dbd6f888e6c477f25d2293dfb9e" prot="public" virt="non-virtual"><scope>UCharacterDataAsset</scope><name>DamageResistModifiers</name></member>
+      <member refid="class_u_character_common_data_1ac69b7a2e5df7332d1a6a56670119a782" prot="public" virt="non-virtual"><scope>UCharacterDataAsset</scope><name>DisplayName</name></member>
+      <member refid="class_u_character_common_data_1ac0b751d1652488ed1d0766995ef54968" prot="public" virt="non-virtual"><scope>UCharacterDataAsset</scope><name>Effects</name></member>
+      <member refid="class_u_character_data_asset_1ae24279aadcc722eca9ae9af9ff7f9d0e" prot="public" virt="non-virtual"><scope>UCharacterDataAsset</scope><name>EligibleRaces</name></member>
+      <member refid="class_u_character_data_asset_1a57a7792aeba9764effa13896c428ecb9" prot="public" virt="non-virtual"><scope>UCharacterDataAsset</scope><name>InventoryData</name></member>
+      <member refid="class_u_character_common_data_1ac8cc3a50f0269e47dc90946da8734432" prot="public" virt="non-virtual"><scope>UCharacterDataAsset</scope><name>UCharacterCommonData</name></member>
+      <member refid="class_u_character_data_asset_1aec99f417b9e64817a9d12e37c12feb60" prot="public" virt="non-virtual"><scope>UCharacterDataAsset</scope><name>UCharacterDataAsset</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

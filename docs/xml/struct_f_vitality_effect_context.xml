@@ -1,0 +1,197 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="struct_f_vitality_effect_context" kind="struct" language="C++" prot="public">
+    <compoundname>FVitalityEffectContext</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">FGameplayEffectContext</basecompoundref>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="struct_f_vitality_effect_context_1ae6a64b9d17ac42f076d68767cb40f15e" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool FVitalityEffectContext::bIsCriticalHit</definition>
+        <argsstring></argsstring>
+        <name>bIsCriticalHit</name>
+        <qualifiedname>FVitalityEffectContext::bIsCriticalHit</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/Contexts/VitalityEffectContext.h" line="38" column="6" bodyfile="Source/TalesDungeoneer/Public/Gas/Contexts/VitalityEffectContext.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_vitality_effect_context_1afdcc14e58442cb4da2cfc42c77f63193" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool FVitalityEffectContext::bIsLuckyHit</definition>
+        <argsstring></argsstring>
+        <name>bIsLuckyHit</name>
+        <qualifiedname>FVitalityEffectContext::bIsLuckyHit</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/Contexts/VitalityEffectContext.h" line="41" column="6" bodyfile="Source/TalesDungeoneer/Public/Gas/Contexts/VitalityEffectContext.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_f_vitality_effect_context_1aea187927ebeec6d7c2e300ccb58c6c33" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void FVitalityEffectContext::SetIsCriticalHit</definition>
+        <argsstring>(bool tIsCriticalHit)</argsstring>
+        <name>SetIsCriticalHit</name>
+        <qualifiedname>FVitalityEffectContext::SetIsCriticalHit</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>tIsCriticalHit</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/Contexts/VitalityEffectContext.h" line="20" column="6" bodyfile="Source/TalesDungeoneer/Public/Gas/Contexts/VitalityEffectContext.h" bodystart="20" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_vitality_effect_context_1ae2ac26c23c72eb4b03cee1baaed842db" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void FVitalityEffectContext::SetIsLuckyHit</definition>
+        <argsstring>(bool tIsLuckyHit)</argsstring>
+        <name>SetIsLuckyHit</name>
+        <qualifiedname>FVitalityEffectContext::SetIsLuckyHit</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>tIsLuckyHit</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/Contexts/VitalityEffectContext.h" line="21" column="6" bodyfile="Source/TalesDungeoneer/Public/Gas/Contexts/VitalityEffectContext.h" bodystart="21" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_vitality_effect_context_1ac0df52b6a56789a3aec34d6163bdd1a1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool FVitalityEffectContext::IsCriticalHit</definition>
+        <argsstring>() const</argsstring>
+        <name>IsCriticalHit</name>
+        <qualifiedname>FVitalityEffectContext::IsCriticalHit</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/Contexts/VitalityEffectContext.h" line="23" column="6" bodyfile="Source/TalesDungeoneer/Public/Gas/Contexts/VitalityEffectContext.h" bodystart="23" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_vitality_effect_context_1a54ccbf336a5ee9ee81806040ea1b389e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool FVitalityEffectContext::IsLuckyHit</definition>
+        <argsstring>() const</argsstring>
+        <name>IsLuckyHit</name>
+        <qualifiedname>FVitalityEffectContext::IsLuckyHit</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/Contexts/VitalityEffectContext.h" line="24" column="6" bodyfile="Source/TalesDungeoneer/Public/Gas/Contexts/VitalityEffectContext.h" bodystart="24" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_vitality_effect_context_1ad9e72dffffb2407277d0ca8f4e92bb96" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>UScriptStruct *</type>
+        <definition>UScriptStruct * FVitalityEffectContext::GetScriptStruct</definition>
+        <argsstring>() const override</argsstring>
+        <name>GetScriptStruct</name>
+        <qualifiedname>FVitalityEffectContext::GetScriptStruct</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/Contexts/VitalityEffectContext.h" line="27" column="23" bodyfile="Source/TalesDungeoneer/Private/Gas/Contexts/VitalityEffectContext.cpp" bodystart="8" bodyend="11"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_vitality_effect_context_1a5debb36ff2f70cb7ab7c071b3ec12911" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="struct_f_vitality_effect_context" kindref="compound">FVitalityEffectContext</ref> *</type>
+        <definition>FVitalityEffectContext * FVitalityEffectContext::Duplicate</definition>
+        <argsstring>() const override</argsstring>
+        <name>Duplicate</name>
+        <qualifiedname>FVitalityEffectContext::Duplicate</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/Contexts/VitalityEffectContext.h" line="30" column="32" bodyfile="Source/TalesDungeoneer/Private/Gas/Contexts/VitalityEffectContext.cpp" bodystart="13" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_vitality_effect_context_1a2adccaeb0b95ae8b5220f584f7f219a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool FVitalityEffectContext::NetSerialize</definition>
+        <argsstring>(FArchive &amp;Ar, UPackageMap *Map, bool &amp;bOutSuccess) override</argsstring>
+        <name>NetSerialize</name>
+        <qualifiedname>FVitalityEffectContext::NetSerialize</qualifiedname>
+        <param>
+          <type>FArchive &amp;</type>
+          <declname>Ar</declname>
+        </param>
+        <param>
+          <type>UPackageMap *</type>
+          <declname>Map</declname>
+        </param>
+        <param>
+          <type>bool &amp;</type>
+          <declname>bOutSuccess</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/Contexts/VitalityEffectContext.h" line="33" column="14" bodyfile="Source/TalesDungeoneer/Private/Gas/Contexts/VitalityEffectContext.cpp" bodystart="26" bodyend="128"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>FGameplayEffectContext</label>
+      </node>
+      <node id="1">
+        <label>FVitalityEffectContext</label>
+        <link refid="struct_f_vitality_effect_context"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>FGameplayEffectContext</label>
+      </node>
+      <node id="1">
+        <label>FVitalityEffectContext</label>
+        <link refid="struct_f_vitality_effect_context"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Gas/Contexts/VitalityEffectContext.h" line="14" column="1" bodyfile="Source/TalesDungeoneer/Public/Gas/Contexts/VitalityEffectContext.h" bodystart="15" bodyend="42"/>
+    <listofallmembers>
+      <member refid="struct_f_vitality_effect_context_1ae6a64b9d17ac42f076d68767cb40f15e" prot="protected" virt="non-virtual"><scope>FVitalityEffectContext</scope><name>bIsCriticalHit</name></member>
+      <member refid="struct_f_vitality_effect_context_1afdcc14e58442cb4da2cfc42c77f63193" prot="protected" virt="non-virtual"><scope>FVitalityEffectContext</scope><name>bIsLuckyHit</name></member>
+      <member refid="struct_f_vitality_effect_context_1a5debb36ff2f70cb7ab7c071b3ec12911" prot="public" virt="virtual"><scope>FVitalityEffectContext</scope><name>Duplicate</name></member>
+      <member refid="struct_f_vitality_effect_context_1ad9e72dffffb2407277d0ca8f4e92bb96" prot="public" virt="virtual"><scope>FVitalityEffectContext</scope><name>GetScriptStruct</name></member>
+      <member refid="struct_f_vitality_effect_context_1ac0df52b6a56789a3aec34d6163bdd1a1" prot="public" virt="non-virtual"><scope>FVitalityEffectContext</scope><name>IsCriticalHit</name></member>
+      <member refid="struct_f_vitality_effect_context_1a54ccbf336a5ee9ee81806040ea1b389e" prot="public" virt="non-virtual"><scope>FVitalityEffectContext</scope><name>IsLuckyHit</name></member>
+      <member refid="struct_f_vitality_effect_context_1a2adccaeb0b95ae8b5220f584f7f219a6" prot="public" virt="virtual"><scope>FVitalityEffectContext</scope><name>NetSerialize</name></member>
+      <member refid="struct_f_vitality_effect_context_1aea187927ebeec6d7c2e300ccb58c6c33" prot="public" virt="non-virtual"><scope>FVitalityEffectContext</scope><name>SetIsCriticalHit</name></member>
+      <member refid="struct_f_vitality_effect_context_1ae2ac26c23c72eb4b03cee1baaed842db" prot="public" virt="non-virtual"><scope>FVitalityEffectContext</scope><name>SetIsLuckyHit</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

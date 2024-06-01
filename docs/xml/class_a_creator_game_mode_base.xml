@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_a_creator_game_mode_base" kind="class" language="C++" prot="public">
+    <compoundname>ACreatorGameModeBase</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">AGameModeBase</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_a_creator_game_mode_base_1abcde80d3cbfa58f0d1115d317fde792a" prot="public" static="no" mutable="no">
+        <type>TSubclassOf&lt; <ref refid="class_a_character_base" kindref="compound">ACharacterBase</ref> &gt;</type>
+        <definition>TSubclassOf&lt;ACharacterBase&gt; ACreatorGameModeBase::BpCharacter</definition>
+        <argsstring></argsstring>
+        <name>BpCharacter</name>
+        <qualifiedname>ACreatorGameModeBase::BpCharacter</qualifiedname>
+        <initializer>= ACreatorCharacterBase::StaticClass()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorGameModeBase.h" line="23" column="13" bodyfile="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorGameModeBase.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_a_creator_game_mode_base_1af5e14c53c277c7da0210360da3492a5a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACreatorGameModeBase::ACreatorGameModeBase</definition>
+        <argsstring>()</argsstring>
+        <name>ACreatorGameModeBase</name>
+        <qualifiedname>ACreatorGameModeBase::ACreatorGameModeBase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorGameModeBase.h" line="20" column="1" bodyfile="Source/TalesDungeoneer/Private/Gamemode/TitleScreen/CreatorGameModeBase.cpp" bodystart="6" bodyend="9"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_a_creator_game_mode_base_1a73c6056685b2014546a600589cfd1fa9" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ACreatorGameModeBase::OnConstruction</definition>
+        <argsstring>(const FTransform &amp;Transform) override</argsstring>
+        <name>OnConstruction</name>
+        <qualifiedname>ACreatorGameModeBase::OnConstruction</qualifiedname>
+        <param>
+          <type>const FTransform &amp;</type>
+          <declname>Transform</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorGameModeBase.h" line="27" column="14" bodyfile="Source/TalesDungeoneer/Private/Gamemode/TitleScreen/CreatorGameModeBase.cpp" bodystart="11" bodyend="18"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>ACreatorGameModeBase</label>
+        <link refid="class_a_creator_game_mode_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>AGameModeBase</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>ACreatorGameModeBase</label>
+        <link refid="class_a_creator_game_mode_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>AGameModeBase</label>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorGameModeBase.h" line="15" column="1" bodyfile="Source/TalesDungeoneer/Public/Gamemode/TitleScreen/CreatorGameModeBase.h" bodystart="16" bodyend="28"/>
+    <listofallmembers>
+      <member refid="class_a_creator_game_mode_base_1af5e14c53c277c7da0210360da3492a5a" prot="public" virt="non-virtual"><scope>ACreatorGameModeBase</scope><name>ACreatorGameModeBase</name></member>
+      <member refid="class_a_creator_game_mode_base_1abcde80d3cbfa58f0d1115d317fde792a" prot="public" virt="non-virtual"><scope>ACreatorGameModeBase</scope><name>BpCharacter</name></member>
+      <member refid="class_a_creator_game_mode_base_1a73c6056685b2014546a600589cfd1fa9" prot="protected" virt="virtual"><scope>ACreatorGameModeBase</scope><name>OnConstruction</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_u_tales_gameplay_ability" kind="class" language="C++" prot="public">
+    <compoundname>UTalesGameplayAbility</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">UGameplayAbility</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_u_tales_gameplay_ability_1af2636d7536ceffe273f0851eb1017327" prot="public" static="no" mutable="no">
+        <type>EAbilityInputID</type>
+        <definition>EAbilityInputID UTalesGameplayAbility::AbilityInputID</definition>
+        <argsstring></argsstring>
+        <name>AbilityInputID</name>
+        <qualifiedname>UTalesGameplayAbility::AbilityInputID</qualifiedname>
+        <initializer>{ EAbilityInputID::None }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gas/Abilities/TalesGameplayAbility.h" line="22" column="17" bodyfile="Source/TalesDungeoneer/Public/Gas/Abilities/TalesGameplayAbility.h" bodystart="22" bodyend="22"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>UGameplayAbility</label>
+      </node>
+      <node id="1">
+        <label>UTalesGameplayAbility</label>
+        <link refid="class_u_tales_gameplay_ability"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>UGameplayAbility</label>
+      </node>
+      <node id="1">
+        <label>UTalesGameplayAbility</label>
+        <link refid="class_u_tales_gameplay_ability"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Gas/Abilities/TalesGameplayAbility.h" line="16" column="1" bodyfile="Source/TalesDungeoneer/Public/Gas/Abilities/TalesGameplayAbility.h" bodystart="17" bodyend="24"/>
+    <listofallmembers>
+      <member refid="class_u_tales_gameplay_ability_1af2636d7536ceffe273f0851eb1017327" prot="public" virt="non-virtual"><scope>UTalesGameplayAbility</scope><name>AbilityInputID</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

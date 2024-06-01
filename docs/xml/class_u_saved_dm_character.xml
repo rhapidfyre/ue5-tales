@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_u_saved_dm_character" kind="class" language="C++" prot="public">
+    <compoundname>USavedDmCharacter</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">USaveGame</basecompoundref>
+    <includes refid="_saved_characters_8h" local="no">SavedCharacters.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_u_saved_dm_character_1a8f8e0bb956e9c53f7cdb8f0237422b99" prot="public" static="no" mutable="no">
+        <type>FString</type>
+        <definition>FString USavedDmCharacter::SaveVersion</definition>
+        <argsstring></argsstring>
+        <name>SaveVersion</name>
+        <qualifiedname>USavedDmCharacter::SaveVersion</qualifiedname>
+        <initializer>= &quot;v?&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" line="88" column="9" bodyfile="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_saved_dm_character_1a24073a89db73430d22bfb5cb4a7296e1" prot="public" static="no" mutable="no">
+        <type>FString</type>
+        <definition>FString USavedDmCharacter::SaveSlotName</definition>
+        <argsstring></argsstring>
+        <name>SaveSlotName</name>
+        <qualifiedname>USavedDmCharacter::SaveSlotName</qualifiedname>
+        <initializer>= TEXT(&quot;QuickName&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" line="91" column="9" bodyfile="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_saved_dm_character_1abe77e62498fd99539056c5e467dd9301" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int USavedDmCharacter::EngineeringLevel</definition>
+        <argsstring></argsstring>
+        <name>EngineeringLevel</name>
+        <qualifiedname>USavedDmCharacter::EngineeringLevel</qualifiedname>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" line="94" column="5" bodyfile="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_saved_dm_character_1a1da14b20727f8fa1faf07cef80cc2192" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float USavedDmCharacter::ExperiencePoints</definition>
+        <argsstring></argsstring>
+        <name>ExperiencePoints</name>
+        <qualifiedname>USavedDmCharacter::ExperiencePoints</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" line="97" column="7" bodyfile="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_u_saved_dm_character_1abe7bf2d816e14a610864774a96718d40" prot="public" static="no" mutable="no">
+        <type>uint32</type>
+        <definition>uint32 USavedDmCharacter::UserIndex</definition>
+        <argsstring></argsstring>
+        <name>UserIndex</name>
+        <qualifiedname>USavedDmCharacter::UserIndex</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" line="100" column="8" bodyfile="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_u_saved_dm_character_1a78c2aac216ebd72d3aecd739abe2c0fa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>USavedDmCharacter::USavedDmCharacter</definition>
+        <argsstring>()</argsstring>
+        <name>USavedDmCharacter</name>
+        <qualifiedname>USavedDmCharacter::USavedDmCharacter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" line="85" column="1" bodyfile="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" bodystart="85" bodyend="85"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>The object used for saving all DM character data </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>USaveGame</label>
+      </node>
+      <node id="1">
+        <label>USavedDmCharacter</label>
+        <link refid="class_u_saved_dm_character"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>USaveGame</label>
+      </node>
+      <node id="1">
+        <label>USavedDmCharacter</label>
+        <link refid="class_u_saved_dm_character"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" line="79" column="1" bodyfile="Source/TalesDungeoneer/Public/Saves/SavedCharacters.h" bodystart="80" bodyend="102"/>
+    <listofallmembers>
+      <member refid="class_u_saved_dm_character_1abe77e62498fd99539056c5e467dd9301" prot="public" virt="non-virtual"><scope>USavedDmCharacter</scope><name>EngineeringLevel</name></member>
+      <member refid="class_u_saved_dm_character_1a1da14b20727f8fa1faf07cef80cc2192" prot="public" virt="non-virtual"><scope>USavedDmCharacter</scope><name>ExperiencePoints</name></member>
+      <member refid="class_u_saved_dm_character_1a24073a89db73430d22bfb5cb4a7296e1" prot="public" virt="non-virtual"><scope>USavedDmCharacter</scope><name>SaveSlotName</name></member>
+      <member refid="class_u_saved_dm_character_1a8f8e0bb956e9c53f7cdb8f0237422b99" prot="public" virt="non-virtual"><scope>USavedDmCharacter</scope><name>SaveVersion</name></member>
+      <member refid="class_u_saved_dm_character_1a78c2aac216ebd72d3aecd739abe2c0fa" prot="public" virt="non-virtual"><scope>USavedDmCharacter</scope><name>USavedDmCharacter</name></member>
+      <member refid="class_u_saved_dm_character_1abe7bf2d816e14a610864774a96718d40" prot="public" virt="non-virtual"><scope>USavedDmCharacter</scope><name>UserIndex</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

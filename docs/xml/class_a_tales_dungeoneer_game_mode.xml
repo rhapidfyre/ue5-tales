@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_a_tales_dungeoneer_game_mode" kind="class" language="C++" prot="public">
+    <compoundname>ATalesDungeoneerGameMode</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">AGameModeBase</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_a_tales_dungeoneer_game_mode_1a9bd44fcabe7bf36111d3f41a34bfef35" prot="public" static="no" mutable="no">
+        <type>TSubclassOf&lt; <ref refid="class_a_character_base" kindref="compound">ACharacterBase</ref> &gt;</type>
+        <definition>TSubclassOf&lt;ACharacterBase&gt; ATalesDungeoneerGameMode::DefaultCharacter</definition>
+        <argsstring></argsstring>
+        <name>DefaultCharacter</name>
+        <qualifiedname>ATalesDungeoneerGameMode::DefaultCharacter</qualifiedname>
+        <initializer>= APlayerCharacterBase::StaticClass()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesDungeoneerGameMode.h" line="20" column="13" bodyfile="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesDungeoneerGameMode.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_a_tales_dungeoneer_game_mode_1ad5c68d1cbb92c836f5eaa7885406163f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ATalesDungeoneerGameMode::ATalesDungeoneerGameMode</definition>
+        <argsstring>()</argsstring>
+        <name>ATalesDungeoneerGameMode</name>
+        <qualifiedname>ATalesDungeoneerGameMode::ATalesDungeoneerGameMode</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesDungeoneerGameMode.h" line="17" column="1" bodyfile="Source/TalesDungeoneer/Private/Gamemode/AdventureMode/TalesDungeoneerGameMode.cpp" bodystart="9" bodyend="12"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_a_tales_dungeoneer_game_mode_1ae35ffc540813e6e6ebad14426bdc4da6" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ATalesDungeoneerGameMode::OnConstruction</definition>
+        <argsstring>(const FTransform &amp;Transform) override</argsstring>
+        <name>OnConstruction</name>
+        <qualifiedname>ATalesDungeoneerGameMode::OnConstruction</qualifiedname>
+        <param>
+          <type>const FTransform &amp;</type>
+          <declname>Transform</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesDungeoneerGameMode.h" line="23" column="14" bodyfile="Source/TalesDungeoneer/Private/Gamemode/AdventureMode/TalesDungeoneerGameMode.cpp" bodystart="14" bodyend="21"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>AGameModeBase</label>
+      </node>
+      <node id="1">
+        <label>ATalesDungeoneerGameMode</label>
+        <link refid="class_a_tales_dungeoneer_game_mode"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>AGameModeBase</label>
+      </node>
+      <node id="1">
+        <label>ATalesDungeoneerGameMode</label>
+        <link refid="class_a_tales_dungeoneer_game_mode"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesDungeoneerGameMode.h" line="12" column="1" bodyfile="Source/TalesDungeoneer/Public/Gamemode/AdventureMode/TalesDungeoneerGameMode.h" bodystart="13" bodyend="24"/>
+    <listofallmembers>
+      <member refid="class_a_tales_dungeoneer_game_mode_1ad5c68d1cbb92c836f5eaa7885406163f" prot="public" virt="non-virtual"><scope>ATalesDungeoneerGameMode</scope><name>ATalesDungeoneerGameMode</name></member>
+      <member refid="class_a_tales_dungeoneer_game_mode_1a9bd44fcabe7bf36111d3f41a34bfef35" prot="public" virt="non-virtual"><scope>ATalesDungeoneerGameMode</scope><name>DefaultCharacter</name></member>
+      <member refid="class_a_tales_dungeoneer_game_mode_1ae35ffc540813e6e6ebad14426bdc4da6" prot="protected" virt="virtual"><scope>ATalesDungeoneerGameMode</scope><name>OnConstruction</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

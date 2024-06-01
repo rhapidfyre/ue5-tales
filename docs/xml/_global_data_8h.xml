@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="_global_data_8h" kind="file" language="C++">
+    <compoundname>GlobalData.h</compoundname>
+    <includes local="yes">CoreMinimal.h</includes>
+    <includes local="yes">lib/EquipmentData.h</includes>
+    <includes local="yes">lib/InventoryData.h</includes>
+    <includes local="yes">GameplayTags.h</includes>
+    <includes refid="_global_enums_8h" local="yes">lib/enums/GlobalEnums.h</includes>
+    <includes local="yes">GlobalData.generated.h</includes>
+    <includedby refid="_character_base_8cpp" local="yes">Source/TalesDungeoneer/Private/Characters/CharacterBase.cpp</includedby>
+    <includedby refid="_tales_game_state_base_8cpp" local="yes">Source/TalesDungeoneer/Private/Gamemode/BaseFiles/TalesGameStateBase.cpp</includedby>
+    <includedby refid="_static_save_data_8cpp" local="yes">Source/TalesDungeoneer/Private/Saves/StaticSaveData.cpp</includedby>
+    <includedby refid="_global_data_8cpp" local="yes">Source/TalesDungeoneer/Private/lib/datastructures/GlobalData.cpp</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>CoreMinimal.h</label>
+      </node>
+      <node id="1">
+        <label>Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h</label>
+        <link refid="_global_data_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>lib/enums/GlobalEnums.h</label>
+        <link refid="_global_enums_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>GameplayTags.h</label>
+      </node>
+      <node id="8">
+        <label>GlobalData.generated.h</label>
+      </node>
+      <node id="7">
+        <label>GlobalEnums.generated.h</label>
+      </node>
+      <node id="3">
+        <label>lib/EquipmentData.h</label>
+      </node>
+      <node id="4">
+        <label>lib/InventoryData.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="struct_f_st_faction_data_map" prot="public">FStFactionDataMap</innerclass>
+    <innerclass refid="struct_f_st_faction_data" prot="public">FStFactionData</innerclass>
+    <innerclass refid="struct_f_tales_version" prot="public">FTalesVersion</innerclass>
+    <innerclass refid="class_u_global_data" prot="public">UGlobalData</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;CoreMinimal.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;lib/EquipmentData.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;lib/InventoryData.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;GameplayTags.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;lib/enums/GlobalEnums.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;GlobalData.generated.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">FStMeshMergeData;</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal">USTRUCT(BlueprintType)</highlight></codeline>
+<codeline lineno="14" refid="struct_f_st_faction_data_map" refkind="compound"><highlight class="normal">struct<sp/><ref refid="struct_f_st_faction_data_map" kindref="compound">FStFactionDataMap</ref></highlight></codeline>
+<codeline lineno="15"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>GENERATED_BODY()</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_f_st_faction_data_map" kindref="compound">FStFactionDataMap</ref>()<sp/>{};</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_f_st_faction_data_map" kindref="compound">FStFactionDataMap</ref>(EFaction<sp/>NewEnum,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>NewValue)</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FactionEnum<sp/>=<sp/>NewEnum;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FactionValue<sp/>=<sp/>NewValue;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>EFaction<sp/>FactionEnum<sp/>=<sp/>EFaction::ANY;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>FactionValue<sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal">USTRUCT(BlueprintType)</highlight></codeline>
+<codeline lineno="28" refid="struct_f_st_faction_data" refkind="compound"><highlight class="normal">struct<sp/><ref refid="struct_f_st_faction_data" kindref="compound">FStFactionData</ref></highlight></codeline>
+<codeline lineno="29"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>GENERATED_BODY()</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(EditAnywhere,<sp/>BlueprintReadWrite)<sp/>TArray&lt;FStFactionDataMap&gt;<sp/>DataMap<sp/>=<sp/>{};</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>GetFactionValue(EFaction<sp/>FactionToCheck)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="33"><highlight class="keyword"><sp/><sp/><sp/><sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_f_st_faction_data_map" kindref="compound">FStFactionDataMap</ref><sp/>TempMap<sp/>:<sp/>DataMap)</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TempMap.FactionEnum<sp/>==<sp/>FactionToCheck)</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>TempMap.FactionValue;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0.f;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>EFactionState<sp/>GetFactionState(EFaction<sp/>FactionToCheck)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="42"><highlight class="keyword"><sp/><sp/><sp/><sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>FactionValue<sp/>=<sp/>GetFactionValue(FactionToCheck);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(FactionValue<sp/>&lt;<sp/>-100.f)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>EFactionState::HATE;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(FactionValue<sp/>&lt;<sp/>100.f)<sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>EFactionState::NONE;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(FactionValue<sp/><sp/>&lt;<sp/>500.f)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>EFactionState::LIKE;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>EFactionState::ALLY;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal">USTRUCT(BlueprintType)</highlight></codeline>
+<codeline lineno="52" refid="struct_f_tales_version" refkind="compound"><highlight class="normal">struct<sp/><ref refid="struct_f_tales_version" kindref="compound">FTalesVersion</ref></highlight></codeline>
+<codeline lineno="53"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>GENERATED_BODY()</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_f_tales_version" kindref="compound">FTalesVersion</ref>()<sp/>:<sp/>VersionMajor(0),<sp/>VersionMinor(0),<sp/>VersionPatch(0),<sp/>VersionBranch(</highlight><highlight class="stringliteral">&quot;x&quot;</highlight><highlight class="normal">)<sp/>{};</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>VisibleAnywhere)<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VersionMajor;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>VisibleAnywhere)<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VersionMinor;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>VisibleAnywhere)<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VersionPatch;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/>UPROPERTY(BlueprintReadOnly,<sp/>VisibleAnywhere)<sp/>FString<sp/>VersionBranch;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>FString<sp/>ToString(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>bShowBranch<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>bSafeString<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal">UCLASS()</highlight></codeline>
+<codeline lineno="64" refid="class_u_global_data" refkind="compound"><highlight class="normal">class<sp/><ref refid="class_u_global_data" kindref="compound">UGlobalData</ref><sp/>:<sp/>public<sp/>UBlueprintFunctionLibrary</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>GENERATED_BODY()</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintCallable,<sp/>meta<sp/>=<sp/>(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Get<sp/>Project<sp/>Version&quot;</highlight><highlight class="normal">),<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Game<sp/>Config&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FString<sp/>GetAppVersion(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>bShowBranch<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>bSafeString<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintCallable,<sp/>meta<sp/>=<sp/>(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Get<sp/>Full<sp/>Project<sp/>Version&quot;</highlight><highlight class="normal">),<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Game<sp/>Config&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_f_tales_version" kindref="compound">FTalesVersion</ref><sp/>GetFullAppVersion();</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintCallable,<sp/>meta<sp/>=<sp/>(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Maximum<sp/>Character<sp/>Level&quot;</highlight><highlight class="normal">),<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Game<sp/>Config&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>GetGameMaxCharacterLevel();</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintCallable,<sp/>meta<sp/>=<sp/>(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;GetAppVersion&quot;</highlight><highlight class="normal">),<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Game<sp/>Config&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FString<sp/>CharacterSaveFolder()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;Characters/&quot;</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintCallable,<sp/>meta<sp/>=<sp/>(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;GetAppVersion&quot;</highlight><highlight class="normal">),<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Game<sp/>Config&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FString<sp/>InventorySaveFolder()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;Inventory/&quot;</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintCallable,<sp/>meta<sp/>=<sp/>(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;GetAppVersion&quot;</highlight><highlight class="normal">),<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Game<sp/>Config&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FString<sp/>MeshMergeSaveFolder()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;MeshMerge/&quot;</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>UFUNCTION(BlueprintCallable,<sp/>meta<sp/>=<sp/>(DisplayName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Debug<sp/>Build&quot;</highlight><highlight class="normal">),<sp/>Category<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Game<sp/>Config&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>GetGameIsInDebugMode()</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(UE_BUILD_DEBUG<sp/>||<sp/>UE_BUILD_DEVELOPMENT);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h"/>
+  </compounddef>
+</doxygen>

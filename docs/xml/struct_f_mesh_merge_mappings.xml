@@ -1,0 +1,180 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="struct_f_mesh_merge_mappings" kind="struct" language="C++" prot="public">
+    <compoundname>FMeshMergeMappings</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_f_mesh_merge_mappings_1a289379d24313c12493454abbe120735c" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int FMeshMergeMappings::numSuperiorMeshes</definition>
+        <argsstring></argsstring>
+        <name>numSuperiorMeshes</name>
+        <qualifiedname>FMeshMergeMappings::numSuperiorMeshes</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" line="40" column="5" bodyfile="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_mesh_merge_mappings_1a08dbcb393ef327c8e5ca647a640087bf" prot="public" static="no" mutable="no">
+        <type>FGameplayTagContainer</type>
+        <definition>FGameplayTagContainer FMeshMergeMappings::GameplayTags</definition>
+        <argsstring></argsstring>
+        <name>GameplayTags</name>
+        <qualifiedname>FMeshMergeMappings::GameplayTags</qualifiedname>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" line="44" column="22" bodyfile="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" bodystart="44" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_mesh_merge_mappings_1aa344beaff0f2575675ca24d5e9b758da" prot="public" static="no" mutable="no">
+        <type>FGameplayTag</type>
+        <definition>FGameplayTag FMeshMergeMappings::EquipSlotTag</definition>
+        <argsstring></argsstring>
+        <name>EquipSlotTag</name>
+        <qualifiedname>FMeshMergeMappings::EquipSlotTag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" line="48" column="13" bodyfile="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_mesh_merge_mappings_1ad374538d3461fc8accbeb317dd4d1c2a" prot="public" static="no" mutable="no">
+        <type>const UEquipmentDataAsset *</type>
+        <definition>const UEquipmentDataAsset* FMeshMergeMappings::DataAsset</definition>
+        <argsstring></argsstring>
+        <name>DataAsset</name>
+        <qualifiedname>FMeshMergeMappings::DataAsset</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" line="52" column="26" bodyfile="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_mesh_merge_mappings_1a281665c9cd461f760def43b0b701b162" prot="public" static="no" mutable="no">
+        <type>USkeletalMesh *</type>
+        <definition>USkeletalMesh* FMeshMergeMappings::SkeletalMesh</definition>
+        <argsstring></argsstring>
+        <name>SkeletalMesh</name>
+        <qualifiedname>FMeshMergeMappings::SkeletalMesh</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" line="56" column="14" bodyfile="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_mesh_merge_mappings_1aefcebec04da8f12856da7a3852cac15f" prot="public" static="no" mutable="no">
+        <type>TArray&lt; USkeletalMesh * &gt;</type>
+        <definition>TArray&lt;USkeletalMesh*&gt; FMeshMergeMappings::AccompaniedMeshes</definition>
+        <argsstring></argsstring>
+        <name>AccompaniedMeshes</name>
+        <qualifiedname>FMeshMergeMappings::AccompaniedMeshes</qualifiedname>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" line="60" column="7" bodyfile="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" bodystart="60" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_mesh_merge_mappings_1a929daf92d494caa0bded8d820075fbec" prot="public" static="no" mutable="no">
+        <type>TArray&lt; FSkelMeshMergeSectionMapping &gt;</type>
+        <definition>TArray&lt;FSkelMeshMergeSectionMapping&gt; FMeshMergeMappings::SectionMappings</definition>
+        <argsstring></argsstring>
+        <name>SectionMappings</name>
+        <qualifiedname>FMeshMergeMappings::SectionMappings</qualifiedname>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" line="64" column="8" bodyfile="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" bodystart="64" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_mesh_merge_mappings_1a9c56ab012f21531e076639e790e2c29a" prot="public" static="no" mutable="no">
+        <type>TArray&lt; FSkelMeshMergeUVTransformMapping &gt;</type>
+        <definition>TArray&lt;FSkelMeshMergeUVTransformMapping&gt; FMeshMergeMappings::MeshUvTransforms</definition>
+        <argsstring></argsstring>
+        <name>MeshUvTransforms</name>
+        <qualifiedname>FMeshMergeMappings::MeshUvTransforms</qualifiedname>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" line="68" column="8" bodyfile="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" bodystart="68" bodyend="68"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_f_mesh_merge_mappings_1aad4d66cbadc9e84b3ab1e127115e198c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>FMeshMergeMappings::FMeshMergeMappings</definition>
+        <argsstring>()</argsstring>
+        <name>FMeshMergeMappings</name>
+        <qualifiedname>FMeshMergeMappings::FMeshMergeMappings</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" line="36" column="1" bodyfile="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" bodystart="36" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_mesh_merge_mappings_1abec62fc0bcd158998c068a41e6241fa9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FMeshMergeMappings::FMeshMergeMappings</definition>
+        <argsstring>(const UEquipmentDataAsset *NewAsset, bool isFeminine)</argsstring>
+        <name>FMeshMergeMappings</name>
+        <qualifiedname>FMeshMergeMappings::FMeshMergeMappings</qualifiedname>
+        <param>
+          <type>const UEquipmentDataAsset *</type>
+          <declname>NewAsset</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>isFeminine</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" line="37" column="1" bodyfile="Source/TalesDungeoneer/Private/Characters/Components/MeshMergeComponent.cpp" bodystart="48" bodyend="60"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" line="33" column="1" bodyfile="Source/TalesDungeoneer/Public/Characters/Components/MeshMergeComponent.h" bodystart="34" bodyend="70"/>
+    <listofallmembers>
+      <member refid="struct_f_mesh_merge_mappings_1aefcebec04da8f12856da7a3852cac15f" prot="public" virt="non-virtual"><scope>FMeshMergeMappings</scope><name>AccompaniedMeshes</name></member>
+      <member refid="struct_f_mesh_merge_mappings_1ad374538d3461fc8accbeb317dd4d1c2a" prot="public" virt="non-virtual"><scope>FMeshMergeMappings</scope><name>DataAsset</name></member>
+      <member refid="struct_f_mesh_merge_mappings_1aa344beaff0f2575675ca24d5e9b758da" prot="public" virt="non-virtual"><scope>FMeshMergeMappings</scope><name>EquipSlotTag</name></member>
+      <member refid="struct_f_mesh_merge_mappings_1aad4d66cbadc9e84b3ab1e127115e198c" prot="public" virt="non-virtual"><scope>FMeshMergeMappings</scope><name>FMeshMergeMappings</name></member>
+      <member refid="struct_f_mesh_merge_mappings_1abec62fc0bcd158998c068a41e6241fa9" prot="public" virt="non-virtual"><scope>FMeshMergeMappings</scope><name>FMeshMergeMappings</name></member>
+      <member refid="struct_f_mesh_merge_mappings_1a08dbcb393ef327c8e5ca647a640087bf" prot="public" virt="non-virtual"><scope>FMeshMergeMappings</scope><name>GameplayTags</name></member>
+      <member refid="struct_f_mesh_merge_mappings_1a9c56ab012f21531e076639e790e2c29a" prot="public" virt="non-virtual"><scope>FMeshMergeMappings</scope><name>MeshUvTransforms</name></member>
+      <member refid="struct_f_mesh_merge_mappings_1a289379d24313c12493454abbe120735c" prot="public" virt="non-virtual"><scope>FMeshMergeMappings</scope><name>numSuperiorMeshes</name></member>
+      <member refid="struct_f_mesh_merge_mappings_1a929daf92d494caa0bded8d820075fbec" prot="public" virt="non-virtual"><scope>FMeshMergeMappings</scope><name>SectionMappings</name></member>
+      <member refid="struct_f_mesh_merge_mappings_1a281665c9cd461f760def43b0b701b162" prot="public" virt="non-virtual"><scope>FMeshMergeMappings</scope><name>SkeletalMesh</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

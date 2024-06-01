@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_u_equipment_effect" kind="class" language="C++" prot="public">
+    <compoundname>UEquipmentEffect</compoundname>
+    <basecompoundref refid="class_u_tales_effect_base" prot="public" virt="non-virtual">UTalesEffectBase</basecompoundref>
+    <includes refid="_equipment_effect_8h" local="no">EquipmentEffect.h</includes>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>An effect that is tied to a piece of equipment. The effect is only applied when the equipment is donned, and active. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>UEquipmentEffect</label>
+        <link refid="class_u_equipment_effect"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>UGameplayEffect</label>
+      </node>
+      <node id="2">
+        <label>UTalesEffectBase</label>
+        <link refid="class_u_tales_effect_base"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>UEquipmentEffect</label>
+        <link refid="class_u_equipment_effect"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>UGameplayEffect</label>
+      </node>
+      <node id="2">
+        <label>UTalesEffectBase</label>
+        <link refid="class_u_tales_effect_base"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Gas/Effects/EquipmentEffect.h" line="16" column="1" bodyfile="Source/TalesDungeoneer/Public/Gas/Effects/EquipmentEffect.h" bodystart="17" bodyend="19"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

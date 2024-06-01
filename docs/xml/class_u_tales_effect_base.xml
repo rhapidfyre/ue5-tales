@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_u_tales_effect_base" kind="class" language="C++" prot="public">
+    <compoundname>UTalesEffectBase</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">UGameplayEffect</basecompoundref>
+    <derivedcompoundref refid="class_u_equipment_effect" prot="public" virt="non-virtual">UEquipmentEffect</derivedcompoundref>
+    <includes refid="_tales_effect_base_8h" local="no">TalesEffectBase.h</includes>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>The base game mode class for all gameplay effects </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>UEquipmentEffect</label>
+        <link refid="class_u_equipment_effect"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>UGameplayEffect</label>
+      </node>
+      <node id="1">
+        <label>UTalesEffectBase</label>
+        <link refid="class_u_tales_effect_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>UGameplayEffect</label>
+      </node>
+      <node id="1">
+        <label>UTalesEffectBase</label>
+        <link refid="class_u_tales_effect_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Gas/Effects/TalesEffectBase.h" line="14" column="1" bodyfile="Source/TalesDungeoneer/Public/Gas/Effects/TalesEffectBase.h" bodystart="15" bodyend="17"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_u_effect_attributes" kind="class" language="C++" prot="public">
+    <compoundname>UEffectAttributes</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">UAttributeSet</basecompoundref>
+    <includes refid="_effect_attributes_8h" local="no">EffectAttributes.h</includes>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Effect Attributes are any attributes that cause an effect on the player, such as being chilled, speed boosts, etc. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>UAttributeSet</label>
+      </node>
+      <node id="1">
+        <label>UEffectAttributes</label>
+        <link refid="class_u_effect_attributes"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>UAttributeSet</label>
+      </node>
+      <node id="1">
+        <label>UEffectAttributes</label>
+        <link refid="class_u_effect_attributes"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Gas/AttributeSets/EffectAttributes.h" line="15" column="1" bodyfile="Source/TalesDungeoneer/Public/Gas/AttributeSets/EffectAttributes.h" bodystart="16" bodyend="18"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

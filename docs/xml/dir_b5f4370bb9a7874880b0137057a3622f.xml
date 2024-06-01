@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="dir_b5f4370bb9a7874880b0137057a3622f" kind="dir">
+    <compoundname>Source/TalesDungeoneer/Private/Gamemode</compoundname>
+    <innerdir refid="dir_2f29526baf69ec145833c0d89db06ecd">Source/TalesDungeoneer/Private/Gamemode/AdventureMode</innerdir>
+    <innerdir refid="dir_b7885edd3e9a9b350014f177cd06c848">Source/TalesDungeoneer/Private/Gamemode/BaseFiles</innerdir>
+    <innerdir refid="dir_086f4add725d24e9037735b7f827fb75">Source/TalesDungeoneer/Private/Gamemode/TitleScreen</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Private/Gamemode/"/>
+  </compounddef>
+</doxygen>

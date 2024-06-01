@@ -1,0 +1,340 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="class_a_combat_npc_character_base" kind="class" language="C++" prot="public">
+    <compoundname>ACombatNpcCharacterBase</compoundname>
+    <basecompoundref refid="class_a_npc_character_base" prot="public" virt="non-virtual">ANpcCharacterBase</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_a_combat_npc_character_base_1aa46fb589552bd93583bc8ecaa134e886" prot="public" static="no" mutable="no">
+        <type>TArray&lt; float &gt;</type>
+        <definition>TArray&lt;float&gt; ACombatNpcCharacterBase::TimeBetweenAttacks</definition>
+        <argsstring></argsstring>
+        <name>TimeBetweenAttacks</name>
+        <qualifiedname>ACombatNpcCharacterBase::TimeBetweenAttacks</qualifiedname>
+        <initializer>= {2.f, 3.f}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CombatNpcCharacterBase.h" line="32" column="8" bodyfile="Source/TalesDungeoneer/Public/Characters/CombatNpcCharacterBase.h" bodystart="32" bodyend="32"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_combat_npc_character_base_1aa828601f8da2f4294e85145d303a8796" prot="public" static="no" mutable="no">
+        <type>TArray&lt; float &gt;</type>
+        <definition>TArray&lt;float&gt; ACombatNpcCharacterBase::TimeBetweenAbilities</definition>
+        <argsstring></argsstring>
+        <name>TimeBetweenAbilities</name>
+        <qualifiedname>ACombatNpcCharacterBase::TimeBetweenAbilities</qualifiedname>
+        <initializer>= {6.f, 10.f}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CombatNpcCharacterBase.h" line="37" column="8" bodyfile="Source/TalesDungeoneer/Public/Characters/CombatNpcCharacterBase.h" bodystart="37" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_a_combat_npc_character_base_1a1f2cdaaff41d26716209abd3fddd56a8" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float ACombatNpcCharacterBase::SynergyChance</definition>
+        <argsstring></argsstring>
+        <name>SynergyChance</name>
+        <qualifiedname>ACombatNpcCharacterBase::SynergyChance</qualifiedname>
+        <initializer>= 0.33</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CombatNpcCharacterBase.h" line="41" column="7" bodyfile="Source/TalesDungeoneer/Public/Characters/CombatNpcCharacterBase.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_a_combat_npc_character_base_1a2b1273071ef03aba9a6d83c5432cec73" prot="private" static="no" mutable="no">
+        <type>FTimerHandle</type>
+        <definition>FTimerHandle ACombatNpcCharacterBase::_AttackTimer</definition>
+        <argsstring></argsstring>
+        <name>_AttackTimer</name>
+        <qualifiedname>ACombatNpcCharacterBase::_AttackTimer</qualifiedname>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CombatNpcCharacterBase.h" line="55" column="14" bodyfile="Source/TalesDungeoneer/Public/Characters/CombatNpcCharacterBase.h" bodystart="55" bodyend="55"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_a_combat_npc_character_base_1aa36b9d77c4705b0d50ed856bc59f2dc6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACombatNpcCharacterBase::ACombatNpcCharacterBase</definition>
+        <argsstring>()</argsstring>
+        <name>ACombatNpcCharacterBase</name>
+        <qualifiedname>ACombatNpcCharacterBase::ACombatNpcCharacterBase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CombatNpcCharacterBase.h" line="19" column="1" bodyfile="Source/TalesDungeoneer/Private/Characters/CombatNpcCharacterBase.cpp" bodystart="7" bodyend="11"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_combat_npc_character_base_1a823a9987113d391e1c36086471e57c9c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ACombatNpcCharacterBase::Tick</definition>
+        <argsstring>(float DeltaTime) override</argsstring>
+        <name>Tick</name>
+        <qualifiedname>ACombatNpcCharacterBase::Tick</qualifiedname>
+        <reimplements refid="class_a_character_base_1a9eb21f174f4af75367495a9d5211e716">Tick</reimplements>
+        <param>
+          <type>float</type>
+          <declname>DeltaTime</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CombatNpcCharacterBase.h" line="21" column="14" bodyfile="Source/TalesDungeoneer/Private/Characters/CombatNpcCharacterBase.cpp" bodystart="52" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_combat_npc_character_base_1a7329a30e9ca99791d6e70a6f455551f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACombatNpcCharacterBase::UFUNCTION</definition>
+        <argsstring>() bool NpcCanAttemptAttack()</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>ACombatNpcCharacterBase::UFUNCTION</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CombatNpcCharacterBase.h" line="24" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_combat_npc_character_base_1a214f43172c1372fde63dc0ff44a2b19d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACombatNpcCharacterBase::UFUNCTION</definition>
+        <argsstring>() bool NpcCanActivateAbility()</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>ACombatNpcCharacterBase::UFUNCTION</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CombatNpcCharacterBase.h" line="27" column="1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_a_combat_npc_character_base_1a95388f41cf9ca94f0241e6ff9c0df657" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ACombatNpcCharacterBase::BeginPlay</definition>
+        <argsstring>() override</argsstring>
+        <name>BeginPlay</name>
+        <qualifiedname>ACombatNpcCharacterBase::BeginPlay</qualifiedname>
+        <reimplements refid="class_a_npc_character_base_1aeb0c9ba5f0c99a04fc21bd01c0410808">BeginPlay</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CombatNpcCharacterBase.h" line="45" column="14" bodyfile="Source/TalesDungeoneer/Private/Characters/CombatNpcCharacterBase.cpp" bodystart="14" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_combat_npc_character_base_1a884ecc1deeebab4c85b966e31cfe3f0e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ACombatNpcCharacterBase::OnConstruction</definition>
+        <argsstring>(const FTransform &amp;Transform) override</argsstring>
+        <name>OnConstruction</name>
+        <qualifiedname>ACombatNpcCharacterBase::OnConstruction</qualifiedname>
+        <reimplements refid="class_a_npc_character_base_1aa751330413077749280326e4bfb505d7">OnConstruction</reimplements>
+        <param>
+          <type>const FTransform &amp;</type>
+          <declname>Transform</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CombatNpcCharacterBase.h" line="47" column="14" bodyfile="Source/TalesDungeoneer/Private/Characters/CombatNpcCharacterBase.cpp" bodystart="20" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_combat_npc_character_base_1a988ae73f803f9acb057aea46b35bd706" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACombatNpcCharacterBase::UFUNCTION</definition>
+        <argsstring>() virtual void ProcessPrimaryAttack()</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>ACombatNpcCharacterBase::UFUNCTION</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CombatNpcCharacterBase.h" line="49" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_a_combat_npc_character_base_1ab21578912595616e63be96c059667531" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ACombatNpcCharacterBase::UFUNCTION</definition>
+        <argsstring>() virtual void ProcessSecondaryAttack()</argsstring>
+        <name>UFUNCTION</name>
+        <qualifiedname>ACombatNpcCharacterBase::UFUNCTION</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/Characters/CombatNpcCharacterBase.h" line="51" column="1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="4">
+        <label>ACharacter</label>
+      </node>
+      <node id="3">
+        <label>ACharacterBase</label>
+        <link refid="class_a_character_base"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>ACombatNpcCharacterBase</label>
+        <link refid="class_a_combat_npc_character_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ANpcCharacterBase</label>
+        <link refid="class_a_npc_character_base"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>IAbilitySystemInterface</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="4">
+        <label>ACharacter</label>
+      </node>
+      <node id="3">
+        <label>ACharacterBase</label>
+        <link refid="class_a_character_base"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>ACombatNpcCharacterBase</label>
+        <link refid="class_a_combat_npc_character_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ANpcCharacterBase</label>
+        <link refid="class_a_npc_character_base"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>IAbilitySystemInterface</label>
+      </node>
+    </collaborationgraph>
+    <location file="Source/TalesDungeoneer/Public/Characters/CombatNpcCharacterBase.h" line="13" column="1" bodyfile="Source/TalesDungeoneer/Public/Characters/CombatNpcCharacterBase.h" bodystart="14" bodyend="57"/>
+    <listofallmembers>
+      <member refid="class_a_combat_npc_character_base_1a2b1273071ef03aba9a6d83c5432cec73" prot="private" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>_AttackTimer</name></member>
+      <member refid="class_a_character_base_1ae440aa8ddb0abf475572bc572a205da2" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>AbilitySystemComponent</name></member>
+      <member refid="class_a_character_base_1afb1c8b3ec64e50d3c49a9f3aa6aad399" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>ACharacterBase</name></member>
+      <member refid="class_a_combat_npc_character_base_1aa36b9d77c4705b0d50ed856bc59f2dc6" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>ACombatNpcCharacterBase</name></member>
+      <member refid="class_a_npc_character_base_1a8b4aec3a791f395df361f53b7cd69054" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>AiControllerBase</name></member>
+      <member refid="class_a_npc_character_base_1a9349d27de03de671c0f05f2f7fa866df" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>AiStimuli</name></member>
+      <member refid="class_a_npc_character_base_1a407170648be4110eaeacc30f433b4e1b" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>ANpcCharacterBase</name></member>
+      <member refid="class_a_combat_npc_character_base_1a95388f41cf9ca94f0241e6ff9c0df657" prot="protected" virt="virtual"><scope>ACombatNpcCharacterBase</scope><name>BeginPlay</name></member>
+      <member refid="class_a_character_base_1a86d04681a60f275a7648ed4b53b8155f" prot="protected" virt="virtual"><scope>ACombatNpcCharacterBase</scope><name>BindListeners</name></member>
+      <member refid="class_a_character_base_1aa222676d07e654363645bd5194e54450" prot="protected" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>bIsEnabled</name></member>
+      <member refid="class_a_character_base_1abecc381e55c13b9a9eb0c799d6393557" prot="protected" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>bIsInputBound</name></member>
+      <member refid="class_a_character_base_1a8e0ce3f70eb610651fae9352cc2f4e5f" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>bSavesOnServer</name></member>
+      <member refid="class_a_character_base_1a6f72819126002ce12fcd248798bc874b" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>CameraBoom</name></member>
+      <member refid="class_a_character_base_1a84cac3667b6d69ea1de2ab7517569fe6" prot="protected" virt="virtual"><scope>ACombatNpcCharacterBase</scope><name>CharacterRestoredFromSave</name></member>
+      <member refid="class_a_character_base_1a9782daa786016454e8d057b211c39b84" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>DefaultAbilities</name></member>
+      <member refid="class_a_character_base_1ad9e4319f63cec7687f17d3b847f433c9" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>DefaultEffects</name></member>
+      <member refid="class_a_character_base_1a6b61aadac96a0fa877ba78b8b789670f" prot="protected" virt="virtual"><scope>ACombatNpcCharacterBase</scope><name>EndPlay</name></member>
+      <member refid="class_a_character_base_1af9ae749a86c17c0b0b9353b8d681d40a" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>EquipmentComponent</name></member>
+      <member refid="class_a_character_base_1a5a5434eaa6a04f6d9691fd8852030f0b" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>FollowCamera</name></member>
+      <member refid="class_a_character_base_1adfe877af8f9dff59d1f3ed7bbf071e6e" prot="public" virt="virtual"><scope>ACombatNpcCharacterBase</scope><name>GetAbilitySystemComponent</name></member>
+      <member refid="class_a_character_base_1a34fec97e819b9b5552fb240850563508" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>GetCameraBoom</name></member>
+      <member refid="class_a_character_base_1a34b6bc5074c41244c3c82a7903121a8a" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>GetFollowCamera</name></member>
+      <member refid="class_a_character_base_1a48e6c6cef789c8f200aceb2c351e0d00" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>GetRiskLevel</name></member>
+      <member refid="class_a_character_base_1acbdba15f041e4d1f012e9f184e20ff86" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>HeadDisplayWidget</name></member>
+      <member refid="class_a_character_base_1a282f76cdcee9643661e099cac55d5961" prot="protected" virt="virtual"><scope>ACombatNpcCharacterBase</scope><name>InitializeAbilities</name></member>
+      <member refid="class_a_character_base_1a971a14ab5f2081ec44d83520cf53e1fc" prot="protected" virt="virtual"><scope>ACombatNpcCharacterBase</scope><name>InitializeEffects</name></member>
+      <member refid="class_a_npc_character_base_1a5fe706edf2750fc830f4584fe519b774" prot="protected" virt="virtual"><scope>ACombatNpcCharacterBase</scope><name>InitializeStartingItems</name></member>
+      <member refid="class_a_character_base_1a964f435a27b9be605d2485b051935a74" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>InventoryComponent</name></member>
+      <member refid="class_a_character_base_1a6162cfac4931938f70565d9038d7e3fa" prot="public" virt="virtual"><scope>ACombatNpcCharacterBase</scope><name>LoadCharacter</name></member>
+      <member refid="class_a_npc_character_base_1a32e47b62d2306fc0016939f6464b1259" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>LootTables</name></member>
+      <member refid="class_a_npc_character_base_1ae6657ed1ef7782bb9804d5d6dc3467c5" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>MaximumLevelSpread</name></member>
+      <member refid="class_a_character_base_1ab3feb0a990e926490cf51863facad68e" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>MeshMergeComponent</name></member>
+      <member refid="class_a_npc_character_base_1aeeaf2b76335288730e82942250d31681" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>MinimumLevelSpread</name></member>
+      <member refid="class_a_character_base_1a927fcda4dd1b0c39189e702fc4290b62" prot="protected" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>NewValue</name></member>
+      <member refid="class_a_combat_npc_character_base_1a884ecc1deeebab4c85b966e31cfe3f0e" prot="protected" virt="virtual"><scope>ACombatNpcCharacterBase</scope><name>OnConstruction</name></member>
+      <member refid="class_a_character_base_1aaa5f5607f86244693627826b507d67a6" prot="protected" virt="virtual"><scope>ACombatNpcCharacterBase</scope><name>OnCoreStatsChanged</name></member>
+      <member refid="class_a_character_base_1a4b949558d4be09096acb5e107b82119e" prot="protected" virt="virtual"><scope>ACombatNpcCharacterBase</scope><name>OnDamageStatsChanged</name></member>
+      <member refid="class_a_character_base_1a244a0fffb3290ad31c38746ac437c689" prot="protected" virt="virtual"><scope>ACombatNpcCharacterBase</scope><name>OnRep_PlayerState</name></member>
+      <member refid="class_a_character_base_1ae80c1ac72f43452616c6fb072ba5115e" prot="protected" virt="virtual"><scope>ACombatNpcCharacterBase</scope><name>OnVitalityAttributeChanged</name></member>
+      <member refid="class_a_character_base_1ac4d0b212516f9152b1abc2d4d93a84e5" prot="protected" virt="virtual"><scope>ACombatNpcCharacterBase</scope><name>PossessedBy</name></member>
+      <member refid="class_a_character_base_1aea7a1b49860dc9ae30f75fb4c1eff52d" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>PronounObjective</name></member>
+      <member refid="class_a_character_base_1ac77ce952836f6f4f0810452fc376c257" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>PronounPossessive</name></member>
+      <member refid="class_a_character_base_1a8c4ef7f32d92a5f5d56c67cac0409cb1" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>PronounSubject</name></member>
+      <member refid="class_a_character_base_1af108e9a63b7ef7c8b439d1489907a97f" prot="public" virt="virtual"><scope>ACombatNpcCharacterBase</scope><name>SaveCharacter</name></member>
+      <member refid="class_a_character_base_1ac786db8fa4814acaca7b63ecd640f216" prot="protected" virt="virtual"><scope>ACombatNpcCharacterBase</scope><name>SaveGameDelegate</name></member>
+      <member refid="class_a_character_base_1a0ed99f5a89d193a4af167fc17ef62c2e" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>SetCharacterName</name></member>
+      <member refid="class_a_character_base_1ae7f610356b07eb3b534452d466776d12" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>SkinColor</name></member>
+      <member refid="class_a_npc_character_base_1a43d89c7406d587afe31603c224bbf420" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>StartingItems</name></member>
+      <member refid="class_a_combat_npc_character_base_1a1f2cdaaff41d26716209abd3fddd56a8" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>SynergyChance</name></member>
+      <member refid="class_a_combat_npc_character_base_1a823a9987113d391e1c36086471e57c9c" prot="public" virt="virtual"><scope>ACombatNpcCharacterBase</scope><name>Tick</name></member>
+      <member refid="class_a_combat_npc_character_base_1aa828601f8da2f4294e85145d303a8796" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>TimeBetweenAbilities</name></member>
+      <member refid="class_a_combat_npc_character_base_1aa46fb589552bd93583bc8ecaa134e886" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>TimeBetweenAttacks</name></member>
+      <member refid="class_a_combat_npc_character_base_1a7329a30e9ca99791d6e70a6f455551f2" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_combat_npc_character_base_1a214f43172c1372fde63dc0ff44a2b19d" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_combat_npc_character_base_1a988ae73f803f9acb057aea46b35bd706" prot="protected" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_combat_npc_character_base_1ab21578912595616e63be96c059667531" prot="protected" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_npc_character_base_1a8212a7f437e1517efaa0fcc72edefa69" prot="public" virt="non-virtual" ambiguityscope="ANpcCharacterBase::"><scope>ACombatNpcCharacterBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_character_base_1a6343a6d46dc1d0effea9c6568254717d" prot="public" virt="non-virtual" ambiguityscope="ACharacterBase::"><scope>ACombatNpcCharacterBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_character_base_1a8f08c623ab0a0c67e10b8246a1126248" prot="public" virt="non-virtual" ambiguityscope="ACharacterBase::"><scope>ACombatNpcCharacterBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_character_base_1aa87f300f0843a1708d621abc643d4bc5" prot="protected" virt="non-virtual" ambiguityscope="ACharacterBase::"><scope>ACombatNpcCharacterBase</scope><name>UFUNCTION</name></member>
+      <member refid="class_a_character_base_1abc51d8d9178df828fb7df027c01f52eb" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>UnlockPointsOnLevelUp</name></member>
+      <member refid="class_a_character_base_1a7d73b09fa44d637a83538014484ea4d0" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1ac26267cb7d91ec0b4b7777e3c89a84f0" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1ae6f1687542fe32a2a13a1536a7462113" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1aa535d73281a337eb55d51d014c786305" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1a7922b4665c32e2cd767b87dc2dce7502" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1a80c6b78311e6241824538d1c36916095" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1a019a2433ad125b4652edc24995faa3ee" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1a59b8a866cdb976cebd2244212d3719f7" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1a6ba24381bc4ee0470cd15d84ae2ab994" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1afe950d422262a1ae905122f3d29b2a8d" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1a748cd209b36f7da1ccec783199973205" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1a80a48abd98da932fef51ab7532e9daad" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1a2238d899678be29a5b721c80d3d29a69" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1ad9094ffb75c51cece8de330cde09efdb" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1a2c621e5d806379b8e8d8c281af248939" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1a420ebf21eb8d26ed23fa897d4a2d89e8" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1af3c947c93de39852aaf3b6050ad09e24" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>UPROPERTY</name></member>
+      <member refid="class_a_character_base_1a006caa814a16a3344dd554dca640b910" prot="public" virt="non-virtual"><scope>ACombatNpcCharacterBase</scope><name>UPROPERTY</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

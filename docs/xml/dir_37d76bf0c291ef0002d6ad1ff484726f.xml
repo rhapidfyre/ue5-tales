@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="dir_37d76bf0c291ef0002d6ad1ff484726f" kind="dir">
+    <compoundname>Source/TalesDungeoneer/Private/lib/Damage</compoundname>
+    <innerfile refid="_tales_damage_types_8cpp">TalesDamageTypes.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Private/lib/Damage/"/>
+  </compounddef>
+</doxygen>

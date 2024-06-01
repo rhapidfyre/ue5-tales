@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="struct_f_st_faction_data_map" kind="struct" language="C++" prot="public" abstract="yes">
+    <compoundname>FStFactionDataMap</compoundname>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_f_st_faction_data_map_1a5e5dd2c516be228756add4ce715f5cbd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>FStFactionDataMap::FStFactionDataMap</definition>
+        <argsstring>()</argsstring>
+        <name>FStFactionDataMap</name>
+        <qualifiedname>FStFactionDataMap::FStFactionDataMap</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" line="17" column="1" bodyfile="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" bodystart="17" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_st_faction_data_map_1a614b5c36f101b6818be125c921d78703" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>FStFactionDataMap::FStFactionDataMap</definition>
+        <argsstring>(EFaction NewEnum, float NewValue)</argsstring>
+        <name>FStFactionDataMap</name>
+        <qualifiedname>FStFactionDataMap::FStFactionDataMap</qualifiedname>
+        <param>
+          <type>EFaction</type>
+          <declname>NewEnum</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>NewValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" line="18" column="1" bodyfile="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" bodystart="18" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_st_faction_data_map_1af445656c19b1aec8230e42460f04a275" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FStFactionDataMap::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) EFaction FactionEnum</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FStFactionDataMap::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" line="23" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_f_st_faction_data_map_1aff557fd13f5567c1f6e04405bbad3f23" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type></type>
+        <definition>FStFactionDataMap::UPROPERTY</definition>
+        <argsstring>(EditAnywhere, BlueprintReadWrite) float FactionValue=0.f</argsstring>
+        <name>UPROPERTY</name>
+        <qualifiedname>FStFactionDataMap::UPROPERTY</qualifiedname>
+        <param>
+          <type>EditAnywhere</type>
+        </param>
+        <param>
+          <type>BlueprintReadWrite</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" line="24" column="1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" line="14" column="1" bodyfile="Source/TalesDungeoneer/Public/lib/datastructures/GlobalData.h" bodystart="15" bodyend="25"/>
+    <listofallmembers>
+      <member refid="struct_f_st_faction_data_map_1a5e5dd2c516be228756add4ce715f5cbd" prot="public" virt="non-virtual"><scope>FStFactionDataMap</scope><name>FStFactionDataMap</name></member>
+      <member refid="struct_f_st_faction_data_map_1a614b5c36f101b6818be125c921d78703" prot="public" virt="non-virtual"><scope>FStFactionDataMap</scope><name>FStFactionDataMap</name></member>
+      <member refid="struct_f_st_faction_data_map_1af445656c19b1aec8230e42460f04a275" prot="public" virt="non-virtual"><scope>FStFactionDataMap</scope><name>UPROPERTY</name></member>
+      <member refid="struct_f_st_faction_data_map_1aff557fd13f5567c1f6e04405bbad3f23" prot="public" virt="pure-virtual"><scope>FStFactionDataMap</scope><name>UPROPERTY</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
