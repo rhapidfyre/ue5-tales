@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "5.3",
+	"EngineAssociation": "5.4",
 	"Category": "",
 	"Description": "",
 	"Modules": [
@@ -40,6 +40,10 @@
 		},
 		{
 			"Name": "NpcsAtYourService",
+			"Enabled": true
+		},
+		{
+			"Name": "RoleStats",
 			"Enabled": true
 		}
 	]

@@ -20,13 +20,13 @@ void APlayerControllerBase::BeginPlay()
 void APlayerControllerBase::SetupInputComponent()
 {
 	Super::SetupInputComponent();
-	
+
 	// Set up hotkey action bindings
 	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent))
 	{
 		for (UInputMappingContext* MappingContext : MappingContexts)
 		{
-			
+
 			//Add Input Mapping Context
 			if (IsValid(MappingContext))
 			{
@@ -36,23 +36,23 @@ void APlayerControllerBase::SetupInputComponent()
 					Subsystem->AddMappingContext(MappingContext, 0);
 				}
 			}
-			
+
 		}
-			
-		// Setup Hotkey Ability bindings 
+
+		// Setup Hotkey Ability bindings
 		for (UInputAction* InputReference : AbilityHotkeys)
 		{
 			EnhancedInputComponent->BindAction(InputReference, ETriggerEvent::Started,
 					this, &APlayerControllerBase::HotkeyTriggered, InputReference);
 		}
-			
-		// Setup Hotkey Target bindings 
+
+		// Setup Hotkey Target bindings
 		for (UInputAction* InputReference : TargetingHotkeys)
 		{
 			EnhancedInputComponent->BindAction(InputReference, ETriggerEvent::Started,
 					this, &APlayerControllerBase::HotkeyTarget, InputReference);
 		}
-		
+
 	}
 }
 
@@ -84,7 +84,10 @@ void APlayerControllerBase::HotkeyTriggered(UInputAction* HotkeyAction)
 		const ACharacterBase* ControlledCharacter = Cast<ACharacterBase>( GetCharacter() );
 		if (IsValid(ControlledCharacter))
 		{
-
+			if (OnHotkeyTriggered.IsBound())
+			{
+				OnHotkeyTriggered.Broadcast(HotkeyAction);
+			}
 		}
 	}
 }
@@ -96,7 +99,6 @@ void APlayerControllerBase::HotkeyTarget(UInputAction* HotkeyAction)
 		const ACharacterBase* ControlledCharacter = Cast<ACharacterBase>( GetCharacter() );
 		if (IsValid(ControlledCharacter))
 		{
-
 		}
 	}
 }

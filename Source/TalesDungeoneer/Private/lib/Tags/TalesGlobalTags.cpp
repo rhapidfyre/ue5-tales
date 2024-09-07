@@ -3,12 +3,31 @@
 #include "lib/Tags/TalesGlobalTags.h"
 
 
-UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race,			"Character.Race")
-UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race_Human,	"Character.Race.Human")
-UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race_Dwarf,	"Character.Race.Dwarf")
-UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race_Elf,		"Character.Race.Elf")
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race,			    "Character.Race")
+
+// Playable Races
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race_Human,	    "Character.Race.Human")
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race_Dwarf,	    "Character.Race.Dwarf")
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race_Elf,		    "Character.Race.Elf")
+
+// NPC Races
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race_Orc,		    "Character.Race.")
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race_Undead,	    "Character.Race.")
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race_Construct,	"Character.Race.")
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race_Elemental,	"Character.Race.")
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race_Beast,		"Character.Race.")
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race_Celestial,	"Character.Race.")
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race_Fey,			"Character.Race.")
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race_Aberration,	"Character.Race.")
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race_Dragon,	    "Character.Race.")
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race_Ooze,		    "Character.Race.")
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race_Planar,	    "Character.Race.")
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race_Plant,	    "Character.Race.")
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Race_Diety,	    "Character.Race.")
 
 UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class,				"Character.Class")
+
+// Playable Classes
 UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class_Assassin,	"Character.Class.Assassin")
 UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class_Cleric,		"Character.Class.Cleric")
 UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class_Deviant,		"Character.Class.Deviant")
@@ -19,7 +38,14 @@ UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class_Ranger,		"Character.Class.Ranger")
 UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class_Warrior,		"Character.Class.Warrior")
 UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class_Wizard,		"Character.Class.Wizard")
 
-UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body, 					 "Character.Body")
+// NPC Classes
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class_Noble,		"Character.Class.Noble")
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class_Performer,   "Character.Class.Performere")
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class_Crafter,     "Character.Class.Crafter")
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Class_Commoner,    "Character.Class.Commoner")
+
+
+UE_DEFINE_GAMEPLAY_TAG(TAG_Character_Body, 				"Character.Body")
 
 // Used to specify the default body part for the character model
 // It will be applied and made visible when the actor component is initialized
