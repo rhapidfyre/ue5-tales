@@ -2,7 +2,8 @@
 
 
 #include "DataAssets/CharacterDefaults.h"
-#include "Gas/Abilities/TalesGameplayAbility.h"
+#include "Abilities/RsGameplayAbilityBase.h"
+#include "Effects/RsGameplayEffectBase.h"
 #include "GameplayAbilities/Public/GameplayEffect.h"
 #include "Logging/StructuredLog.h"
 
@@ -66,9 +67,9 @@ FLinearColor UCharacterRaceData::GetBeardColor(int BeardColorIndex) const
 }
 
 UPrimaryCharacterData::UPrimaryCharacterData()
-	: CharacterDataAsset(nullptr), CharacterRaceData(nullptr), CharacterClassData(nullptr) 
+	: CharacterDataAsset(nullptr), CharacterRaceData(nullptr), CharacterClassData(nullptr)
 {
-	
+
 }
 
 /**
@@ -117,7 +118,7 @@ FSkeletonOptionsData UPrimaryCharacterData::GetCharacterSkeleton(
 		const bool bIsAgender =
 			   ( bForceFeminine &&  bForceMasculine)
 			|| (!bForceFeminine && !bForceMasculine);
-		
+
 		for (const FSkeletonOptionsData& SkeletonOption : CharacterRaceData->SkeletonOptions)
 		{
 			if (bIsAgender) {SkeletonOptions.Add(SkeletonOption);}
@@ -133,18 +134,18 @@ FSkeletonOptionsData UPrimaryCharacterData::GetCharacterSkeleton(
 				}
 			}
 		}
-		
+
 	}
-	
+
 	TArray<FSkeletonOptionsData> SkeletonArray = SkeletonOptions.Array();
 	if (SkeletonArray.Num() > 0)
 	{
 		const int randomIndex = FMath::RandRange(0, SkeletonArray.Num()-1);
 		FSkeletonOptionsData ChosenOption = SkeletonArray[randomIndex];
-	
+
 		UE_LOGFMT(LogAssetData, Display, "GetCharacterSkeleton(): Out of {NumOptions} - Chose: '{cSkeleton}, {cAnim}'",
 			SkeletonArray.Num(), ChosenOption.Skeleton->GetName(), ChosenOption.AnimInstance->GetName());
-	
+
 		return ChosenOption;
 	}
 	UE_LOGFMT(LogAssetData, Warning, "GetCharacterSkinColor(): No options available. Chosing default.");
@@ -167,7 +168,7 @@ FGameplayTag UPrimaryCharacterData::GetCharacterClass() const
 
 			const FGameplayTag ChosenTag = tags.IsValidIndex(randomIndex)
 				 ? tags.GetByIndex(randomIndex) : tags.First();
-			
+
 			UE_LOGFMT(LogAssetData, Display,
 				"GetCharacterClass(): Class Chosen = '{ChosenOption}'", ChosenTag.ToString());
 			return ChosenTag;
@@ -193,7 +194,7 @@ FGameplayTag UPrimaryCharacterData::GetCharacterRace() const
 		{
 			const FGameplayTagContainer tags = CharacterDataAsset->EligibleRaces;
 			const int randomIndex = FMath::RandRange(0, tags.Num()-1);
-			
+
 			const FGameplayTag ChosenTag = tags.IsValidIndex(randomIndex)
 				 ? tags.GetByIndex(randomIndex) : tags.First();
 			UE_LOGFMT(LogAssetData, Display,
@@ -281,7 +282,7 @@ TMap<FGameplayAttribute, float> UPrimaryCharacterData::GetDefaultDamageResist() 
 			for (const TPair<FGameplayAttribute, float> DamagePair : DataAsset->DamageResistModifiers)
 			{
 				for (auto const& [DamageKey, DamageValue] : DataAsset->DamageBonusModifiers)
-			
+
 				{
 					UE_LOGFMT(LogAssetData, Display,
 						"Found Default Damage Resist '{BaseAbility} = {BaseValue}' in Data Asset '{DataAsset}'",
@@ -302,9 +303,9 @@ TMap<FGameplayAttribute, float> UPrimaryCharacterData::GetDefaultDamageResist() 
  * Returns an array of all the ability classes that this character should start with.
  * \return The array of abilities
  */
-TArray<TSubclassOf<UTalesGameplayAbility>> UPrimaryCharacterData::GetDefaultAbilities() const
+TArray<TSubclassOf<URsGameplayAbilityBase>> UPrimaryCharacterData::GetDefaultAbilities() const
 {
-	TSet< TSubclassOf<UTalesGameplayAbility> > ReturnArray = {};
+	TSet< TSubclassOf<URsGameplayAbilityBase> > ReturnArray = {};
 
 	// Loops through CharacterData, Race & Class assets for all starting abilities
 	TArray<UCharacterCommonData*> LoopAssets = {CharacterDataAsset, CharacterRaceData, CharacterClassData};
@@ -312,7 +313,7 @@ TArray<TSubclassOf<UTalesGameplayAbility>> UPrimaryCharacterData::GetDefaultAbil
 	{
 		if (IsValid(DataAsset))
 		{
-			for (const TSubclassOf<UTalesGameplayAbility> BaseAbility : DataAsset->Abilities)
+			for (const TSubclassOf<URsGameplayAbilityBase> BaseAbility : DataAsset->Abilities)
 			{
 				UE_LOGFMT(LogAssetData, Display,
 					"Found Default Abilityy {BaseAbility} in Data Asset '{DataAsset}'",
@@ -321,7 +322,7 @@ TArray<TSubclassOf<UTalesGameplayAbility>> UPrimaryCharacterData::GetDefaultAbil
 			}
 		}
 	}
-	
+
 	UE_LOGFMT(LogAssetData, Display,
 		"GetDefaultAbilities(): Returning an array with {NumOptions} options.", ReturnArray.Num());
 	return ReturnArray.Array();
@@ -332,9 +333,9 @@ TArray<TSubclassOf<UTalesGameplayAbility>> UPrimaryCharacterData::GetDefaultAbil
  * Returns an array of all the effect classes that this character should start with.
  * \return The array of effects
  */
-TArray<TSubclassOf<UGameplayEffect>> UPrimaryCharacterData::GetDefaultEffects() const
+TArray<TSubclassOf<URsGameplayEffectBase>> UPrimaryCharacterData::GetDefaultEffects() const
 {
-	TSet< TSubclassOf<UGameplayEffect> > ReturnArray = {};
+	TSet< TSubclassOf<URsGameplayEffectBase> > ReturnArray = {};
 
 	// Loops through CharacterData, Race & Class assets for all starting abilities
 	TArray<UCharacterCommonData*> LoopAssets = {CharacterDataAsset, CharacterRaceData, CharacterClassData};
@@ -342,7 +343,7 @@ TArray<TSubclassOf<UGameplayEffect>> UPrimaryCharacterData::GetDefaultEffects() 
 	{
 		if (IsValid(DataAsset))
 		{
-			for (const TSubclassOf<UGameplayEffect> BaseEffect : DataAsset->Effects)
+			for (const TSubclassOf<URsGameplayEffectBase> BaseEffect : DataAsset->Effects)
 			{
 				UE_LOGFMT(LogAssetData, Display,
 					"Found Default Effect {BaseEffect} in Data Asset '{DataAsset}'",
@@ -351,7 +352,7 @@ TArray<TSubclassOf<UGameplayEffect>> UPrimaryCharacterData::GetDefaultEffects() 
 			}
 		}
 	}
-	
+
 	UE_LOGFMT(LogAssetData, Display,
 		"GetDefaultAbilities(): Returning an array with {NumOptions} options.", ReturnArray.Num());
 	return ReturnArray.Array();

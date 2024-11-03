@@ -1,4 +1,4 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Starcache Studios, LLC (c) 2024
 
 #pragma once
 
@@ -17,15 +17,15 @@ UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class TALESDUNGEONEER_API UEquipmentComponent : public UActorComponent
 {
 	GENERATED_BODY()
-	
+
 #pragma region ** Events & Methods **
 
-	
+
 public: //public events
 
 	// Called when an equipment slot is enabled or disabled
 	UPROPERTY(BlueprintAssignable) FOnEquipmentSlotToggled OnEquipmentSlotToggled;
-	
+
 	// Sets default values for this component's properties
 	UEquipmentComponent();
 
@@ -63,7 +63,7 @@ public: //public events
 	UFUNCTION(BlueprintPure)		bool GetIsReady(int SlotNumber) const;
 	UFUNCTION(BlueprintPure)		bool GetIsArmed() const { return bBlocking; }
 	UFUNCTION(BlueprintPure)		bool GetIsBlocking() const { return bBlocking; }
-	
+
 	UFUNCTION(BlueprintCallable)	bool ToggleBlocking();
 	UFUNCTION(BlueprintCallable)	bool StartBlocking();
 	UFUNCTION(BlueprintCallable)	bool StopBlocking();
@@ -74,9 +74,9 @@ public: //public events
 
 	UFUNCTION(BlueprintPure)	bool GetIsWeaponReady(int SlotNumber = -1) const;
 
-	
+
 protected: // protected methods
-	
+
 	virtual void GetLifetimeReplicatedProps(
 		TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
@@ -84,19 +84,19 @@ protected: // protected methods
 
 	virtual void NotifySlotToggled(int SlotNumber);
 
-	
+
 private: // private methods
-	
+
 	UFUNCTION()	void ResetAttackCooldown();
-	
+
 #pragma endregion
 
-	
+
 public: // public members
 
 	UPROPERTY(BlueprintReadWrite) bool bCanBlock = true;
 
-	
+
 private: // private members
 
 
@@ -105,19 +105,19 @@ private: // private members
 
 	UPROPERTY() UInventoryComponent* InventoryReference = nullptr;
 	UPROPERTY() UMeshMergeComponent* MeshMergeReference = nullptr;
-	
+
 	// Slots containing all equipment items (chest plate, etc)
-	TMap<int, bool> EquipmentSlots = {};	
-	
+	TMap<int, bool> EquipmentSlots = {};
+
 	bool bBlocking      = true; // TRUE if a blocking device is enabled
 	bool bArmed			= true; // TRUE if a weapon is ready
-	
+
 #ifdef UE_BUILD_DEBUG
-	
+
 	bool bShowDebug		= true;
 	bool bVerboseOutput = true;
-	
+
 #endif
-	
-	
+
+
 };

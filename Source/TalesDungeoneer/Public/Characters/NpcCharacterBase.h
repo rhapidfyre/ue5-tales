@@ -1,4 +1,4 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Starcache Studios, LLC (c) 2024
 
 #pragma once
 
@@ -57,16 +57,18 @@ class TALESDUNGEONEER_API ANpcCharacterBase : public ACharacterBase
 	GENERATED_BODY()
 
 public: // functions
-	
+
 	ANpcCharacterBase();
 
 	UFUNCTION(BlueprintPure) float GetDistanceFromOriginPoint() const;
 
 	UFUNCTION() void DestroyNpc();
-	
+
 protected:
-	
+
 	virtual void BeginPlay() override;
+
+	virtual void InitializeCharacter();
 
 	// These are the items the NPC will have, including loot.
 	virtual void InitializeStartingItems();
@@ -88,17 +90,17 @@ public:
 	// The minimum level variance from the adjusted dungeon level
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Npc Settings")
 	int MinimumLevelSpread = 0;
-	
+
 	// The maximum level variance from the adjusted dungeon level
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Npc Settings")
 	int MaximumLevelSpread = 3;
-	
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Npc Settings")
 	TSubclassOf<AAiControllerBase> AiControllerBase = AAiControllerBase::StaticClass();
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Npc Settings")
 	UAIPerceptionStimuliSourceComponent* AiStimuli = nullptr;
-	
+
 private:
 
 	UFUNCTION()
@@ -108,5 +110,5 @@ private:
 
 	// The coordinates where this NPC spawned
 	FVector _SpawnOrigin = FVector(0.f);
-	
+
 };

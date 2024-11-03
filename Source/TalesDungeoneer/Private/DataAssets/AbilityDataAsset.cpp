@@ -13,8 +13,11 @@ UPrimaryAbilityDataAsset::UPrimaryAbilityDataAsset()
  *        Slow. Try to use GetAbilityReferenceAsync() when possible.
  * \return The ability, or nullptr on failure
  */
-UTalesGameplayAbility* UPrimaryAbilityDataAsset::GetAbilityReference() const
+URsGameplayAbilityBase* UPrimaryAbilityDataAsset::GetAbilityReference() const
 {
-	if (!IsValid(AbilityReference)) return nullptr;
+	if (!IsValid(AbilityReference))
+	{
+		return nullptr;
+	}
 	return AbilityReference.GetDefaultObject();
 }

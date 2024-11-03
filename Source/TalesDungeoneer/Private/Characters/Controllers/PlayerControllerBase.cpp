@@ -1,9 +1,12 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Starcache Studios, LLC (c) 2024
 
 
 #include "Characters/Controllers/PlayerControllerBase.h"
 
+#include "Abilities/RsGameplayAbilityBase.h"
+#include "Actors/TalesRespawnBase.h"
 #include "Characters/CharacterBase.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 APlayerControllerBase::APlayerControllerBase()
@@ -26,7 +29,6 @@ void APlayerControllerBase::SetupInputComponent()
 	{
 		for (UInputMappingContext* MappingContext : MappingContexts)
 		{
-
 			//Add Input Mapping Context
 			if (IsValid(MappingContext))
 			{
@@ -36,25 +38,124 @@ void APlayerControllerBase::SetupInputComponent()
 					Subsystem->AddMappingContext(MappingContext, 0);
 				}
 			}
-
 		}
 
-		// Setup Hotkey Ability bindings
-		for (UInputAction* InputReference : AbilityHotkeys)
+		// Bind hotkey assignments, whether they map to a real ability or not
+		for (auto& HotkeyPair : HotkeyAbilityMap)
 		{
-			EnhancedInputComponent->BindAction(InputReference, ETriggerEvent::Started,
-					this, &APlayerControllerBase::HotkeyTriggered, InputReference);
+			if (IsValid(HotkeyPair.Key))
+			{
+				EnhancedInputComponent->BindAction(
+					HotkeyPair.Key, ETriggerEvent::Started, this, &APlayerControllerBase::HotkeyActionDelegate, HotkeyPair.Key, true, false);
+				EnhancedInputComponent->BindAction(
+					HotkeyPair.Key, ETriggerEvent::Canceled, this, &APlayerControllerBase::HotkeyActionDelegate, HotkeyPair.Key, false, true);
+				EnhancedInputComponent->BindAction(
+					HotkeyPair.Key, ETriggerEvent::Completed, this, &APlayerControllerBase::HotkeyActionDelegate, HotkeyPair.Key, false, false);
+			}
 		}
 
-		// Setup Hotkey Target bindings
-		for (UInputAction* InputReference : TargetingHotkeys)
-		{
-			EnhancedInputComponent->BindAction(InputReference, ETriggerEvent::Started,
-					this, &APlayerControllerBase::HotkeyTarget, InputReference);
-		}
 
 	}
 }
+
+void APlayerControllerBase::HotkeyActionDelegate(
+	const FInputActionValue& InputValue, UInputAction* InputAction, const bool bStarted, const bool bCanceled)
+{
+	if (!IsValid(GetPawn()))
+	{
+		return;
+	}
+
+	UActorComponent* ActorComponent = GetPawn()->GetComponentByClass(URsAbilityComponent::StaticClass());
+	URsAbilityComponent* AbilityComponent = Cast<URsAbilityComponent>(ActorComponent);
+	if (IsValid(AbilityComponent))
+	{
+		const TSubclassOf<URsGameplayAbilityBase> AbilityClass = *HotkeyAbilityMap.Find(InputAction);
+		if (IsValid(AbilityClass))
+		{
+			AbilityComponent->HotkeyAbility(InputValue, AbilityClass, bStarted, bCanceled);
+		}
+	}
+}
+
+void APlayerControllerBase::RespawnPawn(const FGameplayTag& LocationTag)
+{
+	if (!HasAuthority())
+	{
+		return;
+	}
+
+	// Get respawn area
+	APawn* ControlledPawn = GetPawn();
+	ERespawnType RespawnType = ERespawnType::None;
+	if (LocationTag.MatchesTag(TAG_Respawners_Graveyard.GetTag()))
+	{
+		RespawnType = ERespawnType::Graveyard;
+	}
+	else if (LocationTag.MatchesTag(TAG_Respawners_Entrance.GetTag()))
+	{
+		RespawnType = ERespawnType::Entrance;
+	}
+	FVector GraveyardVector = ControlledPawn->GetActorLocation();
+
+	{
+		TArray<AActor*> AllActors;
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), ATalesRespawnBase::StaticClass(), AllActors);
+		if (AllActors.Num() > 0)
+		{
+			for (AActor* RespawnActor : AllActors)
+			{
+				ATalesRespawnBase* RespawnBase = Cast<ATalesRespawnBase>(RespawnActor);
+				if (RespawnBase->RespawnTag.MatchesTag(LocationTag))
+				{
+					GraveyardVector = RespawnBase->GetActorLocation();
+					break;
+				}
+			}
+		}
+	}
+
+	// 1. Move the player pawn to the graveyard
+	ControlledPawn->SetActorLocation(GraveyardVector);
+
+	// 2. Respawn the character
+	ACharacterBase* CharacterBase = Cast<ACharacterBase>(GetCharacter());
+	if (IsValid(CharacterBase))
+	{
+		CharacterBase->Respawn(RespawnType);
+	}
+}
+
+/*
+void APlayerControllerBase::PrimaryHotkeyDelegate(const FInputActionValue& InputValue)
+{
+	if (!IsValid(GetPawn()))
+	{
+		return;
+	}
+	URsAbilityComponent* AbilityComponent = Cast<URsAbilityComponent>
+		(GetPawn()->GetComponentByClass(URsAbilityComponent::StaticClass()));
+	if (IsValid(AbilityComponent))
+	{
+		AbilityComponent->PrimaryAbility(InputValue);
+	}
+}
+
+void APlayerControllerBase::SecondaryHotkeyDelegate(const FInputActionValue& InputValue, const bool bStarted,
+	const bool bCanceled)
+{
+	if (!IsValid(GetPawn()))
+	{
+		return;
+	}
+	URsAbilityComponent* AbilityComponent = Cast<URsAbilityComponent>
+		(GetPawn()->GetComponentByClass(URsAbilityComponent::StaticClass()));
+	if (IsValid(AbilityComponent))
+	{
+		AbilityComponent->SecondaryAbility(bStarted, bCanceled);
+	}
+}
+*/
 
 FKey APlayerControllerBase::GetKeyMapping(UInputAction* InputAction)
 {
@@ -72,24 +173,58 @@ FKey APlayerControllerBase::GetKeyMapping(UInputAction* InputAction)
 	return FKey();
 }
 
+void APlayerControllerBase::RespawnAtGraveyard()
+{
+	if (!HasAuthority())
+	{
+		Server_RespawnAtGraveyard();
+		return;
+	}
+	RespawnPawn(TAG_Respawners_Graveyard.GetTag());
+}
+void APlayerControllerBase::Server_RespawnAtGraveyard_Implementation()
+{
+	RespawnAtGraveyard();
+}
+
+
+void APlayerControllerBase::RespawnAtCorpse()
+{
+	if (!HasAuthority())
+	{
+		Server_RespawnAtCorpse();
+		return;
+	}
+
+	ACharacterBase* CharacterBase = Cast<ACharacterBase>(GetCharacter());
+	if (IsValid(CharacterBase))
+	{
+		CharacterBase->Respawn();
+	}
+}
+void APlayerControllerBase::Server_RespawnAtCorpse_Implementation()
+{
+	RespawnAtCorpse();
+}
+
+void APlayerControllerBase::RespawnAtEntrance()
+{
+	if (!HasAuthority())
+	{
+		Server_RespawnAtEntrance();
+		return;
+	}
+	RespawnPawn(TAG_Respawners_Entrance.GetTag());
+}
+void APlayerControllerBase::Server_RespawnAtEntrance_Implementation()
+{
+	RespawnAtEntrance();
+}
+
+
 void APlayerControllerBase::OnConstruction(const FTransform& Transform)
 {
 	Super::OnConstruction(Transform);
-}
-
-void APlayerControllerBase::HotkeyTriggered(UInputAction* HotkeyAction)
-{
-	if (IsValid(HotkeyAction))
-	{
-		const ACharacterBase* ControlledCharacter = Cast<ACharacterBase>( GetCharacter() );
-		if (IsValid(ControlledCharacter))
-		{
-			if (OnHotkeyTriggered.IsBound())
-			{
-				OnHotkeyTriggered.Broadcast(HotkeyAction);
-			}
-		}
-	}
 }
 
 void APlayerControllerBase::HotkeyTarget(UInputAction* HotkeyAction)

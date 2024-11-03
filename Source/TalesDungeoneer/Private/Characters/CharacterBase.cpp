@@ -1,4 +1,4 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Starcache Studios, LLC (c) 2024
 
 
 #include "Characters/CharacterBase.h"
@@ -14,32 +14,51 @@
 #include "Gamemode/BaseFiles/TalesGameStateBase.h"
 #include "lib/datastructures/GlobalData.h"
 #include "Saves/SavedCharacters.h"
-#include "Gas/Abilities/TalesGameplayAbility.h"
-#include "Gas/AttributeSets/TalesAttributes.h"
 #include "Kismet/GameplayStatics.h"
 #include "lib/Tags/TalesGlobalTags.h"
+#include "RsAbilityComponent.h"
+#include "Attributes/RsCoreAttributeSet.h"
+#include "Attributes/RsDamageAttributeSet.h"
+#include "Attributes/RsEffectAttributeSet.h"
+#include "Attributes/RsVitalityAttributeSet.h"
+#include "Characters/Controllers/PlayerControllerBase.h"
+#include "Abilities/RsGameplayAbilityBase.h"
 
 #include "Logging/StructuredLog.h"
 
-// Sets default values
+float GetAttributeValue(const TMap<FGameplayAttribute, int>& AttributeMap, const FGameplayAttribute& SearchAttribute)
+{
+	if (!AttributeMap.IsEmpty() && SearchAttribute.IsValid())
+	{
+		if (AttributeMap.Contains(SearchAttribute))
+		{
+			return *AttributeMap.Find(SearchAttribute);
+		}
+	}
+	return 0.f;
+}
+
+float ModifiedStatValue(float ModifierValue)
+{
+	return FMath::Clamp(STAT_DEFAULT * (1 + (ModifierValue * 0.02)), 0.f, STAT_MAX);
+}
+
+// Sets default values - Constructor
 ACharacterBase::ACharacterBase()
 {
 	PrimaryActorTick.bCanEverTick = true;
 	bReplicates = true;
-	
+
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
-		
+
 	// Don't rotate when the controller rotates. Let that just affect the camera.
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
 
-	USkeletalMeshComponent* SkeletalMesh = GetMesh();
-	SkeletalMesh->SetIsReplicated(true);
-
 	// Configure character movement
-	GetCharacterMovement()->bOrientRotationToMovement = true; // Character moves in the direction of input...	
+	GetCharacterMovement()->bOrientRotationToMovement = true; // Character moves in the direction of input...
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f); // ...at this rotation rate
 
 	// Note: For faster iteration times these variables, and many more, can be tweaked in the Character Blueprint
@@ -53,7 +72,7 @@ ACharacterBase::ACharacterBase()
 	// Create a camera boom (pulls in towards the player if there is a collision)
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	CameraBoom->SetupAttachment(RootComponent);
-	CameraBoom->TargetArmLength = 400.0f; // The camera follows at this distance behind the character	
+	CameraBoom->TargetArmLength = 400.0f; // The camera follows at this distance behind the character
 	CameraBoom->bUsePawnControlRotation = true; // Rotate the arm based on the controller
 
 	// Create a follow camera
@@ -61,16 +80,22 @@ ACharacterBase::ACharacterBase()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
-	AbilitySystemComponent = CreateDefaultSubobject<UTalesAbilityComponent>("AbilitySystemComponent");
+	MeleeStrikeDetector = CreateDefaultSubobject<UCapsuleComponent>(TEXT("MeleeStrikeDetector"));
+	MeleeStrikeDetector->SetupAttachment(GetMesh(), NAME_None);
+	MeleeStrikeDetector->SetRelativeLocation(FVector(-20.f, 60.f, 100.f));
+	MeleeStrikeDetector->SetCapsuleHalfHeight(48.f);
+	MeleeStrikeDetector->SetCapsuleRadius(32.f);
+
+	AbilitySystemComponent = CreateDefaultSubobject<URsAbilityComponent>("AbilitySystemComponent");
 	AbilitySystemComponent->SetIsReplicated(true);
-	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Full);
 
-	AttributeVitalitySet	= CreateDefaultSubobject<UVitalityAttributes>("AttributeVitalitySet");
-	AttributeCoreStatsSet	= CreateDefaultSubobject<UCoreStatsAttributes>("AttributeCoreStatsSet");
-	AttributeDamageSet		= CreateDefaultSubobject<UDamageAttributes>("AttributeDamageSet");
-	AttributeEffectSet		= CreateDefaultSubobject<UEffectAttributes>("AttributeEffectSet");
+	AttributeVitalitySet	= CreateDefaultSubobject<URsVitalityAttributeSet>("AttributeVitalitySet");
+	AttributeCoreStatsSet	= CreateDefaultSubobject<URsCoreAttributeSet>("AttributeCoreStatsSet");
+	AttributeDamageSet		= CreateDefaultSubobject<URsDamageAttributeSet>("AttributeDamageSet");
+	AttributeEffectSet		= CreateDefaultSubobject<URsEffectAttributeSet>("AttributeEffectSet");
 
-	
+
 	// Setup listeners for when the inventory changes
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
 	InventoryComponent->SaveFolder = UGlobalData::InventorySaveFolder();
@@ -84,12 +109,12 @@ ACharacterBase::ACharacterBase()
 	{
 		EquipmentComponent->OnEquipmentSlotToggled.AddDynamic(this, &ACharacterBase::EquipmentUpdateDelegate);
 	}
-	
+
 	MeshMergeComponent = CreateDefaultSubobject<UMeshMergeComponent>(TEXT("MeshMergeComponent"));
 
 	// Allow weapon overlap collisions
 	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_GameTraceChannel4, ECR_Block);
-	
+
 }
 
 /**
@@ -104,29 +129,35 @@ float ACharacterBase::GetRiskLevel() const
 
 void ACharacterBase::SetCharacterRace(const FGameplayTag& NewRaceTag)
 {
-	if (NewRaceTag.GetGameplayTagParents().HasTag(TAG_Character_Race))
+	if (!HasAuthority())
+		return;
+
+	if (NewRaceTag.GetGameplayTagParents().HasTag(TAG_Character_Race.GetTag()))
 	{
-		const FGameplayTag OldClassTag = GetCharacterRace();
+		const FGameplayTag OldRaceTag = GetCharacterRace();
 		CharacterRace_ = NewRaceTag;
-		UTalesAbilityComponent* AbilitySystem = GetAbilitySystemComponent();
+		const UAbilitySystemComponent* AbilitySystem = GetAbilitySystemComponent();
 		if (IsValid(AbilitySystem))
 		{
-			AbilitySystem->PerformTotalRecalculation();
+			UpdateCoreStats();
 		}
-		OnCharacterRaceChanged.Broadcast(OldClassTag, NewRaceTag);
+		OnCharacterRaceChanged.Broadcast(OldRaceTag, NewRaceTag);
 	}
 }
 
 void ACharacterBase::SetCharacterClass(const FGameplayTag& NewClassTag)
 {
+	if (!HasAuthority())
+		return;
+
 	if (NewClassTag.GetGameplayTagParents().HasTag(TAG_Character_Class))
 	{
 		const FGameplayTag OldClassTag = GetCharacterClass();
 		CharacterClass_ = NewClassTag;
-		UTalesAbilityComponent* AbilitySystem = GetAbilitySystemComponent();
+		const UAbilitySystemComponent* AbilitySystem = GetAbilitySystemComponent();
 		if (IsValid(AbilitySystem))
 		{
-			AbilitySystem->PerformTotalRecalculation();
+			UpdateCoreStats();
 		}
 		OnCharacterClassChanged.Broadcast(OldClassTag, NewClassTag);
 	}
@@ -168,7 +199,7 @@ USaveGame* ACharacterBase::SaveCharacter(USaveGame* SaveObject, bool bRunAsync)
 	}
 
 	USavedCharacter* SavedCharacter = Cast<USavedCharacter>( SaveObject );
-	
+
 	// Character has not yet been loaded, or it is a new character
 	if (!IsValid(SavedCharacter))
 	{
@@ -186,10 +217,10 @@ USaveGame* ACharacterBase::SaveCharacter(USaveGame* SaveObject, bool bRunAsync)
 
 		SavedCharacter = Cast<USavedCharacter>
 			( UGameplayStatics::CreateSaveGameObject(USavedCharacter::StaticClass()) );
-		
+
 		SavedCharacter->SaveSlotName = TalesGameState->
 			GenerateAlphanumeric(UGlobalData::CharacterSaveFolder());
-		
+
 		SavedCharacter->UserIndex = GetCharacterUserIndex();
 	}
 
@@ -212,7 +243,7 @@ USaveGame* ACharacterBase::SaveCharacter(USaveGame* SaveObject, bool bRunAsync)
 		}
 		SavedCharacter->SavedInventory = InventoryComponent->SaveInventory(InventoryResponse, inventorySaveExists);
 	}
-	
+
 	// Save the Mesh Merge data
 	{
 		// Runs async if the save already exists
@@ -221,7 +252,7 @@ USaveGame* ACharacterBase::SaveCharacter(USaveGame* SaveObject, bool bRunAsync)
 			MeshMergeResponse, !MeshMergeComponent->GetMeshMergeSaveName().IsEmpty());
 		SavedCharacter->SavedMeshMerge = newSaveName;
 	}
-	
+
 	if (bRunAsync)
 	{
 		FAsyncSaveGameToSlotDelegate SaveDelegate;
@@ -261,7 +292,7 @@ bool ACharacterBase::LoadCharacter(const FString& SlotName, const int32 UserInde
 	// Prevents the character from loading a save until the defaults have initialized
 	if (!bCharacterReady)
 	{
-		UE_LOGFMT(LogTemp, Error, "{Character}({Sv}): "
+		UE_LOGFMT(LogTemp, Warning, "{Character}({Sv}): "
 			"LoadCharacter() Requested before character was ready. Delaying...",
 			GetName(), HasAuthority()?"SRV":"CLI");
 		if (OnCharacterRestored.IsBound()) { OnCharacterRestored.Broadcast(bWasSuccess); }
@@ -270,7 +301,7 @@ bool ACharacterBase::LoadCharacter(const FString& SlotName, const int32 UserInde
 
 	// If the save data is not valid, attempt to find it
 	// This will also run if LoadCharacter is called synchronously
-	USavedCharacter* SavedCharacter = Cast<USavedCharacter>( SaveGame );
+	USavedCharacter* SavedCharacter = Cast<USavedCharacter>(SaveGame);
 	if (!IsValid(SavedCharacter))
 	{
 		const ATalesGameStateBase* TalesGameState = Cast<ATalesGameStateBase>
@@ -286,7 +317,7 @@ bool ACharacterBase::LoadCharacter(const FString& SlotName, const int32 UserInde
 					GetName(), HasAuthority()?"SRV":"CLI");
 				return false;
 			}
-			
+
 			// If the selected character has an associated save, we are good to go
 			if (UGameplayStatics::DoesSaveGameExist(
 				TalesGameState->GetCharacterSlotName(),
@@ -323,19 +354,20 @@ bool ACharacterBase::LoadCharacter(const FString& SlotName, const int32 UserInde
 		// Send Character Data to server for restoration
 		RestoreCharacter(SavedCharacter->CharacterData);
 
-		
-		
 		// Restore Inventory Data
 		FString InventoryResponse = "", MeshMergeResponse = "";
 		InventoryComponent->LoadInventory(InventoryResponse,
 			SavedCharacter->SavedInventory, SavedCharacter->UserIndex, true);
 
-		MeshMergeComponent->LoadMeshMerge(MeshMergeResponse,
-			SavedCharacter->SavedMeshMerge, SavedCharacter->UserIndex);
-		
+		// This should only be called by a playable client
+		if (!HasAuthority() || GetNetMode() == NM_ListenServer)
+		{
+			MeshMergeComponent->LoadMeshMerge(MeshMergeResponse,
+				SavedCharacter->SavedMeshMerge, SavedCharacter->UserIndex);
+		}
 		bWasSuccess = true;
 	}
-	
+
 	if (OnCharacterRestored.IsBound()) { OnCharacterRestored.Broadcast(bWasSuccess); }
 	return bWasSuccess;
 }
@@ -346,34 +378,25 @@ void ACharacterBase::BeginPlay()
 {
 	BindListeners();
 	Super::BeginPlay();
-	
-	// If the character data asset exists, use it
-	if (IsValid(CharacterData))
-	{
-		// Setup Default Abilities & Effects
-		for (const TSubclassOf<UTalesGameplayAbility>& DefaultAbility : CharacterData->GetDefaultAbilities())
-			{DefaultAbilities.Add(DefaultAbility);}
-		
-		for (const TSubclassOf<UGameplayEffect>& DefaultEffect : CharacterData->GetDefaultEffects())
-			{DefaultEffects.Add(DefaultEffect);}
-	}
-	
 	bCharacterReady = true;
 	LoadCharacter(); // Attempt to call the game state to load this character
+
+	if (IsValid(GetAbilitySystemComponent()))
+	{
+		//AbilitySystemComponent->OnGasDamageReceived.AddDynamic(this, &ACharacterBase::OnDamageReceived);
+	}
+}
+
+void ACharacterBase::OnDamageReceived(class URsAbilityComponent* SourceAsc, const float UnmitigatedDamage,
+	const float MitigatedDamage)
+{
+
 }
 
 
 void ACharacterBase::OnConstruction(const FTransform& Transform)
 {
 	Super::OnConstruction(Transform);
-	
-	if (!CharacterName.IsEmpty())
-	{
-		SetCharacterName(CharacterName);
-		SetCharacterRace(CharacterRace_);
-		SetCharacterClass(CharacterClass_);
-	}
-	
 }
 
 void ACharacterBase::PossessedBy(AController* NewController)
@@ -384,47 +407,6 @@ void ACharacterBase::PossessedBy(AController* NewController)
 		return;
 	}
 	AbilitySystemComponent->InitAbilityActorInfo(this, this);
-	InitializeAbilities();
-	InitializeEffects();
-}
-
-void ACharacterBase::InitializeAbilities()
-{
-	// Only run on server
-	if (!HasAuthority() || !AbilitySystemComponent)
-	{
-		return;
-	}
-
-	for (TSubclassOf<UTalesGameplayAbility>& Ability : DefaultAbilities)
-	{
-		AbilitySystemComponent->GiveAbility(
-			FGameplayAbilitySpec(Ability, 1,
-				static_cast<int32>(Ability.GetDefaultObject()->AbilityInputID), this));
-	}
-}
-
-void ACharacterBase::InitializeEffects()
-{
-	if (!AbilitySystemComponent)
-	{
-		return;
-	}
-
-	FGameplayEffectContextHandle EffectContext = AbilitySystemComponent->MakeEffectContext();
-	EffectContext.AddSourceObject(this);
-
-	for (const TSubclassOf<UGameplayEffect>& DefaultEffect : DefaultEffects)
-	{
-		FGameplayEffectSpecHandle SpecHandle =
-			AbilitySystemComponent->MakeOutgoingSpec(DefaultEffect, 1, EffectContext);
-		
-		if (SpecHandle.IsValid())
-		{
-			FActiveGameplayEffectHandle GEHandle =
-				AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
-		}
-	}
 }
 
 void ACharacterBase::OnRep_PlayerState()
@@ -435,7 +417,6 @@ void ACharacterBase::OnRep_PlayerState()
 		return;
 	}
 	AbilitySystemComponent->InitAbilityActorInfo(this, this);
-	InitializeEffects();
 }
 
 void ACharacterBase::CharacterRestoredFromSave(const bool bWasSuccess)
@@ -452,7 +433,7 @@ void ACharacterBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	const bool doServerSave =	HasAuthority() &&   bSavesOnServer;
 	const bool doClientSave = ! HasAuthority() && ! bSavesOnServer;
-	
+
 	if ( !doServerSave || !doClientSave )
 	{
 		// Always allow save if this client is the listen server or standalone
@@ -463,7 +444,7 @@ void ACharacterBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
 			return;
 		}
 	}
-	
+
 	if (IsValid(GetWorld()))
 	{
 		ATalesGameStateBase* TalesGameState = Cast<ATalesGameStateBase>(GetWorld()->GetGameState());
@@ -474,7 +455,7 @@ void ACharacterBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
 			UE_LOG(LogTemp, Display, TEXT("Character Save: %s"), *SaveResponse);
 		}
 	}
-	
+
 	Super::EndPlay(EndPlayReason);
 }
 
@@ -487,6 +468,10 @@ void ACharacterBase::Tick(float DeltaTime)
 void ACharacterBase::SaveGameDelegate(const FString& SlotName, const int32 UserIndex, bool bSaved)
 {
 	OnCharacterSaved.Broadcast(SlotName, UserIndex, bSaved);
+}
+
+void ACharacterBase::AbilityInputReceived()
+{
 }
 
 void ACharacterBase::InventoryUpdateDelegate(int SlotNumberUpdated)
@@ -507,7 +492,7 @@ void ACharacterBase::InventoryUpdateDelegate(int SlotNumberUpdated)
 
 void ACharacterBase::EquipmentUpdateDelegate(int SlotNumberUpdated, bool bIsEnabled)
 {
-	const FItemStatics& itemData = InventoryComponent->GetSlotNumberItem(SlotNumberUpdated);
+	const FItemStatics& itemData = InventoryComponent->GetItemInSlotNumber(SlotNumberUpdated);
 
 	if (bIsEnabled)
 	{
@@ -517,7 +502,7 @@ void ACharacterBase::EquipmentUpdateDelegate(int SlotNumberUpdated, bool bIsEnab
 	{
 		// Disable the equipments effects
 	}
-	
+
 	// Perform the mesh merge
 	MeshMergeComponent->PerformMeshMerge();
 }
@@ -525,10 +510,13 @@ void ACharacterBase::EquipmentUpdateDelegate(int SlotNumberUpdated, bool bIsEnab
 void ACharacterBase::OnVitalityAttributeChanged(const FOnAttributeChangeData& Data)
 {
 	OnAttributeUpdated.Broadcast(Data.Attribute, Data.NewValue);
+	UE_LOGFMT(LogTemp, Display, "{Name}({NetAuthority}): OnVitalityAttributeChanged({AttributeName}) ({OldValue} -> {AttributeValue})"
+		, GetName(), HasAuthority() ? "SERVER":"CLIENT", Data.Attribute.AttributeName, Data.OldValue, Data.NewValue);
 	if (Data.Attribute == AttributeVitalitySet->GetCurrentHealthAttribute())
 	{
 		OnAttributeHealthUpdated.Broadcast(Data.OldValue, Data.NewValue);
 		EventHealthChanged(Data.OldValue, Data.NewValue);
+		AbilitySystemComponent->CheckIfDead();
 	}
 	else if (Data.Attribute == AttributeVitalitySet->GetCurrentStaminaAttribute())
 	{
@@ -539,11 +527,6 @@ void ACharacterBase::OnVitalityAttributeChanged(const FOnAttributeChangeData& Da
 	{
 		OnAttributeMagicUpdated.Broadcast(Data.OldValue, Data.NewValue);
 		EventMagicChanged(Data.OldValue, Data.NewValue);
-	}
-	else if (Data.Attribute == AttributeVitalitySet->GetCurrentArmorAttribute())
-	{
-		OnAttributeArmorUpdated.Broadcast(Data.OldValue, Data.NewValue);
-		EventArmorChanged(Data.OldValue, Data.NewValue);
 	}
 }
 
@@ -567,25 +550,183 @@ void ACharacterBase::OnRep_CharacterClass_Implementation(const FGameplayTag& Old
 	OnCharacterClassChanged.Broadcast(OldClass, GetCharacterClass());
 }
 
+/**
+ * \brief Takes standard UE-style damage and tries to apply it to the Gameplay Ability System
+ * \return
+ */
+float ACharacterBase::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent,
+                                 AController* EventInstigator, AActor* DamageCauser)
+{
+	const float SuperDamage = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+	/*
+	UE_LOGFMT(LogTemp, Display, "{Name}({NetAuthority}): Taking Damage! (Incoming = {DamageAmount}, Causer = {DamageCauser}"
+		, GetName(), HasAuthority()?"SERVER":"CLIENT", DamageAmount, DamageCauser->GetName());
+	if (URsAbilityComponent* AbilitySystem = GetAbilitySystemComponent())
+	{
+		if (IsValid(AbilitySystem->DamageCalcEffect))
+		{
+			FGameplayEffectContextHandle ContextHandle = AbilitySystem->MakeEffectContext();
+			if (ContextHandle.IsValid())
+			{
+				FGameplayEffectSpecHandle DamageSpecHandle = AbilitySystem->MakeOutgoingSpec(
+					AbilitySystem->DamageCalcEffect, 1.f, ContextHandle);
+				if (DamageSpecHandle.IsValid())
+				{
+					DamageSpecHandle.Data->SetSetByCallerMagnitude(TAG_Damage_SetByCaller, DamageAmount);
+					if (DamageSpecHandle.Data.IsValid())
+					{
+						AbilitySystem->ApplyGameplayEffectSpecToSelf(*DamageSpecHandle.Data.Get());
+						UE_LOGFMT(LogTemp, Display, "{Name}({NetAuthority}): Applying Effect Spec '{EffectSpec}' to Self"
+							, GetName(), HasAuthority()?"SERVER":"CLIENT", DamageSpecHandle.Data.Get()->ToSimpleString());
+					}
+					else
+					{
+						UE_LOGFMT(LogTemp, Error, "{Name}({NetAuthority}): Damage Spec Handle Data is INVALID"
+							, GetName(), HasAuthority()?"SERVER":"CLIENT");
+					}
+				}
+				else
+				{
+					UE_LOGFMT(LogTemp, Error, "{Name}({NetAuthority}): Damage Spec Handle was INVALID"
+						, GetName(), HasAuthority()?"SERVER":"CLIENT");
+				}
+				return DamageAmount;
+			}
+			UE_LOGFMT(LogTemp, Warning, "{Name}({NetAuthority}): ContextHandle was INVALID"
+				, GetName(), HasAuthority()?"SERVER":"CLIENT");
+		}
+	}
+	UE_LOGFMT(LogTemp, Warning, "{Name}({NetAuthority}): Failed to apply damage to Gameplay Ability System"
+		, GetName(), HasAuthority()?"SERVER":"CLIENT");
+	*/
+	return SuperDamage;
+}
+
+void ACharacterBase::OnDeathStatusChanged(const bool bIsNowDead, const float HealthAtDeath)
+{
+	if (bIsNowDead)
+	{
+		CharacterDeath();
+	}
+	else
+	{
+		CharacterRevived();
+	}
+}
+
 void ACharacterBase::RestoreCharacter(const FCharacterData& RestoreData)
-{	
+{
 	// If we are the authority, authorize the restoration
 	if (HasAuthority())
 	{
 		SetCharacterName(RestoreData.CharacterName);
-		CharacterRace_ = RestoreData.CharacterRace;		// Set race without triggering logic
+		SetCharacterRace(RestoreData.CharacterRace);
 		SetCharacterClass(RestoreData.CharacterClass);
 
 		// Update restored flags to prevent cheating
 		bCharacterSaveRestored = true;
-		if (OnCharacterRestored.IsBound()) { OnCharacterRestored.Broadcast(true); }
+		if (OnCharacterRestored.IsBound())
+		{
+			OnCharacterRestored.Broadcast(true);
+		}
 		Client_CharacterRestored(true);
 	}
-	
+
 	// If we are not the authority, send the data to the server to be handled
 	else
 	{
 		Server_RestoreCharacter(RestoreData);
+	}
+}
+
+void ACharacterBase::UpdateCoreStats()
+{
+	if (!HasAuthority())
+		return;
+	URsAbilityComponent* AbilitySystem = Cast<URsAbilityComponent>( GetAbilitySystemComponent() );
+	if (IsValid(AbilitySystem))
+	{
+		if (IsValid(AttributeCoreStatsSet))
+		{
+			UCharacterRaceData* RaceData   = GetCharacterRaceData();
+			UCharacterClassData* ClassData = GetCharacterClassData();
+			TArray RaceValues  = {0.f, 0.f, 0.f, 0.f, 0.f, 0.f};
+			TArray ClassValues = {0.f, 0.f, 0.f, 0.f, 0.f, 0.f};
+			if (IsValid(RaceData))
+			{
+				RaceValues[0] += GetAttributeValue(RaceData->CoreStatsModifiers, AttributeCoreStatsSet->GetStrengthAttribute());
+				RaceValues[1] += GetAttributeValue(RaceData->CoreStatsModifiers, AttributeCoreStatsSet->GetFortitudeAttribute());
+				RaceValues[2] += GetAttributeValue(RaceData->CoreStatsModifiers, AttributeCoreStatsSet->GetDexterityAttribute());
+				RaceValues[3] += GetAttributeValue(RaceData->CoreStatsModifiers, AttributeCoreStatsSet->GetAstutenessAttribute());
+				RaceValues[4] += GetAttributeValue(RaceData->CoreStatsModifiers, AttributeCoreStatsSet->GetIntellectAttribute());
+				RaceValues[5] += GetAttributeValue(RaceData->CoreStatsModifiers, AttributeCoreStatsSet->GetCharismaAttribute());
+			}
+			if (IsValid(ClassData))
+			{
+				RaceValues[0] += GetAttributeValue(ClassData->CoreStatsModifiers, AttributeCoreStatsSet->GetStrengthAttribute());
+				RaceValues[1] += GetAttributeValue(ClassData->CoreStatsModifiers, AttributeCoreStatsSet->GetFortitudeAttribute());
+				RaceValues[2] += GetAttributeValue(ClassData->CoreStatsModifiers, AttributeCoreStatsSet->GetDexterityAttribute());
+				RaceValues[3] += GetAttributeValue(ClassData->CoreStatsModifiers, AttributeCoreStatsSet->GetAstutenessAttribute());
+				RaceValues[4] += GetAttributeValue(ClassData->CoreStatsModifiers, AttributeCoreStatsSet->GetIntellectAttribute());
+				RaceValues[5] += GetAttributeValue(ClassData->CoreStatsModifiers, AttributeCoreStatsSet->GetCharismaAttribute());
+			}
+			AbilitySystem->SetNumericAttributeBase(AttributeCoreStatsSet->GetStrengthAttribute(),   RaceValues[0] + ClassValues[0]);
+			AbilitySystem->SetNumericAttributeBase(AttributeCoreStatsSet->GetFortitudeAttribute(),  RaceValues[1] + ClassValues[1]);
+			AbilitySystem->SetNumericAttributeBase(AttributeCoreStatsSet->GetDexterityAttribute(),  RaceValues[2] + ClassValues[2]);
+			AbilitySystem->SetNumericAttributeBase(AttributeCoreStatsSet->GetAstutenessAttribute(), RaceValues[3] + ClassValues[3]);
+			AbilitySystem->SetNumericAttributeBase(AttributeCoreStatsSet->GetIntellectAttribute(),  RaceValues[4] + ClassValues[4]);
+			AbilitySystem->SetNumericAttributeBase(AttributeCoreStatsSet->GetCharismaAttribute(),   RaceValues[5] + ClassValues[5]);
+		}
+	}
+	UpdateVitalityStats();
+}
+
+void ACharacterBase::UpdateVitalityStats()
+{
+	if (!HasAuthority())
+		return;
+
+	URsAbilityComponent* AbilitySystem = Cast<URsAbilityComponent>( GetAbilitySystemComponent() );
+	if (IsValid(AbilitySystem) && IsValid(AttributeVitalitySet) && IsValid(AttributeCoreStatsSet))
+	{
+		const float FortitudeModifier = AbilitySystem->GetCoreStatModifier(AttributeCoreStatsSet->GetFortitudeAttribute());
+		const float IntellectModifier = AbilitySystem->GetCoreStatModifier(AttributeCoreStatsSet->GetIntellectAttribute());
+		const float DexterityModifier = AbilitySystem->GetCoreStatModifier(AttributeCoreStatsSet->GetDexterityAttribute());
+
+		const float NewHealthValue = ModifiedStatValue(FortitudeModifier);
+		AbilitySystem->SetNumericAttributeBase(AttributeVitalitySet->GetMaximumHealthAttribute(), NewHealthValue);
+		AbilitySystem->SetNumericAttributeBase(AttributeVitalitySet->GetCurrentHealthAttribute(), NewHealthValue);
+
+		const float NewHealthRegenValue = 0.0125 * (1 + FortitudeModifier / 20.f);
+		AbilitySystem->SetNumericAttributeBase(AttributeVitalitySet->GetPassiveHealthRegenAttribute(), NewHealthRegenValue);
+
+		const float NewMagicValue = ModifiedStatValue(IntellectModifier);
+		AbilitySystem->SetNumericAttributeBase(AttributeVitalitySet->GetMaximumMagicAttribute(), NewMagicValue);
+		AbilitySystem->SetNumericAttributeBase(AttributeVitalitySet->GetCurrentMagicAttribute(), NewMagicValue);
+
+		const float NewManaRegenValue = 0.0125 * (1 + IntellectModifier / 20.f);
+		AbilitySystem->SetNumericAttributeBase(AttributeVitalitySet->GetPassiveMagicRegenAttribute(), NewManaRegenValue);
+
+		const float NewStaminaValue = ModifiedStatValue(DexterityModifier);
+		AbilitySystem->SetNumericAttributeBase(AttributeVitalitySet->GetMaximumStaminaAttribute(), NewStaminaValue);
+		AbilitySystem->SetNumericAttributeBase(AttributeVitalitySet->GetCurrentStaminaAttribute(), NewStaminaValue);
+
+		const float NewStaminaRegenValue = 0.035 * (1 + DexterityModifier / 20.f);
+		AbilitySystem->SetNumericAttributeBase(AttributeVitalitySet->GetPassiveStaminaRegenAttribute(), NewStaminaRegenValue);
+
+		const float NewHungerValue = ModifiedStatValue(FortitudeModifier);
+		AbilitySystem->SetNumericAttributeBase(AttributeVitalitySet->GetMaximumHungerAttribute(), NewHungerValue);
+		AbilitySystem->SetNumericAttributeBase(AttributeVitalitySet->GetCurrentHungerAttribute(), NewHungerValue);
+
+		const float NewHungerDrainValue = FMath::Clamp(0.0000035 * (100 / FortitudeModifier), 0.000000001f, 0.01f);
+		AbilitySystem->SetNumericAttributeBase(AttributeVitalitySet->GetPassiveHungerDrainAttribute(), NewHungerDrainValue);
+
+		const float NewHydroValue = ModifiedStatValue(FortitudeModifier);
+		AbilitySystem->SetNumericAttributeBase(AttributeVitalitySet->GetMaximumHydrationAttribute(), NewHydroValue);
+		AbilitySystem->SetNumericAttributeBase(AttributeVitalitySet->GetCurrentHydrationAttribute(), NewHydroValue);
+
+		const float NewHydroDrainValue = FMath::Clamp(0.000035  * (100 / FortitudeModifier), 0.000000001f, 0.01f);
+		AbilitySystem->SetNumericAttributeBase(AttributeVitalitySet->GetPassiveHydroDrainAttribute(), NewHydroDrainValue);
 	}
 }
 
@@ -615,6 +756,9 @@ void ACharacterBase::Client_CharacterRestored_Implementation(const bool bWasSucc
 
 void ACharacterBase::BindListeners()
 {
+	// Ability System Delegates
+	AbilitySystemComponent->OnDeathStatusChanged.AddDynamic(this, &ACharacterBase::OnDeathStatusChanged);
+
 	// Everyone should always listen to all character's vitality stats
 	//	so we run this on the CharacterBase on all clients
 	TArray VitalityAttributes = AttributeVitalitySet->GetAllVitalityAttributes();
@@ -630,7 +774,7 @@ void ACharacterBase::BindListeners()
 			GetCharacterName(), HasAuthority()?"SRV":"CLI", vAttribute.AttributeName);
 	}
 
-	
+
 	for (const FGameplayAttribute& CoreStat : CoreStatAttributes)
 	{
 		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
@@ -639,8 +783,47 @@ void ACharacterBase::BindListeners()
 			"Successfully initialized delegate for Vitality Attribute '{vAttribute}'",
 			GetCharacterName(), HasAuthority()?"SRV":"CLI", CoreStat.AttributeName);
 	}
-	
 };
+
+bool ACharacterBase::IsDead() const
+{
+	return IsValid(AbilitySystemComponent) ?
+		AbilitySystemComponent->IsDead() : false;
+}
+
+/**
+ * \brief Performs all respawn logic. When inheriting, ensure to call super or you will need
+ * to implement all respawn logic, such as ability system resets.
+ */
+void ACharacterBase::Respawn(const ERespawnType RespawnType)
+{
+	if (!HasAuthority())
+	{
+		return;
+	}
+
+	// Resets health to 10% of maximum, triggering the ability system to set "IsDead" to false.
+	if (IsValid(AbilitySystemComponent))
+	{
+		FGameplayAbilitySpec AbilitySpec = AbilitySystemComponent->BuildAbilitySpecFromClass(AbilityOnRevive);
+		switch (RespawnType)
+		{
+		case ERespawnType::Graveyard:
+			AbilitySpec = AbilitySystemComponent->BuildAbilitySpecFromClass(AbilityOnGraveyard);
+			break;
+		case ERespawnType::Entrance:
+			AbilitySpec = AbilitySystemComponent->BuildAbilitySpecFromClass(AbilityOnRespawn);
+			break;
+		default:
+			break;
+		}
+
+		AbilitySystemComponent->GiveAbilityAndActivateOnce(AbilitySpec);
+		AttributeVitalitySet->SetCurrentHealth(AttributeVitalitySet->GetMaximumHealth() * 0.25);
+		AbilitySystemComponent->SetDead(false);
+	}
+
+}
 
 /**
  * \brief Sets the new name for this character. Typically used during creation/loading.
@@ -655,14 +838,14 @@ void ACharacterBase::SetCharacterName(FString ProposedName)
 	CharacterName = ProposedName;
 }
 
-UTalesAbilityComponent* ACharacterBase::GetAbilitySystemComponent() const
+UAbilitySystemComponent* ACharacterBase::GetAbilitySystemComponent() const
 {
 	return AbilitySystemComponent;
 }
 
 void ACharacterBase::OnRep_CharacterName_Implementation(const FString& OldCharacterName)
 {
-	UE_LOGFMT(LogTemp, Log, "{CharName}({Sv}) REPNOTIFY: Character Name Changed. {OldName} -> {NewName}",
+	UE_LOGFMT(LogTemp, Log, "{CharName}({Sv}) Character Name Changed. {OldName} -> {NewName}",
 		GetName(), HasAuthority()?"SV":"CL", OldCharacterName, GetCharacterName());
 	if (OnCharacterNameChanged.IsBound()) { OnCharacterNameChanged.Broadcast(); }
 }
@@ -673,10 +856,10 @@ void ACharacterBase::OnRep_CharacterName_Implementation(const FString& OldCharac
 void ACharacterBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-	
+
 	DOREPLIFETIME(ACharacterBase, CharacterName);
 	DOREPLIFETIME(ACharacterBase, SkinColor);
-	
+
 	DOREPLIFETIME(ACharacterBase, PronounObjective);
 	DOREPLIFETIME(ACharacterBase, PronounPossessive);
 	DOREPLIFETIME(ACharacterBase, PronounSubject);

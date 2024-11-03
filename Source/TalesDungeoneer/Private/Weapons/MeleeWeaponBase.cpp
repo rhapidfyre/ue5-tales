@@ -1,4 +1,4 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Starcache Studios, LLC (c) 2024
 
 
 #include "Weapons/MeleeWeaponBase.h"
@@ -10,7 +10,7 @@
 AMeleeWeaponBase::AMeleeWeaponBase()
 {
 	// Replication, tick etc is all set by parent "AWeaponBase"
-	
+
 	mHitDetector = CreateDefaultSubobject<UCapsuleComponent>(TEXT("HitDetector"));
 	if (IsValid(mHitDetector)) mHitDetector->SetAutoActivate(true);
 
@@ -19,7 +19,7 @@ AMeleeWeaponBase::AMeleeWeaponBase()
 
 	// Set type as MeleeWeapon
 	mHitDetector->SetCollisionObjectType(ECC_GameTraceChannel4);
-	
+
 	// Overlap Resource Nodes
 	mHitDetector->SetCollisionResponseToChannel(ECC_GameTraceChannel5, ECR_Overlap);
 
@@ -27,7 +27,7 @@ AMeleeWeaponBase::AMeleeWeaponBase()
 	mHitDetector->SetCollisionResponseToChannel(ECC_Visibility,		ECR_Ignore);
 	mHitDetector->SetCollisionResponseToChannel(ECC_Camera,			ECR_Ignore);
 	mHitDetector->SetCollisionResponseToChannel(ECC_PhysicsBody,	ECR_Overlap);
-	
+
 	mHitDetector->SetupAttachment(GetRootComponent());
 }
 
@@ -49,7 +49,7 @@ void AMeleeWeaponBase::startHitDetection()
 void AMeleeWeaponBase::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 	mHitDetector->IgnoreActorWhenMoving(GetOwner(), true);
 
 	if (!mHitDetector->OnComponentBeginOverlap.IsAlreadyBound(this, &AMeleeWeaponBase::onMeleeWeaponHit))

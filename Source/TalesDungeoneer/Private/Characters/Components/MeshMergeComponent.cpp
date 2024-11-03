@@ -12,31 +12,7 @@
 #include "Net/UnrealNetwork.h"
 #include "Saves/MeshMergeSaveData.h"			// For loading/saving mesh merges
 
-UE_DEFINE_GAMEPLAY_TAG(TAG_Equipment,					"Equipment");
-UE_DEFINE_GAMEPLAY_TAG(TAG_Equipment_Slot,				"Equipment.SlotType");
-UE_DEFINE_GAMEPLAY_TAG(TAG_Equipment_Slot_Uninit,		"Equipment.SlotType.Uninitialized");
-UE_DEFINE_GAMEPLAY_TAG(TAG_Equipment_Slot_Primary,		"Equipment.SlotType.Primary");
-UE_DEFINE_GAMEPLAY_TAG(TAG_Equipment_Slot_Secondary,	"Equipment.SlotType.Secondary");
-UE_DEFINE_GAMEPLAY_TAG(TAG_Equipment_Slot_Ranged,		"Equipment.SlotType.Ranged");
-UE_DEFINE_GAMEPLAY_TAG(TAG_Equipment_Slot_Ammunition,	"Equipment.SlotType.Ammunition");
-UE_DEFINE_GAMEPLAY_TAG(TAG_Equipment_Slot_Head,			"Equipment.SlotType.Head");
-UE_DEFINE_GAMEPLAY_TAG(TAG_Equipment_Slot_Face,			"Equipment.SlotType.Face");
-UE_DEFINE_GAMEPLAY_TAG(TAG_Equipment_Slot_Neck,			"Equipment.SlotType.Neck");
-UE_DEFINE_GAMEPLAY_TAG(TAG_Equipment_Slot_Torso,		"Equipment.SlotType.Torso");
-UE_DEFINE_GAMEPLAY_TAG(TAG_Equipment_Slot_Shoulders,	"Equipment.SlotType.Shoulders");
-UE_DEFINE_GAMEPLAY_TAG(TAG_Equipment_Slot_Arms,			"Equipment.SlotType.Arms");
-UE_DEFINE_GAMEPLAY_TAG(TAG_Equipment_Slot_Wrists,		"Equipment.SlotType.Wrist");
-UE_DEFINE_GAMEPLAY_TAG(TAG_Equipment_Slot_Wrists_Left,	"Equipment.SlotType.Wrist.Left");
-UE_DEFINE_GAMEPLAY_TAG(TAG_Equipment_Slot_Wrists_Right,	"Equipment.SlotType.Wrist.Right");
-UE_DEFINE_GAMEPLAY_TAG(TAG_Equipment_Slot_Ring,			"Equipment.SlotType.Ring");
-UE_DEFINE_GAMEPLAY_TAG(TAG_Equipment_Slot_Ring_Left,	"Equipment.SlotType.Ring.Left");
-UE_DEFINE_GAMEPLAY_TAG(TAG_Equipment_Slot_Ring_Right,	"Equipment.SlotType.Ring.Right");
-UE_DEFINE_GAMEPLAY_TAG(TAG_Equipment_Slot_Waist,		"Equipment.SlotType.Waist");
-UE_DEFINE_GAMEPLAY_TAG(TAG_Equipment_Slot_Legs,			"Equipment.SlotType.Legs");
-UE_DEFINE_GAMEPLAY_TAG(TAG_Equipment_Slot_Anklet,		"Equipment.SlotType.Anklet");
-UE_DEFINE_GAMEPLAY_TAG(TAG_Equipment_Slot_Feet,			"Equipment.SlotType.Feet");
-
-UMeshMergeComponent::UMeshMergeComponent() 
+UMeshMergeComponent::UMeshMergeComponent()
 		: StripTopLODS(0), bNeedsCpuAccess(false), bSkeletonBefore(false)
 {
 	PrimaryComponentTick.bCanEverTick = false;
@@ -78,30 +54,33 @@ FMeshBodyMappings::FMeshBodyMappings(USkeletalMesh* UsingMesh,
  */
 bool UMeshMergeComponent::PerformMeshMerge(bool bMergeMeshesOnly)
 {
-	if (!bUseMeshMerge) { return true; }
-	
+	if (!bUseMeshMerge)
+	{
+		return true;
+	}
+
 	UE_LOG(LogTemp, Display, TEXT("%s(%s): PerformMeshMerge()"), *GetName(),
 		GetOwner()->HasAuthority()?TEXT("SERVER"):TEXT("CLIENT"));
-	
+
 	const ACharacterBase* CharacterBase = Cast<ACharacterBase>(GetOwner());
 	if (!IsValid(CharacterBase))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Owner Actor was not a valid CharacterBase!"));
 		return false;
 	}
-	
+
 	// Removes all invalid skeletal meshes from the array copy
 	// Invalid mesh assets will return TRUE, which removes it from the array.
 	MeshMergeData.RemoveAll([](const FMeshMergeMappings& InternalMeshMergeData)
 	{
 		// Returns within the lambda
-		return (!IsValid(InternalMeshMergeData.SkeletalMesh));  
+		return (!IsValid(InternalMeshMergeData.SkeletalMesh));
 	});
 
 	// Checks for empty array
 	if (MeshMergeData.IsEmpty())
 	{
-		UE_LOGFMT(LogTemp, Error, "{Name}({Authority}): PerformMeshMerge FAILED - "
+		UE_LOGFMT(LogTemp, Warning, "{Name}({Authority}): PerformMeshMerge FAILED - "
 			"No valid meshes assigned. Character will be invisible or buggy.", GetName(),
 			GetOwner()->HasAuthority()?"SERVER":"CLIENT");
 		return false;
@@ -111,12 +90,12 @@ bool UMeshMergeComponent::PerformMeshMerge(bool bMergeMeshesOnly)
 			EMeshBufferAccess::ForceCPUAndGPU : EMeshBufferAccess::Default;
 
 	bool bRunDuplicateCheck = false;
-	USkeletalMesh* BaseMesh = NewObject<USkeletalMesh>();
+	USkeletalMesh* NewBaseMesh = NewObject<USkeletalMesh>();
 	if (IsValid(Skeleton) && bSkeletonBefore)
 	{
-		BaseMesh->SetSkeleton(Skeleton);
+		NewBaseMesh->SetSkeleton(Skeleton);
 		bRunDuplicateCheck = true;
-		for (const USkeletalMeshSocket* Socket : BaseMesh->GetMeshOnlySocketList())
+		for (const USkeletalMeshSocket* Socket : NewBaseMesh->GetMeshOnlySocketList())
 		{
 			if (IsValid(Socket))
 			{
@@ -124,7 +103,7 @@ bool UMeshMergeComponent::PerformMeshMerge(bool bMergeMeshesOnly)
 					*(Socket->SocketName.ToString()) );
 			}
 		}
-		for (const USkeletalMeshSocket* Socket : BaseMesh->GetSkeleton()->Sockets)
+		for (const USkeletalMeshSocket* Socket : NewBaseMesh->GetSkeleton()->Sockets)
 		{
 			if (IsValid(Socket))
 			{
@@ -132,7 +111,7 @@ bool UMeshMergeComponent::PerformMeshMerge(bool bMergeMeshesOnly)
 					*(Socket->SocketName.ToString()) );
 			}
 		}
-		
+
 	}
 
 	TArray<FSkelMeshMergeSectionMapping> SectionMappingsCopy;
@@ -165,25 +144,25 @@ bool UMeshMergeComponent::PerformMeshMerge(bool bMergeMeshesOnly)
 		}
 	}
 
-	FSkeletalMeshMerge MeshMerger(BaseMesh, FinalMeshList, SectionMappingsCopy,
+	FSkeletalMeshMerge MeshMerger(NewBaseMesh, FinalMeshList, SectionMappingsCopy,
 			StripTopLODS, BufferAccess, UvTransformsCopy.GetData());
-	
+
 	if (!MeshMerger.DoMerge())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Merge failed!"));
-		return nullptr;
+		return false;
 	}
 	if (IsValid(Skeleton) && !bSkeletonBefore)
 	{
-		BaseMesh->SetSkeleton(Skeleton);
+		NewBaseMesh->SetSkeleton(Skeleton);
 	}
-	
+
 	if (bRunDuplicateCheck)
 	{
 		TArray<FName> SkeletonMeshSockets;
 		TArray<FName> SkeletonSockets;
-		
-		for (const USkeletalMeshSocket* Socket : BaseMesh->GetMeshOnlySocketList())
+
+		for (const USkeletalMeshSocket* Socket : NewBaseMesh->GetMeshOnlySocketList())
 		{
 			if (Socket)
 			{
@@ -191,8 +170,8 @@ bool UMeshMergeComponent::PerformMeshMerge(bool bMergeMeshesOnly)
 				UE_LOG(LogTemp, Warning, TEXT("SkelMeshSocket: %s"), *(Socket->SocketName.ToString()));
 			}
 		}
-		
-		for (const USkeletalMeshSocket* Socket : BaseMesh->GetSkeleton()->Sockets)
+
+		for (const USkeletalMeshSocket* Socket : NewBaseMesh->GetSkeleton()->Sockets)
 		{
 			if (Socket)
 			{
@@ -200,7 +179,7 @@ bool UMeshMergeComponent::PerformMeshMerge(bool bMergeMeshesOnly)
 				UE_LOG(LogTemp, Warning, TEXT("SkelSocket: %s"), *(Socket->SocketName.ToString()));
 			}
 		}
-		
+
 		TSet<FName> UniqueSkeletonMeshSockets;
 		TSet<FName> UniqueSkeletonSockets;
 		UniqueSkeletonMeshSockets.Append(SkeletonMeshSockets);
@@ -211,19 +190,18 @@ bool UMeshMergeComponent::PerformMeshMerge(bool bMergeMeshesOnly)
 		UE_LOG(LogTemp, Warning, TEXT("SkelMeshSocketCount: %d | SkelSocketCount: %d | Combined: %d"), UniqueSkeletonMeshSockets.Num(), UniqueSkeletonSockets.Num(), UniqueTotal);
 		UE_LOG(LogTemp, Warning, TEXT("Found Duplicates: %s"), *((Total != UniqueTotal) ? FString("True") : FString("False")));
 	}
-	
-	if (IsValid(BaseMesh))
+
+	if (IsValid(NewBaseMesh))
 	{
 		USkeletalMeshComponent* CharacterMesh = CharacterBase->GetMesh();
-		CharacterMesh->SetSkeletalMesh(BaseMesh);
-		
+		CharacterMesh->SetSkeletalMesh(NewBaseMesh);
+
 		UpdateMeshMaterials();
-		CharacterBase->GetMesh()->SetHiddenInGame(false);
-		
+
 		OnMeshMergeCompleted.Broadcast();
 		return true;
 	}
-	
+
 	UE_LOG(LogTemp, Warning, TEXT("PerformMeshMerge() failed!"));
 	return false;
 }
@@ -310,7 +288,7 @@ void UMeshMergeComponent::RemoveMeshFromMerge(
 			}
 		}
 	}
-	
+
 	// If the tag isn't valid, remove the equipment that matches
 	else
 	{
@@ -408,45 +386,25 @@ void UMeshMergeComponent::LoadMeshMerge(
 	FString& LoadResponse, FString& SaveSlotName, int32 SaveUserIndex, bool bIsAsync)
 {
 	LoadResponse = "Failed to Load (Unknown Error)";
-	const bool bHasAuthority = HasAuthority();
-	if ( bHasAuthority && !bSavesOnServer )
+	if (!UGameplayStatics::DoesSaveGameExist(SaveFolder + SaveSlotName, SaveUserIndex))
 	{
-		// Always allow save if this client is the listen server or standalone
-		const ENetMode netMode = GetNetMode();
-		if (netMode != NM_ListenServer && netMode != NM_Standalone)
-		{
-			LoadResponse = "Authority Violation when Loading MeshMerge";
-			return;
-		}
-	}
-	if ( !bHasAuthority && bSavesOnServer )
-	{
-		LoadResponse = "Authority Violation when Loading MeshMerge";
+		LoadResponse = "No SaveSlotName Exists";
 		return;
 	}
-	
-	if (bMeshMergeReady)
-	{
-		if (!UGameplayStatics::DoesSaveGameExist(SaveFolder + SaveSlotName, SaveUserIndex))
-		{
-			LoadResponse = "No SaveSlotName Exists";
-			return;
-		}
-		
-		SaveSlotName_  = SaveSlotName;
-		SaveUserIndex_ = SaveUserIndex;
-		
-		if (bIsAsync)
-		{
-			FAsyncLoadGameFromSlotDelegate LoadDelegate;
-			LoadDelegate.BindUObject(this, &UMeshMergeComponent::LoadDataDelegate);
-			UGameplayStatics::AsyncLoadGameFromSlot(SaveFolder + SaveSlotName_, SaveUserIndex_, LoadDelegate);
-			LoadResponse = "Sent Async Load Request";
-			return;
-		}
 
-		LoadDataDelegate(SaveSlotName_, SaveUserIndex_, nullptr);
+	SaveSlotName_  = SaveSlotName;
+	SaveUserIndex_ = SaveUserIndex;
+
+	if (bIsAsync)
+	{
+		FAsyncLoadGameFromSlotDelegate LoadDelegate;
+		LoadDelegate.BindUObject(this, &UMeshMergeComponent::LoadDataDelegate);
+		UGameplayStatics::AsyncLoadGameFromSlot(SaveFolder + SaveSlotName_, SaveUserIndex_, LoadDelegate);
+		LoadResponse = "Sent Async Load Request";
+		return;
 	}
+
+	LoadDataDelegate(SaveSlotName_, SaveUserIndex_, nullptr);
 }
 
 FString UMeshMergeComponent::SaveMeshMerge(FString& responseStr, bool isAsync)
@@ -464,14 +422,14 @@ FString UMeshMergeComponent::SaveMeshMerge(FString& responseStr, bool isAsync)
 			return FString();
 		}
 	}
-	
+
 	// The inventory save file does not exist, if the string is empty.
 	// If so, the script will try to generate one.
 	SaveUserIndex_ = 0;
-	
+
 	const ATalesGameStateBase* TalesGameState = Cast<ATalesGameStateBase>( GetWorld()->GetGameState() );
 	if (IsValid(TalesGameState)) { SaveUserIndex_ = TalesGameState->GetCharacterUserIndex(); }
-	
+
 	if (SaveSlotName_.IsEmpty())
 	{
 		FString TempSaveName;
@@ -490,7 +448,7 @@ FString UMeshMergeComponent::SaveMeshMerge(FString& responseStr, bool isAsync)
 		// Loop until a unique save string has been created
 		while (UGameplayStatics::DoesSaveGameExist(SaveFolder + TempSaveName, SaveUserIndex_));
 		SaveSlotName_ = TempSaveName;
-		
+
 	}
 
 	// If this is a brand new inventory save, issue the starting items.
@@ -501,12 +459,12 @@ FString UMeshMergeComponent::SaveMeshMerge(FString& responseStr, bool isAsync)
 		responseStr = "Failed to Create New Save Object";
 		return FString();
 	}
-	
+
 	SaveData->EyeColor		= EyeColor_;
 	SaveData->SkinColor		= SkinColor_;
 	SaveData->BeardColor	= BeardColor_;
 	SaveData->HairColor		= HairColor_;
-	
+
 	SaveData->MeshMergeMappings = MeshMergeData;
 	SaveData->MeshBodyMappings  = MeshBodyData;
 	SaveData->UsingSkeleton		= Skeleton;
@@ -540,9 +498,9 @@ void UMeshMergeComponent::BeginPlay()
 	const ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
 	if (IsValid(CharacterBase))
 	{
-		CharacterBase->GetMesh()->SetHiddenInGame(true);
+		CharacterBase->GetMesh()->SetHiddenInGame(false);
 	}
-	
+
 	bMeshMergeReady = true;
 }
 
@@ -562,6 +520,8 @@ void UMeshMergeComponent::InitializeComponent()
  */
 void UMeshMergeComponent::OnRep_MeshMergeData_Implementation()
 {
+	UE_LOGFMT(LogTemp, Error, "MeshMerge({NetAuthority}): OnRep_MeshMergeData() - Mesh Merge Data has been updated"
+		, HasAuthority() ? "SRV" : "CLI");
 	PerformMeshMerge(true);
 }
 
@@ -570,7 +530,8 @@ void UMeshMergeComponent::OnRep_SkinColor_Implementation()
 	ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
 	if (IsValid(CharacterBase))
 	{
-		UpdateMeshMaterials(CharacterBase->GetCharacterRaceData()->SkinMaterial);
+		UCharacterRaceData* RaceData = CharacterBase->GetCharacterRaceData();
+		UpdateMeshMaterials(IsValid(RaceData) ? RaceData->SkinMaterial : nullptr);
 	}
 }
 
@@ -579,7 +540,8 @@ void UMeshMergeComponent::OnRep_BeardColor_Implementation()
 	ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
 	if (IsValid(CharacterBase))
 	{
-		UpdateMeshMaterials(CharacterBase->GetCharacterRaceData()->BeardMaterial);
+		UCharacterRaceData* RaceData = CharacterBase->GetCharacterRaceData();
+		UpdateMeshMaterials(IsValid(RaceData) ? RaceData->BeardMaterial : nullptr);
 	}
 }
 
@@ -588,7 +550,8 @@ void UMeshMergeComponent::OnRep_HairColor_Implementation()
 	ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
 	if (IsValid(CharacterBase))
 	{
-		UpdateMeshMaterials(CharacterBase->GetCharacterRaceData()->HairMaterial);
+		UCharacterRaceData* RaceData = CharacterBase->GetCharacterRaceData();
+		UpdateMeshMaterials(IsValid(RaceData) ? RaceData->HairMaterial : nullptr);
 	}
 }
 
@@ -597,7 +560,8 @@ void UMeshMergeComponent::OnRep_EyeColor_Implementation()
 	ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
 	if (IsValid(CharacterBase))
 	{
-		UpdateMeshMaterials(CharacterBase->GetCharacterRaceData()->EyeMaterial);
+		UCharacterRaceData* RaceData = CharacterBase->GetCharacterRaceData();
+		UpdateMeshMaterials(IsValid(RaceData) ? RaceData->EyeMaterial : nullptr);
 	}
 }
 
@@ -613,22 +577,6 @@ void UMeshMergeComponent::OnRep_AnimInstance_Implementation()
 	{
 		CharacterBase->GetMesh()->SetAnimInstanceClass(AnimBlueprint);
 	}
-}
-
-
-void UMeshMergeComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
-{
-	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-	
-	// Vars replicated to all clients
-	DOREPLIFETIME(UMeshMergeComponent, Skeleton);
-	DOREPLIFETIME(UMeshMergeComponent, MeshMergeData);
-	DOREPLIFETIME(UMeshMergeComponent, MeshBodyData);
-	DOREPLIFETIME(UMeshMergeComponent, EyeColor_);
-	DOREPLIFETIME(UMeshMergeComponent, SkinColor_);
-	DOREPLIFETIME(UMeshMergeComponent, HairColor_);
-	DOREPLIFETIME(UMeshMergeComponent, BeardColor_);
-	DOREPLIFETIME(UMeshMergeComponent, AnimBlueprint);
 }
 
 /**
@@ -649,7 +597,7 @@ void UMeshMergeComponent::ValidateMeshMergeMappings(
 				// Show if bWasRemoved, otherwise hide.
 				meshMapping.numSuperiorMeshes += bWasRemoved ? -1 :  1;
 			}
-			
+
 			// Override hidden meshes by allowing shown meshes
 			if (MapReference.DataAsset->ShowsBodyParts.HasTagExact(meshMapping.EquipSlotTag))
 			{
@@ -664,17 +612,17 @@ void UMeshMergeComponent::UpdateMeshMaterials(const UMaterialInterface* Material
 {
 	const ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
 	if (!IsValid(CharacterBase))		{ return; }
-	
+
 	USkeletalMeshComponent* CharacterMesh = CharacterBase->GetMesh();
 	if (!IsValid(CharacterMesh))		{ return; }
-	
+
 	// Get all materials from the character's mesh component
 	TArray<UMaterialInterface*> meshMats = CharacterMesh->GetMaterials();
-	
+
 	for (UMaterialInterface* meshMaterial : meshMats)
 	{
 		if (!IsValid(meshMaterial)) {continue;}
-		
+
 		int matIndex = -1;
 		// Find the index where the specified mesh is found
 		for (int i = 0; i < meshMats.Num(); i++)
@@ -689,35 +637,38 @@ void UMeshMergeComponent::UpdateMeshMaterials(const UMaterialInterface* Material
 			}
 		}
 		// Continue to the next material if this material doesn't match the search term
-		if (matIndex < 0) { continue; }
+		if (matIndex < 0)
+		{
+			continue;
+		}
 
-		CharacterBase->GetMesh()->SetHiddenInGame(true);
-		
 		FLinearColor meshColor;
 		const UCharacterRaceData* RaceData = CharacterBase->GetCharacterRaceData();
-		if(meshMaterial == RaceData->EyeMaterial)		 { meshColor = EyeColor_;   }
-		else if(meshMaterial == RaceData->SkinMaterial)  { meshColor = SkinColor_;  }
-		else if(meshMaterial == RaceData->HairMaterial)  { meshColor = HairColor_;  }
-		else if(meshMaterial == RaceData->BeardMaterial) { meshColor = BeardColor_; }
-		else { return; }
-		
-		
+		if (IsValid(RaceData))
+		{
+			if(meshMaterial == RaceData->EyeMaterial)		 { meshColor = EyeColor_;   }
+			else if(meshMaterial == RaceData->SkinMaterial)  { meshColor = SkinColor_;  }
+			else if(meshMaterial == RaceData->HairMaterial)  { meshColor = HairColor_;  }
+			else if(meshMaterial == RaceData->BeardMaterial) { meshColor = BeardColor_; }
+			else { return; }
+		}
+
 		// Use the existing dynamic material, or create a new one
 		UMaterialInstanceDynamic* dynMaterial = Cast<UMaterialInstanceDynamic>( CharacterMesh->GetMaterial(matIndex) );
 		if (!IsValid(dynMaterial)) { dynMaterial = UMaterialInstanceDynamic::Create(meshMaterial, this); }
-		
+
 		if (IsValid(dynMaterial))
 		{
 			dynMaterial->SetVectorParameterValue("Param", meshColor);
 			CharacterMesh->SetMaterial(matIndex, dynMaterial);
 		}
-		
-		CharacterBase->GetMesh()->SetHiddenInGame(false);
 	}
 }
 
 void UMeshMergeComponent::LoadDataDelegate(const FString& SaveName, const int32 UserIndex, USaveGame* SaveGameData)
 {
+	UE_LOGFMT(LogTemp, Display, "MeshMerge({NetAuthority}): LoadDataDelegate()"
+		, HasAuthority() ? "SRV" : "CLI");
 	UMeshMergeSaveData* MeshMergeSave = Cast<UMeshMergeSaveData>( SaveGameData );
 	if (!IsValid(MeshMergeSave))
 	{
@@ -726,16 +677,18 @@ void UMeshMergeComponent::LoadDataDelegate(const FString& SaveName, const int32 
 		if (!IsValid(MeshMergeSave))
 		{
 			OnMeshMergeRestored.Broadcast(false);
+			UE_LOGFMT(LogTemp, Error, "MeshMerge({NetAuthority}): LoadDataDelegate() FAILURE - MeshMergeSave does not exist"
+				, HasAuthority() ? "SRV" : "CLI");
 			return;
 		}
 	}
 
 	RestoreSkeleton(MeshMergeSave->UsingSkeleton,
 						   MeshMergeSave->UsingAnimInstance);
-	
+
 	RestoreMappings(MeshMergeSave->MeshMergeMappings,
 						   MeshMergeSave->MeshBodyMappings);
-	
+
 	RestoreMaterials(MeshMergeSave->EyeColor, MeshMergeSave->SkinColor,
 							MeshMergeSave->HairColor, MeshMergeSave->BeardColor);
 
@@ -744,6 +697,8 @@ void UMeshMergeComponent::LoadDataDelegate(const FString& SaveName, const int32 
 
 void UMeshMergeComponent::SaveDataDelegate(const FString& SaveName, const int32 UserIndex, bool bSuccess)
 {
+	UE_LOGFMT(LogTemp, Display, "MeshMerge({NetAuthority}): SaveDataDelegate({SaveName}, {UserIndex}, {bSuccess})"
+		, HasAuthority() ? "SRV" : "CLI", SaveName, UserIndex, bSuccess);
 	OnMeshMergeSaved.Broadcast(bSuccess);
 }
 
@@ -751,24 +706,44 @@ void UMeshMergeComponent::SaveDataDelegate(const FString& SaveName, const int32 
 void UMeshMergeComponent::Server_RestoreSkeleton_Implementation(
 	USkeleton* NewSkeleton, TSubclassOf<UAnimInstance> NewAnimInstance)
 {
+	UE_LOGFMT(LogTemp, Display, "MeshMerge({NetAuthority}): Server_RestoreSkeleton()"
+		, HasAuthority() ? "SRV" : "CLI");
 	Skeleton = NewSkeleton;
 	AnimBlueprint = NewAnimInstance;
 }
+
 void UMeshMergeComponent::RestoreSkeleton(
 	USkeleton* NewSkeleton, TSubclassOf<UAnimInstance> NewAnimInstance)
 {
-	if (!IsValid(NewAnimInstance))	{ return; }
-	
+	UE_LOGFMT(LogTemp, Display, "MeshMerge({NetAuthority}): RestoreSkeleton()"
+		, HasAuthority() ? "SRV" : "CLI");
+	if (!IsValid(NewAnimInstance))
+	{
+		UE_LOGFMT(LogTemp, Error, "MeshMerge({NetAuthority}): RestoreSkeleton() FAILURE - Invalid AnimInstance"
+			, HasAuthority() ? "SRV" : "CLI");
+		return;
+	}
+
 	const ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
-	if (!IsValid(CharacterBase))	{ return; }
-	
+	if (!IsValid(CharacterBase))
+	{
+		UE_LOGFMT(LogTemp, Error, "MeshMerge({NetAuthority}): RestoreSkeleton() FAILURE - Invalid CharacterBase Reference"
+			, HasAuthority() ? "SRV" : "CLI");
+		return;
+	}
+
 	USkeletalMeshComponent* CharacterMesh = CharacterBase->GetMesh();
-	if (!IsValid(CharacterMesh))	{ return; }
+	if (!IsValid(CharacterMesh))
+	{
+		UE_LOGFMT(LogTemp, Error, "MeshMerge({NetAuthority}): RestoreSkeleton() FAILURE - Invalid CharacterMesh Component"
+			, HasAuthority() ? "SRV" : "CLI");
+		return;
+	}
 
 	Skeleton		= NewSkeleton;
 	AnimBlueprint	= NewAnimInstance;
 	CharacterMesh->SetAnimInstanceClass(NewAnimInstance);
-	
+
 	Server_RestoreSkeleton(NewSkeleton, NewAnimInstance);
 }
 
@@ -777,14 +752,19 @@ void UMeshMergeComponent::Server_RestoreMappings_Implementation(
 	const TArray<FMeshMergeMappings>& NewMeshMappings,
 	const TArray<FMeshBodyMappings>& NewBodyMappings)
 {
+	UE_LOGFMT(LogTemp, Display, "MeshMerge({NetAuthority}): Server_RestoreMappings()"
+		, HasAuthority() ? "SRV" : "CLI");
 	MeshBodyData  = NewBodyMappings;
 	MeshMergeData = NewMeshMappings;
 	PerformMeshMerge();
 }
+
 void UMeshMergeComponent::RestoreMappings(
 	const TArray<FMeshMergeMappings>& NewMeshMappings,
 	const TArray<FMeshBodyMappings>& NewBodyMappings)
 {
+	UE_LOGFMT(LogTemp, Display, "MeshMerge({NetAuthority}): RestoreMappings()"
+		, HasAuthority() ? "SRV" : "CLI");
 	Server_RestoreMappings(NewMeshMappings, NewBodyMappings);
 }
 
@@ -792,20 +772,51 @@ void UMeshMergeComponent::RestoreMappings(
 void UMeshMergeComponent::Server_RestoreMaterials_Implementation(FLinearColor NewEyeColor, FLinearColor NewSkinColor,
 	FLinearColor NewHairColor, FLinearColor NewBeardColor)
 {
+	UE_LOGFMT(LogTemp, Display, "MeshMerge({NetAuthority}): Server_RestoreMaterials()"
+		, HasAuthority() ? "SRV" : "CLI");
 	const ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
-	if (!IsValid(CharacterBase))	{ return; }
-	
+	if (!IsValid(CharacterBase))
+	{
+		UE_LOGFMT(LogTemp, Error, "MeshMerge({NetAuthority}): Server_RestoreMaterials() - Invalid CharacterBase Reference"
+			, HasAuthority() ? "SRV" : "CLI");
+		return;
+	}
+
 	EyeColor_ = NewEyeColor;	SkinColor_ = NewSkinColor;
 	HairColor_ = NewHairColor;	BeardColor_ = NewBeardColor;
-	
+
 	const UCharacterRaceData* RaceData = CharacterBase->GetCharacterRaceData();
-	UpdateMeshMaterials(RaceData->EyeMaterial);
-	UpdateMeshMaterials(RaceData->SkinMaterial);
-	UpdateMeshMaterials(RaceData->HairMaterial);
-	UpdateMeshMaterials(RaceData->BeardMaterial);
+	if (IsValid(RaceData))
+	{
+		UpdateMeshMaterials(RaceData->EyeMaterial);
+		UpdateMeshMaterials(RaceData->SkinMaterial);
+		UpdateMeshMaterials(RaceData->HairMaterial);
+		UpdateMeshMaterials(RaceData->BeardMaterial);
+	}
 }
+
 void UMeshMergeComponent::RestoreMaterials(FLinearColor NewEyeColor, FLinearColor NewSkinColor,
                                            FLinearColor NewHairColor, FLinearColor NewBeardColor)
 {
+	UE_LOGFMT(LogTemp, Display, "MeshMerge({NetAuthority}): RestoreMaterials()"
+		, HasAuthority() ? "SRV" : "CLI");
 	Server_RestoreMaterials(NewEyeColor, NewSkinColor, NewHairColor, NewBeardColor);
+}
+
+// ////////////////////////////////////////////////////
+// REPLICATION
+
+void UMeshMergeComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	// Vars replicated to all clients
+	DOREPLIFETIME_CONDITION(UMeshMergeComponent, Skeleton,		COND_None);
+	DOREPLIFETIME_CONDITION(UMeshMergeComponent, MeshMergeData, COND_None);
+	DOREPLIFETIME_CONDITION(UMeshMergeComponent, MeshBodyData,  COND_None);
+	DOREPLIFETIME_CONDITION(UMeshMergeComponent, EyeColor_,		COND_None);
+	DOREPLIFETIME_CONDITION(UMeshMergeComponent, SkinColor_,	COND_None);
+	DOREPLIFETIME_CONDITION(UMeshMergeComponent, HairColor_,	COND_None);
+	DOREPLIFETIME_CONDITION(UMeshMergeComponent, BeardColor_,	COND_None);
+	DOREPLIFETIME_CONDITION(UMeshMergeComponent, AnimBlueprint, COND_None);
 }

@@ -42,3 +42,18 @@ int UGlobalData::GetGameMaxCharacterLevel()
 {
 	return 100;
 }
+
+FString UGlobalData::GetStringFromAttribute(const FGameplayAttribute& GameplayAttribute)
+{
+	if (GameplayAttribute.IsValid())
+	{
+		const FString AttributeName = GameplayAttribute.GetName();
+		if (!AttributeName.IsEmpty())
+		{
+			int OutIndex = 0;
+			AttributeName.FindLastChar('.', OutIndex);
+			return AttributeName.RightChop(OutIndex);
+		}
+	}
+	return "None";
+}

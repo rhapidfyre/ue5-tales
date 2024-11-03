@@ -1,4 +1,4 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Starcache Studios, LLC (c) 2024
 
 #include "Gamemode/AdventureMode/TalesPlayerStateBase.h"
 
@@ -7,11 +7,11 @@
 
 ATalesPlayerStateBase::ATalesPlayerStateBase()
 {
-	
+
 	RaceTagsMapped.Add(TAG_Character_Race_Human, nullptr);
 	RaceTagsMapped.Add(TAG_Character_Race_Elf, nullptr);
 	RaceTagsMapped.Add(TAG_Character_Race_Dwarf, nullptr);
-	
+
 	ClassTagsMapped.Add(TAG_Character_Class_Assassin, nullptr);
 	ClassTagsMapped.Add(TAG_Character_Class_Cleric, nullptr);
 	ClassTagsMapped.Add(TAG_Character_Class_Deviant, nullptr);
@@ -22,7 +22,7 @@ ATalesPlayerStateBase::ATalesPlayerStateBase()
 	ClassTagsMapped.Add(TAG_Character_Class_Ranger, nullptr);
 	ClassTagsMapped.Add(TAG_Character_Class_Warrior, nullptr);
 	ClassTagsMapped.Add(TAG_Character_Class_Wizard, nullptr);
-	
+
 }
 
 void ATalesPlayerStateBase::UpdatePlayerName()

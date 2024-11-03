@@ -5,12 +5,11 @@
 #include "AbilitySystemInterface.h"
 #include "GameFramework/Character.h"
 #include "Delegates/Delegate.h"
-#include "Gas/Abilities/TalesGameplayAbility.h"
 #include "GameplayEffectTypes.h"
 
 #include "InventoryComponent.h"
 #include "Components/MeshMergeComponent.h"
-#include "Components/TalesAbilityComponent.h"
+#include "RsAbilityComponent.h"
 #include "Components/EquipmentComponent.h"
 #include "lib/Tags/TalesGlobalTags.h"
 
@@ -18,6 +17,14 @@
 
 #include "CharacterBase.generated.h"
 
+
+class URsCoreAttributeSet;
+class URsVitalityAttributeSet;
+class URsDamageAttributeSet;
+class URsEffectAttributeSet;
+class UCharacterClassData;
+class UCharacterRaceData;
+class URsGameplayAbilityBase;
 
 // Called anytime the characters name has been modified
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCharacterNameChanged);
@@ -118,11 +125,15 @@ public: // functions
 
 	UFUNCTION(BlueprintPure) static int32 GetCharacterUserIndex() { return 0; }
 
+	UFUNCTION(BlueprintPure) bool IsDead() const;
+
+	virtual void Respawn(const ERespawnType RespawnType = ERespawnType::None);
+
 	UFUNCTION(BlueprintCallable)
 	void SetCharacterName(FString ProposedName);
 
 	// Returns the AbilitySystemComponent so it can be made private
-	virtual UTalesAbilityComponent* GetAbilitySystemComponent() const override;
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
 	virtual USaveGame* SaveCharacter(USaveGame* SaveObject = nullptr, bool bRunAsync = false);
 
@@ -132,13 +143,12 @@ protected: // functions
 
 	virtual void BeginPlay() override;
 
+	UFUNCTION()
+	virtual void OnDamageReceived(class URsAbilityComponent* SourceAsc, const float UnmitigatedDamage, const float MitigatedDamage);
+
 	virtual void BindListeners();
 
 	virtual void OnConstruction(const FTransform& Transform) override;
-
-	virtual void InitializeAbilities(); // Sets up default abilities
-
-	virtual void InitializeEffects(); // Sets up default effects
 
 	virtual void PossessedBy(AController* NewController) override;
 
@@ -151,6 +161,12 @@ protected: // functions
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void SaveGameDelegate(const FString& SlotName, const int32 UserIndex, bool bSaved);
+
+	virtual void AbilityInputReceived();
+
+	void UpdateCoreStats();
+
+	void UpdateVitalityStats();
 
 	UFUNCTION()	void InventoryUpdateDelegate(int SlotNumberUpdated);
 	UFUNCTION() void EquipmentUpdateDelegate(int SlotNumberUpdated, bool bIsEnabled);
@@ -166,7 +182,15 @@ protected: // functions
 	UFUNCTION(BlueprintImplementableEvent) void EventHungerChanged(float OldValue, float NewValue);
 	UFUNCTION(BlueprintImplementableEvent) void EventHydration(float OldValue, float NewValue);
 
+	UFUNCTION(BlueprintImplementableEvent) void CharacterDeath();
+	UFUNCTION(BlueprintImplementableEvent) void CharacterRevived();
+
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
+
 private: // methods
+
+	UFUNCTION()
+	void OnDeathStatusChanged(const bool bIsNowDead, const float HealthAtDeath);
 
 	UFUNCTION(Client, Reliable)
 	void Client_CharacterRestored(const bool bWasSuccess = false);
@@ -237,38 +261,50 @@ public: // members
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Character Settings")
 	FSlateColor SkinColor;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	class UTalesAbilityComponent* AbilitySystemComponent;
+	// The ability applied when the player is in the Shadow Realm (Afterlife)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Settings")
+	TSubclassOf<UGameplayAbility> ShadowAbility;
+
+	// The ability that fires when a player revives from a resurrection (respawn-in-place)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Settings")
+	TSubclassOf<UGameplayAbility> AbilityOnRevive;
+
+	// The ability that fires when a player respawns at the Dungeon Entrance
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Settings")
+	TSubclassOf<UGameplayAbility> AbilityOnRespawn;
+
+	// The ability that fires when a player respawns at the town graveyard
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Settings")
+	TSubclassOf<UGameplayAbility> AbilityOnGraveyard;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly,
 		Category = "Gameplay Ability System", meta = (AllowPrivateAccess = "true"))
-	class UVitalityAttributes* AttributeVitalitySet;
+	URsAbilityComponent* AbilitySystemComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly,
 		Category = "Gameplay Ability System", meta = (AllowPrivateAccess = "true"))
-	class UCoreStatsAttributes* AttributeCoreStatsSet;
+	URsVitalityAttributeSet* AttributeVitalitySet;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly,
 		Category = "Gameplay Ability System", meta = (AllowPrivateAccess = "true"))
-	class UDamageAttributes* AttributeDamageSet;
+	URsCoreAttributeSet* AttributeCoreStatsSet;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly,
 		Category = "Gameplay Ability System", meta = (AllowPrivateAccess = "true"))
-	class UEffectAttributes* AttributeEffectSet;
+	URsDamageAttributeSet* AttributeDamageSet;
 
-	// An array of default abilities on spawn, set within blueprint
-	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Gameplay Ability System", meta = (AllowPrivateAccess = "true"))
-	TArray<TSubclassOf <UTalesGameplayAbility> > DefaultAbilities;
-
-	// An array of default effects on spawn, set within blueprint
-	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Gameplay Ability System", meta = (AllowPrivateAccess = "true"))
-	TArray<TSubclassOf <UGameplayEffect> > DefaultEffects;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly,
+		Category = "Gameplay Ability System", meta = (AllowPrivateAccess = "true"))
+	URsEffectAttributeSet* AttributeEffectSet;
 
 	// If true, character saves should only save server-side
 	// If false, character saves to the client who is controlling it
 	bool bSavesOnServer = false;
 
 protected:
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UCapsuleComponent* MeleeStrikeDetector;
 
 	// True when the inputs have been bound for the AbilitySystemComponent
 	// False indicates the input for abilities has not initialized

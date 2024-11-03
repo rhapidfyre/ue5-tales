@@ -2,6 +2,8 @@
 
 #include "Characters/Controllers/CombatAiControllerBase.h"
 
+#include "Abilities/RsGameplayAbilityBase.h"
+
 
 float ACombatAiControllerBase::AddHateTowardsTarget(ACharacterBase* HateTarget, float HatePoints)
 {
@@ -12,9 +14,9 @@ float ACombatAiControllerBase::AddHateTowardsTarget(ACharacterBase* HateTarget, 
 			_HateList.Add(HateTarget, HatePoints);
 		else
 			_HateList.Add(HateTarget, *OldValue + HatePoints);
-		
+
 		SortHateList();
-		
+
 		const float* NewValue = _HateList.Find(HateTarget);
 		return NewValue != nullptr ? *NewValue : 0.f;
 	}
@@ -36,9 +38,9 @@ float ACombatAiControllerBase::RemoveHateFromTarget(ACharacterBase* HateTarget, 
 		const float newValue = _HateList.Add(HateTarget, _HateList[HateTarget] - abs(HatePoints));
 		if (FMath::IsNearlyZero(newValue, 0.001f))
 			ClearTargetFromHateList(HateTarget);
-		
+
 		SortHateList();
-		
+
 		const float* NewValue = _HateList.Find(HateTarget);
 		return NewValue != nullptr ? *NewValue : 0.f;
 	}
@@ -57,6 +59,21 @@ bool ACombatAiControllerBase::WipeHateListMemory()
 {
 	_HateList.Empty();
 	return true;
+}
+
+bool ACombatAiControllerBase::PerformAttack(UInputAction* InputReference)
+{
+	UActorComponent* ActorComponent = GetPawn()->GetComponentByClass(URsAbilityComponent::StaticClass());
+	URsAbilityComponent* AbilityComponent = Cast<URsAbilityComponent>(ActorComponent);
+	if (IsValid(AbilityComponent))
+	{
+		const TSubclassOf<URsGameplayAbilityBase> AbilityClass = *HotkeyAbilityMap.Find(InputReference);
+		if (IsValid(AbilityClass))
+		{
+			AbilityComponent->HotkeyAbility(FInputActionValue(true), AbilityClass, true, false);
+		}
+	}
+	return false;
 }
 
 ACharacterBase* ACombatAiControllerBase::GetMostHatedTarget(float& HatePoints) const
@@ -131,7 +148,7 @@ bool ACombatAiControllerBase::IsTargetValid(AActor* TargetActor)
 void ACombatAiControllerBase::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 	CharacterReference = Cast<ANpcCharacterBase>(GetPawn());
 	if (IsValid(CharacterReference))
 	{
@@ -154,12 +171,12 @@ void ACombatAiControllerBase::Tick(float DeltaSeconds)
 
 void ACombatAiControllerBase::TargetPerception(AActor* StimulusActor, FAIStimulus StimulusData)
 {
-	
+
 	// Add sensed characters to the target list
 	ACharacterBase* StimulusTarget = Cast<ACharacterBase>(StimulusActor);
 	if (!IsValid(StimulusTarget))
 		return;
-	
+
 	if (StimulusData.WasSuccessfullySensed())
 	{
 		if (!_ValidTargets.Contains(StimulusTarget))
@@ -178,5 +195,5 @@ void ACombatAiControllerBase::TargetPerception(AActor* StimulusActor, FAIStimulu
 				*GetName(), *StimulusTarget->GetName(), _ValidTargets.Num());
 		}
 	}
-	
+
 }

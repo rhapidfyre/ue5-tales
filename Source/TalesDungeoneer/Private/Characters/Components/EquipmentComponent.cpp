@@ -4,6 +4,7 @@
 
 #include "Characters/CharacterBase.h"
 #include "DataAssets/CharacterDefaults.h"
+#include "T5GInventorySystem/Public/Data/InventoryTags.h"
 #include "lib/ItemData.h"
 
 
@@ -25,7 +26,7 @@ void UEquipmentComponent::InitEquipmentItem(int SlotNumber)
 		const ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
 		InventoryReference = IsValid(CharacterBase) ? CharacterBase->InventoryComponent : nullptr;
 	}
-	
+
 	if (!IsValid(MeshMergeReference))
 	{
 		const ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
@@ -41,14 +42,16 @@ void UEquipmentComponent::InitEquipmentItem(int SlotNumber)
 	SetEquipmentDisabled(SlotNumber);
 
 	// Get the item that is currently in the equipment slot
-	const UItemDataAsset* itemInSlot = InventoryReference->GetSlotNumberItemData(SlotNumber);
+	const UItemDataAsset* itemInSlot = InventoryReference->GetItemDataInSlotNumber(SlotNumber);
 	const UEquipmentDataAsset* EquipmentItem = Cast<UEquipmentDataAsset>(itemInSlot);
 	if (IsValid(EquipmentItem))
 	{
-		if (EquipmentItem->bStartEquipped)
-			{ SetEquipmentEnabled(SlotNumber); }
+		if (EquipmentItem->DefaultEquipSlot.IsValid())
+		{
+			SetEquipmentEnabled(SlotNumber);
+		}
 	}
-	
+
 }
 
 /**
@@ -63,7 +66,7 @@ void UEquipmentComponent::ToggleEquipment(int SlotNumber, bool bMakeReady)
 		if (EquipmentSlots.Contains(SlotNumber))
 			{ bMakeReady = !EquipmentSlots[SlotNumber]; }
 	}
-	
+
 	if (bMakeReady)
 		{ SetEquipmentEnabled(SlotNumber); }
 	else
@@ -79,23 +82,23 @@ void UEquipmentComponent::SetEquipmentEnabled(int SlotNumber)
 	if (EquipmentSlots.Contains(SlotNumber))
 	{
 		// Get the item that is currently in the equipment slot
-		const UItemDataAsset* itemInSlot = InventoryReference->GetSlotNumberItemData(SlotNumber);
+		const UItemDataAsset* itemInSlot = InventoryReference->GetItemDataInSlotNumber(SlotNumber);
 		const UEquipmentDataAsset* equipmentItemData = Cast<UEquipmentDataAsset>(itemInSlot);
 		if (IsValid(equipmentItemData))
 		{
 			const FGameplayTag slotTag = InventoryReference->GetSlotEquipmentTag(SlotNumber);
 			const FGameplayTag bodyTag = MeshMergeReference->GetBodyPartFromEquipmentSlot(slotTag);
-		
+
 			FMeshMergeMappings mergeMap = MeshMergeReference->GetMeshMappingFromIndex(
 											MeshMergeReference->FindMeshMappingByTag(bodyTag) );
 
 			FMeshMergeMappings newMapping = MeshMergeReference->CreateMeshMapping(equipmentItemData,
 				InventoryReference->GetSlotEquipmentTag(SlotNumber),	// Equipment Slot (i.e. Equipment.Slot.Primary)
 				mergeMap.GameplayTags.HasTag(TAG_Character_Sex_Female));
-			
+
 			MeshMergeReference->AddMeshToMerge(newMapping);
 			EquipmentSlots[SlotNumber] = true;
-			
+
 			MeshMergeReference->PerformMeshMerge();
 			NotifySlotToggled(SlotNumber);
 		}
@@ -115,7 +118,7 @@ void UEquipmentComponent::SetEquipmentDisabled(int SlotNumber)
 	const FGameplayTag slotTag = InventoryReference->GetSlotEquipmentTag(SlotNumber);
 	MeshMergeReference->RemoveMeshFromMerge(nullptr, slotTag);
 	MeshMergeReference->PerformMeshMerge();
-	
+
 	EquipmentSlots[SlotNumber] = false;
 	NotifySlotToggled(SlotNumber);
 }
@@ -132,28 +135,29 @@ void UEquipmentComponent::AdjustAttachment(int SlotNumber,
 {
 	if (!EquipmentSlots.Contains(SlotNumber))
 		{ InitEquipmentItem(SlotNumber); }
-	
+
 	if (!IsValid(MeshMergeReference))
 	{
 		const ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
 		MeshMergeReference = IsValid(CharacterBase) ? CharacterBase->MeshMergeComponent : nullptr;
 	}
-	
+
 	if (IsValid(MeshMergeReference) && IsValid(InventoryReference))
 	{
-		const UInventorySlot* slotReference = InventoryReference->GetInventorySlot(SlotNumber);
-		if (slotReference->GetIsEquipmentSlot())
+		FInventorySlot SlotReference;
+		InventoryReference->GetInventorySlot(SlotNumber, SlotReference);
+		if (SlotReference.SlotInventoryTag == TAG_Inventory_Slot_Equipment.GetTag())
 		{
-			const UItemDataAsset* ItemData = InventoryReference->GetSlotNumberItemData(SlotNumber);
+			const UItemDataAsset* ItemData = InventoryReference->GetItemDataInSlotNumber(SlotNumber);
 			const UEquipmentDataAsset* equipmentData = Cast<UEquipmentDataAsset>(ItemData);
 			if (IsValid(equipmentData))
 			{
 				for (auto& MeshMergeMap : MeshMergeReference->GetAllMeshMergeMappings())
 				{
 					FMeshMergeMappings meshMapping = MeshMergeReference->CreateMeshMapping(
-						equipmentData, slotReference->GetEquipmentSlotTag(),
+						equipmentData, SlotReference.SlotEquipmentTag,
 						MeshMergeMap.GameplayTags.HasTag(TAG_Character_Sex_Female) );
-					
+
 					MeshMergeReference->AddMeshToMerge(meshMapping);
 				}
 			}

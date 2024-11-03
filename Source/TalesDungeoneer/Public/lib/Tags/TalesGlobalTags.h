@@ -4,6 +4,8 @@
 
 #include "NativeGameplayTags.h"
 
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Respawners_Graveyard)
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Respawners_Entrance)
 
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Race)
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Character_Race_Human)

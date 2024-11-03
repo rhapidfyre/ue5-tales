@@ -27,15 +27,15 @@ enum class EFactionState : uint8
 	// Combatants will ignore any actions taken against members of an indifferent faction
 	// Noncombatants will treat them like any other neutral being
 	NONE = 0		UMETA(DisplayName = "Indifferent"),
-	
+
 	// Hatred will result in combatants attacking on sight
 	// Noncombatants will refuse service
 	HATE = 1		UMETA(DisplayName = "Hated"),
-	
+
 	// Likefulness will result in combatants ignoring the faction's members
 	// Noncombatants will offer better services
 	LIKE = 2		UMETA(DisplayName = "Liked"),
-	
+
 	// Combatants will come to the aid of allied factions
 	ALLY = 3		UMETA(DisplayName = "Allied"),
 };
@@ -82,4 +82,13 @@ enum class ECharacterTeam : uint8
 	DUNGEONEER	UMETA(DisplayName = "Dungeoneer"),
 	FRIEND		UMETA(DisplayName = "Friendly NPCs"),
 	ENEMY		UMETA(DisplayName = "Enemy NPCs")
+};
+
+UENUM(BlueprintType)
+enum class ERespawnType : uint8
+{
+	None = 0,
+	Graveyard,
+	Entrance,
+	Shadow,
 };

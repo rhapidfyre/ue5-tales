@@ -7,9 +7,12 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "Logging/StructuredLog.h"
-#include "Gas/AttributeSets/TalesAttributes.h"
+#include "Attributes/RsCoreAttributeSet.h"
+#include "Lib/AbilityEnums.h"
 #include "Saves/SavedCharacters.h"
 #include "TalesDungeoneer/TalesDungeoneer.h"
+#include "RsAbilityComponent.h"
+#include "Attributes/RsVitalityAttributeSet.h"
 
 
 // Sets default values
@@ -17,7 +20,7 @@ APlayerCharacterBase::APlayerCharacterBase()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	
+
 }
 
 void APlayerCharacterBase::HotkeyTriggered(UInputAction* HotkeyAction)
@@ -41,7 +44,7 @@ void APlayerCharacterBase::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
-	
+
 }
 
 void APlayerCharacterBase::BindListeners()
@@ -55,7 +58,8 @@ void APlayerCharacterBase::BindListeners()
 	{
 		return;
 	}
-	
+
+	/*
 	if (GetController()->IsLocalPlayerController())
 	{
 		TArray CoreStatAttributes = {
@@ -76,7 +80,7 @@ void APlayerCharacterBase::BindListeners()
 				"Successfully initialized delegate for CoreStat Attribute '{vAttribute}'",
 				GetCharacterName(), HasAuthority()?"SRV":"CLI", coreAttribute.AttributeName);
 		}
-	
+
 		TArray DamageAttributes = {
 			AttributeDamageSet->GetBluntBonusAttribute(), 	AttributeDamageSet->GetBluntResistanceAttribute(),
 			AttributeDamageSet->GetSlashBonusAttribute(), 	AttributeDamageSet->GetSlashResistanceAttribute(),
@@ -105,6 +109,7 @@ void APlayerCharacterBase::BindListeners()
 				GetCharacterName(), HasAuthority()?"SRV":"CLI", damageAttribute.AttributeName);
 		}
 	}
+	*/
 }
 
 void APlayerCharacterBase::BindInput()
@@ -115,15 +120,12 @@ void APlayerCharacterBase::BindInput()
 	}
 
 	FTopLevelAssetPath EnumAssetPath = FTopLevelAssetPath(
-		FName("/Script/TalesDungeoneer"), FName("EAbilityInputID"));
-	
-	GetAbilitySystemComponent()->BindAbilityActivationToInputComponent(InputComponent,
-		FGameplayAbilityInputBinds(
-			FString("Confirm"),
-			FString("Cancel"),
-			EnumAssetPath,
-		static_cast<int32>(EAbilityInputID::Confirm),
-		static_cast<int32>(EAbilityInputID::Cancel)));
+		FName("/Script/RoleStats"), FName("EAbilityInputID"));
+
+	FGameplayAbilityInputBinds Binds(
+		FString("Confirm"), FString("Cancel"), EnumAssetPath,
+		static_cast<int32>(EAbilityInputID::Confirm), static_cast<int32>(EAbilityInputID::Cancel));
+	AbilitySystemComponent->BindAbilityActivationToInputComponent(InputComponent, Binds);
 	bIsInputBound = true;
 }
 
@@ -152,11 +154,6 @@ void APlayerCharacterBase::OnVitalityAttributeChanged(const FOnAttributeChangeDa
 		OnAttributeHydrationUpdated.Broadcast(Data.OldValue, Data.NewValue);
 		EventHydration(Data.OldValue, Data.NewValue);
 	}
-	else if (Data.Attribute == AttributeVitalitySet->GetCurrentArmorClassAttribute())
-	{
-		OnAttributeArmorClassUpdated.Broadcast(Data.OldValue, Data.NewValue);
-		EventArmorClassChanged(Data.OldValue, Data.NewValue);
-	}
 	else
 	{
 		Super::OnVitalityAttributeChanged(Data);
@@ -173,7 +170,7 @@ void APlayerCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInpu
 		//Jumping
 		EnhancedInputComponent->BindAction(JumpInputAction,
 			ETriggerEvent::Triggered, this, &APlayerCharacterBase::Jump);
-		
+
 		EnhancedInputComponent->BindAction(JumpInputAction,
 			ETriggerEvent::Completed, this, &APlayerCharacterBase::StopJumping);
 
@@ -186,7 +183,7 @@ void APlayerCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInpu
 		ETriggerEvent::Triggered, this, &APlayerCharacterBase::Look);
 
 	}
-	
+
 	// Call the function that handles ability system bindings
 	BindInput();
 }
@@ -204,11 +201,11 @@ void APlayerCharacterBase::Move(const FInputActionValue& Value)
 
 		// get forward vector
 		const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-	
-		// get right vector 
+
+		// get right vector
 		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 
-		// add movement 
+		// add movement
 		AddMovementInput(ForwardDirection, MovementVector.Y);
 		AddMovementInput(RightDirection, MovementVector.X);
 	}

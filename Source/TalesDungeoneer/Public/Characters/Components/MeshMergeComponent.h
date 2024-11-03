@@ -50,7 +50,7 @@ struct FMeshMergeMappings
 	// Is this used? Obsolete?
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	const UEquipmentDataAsset*	DataAsset;
-	
+
 	// The mesh to be used by this option
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	USkeletalMesh*				SkeletalMesh;
@@ -58,15 +58,15 @@ struct FMeshMergeMappings
 	// Additional meshes that must accompany this mesh, if visible
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<USkeletalMesh*>		AccompaniedMeshes = {};
-	
+
 	// A map section from the source mesh to merged section entry
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FSkelMeshMergeSectionMapping>	 SectionMappings	= {};
-	
+
 	// A transform for the UVs in mesh
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FSkelMeshMergeUVTransformMapping> MeshUvTransforms	= {};
-	
+
 };
 
 
@@ -77,23 +77,23 @@ struct FMeshBodyMappings
 	FMeshBodyMappings() : SkeletalMesh(nullptr) {};
 	FMeshBodyMappings(USkeletalMesh* UsingMesh,
 		const FGameplayTag& BodyTag, const FGameplayTagContainer& OptionTags);
-	
+
 	// The mesh to be used by this option
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) USkeletalMesh* SkeletalMesh;
-	
+
 	// The primary tag for this body part (body.arms, body.torso, etc)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FGameplayTag BodyPartTag;
 
 	// Optional material instance corrections (Skin Color, Hair Color, etc)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<UMaterialInstance*, FLinearColor>	 MaterialInstances	= {};
-	
+
 	// Optional tags that describe this mesh
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FGameplayTagContainer OptionTags;
-	
-	// Any mesh in the merge with any of these tags will be visible if this mesh is visible 
+
+	// Any mesh in the merge with any of these tags will be visible if this mesh is visible
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FGameplayTagContainer RequiresMeshesWithTags;
-	
+
 	// Any mesh in the merge with any of these tags will be hidden if this mesh is visible
 	// Does not hide any mesh that is marked as required by any other mesh
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FGameplayTagContainer HidesMeshesWithTags;
@@ -106,13 +106,13 @@ class TALESDUNGEONEER_API UMeshMergeComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:
-	
+
 	UMeshMergeComponent();
 
 	UPROPERTY(BlueprintAssignable) FOnMeshMergeCompleted OnMeshMergeCompleted;
 	UPROPERTY(BlueprintAssignable) FOnMeshMergeRestored  OnMeshMergeRestored;
 	UPROPERTY(BlueprintAssignable) FOnMeshMergeSaved     OnMeshMergeSaved;
-	
+
 	UFUNCTION(BlueprintCallable)
 	bool PerformMeshMerge(bool bMergeMeshesOnly = false);
 
@@ -120,11 +120,11 @@ public:
 	bool GetIsMeshMergeSystemReady() const { return bMeshMergeReady; }
 
 	int FindIndexOfMeshByTag(const FGameplayTag& SearchTag);
-	
+
 	UFUNCTION(BlueprintCallable)
 	FMeshMergeMappings CreateMeshMapping(const UEquipmentDataAsset* NewAsset,
 		const FGameplayTag& EquipmentTag, const bool useFeminineMesh = false);
-	
+
 	UFUNCTION(BlueprintCallable)
 	FMeshBodyMappings CreateBodyMapping(USkeletalMesh* UsingMesh,
 		const FGameplayTag& BodyTag, FGameplayTagContainer BodyOptionTags);
@@ -164,15 +164,15 @@ public:
 	UFUNCTION(BlueprintPure) FString GetMeshMergeSaveName() const { return SaveSlotName_; }
 
 	bool HasAuthority() const;
-	
+
 protected:
-	
+
 	virtual void BeginPlay() override;
 
 	virtual void OnComponentCreated() override;
 
 	virtual void InitializeComponent() override;
-	
+
 	virtual void GetLifetimeReplicatedProps(
 	TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
@@ -182,28 +182,28 @@ public:
 	// This is for things such as skeletons that are not modular, or spectres that always look the same
 	// Defaults to TRUE
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bUseMeshMerge = true;
-	
+
 	// Override to force all-masculine or feminine options, or both (Non-Binary)
 	UPROPERTY(EditAnywhere)	ECharacterSex SexSkeleton = ECharacterSex::NONBINARY;
-	
+
 	// The number of high LODs to remove from input meshes
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 StripTopLODS;
-	
+
 	// Whether or not the resulting mesh needs to be accessed by the CPU for any reason (e.g. for spawning particle effects).
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	uint32 bNeedsCpuAccess : 1;
-	
+
 	// Update skeleton before merge. Otherwise, update after.
 	// Skeleton must also be provided.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	uint32 bSkeletonBefore : 1;
-	
+
 	// Skeleton that will be used for the merged mesh.
 	// Leave empty if the generated skeleton is OK.
 	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite)
 	USkeleton* Skeleton = nullptr;
-	
+
 	// The animation blueprint that will be used
 	UPROPERTY(ReplicatedUsing=OnRep_AnimInstance, EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<UAnimInstance> AnimBlueprint = nullptr;
@@ -228,17 +228,17 @@ private:
 
 	UFUNCTION() void LoadDataDelegate(const FString& SaveName, const int32 UserIndex, USaveGame* LoadGameData);
 	UFUNCTION() void SaveDataDelegate(const FString& SaveName, int UserIndex, bool bSuccess = false);
-	
+
 	UFUNCTION(Server, Reliable)
 	void Server_RestoreSkeleton(USkeleton* NewSkeleton, TSubclassOf<UAnimInstance> NewAnimInstance);
 	void RestoreSkeleton(USkeleton* NewSkeleton, TSubclassOf<UAnimInstance> NewAnimInstance);
-	
+
 	UFUNCTION(Server, Reliable)
 	void Server_RestoreMappings(const TArray<FMeshMergeMappings>& NewMeshMappings,
 								const TArray<FMeshBodyMappings>&  NewBodyMappings);
 	void RestoreMappings(const TArray<FMeshMergeMappings>& NewMeshMappings,
 						 const TArray<FMeshBodyMappings>&  NewBodyMappings);
-	
+
 	UFUNCTION(Server, Reliable)
 	void Server_RestoreMaterials(FLinearColor NewEyeColor, FLinearColor NewSkinColor,
 								 FLinearColor NewHairColor, FLinearColor NewBeardColor);
@@ -261,22 +261,19 @@ private:
 	UPROPERTY(ReplicatedUsing=OnRep_MeshMergeData)
 	TArray<FMeshMergeMappings> MeshMergeData = {};
 
-	UPROPERTY()
-	class ACharacterBase* CharacterBase_ = nullptr;
-
 	FString SaveSlotName_  = "";
 	int32   SaveUserIndex_ = 0;
-	
+
 	// This way the initial setups on OnConstruction only run once
 	bool bMeshMergeReady	= false;
 
 	bool bRestoredFromSave  = false;
 
 	bool bSavesOnServer     = false;
-	
+
 	bool bMeshSaveRestored	= false;
 
 	FString SaveFolder = "MeshMerge/";
 
-	
+
 };

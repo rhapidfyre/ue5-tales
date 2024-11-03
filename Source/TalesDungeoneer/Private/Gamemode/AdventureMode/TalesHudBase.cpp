@@ -2,10 +2,12 @@
 
 #include "Gamemode/AdventureMode/TalesHudBase.h"
 
+#include "Logging/StructuredLog.h"
+
 
 ATalesHudBase::ATalesHudBase()
 {
-	
+
 }
 
 void ATalesHudBase::DrawHUD()

@@ -1,4 +1,4 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Starcache Studios, LLC (c) 2024
 
 
 #include "Weapons/WeaponBase.h"
@@ -37,8 +37,8 @@ AWeaponBase::AWeaponBase()
 	WeaponGripLeft->SetupAttachment(WeaponRoot);
 	WeaponGripRight = CreateDefaultSubobject<USceneComponent>("WeaponGripRight");
 	WeaponGripRight->SetupAttachment(WeaponRoot);
-	
-	
+
+
 }
 
 void AWeaponBase::OnConstruction(const FTransform& Transform)
@@ -107,7 +107,7 @@ void AWeaponBase::UpdateWeapon()
 	// Validate Mesh and realign it
 	if (IsValid(UsingStaticMesh) || IsValid(UsingSkeletalMesh))
 	{
-		
+
 		if (IsValid(UsingSkeletalMesh))
 		{
 			WeaponMeshSkeleton->SetSkeletalMesh(UsingSkeletalMesh);
@@ -167,5 +167,5 @@ void AWeaponBase::GetLifetimeReplicatedProps(TArray< class FLifetimeProperty > &
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME_CONDITION(AWeaponBase, bIsWeaponArmed, COND_None);
-    
+
 }

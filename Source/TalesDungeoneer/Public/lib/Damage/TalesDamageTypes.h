@@ -3,8 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
 #include "GameFramework/DamageType.h"
-#include "lib/Tags/DamageTags.h"
 
 #include "TalesDamageTypes.generated.h"
 
@@ -16,7 +16,7 @@ UCLASS(Blueprintable, BlueprintType)
 class TALESDUNGEONEER_API UTalesDamageBase : public UDamageType
 {
 	GENERATED_BODY()
-	
+
 public:
 
 	UTalesDamageBase();
@@ -31,5 +31,5 @@ public:
 
 	// Gameplay tags that describe this damage
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FGameplayTagContainer DamageTags;
-	
+
 };

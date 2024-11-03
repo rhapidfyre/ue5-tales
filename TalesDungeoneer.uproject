@@ -29,22 +29,6 @@
 		{
 			"Name": "TargetingSystem",
 			"Enabled": true
-		},
-		{
-			"Name": "CascadeToNiagaraConverter",
-			"Enabled": true
-		},
-		{
-			"Name": "Water",
-			"Enabled": true
-		},
-		{
-			"Name": "NpcsAtYourService",
-			"Enabled": true
-		},
-		{
-			"Name": "RoleStats",
-			"Enabled": true
 		}
 	]
 }

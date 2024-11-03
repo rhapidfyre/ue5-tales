@@ -1,4 +1,4 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Starcache Studios, LLC (c) 2024
 
 
 #include "Characters/NpcCharacterBase.h"
@@ -6,7 +6,7 @@
 #include "Characters/Controllers/CombatAiControllerBase.h"
 #include "Perception/AISense_Sight.h"
 #include "Logging/StructuredLog.h"
-
+#include "DataAssets/CharacterDefaults.h"
 
 // Sets default values
 ANpcCharacterBase::ANpcCharacterBase()
@@ -14,13 +14,13 @@ ANpcCharacterBase::ANpcCharacterBase()
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	bReplicates = true;
-	
+
 	if (!IsValid(AiStimuli))
 	{
 		AiStimuli = CreateDefaultSubobject<UAIPerceptionStimuliSourceComponent>("AiStimuli");
 		AiStimuli->bAutoRegister = true;
 	}
-	
+
 }
 
 float ANpcCharacterBase::GetDistanceFromOriginPoint() const
@@ -37,7 +37,27 @@ void ANpcCharacterBase::DestroyNpc()
 void ANpcCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
+	InitializeCharacter();
 	InitializeStartingItems();
+}
+
+void ANpcCharacterBase::InitializeCharacter()
+{
+	UCharacterRaceData* RaceData = GetCharacterRaceData();
+	UCharacterClassData* ClassData = GetCharacterClassData();
+	if (IsValid(CharacterData))
+	{
+		SetCharacterName(CharacterData->CharacterName);
+	}
+	if (IsValid(RaceData))
+	{
+		SetCharacterRace(RaceData->GameplayTag);
+	}
+	if (IsValid(ClassData))
+	{
+		SetCharacterClass(ClassData->GameplayTag);
+	}
+	UpdateCoreStats();
 }
 
 void ANpcCharacterBase::InitializeStartingItems()
@@ -55,7 +75,7 @@ void ANpcCharacterBase::InitializeStartingItems()
 void ANpcCharacterBase::OnConstruction(const FTransform& Transform)
 {
 	Super::OnConstruction(Transform);
-	
+
 	AiStimuli->RegisterForSense(UAISense_Sight::StaticClass());
 	AiStimuli->RegisterWithPerceptionSystem();
 }
@@ -65,7 +85,7 @@ void ANpcCharacterBase::OnConstruction(const FTransform& Transform)
  * \param MyKiller Unused in this call
  */
  void ANpcCharacterBase::DropLootTable(AActor* MyKiller)
-{	
+{
 	// Destroy the NPC after the loot has dropped
 	FTimerHandle DeathDeleteTimer;
 	FTimerDelegate DeathDelegate;

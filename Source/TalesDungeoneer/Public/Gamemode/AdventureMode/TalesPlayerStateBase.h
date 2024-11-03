@@ -1,4 +1,4 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Starcache Studios, LLC (c) 2024
 
 #pragma once
 
@@ -17,13 +17,13 @@ UCLASS(BlueprintType, Blueprintable)
 class TALESDUNGEONEER_API ATalesPlayerStateBase : public APlayerState
 {
 	GENERATED_BODY()
-	
+
 public:
-	
+
 	ATalesPlayerStateBase();
 
 	UPROPERTY(BlueprintAssignable) FOnPlayerNameUpdated OnPlayerNameUpdated;
-	
+
 	// Called whenever the player's name is changed to update all delegates
 	UFUNCTION(BlueprintCallable) void UpdatePlayerName();
 
@@ -31,7 +31,7 @@ public:
 	// Check for nullptr before accessing result
 	UFUNCTION(BlueprintPure) UDataAsset* GetClassDataAsset(const FGameplayTag& ClassTag) const;
 	UFUNCTION(BlueprintPure) TArray<FGameplayTag> GetAllCharacterClasses() const;
-	
+
 	// Returns the data asset for the current character race.
 	// Check for nullptr before accessing result
 	UFUNCTION(BlueprintPure) UDataAsset* GetRaceDataAsset(const FGameplayTag& RaceTag) const;
@@ -40,5 +40,5 @@ public:
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) TMap<FGameplayTag, UDataAsset*> RaceTagsMapped  = {};
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) TMap<FGameplayTag, UDataAsset*> ClassTagsMapped = {};
-	
+
 };

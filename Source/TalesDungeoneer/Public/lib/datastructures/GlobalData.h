@@ -65,26 +65,29 @@ class UGlobalData : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 public:
-	
-	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Get Project Version"), Category = "Game Config")
+
+	UFUNCTION(BlueprintPure, meta = (DisplayName = "Get Project Version"), Category = "Game Config")
 		static FString GetAppVersion(bool bShowBranch = false, bool bSafeString = false);
-	
-	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Get Full Project Version"), Category = "Game Config")
+
+	UFUNCTION(BlueprintPure, meta = (DisplayName = "Get Full Project Version"), Category = "Game Config")
 		static FTalesVersion GetFullAppVersion();
 
-	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Maximum Character Level"), Category = "Game Config")
+	UFUNCTION(BlueprintPure, meta = (DisplayName = "Maximum Character Level"), Category = "Game Config")
 		static int GetGameMaxCharacterLevel();
 
-	UFUNCTION(BlueprintCallable, meta = (DisplayName = "GetAppVersion"), Category = "Game Config")
+	UFUNCTION(BlueprintPure, Category = "Game Config")
 	static FString CharacterSaveFolder() { return "Characters/"; }
 
-	UFUNCTION(BlueprintCallable, meta = (DisplayName = "GetAppVersion"), Category = "Game Config")
+	UFUNCTION(BlueprintPure, Category = "Game Config")
 	static FString InventorySaveFolder() { return "Inventory/"; }
 
-	UFUNCTION(BlueprintCallable, meta = (DisplayName = "GetAppVersion"), Category = "Game Config")
+	UFUNCTION(BlueprintPure, Category = "Game Config")
 	static FString MeshMergeSaveFolder() { return "MeshMerge/"; }
-	
-	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Debug Build"), Category = "Game Config")
+
+	UFUNCTION(BlueprintPure, Category = "Game Config")
+	static FString GetStringFromAttribute(const FGameplayAttribute& GameplayAttribute);
+
+	UFUNCTION(BlueprintPure, Category = "Game Config")
 		static bool GetGameIsInDebugMode()
 	{
 		return (UE_BUILD_DEBUG || UE_BUILD_DEVELOPMENT);

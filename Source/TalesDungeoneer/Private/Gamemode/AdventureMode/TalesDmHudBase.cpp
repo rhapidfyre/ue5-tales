@@ -1,11 +1,11 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Starcache Studios, LLC (c) 2024
 
 #include "Gamemode/AdventureMode/TalesDmHudBase.h"
 
 
 ATalesDmHudBase::ATalesDmHudBase()
 {
-	
+
 }
 
 void ATalesDmHudBase::DrawHUD()

@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
-#include "Gas/Abilities/TalesGameplayAbility.h"
+#include "Abilities/RsGameplayAbilityBase.h"
 
 #include "AbilityDataAsset.generated.h"
 
@@ -25,8 +25,8 @@ public:
 	UPrimaryAbilityDataAsset();
 
 	UFUNCTION(BlueprintPure)
-	UTalesGameplayAbility* GetAbilityReference() const;
+	URsGameplayAbilityBase* GetAbilityReference() const;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability Specifications")
-	TSubclassOf<UTalesGameplayAbility> AbilityReference;
+	TSubclassOf<URsGameplayAbilityBase> AbilityReference;
 };
