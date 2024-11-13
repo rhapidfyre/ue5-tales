@@ -23,11 +23,35 @@
 			"Enabled": true
 		},
 		{
-			"Name": "StaticMeshEditorModeling",
+			"Name": "T5GInventorySystem",
 			"Enabled": true
 		},
 		{
-			"Name": "TargetingSystem",
+			"Name": "RoleStats",
+			"Enabled": true
+		},
+		{
+			"Name": "PCG",
+			"Enabled": true
+		},
+		{
+			"Name": "Water",
+			"Enabled": true
+		},
+		{
+			"Name": "WaterExtras",
+			"Enabled": true
+		},
+		{
+			"Name": "Buoyancy",
+			"Enabled": true
+		},
+		{
+			"Name": "PCGWaterInterop",
+			"Enabled": true
+		},
+		{
+			"Name": "SkeletalMeshModelingTools",
 			"Enabled": true
 		}
 	]

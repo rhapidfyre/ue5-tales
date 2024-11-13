@@ -3,6 +3,7 @@
 #include "Characters/Components/MeshMergeComponent.h"
 
 #include "Characters/CharacterBase.h"
+#include "Characters/PlayerCharacterBase.h"
 #include "DataAssets/CharacterDefaults.h"
 #include "Engine/SkeletalMeshSocket.h"
 #include "Gamemode/BaseFiles/TalesGameStateBase.h"
@@ -80,7 +81,7 @@ bool UMeshMergeComponent::PerformMeshMerge(bool bMergeMeshesOnly)
 	// Checks for empty array
 	if (MeshMergeData.IsEmpty())
 	{
-		UE_LOGFMT(LogTemp, Warning, "{Name}({Authority}): PerformMeshMerge FAILED - "
+		UE_LOGFMT(LogTemp, Log, "{Name}({Authority}): PerformMeshMerge FAILED - "
 			"No valid meshes assigned. Character will be invisible or buggy.", GetName(),
 			GetOwner()->HasAuthority()?"SERVER":"CLIENT");
 		return false;
@@ -339,26 +340,26 @@ FMeshMergeMappings UMeshMergeComponent::GetMeshMappingFromIndex(int index)
 
 FGameplayTag UMeshMergeComponent::GetBodyPartFromEquipmentSlot(const FGameplayTag& EquipmentSlotTag)
 {
-	if (EquipmentSlotTag == TAG_Equipment_Slot_Ammunition)		return FGameplayTag();
-	if (EquipmentSlotTag == TAG_Equipment_Slot_Anklet)			return FGameplayTag();
-	if (EquipmentSlotTag == TAG_Equipment_Slot_Arms)			return FGameplayTag();
-	if (EquipmentSlotTag == TAG_Equipment_Slot_Face) 			return FGameplayTag();
-	if (EquipmentSlotTag == TAG_Equipment_Slot_Feet) 			return FGameplayTag();
-	if (EquipmentSlotTag == TAG_Equipment_Slot_Head) 			return FGameplayTag();
-	if (EquipmentSlotTag == TAG_Equipment_Slot_Legs) 			return TAG_Character_Body_Lower_Legs;
-	if (EquipmentSlotTag == TAG_Equipment_Slot_Neck) 			return FGameplayTag();
-	if (EquipmentSlotTag == TAG_Equipment_Slot_Primary)			return FGameplayTag();
-	if (EquipmentSlotTag == TAG_Equipment_Slot_Ranged)			return FGameplayTag();
-	if (EquipmentSlotTag == TAG_Equipment_Slot_Secondary) 		return FGameplayTag();
-	if (EquipmentSlotTag == TAG_Equipment_Slot_Shoulders) 		return TAG_Character_Body_Armor_Shoulders;
-	if (EquipmentSlotTag == TAG_Equipment_Slot_Torso) 			return TAG_Character_Body_Upper_Torso;
-	if (EquipmentSlotTag == TAG_Equipment_Slot_Waist) 			return FGameplayTag();
-	if (EquipmentSlotTag == TAG_Equipment_Slot_Wrists)			return FGameplayTag();
-	if (EquipmentSlotTag == TAG_Equipment_Slot_Wrists_Left) 	return FGameplayTag();
-	if (EquipmentSlotTag == TAG_Equipment_Slot_Wrists_Right)	return FGameplayTag();
-	if (EquipmentSlotTag == TAG_Equipment_Slot_Ring)			return FGameplayTag();
-	if (EquipmentSlotTag == TAG_Equipment_Slot_Ring_Left)		return FGameplayTag();
-	if (EquipmentSlotTag == TAG_Equipment_Slot_Ring_Right)		return FGameplayTag();
+	if (EquipmentSlotTag == TAG_Equipment_Slot_Ammunition.GetTag())		return FGameplayTag();
+	if (EquipmentSlotTag == TAG_Equipment_Slot_Anklet.GetTag())			return FGameplayTag();
+	if (EquipmentSlotTag == TAG_Equipment_Slot_Arms.GetTag())			return FGameplayTag();
+	if (EquipmentSlotTag == TAG_Equipment_Slot_Face.GetTag()) 			return FGameplayTag();
+	if (EquipmentSlotTag == TAG_Equipment_Slot_Feet.GetTag()) 			return FGameplayTag();
+	if (EquipmentSlotTag == TAG_Equipment_Slot_Head.GetTag()) 			return FGameplayTag();
+	if (EquipmentSlotTag == TAG_Equipment_Slot_Legs.GetTag()) 			return TAG_Character_Body_Lower_Legs.GetTag();
+	if (EquipmentSlotTag == TAG_Equipment_Slot_Neck.GetTag()) 			return FGameplayTag();
+	if (EquipmentSlotTag == TAG_Equipment_Slot_Primary.GetTag())			return FGameplayTag();
+	if (EquipmentSlotTag == TAG_Equipment_Slot_Ranged.GetTag())			return FGameplayTag();
+	if (EquipmentSlotTag == TAG_Equipment_Slot_Secondary.GetTag()) 		return FGameplayTag();
+	if (EquipmentSlotTag == TAG_Equipment_Slot_Shoulders.GetTag()) 		return TAG_Character_Body_Armor_Shoulders.GetTag();
+	if (EquipmentSlotTag == TAG_Equipment_Slot_Torso.GetTag()) 			return TAG_Character_Body_Upper_Torso.GetTag();
+	if (EquipmentSlotTag == TAG_Equipment_Slot_Waist.GetTag()) 			return FGameplayTag();
+	if (EquipmentSlotTag == TAG_Equipment_Slot_Wrists.GetTag())			return FGameplayTag();
+	if (EquipmentSlotTag == TAG_Equipment_Slot_Wrists_Left.GetTag()) 	return FGameplayTag();
+	if (EquipmentSlotTag == TAG_Equipment_Slot_Wrists_Right.GetTag())	return FGameplayTag();
+	if (EquipmentSlotTag == TAG_Equipment_Slot_Ring.GetTag())			return FGameplayTag();
+	if (EquipmentSlotTag == TAG_Equipment_Slot_Ring_Left.GetTag())		return FGameplayTag();
+	if (EquipmentSlotTag == TAG_Equipment_Slot_Ring_Right.GetTag())		return FGameplayTag();
 	return TAG_Character_Body_Default;
 }
 
@@ -520,13 +521,15 @@ void UMeshMergeComponent::InitializeComponent()
  */
 void UMeshMergeComponent::OnRep_MeshMergeData_Implementation()
 {
-	UE_LOGFMT(LogTemp, Error, "MeshMerge({NetAuthority}): OnRep_MeshMergeData() - Mesh Merge Data has been updated"
-		, HasAuthority() ? "SRV" : "CLI");
+	UE_LOGFMT(LogTemp, Log, "{Name}({NetAuthority}): OnRep_MeshMergeData() - Mesh Merge Data has been updated"
+		, GetOwner()->GetName(), HasAuthority() ? "SRV" : "CLI");
 	PerformMeshMerge(true);
 }
 
 void UMeshMergeComponent::OnRep_SkinColor_Implementation()
 {
+	UE_LOGFMT(LogTemp, Log, "{Name}({NetAuthority}): OnRep_SkinColor() - Skin Color has been updated"
+		, GetOwner()->GetName(), HasAuthority() ? "SRV" : "CLI");
 	ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
 	if (IsValid(CharacterBase))
 	{
@@ -537,6 +540,8 @@ void UMeshMergeComponent::OnRep_SkinColor_Implementation()
 
 void UMeshMergeComponent::OnRep_BeardColor_Implementation()
 {
+	UE_LOGFMT(LogTemp, Log, "{Name}({NetAuthority}): OnRep_BeardColor() - Beard Color has been updated"
+		, GetOwner()->GetName(), HasAuthority() ? "SRV" : "CLI");
 	ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
 	if (IsValid(CharacterBase))
 	{
@@ -547,6 +552,8 @@ void UMeshMergeComponent::OnRep_BeardColor_Implementation()
 
 void UMeshMergeComponent::OnRep_HairColor_Implementation()
 {
+	UE_LOGFMT(LogTemp, Log, "{Name}({NetAuthority}): OnRep_HairColor() - Hair Color has been updated"
+		, GetOwner()->GetName(), HasAuthority() ? "SRV" : "CLI");
 	ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
 	if (IsValid(CharacterBase))
 	{
@@ -557,6 +564,8 @@ void UMeshMergeComponent::OnRep_HairColor_Implementation()
 
 void UMeshMergeComponent::OnRep_EyeColor_Implementation()
 {
+	UE_LOGFMT(LogTemp, Log, "{Name}({NetAuthority}): OnRep_EyeColor() - Eye Color has been updated"
+		, GetOwner()->GetName(), HasAuthority() ? "SRV" : "CLI");
 	ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
 	if (IsValid(CharacterBase))
 	{
@@ -567,6 +576,8 @@ void UMeshMergeComponent::OnRep_EyeColor_Implementation()
 
 void UMeshMergeComponent::OnRep_MeshBodyData_Implementation()
 {
+	UE_LOGFMT(LogTemp, Log, "{Name}({NetAuthority}): 'MeshBodyData' has been updated"
+		, GetOwner()->GetName(), HasAuthority() ? "SRV" : "CLI");
 	PerformMeshMerge(true);
 }
 
@@ -744,7 +755,8 @@ void UMeshMergeComponent::RestoreSkeleton(
 	AnimBlueprint	= NewAnimInstance;
 	CharacterMesh->SetAnimInstanceClass(NewAnimInstance);
 
-	Server_RestoreSkeleton(NewSkeleton, NewAnimInstance);
+	if (IsValid(Cast<APlayerCharacterBase>(GetOwner())))
+		Server_RestoreSkeleton(NewSkeleton, NewAnimInstance);
 }
 
 
@@ -765,7 +777,9 @@ void UMeshMergeComponent::RestoreMappings(
 {
 	UE_LOGFMT(LogTemp, Display, "MeshMerge({NetAuthority}): RestoreMappings()"
 		, HasAuthority() ? "SRV" : "CLI");
-	Server_RestoreMappings(NewMeshMappings, NewBodyMappings);
+
+	if (IsValid(Cast<APlayerCharacterBase>(GetOwner())))
+		Server_RestoreMappings(NewMeshMappings, NewBodyMappings);
 }
 
 
@@ -800,7 +814,9 @@ void UMeshMergeComponent::RestoreMaterials(FLinearColor NewEyeColor, FLinearColo
 {
 	UE_LOGFMT(LogTemp, Display, "MeshMerge({NetAuthority}): RestoreMaterials()"
 		, HasAuthority() ? "SRV" : "CLI");
-	Server_RestoreMaterials(NewEyeColor, NewSkinColor, NewHairColor, NewBeardColor);
+
+	if (IsValid(Cast<APlayerCharacterBase>(GetOwner())))
+		Server_RestoreMaterials(NewEyeColor, NewSkinColor, NewHairColor, NewBeardColor);
 }
 
 // ////////////////////////////////////////////////////

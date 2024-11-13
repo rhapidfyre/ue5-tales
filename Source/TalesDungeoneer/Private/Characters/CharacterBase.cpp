@@ -292,7 +292,7 @@ bool ACharacterBase::LoadCharacter(const FString& SlotName, const int32 UserInde
 	// Prevents the character from loading a save until the defaults have initialized
 	if (!bCharacterReady)
 	{
-		UE_LOGFMT(LogTemp, Warning, "{Character}({Sv}): "
+		UE_LOGFMT(LogTemp, Display, "{Character}({Sv}): "
 			"LoadCharacter() Requested before character was ready. Delaying...",
 			GetName(), HasAuthority()?"SRV":"CLI");
 		if (OnCharacterRestored.IsBound()) { OnCharacterRestored.Broadcast(bWasSuccess); }
@@ -312,7 +312,7 @@ bool ACharacterBase::LoadCharacter(const FString& SlotName, const int32 UserInde
 		{
 			if (!TalesGameState->GetIsSaveMetaReady())
 			{
-				UE_LOGFMT(LogTemp, Warning, "{Character}({Sv}): "
+				UE_LOGFMT(LogTemp, Display, "{Character}({Sv}): "
 					"LoadCharacter() Failed - GameState not ready. Delaying...",
 					GetName(), HasAuthority()?"SRV":"CLI");
 				return false;
@@ -633,7 +633,7 @@ void ACharacterBase::RestoreCharacter(const FCharacterData& RestoreData)
 	}
 
 	// If we are not the authority, send the data to the server to be handled
-	else
+	else if (this == UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))
 	{
 		Server_RestoreCharacter(RestoreData);
 	}
@@ -863,4 +863,7 @@ void ACharacterBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 	DOREPLIFETIME(ACharacterBase, PronounObjective);
 	DOREPLIFETIME(ACharacterBase, PronounPossessive);
 	DOREPLIFETIME(ACharacterBase, PronounSubject);
+
+	DOREPLIFETIME(ACharacterBase, CharacterRace_);
+	DOREPLIFETIME(ACharacterBase, CharacterClass_);
 }

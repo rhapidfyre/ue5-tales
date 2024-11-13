@@ -8,20 +8,20 @@
 ATalesPlayerStateBase::ATalesPlayerStateBase()
 {
 
-	RaceTagsMapped.Add(TAG_Character_Race_Human, nullptr);
-	RaceTagsMapped.Add(TAG_Character_Race_Elf, nullptr);
-	RaceTagsMapped.Add(TAG_Character_Race_Dwarf, nullptr);
+	RaceTagsMapped.Add(TAG_Character_Race_Human.GetTag(), nullptr);
+	RaceTagsMapped.Add(TAG_Character_Race_Elf.GetTag(), nullptr);
+	RaceTagsMapped.Add(TAG_Character_Race_Dwarf.GetTag(), nullptr);
 
-	ClassTagsMapped.Add(TAG_Character_Class_Assassin, nullptr);
-	ClassTagsMapped.Add(TAG_Character_Class_Cleric, nullptr);
-	ClassTagsMapped.Add(TAG_Character_Class_Deviant, nullptr);
-	ClassTagsMapped.Add(TAG_Character_Class_Knight, nullptr);
-	ClassTagsMapped.Add(TAG_Character_Class_Merc, nullptr);
-	ClassTagsMapped.Add(TAG_Character_Class_Necro, nullptr);
-	ClassTagsMapped.Add(TAG_Character_Class_Knight, nullptr);
-	ClassTagsMapped.Add(TAG_Character_Class_Ranger, nullptr);
-	ClassTagsMapped.Add(TAG_Character_Class_Warrior, nullptr);
-	ClassTagsMapped.Add(TAG_Character_Class_Wizard, nullptr);
+	ClassTagsMapped.Add(TAG_Character_Class_Assassin.GetTag(), nullptr);
+	ClassTagsMapped.Add(TAG_Character_Class_Cleric.GetTag(), nullptr);
+	ClassTagsMapped.Add(TAG_Character_Class_Deviant.GetTag(), nullptr);
+	ClassTagsMapped.Add(TAG_Character_Class_Knight.GetTag(), nullptr);
+	ClassTagsMapped.Add(TAG_Character_Class_Merc.GetTag(), nullptr);
+	ClassTagsMapped.Add(TAG_Character_Class_Necro.GetTag(), nullptr);
+	ClassTagsMapped.Add(TAG_Character_Class_Knight.GetTag(), nullptr);
+	ClassTagsMapped.Add(TAG_Character_Class_Ranger.GetTag(), nullptr);
+	ClassTagsMapped.Add(TAG_Character_Class_Warrior.GetTag(), nullptr);
+	ClassTagsMapped.Add(TAG_Character_Class_Wizard.GetTag(), nullptr);
 
 }
 
