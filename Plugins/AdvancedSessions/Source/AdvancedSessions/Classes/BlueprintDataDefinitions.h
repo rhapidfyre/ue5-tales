@@ -395,9 +395,9 @@ class FOnlineSearchSettingsEx : public FOnlineSearchSettings
 	/**
 	*	Sets a key value pair combination that defines a search parameter
 	*
-	* \param Key key for the setting
-	* \param Value value of the setting
-	* \param InType type of comparison
+	* @param Key key for the setting
+	* @param Value value of the setting
+	* @param InType type of comparison
 	*/
 public:
 

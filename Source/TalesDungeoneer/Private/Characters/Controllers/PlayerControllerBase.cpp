@@ -3,6 +3,8 @@
 
 #include "Characters/Controllers/PlayerControllerBase.h"
 
+#include "EnhancedInputComponent.h"
+#include "EnhancedInputSubsystems.h"
 #include "Abilities/RsGameplayAbilityBase.h"
 #include "Actors/TalesRespawnBase.h"
 #include "Characters/CharacterBase.h"
@@ -171,6 +173,20 @@ FKey APlayerControllerBase::GetKeyMapping(UInputAction* InputAction)
 		}
 	}
 	return FKey();
+}
+
+bool APlayerControllerBase::SetHotkeyAbility(
+	UInputAction* InputReference, const TSubclassOf<URsGameplayAbilityBase> AbilityReference)
+{
+	if (IsValid(InputReference))
+	{
+		if (HotkeyAbilityMap.Contains(InputReference))
+		{
+			HotkeyAbilityMap.Add(InputReference, AbilityReference);
+			OnAbilityHotkeyUpdated.Broadcast(InputReference, AbilityReference);
+		}
+	}
+	return false;
 }
 
 void APlayerControllerBase::RespawnAtGraveyard()

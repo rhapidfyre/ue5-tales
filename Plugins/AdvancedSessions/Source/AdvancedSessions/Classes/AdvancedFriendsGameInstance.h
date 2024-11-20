@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Starcache Studios, LLC (c) 2024
 
 #pragma once
 #include "CoreMinimal.h"
@@ -51,6 +51,13 @@ public:
 	//*** Session invite received by local ***//
 	FOnSessionInviteReceivedDelegate SessionInviteReceivedDelegate;
 	FDelegateHandle SessionInviteReceivedDelegateHandle;
+
+	// custom handle to join directly from steam ui "Join Game"
+	FDelegateHandle OnJoinSessionCompleteDelegateHandle;
+	// custom Steam UI Join User function #Self invite#
+	void OnSessionUserInviteAccepted(const bool bWasSuccessful, const int32 ControllerId, FUniqueNetIdPtr UserId, const FOnlineSessionSearchResult& InviteResult);
+	// custom Steam UI function to client travel #Self invite#
+	void OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result);
 
 	//const FUniqueNetId& /*UserId*/, const FUniqueNetId& /*FromId*/, const FString& /*AppId*/, const FOnlineSessionSearchResult& /*InviteResult*/
 	void OnSessionInviteReceivedMaster(const FUniqueNetId & PersonInvited, const FUniqueNetId & PersonInviting, const FString & AppId, const FOnlineSessionSearchResult& SessionToJoin);
@@ -142,4 +149,3 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category = "AdvancedFriends")
 	void OnRemovedByFriend(const FBPUniqueNetId &InvitedPlayer, const FBPUniqueNetId &FriendRemoved);*/
 };
-

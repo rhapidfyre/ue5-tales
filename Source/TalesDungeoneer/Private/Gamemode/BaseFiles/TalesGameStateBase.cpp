@@ -13,7 +13,7 @@
 #include "Engine/StreamableManager.h"
 #include "Gamemode/AdventureMode/TalesHudBase.h"
 
-#include "lib/datastructures/GlobalData.h"
+#include "lib/datastructures/TalesGlobalData.h"
 
 ACharacter* FindPlayerCharacter(const UWorld* WorldContext)
 {
@@ -203,8 +203,8 @@ void ATalesGameStateBase::RemoveSelectedCharacter()
 			if (IsValid(SavedCharacter))
 			{
 				// Delete subservient save games (inventory, abilities, etc)
-				const FString InventorySave = UGlobalData::InventorySaveFolder() + SavedCharacter->SavedInventory;
-				const FString MeshMergeSave = UGlobalData::MeshMergeSaveFolder() + SavedCharacter->SavedMeshMerge;
+				const FString InventorySave = UTalesGlobalData::InventorySaveFolder() + SavedCharacter->SavedInventory;
+				const FString MeshMergeSave = UTalesGlobalData::MeshMergeSaveFolder() + SavedCharacter->SavedMeshMerge;
 
 				UGameplayStatics::DeleteGameInSlot(InventorySave, GetCharacterUserIndex());
 				UGameplayStatics::DeleteGameInSlot(MeshMergeSave, GetCharacterUserIndex());
@@ -354,7 +354,7 @@ void ATalesGameStateBase::BeginPlay()
 	Super::BeginPlay();
 
 	// Create the save meta if it doesn't exist
-	SaveMetaName_ = "SaveMeta_" + UGlobalData::GetAppVersion(true, true);
+	SaveMetaName_ = "SaveMeta_" + UTalesGlobalData::GetAppVersion(true, true);
 	if (GetMetaDataSaveName().IsEmpty())
 	{
 		SaveMetaName_ = "SaveMeta";

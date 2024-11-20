@@ -27,7 +27,7 @@ UCLASS(Blueprintable, BlueprintType)
 class TALESDUNGEONEER_API ATalesHudBase : public AHUD
 {
 	GENERATED_BODY()
-	
+
 public:
 	ATalesHudBase();
 

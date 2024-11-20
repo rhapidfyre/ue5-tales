@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Starcache Studios, LLC (c) 2024
 
 #pragma once
 #include "CoreMinimal.h"
@@ -6,7 +6,7 @@
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "Online.h"
 #include "OnlineSubsystem.h"
-#if PLATFORM_WINDOWS || PLATFORM_MAC || PLATFORM_LINUX
+#if (PLATFORM_WINDOWS || PLATFORM_MAC || PLATFORM_LINUX) && STEAM_SDK_INSTALLED
 #include "steam/isteamugc.h"
 #include "steam/isteamremotestorage.h"
 #endif
@@ -21,7 +21,7 @@
 #pragma warning(disable:4265) // SteamAPI CCallback< specifically, this warning is off by default but 4.17 turned it on....
 #endif
 
-#if PLATFORM_WINDOWS || PLATFORM_MAC || PLATFORM_LINUX
+#if (PLATFORM_WINDOWS || PLATFORM_MAC || PLATFORM_LINUX) && STEAM_SDK_INSTALLED
 
 #pragma push_macro("ARRAY_COUNT")
 #undef ARRAY_COUNT
@@ -85,7 +85,7 @@ enum class FBPSteamResult : uint8
 {
 	K_EResultInvalid = 0,
 	k_EResultOK = 1,							// success
-	k_EResultFail = 2,							// generic failure 
+	k_EResultFail = 2,							// generic failure
 	k_EResultNoConnection = 3,					// no/failed network connection
 	//	k_EResultNoConnectionRetry = 4,				// OBSOLETE - removed
 	k_EResultInvalidPassword = 5,				// password/ticket is invalid
@@ -150,8 +150,8 @@ enum class FBPSteamResult : uint8
 	k_EResultCannotUseOldPassword = 64,			// The requested new password is not legal
 	k_EResultInvalidLoginAuthCode = 65,			// account login denied due to auth code invalid
 	k_EResultAccountLogonDeniedNoMail = 66,		// account login denied due to 2nd factor auth failure - and no mail has been sent
-	k_EResultHardwareNotCapableOfIPT = 67,		// 
-	k_EResultIPTInitError = 68,					// 
+	k_EResultHardwareNotCapableOfIPT = 67,		//
+	k_EResultIPTInitError = 68,					//
 	k_EResultParentalControlRestricted = 69,	// operation failed due to parental control restrictions for current user
 	k_EResultFacebookQueryError = 70,			// Facebook query returned an error
 	k_EResultExpiredLoginAuthCode = 71,			// account login denied due to auth code expired
@@ -223,7 +223,7 @@ public:
 		bTagsTruncated = false;
 	}
 
-#if PLATFORM_WINDOWS || PLATFORM_MAC || PLATFORM_LINUX
+#if (PLATFORM_WINDOWS || PLATFORM_MAC || PLATFORM_LINUX) && STEAM_SDK_INSTALLED
 	FBPSteamWorkshopItemDetails(SteamUGCDetails_t &hUGCDetails)
 	{
 		ResultOfRequest = (FBPSteamResult)hUGCDetails.m_eResult;
@@ -284,7 +284,7 @@ public:
 	// Description of item
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Online|AdvancedSteamWorkshop")
 		FString Description;
-	
+
 	//Url for a video of website
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Online|AdvancedSteamWorkshop")
 		FString ItemUrl;
@@ -301,12 +301,12 @@ public:
 
 	// whether the file was banned
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Online|AdvancedSteamWorkshop")
-	bool bBanned;													
-	
+	bool bBanned;
+
 	// developer has specifically flagged this item as accepted in the Workshop
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Online|AdvancedSteamWorkshop")
-	bool bAcceptedForUse;	
-	
+	bool bAcceptedForUse;
+
 	// whether the list of tags was too long to be returned in the provided buffer
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Online|AdvancedSteamWorkshop")
 	bool bTagsTruncated;
@@ -338,9 +338,9 @@ class UAdvancedSteamWorkshopLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 public:
-	
+
 	//********* Steam Functions *************//
-	
+
 	// Returns IDs for subscribed workshop items, TArray length dictates how many
 	UFUNCTION(BlueprintCallable, Category = "Online|AdvancedSteamWorkshop")
 	static TArray<FBPSteamWorkshopID> GetSubscribedWorkshopItems(int32 & NumberOfItems);
@@ -348,4 +348,4 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Online|AdvancedSteamWorkshop")
 	static void GetNumSubscribedWorkshopItems(int32 & NumberOfItems);
 
-};	
+};

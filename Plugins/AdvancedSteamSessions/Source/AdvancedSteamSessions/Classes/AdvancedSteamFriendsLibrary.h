@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Starcache Studios, LLC (c) 2024
 
 #pragma once
 #include "CoreMinimal.h"
@@ -25,7 +25,7 @@
 #pragma warning(disable:4265) // SteamAPI CCallback< specifically, this warning is off by default but 4.17 turned it on....
 #endif
 
-#if PLATFORM_WINDOWS || PLATFORM_MAC || PLATFORM_LINUX
+#if (PLATFORM_WINDOWS || PLATFORM_MAC || PLATFORM_LINUX) && STEAM_SDK_INSTALLED
 
 #pragma push_macro("ARRAY_COUNT")
 #undef ARRAY_COUNT
@@ -71,7 +71,7 @@ PACKAGE_SCOPE:
 	/**
 	* Copy Constructor
 	*
-	* \param Src the id to copy
+	* @param Src the id to copy
 	*/
 	explicit FUniqueNetIdSteam2(const FUniqueNetIdSteam2& Src) :
 		UniqueNetId(Src.UniqueNetId)
@@ -82,7 +82,7 @@ public:
 	/**
 	* Constructs this object with the specified net id
 	*
-	* \param InUniqueNetId the id to set ours to
+	* @param InUniqueNetId the id to set ours to
 	*/
 	explicit FUniqueNetIdSteam2(uint64 InUniqueNetId) :
 		UniqueNetId(InUniqueNetId)
@@ -92,7 +92,7 @@ public:
 	/**
 	* Constructs this object with the steam id
 	*
-	* \param InUniqueNetId the id to set ours to
+	* @param InUniqueNetId the id to set ours to
 	*/
 	explicit FUniqueNetIdSteam2(CSteamID InSteamId) :
 		UniqueNetId(InSteamId.ConvertToUint64())
@@ -102,7 +102,7 @@ public:
 	/**
 	* Constructs this object with the specified net id
 	*
-	* \param String textual representation of an id
+	* @param String textual representation of an id
 	*/
 	explicit FUniqueNetIdSteam2(const FString& Str) :
 		UniqueNetId(FCString::Atoi64(*Str))
@@ -113,7 +113,7 @@ public:
 	/**
 	* Constructs this object with the specified net id
 	*
-	* \param InUniqueNetId the id to set ours to (assumed to be FUniqueNetIdSteam in fact)
+	* @param InUniqueNetId the id to set ours to (assumed to be FUniqueNetIdSteam in fact)
 	*/
 	explicit FUniqueNetIdSteam2(const FUniqueNetId& InUniqueNetId) :
 		UniqueNetId(*(uint64*)InUniqueNetId.GetBytes())
@@ -129,7 +129,7 @@ public:
 	* Get the raw byte representation of this net id
 	* This data is platform dependent and shouldn't be manipulated directly
 	*
-	* \return byte array of size GetSize()
+	* @return byte array of size GetSize()
 	*/
 	virtual const uint8* GetBytes() const override
 	{
@@ -139,7 +139,7 @@ public:
 	/**
 	* Get the size of the id
 	*
-	* \return size in bytes of the id representation
+	* @return size in bytes of the id representation
 	*/
 	virtual int32 GetSize() const override
 	{
@@ -149,7 +149,7 @@ public:
 	/**
 	* Check the validity of the id
 	*
-	* \return true if this is a well formed ID, false otherwise
+	* @return true if this is a well formed ID, false otherwise
 	*/
 	virtual bool IsValid() const override
 	{
@@ -159,7 +159,7 @@ public:
 	/**
 	* Platform specific conversion to string representation of data
 	*
-	* \return data in string form
+	* @return data in string form
 	*/
 	virtual FString ToString() const override
 	{
@@ -170,7 +170,7 @@ public:
 	* Get a human readable representation of the net id
 	* Shouldn't be used for anything other than logging/debugging
 	*
-	* \return id in string form
+	* @return id in string form
 	*/
 	virtual FString ToDebugString() const override
 	{
@@ -267,12 +267,14 @@ enum class ESteamUserOverlayType : uint8
 	/*Opens the overlay in minimal mode prompting the user to accept an incoming friend invite.*/
 	friendrequestaccept,
 	/*Opens the overlay in minimal mode prompting the user to ignore an incoming friend invite.*/
-	friendrequestignore
+	friendrequestignore,
+	/*Opens the invite overlay, invitations sent from this dialog will be for the provided lobby*/
+	invitetolobby
 };
 
 static FString EnumToString(const FString& enumName, uint8 value)
 {
-	
+
 	const UEnum* EnumPtr = FindFirstObject<UEnum>(*enumName, EFindFirstObjectOptions::None, ELogVerbosity::Warning, TEXT("EumtoString"));
 
 	if (!EnumPtr)
@@ -323,7 +325,7 @@ class UAdvancedSteamFriendsLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 public:
-	
+
 	//********* Friend List Functions *************//
 
 	// Get a texture of a valid friends avatar, STEAM ONLY, Returns invalid texture if the subsystem hasn't loaded that size of avatar yet
@@ -337,7 +339,7 @@ public:
 	// Opens the steam overlay to go to the specified user dialog
 	UFUNCTION(BlueprintCallable, Category = "Online|AdvancedFriends|SteamAPI")
 		static bool OpenSteamUserOverlay(const FBPUniqueNetId UniqueNetId, ESteamUserOverlayType DialogType);
-	
+
 	// Returns if the steam overlay is currently active (this can return false during initial overlay hooking)
 	UFUNCTION(BlueprintPure, Category = "Online|AdvancedFriends|SteamAPI")
 		static bool IsOverlayEnabled();
@@ -384,4 +386,4 @@ public:
 	// Returns if steam is running in big picture mode
 	UFUNCTION(BlueprintPure, Category = "Online|SteamAPI")
 		static bool IsSteamInBigPictureMode();
-};	
+};

@@ -31,41 +31,41 @@ UCLASS(Blueprintable, BlueprintType)
 class TALESDUNGEONEER_API ATalesGameStateBase : public AGameStateBase
 {
 	GENERATED_BODY()
-	
+
 public: // methods
-	
+
 	ATalesGameStateBase();
-	
+
 	UPROPERTY(BlueprintAssignable)	FOnSaveGameObjectReady	OnSaveGameObjectReady;
 	UPROPERTY(BlueprintAssignable)	FOnGameSaved			OnGameSaved;
 	UPROPERTY(BlueprintAssignable)	FOnCharacterSelected	OnCharacterSelected;
 	UPROPERTY(BlueprintAssignable)	FOnCharacterDeleted		OnCharacterDeleted;
 
-	
+
 	UPROPERTY(BlueprintAssignable)
 	FOnDataAssetReady OnDataAssetLoaded;
 
 	virtual bool LoadDataAsset(const FName& AssetName);
-	
+
 	virtual bool LoadDataAsset(const FPrimaryAssetId& AssetId);
 
 	UFUNCTION()
 	virtual void LoadDataAssetDelegate(const FPrimaryAssetId AssetId);
-	
+
 
 	UFUNCTION(BlueprintPure)
 	UTexture2D* GetEquipmentIcon(const FGameplayTag& EquipmentTag) const;
-	
+
 	bool CheckIsServer() const;
 
 	bool CheckIsPlayableClient() const;
 
 	UFUNCTION(BlueprintCallable)
 	FString GenerateAlphanumeric(FString OptionalPath = "") const;
-	
+
 	UFUNCTION(BlueprintPure)
 	FString GetMetaDataSaveName() const { return SaveMetaName_; }
-	
+
 	UFUNCTION(BlueprintPure)
 	static int32 GetMetaDataSaveIndex() { return 0; }
 
@@ -79,17 +79,17 @@ public: // methods
 
 	UFUNCTION(BlueprintCallable)
 	void LocalNotification(FString NewTitle, FString NewMessage, int NewPriority = 2);
-	
+
 	UFUNCTION(BlueprintPure)
 	bool GetIsCheatModeEnabled() const { return CheatMode_; }
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
 	int DungeonLevel = 1;
-	
+
 	/**
 	 *		SAVING
 	 */
-	
+
 	// Called whenever save metadata has been modified
 	UFUNCTION(BlueprintCallable)
 	bool SaveMetaData();
@@ -100,7 +100,7 @@ public: // methods
 
 	UFUNCTION(BlueprintPure)
 	bool GetIsSaveMetaReady() const { return bSaveMetaIsReady; }
-	
+
 	// PERMANENTLY deletes the character and the associated save game
 	UFUNCTION(BlueprintCallable)
 	void RemoveSelectedCharacter();
@@ -113,8 +113,8 @@ public: // methods
 	 */
 	UFUNCTION(BlueprintCallable)
 	bool SaveCurrentCharacter(FString& SaveResponse, bool RunAsync = true);
-	
-	
+
+
 	/**
 	 *		LOADING
 	*/
@@ -125,14 +125,14 @@ public: // methods
 	/**
 	 *		OTHER METHODS
 	*/
-	
+
 	// Returns the current name of the save game meta file
 	UFUNCTION(BlueprintCallable)
 	FString GetSaveGameMetaName() const { return SaveMetaName_; };
-	
+
 	// Retrieves a USaveGame object with the current meta
 	UFUNCTION(BlueprintCallable) USaveGame* GetSaveGameMeta() const;
-	
+
 	// Returns an array of all known saved character slot names
 	UFUNCTION(BlueprintCallable)
 	TArray<FSaveMeta> GetSavedCharacterSlotNames() const;
@@ -147,36 +147,36 @@ public: // methods
 	 */
 	UFUNCTION(BlueprintCallable)
 	USavedCharacter* GetSavedCharacterData(FString SaveSlotName = "");
-	
+
 	UFUNCTION(BlueprintPure)
 	FString GetCharacterSlotName() const;
-	
+
 	UFUNCTION(BlueprintPure)
 	int GetCharacterUserIndex() const;
-	
+
 	UFUNCTION(BlueprintPure)
 	bool GetIsValidCharacterSelected() const;
-	
+
 	UFUNCTION(BlueprintPure)
 	bool GetDoesCharacterSaveExist() const;
-	
+
 	UFUNCTION(BlueprintPure)
 	int GetSelectedCharacter() const;
-	
+
 	UFUNCTION(BlueprintCallable)
 	void SetSelectedCharacter(int CharacterIndex);
 
 	UFUNCTION(BlueprintCallable)
 	int GetNextCharacterIndex();
-	
+
 	UFUNCTION(BlueprintCallable)
 	int GetPrevCharacterIndex();
-	
+
 	UFUNCTION(BlueprintCallable)
 	int GetLastCharacterIndex() const;
-	
+
 protected: // methods
-	
+
 	virtual void BeginPlay() override;
 
 	virtual void AddOrUpdateSavedCharacter(USaveGame* SaveGame);
@@ -184,7 +184,7 @@ protected: // methods
 	// Called when LoadSaveGameMetaAsync executes
 	void SaveGameMetaLoaded(const FString& SlotName,
 		const int32 UserIndex, USaveGame* LoadedGameData);
-	
+
 	// Called when LoadCharacterASync executes
 	void CharacterSaveLoaded(const FString& SlotName,
 		int32 UserIndex, USaveGame* LoadedGameData);
@@ -197,7 +197,7 @@ protected: // methods
 
 	// Performs a sync character data load, returning true on success
 	bool LoadSaveGameMetaSync();
-	
+
 	// Performs an async metadata load, calling SaveGameMetaLoaded when done
 	void LoadSaveGameMetaAsync();
 
@@ -208,16 +208,16 @@ protected: // methods
 	// Performs asynchronous save of the currently active character
 	// Internally updates the save game meta file
 	void SaveCharacterAsync();
-	
+
 	virtual void GetLifetimeReplicatedProps(
 		TArray<FLifetimeProperty> &OutLifetimeProps) const override;
 
 private: // methods
-	
+
 	UFUNCTION(NetMulticast, Unreliable)
 	void Multicast_SendNotification(
 		const FString& NewTitle, const FString& NewMessage, int NewPriority = 2);
-	
+
 	// Sets the values in the save metadata
 	USaveGame* Helper_SetSaveValues();
 
@@ -227,7 +227,7 @@ private: // methods
 	// Called when an asynchronous save has finished
 	UFUNCTION()	void SaveGameDelegate(const FString& SlotName,
 		const int32 UserIndex, bool bSuccess) const;
-	
+
 public: // members
 
 	// The data table containing NPC data for NPCs spawning
@@ -239,23 +239,23 @@ public: // members
 	// If specified, pulls default start values from this data table
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UDataTable* DataTableRace = nullptr;
-	
+
 	// If specified, pulls default start values from this data table
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UDataTable* DataTableClass = nullptr;
-	
+
 	// If specified, pulls default start values from this data table
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UDataTable* DataTableVitality = nullptr;
-	
+
 	// If specified, pulls default start values from this data table
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UDataTable* DataTableInventory = nullptr;
-	
+
 	// If specified, pulls default start values from this data table
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UDataTable* DataTableAbilities = nullptr;
-	
+
 	// If specified, pulls default start values from this data table
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UDataTable* DataTableEffects = nullptr;
@@ -265,7 +265,13 @@ public: // members
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<FGameplayTag, UTexture2D*> EquipmentSlotIcons = {};
-	
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Game Settings")
+	TMap<FGameplayTag, FLinearColor> AbilitySchoolColors;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Game Settings")
+	TMap<FGameplayTag, UTexture2D*> AbilitySchoolIcons;
+
 private: // members
 
 	// The name of the meta file
@@ -286,5 +292,5 @@ private: // members
 	UFUNCTION(NetMulticast, Reliable) void OnRep_CheatMode(bool OldState);
 	UPROPERTY(Replicated, ReplicatedUsing=OnRep_CheatMode)
 	bool CheatMode_ = false;
-	
+
 };

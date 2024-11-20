@@ -21,7 +21,7 @@
 class URsCoreAttributeSet;
 class URsVitalityAttributeSet;
 class URsDamageAttributeSet;
-class URsEffectAttributeSet;
+class URsAbilityAttributeSet;
 class UCharacterClassData;
 class UCharacterRaceData;
 class URsGameplayAbilityBase;
@@ -99,6 +99,9 @@ public: // functions
 
 	// Returns FollowCamera sub object
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+	UFUNCTION(BlueprintPure)
+	bool GetIsBlockingAttacks() const;
 
 	UFUNCTION(BlueprintPure)
 	float GetRiskLevel() const;
@@ -295,7 +298,7 @@ public: // members
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly,
 		Category = "Gameplay Ability System", meta = (AllowPrivateAccess = "true"))
-	URsEffectAttributeSet* AttributeEffectSet;
+	URsAbilityAttributeSet* AttributeEffectSet;
 
 	// If true, character saves should only save server-side
 	// If false, character saves to the client who is controlling it

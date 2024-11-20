@@ -4,12 +4,12 @@
 #include "Saves/StaticSaveData.h"
 #include "Saves/SavedCharacters.h"
 #include "Kismet/GameplayStatics.h"
-#include "lib/datastructures/GlobalData.h"
+#include "lib/datastructures/TalesGlobalData.h"
 
 
 UGlobalSaveData::UGlobalSaveData()
 {
-	SaveVersion_ = UGlobalData::GetAppVersion();
+	SaveVersion_ = UTalesGlobalData::GetAppVersion();
 }
 
 /**

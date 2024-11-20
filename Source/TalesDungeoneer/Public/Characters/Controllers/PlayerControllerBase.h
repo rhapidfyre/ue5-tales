@@ -3,9 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "EnhancedInputSubsystems.h"
-#include "EnhancedInputComponent.h"
-#include "GameplayAbilitySpecHandle.h"
 #include "GameplayTagContainer.h"
 #include "InputMappingContext.h"
 #include "Delegates/Delegate.h"
@@ -14,7 +11,10 @@
 
 class URsGameplayAbilityBase;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHotkeyTriggered,
-                                            UInputAction*, HotkeyPressed);
+	UInputAction*, HotkeyPressed);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAbilityHotkeyUpdated,
+	const UInputAction*, InputAction, const UClass*, AbilityReference);
 
 UCLASS(BlueprintType, Blueprintable)
 class TALESDUNGEONEER_API APlayerControllerBase : public APlayerController
@@ -27,6 +27,9 @@ public: // methods
 
 	UFUNCTION(BlueprintCallable)
 	FKey GetKeyMapping(UInputAction* InputAction);
+
+	UFUNCTION(BlueprintCallable)
+	bool SetHotkeyAbility(UInputAction* InputReference, TSubclassOf<URsGameplayAbilityBase> AbilityReference);
 
 	UFUNCTION(BlueprintCallable) void RespawnAtGraveyard();
 
@@ -68,6 +71,7 @@ private:
 
 public: //members
 
+	UPROPERTY(BlueprintAssignable) FOnAbilityHotkeyUpdated OnAbilityHotkeyUpdated;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input Actions")
 	TArray<UInputMappingContext*> MappingContexts;

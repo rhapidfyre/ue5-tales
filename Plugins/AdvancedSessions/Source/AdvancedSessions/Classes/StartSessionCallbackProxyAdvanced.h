@@ -18,14 +18,14 @@ class UStartSessionCallbackProxyAdvanced : public UOnlineBlueprintCallProxyBase
 
 	/**
 	 * Starts a session with the default online subsystem. The session needs to be previously created by calling the "CreateAdvancedSession" node.
-	 * \param WorldContextObject
+	 * @param WorldContextObject
 	 */
 	UFUNCTION(
 		BlueprintCallable
 		, meta=(BlueprintInternalUseOnly = "true", WorldContext="WorldContextObject")
 		, Category = "Online|AdvancedSessions"
 	)
-	static UStartSessionCallbackProxyAdvanced* StartAdvancedSession(const UObject* WorldContextObject);
+	static UStartSessionCallbackProxyAdvanced* StartAdvancedSession(UObject* WorldContextObject);
 
 	// UOnlineBlueprintCallProxyBase interface
 	virtual void Activate() override;
@@ -42,5 +42,5 @@ private:
 	FDelegateHandle StartCompleteDelegateHandle;
 
 	// The world context object in which this call is taking place
-	const UObject* WorldContextObject;
+	TWeakObjectPtr<UObject> WorldContextObject;
 };

@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Starcache Studios, LLC (c) 2024
 
 #pragma once
 #include "CoreMinimal.h"
@@ -27,7 +27,7 @@ class UAdvancedFriendsLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 public:
-	
+
 	//********* Friend List Functions *************//
 
 	// Sends an Invite to the current online session to a list of friends
@@ -53,4 +53,4 @@ public:
 	// Check if a UniqueNetId is a friend
 	UFUNCTION(BlueprintPure, Category = "Online|AdvancedFriends|FriendsList")
 	static void IsAFriend(APlayerController *PlayerController, const FBPUniqueNetId UniqueNetId, bool &IsFriend);
-};	
+};

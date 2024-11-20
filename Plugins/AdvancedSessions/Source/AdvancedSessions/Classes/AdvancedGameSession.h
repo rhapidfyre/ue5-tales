@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Starcache Studios, LLC (c) 2024
 
 #pragma once
 #include "CoreMinimal.h"
@@ -45,7 +45,7 @@ public:
 
 			return bWasKicked;
 		}
-		
+
 		return false;
 	}
 

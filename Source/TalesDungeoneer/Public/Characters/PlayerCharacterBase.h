@@ -13,6 +13,7 @@
 
 
 class USavedCharacter;
+class URsGameplayAbilityBase;
 
 // Called when this player has fully spawned into the world
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPlayerJoined);
@@ -38,12 +39,12 @@ class TALESDUNGEONEER_API APlayerCharacterBase : public ACharacterBase
 public: // functions
 
 	APlayerCharacterBase();
-	
+
 	UPROPERTY(BlueprintAssignable) FOnPlayerJoined OnPlayerJoined;
 	UPROPERTY(BlueprintAssignable) FOnCoreStatUpdated OnCoreStatsUpdated;
 	UPROPERTY(BlueprintAssignable) FOnDamageStatUpdated OnDamageStatsUpdated;
 	UPROPERTY(BlueprintAssignable) FOnAttributeArmorClassUpdated OnAttributeArmorClassUpdated;
-	
+
 	/** MappingContext */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Character Input Settings")
 	UInputMappingContext* DefaultMappingContext = nullptr;
@@ -75,7 +76,7 @@ public: // functions
 	/** Attack Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Character Input Settings")
 	UInputAction* SecondaryInputAction = nullptr;
-	
+
 protected:
 
 	UFUNCTION()
@@ -86,7 +87,7 @@ protected:
 
 	// Called for looking input
 	void Look(const FInputActionValue& Value);
-	
+
 	virtual void BeginPlay() override;
 
 	virtual void BindListeners() override;
@@ -94,14 +95,14 @@ protected:
 	virtual void BindInput();
 
 	virtual void OnVitalityAttributeChanged(const FOnAttributeChangeData& Data) override;
-	
+
 	virtual void OnCoreStatsChanged(const FOnAttributeChangeData& Data) override;
-	
+
 	virtual void OnDamageStatsChanged(const FOnAttributeChangeData& Data) override;
-	
+
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	
+
 	UFUNCTION(BlueprintImplementableEvent) void EventArmorClassChanged(float OldValue, float NewValue);
-	
+
 };

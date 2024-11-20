@@ -12,14 +12,14 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Gamemode/BaseFiles/TalesGameStateBase.h"
-#include "lib/datastructures/GlobalData.h"
+#include "lib/datastructures/TalesGlobalData.h"
 #include "Saves/SavedCharacters.h"
 #include "Kismet/GameplayStatics.h"
 #include "lib/Tags/TalesGlobalTags.h"
 #include "RsAbilityComponent.h"
 #include "Attributes/RsCoreAttributeSet.h"
 #include "Attributes/RsDamageAttributeSet.h"
-#include "Attributes/RsEffectAttributeSet.h"
+#include "Attributes/RsAbilityAttributeSet.h"
 #include "Attributes/RsVitalityAttributeSet.h"
 #include "Characters/Controllers/PlayerControllerBase.h"
 #include "Abilities/RsGameplayAbilityBase.h"
@@ -93,12 +93,12 @@ ACharacterBase::ACharacterBase()
 	AttributeVitalitySet	= CreateDefaultSubobject<URsVitalityAttributeSet>("AttributeVitalitySet");
 	AttributeCoreStatsSet	= CreateDefaultSubobject<URsCoreAttributeSet>("AttributeCoreStatsSet");
 	AttributeDamageSet		= CreateDefaultSubobject<URsDamageAttributeSet>("AttributeDamageSet");
-	AttributeEffectSet		= CreateDefaultSubobject<URsEffectAttributeSet>("AttributeEffectSet");
+	AttributeEffectSet		= CreateDefaultSubobject<URsAbilityAttributeSet>("AttributeEffectSet");
 
 
 	// Setup listeners for when the inventory changes
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
-	InventoryComponent->SaveFolder = UGlobalData::InventorySaveFolder();
+	InventoryComponent->SaveFolder = UTalesGlobalData::InventorySaveFolder();
 	if (!InventoryComponent->OnInventoryUpdated.IsAlreadyBound(this, &ACharacterBase::InventoryUpdateDelegate))
 	{
 		InventoryComponent->OnInventoryUpdated.AddDynamic(this, &ACharacterBase::InventoryUpdateDelegate);
@@ -115,6 +115,24 @@ ACharacterBase::ACharacterBase()
 	// Allow weapon overlap collisions
 	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_GameTraceChannel4, ECR_Block);
 
+}
+
+bool ACharacterBase::GetIsBlockingAttacks() const
+{
+	if (IsValid(AbilitySystemComponent))
+	{
+		if (AbilitySystemComponent->HasMatchingGameplayTag(TAG_Effects_Blocking_Physical.GetTag()))
+		{
+			return true;
+		}
+	}
+
+	if (IsValid(EquipmentComponent))
+	{
+		//return EquipmentComponent->GetIsBlocking();
+	}
+
+	return false;
 }
 
 /**
@@ -219,7 +237,7 @@ USaveGame* ACharacterBase::SaveCharacter(USaveGame* SaveObject, bool bRunAsync)
 			( UGameplayStatics::CreateSaveGameObject(USavedCharacter::StaticClass()) );
 
 		SavedCharacter->SaveSlotName = TalesGameState->
-			GenerateAlphanumeric(UGlobalData::CharacterSaveFolder());
+			GenerateAlphanumeric(UTalesGlobalData::CharacterSaveFolder());
 
 		SavedCharacter->UserIndex = GetCharacterUserIndex();
 	}

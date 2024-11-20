@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Starcache Studios, LLC (c) 2024
 #include "AdvancedSessionsLibrary.h"
 #include "GameFramework/PlayerState.h"
 #include "GameFramework/GameStateBase.h"
@@ -66,7 +66,7 @@ void UAdvancedSessionsLibrary::GetCurrentSessionID_AsString(UObject* WorldContex
 	UWorld* const World = GEngine->GetWorldFromContextObject(WorldContextObject, EGetWorldErrorMode::LogAndReturnNull);
 	IOnlineSessionPtr SessionInterface = Online::GetSessionInterface(World);
 
-	if (!SessionInterface.IsValid()) 
+	if (!SessionInterface.IsValid())
 	{
 		UE_LOG(AdvancedSessionsLog, Warning, TEXT("GetCurrentSessionID_AsString couldn't get the session interface!"));
 		SessionID.Empty();
@@ -74,10 +74,10 @@ void UAdvancedSessionsLibrary::GetCurrentSessionID_AsString(UObject* WorldContex
 	}
 
 	const FNamedOnlineSession* Session = SessionInterface->GetNamedSession(NAME_GameSession);
-	if (Session != nullptr) 
+	if (Session != nullptr)
 	{
 		const TSharedPtr<class FOnlineSessionInfo> SessionInfo = Session->SessionInfo;
-		if (SessionInfo.IsValid() && SessionInfo->IsValid() && SessionInfo->GetSessionId().IsValid()) 
+		if (SessionInfo.IsValid() && SessionInfo->IsValid() && SessionInfo->GetSessionId().IsValid())
 		{
 			SessionID = SessionInfo->GetSessionId().ToString();
 			return;
@@ -121,7 +121,7 @@ void UAdvancedSessionsLibrary::FindSessionPropertyIndexByName(const TArray<FSess
 	OutIndex = ExtraSettings.IndexOfByPredicate([&](const FSessionPropertyKeyPair& it) {return it.Key == SettingName; });
 
 	Result = OutIndex != INDEX_NONE ? EBlueprintResultSwitch::OnSuccess : EBlueprintResultSwitch::OnFailure;
-}	
+}
 
 void UAdvancedSessionsLibrary::AddOrModifyExtraSettings(UPARAM(ref) TArray<FSessionPropertyKeyPair> & SettingsArray, UPARAM(ref) TArray<FSessionPropertyKeyPair> & NewOrChangedSettings, TArray<FSessionPropertyKeyPair> & ModifiedSettingsArray)
 {
@@ -473,8 +473,13 @@ bool UAdvancedSessionsLibrary::IsValidUniqueNetID(const FBPUniqueNetId &UniqueNe
 }
 
 bool UAdvancedSessionsLibrary::EqualEqual_UNetIDUnetID(const FBPUniqueNetId &A, const FBPUniqueNetId &B)
-{	
+{
 	return ((A.IsValid() && B.IsValid()) && (*A.GetUniqueNetId() == *B.GetUniqueNetId()));
+}
+
+FUniqueNetIdRepl UAdvancedSessionsLibrary::Conv_BPUniqueIDToUniqueNetIDRepl(const FBPUniqueNetId& InUniqueID)
+{
+	return FUniqueNetIdRepl(InUniqueID.GetUniqueNetId()->AsShared());
 }
 
 void UAdvancedSessionsLibrary::SetPlayerName(APlayerController *PlayerController, FString PlayerName)

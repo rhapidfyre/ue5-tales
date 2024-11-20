@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Starcache Studios, LLC (c) 2024
 
 #pragma once
 #include "CoreMinimal.h"
@@ -27,7 +27,7 @@ class IAdvancedFriendsInterface
 {
 	GENERATED_IINTERFACE_BODY()
 public:
-	
+
 	// Called when the designated LocalUser has accepted a session invite, use JoinSession on result to connect
 	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "OnSessionInviteReceived"))
 	void OnSessionInviteReceived(FBPUniqueNetId PersonInviting, const FBlueprintSessionResult& SearchResult);
@@ -53,4 +53,4 @@ public:
 	//UFUNCTION(BlueprintImplementableEvent, meta = (FriendlyName = "OnSessionInviteReceived"))
 	//void OnSessionInviteReceived(const FBPUniqueNetId &FriendInviting, const FBlueprintSessionResult &Session);
 
-};	
+};

@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Starcache Studios, LLC (c) 2024
 
 #pragma once
 #include "CoreMinimal.h"
@@ -31,7 +31,7 @@ class UAdvancedSessionsLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 public:
-		//********* Session Admin Functions *************//	
+		//********* Session Admin Functions *************//
 
 		// Kick a player from the currently active game session, only available on the server
 		UFUNCTION(BlueprintCallable, Category = "Online|AdvancedSessions", meta = (WorldContext = "WorldContextObject"))
@@ -42,7 +42,7 @@ public:
 		UFUNCTION(BlueprintCallable, Category = "Online|AdvancedSessions", meta = (WorldContext = "WorldContextObject"))
 		static bool BanPlayer(UObject* WorldContextObject, APlayerController* PlayerToBan, FText BanReason);
 
-		//********* Session Search Functions *************//	
+		//********* Session Search Functions *************//
 
 		// Adds or modifies session settings in an existing array depending on if they exist already or not
 		UFUNCTION(BlueprintCallable, Category = "Online|AdvancedSessions|SessionInfo")
@@ -63,7 +63,7 @@ public:
 		// Check if someone is in the current session
 		UFUNCTION(BlueprintCallable, Category = "Online|AdvancedSessions|SessionInfo", meta = (WorldContext = "WorldContextObject"))
 		static void IsPlayerInSession(UObject* WorldContextObject, const FBPUniqueNetId &PlayerToCheck, bool &bIsInSession);
-		
+
 		// Make a literal session search parameter
 		UFUNCTION(BlueprintPure, Category = "Online|AdvancedSessions|SessionInfo|Literals")
 		static FSessionsSearchSetting MakeLiteralSessionSearchProperty(FSessionPropertyKeyPair SessionSearchProperty, EOnlineComparisonOpRedux ComparisonOp);
@@ -86,23 +86,23 @@ public:
 		// Get the Unique Current Build ID
 		UFUNCTION(BlueprintPure, Category = "Online|AdvancedSessions|SessionInfo")
 		static void GetCurrentUniqueBuildID(int32 &UniqueBuildId);
-		
+
 		// Get the Unique Build ID from a session search result
 		UFUNCTION(BlueprintPure, Category = "Online|AdvancedSessions|SessionInfo")
 		static void GetUniqueBuildID(FBlueprintSessionResult SessionResult, int32 &UniqueBuildId);
-		
-		
+
+
 		// Thanks CriErr for submission
 
 
 		// Get session property Key Name value
 		UFUNCTION(BlueprintCallable, Category = "Online|AdvancedSessions|SessionInfo")
 		static FName GetSessionPropertyKey(const FSessionPropertyKeyPair& SessionProperty);
-		
+
 		// Find session property by Name
 		UFUNCTION(BlueprintCallable, Category = "Online|AdvancedSessions|SessionInfo", meta = (ExpandEnumAsExecs = "Result"))
 		static void FindSessionPropertyByName(const TArray<FSessionPropertyKeyPair>& ExtraSettings, FName SettingsName, EBlueprintResultSwitch &Result, FSessionPropertyKeyPair& OutProperty);
-		
+
 		// Find session property index by Name
 		UFUNCTION(BlueprintCallable, Category = "Online|AdvancedSessions|SessionInfo", meta = (ExpandEnumAsExecs = "Result"))
 		static void FindSessionPropertyIndexByName(const TArray<FSessionPropertyKeyPair>& ExtraSettings, FName SettingName, EBlueprintResultSwitch &Result, int32& OutIndex);
@@ -163,7 +163,7 @@ public:
 		// Get the unique net id of a network player who is assigned the the given player state
 		UFUNCTION(BlueprintPure, Category = "Online|AdvancedSessions|PlayerInfo|PlayerID")
 		static void GetUniqueNetIDFromPlayerState(APlayerState *PlayerState, FBPUniqueNetId &UniqueNetId);
-		
+
 		// Return True if Unique Net ID is valid
 		UFUNCTION(BlueprintPure, Category = "Online|AdvancedSessions|PlayerInfo|PlayerID")
 		static bool IsValidUniqueNetID(const FBPUniqueNetId &UniqueNetId);
@@ -171,6 +171,10 @@ public:
 		/* Returns true if the values are equal (A == B) */
 		UFUNCTION(BlueprintPure, meta = (DisplayName = "Equal Unique Net ID", CompactNodeTitle = "==", Keywords = "== equal"), Category = "Online|AdvancedSessions|PlayerInfo|PlayerID")
 		static bool EqualEqual_UNetIDUnetID(const FBPUniqueNetId &A, const FBPUniqueNetId &B);
+
+		/** Converts a FBPUniqueNetID into a FUniqueNetID_Repl */
+		UFUNCTION(BlueprintPure, meta = (DisplayName = "ToUniqueNetIDRepl (Unique Net ID)", CompactNodeTitle = "->", BlueprintAutocast), Category = "Online|AdvancedSessions|PlayerInfo|PlayerID")
+			static FUniqueNetIdRepl Conv_BPUniqueIDToUniqueNetIDRepl(const FBPUniqueNetId& InUniqueID);
 
 		// Check if a UniqueNetId is a friend
 		UFUNCTION(BlueprintPure, Category = "Online|AdvancedSessions|UniqueNetId")
@@ -205,5 +209,5 @@ public:
 		//Exposes Server travel to blueprint
 		UFUNCTION(BlueprintCallable, BlueprintAuthorityOnly, Category = "Online|AdvancedSessions|Seamless", meta = (HidePin = "WorldContextObject", DefaultToSelf = "WorldContextObject"))
 		static bool ServerTravel(UObject* WorldContextObject, const FString& InURL, bool bAbsolute, bool bShouldSkipGameNotify);
-		
-};	
+
+};
