@@ -9,6 +9,8 @@
 #include "Actors/TalesRespawnBase.h"
 #include "Characters/CharacterBase.h"
 #include "Kismet/GameplayStatics.h"
+#include "Logging/StructuredLog.h"
+#include "Net/UnrealNetwork.h"
 
 // Sets default values
 APlayerControllerBase::APlayerControllerBase()
@@ -17,10 +19,46 @@ APlayerControllerBase::APlayerControllerBase()
 	PrimaryActorTick.bCanEverTick = true;
 }
 
+/**
+ * \brief Currently just used for debugging
+ * \param InputAction
+ * \param Class
+ */
+void APlayerControllerBase::HotkeyUpdateDelegate(UInputAction* InputAction, const UClass* InClass)
+{
+	if (HotkeyAbilityMap.Contains(InputAction))
+	{
+		TSubclassOf<URsGameplayAbilityBase> AbilityReference = const_cast<UClass*>(InClass);
+		TSubclassOf<URsGameplayAbilityBase> PreviousAbility = nullptr;
+
+		FAbilityBindingData AbilityBindingData(InputAction);
+		const int HotkeyIndex = HotkeyAbilityMap.Find(AbilityBindingData);
+		if (HotkeyIndex != INDEX_NONE)
+		{
+			PreviousAbility = HotkeyAbilityMap[HotkeyIndex].AbilityClass;
+		}
+
+		UE_LOGFMT(LogTemp, Display, "{Name}({NetAuthority}): Primary Ability Changed... '{OldAbility}' -> '{NewAbility}'"
+			, GetName(), HasAuthority() ? "SERVER" : "CLIENT"
+			, IsValid(PreviousAbility) ? PreviousAbility->GetName() : "None"
+			, IsValid(AbilityReference) ? AbilityReference->GetName() : "None");
+	}
+	else
+	{
+		UE_LOGFMT(LogTemp, Error, "{Name}({NetAuthority}): Hotkey Update Failed - Input Action '{InputAction}' is not in the hotkey binding map."
+			, GetName(), HasAuthority() ? "SERVER" : "CLIENT", IsValid(InputAction) ? InputAction->GetName() : "None");
+	}
+}
+
 void APlayerControllerBase::BeginPlay()
 {
 	Super::BeginPlay();
+	if (OnAbilityHotkeyUpdated.IsAlreadyBound(this, &APlayerControllerBase::HotkeyUpdateDelegate))
+	{
+		OnAbilityHotkeyUpdated.AddDynamic(this, &APlayerControllerBase::HotkeyUpdateDelegate);
+	}
 }
+
 
 void APlayerControllerBase::SetupInputComponent()
 {
@@ -42,17 +80,24 @@ void APlayerControllerBase::SetupInputComponent()
 			}
 		}
 
-		// Bind hotkey assignments, whether they map to a real ability or not
-		for (auto& HotkeyPair : HotkeyAbilityMap)
+		// Add the primary and secondary attack input to the hotkey map if they aren't already
+		if (!HotkeyAbilityMap.Contains(PrimaryAttackInput) && IsValid(PrimaryAttackInput))
 		{
-			if (IsValid(HotkeyPair.Key))
+			HotkeyAbilityMap.Add(FAbilityBindingData(PrimaryAttackInput));
+		}
+		if (!HotkeyAbilityMap.Contains(SecondaryAttackInput) && IsValid(SecondaryAttackInput))
+		{
+			HotkeyAbilityMap.Add(FAbilityBindingData(SecondaryAttackInput));
+		}
+
+		// Bind hotkey assignments, whether they map to a real ability or not
+		for (auto& HotkeyData : HotkeyAbilityMap)
+		{
+			if (IsValid(HotkeyData.InputAction))
 			{
-				EnhancedInputComponent->BindAction(
-					HotkeyPair.Key, ETriggerEvent::Started, this, &APlayerControllerBase::HotkeyActionDelegate, HotkeyPair.Key, true, false);
-				EnhancedInputComponent->BindAction(
-					HotkeyPair.Key, ETriggerEvent::Canceled, this, &APlayerControllerBase::HotkeyActionDelegate, HotkeyPair.Key, false, true);
-				EnhancedInputComponent->BindAction(
-					HotkeyPair.Key, ETriggerEvent::Completed, this, &APlayerControllerBase::HotkeyActionDelegate, HotkeyPair.Key, false, false);
+				if (HotkeyData.bUseStartEvent)
+					EnhancedInputComponent->BindAction(HotkeyData.InputAction, ETriggerEvent::Started,
+					this, &APlayerControllerBase::HotkeyActionDelegate, HotkeyData.InputAction, ETriggerEvent::Started);
 			}
 		}
 
@@ -61,8 +106,12 @@ void APlayerControllerBase::SetupInputComponent()
 }
 
 void APlayerControllerBase::HotkeyActionDelegate(
-	const FInputActionValue& InputValue, UInputAction* InputAction, const bool bStarted, const bool bCanceled)
+	const FInputActionValue& InputValue, UInputAction* InputAction, ETriggerEvent TriggerEvent)
 {
+	// TODO - Handle canceled/completed behavior
+	if (TriggerEvent != ETriggerEvent::Started) { return; }
+	// For now, this is only handling starting new activations
+
 	if (!IsValid(GetPawn()))
 	{
 		return;
@@ -72,12 +121,26 @@ void APlayerControllerBase::HotkeyActionDelegate(
 	URsAbilityComponent* AbilityComponent = Cast<URsAbilityComponent>(ActorComponent);
 	if (IsValid(AbilityComponent))
 	{
-		const TSubclassOf<URsGameplayAbilityBase> AbilityClass = *HotkeyAbilityMap.Find(InputAction);
+
+		TSubclassOf<URsGameplayAbilityBase> AbilityClass = nullptr;
+		FAbilityBindingData AbilityBindingData(InputAction);
+		const int HotkeyIndex = HotkeyAbilityMap.Find(AbilityBindingData);
+		if (HotkeyIndex != INDEX_NONE)
+		{
+			AbilityClass = HotkeyAbilityMap[HotkeyIndex].AbilityClass;
+		}
+
 		if (IsValid(AbilityClass))
 		{
-			AbilityComponent->HotkeyAbility(InputValue, AbilityClass, bStarted, bCanceled);
+			AbilityComponent->HotkeyAbility(InputValue, AbilityClass, TriggerEvent);
 		}
 	}
+}
+
+void APlayerControllerBase::Server_RequestWeaponReady_Implementation(
+	const FInputActionValue& InputValue, UInputAction* InputAction, ETriggerEvent TriggerEvent)
+{
+	HotkeyActionDelegate(InputValue, InputAction, TriggerEvent);
 }
 
 void APlayerControllerBase::RespawnPawn(const FGameplayTag& LocationTag)
@@ -128,36 +191,24 @@ void APlayerControllerBase::RespawnPawn(const FGameplayTag& LocationTag)
 	}
 }
 
-/*
-void APlayerControllerBase::PrimaryHotkeyDelegate(const FInputActionValue& InputValue)
+void APlayerControllerBase::OnRep_HotkeyAbilityMap_Implementation(const TArray<FAbilityBindingData>& OldMappings)
 {
-	if (!IsValid(GetPawn()))
+	for (const auto& HotkeyMapping : HotkeyAbilityMap)
 	{
-		return;
-	}
-	URsAbilityComponent* AbilityComponent = Cast<URsAbilityComponent>
-		(GetPawn()->GetComponentByClass(URsAbilityComponent::StaticClass()));
-	if (IsValid(AbilityComponent))
-	{
-		AbilityComponent->PrimaryAbility(InputValue);
-	}
-}
+		// Existing Mapping Updated
+		const int OldIndex = OldMappings.Find(HotkeyMapping);
+		if (OldIndex != INDEX_NONE)
+		{
+			FAbilityBindingData OldMapping = OldMappings[OldIndex];
+			if (OldMapping.AbilityClass != HotkeyMapping.AbilityClass)
+				OnAbilityHotkeyUpdated.Broadcast(HotkeyMapping.InputAction, HotkeyMapping.AbilityClass);
+		}
 
-void APlayerControllerBase::SecondaryHotkeyDelegate(const FInputActionValue& InputValue, const bool bStarted,
-	const bool bCanceled)
-{
-	if (!IsValid(GetPawn()))
-	{
-		return;
-	}
-	URsAbilityComponent* AbilityComponent = Cast<URsAbilityComponent>
-		(GetPawn()->GetComponentByClass(URsAbilityComponent::StaticClass()));
-	if (IsValid(AbilityComponent))
-	{
-		AbilityComponent->SecondaryAbility(bStarted, bCanceled);
+		// New Mapping (if index is invalid)
+		else
+			OnAbilityHotkeyUpdated.Broadcast(HotkeyMapping.InputAction, HotkeyMapping.AbilityClass);
 	}
 }
-*/
 
 FKey APlayerControllerBase::GetKeyMapping(UInputAction* InputAction)
 {
@@ -178,15 +229,91 @@ FKey APlayerControllerBase::GetKeyMapping(UInputAction* InputAction)
 bool APlayerControllerBase::SetHotkeyAbility(
 	UInputAction* InputReference, const TSubclassOf<URsGameplayAbilityBase> AbilityReference)
 {
+	// TODO - See if there's a better way of doing this other than server authoritative keybindings
+	if (!HasAuthority())
+	{
+		Server_SetHotkeyAbility(InputReference, AbilityReference);
+		return true;
+	}
+
 	if (IsValid(InputReference))
 	{
-		if (HotkeyAbilityMap.Contains(InputReference))
+		FAbilityBindingData AbilityBindingData(InputReference);
+		const int HotkeyIndex = HotkeyAbilityMap.Find(AbilityBindingData);
+		if (HotkeyIndex != INDEX_NONE)
 		{
-			HotkeyAbilityMap.Add(InputReference, AbilityReference);
-			OnAbilityHotkeyUpdated.Broadcast(InputReference, AbilityReference);
+			HotkeyAbilityMap[HotkeyIndex].AbilityClass = AbilityReference;
 		}
+		else
+		{
+			AbilityBindingData.AbilityClass = AbilityReference;
+			HotkeyAbilityMap.Add(AbilityBindingData);
+		}
+		OnAbilityHotkeyUpdated.Broadcast(InputReference, AbilityReference);
+
+		return true;
 	}
 	return false;
+}
+
+void APlayerControllerBase::Server_SetHotkeyAbility_Implementation(UInputAction* InputReference, UClass* AbilityReference)
+{
+	TSubclassOf<URsGameplayAbilityBase> AbilityClass = AbilityReference;
+	SetHotkeyAbility(InputReference, AbilityClass);
+}
+
+TSubclassOf<URsGameplayAbilityBase> APlayerControllerBase::GetPrimaryAbility()
+{
+	TSubclassOf<URsGameplayAbilityBase> AbilityMapped;
+	if (PrimaryAttackInput)
+	{
+		for (const auto& HotkeyData : HotkeyAbilityMap)
+		{
+			if (HotkeyData.InputAction == PrimaryAttackInput)
+				return HotkeyData.AbilityClass;
+		}
+	}
+	return {};
+}
+
+TSubclassOf<URsGameplayAbilityBase> APlayerControllerBase::GetSecondaryAbility()
+{
+	TSubclassOf<URsGameplayAbilityBase> AbilityMapped;
+	if (SecondaryAttackInput)
+	{
+		for (const auto& HotkeyData : HotkeyAbilityMap)
+		{
+			if (HotkeyData.InputAction == SecondaryAttackInput)
+				return HotkeyData.AbilityClass;
+		}
+	}
+	return {};
+}
+
+void APlayerControllerBase::SetPrimaryActionAbility(TSubclassOf<URsGameplayAbilityBase> AbilityReference)
+{
+	if (IsValid(PrimaryAttackInput))
+	{
+		SetHotkeyAbility(PrimaryAttackInput, AbilityReference);
+	}
+	else
+	{
+		UE_LOGFMT(LogTemp, Error, "{Name}({NetAuthority}): Primary Ability was not changed. Primary Attack Input is not set."
+			, GetName(), HasAuthority() ? "SERVER" : "CLIENT");
+	}
+}
+
+void APlayerControllerBase::SetSecondaryActionAbility(TSubclassOf<URsGameplayAbilityBase> AbilityReference)
+{
+	if (IsValid(SecondaryAttackInput))
+	{
+		SetHotkeyAbility(SecondaryAttackInput, AbilityReference);
+	}
+	else
+	{
+		UE_LOGFMT(LogTemp, Error, "{Name}({NetAuthority}): Secondary Ability was not changed. Secondary Attack Input is not set."
+			, GetName(), HasAuthority() ? "SERVER" : "CLIENT");
+	}
 }
 
 void APlayerControllerBase::RespawnAtGraveyard()
@@ -243,13 +370,10 @@ void APlayerControllerBase::OnConstruction(const FTransform& Transform)
 	Super::OnConstruction(Transform);
 }
 
-void APlayerControllerBase::HotkeyTarget(UInputAction* HotkeyAction)
+
+void APlayerControllerBase::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
 {
-	if (IsValid(HotkeyAction))
-	{
-		const ACharacterBase* ControlledCharacter = Cast<ACharacterBase>( GetCharacter() );
-		if (IsValid(ControlledCharacter))
-		{
-		}
-	}
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME_CONDITION(APlayerControllerBase, HotkeyAbilityMap, COND_OwnerOnly);
 }

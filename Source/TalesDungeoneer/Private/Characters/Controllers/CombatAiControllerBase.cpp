@@ -3,6 +3,8 @@
 #include "Characters/Controllers/CombatAiControllerBase.h"
 
 #include "Abilities/RsGameplayAbilityBase.h"
+#include "Interfaces/RsAnimInstance.h"
+#include "Logging/StructuredLog.h"
 
 
 float ACombatAiControllerBase::AddHateTowardsTarget(ACharacterBase* HateTarget, float HatePoints)
@@ -63,17 +65,44 @@ bool ACombatAiControllerBase::WipeHateListMemory()
 
 bool ACombatAiControllerBase::PerformAttack(UInputAction* InputReference)
 {
-	UActorComponent* ActorComponent = GetPawn()->GetComponentByClass(URsAbilityComponent::StaticClass());
-	URsAbilityComponent* AbilityComponent = Cast<URsAbilityComponent>(ActorComponent);
-	if (IsValid(AbilityComponent))
+	// Validate character and ability component
+	ANpcCharacterBase* CharacterBase = Cast<ANpcCharacterBase>(GetCharacter());
+	if (!CharacterBase)
 	{
-		const TSubclassOf<URsGameplayAbilityBase> AbilityClass = *HotkeyAbilityMap.Find(InputReference);
-		if (IsValid(AbilityClass))
-		{
-			AbilityComponent->HotkeyAbility(FInputActionValue(true), AbilityClass, true, false);
-		}
+		UE_LOG(LogTemp, Warning, TEXT("PerformAttack: CharacterBase is invalid"));
+		return false;
 	}
-	return false;
+
+	URsAbilityComponent* AbilityComponent = Cast<URsAbilityComponent>(
+		CharacterBase->GetComponentByClass(URsAbilityComponent::StaticClass()));
+	if (!IsValid(AbilityComponent))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("PerformAttack: AbilityComponent is invalid"));
+		return false;
+	}
+
+	// Check if the InputReference exists in the HotkeyAbilityMap
+	if (!HotkeyAbilityMap.Contains(InputReference))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("PerformAttack: InputReference not found in HotkeyAbilityMap"));
+		return false;
+	}
+
+	const TSubclassOf<URsGameplayAbilityBase> AbilityClass = *HotkeyAbilityMap.Find(InputReference);
+	if (!IsValid(AbilityClass))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("PerformAttack: AbilityClass is invalid"));
+		return false;
+	}
+
+	// Trigger the ability through the ability component
+	if (!AbilityComponent->HotkeyAbility(FInputActionValue(true), AbilityClass, ETriggerEvent::Started))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("PerformAttack: Failed to trigger ability"));
+		return false;
+	}
+
+	return true;
 }
 
 ACharacterBase* ACombatAiControllerBase::GetMostHatedTarget(float& HatePoints) const

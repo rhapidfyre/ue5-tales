@@ -5,6 +5,67 @@
 #include "Engine/AssetManager.h"
 #include "Lib/AbilityData.h"
 
+FStFactionData::FStFactionData()
+{
+}
+
+FStFactionData::FStFactionData(const FStFactionData& InFactionData)
+{
+	if (this != &InFactionData)
+	{
+		FactionEnum = InFactionData.FactionEnum;
+		FactionValue = InFactionData.FactionValue;
+	}
+}
+
+FStFactionData::FStFactionData(const EFaction InFaction, const float InValue)
+	: FactionEnum(InFaction)
+{
+	SetFactionValue(InValue);
+}
+
+FStFactionData::FStFactionData(const EFaction InFaction, const EFactionState InState)
+	: FactionEnum(InFaction)
+{
+	SetFactionState(InState);
+}
+
+void FStFactionData::SetFactionValue(const float InValue)
+{
+	FactionValue = FMath::Clamp(InValue, MinFactionValue, MaxFactionValue);
+}
+
+void FStFactionData::SetFactionState(const EFactionState InState)
+{
+	if (InState == EFactionState::HATE) { FactionValue = -100.f; }
+	if (InState == EFactionState::NONE) { FactionValue =    0.f; }
+	if (InState == EFactionState::LIKE) { FactionValue =  100.f; }
+	FactionValue = 500.f;
+}
+
+float FStFactionData::GetFactionValue() const
+{
+	return FactionValue;
+}
+
+EFactionState FStFactionData::GetFactionState() const
+{
+	if (FactionValue <= -100.f) return EFactionState::HATE;
+	if (FactionValue < 100.f)  return EFactionState::NONE;
+	if (FactionValue < 500.f) return EFactionState::LIKE;
+	return EFactionState::ALLY;
+}
+
+FStFactionData& FStFactionData::operator=(const FStFactionData& InFactionData)
+{
+	if (this != &InFactionData)
+	{
+		FactionEnum = InFactionData.FactionEnum;
+		FactionValue = InFactionData.FactionValue;
+	}
+	return *this;
+}
+
 FString FTalesVersion::ToString(const bool bShowBranch, const bool bSafeString) const
 {
 	TArray<FString> StringArray = {

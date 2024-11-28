@@ -29,6 +29,9 @@ public: //public events
 	// Sets default values for this component's properties
 	UEquipmentComponent();
 
+	// Use this to call the inventory each time. If the inventory reference is invalid, it will initiate it.
+	UInventoryComponent* GetInventoryReference();
+
 	// Looks for the corresponding equipment slot, then adds/removes the equipment
 	// slot as appropriate, and manages the mesh/appearance of the item.
 	void InitEquipmentItem(int SlotNumber);
@@ -61,6 +64,10 @@ public: //public events
 	UFUNCTION(BlueprintPure)		TMap<int, bool> GetAllEquipment() const;
 
 	UFUNCTION(BlueprintPure)		bool GetIsReady(int SlotNumber) const;
+
+	// Returns TRUE if the equipment is currently operating (animating, changing slots, etc.) and shouldn't respond to changes
+	UFUNCTION(BlueprintPure)		bool IsOperating(int SlotNumber);
+
 	UFUNCTION(BlueprintPure)		bool GetIsArmed() const { return bBlocking; }
 	UFUNCTION(BlueprintPure)		bool GetIsBlocking() const { return bBlocking; }
 
@@ -87,6 +94,9 @@ protected: // protected methods
 
 private: // private methods
 
+	UFUNCTION(NetMulticast, Reliable)
+	void Multicast_EquipmentSlotToggled(int SlotNumber, bool bValue);
+
 	UFUNCTION()	void ResetAttackCooldown();
 
 #pragma endregion
@@ -95,7 +105,6 @@ private: // private methods
 public: // public members
 
 	UPROPERTY(BlueprintReadWrite) bool bCanBlock = true;
-
 
 private: // private members
 
@@ -106,8 +115,17 @@ private: // private members
 	UPROPERTY() UInventoryComponent* InventoryReference = nullptr;
 	UPROPERTY() UMeshMergeComponent* MeshMergeReference = nullptr;
 
+
 	// Slots containing all equipment items (chest plate, etc)
 	TMap<int, bool> EquipmentSlots = {};
+
+	UFUNCTION(NetMulticast, Unreliable) void OnRep_PrimaryArmed();
+	UPROPERTY(ReplicatedUsing=OnRep_PrimaryArmed) bool bPrimaryArmed = false;
+	bool bPrimaryOperating = false;
+
+	UFUNCTION(NetMulticast, Unreliable) void OnRep_SecondaryArmed();
+	UPROPERTY(ReplicatedUsing=OnRep_SecondaryArmed) bool bSecondaryArmed = false;
+	bool bSecondaryOperating = false;
 
 	bool bBlocking      = true; // TRUE if a blocking device is enabled
 	bool bArmed			= true; // TRUE if a weapon is ready

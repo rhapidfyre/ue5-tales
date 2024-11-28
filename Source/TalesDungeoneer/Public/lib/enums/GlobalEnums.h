@@ -30,14 +30,14 @@ enum class EFactionState : uint8
 
 	// Hatred will result in combatants attacking on sight
 	// Noncombatants will refuse service
-	HATE = 1		UMETA(DisplayName = "Hated"),
+	HATE		UMETA(DisplayName = "Hated"),
 
 	// Likefulness will result in combatants ignoring the faction's members
 	// Noncombatants will offer better services
-	LIKE = 2		UMETA(DisplayName = "Liked"),
+	LIKE		UMETA(DisplayName = "Liked"),
 
 	// Combatants will come to the aid of allied factions
-	ALLY = 3		UMETA(DisplayName = "Allied"),
+	ALLY		UMETA(DisplayName = "Allied"),
 };
 
 UENUM(BlueprintType)

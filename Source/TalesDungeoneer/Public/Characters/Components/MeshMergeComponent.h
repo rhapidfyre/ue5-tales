@@ -13,7 +13,7 @@
 #include "MeshMergeComponent.generated.h"
 
 
-class UEquipmentDataAsset;
+class UEquipmentItemDataAsset;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnMeshMergeCompleted);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMeshMergeRestored, const bool, bSuccess);
@@ -34,7 +34,7 @@ struct FMeshMergeMappings
 {
 	GENERATED_BODY()
 	FMeshMergeMappings() : DataAsset(nullptr), SkeletalMesh(nullptr) {};
-	FMeshMergeMappings(const UEquipmentDataAsset* NewAsset, bool isFeminine);
+	FMeshMergeMappings(const UEquipmentItemDataAsset* NewAsset, bool isFeminine);
 
 	// The number of meshes holding this mesh as hidden
 	int numSuperiorMeshes = 0;
@@ -49,7 +49,7 @@ struct FMeshMergeMappings
 
 	// Is this used? Obsolete?
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	const UEquipmentDataAsset*	DataAsset;
+	const UEquipmentItemDataAsset*	DataAsset;
 
 	// The mesh to be used by this option
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -122,7 +122,7 @@ public:
 	int FindIndexOfMeshByTag(const FGameplayTag& SearchTag);
 
 	UFUNCTION(BlueprintCallable)
-	FMeshMergeMappings CreateMeshMapping(const UEquipmentDataAsset* NewAsset,
+	FMeshMergeMappings CreateMeshMapping(const UEquipmentItemDataAsset* NewAsset,
 		const FGameplayTag& EquipmentTag, const bool useFeminineMesh = false);
 
 	UFUNCTION(BlueprintCallable)
@@ -133,7 +133,7 @@ public:
 	void AddMeshToMerge(const FMeshMergeMappings& NewMapping);
 
 	UFUNCTION(BlueprintCallable)
-	void RemoveMeshFromMerge(const UEquipmentDataAsset* NewAsset,
+	void RemoveMeshFromMerge(const UEquipmentItemDataAsset* NewAsset,
 							 const FGameplayTag& EquipmentTag);
 
 	int FindMeshMappingByTag(const FGameplayTag& searchTag);

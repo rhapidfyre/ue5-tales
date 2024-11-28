@@ -1,9 +1,7 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
-#include "lib/EquipmentData.h"
 #include "lib/InventoryData.h"
-#include "GameplayTags.h"
 #include "lib/enums/GlobalEnums.h"
 
 #include "TalesGlobalData.generated.h"
@@ -12,41 +10,30 @@ class URsAbilityDataAsset;
 struct FStMeshMergeData;
 
 USTRUCT(BlueprintType)
-struct FStFactionDataMap
-{
-	GENERATED_BODY()
-	FStFactionDataMap() {};
-	FStFactionDataMap(EFaction NewEnum, float NewValue)
-	{
-		FactionEnum = NewEnum;
-		FactionValue = NewValue;
-	}
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) EFaction FactionEnum = EFaction::ANY;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) float FactionValue = 0.f;
-};
-
-USTRUCT(BlueprintType)
 struct FStFactionData
 {
 	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FStFactionDataMap> DataMap = {};
-	float GetFactionValue(EFaction FactionToCheck) const
-	{
-		for (const FStFactionDataMap TempMap : DataMap)
-		{
-			if (TempMap.FactionEnum == FactionToCheck)
-				return TempMap.FactionValue;
-		}
-		return 0.f;
-	}
-	EFactionState GetFactionState(EFaction FactionToCheck) const
-	{
-		const float FactionValue = GetFactionValue(FactionToCheck);
-		if (FactionValue < -100.f) return EFactionState::HATE;
-		if (FactionValue < 100.f)  return EFactionState::NONE;
-		if (FactionValue  < 500.f) return EFactionState::LIKE;
-		return EFactionState::ALLY;
-	}
+
+	FStFactionData();
+	FStFactionData(const FStFactionData& InFactionData);
+	explicit FStFactionData(const EFaction InFaction, const float InValue = 0.f);
+	explicit FStFactionData(const EFaction InFaction, const EFactionState InState);
+
+	void SetFactionValue(const float InValue);
+	void SetFactionState(const EFactionState InState);
+
+	float		  GetFactionValue() const;
+	EFactionState GetFactionState() const;
+
+	const float MinFactionValue = -1000.f;
+	const float MaxFactionValue = 500.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) EFaction FactionEnum = EFaction::ANY;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float FactionValue = 0.f;
+
+	FStFactionData& operator=(const FStFactionData& InFactionData);
+	bool operator==(const FStFactionData& RHS) const { return FactionEnum == RHS.FactionEnum; }
+	bool operator==(const EFaction RHS) const { return FactionEnum == RHS; }
 };
 
 USTRUCT(BlueprintType)
@@ -91,7 +78,7 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Global Tales Functions")
 	static TArray<URsAbilityDataAsset*> GetAllGameplayAbilities(const FGameplayTag& RequiredClass, const FGameplayTag& OptionalSchool);
 
-w
+
 	UFUNCTION(BlueprintPure, Category = "Global Tales Functions")
 		static bool GetGameIsInDebugMode()
 	{

@@ -6,12 +6,27 @@
 #include "DataAssets/CharacterDefaults.h"
 #include "T5GInventorySystem/Public/Data/InventoryTags.h"
 #include "lib/ItemData.h"
+#include "lib/Logs/TalesLogging.h"
+#include "Logging/StructuredLog.h"
+#include "Net/UnrealNetwork.h"
 
 
 UEquipmentComponent::UEquipmentComponent()
 {
 	PrimaryComponentTick.bCanEverTick = false;
 	SetIsReplicatedByDefault(true);
+}
+
+UInventoryComponent* UEquipmentComponent::GetInventoryReference()
+{
+	if (!IsValid(InventoryReference))
+	{
+		if (ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() ))
+		{
+			InventoryReference = CharacterBase->InventoryComponent;
+		}
+	}
+	return InventoryReference;
 }
 
 /**
@@ -21,11 +36,7 @@ UEquipmentComponent::UEquipmentComponent()
  */
 void UEquipmentComponent::InitEquipmentItem(int SlotNumber)
 {
-	if (!IsValid(InventoryReference))
-	{
-		const ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
-		InventoryReference = IsValid(CharacterBase) ? CharacterBase->InventoryComponent : nullptr;
-	}
+	GetInventoryReference();
 
 	if (!IsValid(MeshMergeReference))
 	{
@@ -33,20 +44,16 @@ void UEquipmentComponent::InitEquipmentItem(int SlotNumber)
 		MeshMergeReference = IsValid(CharacterBase) ? CharacterBase->MeshMergeComponent : nullptr;
 	}
 
-	if (!IsValid(InventoryReference) || !IsValid(MeshMergeReference))
-	{
-		return;
-	}
-
 	// Clear the slot's equipment
 	SetEquipmentDisabled(SlotNumber);
 
 	// Get the item that is currently in the equipment slot
-	const UItemDataAsset* itemInSlot = InventoryReference->GetItemDataInSlotNumber(SlotNumber);
-	const UEquipmentDataAsset* EquipmentItem = Cast<UEquipmentDataAsset>(itemInSlot);
+	const UItemDataAsset* itemInSlot = GetInventoryReference()->GetItemDataInSlotNumber(SlotNumber);
+	const UEquipmentItemDataAsset* EquipmentItem = Cast<UEquipmentItemDataAsset>(itemInSlot);
 	if (IsValid(EquipmentItem))
 	{
-		if (EquipmentItem->DefaultEquipSlot.IsValid())
+		// If the item is passive, then it should be equipped immediately (chestplate, boots, etc.)
+		if (EquipmentItem->bIsPassive)
 		{
 			SetEquipmentEnabled(SlotNumber);
 		}
@@ -61,48 +68,56 @@ void UEquipmentComponent::InitEquipmentItem(int SlotNumber)
  */
 void UEquipmentComponent::ToggleEquipment(int SlotNumber, bool bMakeReady)
 {
-	if (!bMakeReady)
-	{
-		if (EquipmentSlots.Contains(SlotNumber))
-			{ bMakeReady = !EquipmentSlots[SlotNumber]; }
-	}
-
 	if (bMakeReady)
-		{ SetEquipmentEnabled(SlotNumber); }
+	{
+		SetEquipmentEnabled(SlotNumber);
+	}
 	else
-		{ SetEquipmentDisabled(SlotNumber); }
+	{
+		SetEquipmentDisabled(SlotNumber);
+	}
 }
 
 /**
- * Sets the equivalent equipment slot to be enabled/in-use/armed
+ * Sets the equivalent equipment slot to be enabled, performing a mesh merge
  * \param SlotNumber The InventoryComponent equipment slot
  */
 void UEquipmentComponent::SetEquipmentEnabled(int SlotNumber)
 {
-	if (EquipmentSlots.Contains(SlotNumber))
+	// Get the item that is currently in the equipment slot
+	const UItemDataAsset* itemInSlot = GetInventoryReference()->GetItemDataInSlotNumber(SlotNumber);
+	const UEquipmentItemDataAsset* equipmentItemData = Cast<UEquipmentItemDataAsset>(itemInSlot);
+
+	if (IsValid(equipmentItemData))
 	{
-		// Get the item that is currently in the equipment slot
-		const UItemDataAsset* itemInSlot = InventoryReference->GetItemDataInSlotNumber(SlotNumber);
-		const UEquipmentDataAsset* equipmentItemData = Cast<UEquipmentDataAsset>(itemInSlot);
-		if (IsValid(equipmentItemData))
+		// If a new actor is NOT spawned, it should be part of the mesh merge
+		if (!equipmentItemData->AttachmentData.bSpawnActor)
 		{
-			const FGameplayTag slotTag = InventoryReference->GetSlotEquipmentTag(SlotNumber);
+			const FGameplayTag slotTag = GetInventoryReference()->GetSlotEquipmentTag(SlotNumber);
 			const FGameplayTag bodyTag = MeshMergeReference->GetBodyPartFromEquipmentSlot(slotTag);
 
 			FMeshMergeMappings mergeMap = MeshMergeReference->GetMeshMappingFromIndex(
 											MeshMergeReference->FindMeshMappingByTag(bodyTag) );
 
 			FMeshMergeMappings newMapping = MeshMergeReference->CreateMeshMapping(equipmentItemData,
-				InventoryReference->GetSlotEquipmentTag(SlotNumber),	// Equipment Slot (i.e. Equipment.Slot.Primary)
+				GetInventoryReference()->GetSlotEquipmentTag(SlotNumber),	// Equipment Slot (i.e. Equipment.Slot.Primary)
 				mergeMap.GameplayTags.HasTag(TAG_Character_Sex_Female));
 
 			MeshMergeReference->AddMeshToMerge(newMapping);
-			EquipmentSlots[SlotNumber] = true;
-
 			MeshMergeReference->PerformMeshMerge();
-			NotifySlotToggled(SlotNumber);
 		}
+
+		UE_LOGFMT(LogEquipment, Display, "{Name}({NetAuthority}): Equipment Item '{ItemName}' (Slot #{SlotNumber}) is READY / ARMED!"
+			, GetOwner()->GetName(), GetOwner()->HasAuthority() ? "SERVER" : "CLIENT"
+			, IsValid(itemInSlot) ? itemInSlot->GetItemDisplayNameAsString() : "(none)", SlotNumber);
+
+		EquipmentSlots.Add(SlotNumber, true);
 	}
+	else
+	{
+		EquipmentSlots.Add(SlotNumber, false);
+	}
+	NotifySlotToggled(SlotNumber);
 }
 
 
@@ -112,14 +127,23 @@ void UEquipmentComponent::SetEquipmentEnabled(int SlotNumber)
  */
 void UEquipmentComponent::SetEquipmentDisabled(int SlotNumber)
 {
-	if (!EquipmentSlots.Contains(SlotNumber))
-		{ EquipmentSlots.Add(SlotNumber, false); }
+	// Remove the item from the mesh merge, if present
+	const UItemDataAsset* ItemInSlot = GetInventoryReference()->GetItemDataInSlotNumber(SlotNumber);
+	const UEquipmentItemDataAsset* EquipData = Cast<UEquipmentItemDataAsset>(ItemInSlot);
+	if (IsValid(EquipData))
+	{
+		if (!EquipData->AttachmentData.bSpawnActor)
+		{
+			const FGameplayTag SlotTag = GetInventoryReference()->GetSlotEquipmentTag(SlotNumber);
+			MeshMergeReference->RemoveMeshFromMerge(nullptr, SlotTag);
+			MeshMergeReference->PerformMeshMerge();
+		}
+	}
 
-	const FGameplayTag slotTag = InventoryReference->GetSlotEquipmentTag(SlotNumber);
-	MeshMergeReference->RemoveMeshFromMerge(nullptr, slotTag);
-	MeshMergeReference->PerformMeshMerge();
-
-	EquipmentSlots[SlotNumber] = false;
+	UE_LOGFMT(LogEquipment, Display, "{Name}({NetAuthority}): Equipment Item '{ItemName}' (Slot #{SlotNumber}) is INACTIVE / STOWED."
+		, GetOwner()->GetName(), GetOwner()->HasAuthority() ? "SERVER" : "CLIENT"
+		, IsValid(ItemInSlot) ? ItemInSlot->GetItemDisplayNameAsString() : "(none)", SlotNumber);
+	EquipmentSlots.Add(SlotNumber, false);
 	NotifySlotToggled(SlotNumber);
 }
 
@@ -134,31 +158,42 @@ void UEquipmentComponent::AdjustAttachment(int SlotNumber,
 	AActor* AttachParent, FName AttachmentBone, FTransform AdjustmentTransform)
 {
 	if (!EquipmentSlots.Contains(SlotNumber))
-		{ InitEquipmentItem(SlotNumber); }
-
-	if (!IsValid(MeshMergeReference))
 	{
-		const ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
-		MeshMergeReference = IsValid(CharacterBase) ? CharacterBase->MeshMergeComponent : nullptr;
+		InitEquipmentItem(SlotNumber);
 	}
 
-	if (IsValid(MeshMergeReference) && IsValid(InventoryReference))
+	const UItemDataAsset* ItemData = GetInventoryReference()->GetItemDataInSlotNumber(SlotNumber);
+	const UEquipmentItemDataAsset* equipmentData = Cast<UEquipmentItemDataAsset>(ItemData);
+	if (!IsValid(equipmentData))
 	{
-		FInventorySlot SlotReference;
-		InventoryReference->GetInventorySlot(SlotNumber, SlotReference);
-		if (SlotReference.SlotInventoryTag == TAG_Inventory_Slot_Equipment.GetTag())
-		{
-			const UItemDataAsset* ItemData = InventoryReference->GetItemDataInSlotNumber(SlotNumber);
-			const UEquipmentDataAsset* equipmentData = Cast<UEquipmentDataAsset>(ItemData);
-			if (IsValid(equipmentData))
-			{
-				for (auto& MeshMergeMap : MeshMergeReference->GetAllMeshMergeMappings())
-				{
-					FMeshMergeMappings meshMapping = MeshMergeReference->CreateMeshMapping(
-						equipmentData, SlotReference.SlotEquipmentTag,
-						MeshMergeMap.GameplayTags.HasTag(TAG_Character_Sex_Female) );
+		UE_LOGFMT(LogEquipment, Warning, "Not Valid Equipment");
+		return;
+	}
 
-					MeshMergeReference->AddMeshToMerge(meshMapping);
+	if (!equipmentData->AttachmentData.bSpawnActor)
+	{
+		if (!IsValid(MeshMergeReference))
+		{
+			const ACharacterBase* CharacterBase = Cast<ACharacterBase>( GetOwner() );
+			MeshMergeReference = IsValid(CharacterBase) ? CharacterBase->MeshMergeComponent : nullptr;
+		}
+
+		if (IsValid(MeshMergeReference) && IsValid(GetInventoryReference()))
+		{
+			FInventorySlot SlotReference;
+			GetInventoryReference()->GetInventorySlot(SlotNumber, SlotReference);
+			if (SlotReference.SlotInventoryTag == TAG_Inventory_Slot_Equipment.GetTag())
+			{
+				if (IsValid(equipmentData))
+				{
+					for (auto& MeshMergeMap : MeshMergeReference->GetAllMeshMergeMappings())
+					{
+						FMeshMergeMappings meshMapping = MeshMergeReference->CreateMeshMapping(
+							equipmentData, SlotReference.SlotEquipmentTag,
+							MeshMergeMap.GameplayTags.HasTag(TAG_Character_Sex_Female) );
+
+						MeshMergeReference->AddMeshToMerge(meshMapping);
+					}
 				}
 			}
 		}
@@ -182,8 +217,23 @@ TMap<int, bool> UEquipmentComponent::GetAllEquipment() const
 
 bool UEquipmentComponent::GetIsReady(int SlotNumber) const
 {
-	if (EquipmentSlots.Contains(SlotNumber))
-		{ return EquipmentSlots[SlotNumber]; }
+	return EquipmentSlots.Contains(SlotNumber) ? EquipmentSlots[SlotNumber] : false;
+}
+
+bool UEquipmentComponent::IsOperating(int SlotNumber)
+{
+	const UInventoryComponent* InvReference = GetInventoryReference();
+	if (InventoryReference)
+	{
+		if (InvReference->GetPrimarySlotNumber() == SlotNumber)
+		{
+			return bPrimaryOperating;
+		}
+		if (InvReference->GetSecondarySlotNumber() == SlotNumber)
+		{
+			return bSecondaryOperating;
+		}
+	}
 	return false;
 }
 
@@ -249,7 +299,8 @@ void UEquipmentComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& 
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
-	//DOREPLIFETIME(UEquipmentComponent, TargetActor_);
+	DOREPLIFETIME(UEquipmentComponent, bPrimaryArmed);
+	DOREPLIFETIME(UEquipmentComponent, bSecondaryArmed);
 }
 
 void UEquipmentComponent::OnComponentCreated()
@@ -262,13 +313,32 @@ void UEquipmentComponent::OnComponentCreated()
 	RegisterComponent();
 }
 
+void UEquipmentComponent::Multicast_EquipmentSlotToggled_Implementation(int SlotNumber, bool bValue)
+{
+	if (OnEquipmentSlotToggled.IsBound())
+	{
+		EquipmentSlots.Add(SlotNumber, bValue);
+		OnEquipmentSlotToggled.Broadcast(SlotNumber, bValue);
+	}
+}
+
 void UEquipmentComponent::NotifySlotToggled(int SlotNumber)
 {
 	if (EquipmentSlots.Contains(SlotNumber))
 	{
-		if (OnEquipmentSlotToggled.IsBound())
+		if (GetInventoryReference()->GetPrimarySlotNumber() == SlotNumber)
+			bPrimaryArmed = true;
+
+		if (GetInventoryReference()->GetSecondarySlotNumber() == SlotNumber)
+			bSecondaryArmed = true;
+
+		if (GetNetMode() < NM_Client)
 		{
-			OnEquipmentSlotToggled.Broadcast(SlotNumber, EquipmentSlots[SlotNumber]);
+			if (OnEquipmentSlotToggled.IsBound())
+			{
+				OnEquipmentSlotToggled.Broadcast(SlotNumber, EquipmentSlots[SlotNumber]);
+			}
+			Multicast_EquipmentSlotToggled(SlotNumber, EquipmentSlots[SlotNumber]);
 		}
 	}
 }
@@ -280,4 +350,18 @@ void UEquipmentComponent::ResetAttackCooldown()
 	{
 		GetWorld()->GetTimerManager().ClearTimer(AttackCooldown_);
 	}
+}
+
+void UEquipmentComponent::OnRep_PrimaryArmed_Implementation()
+{
+	const int SlotNumber = GetInventoryReference()->GetPrimarySlotNumber();
+	EquipmentSlots.Add(SlotNumber, bPrimaryArmed);
+	OnEquipmentSlotToggled.Broadcast(SlotNumber, bPrimaryArmed);
+}
+
+void UEquipmentComponent::OnRep_SecondaryArmed_Implementation()
+{
+	const int SlotNumber = GetInventoryReference()->GetSecondarySlotNumber();
+	EquipmentSlots.Add(SlotNumber, bSecondaryArmed);
+	OnEquipmentSlotToggled.Broadcast(SlotNumber, bSecondaryArmed);
 }

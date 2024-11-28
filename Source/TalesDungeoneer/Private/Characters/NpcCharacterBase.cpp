@@ -7,6 +7,7 @@
 #include "Perception/AISense_Sight.h"
 #include "Logging/StructuredLog.h"
 #include "DataAssets/CharacterDefaults.h"
+#include "Interfaces/RsAnimInstance.h"
 
 // Sets default values
 ANpcCharacterBase::ANpcCharacterBase()
@@ -78,6 +79,27 @@ void ANpcCharacterBase::OnConstruction(const FTransform& Transform)
 
 	AiStimuli->RegisterForSense(UAISense_Sight::StaticClass());
 	AiStimuli->RegisterWithPerceptionSystem();
+}
+
+void ANpcCharacterBase::CharacterDeath_Internal()
+{
+	Super::CharacterDeath_Internal();
+	if (HasAuthority())
+	{
+		if (AAIController* AiController = GetController<AAIController>())
+		{
+			if (AiController->BrainComponent)
+			{
+				AiController->BrainComponent->StopLogic("Death");
+			}
+			AiController->Destroy();
+		}
+	}
+}
+
+void ANpcCharacterBase::CharacterRevived_Internal()
+{
+	Super::CharacterRevived_Internal();
 }
 
 /**

@@ -9,10 +9,10 @@
 #include "Logging/StructuredLog.h"
 #include "Attributes/RsCoreAttributeSet.h"
 #include "Lib/AbilityEnums.h"
-#include "Saves/SavedCharacters.h"
-#include "TalesDungeoneer/TalesDungeoneer.h"
+#include "Abilities/RsGameplayAbilityBase.h"
 #include "RsAbilityComponent.h"
 #include "Attributes/RsVitalityAttributeSet.h"
+#include "lib/ItemData.h"
 
 
 // Sets default values
@@ -21,6 +21,70 @@ APlayerCharacterBase::APlayerCharacterBase()
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+}
+
+/**
+ * \brief
+ * \param ResearchInventory The inventory being used for the research
+ * \param AbilityClass The gameplay ability to try to research
+ * \param ReagentAsset The item that should be consumed from the inventory
+ * \param NumItemsToConsume
+ */
+void APlayerCharacterBase::Research_ConsumeReagent(UInventoryComponent* ResearchInventory,
+	TSubclassOf<URsGameplayAbilityBase> AbilityClass, UItemDataAsset* ReagentAsset, int NumItemsToConsume)
+{
+
+	if (!IsValid(AbilityClass))
+	{
+		UE_LOGFMT(LogTemp, Error, "{Name}({NetAuthority}): No such Ability Class 'NULLPTR'"
+			, GetName(), HasAuthority() ? "SERVER" : "CLIENT");
+		return;
+	}
+
+	if (!IsValid(ReagentAsset))
+	{
+		UE_LOGFMT(LogTemp, Error, "{Name}({NetAuthority}): No such Reagent Asset 'NULLPTR'"
+			, GetName(), HasAuthority() ? "SERVER" : "CLIENT");
+		return;
+	}
+
+	if (!HasAuthority())
+	{
+		UE_LOGFMT(LogTemp, Display, "{Name}({NetAuthority}): Sending Research Request to Server."
+			, GetName(), HasAuthority() ? "SERVER" : "CLIENT");
+		Server_ResearchAttempt(ResearchInventory, AbilityClass, ReagentAsset, NumItemsToConsume);
+		return;
+	}
+
+	if (!IsValid(ResearchInventory))
+	{
+		ResearchInventory = InventoryComponent;
+	}
+
+	// Consumes the reagent and then tries to apply it to the research (ability component)
+	const int ItemsConsumed = ResearchInventory->RemoveItemByQuantity(FItemStatics(ReagentAsset), NumItemsToConsume);
+	if (ItemsConsumed > 0)
+	{
+		UE_LOGFMT(LogTemp, Display, "{Name}({NetAuthority}): Consumed x{qty} '{ReagentName}' for Researching..."
+			, GetName(), HasAuthority() ? "SERVER" : "CLIENT", NumItemsToConsume, ReagentAsset->GetItemDisplayNameAsString());
+		AbilitySystemComponent->ResearchConsumeReagent(AbilityClass, ReagentAsset, NumItemsToConsume);
+		return;
+	}
+
+	UE_LOGFMT(LogTemp, Warning, "{Name}({NetAuthority}): RemoveItem Failed - No reagents were consumed"
+		, GetName(), HasAuthority() ? "SERVER" : "CLIENT");
+
+}
+
+void APlayerCharacterBase::Server_ResearchAttempt_Implementation(UInventoryComponent* ResearchInventory,
+	TSubclassOf<URsGameplayAbilityBase> AbilityClass, UItemDataAsset* ReagentAsset, int NumItemsToConsume)
+{
+	if (HasAuthority())
+	{
+		UE_LOGFMT(LogTemp, Display, "{Name}({NetAuthority}): Received Request to Attempt Research..."
+			, GetName(), HasAuthority() ? "SERVER" : "CLIENT");
+		Research_ConsumeReagent(ResearchInventory, AbilityClass, ReagentAsset, NumItemsToConsume);
+	}
 }
 
 void APlayerCharacterBase::HotkeyTriggered(UInputAction* HotkeyAction)

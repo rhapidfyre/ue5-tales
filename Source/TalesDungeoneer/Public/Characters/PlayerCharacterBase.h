@@ -40,6 +40,14 @@ public: // functions
 
 	APlayerCharacterBase();
 
+	UFUNCTION(BlueprintCallable)
+	void Research_ConsumeReagent(UInventoryComponent* ResearchInventory,
+		TSubclassOf<URsGameplayAbilityBase> AbilityClass, UItemDataAsset* ReagentAsset, int NumItemsToConsume = 1);
+
+	UFUNCTION(Server, Reliable)
+	void Server_ResearchAttempt(UInventoryComponent* ResearchInventory,
+		TSubclassOf<URsGameplayAbilityBase> AbilityClass, UItemDataAsset* ReagentAsset, int NumItemsToConsume = 1);
+
 	UPROPERTY(BlueprintAssignable) FOnPlayerJoined OnPlayerJoined;
 	UPROPERTY(BlueprintAssignable) FOnCoreStatUpdated OnCoreStatsUpdated;
 	UPROPERTY(BlueprintAssignable) FOnDamageStatUpdated OnDamageStatsUpdated;

@@ -22,7 +22,7 @@ UMeshMergeComponent::UMeshMergeComponent()
 }
 
 
-FMeshMergeMappings::FMeshMergeMappings(const UEquipmentDataAsset* NewAsset, bool isFeminine)
+FMeshMergeMappings::FMeshMergeMappings(const UEquipmentItemDataAsset* NewAsset, bool isFeminine)
 	: DataAsset(NewAsset)
 {
 	if (IsValid(NewAsset))
@@ -229,7 +229,7 @@ int UMeshMergeComponent::FindIndexOfMeshByTag(const FGameplayTag& SearchTag)
  * it to the mapping using 'AddToMeshMapping'.
  */
 FMeshMergeMappings UMeshMergeComponent::CreateMeshMapping(
-	const UEquipmentDataAsset* NewAsset, const FGameplayTag& EquipmentTag, const bool useFeminineMesh)
+	const UEquipmentItemDataAsset* NewAsset, const FGameplayTag& EquipmentTag, const bool useFeminineMesh)
 {
 	// Create a new mesh merge mapping
 	FMeshMergeMappings NewMapping(NewAsset, useFeminineMesh);
@@ -272,7 +272,7 @@ void UMeshMergeComponent::AddMeshToMerge(const FMeshMergeMappings& NewMapping)
  * \param EquipmentTag Required. The equipment or body slot tag to use.
  */
 void UMeshMergeComponent::RemoveMeshFromMerge(
-	const UEquipmentDataAsset* NewAsset, const FGameplayTag& EquipmentTag)
+	const UEquipmentItemDataAsset* NewAsset, const FGameplayTag& EquipmentTag)
 {
 	// Always prefer the tag if it is valid. There's only one slot for this tag.
 	if (EquipmentTag.IsValid())

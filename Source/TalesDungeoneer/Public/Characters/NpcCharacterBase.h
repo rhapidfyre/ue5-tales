@@ -75,6 +75,9 @@ protected:
 
 	virtual void OnConstruction(const FTransform& Transform) override;
 
+	virtual void CharacterDeath_Internal() override;
+
+	virtual void CharacterRevived_Internal() override;
 
 public:
 

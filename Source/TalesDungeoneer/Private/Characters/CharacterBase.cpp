@@ -23,6 +23,7 @@
 #include "Attributes/RsVitalityAttributeSet.h"
 #include "Characters/Controllers/PlayerControllerBase.h"
 #include "Abilities/RsGameplayAbilityBase.h"
+#include "Interfaces/RsAnimInstance.h"
 
 #include "Logging/StructuredLog.h"
 
@@ -102,6 +103,11 @@ ACharacterBase::ACharacterBase()
 	if (!InventoryComponent->OnInventoryUpdated.IsAlreadyBound(this, &ACharacterBase::InventoryUpdateDelegate))
 	{
 		InventoryComponent->OnInventoryUpdated.AddDynamic(this, &ACharacterBase::InventoryUpdateDelegate);
+	}
+
+	if (!InventoryComponent->OnInventoryRestored.IsAlreadyBound(this, &ACharacterBase::InventoryRestoredDelegate))
+	{
+		InventoryComponent->OnInventoryRestored.AddDynamic(this, &ACharacterBase::InventoryRestoredDelegate);
 	}
 
 	EquipmentComponent = CreateDefaultSubobject<UEquipmentComponent>(TEXT("EquipmentComponent"));
@@ -390,6 +396,112 @@ bool ACharacterBase::LoadCharacter(const FString& SlotName, const int32 UserInde
 	return bWasSuccess;
 }
 
+void ACharacterBase::SetEquipmentEnabled(int SlotNumber, bool bMakeReady)
+{
+	if (InventoryComponent->IsValidEquipmentSlot(SlotNumber))
+	{
+		EquipmentComponent->ToggleEquipment(SlotNumber, bMakeReady);
+
+		const UEquipmentItemDataAsset* EquipmentData =
+			Cast<UEquipmentItemDataAsset>(InventoryComponent->GetItemDataInSlotNumber(SlotNumber));
+
+		if (IsValid(EquipmentData))
+		{
+			AActor* ChildActor = nullptr;
+			if (InventoryComponent->GetPrimarySlotNumber() == SlotNumber)
+			{
+				ChildActor = InventoryComponent->PrimarySlotChildActor;
+			}
+			else if (InventoryComponent->GetPrimarySlotNumber() == SlotNumber)
+			{
+				ChildActor = InventoryComponent->PrimarySlotChildActor;
+			}
+
+			// Move child to armed attachment
+			if (IsValid(ChildActor))
+			{
+				const FEquipmentAttachSubdata AttachmentData = (bMakeReady || EquipmentData->bIsPassive)
+					? EquipmentData->AttachmentData.AttachDataArmed
+					: EquipmentData->AttachmentData.AttachDataStowed;
+
+				const FAttachmentTransformRules AttachRules(
+					EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget
+					, EAttachmentRule::KeepWorld, true);
+
+				InventoryComponent->PrimarySlotChildActor->AttachToComponent(GetMesh(), AttachRules, AttachmentData.BoneAttachment);
+				ChildActor->SetActorRelativeLocation(AttachmentData.OffsetPosition);
+				ChildActor->SetActorRelativeRotation(AttachmentData.OffsetRotation);
+				ChildActor->SetActorRelativeScale3D(AttachmentData.OffsetScale);
+			}
+		}
+	}
+}
+
+void ACharacterBase::SetEquipmentEnabled(const FGameplayTag& EquipmentTag, bool bMakeReady)
+{
+	SetEquipmentEnabled(InventoryComponent->GetSlotNumberByTag(EquipmentTag), bMakeReady);
+}
+
+void ACharacterBase::ToggleEquipment(int SlotNumber)
+{
+	SetEquipmentEnabled(SlotNumber, !EquipmentComponent->GetIsReady(SlotNumber));
+}
+
+void ACharacterBase::ToggleEquipment(const FGameplayTag& EquipmentTag)
+{
+	ToggleEquipment(InventoryComponent->GetSlotNumberByTag(EquipmentTag));
+}
+
+/**
+ * \brief Performs actions after an ability is activated (such as an attack animation)
+ * \param AbilitySpec The ability that was successfully activated
+ */
+void ACharacterBase::AbilityActivatedDelegate(const URsGameplayAbilityBase* AbilitySpec)
+{
+	if (IsValid(AbilitySpec))
+	{
+		if (GetNetMode() < NM_Client)
+		{
+			Multicast_AttackAnimation(AbilitySpec->AttackType);
+		}
+		else
+		{
+			DoAttackAnimation(AbilitySpec->AttackType);
+		}
+	}
+}
+
+void ACharacterBase::DoAttackAnimation(const FGameplayTag& AttackType)
+{
+	// Play the corresponding attack animation
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	if (IsValid(AnimInstance))
+	{
+		if (AnimInstance->GetClass()->ImplementsInterface(UAttackAnimInterface::StaticClass()))
+		{
+			UE_LOGFMT(LogTemp, Display, "{Name}({NetAuthority}): Multicast_AttackAnimation() - Execute_AttackAnimationType({AnimInstance}, {AttackEnum})"
+				, GetName(), HasAuthority() ? "SERVER" : "CLIENT", AnimInstance->GetClass()->GetName(), AttackType.ToString());
+			IAttackAnimInterface::Execute_AttackAnimationType(AnimInstance, AttackType);
+		}
+		else
+		{
+			UE_LOGFMT(LogTemp, Error, "{Name}({NetAuthority}): Multicast_AttackAnimation() - AnimInstance is Valid ({AnimInstance}), but does not implement AnimAttackInterface"
+				, GetName(), HasAuthority() ? "SERVER" : "CLIENT", AnimInstance->GetClass()->GetName());
+		}
+	}
+	else
+	{
+		UE_LOGFMT(LogTemp, Warning, "{Name}({NetAuthority}): Multicast_AttackAnimation() - AnimInstance is invalid or does not implement UAttackAnimInterface"
+			, GetName(), HasAuthority() ? "SERVER" : "CLIENT");
+	}
+}
+
+
+void ACharacterBase::Multicast_AttackAnimation_Implementation(const FGameplayTag& AttackType)
+{
+	DoAttackAnimation(AttackType);
+}
+
 
 // Called when the game starts or when spawned
 void ACharacterBase::BeginPlay()
@@ -397,12 +509,28 @@ void ACharacterBase::BeginPlay()
 	BindListeners();
 	Super::BeginPlay();
 	bCharacterReady = true;
-	LoadCharacter(); // Attempt to call the game state to load this character
 
+	// Load the default unarmed ability
 	if (IsValid(GetAbilitySystemComponent()))
 	{
-		//AbilitySystemComponent->OnGasDamageReceived.AddDynamic(this, &ACharacterBase::OnDamageReceived);
+		if (HasAuthority())
+		{
+			APlayerController* PlayerController = Cast<APlayerController>(GetController());
+			if (APlayerControllerBase* TalesController = Cast<APlayerControllerBase>(PlayerController))
+			{
+				const TSubclassOf<URsGameplayAbilityBase> TalesAbilityClass{AbilitySystemComponent->DefaultAttackAbility};
+				TalesController->SetPrimaryActionAbility(TalesAbilityClass);
+			}
+		}
 	}
+
+	if (IsValid(AbilitySystemComponent))
+	{
+		AbilitySystemComponent->OnAbilityActivated.AddDynamic(this, &ACharacterBase::AbilityActivatedDelegate);
+	}
+
+	LoadCharacter(); // Attempt to call the game state to load this character
+
 }
 
 void ACharacterBase::OnDamageReceived(class URsAbilityComponent* SourceAsc, const float UnmitigatedDamage,
@@ -492,17 +620,22 @@ void ACharacterBase::AbilityInputReceived()
 {
 }
 
+/**
+ * \brief Called whenever an inventory slot changes or updates
+ * Does not handle weapon meshes, which is handled separately.
+ * \param SlotNumberUpdated The slot number that was updated
+ */
 void ACharacterBase::InventoryUpdateDelegate(int SlotNumberUpdated)
 {
 	// If equipment updated, send update to equipment component
 	if (InventoryComponent->IsValidEquipmentSlot(SlotNumberUpdated))
 	{
-		if (IsValid(EquipmentComponent))
+		if (HasAuthority())
 		{
-			EquipmentComponent->InitEquipmentItem(SlotNumberUpdated);
-			if (EquipmentComponent->GetIsReady(SlotNumberUpdated))
+			if (IsValid(EquipmentComponent))
 			{
-				EquipmentComponent->AdjustAttachment(SlotNumberUpdated);
+				// Initialize the Equipment Item (undo old item data and acquire the new one)
+				EquipmentComponent->InitEquipmentItem(SlotNumberUpdated);
 			}
 		}
 	}
@@ -510,19 +643,68 @@ void ACharacterBase::InventoryUpdateDelegate(int SlotNumberUpdated)
 
 void ACharacterBase::EquipmentUpdateDelegate(int SlotNumberUpdated, bool bIsEnabled)
 {
-	const FItemStatics& itemData = InventoryComponent->GetItemInSlotNumber(SlotNumberUpdated);
+	const FItemStatics& ItemData = InventoryComponent->GetItemInSlotNumber(SlotNumberUpdated);
+	const UEquipmentItemDataAsset* EquipData = Cast<UEquipmentItemDataAsset>(ItemData.GetDataAsset());
 
-	if (bIsEnabled)
+	if (HasAuthority())
 	{
-		// Enable the equipments effects
-	}
-	else
-	{
-		// Disable the equipments effects
+		const bool IsPrimarySlot   = SlotNumberUpdated == InventoryComponent->GetPrimarySlotNumber();
+		const bool IsSecondarySlot = SlotNumberUpdated == InventoryComponent->GetSecondarySlotNumber();
+
+		// If the changed slot was the primary or secondary slot, handle the changes to primary/secondary abilities
+		if (IsPrimarySlot || IsSecondarySlot)
+		{
+			if (APlayerControllerBase* TalesController = Cast<APlayerControllerBase>(GetController()))
+			{
+				TSubclassOf<URsGameplayAbilityBase> NewAbility;
+
+				// Determine the ability based on the slot and equipment data
+				if (IsValid(EquipData) && IsValid(EquipData->ActivatedAbility))
+				{
+					NewAbility = EquipData->ActivatedAbility;
+				}
+				else
+				{
+					NewAbility = IsPrimarySlot ? AbilitySystemComponent->DefaultAttackAbility
+											   : AbilitySystemComponent->DefaultBlockAbility;
+				}
+
+				// Remove the old ability
+
+
+				// Assign the ability to the correct slot
+				if (IsPrimarySlot)
+				{
+					if (PrimaryAbility.IsValid())
+					{
+						AbilitySystemComponent->ClearAbility(FGameplayAbilitySpecHandle(PrimaryAbility));
+					}
+
+					// The server grants the ability and the client updates the control binding
+					PrimaryAbility = AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(NewAbility, 1, 0, this));
+					TalesController->SetPrimaryActionAbility({NewAbility});
+				}
+				else
+				{
+					if (SecondaryAbility.IsValid())
+					{
+						AbilitySystemComponent->ClearAbility(FGameplayAbilitySpecHandle(SecondaryAbility));
+					}
+					SecondaryAbility = AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(NewAbility, 1, 0, this));
+					TalesController->SetSecondaryActionAbility({NewAbility});
+				}
+			}
+		}
 	}
 
-	// Perform the mesh merge
-	MeshMergeComponent->PerformMeshMerge();
+	// If the equipment item is NOT a child actor, update the mesh merge data
+	if (IsValid(EquipData))
+	{
+		if (!EquipData->AttachmentData.bSpawnActor)
+		{
+			MeshMergeComponent->PerformMeshMerge();
+		}
+	}
 }
 
 void ACharacterBase::OnVitalityAttributeChanged(const FOnAttributeChangeData& Data)
@@ -566,6 +748,14 @@ void ACharacterBase::OnRep_CharacterRace_Implementation(const FGameplayTag& OldR
 void ACharacterBase::OnRep_CharacterClass_Implementation(const FGameplayTag& OldClass)
 {
 	OnCharacterClassChanged.Broadcast(OldClass, GetCharacterClass());
+}
+
+void ACharacterBase::CharacterDeath_Internal()
+{
+}
+
+void ACharacterBase::CharacterRevived_Internal()
+{
 }
 
 /**
@@ -620,15 +810,68 @@ float ACharacterBase::TakeDamage(float DamageAmount, FDamageEvent const& DamageE
 	return SuperDamage;
 }
 
+void ACharacterBase::InventoryRestoredDelegate(bool bWasSuccess)
+{
+	if (!HasAuthority())
+		return;
+
+	// Check for equipment updates
+	const int PrimarySlotNumber = InventoryComponent->GetPrimarySlotNumber();
+	const int SecondarySlotNumber = InventoryComponent->GetSecondarySlotNumber();
+
+	const UEquipmentItemDataAsset* PrimaryEquipmentItem   = Cast<UEquipmentItemDataAsset>(InventoryComponent->GetItemDataInSlotNumber(PrimarySlotNumber));
+	const UEquipmentItemDataAsset* SecondaryEquipmentItem = Cast<UEquipmentItemDataAsset>(InventoryComponent->GetItemDataInSlotNumber(PrimarySlotNumber));
+
+	// Allows saved inventories to update the equipment / controller with the item in that slot
+	if (IsValid(PrimaryEquipmentItem))
+		EquipmentUpdateDelegate(PrimarySlotNumber, PrimaryEquipmentItem->bIsPassive);
+
+	if (IsValid(SecondaryEquipmentItem))
+		EquipmentUpdateDelegate(SecondarySlotNumber, SecondaryEquipmentItem->bIsPassive);
+}
+
 void ACharacterBase::OnDeathStatusChanged(const bool bIsNowDead, const float HealthAtDeath)
 {
 	if (bIsNowDead)
 	{
+		CharacterDeath_Internal();
 		CharacterDeath();
 	}
 	else
 	{
+		CharacterRevived_Internal();
 		CharacterRevived();
+	}
+}
+
+void ACharacterBase::OnRep_FactionsData_Implementation(const TArray<FStFactionData>& OldFactionsData)
+{
+	TSet<EFaction> ProcessedFactions;
+
+	// Check for changes or additions in current FactionStandings
+	for (const FStFactionData& NewFaction : FactionStandings)
+	{
+		ProcessedFactions.Add(NewFaction.FactionEnum);
+
+		const FStFactionData* OldFaction = OldFactionsData.FindByPredicate([&](const FStFactionData& Faction) {
+			return Faction.FactionEnum == NewFaction.FactionEnum;
+		});
+
+		// Handle new or updated factions
+		if (!OldFaction || OldFaction->FactionValue != NewFaction.FactionValue)
+		{
+			OnCharacterFactionUpdated.Broadcast(NewFaction.FactionEnum, NewFaction.GetFactionState());
+		}
+	}
+
+	// Check for removed factions in OldFactionsData
+	for (const FStFactionData& OldFaction : OldFactionsData)
+	{
+		// If a faction was in OldFactionsData but not in FactionStandings, it was removed
+		if (!ProcessedFactions.Contains(OldFaction.FactionEnum))
+		{
+			OnCharacterFactionUpdated.Broadcast(OldFaction.FactionEnum, EFactionState::NONE);
+		}
 	}
 }
 
@@ -655,6 +898,48 @@ void ACharacterBase::RestoreCharacter(const FCharacterData& RestoreData)
 	{
 		Server_RestoreCharacter(RestoreData);
 	}
+}
+
+EFactionState ACharacterBase::GetFactionState(EFaction FactionEnum) const
+{
+	for (auto& CharacterFaction : FactionStandings)
+	{
+		if (CharacterFaction == FactionEnum)
+		{
+			return CharacterFaction.GetFactionState();
+		}
+	}
+	return EFactionState::NONE;
+}
+
+void ACharacterBase::SetFactionState(EFaction FactionEnum, EFactionState FactionState)
+{
+	const int ExistingIndex = FactionStandings.Find(FStFactionData(FactionEnum));
+	if (ExistingIndex != INDEX_NONE)
+	{
+		FactionStandings[ExistingIndex].SetFactionState(FactionState);
+		OnCharacterFactionUpdated.Broadcast(FactionEnum, FactionStandings[ExistingIndex].GetFactionState());
+		return;
+	}
+	FStFactionData NewFactionData(FactionEnum, FactionState);
+	FactionStandings.Add(NewFactionData);
+	OnCharacterFactionUpdated.Broadcast(FactionEnum, FactionStandings[ExistingIndex].GetFactionState());
+}
+
+void ACharacterBase::UpdateFactionState(EFaction FactionEnum, float StateModifier)
+{
+	const int ExistingIndex = FactionStandings.Find(FStFactionData(FactionEnum));
+	if (ExistingIndex != INDEX_NONE)
+	{
+		const float OldValue = FactionStandings[ExistingIndex].GetFactionValue();
+		FactionStandings[ExistingIndex].SetFactionValue(OldValue + StateModifier);
+		OnCharacterFactionUpdated.Broadcast(FactionEnum, FactionStandings[ExistingIndex].GetFactionState());
+		return;
+	}
+	FStFactionData NewFactionData(FactionEnum, EFactionState::NONE);
+	NewFactionData.SetFactionValue(NewFactionData.GetFactionValue() + StateModifier);
+	FactionStandings.Add(NewFactionData);
+	OnCharacterFactionUpdated.Broadcast(FactionEnum, FactionStandings[ExistingIndex].GetFactionState());
 }
 
 void ACharacterBase::UpdateCoreStats()
@@ -775,31 +1060,35 @@ void ACharacterBase::Client_CharacterRestored_Implementation(const bool bWasSucc
 void ACharacterBase::BindListeners()
 {
 	// Ability System Delegates
-	AbilitySystemComponent->OnDeathStatusChanged.AddDynamic(this, &ACharacterBase::OnDeathStatusChanged);
-
-	// Everyone should always listen to all character's vitality stats
-	//	so we run this on the CharacterBase on all clients
-	TArray VitalityAttributes = AttributeVitalitySet->GetAllVitalityAttributes();
-	TArray CoreStatAttributes = AttributeCoreStatsSet->GetAllCoreStatAttributes();
-
-	// Bind listeners to vitality stat changes
-	for (const FGameplayAttribute& vAttribute : VitalityAttributes)
+	if (IsValid(AbilitySystemComponent))
 	{
-		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-			vAttribute).AddUObject(this, &ACharacterBase::OnVitalityAttributeChanged);
-		UE_LOGFMT(LogTemp, Display, "{CharacterName}({Sv}): "
-			"Successfully initialized delegate for Vitality Attribute '{vAttribute}'",
-			GetCharacterName(), HasAuthority()?"SRV":"CLI", vAttribute.AttributeName);
-	}
+		AbilitySystemComponent->OnDeathStatusChanged.AddDynamic(this, &ACharacterBase::OnDeathStatusChanged);
 
+		if (IsValid(AttributeVitalitySet))
+		{
+			TArray VitalityAttributes = AttributeVitalitySet->GetAllVitalityAttributes();
+			for (const FGameplayAttribute& vAttribute : VitalityAttributes)
+			{
+				AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
+					vAttribute).AddUObject(this, &ACharacterBase::OnVitalityAttributeChanged);
+				UE_LOGFMT(LogTemp, Display, "{CharacterName}({Sv}): "
+					"Successfully initialized delegate for Vitality Attribute '{vAttribute}'",
+					GetCharacterName(), HasAuthority()?"SRV":"CLI", vAttribute.AttributeName);
+			}
+		}
 
-	for (const FGameplayAttribute& CoreStat : CoreStatAttributes)
-	{
-		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-			CoreStat).AddUObject(this, &ACharacterBase::OnCoreStatsChanged);
-		UE_LOGFMT(LogTemp, Display, "{CharacterName}({Sv}): "
-			"Successfully initialized delegate for Vitality Attribute '{vAttribute}'",
-			GetCharacterName(), HasAuthority()?"SRV":"CLI", CoreStat.AttributeName);
+		if (IsValid(AttributeCoreStatsSet))
+		{
+			TArray CoreStatAttributes = AttributeCoreStatsSet->GetAllCoreStatAttributes();
+			for (const FGameplayAttribute& CoreStat : CoreStatAttributes)
+			{
+				AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
+					CoreStat).AddUObject(this, &ACharacterBase::OnCoreStatsChanged);
+				UE_LOGFMT(LogTemp, Display, "{CharacterName}({Sv}): "
+					"Successfully initialized delegate for Vitality Attribute '{vAttribute}'",
+					GetCharacterName(), HasAuthority()?"SRV":"CLI", CoreStat.AttributeName);
+			}
+		}
 	}
 };
 
@@ -884,4 +1173,6 @@ void ACharacterBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 
 	DOREPLIFETIME(ACharacterBase, CharacterRace_);
 	DOREPLIFETIME(ACharacterBase, CharacterClass_);
+	DOREPLIFETIME(ACharacterBase, FactionStandings);
+	DOREPLIFETIME(ACharacterBase, FactionMemberships);
 }

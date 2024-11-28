@@ -14,18 +14,18 @@ ACombatNpcCharacterBase::ACombatNpcCharacterBase()
 void ACombatNpcCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 }
 
 void ACombatNpcCharacterBase::OnConstruction(const FTransform& Transform)
 {
 	Super::OnConstruction(Transform);
-	
+
 	if (TimeBetweenAttacks[0] < 0.f)
 		{ TimeBetweenAttacks[0] = 0.f; }
 	if (TimeBetweenAbilities[0] < 0.f)
 		{ TimeBetweenAbilities[0] = 0.f; }
-	
+
 	if (TimeBetweenAttacks[1] < TimeBetweenAttacks[0])
 		{ TimeBetweenAttacks[1] = TimeBetweenAttacks[0]+0.01; }
 	if (TimeBetweenAbilities[1] < TimeBetweenAbilities[0])
@@ -63,4 +63,3 @@ bool ACombatNpcCharacterBase::NpcCanActivateAbility()
 {
 	return false;
 }
-

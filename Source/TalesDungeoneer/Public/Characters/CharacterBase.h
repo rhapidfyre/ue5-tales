@@ -11,6 +11,7 @@
 #include "Components/MeshMergeComponent.h"
 #include "RsAbilityComponent.h"
 #include "Components/EquipmentComponent.h"
+#include "lib/datastructures/TalesGlobalData.h"
 #include "lib/Tags/TalesGlobalTags.h"
 
 #include "Saves/SavedCharacters.h"
@@ -62,6 +63,9 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnCharacterRaceChanged,
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnCharacterClassChanged,
 	const FGameplayTag&, OldRace, const FGameplayTag&, NewRace);
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnCharacterFactionUpdated,
+	const EFaction, FactionEnum, const EFactionState, NewFactionState);
+
 class UOverheadDataWidgetBase;
 
 
@@ -93,6 +97,7 @@ public: // functions
 	UPROPERTY(BlueprintAssignable) FOnAttributeHydrationUpdated OnAttributeHydrationUpdated;
 	UPROPERTY(BlueprintAssignable) FOnCharacterRaceChanged		OnCharacterRaceChanged;
 	UPROPERTY(BlueprintAssignable) FOnCharacterClassChanged		OnCharacterClassChanged;
+	UPROPERTY(BlueprintAssignable) FOnCharacterFactionUpdated	OnCharacterFactionUpdated;
 
 	// Returns CameraBoom sub object
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
@@ -142,7 +147,19 @@ public: // functions
 
 	virtual bool LoadCharacter(const FString& SlotName = "", const int32 UserIndex = 0, USaveGame* SaveGame = nullptr);
 
+	void SetEquipmentEnabled(int SlotNumber, bool bMakeReady = true);
+	void SetEquipmentEnabled(const FGameplayTag& EquipmentTag, bool bMakeReady = true);
+	virtual void ToggleEquipment(int SlotNumber);
+	virtual void ToggleEquipment(const FGameplayTag& EquipmentTag);
+
+
 protected: // functions
+
+	UFUNCTION()
+	void AbilityActivatedDelegate(const URsGameplayAbilityBase* AbilitySpec);
+
+	UFUNCTION(NetMulticast, Unreliable)
+	void Multicast_AttackAnimation(const FGameplayTag& AttackType);
 
 	virtual void BeginPlay() override;
 
@@ -185,12 +202,20 @@ protected: // functions
 	UFUNCTION(BlueprintImplementableEvent) void EventHungerChanged(float OldValue, float NewValue);
 	UFUNCTION(BlueprintImplementableEvent) void EventHydration(float OldValue, float NewValue);
 
+	virtual void CharacterDeath_Internal();
 	UFUNCTION(BlueprintImplementableEvent) void CharacterDeath();
+
+	virtual void CharacterRevived_Internal();
 	UFUNCTION(BlueprintImplementableEvent) void CharacterRevived();
 
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
 
 private: // methods
+
+	UFUNCTION()
+	void InventoryRestoredDelegate(bool bWasSuccess);
+
+	void DoAttackAnimation(const FGameplayTag& AttackType);
 
 	UFUNCTION()
 	void OnDeathStatusChanged(const bool bIsNowDead, const float HealthAtDeath);
@@ -200,6 +225,9 @@ private: // methods
 
 	UFUNCTION(NetMulticast, Reliable)
 	void OnRep_CharacterName(const FString& OldCharacterName);
+
+	UFUNCTION(NetMulticast, Reliable)
+	void OnRep_FactionsData(const TArray<FStFactionData>& OldFactionsData);
 
 	UFUNCTION(NetMulticast, Reliable)
 	void OnRep_CharacterRace(const FGameplayTag& OldRace);
@@ -212,6 +240,18 @@ private: // methods
 
 	void RestoreCharacter(const FCharacterData& RestoreData);
 
+	UFUNCTION(BlueprintPure)
+	EFactionState GetFactionState(EFaction FactionEnum) const;
+
+	UFUNCTION(BlueprintCallable)
+	void SetFactionState(EFaction FactionEnum, EFactionState FactionState);
+
+	UFUNCTION(BlueprintCallable)
+	void UpdateFactionState(EFaction FactionEnum, float StateModifier);
+
+	FGameplayAbilitySpecHandle PrimaryAbility;
+	FGameplayAbilitySpecHandle SecondaryAbility;
+
 public: // members
 
 	// The human-friendly name of the character
@@ -222,6 +262,15 @@ public: // members
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,
 		Category = "Data Initialization", meta = (AllowPrivateAccess = "true"))
 	class UPrimaryCharacterData* CharacterData = nullptr;
+
+	UPROPERTY(ReplicatedUsing=OnRep_FactionsData, EditAnywhere, BlueprintReadWrite,
+		Category = "Data Initialization", meta = (AllowPrivateAccess = "true"))
+	TArray<FStFactionData> FactionStandings;
+
+	// The factions this character is a member of, where index zero is the primary faction membership
+	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite,
+		Category = "Data Initialization", meta = (AllowPrivateAccess = "true"))
+	TArray<EFaction> FactionMemberships;
 
 	// The widget to display over the characters head
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Settings")
